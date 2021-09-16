@@ -21,14 +21,25 @@
   "author": "@ultras",
   "license": "ISC",
   "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa__cors": "^3.0.3",
     "@types/node": "^16.9.1",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
     "nodemon": "^2.0.12",
     "onchange": "^7.1.0",
+    "prettier": "2.4.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.1"
   }
 }
