@@ -1,21 +1,20 @@
-export interface IDatabase {
-  init: () => Promise<never>;
-}
+import { IDatabase } from './types';
+
 /**
  * Class Database
  */
 class Database implements IDatabase {
-  logging = false;
-  constructor(logging = false) {
+  private logging = false;
+
+  public constructor(logging = false) {
     this.logging = logging;
   }
 
-  async init(): Promise<never> {
+  public /*async*/ init(): any /*Promise<never>*/ {
     // @TODO authenticate database
-    console.info('Connected to postgres SQL database ✅');
-
+    // console.info('Connected to postgres SQL database ✅');
     // @TODO return the promise of database synchronisation process
-    return new Promise<never>(() => null);
+    return null;
   }
 }
 

@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Database = require('./Database');
-const App = require('./App');
+import Database from './Database';
+import App from './App';
 
-export {Database, App};
+export { Database, App };

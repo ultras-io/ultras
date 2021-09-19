@@ -1,4 +1,4 @@
-import {ENVS} from '../config/constants';
+import { ENVS } from '../config/constants';
 
 const MODE: string = process.env.NODE_ENV || 'development';
 
@@ -18,4 +18,4 @@ const isEnvTest = process.env.NODE_ENV === ENVS.test;
 const isEnvProduction = process.env.NODE_ENV === ENVS.production;
 const isEnvDevelopment = process.env.NODE_ENV === ENVS.development;
 
-export {MODE, isEnvTest, isEnvProduction, isEnvDevelopment};
+export { MODE, isEnvTest, isEnvProduction, isEnvDevelopment };

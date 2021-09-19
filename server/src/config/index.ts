@@ -1,6 +1,6 @@
 import envConfigs from 'dotenv';
 
-envConfigs.config({path: `${__dirname}/../.env`});
+envConfigs.config({ path: `${__dirname}/../.env` });
 
 const dbConfig = {
   host: process.env.DB_HOST,
@@ -13,7 +13,7 @@ const dbConfig = {
 
 const serverConfig = {
   host: process.env.HOST,
-  port: process.env.PORT,
+  port: parseInt(process.env.PORT || ''),
 };
 
 const authConfig = {
@@ -50,4 +50,4 @@ const awsConfig = {
 
 const whiteList = process.env.CORS_WHITE_LIST;
 
-export {serverConfig, authConfig, awsConfig, whiteList, dbConfig};
+export { serverConfig, authConfig, awsConfig, whiteList, dbConfig };

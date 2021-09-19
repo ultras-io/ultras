@@ -1,23 +1,48 @@
-import {IDatabase} from './Database';
+import http from 'http';
+import cors from '@koa/cors';
 
-const http = require('http');
-import * as Koa from 'koa';
+import restify from 'middlewares/restify';
+import verifyCorsOrigin from 'utils/verifyCorsOrigin';
+import registerRoute from 'routes';
 
-type AppArgs = {
-  app: Koa<Koa.DefaultState, Koa.DefaultContext>;
-  database: IDatabase;
-};
+import { IDatabase } from './types';
+import { AppArgs, IApp, RunArgs } from './types';
+import { KoaApp } from 'types/index';
 
-class App {
+class App implements IApp {
   private database: IDatabase;
-  private app: Koa<Koa.DefaultState, Koa.DefaultContext>;
+  private readonly app: KoaApp;
 
-  constructor({app, database}: AppArgs) {
+  public constructor({ app, database }: AppArgs) {
     this.app = app;
     this.database = database;
+
+    this.configure();
   }
 
-  async run({port}: {port: number}) {
+  private configure(): void {
+    // enable cors
+    this.app.use(
+      cors({
+        origin: verifyCorsOrigin,
+      }),
+    );
+
+    // proxy
+    this.configureProxy();
+
+    // restify
+    this.app.use(restify());
+
+    // routes
+    registerRoute(this.app);
+  }
+
+  private configureProxy() {
+    // this.app.proxy = true;
+  }
+
+  public async run({ port = 4700 }: RunArgs): Promise<any> {
     await this.database.init();
 
     const server = http.createServer(this.app.callback());
@@ -29,4 +54,4 @@ class App {
   }
 }
 
-module.exports = App;
+export default App;

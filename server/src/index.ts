@@ -1,53 +1,37 @@
+import 'module-alias/register';
+
 import Koa from 'koa';
-import cors from '@koa/cors';
-// import * as restify from './middlewares';
-import {App, Database} from './modules/initializators';
-import {dbConfig, serverConfig} from './config';
-import verifyCorsOrigin from './utils/verifyCorsOrigin';
+import { App, Database } from 'modules/initializators';
+import { IApp, IDatabase } from 'modules/initializators/types';
 
-import {MODE} from './utils/processEnvDetector';
+import { MODE } from 'utils/processEnvDetector';
+
+import { dbConfig, serverConfig } from 'config/index';
+import { KoaApp } from 'types/index';
+
 // database instance
-const database = new Database(dbConfig.logging);
+const database: IDatabase = new Database(dbConfig.logging);
 
-// application instances
-const app = new Koa();
-/*
-  app.proxy = true;
-*/
+// application instance
+const app: KoaApp = new Koa();
 
-const server = new App({
+// in app App instance
+const server: IApp = new App({
   database,
   app,
 });
 
 /**
- * ############## MIDDLEWARES ##############
- */
-
-app.use(
-  cors({
-    origin: verifyCorsOrigin,
-  }),
-);
-
-// app.use(restify());
-
-/**
- * ############## ROUTES ##############
- */
-require('./routes')(app);
-
-/**
  * ############## RUN SERVER ##############
  */
-const {port} = serverConfig;
+const { port } = serverConfig;
 
 if (MODE === 'production') {
-  server.run({}).catch((err: Error) => {
+  server.run({ port: 443 }).catch((err: Error) => {
     console.error(err);
   });
 } else {
-  server.run({port}).catch((err: Error) => {
+  server.run({ port }).catch((err: Error) => {
     console.error(err);
   });
 }
