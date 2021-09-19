@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "dev": "nodemon",
-    "prod": "npm run build && node build/index.js",
+    "prod": "pm2 start build/index.js --name ultras-api",
     "test": "echo Error: no test specified && exit 1",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
