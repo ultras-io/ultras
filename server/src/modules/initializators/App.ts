@@ -43,7 +43,7 @@ class App implements IApp {
   }
 
   public async run({ port = 4700 }: RunArgs): Promise<any> {
-    await this.database.init();
+    // await this.database.init();
 
     const server = http.createServer(this.app.callback());
 

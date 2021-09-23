@@ -1,10 +1,6 @@
-/**
- * @author Ruben Aprikyan
- */
+import { Context } from 'types';
 
-'use strict';
-
-const set = require('lodash/set');
+import set from 'lodash/set';
 
 /**
  * function to modify response
@@ -20,21 +16,38 @@ const set = require('lodash/set');
  * @param {Koa.Context} ctx - koa context
  * @returns {undefined} undefined
  */
-module.exports = (ctx) => {
-  if ((ctx.status >= 204 && ctx.status < 400) || ctx.status === 405 || !ctx.body) return;
+export default (ctx: Context): void => {
+  if (
+    (ctx.status >= 204 && ctx.status < 400) ||
+    ctx.status === 405 ||
+    !ctx.body
+  )
+    return;
 
   let result = ctx.body;
   if (result && result.dataValues) {
     result = result.dataValues;
   }
-  const response = {};
+  const response = {
+    meta: undefined,
+  };
   const pagination = {};
   if (Array.isArray(result.data) && result.total) {
-    set(pagination, 'limit', parseInt(ctx.request.query.limit, 10) || result.limit);
+    set(
+      pagination,
+      'limit',
+      parseInt(ctx.request.query.limit, 10) || result.limit,
+    );
     // if offset not provided , it should be null,
     // but offset of s3 request is not a number  so we can't parse the request's offset
-    set(pagination, 'offset', parseInt(ctx.request.query.limit, 10) || result.offset);
+    set(
+      pagination,
+      'offset',
+      parseInt(ctx.request.query.limit, 10) || result.offset,
+    );
     set(pagination, 'total', result.total);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     set(response.meta, 'pagination', pagination);
   }
 

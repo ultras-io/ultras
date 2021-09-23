@@ -1,11 +1,11 @@
-const ENVS = {
+const ENVS: Record<string, string> = {
   production: 'production',
   staging: 'staging',
   development: 'development',
   test: 'test',
 };
 
-const HTTP_STATUS_METHODS = {
+const HTTP_STATUS_METHODS: Record<string, number> = {
   ok: 200,
   created: 201,
   accepted: 202,
