@@ -6,7 +6,7 @@ import { IApp, IDatabase } from 'modules/initializators/types';
 
 import { MODE } from 'utils/processEnvDetector';
 
-import { dbConfig, serverConfig } from 'config/index';
+import { dbConfig, serverConfig } from 'config';
 import { KoaApp } from 'types/index';
 
 // database instance

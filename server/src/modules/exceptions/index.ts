@@ -2,12 +2,12 @@ import { BASE_ERRORS } from './constants';
 import { AuthErrorDetail, ErrorDetail, Exception } from 'types';
 
 class BaseError<T1, T2> extends Error {
-  protected details: T1 | ErrorDetail = {};
+  protected details?: T1 | ErrorDetail = {};
   protected exception?: T2 | ErrorDetail = {};
 }
 
 class InternalServerError extends BaseError<null, null> {
-  public constructor(details: ErrorDetail) {
+  public constructor(details?: ErrorDetail) {
     super();
     this.details = details;
   }
@@ -57,8 +57,11 @@ class AccessDeniedError extends BaseError<null, null> {
   }
 }
 
-class AuthenticationError extends BaseError<AuthErrorDetail, null> {
-  constructor(details: AuthErrorDetail) {
+class AuthenticationError extends BaseError<
+  AuthErrorDetail | ErrorDetail,
+  null
+> {
+  constructor(details: AuthErrorDetail | ErrorDetail) {
     super();
     this.details = details;
   }

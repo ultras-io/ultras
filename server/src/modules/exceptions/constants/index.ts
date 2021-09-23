@@ -1,16 +1,18 @@
-const SEQUELIZE_ERRORS = {
+import { Exception } from 'types';
+
+const SEQUELIZE_ERRORS: Record<string, boolean> = {
   SequelizeValidationError: true,
   SequelizeUniqueConstraintError: true,
   SequelizeCheckConstraintError: true,
   SequelizeForeignKeyConstraintError: true,
   SequelizeDatabaseError: true,
 };
-const JWT_ERRORS = {
+const JWT_ERRORS: Record<string, boolean> = {
   JsonWebTokenError: true,
   TokenExpiredError: true,
 };
 
-const BASE_ERRORS = {
+const BASE_ERRORS: Record<string, Exception> = {
   INTERNAL_SERVER_ERROR: {
     status: 500,
     statusName: 'internalServerError',

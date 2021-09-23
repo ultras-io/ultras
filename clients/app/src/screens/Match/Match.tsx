@@ -1,18 +1,18 @@
 import React, {useCallback} from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 
-import matchesScreens from '../../navigation/matches/matchesScreens';
+// import matchesScreens from '../../navigation/matches/matchesScreens';
 
 import {IMatchProps} from './types';
 import styles from './styles';
 
 const Match: React.FC<IMatchProps> = () => {
-  const navigation = useNavigation<any>();
+  // const navigation = useNavigation<any>();
 
   const navigateToEvent = useCallback(() => {
     // navigation.navigate(matchesScreens.event.name);
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.container}>
