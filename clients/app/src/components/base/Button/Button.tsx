@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Pressable, Text} from 'react-native';
 
 import {IButtonProps} from './types';
 
 import styles from './styles';
 
-const Button: React.FC<IButtonProps> = ({title}) => {
+const Button: React.FC<IButtonProps> = ({title, onPress}) => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.button}>
       <Text style={styles.text}>{title}</Text>
-    </View>
+    </Pressable>
   );
 };
 

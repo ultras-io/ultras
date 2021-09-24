@@ -1,15 +1,17 @@
-import Profile from '../../screens/Profile';
-import Settings from '../../screens/Settings';
+import Profile from 'screens/Profile';
+import Settings from 'screens/Settings';
 
 import type {ProfileNavigationScreens} from '../types';
 
+export const TAB_NAME = 'Profile';
+
 const SCREENS: ProfileNavigationScreens = {
   profile: {
-    name: 'Profile:Profile',
+    name: 'Profile',
     component: Profile,
   },
   settings: {
-    name: 'Profile:Settings',
+    name: 'Settings',
     component: Settings,
   },
 };

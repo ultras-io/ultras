@@ -1,16 +1,11 @@
-import Home from 'screens/Home';
 import Match from 'screens/Match';
 import Event from 'screens/Event';
 
-import type {HomeNavigationScreens} from '../types';
+// import type {SearchNavigationScreens} from './types';
 
-export const TAB_NAME = 'Home';
+export const TAB_NAME = 'Search';
 
-const SCREENS: HomeNavigationScreens = {
-  home: {
-    name: 'Home',
-    component: Home,
-  },
+const SCREENS = {
   match: {
     name: 'Match',
     component: Match,

@@ -37,8 +37,41 @@
     "moduleResolution": "node", /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
     "paths": {
+      "assets/*": [
+        "src/assets/*"
+      ],
       "components/*": [
         "src/components/*"
+      ],
+      "config/*": [
+        "src/config/*"
+      ],
+      "containers/*": [
+        "src/containers/*"
+      ],
+      "core/*": [
+        "src/core/*"
+      ],
+      "services/*": [
+        "src/core/services/*"
+      ],
+      "navigation/*": [
+        "src/navigation/*"
+      ],
+      "screens/*": [
+        "src/screens/*"
+      ],
+      "store/*": [
+        "src/store/*"
+      ],
+      "styles/*": [
+        "src/styles/*"
+      ],
+      "utils/*": [
+        "src/utils/*"
+      ],
+      "hooks/*": [
+        "src/utils/hooks/*"
       ],
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */

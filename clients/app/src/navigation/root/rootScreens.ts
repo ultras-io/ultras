@@ -1,5 +1,5 @@
-import Intro from '../../screens/Intro';
-import JoinUs from '../../screens/JoinUs';
+import Intro from 'screens/Intro';
+import JoinUs from 'screens/JoinUs';
 import TabNavigation from '../tab/tabNavigation';
 
 import type {RootNavigationScreens} from '../types';

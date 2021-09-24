@@ -1,5 +1,5 @@
 import { IDatabase } from './types';
-import { create } from '../../data/PostgresProvider';
+import { create } from 'data/PostgresProvider';
 
 /**
  * Class Database

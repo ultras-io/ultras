@@ -1,26 +1,24 @@
 import React, {useCallback} from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {View, Text} from 'react-native';
 
-import matchesScreens from '../../navigation/matches/matchesScreens';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import matchesScreens from 'navigation/matches/matchesScreens';
+import Button from 'components/base/Button';
 
 import {IMatchesProps} from './types';
 import styles from './styles';
 
 const Matches: React.FC<IMatchesProps> = () => {
-  const navigation = useNavigation<any>();
+  const {pushTo} = useNavigationWithParams();
 
   const navigateToMatch = useCallback(() => {
-    navigation.navigate(matchesScreens.match.name);
-  }, [navigation]);
+    pushTo(matchesScreens.match.name);
+  }, [pushTo]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Matches</Text>
-
-      <TouchableWithoutFeedback onPress={navigateToMatch}>
-        <Text>Push Single Match</Text>
-      </TouchableWithoutFeedback>
+      <Button title="Push Single Match" onPress={navigateToMatch} />
     </View>
   );
 };

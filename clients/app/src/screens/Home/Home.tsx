@@ -1,43 +1,38 @@
 import React, {useCallback} from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-
-import homeScreens from '../../navigation/home/homeScreens';
-import tabScreens from '../../navigation/tab/tabScreens';
-
+import {View, Text} from 'react-native';
 import Button from 'components/base/Button';
+
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+
+import homeScreens from 'navigation/home/homeScreens';
+import matchesScreens, {
+  TAB_NAME as MATCHES_TAB_NAME,
+} from 'navigation/matches/matchesScreens';
 
 import {IHomeProps} from './types';
 import styles from './styles';
 
 const Home: React.FC<IHomeProps> = () => {
-  const navigation = useNavigation<any>();
+  const {pushTo, changeTab} = useNavigationWithParams();
 
   const navigateToMatch = useCallback(() => {
-    navigation.navigate(homeScreens.match.name);
-  }, [navigation]);
+    pushTo(homeScreens.match.name);
+  }, [pushTo]);
 
   const navigateToEvent = useCallback(() => {
-    navigation.navigate(homeScreens.event.name);
-  }, [navigation]);
+    pushTo(homeScreens.event.name);
+  }, [pushTo]);
 
   const navigateToMatches = useCallback(() => {
-    navigation.navigate(tabScreens.matches.name);
-  }, [navigation]);
+    changeTab(MATCHES_TAB_NAME, matchesScreens.matches.name);
+  }, [changeTab]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
-      <TouchableWithoutFeedback onPress={navigateToMatch}>
-        <Text>Push Single Match</Text>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={navigateToEvent}>
-        <Text>Push Event</Text>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={navigateToMatches}>
-        <Text>Navigate to Matches</Text>
-      </TouchableWithoutFeedback>
-      <Button title="2x" />
+      <Button title="Push Single Match" onPress={navigateToMatch} />
+      <Button title="Push Event" onPress={navigateToEvent} />
+      <Button title="Navigate to Matches" onPress={navigateToMatches} />
     </View>
   );
 };
