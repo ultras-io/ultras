@@ -27,6 +27,8 @@ export type HomeNavigationScreens = {
 
 export type SearchNavigationScreens = {
   search: NavigationScreen;
+  event: NavigationScreen;
+  match: NavigationScreen;
 };
 
 export type MatchesNavigationScreens = {
@@ -39,9 +41,16 @@ export type EventsNavigationScreens = {
   events: NavigationScreen;
   match: NavigationScreen;
   event: NavigationScreen;
+  newEvent: NavigationScreen;
 };
 
 export type ProfileNavigationScreens = {
   profile: NavigationScreen;
   settings: NavigationScreen;
+};
+
+export type SearchTabScreens = {
+  all: NavigationScreen;
+  event: NavigationScreen;
+  team: NavigationScreen;
 };

@@ -8,12 +8,11 @@ const useNavigationWithParams = () => {
   const prefix = tabName ? tabName + ':' : '';
 
   const pushTo = (name: string) => {
-    console.log(route);
     navigation.push(prefix + name, {tabName});
   };
 
-  const changeTab = (tab: string, screen: string) => {
-    navigation.navigate(`${tab}:${screen}`);
+  const changeTab = (tab: string) => {
+    navigation.navigate(`${tab}`);
   };
 
   return {

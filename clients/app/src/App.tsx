@@ -8,9 +8,11 @@ import RootNavigation from './navigation/root/rootNavigation';
 const App = () => {
   return (
     // <Provider store={null}>
+
     <NavigationContainer>
       <RootNavigation />
     </NavigationContainer>
+
     // </Provider>
   );
 };

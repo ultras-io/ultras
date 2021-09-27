@@ -8,21 +8,30 @@ const Stack = createNativeStackNavigator();
 const EventsNavigation = () => {
   return (
     <Stack.Navigator initialRouteName={screens.events.name}>
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.events.name}`}
-        component={screens.events.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.match.name}`}
-        component={screens.match.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.event.name}`}
-        component={screens.event.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
+      <Stack.Group>
+        <Stack.Screen
+          name={`${TAB_NAME}:${screens.events.name}`}
+          component={screens.events.component}
+          initialParams={{tabName: TAB_NAME}}
+        />
+        <Stack.Screen
+          name={`${TAB_NAME}:${screens.match.name}`}
+          component={screens.match.component}
+          initialParams={{tabName: TAB_NAME}}
+        />
+        <Stack.Screen
+          name={`${TAB_NAME}:${screens.event.name}`}
+          component={screens.event.component}
+          initialParams={{tabName: TAB_NAME}}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{presentation: 'modal'}}>
+        <Stack.Screen
+          name={`${TAB_NAME}:${screens.newEvent.name}`}
+          component={screens.newEvent.component}
+          initialParams={{tabName: TAB_NAME}}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

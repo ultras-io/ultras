@@ -1,6 +1,7 @@
 import Events from 'screens/Events';
 import Match from 'screens/Match';
 import Event from 'screens/Event';
+import NewEvent from 'screens/NewEvent';
 
 import type {EventsNavigationScreens} from '../types';
 
@@ -18,6 +19,10 @@ const SCREENS: EventsNavigationScreens = {
   event: {
     name: 'Event',
     component: Event,
+  },
+  newEvent: {
+    name: 'New Event',
+    component: NewEvent,
   },
 };
 

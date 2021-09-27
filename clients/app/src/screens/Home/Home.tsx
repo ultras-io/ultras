@@ -5,11 +5,10 @@ import Button from 'components/base/Button';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 
 import homeScreens from 'navigation/home/homeScreens';
-import matchesScreens, {
-  TAB_NAME as MATCHES_TAB_NAME,
-} from 'navigation/matches/matchesScreens';
+import tabScreens from 'navigation/tab/tabScreens';
 
 import {IHomeProps} from './types';
+
 import styles from './styles';
 
 const Home: React.FC<IHomeProps> = () => {
@@ -24,7 +23,7 @@ const Home: React.FC<IHomeProps> = () => {
   }, [pushTo]);
 
   const navigateToMatches = useCallback(() => {
-    changeTab(MATCHES_TAB_NAME, matchesScreens.matches.name);
+    changeTab(tabScreens.matches.name);
   }, [changeTab]);
 
   return (
