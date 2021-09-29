@@ -8,6 +8,7 @@ export type NavigationScreen = {
 export type RootNavigationScreens = {
   intro: NavigationScreen;
   joinUs: NavigationScreen;
+  uikit: NavigationScreen;
   tabNavigation: NavigationScreen;
 };
 

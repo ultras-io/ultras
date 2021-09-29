@@ -1,3 +1,3 @@
 export interface ISplashProps {
-  setIsAppInitialised: (isAppInitialised: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
 }

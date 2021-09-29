@@ -7,10 +7,10 @@ import screens from './rootScreens';
 const Stack = createNativeStackNavigator();
 
 const RootNavigation: React.FC = () => {
-  const [isAppInitialised, setIsAppInitialised] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  if (!isAppInitialised) {
-    return <SplashScreen setIsAppInitialised={setIsAppInitialised} />;
+  if (!isLoading) {
+    return <SplashScreen setIsLoading={setIsLoading} />;
   }
 
   // check auth
@@ -20,16 +20,20 @@ const RootNavigation: React.FC = () => {
       initialRouteName={screens.intro.name}
       screenOptions={{headerShown: false}}>
       {/* conditional rendering  */}
-      {/* <Stack.Group>
+      <Stack.Group>
         <Stack.Screen
           name={screens.intro.name}
           component={screens.intro.component}
         />
         <Stack.Screen
+          name={screens.uikit.name}
+          component={screens.uikit.component}
+        />
+        <Stack.Screen
           name={screens.joinUs.name}
           component={screens.joinUs.component}
         />
-      </Stack.Group> */}
+      </Stack.Group>
       <Stack.Screen
         name={screens.tabNavigation.name}
         component={screens.tabNavigation.component}

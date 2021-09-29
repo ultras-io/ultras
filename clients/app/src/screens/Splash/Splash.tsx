@@ -5,10 +5,10 @@ import {ISplashProps} from './types';
 
 import styles from './styles';
 
-const Splash: React.FC<ISplashProps> = ({setIsAppInitialised}) => {
+const Splash: React.FC<ISplashProps> = ({setIsLoading}) => {
   // check
   setTimeout(() => {
-    setIsAppInitialised(true);
+    setIsLoading(true);
   }, 1500);
 
   return (
