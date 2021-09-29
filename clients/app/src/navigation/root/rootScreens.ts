@@ -1,5 +1,6 @@
 import Intro from 'screens/Intro';
 import JoinUs from 'screens/JoinUs';
+import UIKit from 'screens/UIKit';
 import TabNavigation from '../tab/tabNavigation';
 
 import type {RootNavigationScreens} from '../types';
@@ -12,6 +13,10 @@ const SCREENS: RootNavigationScreens = {
   joinUs: {
     name: 'JoinUs',
     component: JoinUs,
+  },
+  uikit: {
+    name: 'UIKit',
+    component: UIKit,
   },
   tabNavigation: {
     name: 'TabNavigation',

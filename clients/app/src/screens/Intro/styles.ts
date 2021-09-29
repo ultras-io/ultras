@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    padding: 80,
+    padding: 8,
+    paddingTop: 50,
     alignSelf: 'flex-start',
   },
   text: {
