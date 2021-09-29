@@ -8,7 +8,6 @@ import homeScreens from 'navigation/home/homeScreens';
 import tabScreens from 'navigation/tab/tabScreens';
 
 import {IHomeProps} from './types';
-
 import styles from './styles';
 
 const Home: React.FC<IHomeProps> = () => {
@@ -29,6 +28,7 @@ const Home: React.FC<IHomeProps> = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
+
       <Button title="Push Single Match" onPress={navigateToMatch} />
       <Button title="Push Event" onPress={navigateToEvent} />
       <Button title="Navigate to Matches" onPress={navigateToMatches} />
