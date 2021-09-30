@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, Alert} from 'react-native';
+import {ScrollView, Text, Alert, View} from 'react-native';
 
 import Button, {
   Size as ButtonSize,
@@ -16,6 +16,8 @@ import {
 } from 'components/base/Badge';
 
 import {IconNames} from '../../assets/icons';
+
+import Divider, {Type as DividerType} from 'components/base/Divider';
 
 import {IUIKitProps} from './types';
 import styles from './styles';
@@ -37,6 +39,64 @@ const UIKit: React.FC<IUIKitProps> = () => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>UI Kit</Text>
+
+      <Text style={styles.subTitle}>Divider</Text>
+      <View style={styles.rowContainer}>
+        <View style={styles.rowItem}>
+          <Text>Some Text</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Divider />
+        </View>
+        <View style={styles.rowItem}>
+          <Text>Another One</Text>
+        </View>
+      </View>
+
+      <View style={styles.card}>
+        <Divider type={DividerType.Horizontal} />
+        <Text>28.08.21</Text>
+        <Text>20:30</Text>
+        <Divider type={DividerType.Horizontal} />
+      </View>
+
+      <View style={styles.rowContainer}>
+        <View style={styles.rowItem}>
+          <Text>Lorem Ipsum</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Divider type={DividerType.Vertical} />
+        </View>
+        <View style={styles.rowItem}>
+          <Text>Dolor Sit</Text>
+        </View>
+      </View>
+
+      <Text style={styles.subTitle}>Avatar & Badge</Text>
+      <View style={styles.rowContainer}>
+        <View style={styles.rowItem}>
+          <WithBadge number={24} size={BadgeSize.Big} color={BadgeColor.Danger}>
+            <Avatar uri={avatarUri} size={AvatarSize.Big} />
+          </WithBadge>
+        </View>
+        <View style={styles.rowItem}>
+          <WithBadge
+            number={43768}
+            size={BadgeSize.Big}
+            color={BadgeColor.Primary}>
+            <Avatar uri={romanoUri} size={AvatarSize.Big} />
+          </WithBadge>
+        </View>
+        <View style={styles.rowItem}>
+          <WithBadge number={54} size={BadgeSize.Small}>
+            <Avatar uri={rlUri} />
+          </WithBadge>
+        </View>
+        <View style={styles.rowItem}>
+          <Avatar uri={rlUri} size={AvatarSize.Small} />
+        </View>
+      </View>
+
       <Text style={styles.subTitle}>Button</Text>
       <Text style={styles.section}>Sizes</Text>
       <>
@@ -122,21 +182,6 @@ const UIKit: React.FC<IUIKitProps> = () => {
           size={ButtonSize.Big}
         />
       </>
-
-      <Text style={styles.subTitle}>Avatar & Badge</Text>
-
-      <WithBadge number={2} size={BadgeSize.Small} color={BadgeColor.Danger}>
-        <Avatar uri={avatarUri} size={AvatarSize.Small} />
-      </WithBadge>
-      <WithBadge number={54}>
-        <Avatar uri={rlUri} />
-      </WithBadge>
-      <WithBadge number={43768} size={BadgeSize.Big} color={BadgeColor.Primary}>
-        <Avatar uri={romanoUri} size={AvatarSize.Big} />
-      </WithBadge>
-      <WithBadge number={50} size={BadgeSize.Big} color={BadgeColor.Secondary}>
-        <Avatar uri={rlUri} size={AvatarSize.Big} />
-      </WithBadge>
     </ScrollView>
   );
 };
