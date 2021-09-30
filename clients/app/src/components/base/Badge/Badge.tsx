@@ -70,4 +70,4 @@ const Badge: React.FC<IBadgeProps> = ({
   );
 };
 
-export default Badge;
+export default React.memo<IBadgeProps>(Badge);

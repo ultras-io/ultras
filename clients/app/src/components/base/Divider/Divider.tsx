@@ -16,4 +16,4 @@ const Devider: React.FC<IDividerProps> = ({type = Type.Dot}) => {
   return <View style={[styles.container, stylesDictionary.types[type]]} />;
 };
 
-export default Devider;
+export default React.memo<IDividerProps>(Devider);

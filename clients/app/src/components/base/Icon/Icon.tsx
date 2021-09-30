@@ -16,4 +16,4 @@ const Icon: React.FC<IIconProps> = ({name, color, size = 24}) => {
   return <SvgXml xml={iconName} width={size} height={size} />;
 };
 
-export default Icon;
+export default React.memo<IIconProps>(Icon);
