@@ -1,5 +1,5 @@
-import Profile from 'screens/Profile';
-import Settings from 'screens/Settings';
+import Profile from '../../views/screens/Profile';
+import Settings from '../../views/screens/Settings';
 
 import type {ProfileNavigationScreens} from '../types';
 

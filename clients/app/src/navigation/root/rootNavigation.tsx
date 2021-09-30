@@ -1,20 +1,24 @@
 import React, {useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import SplashScreen from 'screens/Splash';
+import SplashScreen from '../../views/screens/Splash';
 import screens from './rootScreens';
+import JoinUsScreen from '../../views/screens/JoinUs';
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigation: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAuthenticated] = useState(false);
 
   if (!isLoading) {
     return <SplashScreen setIsLoading={setIsLoading} />;
   }
 
   // check auth
-
+  if (!isAuthenticated) {
+    return <JoinUsScreen />;
+  }
   return (
     <Stack.Navigator
       initialRouteName={screens.intro.name}

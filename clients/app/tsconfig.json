@@ -41,13 +41,13 @@
         "src/assets/*"
       ],
       "components/*": [
-        "src/components/*"
+        "src/views/components/*"
       ],
       "config/*": [
         "src/config/*"
       ],
       "containers/*": [
-        "src/containers/*"
+        "src/views/containers/*"
       ],
       "core/*": [
         "src/core/*"
@@ -59,7 +59,7 @@
         "src/navigation/*"
       ],
       "screens/*": [
-        "src/screens/*"
+        "src/views/screens/*"
       ],
       "store/*": [
         "src/store/*"
