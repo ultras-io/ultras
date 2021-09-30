@@ -1,18 +1,18 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {IDividerProps, Type} from './types';
+import {IDividerProps, TypeEnum} from './types';
 import styles from './styles';
 
 const stylesDictionary = {
   types: {
-    [Type.Dot]: styles.dot,
-    [Type.Horizontal]: styles.horizontal,
-    [Type.Vertical]: styles.vertical,
+    [TypeEnum.Dot]: styles.dot,
+    [TypeEnum.Horizontal]: styles.horizontal,
+    [TypeEnum.Vertical]: styles.vertical,
   },
 };
 
-const Devider: React.FC<IDividerProps> = ({type = Type.Dot}) => {
+const Devider: React.FC<IDividerProps> = ({type = TypeEnum.Dot}) => {
   return <View style={[styles.container, stylesDictionary.types[type]]} />;
 };
 

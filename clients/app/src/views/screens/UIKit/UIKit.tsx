@@ -2,22 +2,23 @@ import React from 'react';
 import {ScrollView, Text, Alert, View} from 'react-native';
 
 import Button, {
-  Size as ButtonSize,
-  Color as ButtonColor,
-  Appearance as ButtonAppearance,
-  IconPosition as ButtonIconPosition,
+  SizeEnum as ButtonSize,
+  ColorEnum as ButtonColor,
+  AppearanceEnum as ButtonAppearance,
+  IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
-
-import Avatar, {Size as AvatarSize} from 'views/components/base/Avatar';
+import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 import {
   WithBadge,
-  Size as BadgeSize,
-  Color as BadgeColor,
+  SizeEnum as BadgeSize,
+  ColorEnum as BadgeColor,
 } from 'views/components/base/Badge';
+import {IconNamesEnum} from '../../../assets/icons';
+import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 
-import {IconNames} from '../../../assets/icons';
-
-import Divider, {Type as DividerType} from 'views/components/base/Divider';
+import MatchTime, {
+  MatchStateEnum as MatcheTimeState,
+} from 'views/components/compositions/MatchTime';
 
 import {IUIKitProps} from './types';
 import styles from './styles';
@@ -36,9 +37,75 @@ const UIKit: React.FC<IUIKitProps> = () => {
     Alert.alert('Pressed');
   };
 
+  const randomDate = (start: Date, end: Date): Date => {
+    return new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>UI Kit</Text>
+
+      <Text style={styles.subTitle}>Match Time</Text>
+      <View style={styles.rowContainer}>
+        <View style={styles.rowItem}>
+          <MatchTime
+            leagueImageURI={
+              'https://media.api-sports.io/football/leagues/' +
+              Math.round(Math.random() * (55 - 1) + 1) +
+              '.png'
+            }
+            startTime={randomDate(
+              new Date(2021, 10, 10),
+              new Date(2021, 11, 11),
+            )}
+          />
+        </View>
+        <View style={styles.rowItem}>
+          <MatchTime
+            matchState={MatcheTimeState.Live}
+            minute={Math.round(Math.random() * (95 - 1) + 1)}
+            leagueImageURI={
+              'https://media.api-sports.io/football/leagues/' +
+              Math.round(Math.random() * (55 - 1) + 1) +
+              '.png'
+            }
+          />
+        </View>
+        <View style={styles.rowItem}>
+          <MatchTime
+            matchState={MatcheTimeState.ExtraTime}
+            minute={Math.round(Math.random() * (123 - 91) + 91)}
+            leagueImageURI={
+              'https://media.api-sports.io/football/leagues/' +
+              Math.round(Math.random() * (55 - 1) + 1) +
+              '.png'
+            }
+          />
+        </View>
+        <View style={styles.rowItem}>
+          <MatchTime
+            matchState={MatcheTimeState.Penalties}
+            leagueImageURI={
+              'https://media.api-sports.io/football/leagues/' +
+              Math.round(Math.random() * (55 - 1) + 1) +
+              '.png'
+            }
+          />
+        </View>
+        <View style={styles.rowItem}>
+          <MatchTime
+            matchState={MatcheTimeState.Finished}
+            leagueImageURI={
+              'https://media.api-sports.io/football/leagues/' +
+              Math.round(Math.random() * (55 - 1) + 1) +
+              '.png'
+            }
+            startTime={randomDate(new Date(2021, 8, 8), new Date())}
+          />
+        </View>
+      </View>
 
       <Text style={styles.subTitle}>Divider</Text>
       <View style={styles.rowContainer}>
@@ -135,15 +202,19 @@ const UIKit: React.FC<IUIKitProps> = () => {
       </>
       <Text style={styles.section}>Icon</Text>
       <>
-        <Button onPress={log} icon={IconNames.Hearth} size={ButtonSize.Small} />
         <Button
           onPress={log}
-          icon={IconNames.Hearth}
+          icon={IconNamesEnum.Hearth}
+          size={ButtonSize.Small}
+        />
+        <Button
+          onPress={log}
+          icon={IconNamesEnum.Hearth}
           color={ButtonColor.Danger}
         />
         <Button
           onPress={log}
-          icon={IconNames.Hearth}
+          icon={IconNamesEnum.Hearth}
           size={ButtonSize.Big}
           color={ButtonColor.Primary}
         />
@@ -151,20 +222,20 @@ const UIKit: React.FC<IUIKitProps> = () => {
           title="Going"
           onPress={log}
           size={ButtonSize.Small}
-          icon={IconNames.Hearth}
+          icon={IconNamesEnum.Hearth}
           iconPosition={ButtonIconPosition.Left}
           color={ButtonColor.Secondary}
         />
         <Button
           title="Love"
           onPress={log}
-          icon={IconNames.Hearth}
+          icon={IconNamesEnum.Hearth}
           color={ButtonColor.Primary}
         />
         <Button
           title="Love"
           onPress={log}
-          icon={IconNames.Hearth}
+          icon={IconNamesEnum.Hearth}
           iconPosition={ButtonIconPosition.Left}
           size={ButtonSize.Big}
         />
@@ -177,7 +248,7 @@ const UIKit: React.FC<IUIKitProps> = () => {
           title="Love"
           onPress={log}
           isDisabled
-          icon={IconNames.Hearth}
+          icon={IconNamesEnum.Hearth}
           iconPosition={ButtonIconPosition.Left}
           size={ButtonSize.Big}
         />

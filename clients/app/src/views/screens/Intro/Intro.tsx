@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {View, Text} from 'react-native';
 
-import useNavigationWithParams from 'hooks/useNavigationWithParams';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import screens from 'navigation/root/rootScreens';
 
 import Button from 'views/components/base/Button';
