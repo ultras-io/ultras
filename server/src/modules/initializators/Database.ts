@@ -1,27 +1,23 @@
 import { IDatabase } from './types';
-import { create } from 'data/PostgresProvider';
+const { sequelize } = require('../../data/models');
 
 /**
  * Class Database
  */
 class Database implements IDatabase {
-  private logging = false;
+  private readonly logging: boolean = false;
 
-  public constructor(logging = false) {
+  public constructor(logging: boolean = false) {
     this.logging = logging;
   }
 
   public async init(): Promise<any> {
-    const database = await create();
-    try {
-      await database.raw('SELECT now()');
-      console.info('Connected to postgres SQL database ✅');
-    } catch (e) {
-      console.error('Unable to connect to a postgres SQL database');
-      throw e;
-    }
-    // @TODO return the promise of database synchronisation process
-    return database;
+    await sequelize.authenticate();
+    console.info('Connected to postgres SQL database ✅');
+
+    return sequelize.sync({
+      logging: this.logging
+    });
   }
 }
 
