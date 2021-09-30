@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
+import UltrasText from 'views/components/base/UltrasText';
 // import StorageService from 'core/services/storage/storageService';
 
 import {MessageProps} from './types';
@@ -9,7 +10,7 @@ import styles from './styles';
 
 const Message: React.FC<MessageProps> = (props: MessageProps) => (
   <View style={styles.container}>
-    <Text>{props.message}</Text>
+    <UltrasText>{props.message}</UltrasText>
   </View>
 );
 

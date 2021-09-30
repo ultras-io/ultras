@@ -13,18 +13,17 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         padding: 8,
-        alignSelf: 'flex-start',
     },
     text: {
-        fontWeight: '600',
-        textAlign: 'center',
+        fontSize: '12',
     },
 });
 `;
 
 const getComponentBaseCode = (name) => `
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
+import UltrasText from 'views/components/base/UltrasText';
 
 import {I${name}Props} from './types';
 
@@ -33,12 +32,13 @@ import styles from './styles';
 const ${name}: React.FC<I${name}Props> = ({title}) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{title}</Text>
+            <UltrasText style={styles.text}>{title}</UltrasText>
         </View>
     );
 };
 
-export default ${name};
+export default React.memo<I${name}Props>(${name});
+
 `;
 
 const getExportsBaseCode = (name) => `

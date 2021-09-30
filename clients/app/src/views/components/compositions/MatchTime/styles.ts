@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     width: 60,
-    marginTop: 8,
   },
   logoWithTime: {
     display: 'flex',
@@ -23,10 +22,12 @@ export default StyleSheet.create({
     fontSize: 9,
     lineHeight: 9,
     fontWeight: '400',
+    color: '#fff',
   },
   time: {
     fontSize: 11,
     lineHeight: 12,
     fontWeight: '600',
+    color: '#fff',
   },
 });

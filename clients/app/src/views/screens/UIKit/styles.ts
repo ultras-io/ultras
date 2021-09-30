@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     marginVertical: 50,
     padding: 8,
-    alignSelf: 'flex-start',
+    backgroundColor: '#535557',
   },
   title: {
     fontWeight: 'bold',

@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
+
+import UltrasText from 'views/components/base/UltrasText';
 
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
@@ -63,9 +65,9 @@ const Badge: React.FC<IBadgeProps> = ({
 
   return (
     <View style={[styles.container, bagdeStyles]}>
-      <Text style={[styles.number, numberStyles]}>
+      <UltrasText style={[styles.number, ...numberStyles]}>
         {getReadableNumber(number)}
-      </Text>
+      </UltrasText>
     </View>
   );
 };

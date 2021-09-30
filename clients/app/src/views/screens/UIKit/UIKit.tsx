@@ -1,5 +1,7 @@
 import React from 'react';
-import {ScrollView, Text, Alert, View} from 'react-native';
+import {ScrollView, Alert, View} from 'react-native';
+
+import UltrasText from 'views/components/base/UltrasText';
 
 import Button, {
   SizeEnum as ButtonSize,
@@ -19,6 +21,10 @@ import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 import MatchTime, {
   MatchStateEnum as MatcheTimeState,
 } from 'views/components/compositions/MatchTime';
+
+import MatchCard, {
+  Score as MatchScore,
+} from 'views/components/compositions/MatchCard';
 
 import {IUIKitProps} from './types';
 import styles from './styles';
@@ -45,9 +51,113 @@ const UIKit: React.FC<IUIKitProps> = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>UI Kit</Text>
+      <UltrasText style={styles.title}>UI Kit</UltrasText>
 
-      <Text style={styles.subTitle}>Match Time</Text>
+      <UltrasText style={styles.subTitle}>Match Card</UltrasText>
+      <MatchCard
+        team1Name={'Union Berlin'}
+        team2Name={'Borussia Mönchengladbach'}
+        team1URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        team2URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        country={'Germany'}
+        league={'Bundesliga'}
+        // score,
+        leagueImageURI={
+          'https://media.api-sports.io/football/leagues/' +
+          Math.round(Math.random() * (55 - 1) + 1) +
+          '.png'
+        }
+        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+      />
+
+      <MatchCard
+        matchState={MatcheTimeState.Penalties}
+        team1Name={'Barcelona'}
+        team2Name={'Benfica'}
+        team1URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        team2URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        league={'Champions League'}
+        score={{
+          team1Score: 2,
+          team2Score: 2,
+          team1Penalties: 3,
+          team2Penalties: 4,
+        }}
+        leagueImageURI={
+          'https://media.api-sports.io/football/leagues/' +
+          Math.round(Math.random() * (55 - 1) + 1) +
+          '.png'
+        }
+        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+      />
+
+      <MatchCard
+        matchState={MatcheTimeState.Live}
+        minute={76}
+        team1Name={'Liverpool'}
+        team2Name={'Manchester United'}
+        team1URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        team2URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        country={'England'}
+        league={'Premier League'}
+        score={{team1Score: 3, team2Score: 1}}
+        leagueImageURI={
+          'https://media.api-sports.io/football/leagues/' +
+          Math.round(Math.random() * (55 - 1) + 1) +
+          '.png'
+        }
+        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+      />
+
+      <MatchCard
+        matchState={MatcheTimeState.Finished}
+        team1Name={'Arsenal'}
+        team2Name={'Valencis'}
+        team1URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        team2URI={
+          'https://media.api-sports.io/football/teams/' +
+          Math.round(Math.random() * (4000 - 1) + 1) +
+          '.png'
+        }
+        league={'Europa League'}
+        score={{team1Score: 2, team2Score: 1}}
+        leagueImageURI={
+          'https://media.api-sports.io/football/leagues/' +
+          Math.round(Math.random() * (55 - 1) + 1) +
+          '.png'
+        }
+        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+      />
+
+      <UltrasText style={styles.subTitle}>Match Time</UltrasText>
       <View style={styles.rowContainer}>
         <View style={styles.rowItem}>
           <MatchTime
@@ -107,39 +217,39 @@ const UIKit: React.FC<IUIKitProps> = () => {
         </View>
       </View>
 
-      <Text style={styles.subTitle}>Divider</Text>
+      <UltrasText style={styles.subTitle}>Divider</UltrasText>
       <View style={styles.rowContainer}>
         <View style={styles.rowItem}>
-          <Text>Some Text</Text>
+          <UltrasText>Some Text</UltrasText>
         </View>
         <View style={styles.rowItem}>
           <Divider />
         </View>
         <View style={styles.rowItem}>
-          <Text>Another One</Text>
+          <UltrasText>Another One</UltrasText>
         </View>
       </View>
 
       <View style={styles.card}>
         <Divider type={DividerType.Horizontal} />
-        <Text>28.08.21</Text>
-        <Text>20:30</Text>
+        <UltrasText>28.08.21</UltrasText>
+        <UltrasText>20:30</UltrasText>
         <Divider type={DividerType.Horizontal} />
       </View>
 
       <View style={styles.rowContainer}>
         <View style={styles.rowItem}>
-          <Text>Lorem Ipsum</Text>
+          <UltrasText>Lorem Ipsum</UltrasText>
         </View>
         <View style={styles.rowItem}>
           <Divider type={DividerType.Vertical} />
         </View>
         <View style={styles.rowItem}>
-          <Text>Dolor Sit</Text>
+          <UltrasText>Dolor Sit</UltrasText>
         </View>
       </View>
 
-      <Text style={styles.subTitle}>Avatar & Badge</Text>
+      <UltrasText style={styles.subTitle}>Avatar & Badge</UltrasText>
       <View style={styles.rowContainer}>
         <View style={styles.rowItem}>
           <WithBadge number={24} size={BadgeSize.Big} color={BadgeColor.Danger}>
@@ -164,8 +274,8 @@ const UIKit: React.FC<IUIKitProps> = () => {
         </View>
       </View>
 
-      <Text style={styles.subTitle}>Button</Text>
-      <Text style={styles.section}>Sizes</Text>
+      <UltrasText style={styles.subTitle}>Button</UltrasText>
+      <UltrasText style={styles.section}>Sizes</UltrasText>
       <>
         <Button title="Join Us" onPress={log} size={ButtonSize.Small} />
         <Button title="Join Us" onPress={log} size={ButtonSize.Default} />
@@ -175,14 +285,14 @@ const UIKit: React.FC<IUIKitProps> = () => {
           size={ButtonSize.Big}
         />
       </>
-      <Text style={styles.section}>Colors</Text>
+      <UltrasText style={styles.section}>Colors</UltrasText>
       <>
         <Button title="Join Us" onPress={log} color={ButtonColor.Primary} />
         <Button title="Join Us" onPress={log} color={ButtonColor.Danger} />
         <Button title="Huhu" onPress={log} color={ButtonColor.Secondary} />
         <Button title="Huhu" onPress={log} color={ButtonColor.Default} />
       </>
-      <Text style={styles.section}>Appearance</Text>
+      <UltrasText style={styles.section}>Appearance</UltrasText>
       <>
         <Button
           title="Join Us"
@@ -200,7 +310,7 @@ const UIKit: React.FC<IUIKitProps> = () => {
           appearance={ButtonAppearance.Outline}
         />
       </>
-      <Text style={styles.section}>Icon</Text>
+      <UltrasText style={styles.section}>Icon</UltrasText>
       <>
         <Button
           onPress={log}
@@ -240,7 +350,7 @@ const UIKit: React.FC<IUIKitProps> = () => {
           size={ButtonSize.Big}
         />
       </>
-      <Text style={styles.section}>Loading, Disabled</Text>
+      <UltrasText style={styles.section}>Loading, Disabled</UltrasText>
       <>
         <Button title="Go" onPress={log} isLoading />
         <Button title="Home" onPress={log} isLoading size={ButtonSize.Small} />

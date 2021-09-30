@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
+import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import screens from 'navigation/root/rootScreens';
 
@@ -22,7 +23,7 @@ const Intro: React.FC<IIntroProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Intro</Text>
+      <UltrasText style={styles.text}>Intro</UltrasText>
 
       <Button title="Push JoinUs" onPress={navigateToJoinUs} />
       <Button title="UI Kit" onPress={navigateToUIKit} />

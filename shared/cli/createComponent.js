@@ -47,7 +47,7 @@ const createFolder = (path, name) => {
 const createFiles = (path, name) => {
     const fullPath = path + '/' + name;
     try {
-        fs.writeFileSync(fullPath + '/types.d.ts', getTypesBaseCode(name));
+        fs.writeFileSync(fullPath + '/types.ts', getTypesBaseCode(name));
         fs.writeFileSync(fullPath + '/styles.ts', getStylesBaseCode());
         fs.writeFileSync(fullPath + '/' + name + '.tsx', getComponentBaseCode(name));
         fs.writeFileSync(fullPath + '/index.ts', getExportsBaseCode(name));

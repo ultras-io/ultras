@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
-import useNavigationWithParams from 'hooks/useNavigationWithParams';
+import UltrasText from 'views/components/base/UltrasText';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 
 import Button from 'views/components/base/Button';
@@ -20,8 +21,8 @@ const Match: React.FC<IMatchProps> = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Single Match</Text>
-      <Text>tab: {tabName}</Text>
+      <UltrasText style={styles.text}>Single Match</UltrasText>
+      <UltrasText>tab: {tabName}</UltrasText>
       <Button title="Push Single Event" onPress={navigateToEvent} />
     </View>
   );
