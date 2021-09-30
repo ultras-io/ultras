@@ -1,6 +1,6 @@
-import Home from 'screens/Home';
-import Match from 'screens/Match';
-import Event from 'screens/Event';
+import Home from 'views/screens/Home';
+import Match from 'views/screens/Match';
+import Event from 'views/screens/Event';
 
 import type {HomeNavigationScreens} from '../types';
 

@@ -2,7 +2,7 @@ export interface IModel<T> {
   init: () => void;
   destroy: () => void;
   getState: () => T;
-  setState: (data: T) => void;
+  setState: (data: Partial<T>) => void;
   subscribe: (
     evt: 'INIT' | 'UPDATE',
     fn: (data: T) => void,

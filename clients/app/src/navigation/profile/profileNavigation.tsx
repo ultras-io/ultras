@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import Button from 'components/base/Button';
+import Button from 'views/components/base/Button';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 

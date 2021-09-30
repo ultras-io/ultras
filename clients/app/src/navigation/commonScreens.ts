@@ -1,5 +1,5 @@
-import Match from 'screens/Match';
-import Event from 'screens/Event';
+import Match from 'views/screens/Match';
+import Event from 'views/screens/Event';
 
 export const TAB_NAME = 'Search';
 

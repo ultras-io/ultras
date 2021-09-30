@@ -1,6 +1,6 @@
-import Search from 'screens/Search';
-import Event from 'screens/Event';
-import Match from 'screens/Match';
+import Search from 'views/screens/Search';
+import Event from 'views/screens/Event';
+import Match from 'views/screens/Match';
 
 import type {SearchNavigationScreens} from '../types';
 

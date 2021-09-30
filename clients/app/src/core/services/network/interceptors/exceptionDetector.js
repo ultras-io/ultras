@@ -1,7 +1,7 @@
 // @flow
 
 /* import { history } from 'config/routes';
-import CacheService from '../../storage/CacheService'; */
+import CacheService from 'services/storage/CacheService'; */
 
 export default data => {
   /* if (data.status === 401) {

@@ -40,14 +40,11 @@
       "assets/*": [
         "src/assets/*"
       ],
-      "components/*": [
-        "src/components/*"
+      "views/*": [
+        "src/views/*"
       ],
       "config/*": [
         "src/config/*"
-      ],
-      "containers/*": [
-        "src/containers/*"
       ],
       "core/*": [
         "src/core/*"
@@ -58,9 +55,6 @@
       "navigation/*": [
         "src/navigation/*"
       ],
-      "screens/*": [
-        "src/screens/*"
-      ],
       "store/*": [
         "src/store/*"
       ],
@@ -69,9 +63,6 @@
       ],
       "utils/*": [
         "src/utils/*"
-      ],
-      "hooks/*": [
-        "src/utils/hooks/*"
       ],
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
