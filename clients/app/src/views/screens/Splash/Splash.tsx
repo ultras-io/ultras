@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
+import UltrasText from 'views/components/base/UltrasText';
 import {ISplashProps} from './types';
 
 import styles from './styles';
@@ -13,7 +14,7 @@ const Splash: React.FC<ISplashProps> = ({setIsLoading}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Splash</Text>
+      <UltrasText style={styles.text}>Splash</UltrasText>
     </View>
   );
 };

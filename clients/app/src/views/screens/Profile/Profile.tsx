@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
+import UltrasText from 'views/components/base/UltrasText';
 import {IProfileProps} from './types';
 
 import styles from './styles';
@@ -8,7 +9,7 @@ import styles from './styles';
 const Profile: React.FC<IProfileProps> = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Profile</Text>
+      <UltrasText style={styles.text}>Profile</UltrasText>
     </View>
   );
 };

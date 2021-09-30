@@ -8,7 +8,7 @@ export enum MatchStateEnum {
 
 export interface IMatchTimeProps {
   matchState?: MatchStateEnum;
-  leagueImageURI?: string;
+  leagueImageURI: string;
   startTime?: Date;
   minute?: number;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
+import UltrasText from 'views/components/base/UltrasText';
 // import StorageService from 'core/services/storage/storageService';
 
 // import {useModel} from 'core/services/model';
@@ -24,7 +25,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleBox}>
-        <Text style={styles.titleText}>Join us</Text>
+        <UltrasText style={styles.titleText}>Join us</UltrasText>
       </View>
       <MessageBox />
     </View>

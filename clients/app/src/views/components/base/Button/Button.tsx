@@ -1,5 +1,6 @@
 import React from 'react';
-import {Pressable, Text} from 'react-native';
+import {Pressable} from 'react-native';
+import UltrasText from 'views/components/base/UltrasText';
 
 import Icon from '../Icon';
 
@@ -101,9 +102,9 @@ const Button: React.FC<IButtonProps> = ({
 
   let content = [
     title !== undefined ? (
-      <Text key="text" style={[styles.text, textStyles]}>
+      <UltrasText key="text" style={[styles.text, ...textStyles]}>
         {title}
-      </Text>
+      </UltrasText>
     ) : null,
     icon !== undefined ? (
       <Icon key="icon" name={icon} size={stylesDictionary.iconSizes[size]} />
@@ -121,7 +122,7 @@ const Button: React.FC<IButtonProps> = ({
         pressableStyles,
         (isDisabled || isLoading) && styles.buttonDisabled,
       ]}>
-      {isLoading ? <Text>loader...</Text> : content}
+      {isLoading ? <UltrasText>loader...</UltrasText> : content}
     </Pressable>
   );
 };

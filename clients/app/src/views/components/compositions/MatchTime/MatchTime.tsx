@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 
+import UltrasText from 'views/components/base/UltrasText';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 
 import {IMatchTimeProps, MatchStateEnum} from './types';
@@ -55,8 +56,8 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
       <View style={styles.logoWithTime}>
         <Image source={{uri: leagueImageURI}} style={styles.logo} />
         <View style={styles.dateTime}>
-          <Text style={styles.date}>{formatedDate}</Text>
-          <Text style={styles.time}>{formatedTime}</Text>
+          <UltrasText style={styles.date}>{formatedDate}</UltrasText>
+          <UltrasText style={styles.time}>{formatedTime}</UltrasText>
         </View>
       </View>
       <Divider type={DividerType.Horizontal} />

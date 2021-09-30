@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
-import useNavigationWithParams from 'hooks/useNavigationWithParams';
+import UltrasText from 'views/components/base/UltrasText';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import screens from 'navigation/events/eventsScreens';
 import Button from 'views/components/base/Button';
 
@@ -17,7 +18,7 @@ const Events: React.FC<IEventsProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Events</Text>
+      <UltrasText style={styles.text}>Events</UltrasText>
       <Button title={'Open New Event Modal'} onPress={openNewEventModal} />
     </View>
   );

@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
-import useNavigationWithParams from 'hooks/useNavigationWithParams';
+import UltrasText from 'views/components/base/UltrasText';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import matchesScreens from 'navigation/matches/matchesScreens';
 import Button from 'views/components/base/Button';
 
@@ -17,7 +18,7 @@ const Matches: React.FC<IMatchesProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Matches</Text>
+      <UltrasText style={styles.text}>Matches</UltrasText>
       <Button title="Push Single Match" onPress={navigateToMatch} />
     </View>
   );
