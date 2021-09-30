@@ -20,4 +20,4 @@ const Avatar: React.FC<IAvatarProps> = ({uri, size = Size.Default}) => {
   );
 };
 
-export default Avatar;
+export default React.memo<IAvatarProps>(Avatar);

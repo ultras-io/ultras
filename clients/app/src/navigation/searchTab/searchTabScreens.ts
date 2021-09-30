@@ -1,6 +1,6 @@
-import SearchAll from '../../views/screens/SearchAll';
-import SearchEvent from '../../views/screens/SearchEvent';
-import SearchTeam from '../../views/screens/SearchTeam';
+import SearchAll from 'views/screens/SearchAll';
+import SearchEvent from 'views/screens/SearchEvent';
+import SearchTeam from 'views/screens/SearchTeam';
 
 import type {SearchTabScreens} from '../types';
 

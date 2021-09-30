@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 import useNavigationWithParams from 'hooks/useNavigationWithParams';
 import screens from 'navigation/root/rootScreens';
 
-import Button from '../../components/base/Button';
+import Button from 'views/components/base/Button';
 
 import {IIntroProps} from './types';
 import styles from './styles';

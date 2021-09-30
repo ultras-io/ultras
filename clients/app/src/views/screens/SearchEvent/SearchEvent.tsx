@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {View} from 'react-native';
 
 import useNavigationWithParams from 'hooks/useNavigationWithParams';
-import Button from '../../components/base/Button';
+import Button from 'views/components/base/Button';
 import searchScreens from 'navigation/search/searchScreens';
 
 import {ISearchEventProps} from './types';

@@ -1,6 +1,6 @@
 // @flow
 
-import CacheService from '../../storage/CacheService';
+import CacheService from 'services/storage/CacheService';
 
 export default (data: Object, headers: Object) => {
   const newToken = headers.get('token');

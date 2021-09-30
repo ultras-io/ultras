@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 
 import useNavigationWithParams from 'hooks/useNavigationWithParams';
 import matchesScreens from 'navigation/matches/matchesScreens';
-import Button from '../../components/base/Button';
+import Button from 'views/components/base/Button';
 
 import {IMatchesProps} from './types';
 import styles from './styles';

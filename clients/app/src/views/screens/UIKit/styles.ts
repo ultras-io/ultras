@@ -24,4 +24,17 @@ export default StyleSheet.create({
     fontSize: 15,
     color: '#444',
   },
+  rowContainer: {
+    marginTop: 10,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowItem: {
+    marginRight: 10,
+  },
+  card: {
+    marginTop: 10,
+    width: 100,
+  },
 });

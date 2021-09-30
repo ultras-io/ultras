@@ -1,7 +1,7 @@
-import Events from '../../views/screens/Events';
-import Match from '../../views/screens/Match';
-import Event from '../../views/screens/Event';
-import NewEvent from '../../views/screens/NewEvent';
+import Events from 'views/screens/Events';
+import Match from 'views/screens/Match';
+import Event from 'views/screens/Event';
+import NewEvent from 'views/screens/NewEvent';
 
 import type {EventsNavigationScreens} from '../types';
 

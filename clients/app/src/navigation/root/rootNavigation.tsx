@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import SplashScreen from '../../views/screens/Splash';
+import SplashScreen from 'views/screens/Splash';
 import screens from './rootScreens';
-import JoinUsScreen from '../../views/screens/JoinUs';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,33 +14,31 @@ const RootNavigation: React.FC = () => {
     return <SplashScreen setIsLoading={setIsLoading} />;
   }
 
-  // check auth
-  if (!isAuthenticated) {
-    return <JoinUsScreen />;
-  }
   return (
     <Stack.Navigator
       initialRouteName={screens.intro.name}
       screenOptions={{headerShown: false}}>
-      {/* conditional rendering  */}
-      <Stack.Group>
+      {isAuthenticated ? (
         <Stack.Screen
-          name={screens.intro.name}
-          component={screens.intro.component}
+          name={screens.tabNavigation.name}
+          component={screens.tabNavigation.component}
         />
-        <Stack.Screen
-          name={screens.uikit.name}
-          component={screens.uikit.component}
-        />
-        <Stack.Screen
-          name={screens.joinUs.name}
-          component={screens.joinUs.component}
-        />
-      </Stack.Group>
-      <Stack.Screen
-        name={screens.tabNavigation.name}
-        component={screens.tabNavigation.component}
-      />
+      ) : (
+        <Stack.Group>
+          <Stack.Screen
+            name={screens.intro.name}
+            component={screens.intro.component}
+          />
+          <Stack.Screen
+            name={screens.uikit.name}
+            component={screens.uikit.component}
+          />
+          <Stack.Screen
+            name={screens.joinUs.name}
+            component={screens.joinUs.component}
+          />
+        </Stack.Group>
+      )}
     </Stack.Navigator>
   );
 };

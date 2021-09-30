@@ -1,6 +1,6 @@
-import Matches from '../../views/screens/Matches';
-import Match from '../../views/screens/Match';
-import Event from '../../views/screens/Event';
+import Matches from 'views/screens/Matches';
+import Match from 'views/screens/Match';
+import Event from 'views/screens/Event';
 
 import type {MatchesNavigationScreens} from '../types';
 
