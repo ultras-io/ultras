@@ -1,7 +1,7 @@
-import {IconNames} from 'assets/icons';
+import {IconNamesEnum} from 'assets/icons';
 
 export interface IIconProps {
-  name: IconNames;
+  name: IconNamesEnum;
   color?: string;
   size?: number;
 }

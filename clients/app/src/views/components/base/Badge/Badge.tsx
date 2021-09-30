@@ -3,45 +3,45 @@ import {View, Text} from 'react-native';
 
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
-import {IBadgeProps, Size, Color} from './types';
+import {IBadgeProps, SizeEnum, ColorEnum} from './types';
 import styles from './styles';
 
 const stylesDictionary = {
   sizes: {
-    [Size.Small]: {
+    [SizeEnum.Small]: {
       bagde: styles.badgeSmall,
       number: styles.numberSmall,
     },
-    [Size.Default]: {
+    [SizeEnum.Default]: {
       bagde: styles.badgeDefault,
       number: styles.numberDefault,
     },
-    [Size.Big]: {
+    [SizeEnum.Big]: {
       bagde: styles.badgeBig,
       number: styles.numberBig,
     },
   },
   colors: {
-    [Color.Default]: {
+    [ColorEnum.Default]: {
       bagde: styles.badgeColorDefault,
       number: styles.numberColorDefault,
     },
-    [Color.Danger]: {
+    [ColorEnum.Danger]: {
       bagde: styles.badgeColorDanger,
       number: styles.numberColorDanger,
     },
-    [Color.Primary]: {
+    [ColorEnum.Primary]: {
       bagde: styles.badgeColorPrimary,
       number: styles.numberColorPrimary,
     },
-    [Color.Secondary]: {
+    [ColorEnum.Secondary]: {
       bagde: styles.badgeColorSecondary,
       number: styles.numberColorDeSecondary,
     },
   },
 };
 
-const getStyles = (size: Size, color: Color) => {
+const getStyles = (size: SizeEnum, color: ColorEnum) => {
   return {
     bagdeStyles: [
       stylesDictionary.sizes[size].bagde,
@@ -56,8 +56,8 @@ const getStyles = (size: Size, color: Color) => {
 
 const Badge: React.FC<IBadgeProps> = ({
   number,
-  size = Size.Default,
-  color = Color.Default,
+  size = SizeEnum.Default,
+  color = ColorEnum.Default,
 }) => {
   const {bagdeStyles, numberStyles} = getStyles(size, color);
 

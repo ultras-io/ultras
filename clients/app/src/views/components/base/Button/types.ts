@@ -1,25 +1,25 @@
-import {IconNames} from 'assets/icons';
+import {IconNamesEnum} from 'assets/icons';
 
-export enum Size {
+export enum SizeEnum {
   Small,
   Default,
   Big,
 }
 
-export enum Color {
+export enum ColorEnum {
   Default,
   Danger,
   Primary,
   Secondary,
 }
 
-export enum Appearance {
+export enum AppearanceEnum {
   Default,
   Minimal,
   Outline,
 }
 
-export enum IconPosition {
+export enum IconPositionEnum {
   Left,
   Right,
 }
@@ -27,11 +27,11 @@ export enum IconPosition {
 export interface IButtonProps {
   onPress: () => void;
   title?: string;
-  size?: Size;
-  color?: Color;
-  appearance?: Appearance;
-  icon?: IconNames;
-  iconPosition?: IconPosition;
+  size?: SizeEnum;
+  color?: ColorEnum;
+  appearance?: AppearanceEnum;
+  icon?: IconNamesEnum;
+  iconPosition?: IconPositionEnum;
   isLoading?: boolean;
   isDisabled?: boolean;
 }

@@ -1,9 +1,9 @@
-export enum Type {
+export enum TypeEnum {
   Horizontal,
   Vertical,
   Dot,
 }
 
 export interface IDividerProps {
-  type?: Type;
+  type?: TypeEnum;
 }

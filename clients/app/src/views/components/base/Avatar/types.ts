@@ -1,4 +1,4 @@
-export enum Size {
+export enum SizeEnum {
   Small,
   Default,
   Big,
@@ -6,5 +6,5 @@ export enum Size {
 
 export interface IAvatarProps {
   uri: string;
-  size?: Size;
+  size?: SizeEnum;
 }

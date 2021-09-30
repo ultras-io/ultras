@@ -3,65 +3,75 @@ import {Pressable, Text} from 'react-native';
 
 import Icon from '../Icon';
 
-import {IButtonProps, Size, Color, Appearance, IconPosition} from './types';
+import {
+  IButtonProps,
+  SizeEnum,
+  ColorEnum,
+  AppearanceEnum,
+  IconPositionEnum,
+} from './types';
 
 import styles from './styles';
 
 const stylesDictionary = {
   sizes: {
-    [Size.Small]: {
+    [SizeEnum.Small]: {
       pressable: styles.buttonSizeSmall,
       text: styles.textSizeSmall,
     },
-    [Size.Default]: {
+    [SizeEnum.Default]: {
       pressable: styles.buttonSizeDefault,
       text: styles.textSizeDefault,
     },
-    [Size.Big]: {
+    [SizeEnum.Big]: {
       pressable: styles.buttonSizeBig,
       text: styles.textSizeBig,
     },
   },
   colors: {
-    [Color.Primary]: {
+    [ColorEnum.Primary]: {
       pressable: styles.buttonColorPrimary,
       text: styles.textColorPrimary,
     },
-    [Color.Secondary]: {
+    [ColorEnum.Secondary]: {
       pressable: styles.buttonColorSecondary,
       text: styles.textColorSecondary,
     },
-    [Color.Default]: {
+    [ColorEnum.Default]: {
       pressable: styles.buttonColorDefault,
       text: styles.textColorDefault,
     },
-    [Color.Danger]: {
+    [ColorEnum.Danger]: {
       pressable: styles.buttonColorDanger,
       text: styles.textColorDanger,
     },
   },
   appearances: {
-    [Appearance.Minimal]: {
+    [AppearanceEnum.Minimal]: {
       pressable: styles.buttonAppearanceMinimal,
       text: styles.textAppearanceMinimal,
     },
-    [Appearance.Outline]: {
+    [AppearanceEnum.Outline]: {
       pressable: styles.buttonAppearanceOutline,
       text: styles.textAppearanceOutline,
     },
-    [Appearance.Default]: {
+    [AppearanceEnum.Default]: {
       pressable: styles.buttonAppearanceDefault,
       text: styles.textAppearanceDefault,
     },
   },
   iconSizes: {
-    [Size.Small]: 10,
-    [Size.Default]: 12,
-    [Size.Big]: 24,
+    [SizeEnum.Small]: 10,
+    [SizeEnum.Default]: 12,
+    [SizeEnum.Big]: 24,
   },
 };
 
-const getStyles = (size: Size, color: Color, appearance: Appearance) => {
+const getStyles = (
+  size: SizeEnum,
+  color: ColorEnum,
+  appearance: AppearanceEnum,
+) => {
   return {
     pressableStyles: [
       stylesDictionary.sizes[size].pressable,
@@ -79,11 +89,11 @@ const getStyles = (size: Size, color: Color, appearance: Appearance) => {
 const Button: React.FC<IButtonProps> = ({
   title,
   onPress,
-  size = Size.Default,
-  color = Color.Default,
-  appearance = Appearance.Default,
+  size = SizeEnum.Default,
+  color = ColorEnum.Default,
+  appearance = AppearanceEnum.Default,
   icon,
-  iconPosition = IconPosition.Right,
+  iconPosition = IconPositionEnum.Right,
   isLoading = false,
   isDisabled = false,
 }) => {
@@ -91,14 +101,16 @@ const Button: React.FC<IButtonProps> = ({
 
   let content = [
     title !== undefined ? (
-      <Text style={[styles.text, textStyles]}>{title}</Text>
+      <Text key="text" style={[styles.text, textStyles]}>
+        {title}
+      </Text>
     ) : null,
     icon !== undefined ? (
-      <Icon name={icon} size={stylesDictionary.iconSizes[size]} />
+      <Icon key="icon" name={icon} size={stylesDictionary.iconSizes[size]} />
     ) : null,
   ];
 
-  if (iconPosition === IconPosition.Left) content = content.reverse();
+  if (iconPosition === IconPositionEnum.Left) content = content.reverse();
 
   return (
     <Pressable

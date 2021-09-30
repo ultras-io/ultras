@@ -1,10 +1,10 @@
-export enum Size {
+export enum SizeEnum {
   Small,
   Default,
   Big,
 }
 
-export enum Color {
+export enum ColorEnum {
   Default,
   Danger,
   Primary,
@@ -13,8 +13,8 @@ export enum Color {
 
 export interface IBadgeProps {
   number: number;
-  size?: Size;
-  color?: Color;
+  size?: SizeEnum;
+  color?: ColorEnum;
 }
 
 export interface IWithBadgeProps {

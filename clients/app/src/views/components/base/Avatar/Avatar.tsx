@@ -1,18 +1,18 @@
 import React from 'react';
 import {View, Image} from 'react-native';
 
-import {IAvatarProps, Size} from './types';
+import {IAvatarProps, SizeEnum} from './types';
 import styles from './styles';
 
 const stylesDictionary = {
   sizes: {
-    [Size.Small]: styles.small,
-    [Size.Default]: styles.default,
-    [Size.Big]: styles.big,
+    [SizeEnum.Small]: styles.small,
+    [SizeEnum.Default]: styles.default,
+    [SizeEnum.Big]: styles.big,
   },
 };
 
-const Avatar: React.FC<IAvatarProps> = ({uri, size = Size.Default}) => {
+const Avatar: React.FC<IAvatarProps> = ({uri, size = SizeEnum.Default}) => {
   return (
     <View style={styles.container}>
       <Image source={{uri}} style={stylesDictionary.sizes[size]} />
