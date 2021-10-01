@@ -1,6 +1,6 @@
 class ExampleController {
   static async getExample() {
-    return {example: true};
+    return { example: true };
   }
 }
 

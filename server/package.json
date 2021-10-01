@@ -6,12 +6,16 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "dev": "nodemon",
-    "prod": "pm2 start build/index.js --name ultras-api",
+    "prod": "pm2 start build/api/index.js --name ultras-api",
     "test": "echo Error: no test specified && exit 1",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts .d.ts",
+    "lint-fix": "eslint . --ext .ts .d.ts --fix",
+    "migrate": "npx sequelize-cli db:migrate",
+    "unmigrate": "npx sequelize-cli db:migrate:undo:all",
+    "seed-up": "npx sequelize-cli db:seed:all",
+    "seed-down": "npx sequelize-cli db:seed:undo:all"
   },
   "husky": {
     "hooks": {
@@ -21,12 +25,12 @@
   "author": "@ultras",
   "license": "ISC",
   "devDependencies": {
-    "@types/knex": "^0.16.1",
     "@types/koa": "^2.13.4",
     "@types/koa-router": "^7.4.4",
     "@types/koa__cors": "^3.0.3",
     "@types/lodash": "^4.14.173",
     "@types/node": "^16.9.1",
+    "@types/sequelize": "^4.28.10",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
@@ -44,7 +48,6 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "dotenv": "^10.0.0",
-    "knex": "^0.95.11",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
     "koa-respond": "^2.1.0",
@@ -56,16 +59,13 @@
   },
   "_moduleAliases": {
     "@root": "./src",
+    "api": "src/api",
     "config": "src/config",
-    "controllers": "src/controllers",
+    "core": "src/core",
     "modules": "src/modules",
-    "routes": "src/routes",
-    "sdks": "src/sdks",
-    "services": "src/services",
-    "utils": "src/utils",
+    "scripts": "src/scripts",
     "types": "src/types",
-    "middlewares": "src/middlewares",
-    "@constants": "src/config/constants.ts",
-    "data": "src/data"
+    "utils": "src/utils",
+    "constants": "src/config/constants.ts"
   }
 }

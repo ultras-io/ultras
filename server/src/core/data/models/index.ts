@@ -4,14 +4,20 @@ import { Sequelize, Model } from 'sequelize';
 
 const basename = path.basename(__filename);
 
-import { dbConfig } from 'config';
+import { dbConfig } from 'config/index';
 
-const db: Record<string, Model> = {};
+interface IDatabase {
+  sequelize?: Sequelize;
+}
+
+const db: IDatabase = {};
 
 const sequelize = new Sequelize(
   dbConfig.database,
   dbConfig.username,
   dbConfig.password,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   dbConfig,
 );
 
@@ -21,12 +27,18 @@ fs.readdirSync(__dirname)
       file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js',
   )
   .forEach(file => {
-    const model = sequelize.import(path.join(__dirname, file));
+    const model: Model = require(path.join(__dirname, file));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     db[model.name] = model;
   });
 
 Object.keys(db).forEach(modelName => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   if (db[modelName].associate) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     db[modelName].associate(db);
   }
 });

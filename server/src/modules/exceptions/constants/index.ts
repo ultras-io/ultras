@@ -7,6 +7,7 @@ const SEQUELIZE_ERRORS: Record<string, boolean> = {
   SequelizeForeignKeyConstraintError: true,
   SequelizeDatabaseError: true,
 };
+
 const JWT_ERRORS: Record<string, boolean> = {
   JsonWebTokenError: true,
   TokenExpiredError: true,

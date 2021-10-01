@@ -1,7 +1,7 @@
 import { KoaApp } from './App';
 
 export interface IDatabase {
-  init: () => any /*Promise<never>*/;
+  init: () => Promise<any>;
 }
 
 type AppArgs = {

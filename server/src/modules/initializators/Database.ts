@@ -1,5 +1,6 @@
 import { IDatabase } from './types';
-const { sequelize } = require('../../data/models');
+
+import db from 'core/data/models';
 
 /**
  * Class Database
@@ -7,17 +8,20 @@ const { sequelize } = require('../../data/models');
 class Database implements IDatabase {
   private readonly logging: boolean = false;
 
-  public constructor(logging: boolean = false) {
+  public constructor(logging = false) {
     this.logging = logging;
   }
 
   public async init(): Promise<any> {
-    await sequelize.authenticate();
-    console.info('Connected to postgres SQL database ✅');
+    if (db.sequelize) {
+      await db.sequelize.authenticate();
+      // eslint-disable-next-line no-console
+      console.info('Connected to postgres SQL database ✅');
 
-    return sequelize.sync({
-      logging: this.logging
-    });
+      return db?.sequelize.sync({
+        logging: this.logging,
+      });
+    }
   }
 }
 
