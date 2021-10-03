@@ -20,11 +20,15 @@ function normalizeError(exception: Exception | AuthErrorDetail | ErrorDetail) {
   return exception;
 }
 export default (ctx: Context, exception: ErrorDetail): BaseError<any, any> => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   exception = normalizeError(exception);
   if (exception instanceof BaseError) {
+    // eslint-disable-next-line no-console
     console.error(exception);
     return exception;
   }
+  // eslint-disable-next-line no-console
   console.error(exception);
   return new InternalServerError();
 };

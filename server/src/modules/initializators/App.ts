@@ -1,9 +1,9 @@
 import http from 'http';
 import cors from '@koa/cors';
 
-import restify from 'middlewares/restify';
+import restify from 'api/middlewares/restify';
 import verifyCorsOrigin from 'utils/verifyCorsOrigin';
-import registerRoute from 'routes';
+import registerRoute from 'api/routes';
 
 import { IDatabase } from './types';
 import { AppArgs, IApp, RunArgs } from './types';
@@ -43,7 +43,7 @@ class App implements IApp {
   }
 
   public async run({ port = 4700 }: RunArgs): Promise<any> {
-    // await this.database.init();
+    await this.database.init();
 
     const server = http.createServer(this.app.callback());
 

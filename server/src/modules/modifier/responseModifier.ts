@@ -13,8 +13,7 @@ import set from 'lodash/set';
  *   following conditions:
  *    - when status code > = 204 and status code < 400 at the same time or status code = 405
  *    in this cases actual response will not be modified
- * @param {Koa.Context} ctx - koa context
- * @returns {undefined} undefined
+ * @param {Context} ctx - koa context
  */
 export default (ctx: Context): void => {
   if (
