@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {View, } from 'react-native';
+import {View} from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 import Button from 'views/components/base/Button';

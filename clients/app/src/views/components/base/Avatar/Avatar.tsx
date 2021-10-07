@@ -15,7 +15,10 @@ const stylesDictionary = {
 const Avatar: React.FC<IAvatarProps> = ({uri, size = SizeEnum.Default}) => {
   return (
     <View style={styles.container}>
-      <Image source={{uri}} style={stylesDictionary.sizes[size]} />
+      <Image
+        source={uri ? {uri} : require('../../../../assets/icons/avatar.jpeg')}
+        style={stylesDictionary.sizes[size]}
+      />
     </View>
   );
 };

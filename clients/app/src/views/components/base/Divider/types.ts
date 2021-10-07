@@ -1,3 +1,5 @@
+import {ThemeInterface} from 'styled-components';
+
 export enum TypeEnum {
   Horizontal,
   Vertical,
@@ -5,5 +7,6 @@ export enum TypeEnum {
 }
 
 export interface IDividerProps {
+  theme?: ThemeInterface;
   type?: TypeEnum;
 }

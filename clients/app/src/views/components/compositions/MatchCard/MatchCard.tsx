@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components/native';
 import {View, Image} from 'react-native';
 import UltrasText from 'views/components/base/UltrasText';
 
@@ -8,6 +9,12 @@ import MatchScore from 'views/components/base/MatchScore';
 import {IMatchTimeProps} from '../MatchTime';
 import {IMatchCardProps} from './types';
 import styles from './styles';
+
+const StyledView = styled.View<IMatchCardProps & IMatchTimeProps>`
+  background-color: ${({theme}) => {
+    return theme.colors.lightText;
+  }};
+`;
 
 const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   team1Name,
@@ -24,16 +31,16 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <UltrasText style={styles.league}>
+      <UltrasText style={styles.league} color="lightText">
         {country} {league}
       </UltrasText>
       <View style={styles.logoAndTime}>
-        <View style={styles.logoContainer}>
+        <StyledView style={styles.logoContainer}>
           <Image source={{uri: team1URI}} style={styles.logo} />
-        </View>
-        <View style={[styles.logoContainer, styles.logoContainer2]}>
+        </StyledView>
+        <StyledView style={[styles.logoContainer, styles.logoContainer2]}>
           <Image source={{uri: team2URI}} style={styles.logo} />
-        </View>
+        </StyledView>
         <MatchTime
           leagueImageURI={leagueImageURI}
           matchState={matchState}
@@ -42,7 +49,9 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         />
       </View>
       <View style={styles.teamAndScore}>
-        <UltrasText style={styles.team}>{team1Name}</UltrasText>
+        <UltrasText style={styles.team} color="lightText">
+          {team1Name}
+        </UltrasText>
         {score && (
           <MatchScore
             score={score.team1Score}
@@ -52,7 +61,9 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         )}
       </View>
       <View style={styles.teamAndScore}>
-        <UltrasText style={styles.team}>{team2Name}</UltrasText>
+        <UltrasText style={styles.team} color="lightText">
+          {team2Name}
+        </UltrasText>
         {score && (
           <MatchScore
             score={score.team2Score}

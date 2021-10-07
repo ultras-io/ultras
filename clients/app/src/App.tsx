@@ -1,19 +1,19 @@
 import React from 'react';
+import {StatusBar} from 'react-native';
+import {ThemeProvider} from 'styled-components';
 
-// import {Provider} from 'react-redux';
-// import store from './store';
 import {NavigationContainer} from '@react-navigation/native';
-import RootNavigation from './navigation/root/rootNavigation';
+import RootNavigation from 'navigation/root/rootNavigation';
+import {theme} from 'themes';
 
 const App = () => {
   return (
-    // <Provider store={null}>
-
-    <NavigationContainer>
-      <RootNavigation />
-    </NavigationContainer>
-
-    // </Provider>
+    <ThemeProvider theme={theme}>
+      <StatusBar barStyle="light-content" />
+      <NavigationContainer>
+        <RootNavigation />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 

@@ -1,3 +1,5 @@
+import {ThemeInterface} from 'styled-components';
+import {ColorKey} from 'themes/styled';
 import {IconNamesEnum} from 'assets/icons';
 
 export enum SizeEnum {
@@ -6,16 +8,15 @@ export enum SizeEnum {
   Big,
 }
 
-export enum ColorEnum {
-  Default,
-  Danger,
-  Primary,
-  Secondary,
+export enum BoxSizeEnum {
+  Contain,
+  Cover,
 }
 
 export enum AppearanceEnum {
   Default,
   Minimal,
+  UnderLined,
   Outline,
 }
 
@@ -25,10 +26,13 @@ export enum IconPositionEnum {
 }
 
 export interface IButtonProps {
+  theme?: ThemeInterface;
   onPress: () => void;
   title?: string;
   size?: SizeEnum;
-  color?: ColorEnum;
+  color?: ColorKey;
+  bgColor?: ColorKey;
+  boxSize?: BoxSizeEnum;
   appearance?: AppearanceEnum;
   icon?: IconNamesEnum;
   iconPosition?: IconPositionEnum;

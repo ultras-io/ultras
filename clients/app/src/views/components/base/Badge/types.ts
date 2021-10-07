@@ -1,20 +1,18 @@
+import {ThemeInterface} from 'styled-components';
+import {ColorKey} from 'themes/styled';
+
 export enum SizeEnum {
   Small,
   Default,
   Big,
 }
 
-export enum ColorEnum {
-  Default,
-  Danger,
-  Primary,
-  Secondary,
-}
-
 export interface IBadgeProps {
+  theme?: ThemeInterface;
   number: number;
   size?: SizeEnum;
-  color?: ColorEnum;
+  color?: ColorKey;
+  bgColor?: ColorKey;
 }
 
 export interface IWithBadgeProps {

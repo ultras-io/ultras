@@ -39,30 +39,4 @@ export default StyleSheet.create({
   numberBig: {
     fontSize: 13,
   },
-
-  // colors
-  badgeColorDefault: {
-    backgroundColor: '#535557',
-  },
-  numberColorDefault: {
-    color: '#fff',
-  },
-  badgeColorDanger: {
-    backgroundColor: '#E64D00',
-  },
-  numberColorDanger: {
-    color: '#fff',
-  },
-  badgeColorPrimary: {
-    backgroundColor: '#AB9760',
-  },
-  numberColorPrimary: {
-    color: '#fff',
-  },
-  badgeColorSecondary: {
-    backgroundColor: '#47C471',
-  },
-  numberColorDeSecondary: {
-    color: '#fff',
-  },
 });
