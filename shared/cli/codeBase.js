@@ -15,7 +15,7 @@ export default StyleSheet.create({
         padding: 8,
     },
     text: {
-        fontSize: '12',
+        fontSize: 12,
     },
 });
 `;

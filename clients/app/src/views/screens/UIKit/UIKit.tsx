@@ -5,7 +5,7 @@ import UltrasText from 'views/components/base/UltrasText';
 
 import Button, {
   SizeEnum as ButtonSize,
-  ColorEnum as ButtonColor,
+  BoxSizeEnum as ButtonBoxSize,
   AppearanceEnum as ButtonAppearance,
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
@@ -22,9 +22,11 @@ import MatchTime, {
   MatchStateEnum as MatcheTimeState,
 } from 'views/components/compositions/MatchTime';
 
-import MatchCard, {
-  Score as MatchScore,
-} from 'views/components/compositions/MatchCard';
+import MatchCard from 'views/components/compositions/MatchCard';
+import Input, {TypeEnum as InputType} from 'views/components/base/Input';
+import PhoneInput from 'views/components/compositions/PhoneInput';
+
+import FourDigitsContainer from 'views/containers/FourDigitsContainer';
 
 import {IUIKitProps} from './types';
 import styles from './styles';
@@ -52,6 +54,35 @@ const UIKit: React.FC<IUIKitProps> = () => {
   return (
     <ScrollView style={styles.container}>
       <UltrasText style={styles.title}>UI Kit</UltrasText>
+
+      <UltrasText style={styles.subTitle}>Button</UltrasText>
+
+      <Button
+        title="Like"
+        onPress={log}
+        appearance={ButtonAppearance.Outline}
+        boxSize={ButtonBoxSize.Contain}
+        size={ButtonSize.Default}
+        color="lightText"
+        bgColor="lightText"
+        icon={IconNamesEnum.Hearth}
+        iconPosition={ButtonIconPosition.Left}
+      />
+
+      <UltrasText style={styles.subTitle}>Input</UltrasText>
+
+      <View style={{width: 200, marginTop: 10}}>
+        <Input name="Name" />
+      </View>
+      <View style={{width: 260, marginTop: 10}}>
+        <PhoneInput />
+      </View>
+      <View style={{width: 120, marginTop: 10}}>
+        <Input name="Phone Number" type={InputType.Phone} />
+      </View>
+      <View style={{width: 180, marginTop: 10}}>
+        <Input name="Email" type={InputType.Email} />
+      </View>
 
       <UltrasText style={styles.subTitle}>Match Card</UltrasText>
       <MatchCard
@@ -252,7 +283,7 @@ const UIKit: React.FC<IUIKitProps> = () => {
       <UltrasText style={styles.subTitle}>Avatar & Badge</UltrasText>
       <View style={styles.rowContainer}>
         <View style={styles.rowItem}>
-          <WithBadge number={24} size={BadgeSize.Big} color={BadgeColor.Danger}>
+          <WithBadge number={24} size={BadgeSize.Big} bgColor="danger">
             <Avatar uri={avatarUri} size={AvatarSize.Big} />
           </WithBadge>
         </View>
@@ -260,7 +291,8 @@ const UIKit: React.FC<IUIKitProps> = () => {
           <WithBadge
             number={43768}
             size={BadgeSize.Big}
-            color={BadgeColor.Primary}>
+            bgColor="secondary"
+            color="danger">
             <Avatar uri={romanoUri} size={AvatarSize.Big} />
           </WithBadge>
         </View>
@@ -273,96 +305,6 @@ const UIKit: React.FC<IUIKitProps> = () => {
           <Avatar uri={rlUri} size={AvatarSize.Small} />
         </View>
       </View>
-
-      <UltrasText style={styles.subTitle}>Button</UltrasText>
-      <UltrasText style={styles.section}>Sizes</UltrasText>
-      <>
-        <Button title="Join Us" onPress={log} size={ButtonSize.Small} />
-        <Button title="Join Us" onPress={log} size={ButtonSize.Default} />
-        <Button
-          title="Push Join Us Here Extra Long"
-          onPress={log}
-          size={ButtonSize.Big}
-        />
-      </>
-      <UltrasText style={styles.section}>Colors</UltrasText>
-      <>
-        <Button title="Join Us" onPress={log} color={ButtonColor.Primary} />
-        <Button title="Join Us" onPress={log} color={ButtonColor.Danger} />
-        <Button title="Huhu" onPress={log} color={ButtonColor.Secondary} />
-        <Button title="Huhu" onPress={log} color={ButtonColor.Default} />
-      </>
-      <UltrasText style={styles.section}>Appearance</UltrasText>
-      <>
-        <Button
-          title="Join Us"
-          onPress={log}
-          appearance={ButtonAppearance.Minimal}
-        />
-        <Button
-          title="Join Us"
-          onPress={log}
-          appearance={ButtonAppearance.Default}
-        />
-        <Button
-          title="Push Join Us Here Extra Long"
-          onPress={log}
-          appearance={ButtonAppearance.Outline}
-        />
-      </>
-      <UltrasText style={styles.section}>Icon</UltrasText>
-      <>
-        <Button
-          onPress={log}
-          icon={IconNamesEnum.Hearth}
-          size={ButtonSize.Small}
-        />
-        <Button
-          onPress={log}
-          icon={IconNamesEnum.Hearth}
-          color={ButtonColor.Danger}
-        />
-        <Button
-          onPress={log}
-          icon={IconNamesEnum.Hearth}
-          size={ButtonSize.Big}
-          color={ButtonColor.Primary}
-        />
-        <Button
-          title="Going"
-          onPress={log}
-          size={ButtonSize.Small}
-          icon={IconNamesEnum.Hearth}
-          iconPosition={ButtonIconPosition.Left}
-          color={ButtonColor.Secondary}
-        />
-        <Button
-          title="Love"
-          onPress={log}
-          icon={IconNamesEnum.Hearth}
-          color={ButtonColor.Primary}
-        />
-        <Button
-          title="Love"
-          onPress={log}
-          icon={IconNamesEnum.Hearth}
-          iconPosition={ButtonIconPosition.Left}
-          size={ButtonSize.Big}
-        />
-      </>
-      <UltrasText style={styles.section}>Loading, Disabled</UltrasText>
-      <>
-        <Button title="Go" onPress={log} isLoading />
-        <Button title="Home" onPress={log} isLoading size={ButtonSize.Small} />
-        <Button
-          title="Love"
-          onPress={log}
-          isDisabled
-          icon={IconNamesEnum.Hearth}
-          iconPosition={ButtonIconPosition.Left}
-          size={ButtonSize.Big}
-        />
-      </>
     </ScrollView>
   );
 };

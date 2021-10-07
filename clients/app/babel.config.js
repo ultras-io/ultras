@@ -25,6 +25,8 @@ module.exports = {
           styles: './src/styles',
           utils: './src/utils',
           hooks: './src/utils/hooks',
+          i18n: './src/i18n',
+          themes: './src/themes',
         },
       },
     ],

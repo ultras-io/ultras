@@ -27,3 +27,5 @@ target 'app' do
     react_native_post_install(installer)
   end
 end
+
+pod 'RNI18n', :path => '../node_modules/react-native-i18n'

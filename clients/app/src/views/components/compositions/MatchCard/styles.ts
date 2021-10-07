@@ -10,7 +10,6 @@ export default StyleSheet.create({
     borderTopRightRadius: 13,
   },
   league: {
-    color: '#fff',
     fontSize: 11,
     lineHeight: 13,
   },
@@ -25,7 +24,6 @@ export default StyleSheet.create({
     width: 30,
     height: 30,
     marginRight: 2,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -46,6 +44,5 @@ export default StyleSheet.create({
     fontWeight: '600',
     fontSize: 15,
     lineHeight: 18,
-    color: '#fff',
   },
 });

@@ -22,12 +22,10 @@ export default StyleSheet.create({
     fontSize: 9,
     lineHeight: 9,
     fontWeight: '400',
-    color: '#fff',
   },
   time: {
     fontSize: 11,
     lineHeight: 12,
     fontWeight: '600',
-    color: '#fff',
   },
 });

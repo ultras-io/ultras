@@ -1,11 +1,20 @@
 import React from 'react';
-import {Text} from 'react-native';
+import styled from 'styled-components/native';
 
 import {IUltrasTextProps} from './types';
-import styles from './styles';
 
-const UltrasText: React.FC<IUltrasTextProps> = ({style, children}) => {
-  return <Text style={[style, styles.text]}>{children}</Text>;
+const StyledText = styled.Text<IUltrasTextProps>`
+  color: ${({theme, color}) => {
+    return color ? theme.colors[color] : theme.colors.darkText;
+  }};
+`;
+
+const UltrasText: React.FC<IUltrasTextProps> = ({children, style, color}) => {
+  return (
+    <StyledText style={style} color={color}>
+      {children}
+    </StyledText>
+  );
 };
 
 export default React.memo<IUltrasTextProps>(UltrasText);

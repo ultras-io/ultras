@@ -5,6 +5,6 @@ export enum SizeEnum {
 }
 
 export interface IAvatarProps {
-  uri: string;
+  uri?: string;
   size?: SizeEnum;
 }
