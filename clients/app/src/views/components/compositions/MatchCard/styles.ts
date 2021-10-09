@@ -5,9 +5,7 @@ export default StyleSheet.create({
     marginTop: 20,
     paddingVertical: 13,
     paddingHorizontal: 15,
-    backgroundColor: 'rgba(255,255,255, 0.1)',
-    borderTopLeftRadius: 13,
-    borderTopRightRadius: 13,
+    borderRadius: 13,
   },
   league: {
     fontSize: 11,

@@ -43,4 +43,8 @@ export default {
   joinUsCongrats: 'Congrats, Lorem ipsum dolor sit amet,',
   joinUsCongratsText:
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+
+  // posts
+  postDiscussionAt: 'Discussion at ',
+  postFollowTopic: 'Follow Topic',
 };
