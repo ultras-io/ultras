@@ -16,8 +16,7 @@ class InternalServerError extends BaseError<null, null> {
     let error: Exception = BASE_ERRORS.INTERNAL_SERVER_ERROR;
     if (this.details) {
       error = { ...error, details: this.details };
-    } else
-      error = { ...error, details: BASE_ERRORS.INTERNAL_SERVER_ERROR.debug };
+    } else error = { ...error, details: BASE_ERRORS.INTERNAL_SERVER_ERROR.debug };
 
     return error;
   }
@@ -34,8 +33,7 @@ class InvalidUserCredentials extends BaseError<null, null> {
 
     if (this.details) {
       error = { ...error, details: this.details };
-    } else
-      error = { ...error, details: BASE_ERRORS.INVALID_USER_CREDENTIALS.debug };
+    } else error = { ...error, details: BASE_ERRORS.INVALID_USER_CREDENTIALS.debug };
     return error;
   }
 }
@@ -57,10 +55,7 @@ class AccessDeniedError extends BaseError<null, null> {
   }
 }
 
-class AuthenticationError extends BaseError<
-  AuthErrorDetail | ErrorDetail,
-  null
-> {
+class AuthenticationError extends BaseError<AuthErrorDetail | ErrorDetail, null> {
   constructor(details: AuthErrorDetail | ErrorDetail) {
     super();
     this.details = details;
@@ -117,20 +112,32 @@ class RequiredParameterNotProvided extends BaseError<null, null> {
   }
 }
 
-/*class SequelizeError extends BaseError<null, null> {
+class SequelizeError extends BaseError<null, null> {
   constructor(exception: ErrorDetail) {
     super();
     this.exception = exception;
-    this.details = exception.errors
-      ? exception.errors[0].message
-      : exception.message;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    if (exception?.errors) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      this.details = exception?.errors[0].message;
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      this.details = exception?.message;
+    }
   }
 
   public getError() {
     let error = BASE_ERRORS.INVALID_USER_INPUT;
     if (this.details) {
       error = { ...error, details: this.details };
-      if (!this.exception.errors) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      if (!this.exception?.errors) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         [error.details, error.debug] = [error.debug, error.details];
       }
       error.details = {
@@ -139,7 +146,7 @@ class RequiredParameterNotProvided extends BaseError<null, null> {
     }
     return error;
   }
-}*/
+}
 
 class SomethingWentWrong extends BaseError<null, null> {
   public constructor(details: ErrorDetail) {
@@ -247,7 +254,7 @@ export {
   ResourceNotFoundError,
   AuthenticationError,
   AccessDeniedError,
-  // SequelizeError,
+  SequelizeError,
   ServiceNotAvailableError,
   SomethingWentWrong,
 };

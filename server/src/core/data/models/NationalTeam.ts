@@ -6,6 +6,7 @@ export interface NationalTeamAttributes {
   id: number;
   name: string;
   code: string;
+  flag: string;
 }
 
 export type NationalTeamCreationAttributes = Optional<
@@ -20,6 +21,7 @@ export class NationalTeam
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public name!: string;
   public code!: string;
+  public flag!: string;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -44,6 +46,10 @@ module.exports = (sequelize: Sequelize): typeof NationalTeam => {
       },
       code: {
         type: new DataTypes.STRING(10),
+        allowNull: false,
+      },
+      flag: {
+        type: new DataTypes.STRING(),
         allowNull: false,
       },
     },

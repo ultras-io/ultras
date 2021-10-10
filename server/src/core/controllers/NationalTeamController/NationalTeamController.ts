@@ -1,12 +1,14 @@
 import db from 'core/data/models';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-console.log('-------', db);
+
 enum Order {
   asc = 'asc',
   desc = 'desc',
 }
+
 import { GetAllNTeamsActionParams, GetAllNTeamsActionResult } from './types';
+import syncTeams from 'core/data/scripts/injectNationalTeams';
 
 class NationalTeamController {
   static async getAll({
