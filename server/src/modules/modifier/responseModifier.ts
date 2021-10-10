@@ -1,4 +1,4 @@
-import { Context } from 'types';
+import { Context } from 'types/index';
 
 import set from 'lodash/set';
 
@@ -28,21 +28,22 @@ export default (ctx: Context): void => {
     result = result.dataValues;
   }
   const response = {
-    meta: undefined,
+    meta: {},
   };
   const pagination = {};
-  if (Array.isArray(result.data) && result.total) {
+  // eslint-disable-next-line no-prototype-builtins
+  if (Array.isArray(result.data) && result.hasOwnProperty('total')) {
     set(
       pagination,
       'limit',
-      parseInt(ctx.request.query.limit, 10) || result.limit,
+      parseInt(ctx.request.query.limit || result.limit, 10),
     );
     // if offset not provided , it should be null,
     // but offset of s3 request is not a number  so we can't parse the request's offset
     set(
       pagination,
       'offset',
-      parseInt(ctx.request.query.limit, 10) || result.offset,
+      parseInt(ctx.request.query.limit || result.offset, 10),
     );
     set(pagination, 'total', result.total);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -58,7 +59,7 @@ export default (ctx: Context): void => {
   if (!result.meta && result.data) result.meta = {};
 
   set(response, 'data', result.data);
-  set(response, 'meta', result.meta);
+  // set(response, 'meta', result.meta); @TODO check why is need this line
 
   ctx.body = response;
 };

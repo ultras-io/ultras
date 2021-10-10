@@ -1,5 +1,5 @@
 import { BASE_ERRORS } from './constants';
-import { AuthErrorDetail, ErrorDetail, Exception } from 'types';
+import { AuthErrorDetail, ErrorDetail, Exception } from 'types/index';
 
 class BaseError<T1, T2> extends Error {
   protected details?: T1 | ErrorDetail = {};

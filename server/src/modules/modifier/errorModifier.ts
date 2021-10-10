@@ -5,7 +5,7 @@ import {
   InternalServerError,
   AuthenticationError,
 } from 'modules/exceptions';
-import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types';
+import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types/index';
 
 function normalizeError(exception: Exception | AuthErrorDetail | ErrorDetail) {
   // if (SEQUELIZE_ERRORS[exception.name]) {

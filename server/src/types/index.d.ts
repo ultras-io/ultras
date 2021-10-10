@@ -37,3 +37,24 @@ export type Exception = {
   debug: string;
   details?: ErrorDetail;
 };
+
+export type PaginationParams = {
+  limit?: number;
+  offset?: number;
+};
+
+export enum Order {
+  desc = 'desc',
+  asc = 'asc',
+}
+
+export interface ListRequestParams extends PaginationParams {
+  order?: Order;
+}
+
+export interface ControllerListActionResult<T> {
+  data: T[];
+  limit: number;
+  offset: number;
+  count: number;
+}
