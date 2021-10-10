@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
-import {View} from 'react-native';
 
+import WithSafeArea from 'views/components/base/WithSafeArea';
 import UltrasText from 'views/components/base/UltrasText';
 import Button from 'views/components/base/Button';
 
@@ -19,11 +19,11 @@ const Event: React.FC<IEventProps> = ({route}) => {
   }, [pushTo]);
 
   return (
-    <View style={styles.container}>
+    <WithSafeArea>
       <UltrasText style={styles.text}>Single Event</UltrasText>
       <UltrasText>tab: {tabName}</UltrasText>
       <Button title="Push Single Match" onPress={navigateToMatch} />
-    </View>
+    </WithSafeArea>
   );
 };
 
