@@ -81,7 +81,6 @@ const UIKit: React.FC<IUIKitProps> = () => {
         <Input name="Email" type={InputType.Email} />
       </View>
 
-
       <UltrasText style={styles.subTitle}>Post Card</UltrasText>
       <PostCard
         date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
@@ -91,6 +90,7 @@ const UIKit: React.FC<IUIKitProps> = () => {
         supportersClub={'Absolute Chelsea'}
         commentsCount={37}
         isFollowing={false}
+      />
 
       <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
       <SupportersClubCard

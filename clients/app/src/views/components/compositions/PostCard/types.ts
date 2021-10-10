@@ -1,7 +1,7 @@
 import {ThemeInterface} from 'styled-components';
 
 export interface IPostCardProps {
-  theme: ThemeInterface;
+  theme?: ThemeInterface;
   date: Date;
   title: string;
   supportersClub: string;
