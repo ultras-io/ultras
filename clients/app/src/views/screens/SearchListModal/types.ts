@@ -3,7 +3,7 @@ import {ThemeInterface} from 'styled-components';
 export enum keyEnum {
   Code,
   FootballClub,
-  NtionalTeam,
+  NationalTeam,
 }
 
 export interface ISearchListModalProps {

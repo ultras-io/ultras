@@ -104,7 +104,7 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     name = I18n.t('country');
   } else if (dataKey === keyEnum.FootballClub) {
     name = I18n.t('fc');
-  } else if (dataKey === keyEnum.NtionalTeam) {
+  } else if (dataKey === keyEnum.NationalTeam) {
     name = I18n.t('natioanlTeam');
   }
 
