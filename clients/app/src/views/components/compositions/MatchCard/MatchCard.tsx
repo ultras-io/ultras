@@ -10,6 +10,11 @@ import {IMatchTimeProps} from '../MatchTime';
 import {IMatchCardProps} from './types';
 import styles from './styles';
 
+const StyledContainer = styled.View<IMatchCardProps & IMatchTimeProps>`
+  background-color: ${({theme}) => {
+    return theme.colors.backgroundColor;
+  }};
+`;
 const StyledView = styled.View<IMatchCardProps & IMatchTimeProps>`
   background-color: ${({theme}) => {
     return theme.colors.lightText;
@@ -30,7 +35,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   minute,
 }) => {
   return (
-    <View style={styles.container}>
+    <StyledContainer style={styles.container}>
       <UltrasText style={styles.league} color="lightText">
         {country} {league}
       </UltrasText>
@@ -72,7 +77,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
           />
         )}
       </View>
-    </View>
+    </StyledContainer>
   );
 };
 

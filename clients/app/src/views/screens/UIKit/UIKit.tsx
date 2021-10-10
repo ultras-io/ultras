@@ -10,11 +10,7 @@ import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
 import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
-import {
-  WithBadge,
-  SizeEnum as BadgeSize,
-  ColorEnum as BadgeColor,
-} from 'views/components/base/Badge';
+import {WithBadge, SizeEnum as BadgeSize} from 'views/components/base/Badge';
 import {IconNamesEnum} from '../../../assets/icons';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 
@@ -26,6 +22,7 @@ import MatchCard from 'views/components/compositions/MatchCard';
 import Input, {TypeEnum as InputType} from 'views/components/base/Input';
 import PhoneInput from 'views/components/compositions/PhoneInput';
 
+import PostCard from 'views/components/compositions/PostCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 
 import {IUIKitProps} from './types';
@@ -83,6 +80,17 @@ const UIKit: React.FC<IUIKitProps> = () => {
       <View style={{width: 180, marginTop: 10}}>
         <Input name="Email" type={InputType.Email} />
       </View>
+
+
+      <UltrasText style={styles.subTitle}>Post Card</UltrasText>
+      <PostCard
+        date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+        title={
+          "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
+        }
+        supportersClub={'Absolute Chelsea'}
+        commentsCount={37}
+        isFollowing={false}
 
       <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
       <SupportersClubCard
