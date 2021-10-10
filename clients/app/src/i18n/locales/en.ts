@@ -8,10 +8,16 @@ export default {
   changeNumber: 'Change Number',
   almostDone: 'Almost done',
   confirm: 'Confirm',
+  close: 'Close',
+  select: 'Select',
+  searchFor: 'Search for',
   allowNotifications: 'Allow Notifications',
   enableLocationsServices: 'Enable Locations Services',
   gotIt: 'Got It',
   privacy: 'Privacy Policy',
+  country: 'Country',
+  fc: 'Football Club',
+  natioanlTeam: 'Natioanl Team',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',

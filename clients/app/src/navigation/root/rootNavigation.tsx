@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {withTheme} from 'styled-components/native';
+
+import {ThemeInterface} from 'styled-components';
 
 import SplashScreen from 'views/screens/Splash';
 import screens from './rootScreens';
 
-import styles from 'styles/styles';
-
 const Stack = createNativeStackNavigator();
 
-const RootNavigation: React.FC = () => {
+export interface IRootNavigationProps {
+  theme?: ThemeInterface;
+}
+
+const RootNavigation: React.FC<IRootNavigationProps> = ({theme}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated] = useState(false);
 
@@ -20,7 +25,7 @@ const RootNavigation: React.FC = () => {
     <Stack.Navigator
       initialRouteName={screens.intro.name}
       screenOptions={{
-        headerStyle: styles.appBackgroundColor,
+        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
         headerShown: false,
       }}>
       {isAuthenticated ? (
@@ -54,4 +59,4 @@ const RootNavigation: React.FC = () => {
   );
 };
 
-export default RootNavigation;
+export default React.memo<IRootNavigationProps>(withTheme(RootNavigation));
