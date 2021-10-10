@@ -23,18 +23,19 @@ import Input, {TypeEnum as InputType} from 'views/components/base/Input';
 import PhoneInput from 'views/components/compositions/PhoneInput';
 
 import PostCard from 'views/components/compositions/PostCard';
+import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 
 import {IUIKitProps} from './types';
 import styles from './styles';
 
 const avatarUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/209318028_231713268577743_6245281435767734030_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=CuBw9LjriNAAX_0cPDD&tn=sKVAP798p6JBPzPQ&edm=ABfd0MgBAAAA&ccb=7-4&oh=5b4b8b1067c81b0c520646486b6b7e14&oe=615C0585&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/163650366_582341719356091_276870700844455813_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=bFJHgQ-xwOkAX8WGSbe&edm=ABfd0MgBAAAA&ccb=7-4&oh=48c3ef745ef2eb0269b41acc83c4fb16&oe=61682632&_nc_sid=7bff83';
 
 const romanoUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/12825782_1686181148337278_445906028_a.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=Q9nDcP7Z4YIAX9gwwyh&edm=ABfd0MgBAAAA&ccb=7-4&oh=0ff24f917679ad4938224419cb9eb7fa&oe=615C57F1&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/242809702_469878950673668_7726857470160677314_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=ADqqarorL1EAX_SB4-F&edm=ABfd0MgBAAAA&ccb=7-4&oh=9f05f765d78e4ecf72aad4e62a94e3e5&oe=61696472&_nc_sid=7bff83';
 
 const rlUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/241823380_830172197641351_4125620187399622783_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=4pv9H9K5NFsAX9XKPs0&edm=ABfd0MgBAAAA&ccb=7-4&oh=c2de87fdbf6ca2f34e4acb2f41f16294&oe=615B54E6&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/65280369_508538103219999_1200879938362671104_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=0mi-ZtEFyX0AX-EVXEV&edm=ABfd0MgBAAAA&ccb=7-4&oh=0da3c68602fbb18395eb87a8db288e5c&oe=61694F61&_nc_sid=7bff83';
 
 const UIKit: React.FC<IUIKitProps> = () => {
   const log = () => {
@@ -80,6 +81,7 @@ const UIKit: React.FC<IUIKitProps> = () => {
         <Input name="Email" type={InputType.Email} />
       </View>
 
+
       <UltrasText style={styles.subTitle}>Post Card</UltrasText>
       <PostCard
         date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
@@ -89,6 +91,25 @@ const UIKit: React.FC<IUIKitProps> = () => {
         supportersClub={'Absolute Chelsea'}
         commentsCount={37}
         isFollowing={false}
+
+      <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
+      <SupportersClubCard
+        name="Juventus Official Fan Club Russia"
+        ultrasCount={48920}
+        city="Moscow"
+        avatarUri={rlUri}
+      />
+      <SupportersClubCard
+        name="Chelsea Pulse"
+        ultrasCount={122389}
+        city="London"
+        avatarUri={romanoUri}
+      />
+      <SupportersClubCard
+        name="Juventus Սեվ Սպիտակ Բանակ"
+        ultrasCount={2389}
+        city="Yerevan"
+        avatarUri={avatarUri}
       />
 
       <UltrasText style={styles.subTitle}>Match Card</UltrasText>

@@ -1,4 +1,5 @@
 export default {
+  ultras: 'ultras',
   joinUs: 'Join Us',
   hi: 'Hi!',
   letsStart: "Let's Strat.",
