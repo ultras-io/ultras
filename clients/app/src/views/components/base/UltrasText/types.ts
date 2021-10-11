@@ -7,4 +7,5 @@ export interface IUltrasTextProps {
   theme?: ThemeInterface;
   color?: ColorKey;
   style?: StyleProp<TextStyle>;
+  numberOfLines?: number;
 }

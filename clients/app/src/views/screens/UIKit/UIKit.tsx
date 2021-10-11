@@ -13,7 +13,11 @@ import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 import {WithBadge, SizeEnum as BadgeSize} from 'views/components/base/Badge';
 import {IconNamesEnum} from '../../../assets/icons';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
+
+import CommentsCount from 'views/components/base/CommentsCount';
+
 import Like from 'views/components/base/Like';
+
 
 import MatchTime, {
   MatchStateEnum as MatcheTimeState,
@@ -53,9 +57,45 @@ const UIKit: React.FC<IUIKitProps> = () => {
     <ScrollView style={styles.container}>
       <UltrasText style={styles.title}>UI Kit</UltrasText>
 
+
+      <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
+      <View style={styles.rowContainer}>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={25} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={432} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2455} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={24354} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={243544} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2432254} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={24600354} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={246003540} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2460035904} />
+        </View>
+      </View>
+
       <UltrasText style={styles.subTitle}>Like</UltrasText>
       <Like onPress={() => {}} />
       <Like isLiked onPress={() => {}} />
+
 
       <UltrasText style={styles.subTitle}>Button</UltrasText>
 
