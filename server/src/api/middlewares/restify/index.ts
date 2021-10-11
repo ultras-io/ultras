@@ -5,7 +5,7 @@ import { Middleware } from 'koa';
 
 import { HTTP_STATUS_METHODS } from 'config/constants';
 
-// const responseHandler = require('./responseHandler');
+import responseHandler from 'modules/modifier/responseHandler';
 
 export default (): Middleware =>
   compose([
@@ -13,5 +13,5 @@ export default (): Middleware =>
     respond({
       statusMethods: HTTP_STATUS_METHODS,
     }),
-    // responseHandler,
+    responseHandler,
   ]);

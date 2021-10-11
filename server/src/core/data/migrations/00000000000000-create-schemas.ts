@@ -1,7 +1,5 @@
-import lcp from '../lcp';
+import { ULTRAS_CORE, ULTRAS_LOGS } from '../lcp/schemas';
 import { QueryInterface } from 'sequelize';
-
-const { ULTRAS_CORE, ULTRAS_LOGS } = lcp;
 
 export default {
   async up(queryInterface: QueryInterface): Promise<void> {
@@ -10,7 +8,7 @@ export default {
   },
 
   async down(queryInterface: QueryInterface): Promise<void> {
-    await queryInterface.dropSchema(ULTRAS_CORE);
-    await queryInterface.dropSchema(ULTRAS_LOGS);
+    /* await queryInterface.dropSchema(ULTRAS_CORE);
+    await queryInterface.dropSchema(ULTRAS_LOGS);*/
   },
 };

@@ -9,7 +9,6 @@ const dbConfig = {
   database: process.env.DB_NAME || '',
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
-  dialect: 'postgres',
   port: parseInt(process.env.DB_PORT || DEFAULT_DATABASE_PORT),
   logging: Boolean(parseInt(process.env.DB_LOGGING || '1', 10)) || false,
 };
@@ -53,4 +52,13 @@ const awsConfig = {
 
 const whiteList = process.env.CORS_WHITE_LIST;
 
-export { serverConfig, authConfig, awsConfig, whiteList, dbConfig };
+const apiFootballKey = process.env.API_FOOTBALL_KEY;
+
+export {
+  dbConfig,
+  awsConfig,
+  authConfig,
+  whiteList,
+  serverConfig,
+  apiFootballKey,
+};
