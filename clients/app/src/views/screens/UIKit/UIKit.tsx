@@ -13,6 +13,7 @@ import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 import {WithBadge, SizeEnum as BadgeSize} from 'views/components/base/Badge';
 import {IconNamesEnum} from '../../../assets/icons';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
+import Like from 'views/components/base/Like';
 
 import MatchTime, {
   MatchStateEnum as MatcheTimeState,
@@ -52,10 +53,14 @@ const UIKit: React.FC<IUIKitProps> = () => {
     <ScrollView style={styles.container}>
       <UltrasText style={styles.title}>UI Kit</UltrasText>
 
+      <UltrasText style={styles.subTitle}>Like</UltrasText>
+      <Like onPress={() => {}} />
+      <Like isLiked onPress={() => {}} />
+
       <UltrasText style={styles.subTitle}>Button</UltrasText>
 
       <Button
-        title="Like"
+        title="Button"
         onPress={log}
         appearance={ButtonAppearance.Outline}
         boxSize={ButtonBoxSize.Contain}
