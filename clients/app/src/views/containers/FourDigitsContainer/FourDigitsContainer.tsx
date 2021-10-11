@@ -62,14 +62,14 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
       <View style={styles.textAndButton}>
         {isFilledWrong && (
           <UltrasText style={styles.text}>
-            <Icon key="icon" name={Icons.Hearth} size={12} color="yellow" />{' '}
-            Please enter the correct code
+            <Icon key="icon" name={Icons.Hearth} size={12} /> Please enter the
+            correct code
           </UltrasText>
         )}
         <Button
           appearance={ButtonAppearance.UnderLined}
           size={ButtonSize.Small}
-          color={'tint'}
+          color="quaternary"
           isDisabled={waitingTime > 0}
           title={
             waitingTime > 0

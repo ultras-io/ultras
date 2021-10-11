@@ -26,7 +26,6 @@ const scenario: Array<ScenarStep> = [
             </UltrasText>
           </>
         ),
-        //direction: AnimationDirection.Left2Right,
       },
     ],
     action: {
@@ -81,7 +80,7 @@ const scenario: Array<ScenarStep> = [
               <Button
                 appearance={ButtonAppearance.UnderLined}
                 size={ButtonSize.Small}
-                color={'tint'}
+                color="quaternary"
                 isDisabled={!canChange}
                 title={I18n.t('changeNumber')}
                 onPress={changeNumber}

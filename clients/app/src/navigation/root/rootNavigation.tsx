@@ -25,7 +25,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({theme}) => {
     <Stack.Navigator
       initialRouteName={screens.intro.name}
       screenOptions={{
-        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
+        headerStyle: {backgroundColor: theme?.colors.bgColor},
         headerShown: false,
       }}>
       {isAuthenticated ? (

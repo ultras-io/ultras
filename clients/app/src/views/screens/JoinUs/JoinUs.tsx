@@ -166,7 +166,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
                         }
                       }}
                       size={ButtonSize.Big}
-                      bgColor="secondary"
+                      bgColor="primary"
                     />
                   </View>
                 )}
@@ -176,7 +176,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
               // rendering user's message
               <>
                 <MessageBox side={MessageSide.Right}>
-                  <UltrasText style={styles.actionText} color="lightText">
+                  <UltrasText style={styles.actionText} color="text">
                     <Icon
                       key="icon"
                       name={
@@ -186,7 +186,6 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
                           : Icons.Hearth
                       }
                       size={12}
-                      color="#fff"
                     />{' '}
                     {item.action.type === ActionTypeEnum.Button &&
                       item.action.title}
@@ -201,7 +200,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
                 </MessageBox>
                 {item.action.type === ActionTypeEnum.AllowLocation &&
                   !isLocationEnabled && (
-                    <UltrasText style={styles.actionSubText} color="lightText">
+                    <UltrasText style={styles.actionSubText} color="text">
                       {I18n.t('joinUsLocationNotEnabledText')}
                     </UltrasText>
                   )}

@@ -14,7 +14,7 @@ const stylesDictionary = {
 
 const StyledView = styled.View<IDividerProps>`
   background-color: ${({theme}) => {
-    return theme.colors.lightText;
+    return theme.colors.secondaryText;
   }};
 `;
 

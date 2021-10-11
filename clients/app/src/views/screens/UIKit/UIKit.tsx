@@ -60,8 +60,8 @@ const UIKit: React.FC<IUIKitProps> = () => {
         appearance={ButtonAppearance.Outline}
         boxSize={ButtonBoxSize.Contain}
         size={ButtonSize.Default}
-        color="lightText"
-        bgColor="lightText"
+        color="text"
+        bgColor="text"
         icon={IconNamesEnum.Hearth}
         iconPosition={ButtonIconPosition.Left}
       />

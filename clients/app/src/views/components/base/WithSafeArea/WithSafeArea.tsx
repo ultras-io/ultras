@@ -10,11 +10,9 @@ const WithSafeArea: React.FC<IWithSafeAreaProps> = ({
   disableSafeArea = false,
 }) => {
   return disableSafeArea ? (
-    <View style={{backgroundColor: theme?.colors.backgroundColor}}>
-      {children}
-    </View>
+    <View style={{backgroundColor: theme?.colors.bgColor}}>{children}</View>
   ) : (
-    <SafeAreaView style={{backgroundColor: theme?.colors.backgroundColor}}>
+    <SafeAreaView style={{backgroundColor: theme?.colors.bgColor}}>
       {children}
     </SafeAreaView>
   );

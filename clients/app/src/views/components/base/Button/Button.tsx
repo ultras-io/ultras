@@ -80,7 +80,7 @@ const Button: React.FC<IButtonProps> = ({
   title,
   onPress,
   size = SizeEnum.Default,
-  color = 'lightText',
+  color = 'text',
   bgColor = 'primary',
   boxSize = BoxSizeEnum.Cover,
   appearance = AppearanceEnum.Default,

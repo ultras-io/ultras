@@ -24,13 +24,13 @@ const keyboardTypes: KeyboardTypes = {
 
 const StyledInput = styled.TextInput<IInputProps>`
   background-color: ${({theme}) => {
-    return theme.colors.boxBackgroundColor;
+    return theme.colors.opacityBgColor;
   }};
   border-color: ${({theme}) => {
-    return theme.colors.boxBackgroundColor;
+    return theme.colors.opacityBgColor;
   }};
   color: ${({theme}) => {
-    return theme.colors.lightText;
+    return theme.colors.text;
   }};
 `;
 
@@ -92,8 +92,8 @@ const Input: React.FC<IInputProps> = ({
         autoCorrect={false}
         onEndEditing={_onEndEditing}
         onPressIn={_onPressIn}
-        placeholderTextColor={theme?.colors.lightText2}
-        selectionColor={theme?.colors.lightText2}
+        placeholderTextColor={theme?.colors.secondaryText}
+        selectionColor={theme?.colors.secondaryText}
         autoCapitalize="none"
         editable={!_isSelect}
       />

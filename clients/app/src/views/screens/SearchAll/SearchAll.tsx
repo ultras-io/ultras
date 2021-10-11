@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {View} from 'react-native';
 
-import useNavigationWithParams from 'hooks/useNavigationWithParams';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import Button from 'views/components/base/Button';
 import searchScreens from 'navigation/search/searchScreens';
 
