@@ -1,21 +1,18 @@
-import { JWT_ERRORS } from 'modules/exceptions/constants';
-import {
-  // SequelizeError,
-  BaseError,
-  InternalServerError,
-  AuthenticationError,
-} from 'modules/exceptions';
-import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types';
+import { JWT_ERRORS, SEQUELIZE_ERRORS } from 'modules/exceptions/constants';
+import { SequelizeError, BaseError, InternalServerError, AuthenticationError } from 'modules/exceptions';
+import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types/index';
 
 function normalizeError(exception: Exception | AuthErrorDetail | ErrorDetail) {
-  // if (SEQUELIZE_ERRORS[exception.name]) {
-  //   return new SequelizeError(exception);
-  // }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  if (exception instanceof JWT_ERRORS[exception.name]) {
-    return new AuthenticationError(exception);
+  if (SEQUELIZE_ERRORS[exception.name]) {
+    return new SequelizeError(exception);
   }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // if (exception instanceof JWT_ERRORS[exception.name]) {
+  //   return new AuthenticationError(exception);
+  // }
 
   return exception;
 }

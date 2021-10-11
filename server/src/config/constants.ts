@@ -18,4 +18,9 @@ const HTTP_STATUS_METHODS: Record<string, number> = {
   serviceNotAvailable: 503,
 };
 
-export { ENVS, HTTP_STATUS_METHODS };
+const DEFAULT_PAGINATION_ATTRIBUTES = {
+  LIMIT: 50,
+  OFFSET: 0,
+};
+
+export { ENVS, HTTP_STATUS_METHODS, DEFAULT_PAGINATION_ATTRIBUTES };

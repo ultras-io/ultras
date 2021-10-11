@@ -29,10 +29,12 @@
     "@types/koa-router": "^7.4.4",
     "@types/koa__cors": "^3.0.3",
     "@types/lodash": "^4.14.173",
-    "@types/node": "^16.9.1",
+    "@types/node": "^16.10.3",
     "@types/sequelize": "^4.28.10",
+    "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.32.0",
+    "axios": "^0.22.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -55,6 +57,7 @@
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5"
   },
   "_moduleAliases": {
@@ -66,6 +69,6 @@
     "scripts": "src/scripts",
     "types": "src/types",
     "utils": "src/utils",
-    "constants": "src/config/constants.ts"
+    "@constants": "src/config/constants.ts"
   }
 }

@@ -1,19 +1,11 @@
 import Router from 'koa-router';
 
-/*
-const userRoutes = require('./users');
-const topicRoutes = require('./topics');
-const awsRoutes = require('./aws');
-*/
+import nationalTeams from './nationalTeams';
 
 const router = new Router({
   prefix: '/v1',
 });
 
-/*
-router.use(userRoutes.routes());
-router.use(topicRoutes.routes());
-router.use(awsRoutes.routes());
-*/
+router.use(nationalTeams.routes());
 
 export default router;
