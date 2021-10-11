@@ -24,6 +24,7 @@ import PhoneInput from 'views/components/compositions/PhoneInput';
 
 import PostCard from 'views/components/compositions/PostCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
+import TeamCard from 'views/components/compositions/TeamCard';
 
 import {IUIKitProps} from './types';
 import styles from './styles';
@@ -111,6 +112,23 @@ const UIKit: React.FC<IUIKitProps> = () => {
         city="Yerevan"
         avatarUri={avatarUri}
       />
+
+      <UltrasText style={styles.subTitle}>Team Card</UltrasText>
+      <TeamCard
+        name="AS Rome"
+        supportersClubsCount={47}
+        city="Rome"
+        country="Italy"
+        avatarUri={romanoUri}
+      />
+      <TeamCard
+        name="Chelsea FC"
+        supportersClubsCount={129}
+        city="London"
+        country="England"
+        avatarUri={rlUri}
+      />
+      <TeamCard name="Italy" supportersClubsCount={900} avatarUri={avatarUri} />
 
       <UltrasText style={styles.subTitle}>Match Card</UltrasText>
       <MatchCard

@@ -9,26 +9,27 @@ import Divider from 'views/components/base/Divider';
 
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
-import {ISupportersClubCardProps} from './types';
+import {ITeamCardProps} from './types';
 
 import styles from './styles';
 
-const StyledView = styled.View<ISupportersClubCardProps>`
+const StyledView = styled.View<ITeamCardProps>`
   background-color: ${({theme}) => {
     return theme.colors.backgroundColor;
   }};
 `;
 
-const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
+const TeamCard: React.FC<ITeamCardProps> = ({
   avatarUri,
   name,
-  ultrasCount,
+  supportersClubsCount,
+  country,
   city,
 }) => {
   return (
     <StyledView style={styles.container}>
       <View style={styles.avatar}>
-        <Avatar uri={avatarUri} size={AvatarSize.Big} />
+        <Avatar uri={avatarUri} size={AvatarSize.Default} />
       </View>
       <View style={styles.info}>
         <UltrasText color="lightText" style={styles.name}>
@@ -36,18 +37,33 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
         </UltrasText>
         <View style={styles.line}>
           <UltrasText color="lightText2" style={styles.text}>
-            {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+            {getReadableNumber(supportersClubsCount)}{' '}
+            {I18n.t('supportersClubs')}
           </UltrasText>
-          <View style={styles.divider}>
-            <Divider />
-          </View>
-          <UltrasText style={styles.text} color="lightText2">
-            {city}
-          </UltrasText>
+          {country && (
+            <>
+              <View style={styles.divider}>
+                <Divider />
+              </View>
+              <UltrasText style={styles.text} color="lightText2">
+                {country}
+              </UltrasText>
+            </>
+          )}
+          {city && (
+            <>
+              <View style={styles.divider}>
+                <Divider />
+              </View>
+              <UltrasText style={styles.text} color="lightText2">
+                {city}
+              </UltrasText>
+            </>
+          )}
         </View>
       </View>
     </StyledView>
   );
 };
 
-export default React.memo<ISupportersClubCardProps>(SupportersClubCard);
+export default React.memo<ITeamCardProps>(TeamCard);

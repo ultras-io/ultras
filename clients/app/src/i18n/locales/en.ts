@@ -18,6 +18,7 @@ export default {
   country: 'Country',
   fc: 'Football Club',
   natioanlTeam: 'Natioanl Team',
+  supportersClubs: 'Supporters Clubs',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',
