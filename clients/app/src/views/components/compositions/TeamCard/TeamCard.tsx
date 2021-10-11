@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
-import styled from 'styled-components/native';
 import I18n from 'i18n/i18n';
 
+import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 import Divider from 'views/components/base/Divider';
@@ -13,12 +13,6 @@ import {ITeamCardProps} from './types';
 
 import styles from './styles';
 
-const StyledView = styled.View<ITeamCardProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.bgColor;
-  }};
-`;
-
 const TeamCard: React.FC<ITeamCardProps> = ({
   avatarUri,
   name,
@@ -27,7 +21,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({
   city,
 }) => {
   return (
-    <StyledView style={styles.container}>
+    <BluredView style={styles.container}>
       <View style={styles.avatar}>
         <Avatar uri={avatarUri} size={AvatarSize.Default} />
       </View>
@@ -62,7 +56,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({
           )}
         </View>
       </View>
-    </StyledView>
+    </BluredView>
   );
 };
 
