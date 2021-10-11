@@ -1,13 +1,24 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {withTheme} from 'styled-components/native';
+import {ThemeInterface} from 'styled-components';
 
 import screens, {TAB_NAME} from './matchesScreens';
 
 const Stack = createNativeStackNavigator();
 
-const MatchesNavigation = () => {
+interface IMatchesNavigationProps {
+  theme?: ThemeInterface;
+}
+
+const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
   return (
-    <Stack.Navigator initialRouteName={screens.matches.name}>
+    <Stack.Navigator
+      initialRouteName={screens.matches.name}
+      screenOptions={{
+        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
+        headerTintColor: theme?.colors.lightText,
+      }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.matches.name}`}
         component={screens.matches.component}
@@ -27,4 +38,4 @@ const MatchesNavigation = () => {
   );
 };
 
-export default MatchesNavigation;
+export default React.memo<IHomeNavigationProps>(withTheme(MatchesNavigation));

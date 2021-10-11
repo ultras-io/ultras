@@ -1,8 +1,11 @@
 import React, {useCallback} from 'react';
-import {View} from 'react-native';
 
+import WithSafeArea from 'views/components/base/WithSafeArea';
 import UltrasText from 'views/components/base/UltrasText';
-import Button from 'views/components/base/Button';
+import Button, {
+  AppearanceEnum as ButtonAppearance,
+  BoxSizeEnum as ButtonBoxSize,
+} from 'views/components/base/Button';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 
@@ -28,13 +31,23 @@ const Home: React.FC<IHomeProps> = () => {
   }, [changeTab]);
 
   return (
-    <View style={styles.container}>
-      <UltrasText style={styles.text}>Home</UltrasText>
-
-      <Button title="Push Single Match" onPress={navigateToMatch} />
-      <Button title="Push Event" onPress={navigateToEvent} />
-      <Button title="Navigate to Matches" onPress={navigateToMatches} />
-    </View>
+    <WithSafeArea>
+      <Button
+        title="Push Single Match"
+        onPress={navigateToMatch}
+        boxSize={ButtonBoxSize.Contain}
+      />
+      <Button
+        title="Push Event"
+        onPress={navigateToEvent}
+        boxSize={ButtonBoxSize.Contain}
+      />
+      <Button
+        title="Navigate to Matches"
+        onPress={navigateToMatches}
+        boxSize={ButtonBoxSize.Contain}
+      />
+    </WithSafeArea>
   );
 };
 

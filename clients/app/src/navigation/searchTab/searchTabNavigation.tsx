@@ -1,16 +1,26 @@
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
+import {withTheme} from 'styled-components/native';
+import {ThemeInterface} from 'styled-components';
 import screens, {TAB_NAME} from './searchTabScreens';
 
 const Stack = createMaterialTopTabNavigator();
 
-const SearchTabNavigation = () => {
+interface ISearchTabNavigationProps {
+  theme?: ThemeInterface;
+}
+const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({theme}) => {
   return (
     <Stack.Navigator
       initialRouteName={screens.all.name}
       screenOptions={{
         tabBarLabelStyle: {textTransform: 'none'},
+        tabBarStyle: {backgroundColor: 'transparent'},
+        tabBarInactiveTintColor: theme?.colors.lightText,
+        tabBarActiveTintColor: theme?.colors.lightText2,
+        tabBarIndicatorStyle: {
+          backgroundColor: theme?.colors.secondary,
+        },
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.all.name}`}
@@ -34,4 +44,6 @@ const SearchTabNavigation = () => {
   );
 };
 
-export default SearchTabNavigation;
+export default React.memo<ISearchTabNavigationProps>(
+  withTheme(SearchTabNavigation),
+);
