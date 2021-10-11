@@ -1,4 +1,4 @@
-import { Exception } from 'types';
+import { Exception } from 'types/index';
 
 const SEQUELIZE_ERRORS: Record<string, boolean> = {
   SequelizeValidationError: true,

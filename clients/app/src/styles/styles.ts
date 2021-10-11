@@ -11,4 +11,10 @@ export default StyleSheet.create({
     fontSize: 32,
     flex: 1,
   },
+  headerLogo: {
+    fontFamily: 'Montserrat',
+    fontWeight: '600',
+    fontSize: 25,
+    flex: 1,
+  },
 });

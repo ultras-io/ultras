@@ -1,15 +1,30 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {withTheme} from 'styled-components/native';
+
+import {ThemeInterface} from 'styled-components';
 
 import screens from './tabScreens';
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigation: React.FC = () => {
+interface ITabNavigationProps {
+  theme?: ThemeInterface;
+}
+
+const TabNavigation: React.FC<ITabNavigationProps> = ({theme}) => {
   return (
     <Tab.Navigator
       initialRouteName={screens.home.name}
-      screenOptions={{headerShown: false}}>
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme?.colors.bgColor,
+          borderTopColor: theme?.colors.opacityBgColor,
+        },
+        tabBarActiveTintColor: theme?.colors.secondary,
+        tabBarInactiveTintColor: theme?.colors.secondaryText,
+      }}>
       <Tab.Screen
         name={screens.home.name}
         component={screens.home.component}
@@ -24,6 +39,7 @@ const TabNavigation: React.FC = () => {
         name={screens.matches.name}
         component={screens.matches.component}
         initialParams={{tabName: screens.matches.name}}
+        options={{tabBarBadge: 3}}
       />
       <Tab.Screen
         name={screens.events.name}
@@ -39,4 +55,4 @@ const TabNavigation: React.FC = () => {
   );
 };
 
-export default TabNavigation;
+export default React.memo<ITabNavigationProps>(withTheme(TabNavigation));

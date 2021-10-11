@@ -18,6 +18,7 @@ export default {
   country: 'Country',
   fc: 'Football Club',
   natioanlTeam: 'Natioanl Team',
+  supportersClubs: 'Supporters Clubs',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',
@@ -50,6 +51,9 @@ export default {
   joinUsCongrats: 'Congrats, Lorem ipsum dolor sit amet,',
   joinUsCongratsText:
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  joinUsWrongCode: 'Please enter the correct code',
+  joinUsTextWillArive: 'Text should arrive within {{waitingTime}}s',
+  joinUsSendAgainText: "Didn't get a text? Send text again.",
 
   // posts
   postDiscussionAt: 'Discussion at ',

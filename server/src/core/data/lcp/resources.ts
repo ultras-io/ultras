@@ -50,12 +50,21 @@ const resources = {
       PLURAL: 'footballClubs',
     },
   },
+  NATIONAL_TEAM: {
+    RELATION: 'NationalTeam',
+    MODEL: 'NationalTeam',
+    ALIAS: {
+      SINGULAR: 'nationalTeams',
+      PLURAL: 'nationalTeams',
+    },
+  },
 };
 
 export interface IDBSet {
-  User: typeof Model;
-  TokenType: typeof Model;
-  FootBallClub: typeof Model;
+  User?: typeof Model;
+  TokenType?: typeof Model;
+  FootballClub?: typeof Model;
+  NationalTeam: typeof Model;
 }
 
 export default resources;

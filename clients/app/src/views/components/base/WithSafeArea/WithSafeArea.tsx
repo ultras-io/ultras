@@ -2,6 +2,7 @@ import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {withTheme} from 'styled-components/native';
 
+import styles from './styles';
 import {IWithSafeAreaProps} from './types';
 
 const WithSafeArea: React.FC<IWithSafeAreaProps> = ({
@@ -10,9 +11,12 @@ const WithSafeArea: React.FC<IWithSafeAreaProps> = ({
   disableSafeArea = false,
 }) => {
   return disableSafeArea ? (
-    <View style={{backgroundColor: theme?.colors.bgColor}}>{children}</View>
+    <View style={[styles.container, {backgroundColor: theme?.colors.bgColor}]}>
+      {children}
+    </View>
   ) : (
-    <SafeAreaView style={{backgroundColor: theme?.colors.bgColor}}>
+    <SafeAreaView
+      style={[styles.container, {backgroundColor: theme?.colors.bgColor}]}>
       {children}
     </SafeAreaView>
   );

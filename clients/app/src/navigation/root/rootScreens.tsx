@@ -1,14 +1,14 @@
 import React from 'react';
-import I18n from 'i18n/i18n';
-
-import UltrasText from 'views/components/base/UltrasText';
-import styles from 'styles/styles';
 
 import Intro from 'views/screens/Intro';
 import JoinUs from 'views/screens/JoinUs';
 import SearchListModal from 'views/screens/SearchListModal';
 import UIKit from 'views/screens/UIKit';
 import TabNavigation from '../tab/tabNavigation';
+
+import I18n from 'i18n/i18n';
+import UltrasText from 'views/components/base/UltrasText';
+import styles from 'styles/styles';
 
 import type {RootNavigationScreens} from '../types';
 
@@ -24,7 +24,7 @@ const SCREENS: RootNavigationScreens = {
       headerShown: true,
       headerLeft: () => <></>,
       headerTitle: () => (
-        <UltrasText style={styles.headerTitle} color={'text'}>
+        <UltrasText style={styles.headerTitle} color="text">
           {I18n.t('joinUs')}
         </UltrasText>
       ),

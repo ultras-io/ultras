@@ -14,6 +14,10 @@ import {WithBadge, SizeEnum as BadgeSize} from 'views/components/base/Badge';
 import {IconNamesEnum} from '../../../assets/icons';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 
+import CommentsCount from 'views/components/base/CommentsCount';
+
+import Like from 'views/components/base/Like';
+
 import MatchTime, {
   MatchStateEnum as MatcheTimeState,
 } from 'views/components/compositions/MatchTime';
@@ -24,8 +28,8 @@ import PhoneInput from 'views/components/compositions/PhoneInput';
 
 import PostCard from 'views/components/compositions/PostCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
+import TeamCard from 'views/components/compositions/TeamCard';
 
-import {IUIKitProps} from './types';
 import styles from './styles';
 
 const avatarUri =
@@ -37,7 +41,7 @@ const romanoUri =
 const rlUri =
   'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/65280369_508538103219999_1200879938362671104_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=0mi-ZtEFyX0AX-EVXEV&edm=ABfd0MgBAAAA&ccb=7-4&oh=0da3c68602fbb18395eb87a8db288e5c&oe=61694F61&_nc_sid=7bff83';
 
-const UIKit: React.FC<IUIKitProps> = () => {
+const UIKit: React.FC = () => {
   const log = () => {
     Alert.alert('Pressed');
   };
@@ -52,16 +56,54 @@ const UIKit: React.FC<IUIKitProps> = () => {
     <ScrollView style={styles.container}>
       <UltrasText style={styles.title}>UI Kit</UltrasText>
 
+      <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
+      <View style={styles.rowContainer}>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={25} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={432} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2455} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={24354} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={243544} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2432254} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={24600354} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={246003540} />
+        </View>
+        <View style={styles.rowItem}>
+          <CommentsCount count={2460035904} />
+        </View>
+      </View>
+
+      <UltrasText style={styles.subTitle}>Like</UltrasText>
+      <Like onPress={() => {}} />
+      <Like isLiked onPress={() => {}} />
+
       <UltrasText style={styles.subTitle}>Button</UltrasText>
 
       <Button
-        title="Like"
+        title="Button"
         onPress={log}
         appearance={ButtonAppearance.Outline}
         boxSize={ButtonBoxSize.Contain}
         size={ButtonSize.Default}
         color="text"
-        bgColor="text"
+        bgColor="primary"
         icon={IconNamesEnum.Hearth}
         iconPosition={ButtonIconPosition.Left}
       />
@@ -111,6 +153,23 @@ const UIKit: React.FC<IUIKitProps> = () => {
         city="Yerevan"
         avatarUri={avatarUri}
       />
+
+      <UltrasText style={styles.subTitle}>Team Card</UltrasText>
+      <TeamCard
+        name="AS Rome"
+        supportersClubsCount={47}
+        city="Rome"
+        country="Italy"
+        avatarUri={romanoUri}
+      />
+      <TeamCard
+        name="Chelsea FC"
+        supportersClubsCount={129}
+        city="London"
+        country="England"
+        avatarUri={rlUri}
+      />
+      <TeamCard name="Italy" supportersClubsCount={900} avatarUri={avatarUri} />
 
       <UltrasText style={styles.subTitle}>Match Card</UltrasText>
       <MatchCard

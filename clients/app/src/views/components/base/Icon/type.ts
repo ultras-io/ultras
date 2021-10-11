@@ -1,7 +1,10 @@
+import {ThemeInterface} from 'styled-components';
 import {IconNamesEnum} from 'assets/icons';
+import {ColorKey} from 'themes/styled';
 
 export interface IIconProps {
+  theme?: ThemeInterface;
   name: IconNamesEnum;
-  color?: string;
+  color?: ColorKey;
   size?: number;
 }

@@ -18,7 +18,7 @@ const Splash: React.FC<ISplashProps> = ({setIsLoading}) => {
       source={require('../../../assets/images/bg.png')}
       resizeMode="cover"
       style={styles.bg}>
-      <UltrasText style={styles.logo} color={'text'}>
+      <UltrasText style={styles.logo} color="text">
         ultras
       </UltrasText>
       <UltrasText style={styles.text} color={'secondaryText'}>

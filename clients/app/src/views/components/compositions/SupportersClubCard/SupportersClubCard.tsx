@@ -35,13 +35,16 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
           {name}
         </UltrasText>
         <View style={styles.line}>
-          <UltrasText color="text">
+          <UltrasText color="text" style={styles.text}>
             {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
           </UltrasText>
           <View style={styles.divider}>
             <Divider />
           </View>
-          <UltrasText color="text">{city}</UltrasText>
+
+          <UltrasText color="text" style={styles.text}>
+            {city}
+          </UltrasText>
         </View>
       </View>
     </StyledView>

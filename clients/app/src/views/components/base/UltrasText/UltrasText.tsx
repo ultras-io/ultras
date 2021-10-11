@@ -9,9 +9,19 @@ const StyledText = styled.Text<IUltrasTextProps>`
   }};
 `;
 
-const UltrasText: React.FC<IUltrasTextProps> = ({children, style, color}) => {
+const UltrasText: React.FC<IUltrasTextProps> = ({
+  children,
+  style,
+  color,
+  numberOfLines,
+}) => {
   return (
-    <StyledText style={style} color={color}>
+    <StyledText
+      style={style}
+      color={color}
+      adjustsFontSizeToFit
+      allowFontScaling
+      numberOfLines={numberOfLines}>
       {children}
     </StyledText>
   );
