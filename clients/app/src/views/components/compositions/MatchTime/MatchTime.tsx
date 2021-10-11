@@ -56,10 +56,10 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
       <View style={styles.logoWithTime}>
         <Image source={{uri: leagueImageURI}} style={styles.logo} />
         <View style={styles.dateTime}>
-          <UltrasText style={styles.date} color="lightText">
+          <UltrasText style={styles.date} color="text">
             {formatedDate}
           </UltrasText>
-          <UltrasText style={styles.time} color="lightText">
+          <UltrasText style={styles.time} color="text">
             {formatedTime}
           </UltrasText>
         </View>

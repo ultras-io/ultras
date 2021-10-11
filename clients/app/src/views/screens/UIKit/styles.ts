@@ -2,9 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    width: '100%',
     flex: 1,
-    marginVertical: 50,
+    paddingVertical: 50,
     padding: 8,
     backgroundColor: 'rgba(39, 40, 41, 0.9)',
   },
@@ -16,13 +15,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 20,
     fontSize: 20,
-    color: '#322',
+    color: '#eee',
   },
   section: {
     marginTop: 15,
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#444',
+    color: '#fff',
   },
   rowContainer: {
     marginTop: 10,

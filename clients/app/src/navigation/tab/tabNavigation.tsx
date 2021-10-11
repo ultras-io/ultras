@@ -19,11 +19,11 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({theme}) => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: theme?.colors.backgroundColor,
-          borderTopColor: theme?.colors.backgroundColorOpacity,
+          backgroundColor: theme?.colors.bgColor,
+          borderTopColor: theme?.colors.opacityBgColor,
         },
         tabBarActiveTintColor: theme?.colors.secondary,
-        tabBarInactiveTintColor: theme?.colors.lightText2,
+        tabBarInactiveTintColor: theme?.colors.secondaryText,
       }}>
       <Tab.Screen
         name={screens.home.name}

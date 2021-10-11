@@ -23,14 +23,14 @@ const getStyles = (size: SizeEnum) => {
 
 const StyledView = styled.View<IBadgeProps>`
   background-color: ${({theme, bgColor}) => {
-    return bgColor ? theme.colors[bgColor] : theme.colors.backgroundColor;
+    return bgColor ? theme.colors[bgColor] : theme.colors.bgColor;
   }};
 `;
 
 const Badge: React.FC<IBadgeProps> = ({
   number,
   size = SizeEnum.Default,
-  color = 'lightText',
+  color = 'text',
   bgColor,
 }) => {
   const {bagdeStyles, numberStyles} = getStyles(size);

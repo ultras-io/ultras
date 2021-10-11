@@ -25,8 +25,8 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({theme}) => {
     <Stack.Navigator
       initialRouteName={screens.profile.name}
       screenOptions={{
-        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
-        headerTintColor: theme?.colors.lightText,
+        headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerTintColor: theme?.colors.text,
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.profile.name}`}

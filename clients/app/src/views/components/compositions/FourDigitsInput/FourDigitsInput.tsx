@@ -11,7 +11,7 @@ import styles from './styles';
 
 const StyledView = styled.View<IFourDigitsInputProps>`
   background-color: ${({theme}) => {
-    return theme.colors.lightText;
+    return theme.colors.text;
   }};
 `;
 
@@ -19,10 +19,10 @@ const StyledInput = styled.TextInput<
   {isActive: boolean} & IFourDigitsInputProps
 >`
   background-color: ${({theme}) => {
-    return theme.colors.lightText;
+    return theme.colors.text;
   }};
   border-color: ${({theme, isActive}) => {
-    return isActive ? theme.colors.tint : theme.colors.darkText;
+    return isActive ? theme.colors.quaternary : theme.colors.textInvert;
   }};
 `;
 
@@ -92,8 +92,8 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
               onKeyPress={onInputChange(i)}
               keyboardType={'numeric'}
               autoCorrect={false}
-              placeholderTextColor={theme?.colors.backgroundColor}
-              selectionColor={theme?.colors.backgroundColor}
+              placeholderTextColor={theme?.colors.bgColor}
+              selectionColor={theme?.colors.bgColor}
               autoCapitalize="none"
               caretHidden={true}
             />

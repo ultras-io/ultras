@@ -31,10 +31,10 @@ const Intro: React.FC<IIntroProps> = () => {
       source={require('../../../assets/images/bg.png')}
       resizeMode="cover"
       style={styles.bg}>
-      <UltrasText style={styles.logo} color={'lightText'}>
+      <UltrasText style={styles.logo} color="text">
         ultras
       </UltrasText>
-      <UltrasText style={styles.text} color={'lightText'}>
+      <UltrasText style={styles.text} color={'secondaryText'}>
         {I18n.t('splashText')}
       </UltrasText>
       <View style={styles.buttons}>
@@ -42,7 +42,7 @@ const Intro: React.FC<IIntroProps> = () => {
           title={I18n.t('introLetMeIn')}
           onPress={navigateToJoinUs}
           size={ButtonSize.Big}
-          bgColor={'secondary'}
+          bgColor={'primary'}
         />
         <Button
           title={I18n.t('privacy')}

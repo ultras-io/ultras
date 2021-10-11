@@ -16,19 +16,19 @@ import styles from './styles';
 
 const StyledView = styled.View<ISearchListComponentProps>`
   background-color: ${({theme}) => {
-    return theme.colors.backgroundColor;
+    return theme.colors.bgColor;
   }};
 `;
 
 const StyledFlat = styled.View<ISearchListComponentProps>`
   background-color: ${({theme}) => {
-    return theme.colors.boxBackgroundColor;
+    return theme.colors.opacityBgColor;
   }};
 `;
 
 const StyledRow = styled.View<ISearchListComponentProps>`
   border-color: ${({theme}) => {
-    return theme.colors.lightText2;
+    return theme.colors.quaternaryText;
   }};
 `;
 
@@ -39,7 +39,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
 }) => {
   const renderRow = ({item}) => (
     <StyledRow style={styles.row}>
-      <UltrasText style={styles.text} color="lightText">
+      <UltrasText style={styles.text} color="text">
         {item.title}
       </UltrasText>
     </StyledRow>
@@ -56,7 +56,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         />
       </View>
 
-      <UltrasText style={styles.title} color="lightText">
+      <UltrasText style={styles.title} color="text">
         {I18n.t('select')} {name}
       </UltrasText>
 

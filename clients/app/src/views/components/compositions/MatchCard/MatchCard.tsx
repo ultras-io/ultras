@@ -12,12 +12,12 @@ import styles from './styles';
 
 const StyledContainer = styled.View<IMatchCardProps & IMatchTimeProps>`
   background-color: ${({theme}) => {
-    return theme.colors.backgroundColor;
+    return theme.colors.bgColor;
   }};
 `;
 const StyledView = styled.View<IMatchCardProps & IMatchTimeProps>`
   background-color: ${({theme}) => {
-    return theme.colors.lightText;
+    return theme.colors.text;
   }};
 `;
 
@@ -36,7 +36,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
 }) => {
   return (
     <StyledContainer style={styles.container}>
-      <UltrasText style={styles.league} color="lightText">
+      <UltrasText style={styles.league} color="text">
         {country} {league}
       </UltrasText>
       <View style={styles.logoAndTime}>
@@ -54,7 +54,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         />
       </View>
       <View style={styles.teamAndScore}>
-        <UltrasText style={styles.team} color="lightText">
+        <UltrasText style={styles.team} color="text">
           {team1Name}
         </UltrasText>
         {score && (
@@ -66,7 +66,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         )}
       </View>
       <View style={styles.teamAndScore}>
-        <UltrasText style={styles.team} color="lightText">
+        <UltrasText style={styles.team} color="text">
           {team2Name}
         </UltrasText>
         {score && (

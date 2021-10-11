@@ -16,8 +16,8 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({theme}) => {
       screenOptions={{
         tabBarLabelStyle: {textTransform: 'none'},
         tabBarStyle: {backgroundColor: 'transparent'},
-        tabBarInactiveTintColor: theme?.colors.lightText,
-        tabBarActiveTintColor: theme?.colors.lightText2,
+        tabBarInactiveTintColor: theme?.colors.text,
+        tabBarActiveTintColor: theme?.colors.secondaryText,
         tabBarIndicatorStyle: {
           backgroundColor: theme?.colors.secondary,
         },

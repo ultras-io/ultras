@@ -18,7 +18,7 @@ import styles from './styles';
 
 const StyledContainer = styled.View<IPostCardProps>`
   background-color: ${({theme}) => {
-    return theme.colors.backgroundColor;
+    return theme.colors.bgColor;
   }};
 `;
 
@@ -31,7 +31,7 @@ const PostCard: React.FC<IPostCardProps> = ({
 }) => {
   return (
     <StyledContainer style={styles.container}>
-      <UltrasText style={styles.date} color="lightText">
+      <UltrasText style={styles.date} color="text">
         {date.toLocaleTimeString([], {
           month: 'short',
           day: 'numeric',
@@ -40,20 +40,18 @@ const PostCard: React.FC<IPostCardProps> = ({
           minute: '2-digit',
         })}
       </UltrasText>
-      <UltrasText style={styles.title} color="lightText">
+      <UltrasText style={styles.title} color="text">
         {title}
       </UltrasText>
-      <UltrasText style={styles.supportersClub} color="lightText">
+      <UltrasText style={styles.supportersClub} color="text">
         {I18n.t('postDiscussionAt')}
-        <UltrasText
-          style={[styles.supportersClub, styles.bold]}
-          color="lightText">
+        <UltrasText style={[styles.supportersClub, styles.bold]} color="text">
           {supportersClub}
         </UltrasText>
       </UltrasText>
 
       <View style={styles.bottomButtons}>
-        <UltrasText color="lightText" style={styles.comments}>
+        <UltrasText color="text" style={styles.comments}>
           {commentsCount} com.
         </UltrasText>
         {!isFollowing && (
@@ -62,7 +60,7 @@ const PostCard: React.FC<IPostCardProps> = ({
             onPress={() => {}}
             boxSize={ButtonBoxSize.Contain}
             size={ButtonSize.Default}
-            color="lightText"
+            color="text"
             bgColor="secondary"
             icon={IconNamesEnum.Hearth}
             iconPosition={ButtonIconPosition.Right}

@@ -16,8 +16,8 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
     <Stack.Navigator
       initialRouteName={screens.matches.name}
       screenOptions={{
-        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
-        headerTintColor: theme?.colors.lightText,
+        headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerTintColor: theme?.colors.text,
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.matches.name}`}

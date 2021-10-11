@@ -18,7 +18,6 @@ import CommentsCount from 'views/components/base/CommentsCount';
 
 import Like from 'views/components/base/Like';
 
-
 import MatchTime, {
   MatchStateEnum as MatcheTimeState,
 } from 'views/components/compositions/MatchTime';
@@ -31,7 +30,6 @@ import PostCard from 'views/components/compositions/PostCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
 
-import {IUIKitProps} from './types';
 import styles from './styles';
 
 const avatarUri =
@@ -43,7 +41,7 @@ const romanoUri =
 const rlUri =
   'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/65280369_508538103219999_1200879938362671104_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=0mi-ZtEFyX0AX-EVXEV&edm=ABfd0MgBAAAA&ccb=7-4&oh=0da3c68602fbb18395eb87a8db288e5c&oe=61694F61&_nc_sid=7bff83';
 
-const UIKit: React.FC<IUIKitProps> = () => {
+const UIKit: React.FC = () => {
   const log = () => {
     Alert.alert('Pressed');
   };
@@ -57,7 +55,6 @@ const UIKit: React.FC<IUIKitProps> = () => {
   return (
     <ScrollView style={styles.container}>
       <UltrasText style={styles.title}>UI Kit</UltrasText>
-
 
       <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
       <View style={styles.rowContainer}>
@@ -97,7 +94,6 @@ const UIKit: React.FC<IUIKitProps> = () => {
       <Like onPress={() => {}} />
       <Like isLiked onPress={() => {}} />
 
-
       <UltrasText style={styles.subTitle}>Button</UltrasText>
 
       <Button
@@ -106,8 +102,8 @@ const UIKit: React.FC<IUIKitProps> = () => {
         appearance={ButtonAppearance.Outline}
         boxSize={ButtonBoxSize.Contain}
         size={ButtonSize.Default}
-        color="lightText"
-        bgColor="lightText"
+        color="text"
+        bgColor="primary"
         icon={IconNamesEnum.Hearth}
         iconPosition={ButtonIconPosition.Left}
       />

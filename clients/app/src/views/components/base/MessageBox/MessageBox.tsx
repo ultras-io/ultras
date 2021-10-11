@@ -6,7 +6,7 @@ import styles from './styles';
 
 const StyledView = styled.View<IMessageBoxProps>`
   background-color: ${({theme, side}) => {
-    return side === SideEnum.Left ? theme.colors.lightText : theme.colors.tint;
+    return side === SideEnum.Left ? theme.colors.text : theme.colors.quaternary;
   }};
 `;
 

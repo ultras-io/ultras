@@ -15,7 +15,7 @@ import styles from './styles';
 
 const StyledView = styled.View<ISupportersClubCardProps>`
   background-color: ${({theme}) => {
-    return theme.colors.backgroundColor;
+    return theme.colors.bgColor;
   }};
 `;
 
@@ -31,17 +31,18 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
         <Avatar uri={avatarUri} size={AvatarSize.Big} />
       </View>
       <View style={styles.info}>
-        <UltrasText color="lightText" style={styles.name}>
+        <UltrasText color="text" style={styles.name}>
           {name}
         </UltrasText>
         <View style={styles.line}>
-          <UltrasText color="lightText2" style={styles.text}>
+          <UltrasText color="text" style={styles.text}>
             {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
           </UltrasText>
           <View style={styles.divider}>
             <Divider />
           </View>
-          <UltrasText style={styles.text} color="lightText2">
+
+          <UltrasText color="text" style={styles.text}>
             {city}
           </UltrasText>
         </View>
