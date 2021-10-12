@@ -1,0 +1,35 @@
+{
+  "name": "@ultras/cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cli commands for ultras internal usages ",
+  "author": "rubenaprikyan <rubenaprikyan@gmail.com>",
+  "homepage": "https://github.com/ultras-io/ultras#readme",
+  "license": "ISC",
+  "main": "lib/cli.js",
+  "bin": {
+    "cli": "bin/cli"
+  },
+  "directories": {
+    "lib": "commands",
+    "test": "__tests__"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultras-io/ultras.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@ultras/shared": "^1.0.0",
+    "yargs": "^17.2.1"
+  },
+  "bugs": {
+    "url": "https://github.com/ultras-io/ultras/issues"
+  }
+}

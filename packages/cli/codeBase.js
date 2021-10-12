@@ -1,5 +1,4 @@
-'use strict';
-
+"use strict";
 
 const getTypesBaseCode = (name) => `
 export interface I${name}Props {
@@ -50,8 +49,8 @@ export * from './${name}';
 `;
 
 module.exports = {
-    getTypesBaseCode,
-    getStylesBaseCode,
-    getComponentBaseCode,
-    getExportsBaseCode
+  getTypesBaseCode,
+  getStylesBaseCode,
+  getComponentBaseCode,
+  getExportsBaseCode,
 };

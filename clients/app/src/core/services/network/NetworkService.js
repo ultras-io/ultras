@@ -1,9 +1,6 @@
 import settings from 'config/settings';
 
-// import CacheService from '../storage/CacheService';
-
 import exceptionDetector from './interceptors/exceptionDetector';
-// import refreshTokenDetector from './interceptors/refreshTokenDetector';
 
 const NETWORK_SERVICE = settings.NETWORK_SERVICE;
 
@@ -148,7 +145,7 @@ class NetworkService {
           }
 
           if (response.status > 400) {
-            return reject({message: body.AlertMessage, res: {body, headers}});
+            return reject(body);
           }
 
           return resolve({body, headers});
