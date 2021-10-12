@@ -1,2 +1,2 @@
 # ultras
-Application for Ultras to manage their processes.
+This is a monorepo project

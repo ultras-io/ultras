@@ -1,0 +1,11 @@
+{
+  "name": "@ultras/root",
+  "private": true,
+  "scripts": {
+    "install-all": "lerna bootstrap",
+    "version-up": "lerna version --conventional-commits --yes"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
