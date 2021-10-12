@@ -1,13 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  bg: {
-    flex: 1,
-    alignContent: 'center',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
+  
   logo: {
     fontFamily: 'Montserrat Alternates',
     fontWeight: '500',

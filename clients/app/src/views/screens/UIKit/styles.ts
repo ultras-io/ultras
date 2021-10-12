@@ -7,13 +7,6 @@ export default StyleSheet.create({
     padding: 8,
     // backgroundColor: 'rgba(39, 40, 41, 0.9)',
   },
-  bg: {
-    flex: 1,
-    alignContent: 'center',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 30,

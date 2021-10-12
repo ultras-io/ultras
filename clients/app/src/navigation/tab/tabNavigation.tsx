@@ -39,12 +39,12 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({theme}) => {
         name={screens.matches.name}
         component={screens.matches.component}
         initialParams={{tabName: screens.matches.name}}
-        options={{tabBarBadge: 3}}
       />
       <Tab.Screen
         name={screens.events.name}
         component={screens.events.component}
         initialParams={{tabName: screens.events.name}}
+        options={{tabBarBadge: 3}}
       />
       <Tab.Screen
         name={screens.profile.name}

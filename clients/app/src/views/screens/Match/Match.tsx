@@ -11,7 +11,7 @@ import {IMatchProps} from './types';
 import styles from './styles';
 
 const Match: React.FC<IMatchProps> = ({route}) => {
-  const {tabName} = route.params;
+  const {tabName, id} = route.params;
 
   const {pushTo} = useNavigationWithParams();
 
@@ -23,6 +23,7 @@ const Match: React.FC<IMatchProps> = ({route}) => {
     <View style={styles.container}>
       <UltrasText style={styles.text}>Single Match</UltrasText>
       <UltrasText>tab: {tabName}</UltrasText>
+      <UltrasText>id: {id}</UltrasText>
       <Button title="Push Single Event" onPress={navigateToEvent} />
     </View>
   );

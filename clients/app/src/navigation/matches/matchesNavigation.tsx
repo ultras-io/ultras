@@ -23,6 +23,7 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
         name={`${TAB_NAME}:${screens.matches.name}`}
         component={screens.matches.component}
         initialParams={{tabName: TAB_NAME}}
+        options={screens.matches.options}
       />
       <Stack.Screen
         name={`${TAB_NAME}:${screens.match.name}`}
@@ -38,4 +39,6 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
   );
 };
 
-export default React.memo<IHomeNavigationProps>(withTheme(MatchesNavigation));
+export default React.memo<IMatchesNavigationProps>(
+  withTheme(MatchesNavigation),
+);

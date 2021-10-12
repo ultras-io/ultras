@@ -58,4 +58,7 @@ export default {
   // posts
   postDiscussionAt: 'Discussion at ',
   postFollowTopic: 'Follow Topic',
+
+  // matches
+  matches: 'Matches',
 };
