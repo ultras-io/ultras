@@ -19,7 +19,8 @@ const SCREENS: HomeNavigationScreens = {
       headerShown: true,
       headerLeft: () => <></>,
       headerTitle: () => (
-        <UltrasText style={styles.headerLogo} color="text">
+        <UltrasText style={styles.headerLogo} color="tertiary">
+          {/* <UltrasText style={styles.screenTitle} color={'tertiary'}> */}
           ultras
         </UltrasText>
       ),

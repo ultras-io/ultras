@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Image} from 'react-native';
 
+import avatar from '../../../../assets/icons/avatar.jpeg';
+
 import {IAvatarProps, SizeEnum} from './types';
 import styles from './styles';
 
@@ -15,10 +17,7 @@ const stylesDictionary = {
 const Avatar: React.FC<IAvatarProps> = ({uri, size = SizeEnum.Default}) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={uri ? {uri} : require('../../../../assets/icons/avatar.jpeg')}
-        style={stylesDictionary.sizes[size]}
-      />
+      <Image source={uri ? uri : avatar} style={stylesDictionary.sizes[size]} />
     </View>
   );
 };

@@ -9,6 +9,7 @@ export type Score = {
 
 export interface IMatchCardProps {
   theme?: ThemeInterface;
+  id: string;
   team1Name: string;
   team2Name: string;
   team1URI: string;

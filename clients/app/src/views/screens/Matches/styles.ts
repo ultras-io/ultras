@@ -2,11 +2,12 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    padding: 80,
-    alignSelf: 'flex-start',
+    width: '100%',
   },
-  text: {
-    fontWeight: '600',
-    textAlign: 'center',
+  matchList: {
+    paddingHorizontal: 15,
+  },
+  flatList: {
+    paddingTop: 15,
   },
 });

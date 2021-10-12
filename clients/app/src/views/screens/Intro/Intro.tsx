@@ -12,8 +12,10 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
 
+import bg from '../../../assets/images/bg.png';
 import {IIntroProps} from './types';
 import styles from './styles';
+import gStyles from 'styles/styles';
 
 const Intro: React.FC<IIntroProps> = () => {
   const {pushTo} = useNavigationWithParams();
@@ -27,10 +29,7 @@ const Intro: React.FC<IIntroProps> = () => {
   }, [pushTo]);
 
   return (
-    <ImageBackground
-      source={require('../../../assets/images/bg.png')}
-      resizeMode="cover"
-      style={styles.bg}>
+    <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
       <UltrasText style={styles.logo} color="text">
         ultras
       </UltrasText>

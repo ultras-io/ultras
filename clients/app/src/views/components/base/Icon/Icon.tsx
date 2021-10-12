@@ -3,6 +3,7 @@ import {SvgXml} from 'react-native-svg';
 import {withTheme} from 'styled-components/native';
 
 import icons from '../../../../assets/icons';
+// import icons from 'assets/icons';
 
 import {IIconProps} from './type';
 

@@ -7,8 +7,8 @@ const useNavigationWithParams = () => {
   const tabName = route.params?.tabName ?? '';
   const prefix = tabName ? tabName + ':' : '';
 
-  const pushTo = (name: string) => {
-    navigation.push(prefix + name, {tabName});
+  const pushTo = (name: string, params?: any) => {
+    navigation.push(prefix + name, {tabName, ...params});
   };
 
   const openModal = (name: string, params?: any) => {

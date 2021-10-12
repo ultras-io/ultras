@@ -30,6 +30,7 @@ import SupportersClubCard from 'views/components/compositions/SupportersClubCard
 import TeamCard from 'views/components/compositions/TeamCard';
 
 import styles from './styles';
+import gStyles from 'styles/styles';
 
 const avatarUri =
   'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/163650366_582341719356091_276870700844455813_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=bFJHgQ-xwOkAX8WGSbe&edm=ABfd0MgBAAAA&ccb=7-4&oh=48c3ef745ef2eb0269b41acc83c4fb16&oe=61682632&_nc_sid=7bff83';
@@ -55,7 +56,7 @@ const UIKit: React.FC = () => {
     <ImageBackground
       source={require('../../../assets/images/bg.png')}
       resizeMode="cover"
-      style={styles.bg}>
+      style={gStyles.containerBg}>
       <ScrollView style={styles.container}>
         <UltrasText style={styles.title}>UI Kit</UltrasText>
 

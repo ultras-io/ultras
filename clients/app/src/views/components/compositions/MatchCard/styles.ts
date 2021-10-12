@@ -2,12 +2,20 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginBottom: 15,
     paddingVertical: 13,
     paddingHorizontal: 15,
     borderRadius: 13,
   },
   league: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  divider: {
+    marginHorizontal: 5,
+  },
+  leagueText: {
     fontSize: 11,
     lineHeight: 13,
   },
@@ -42,5 +50,6 @@ export default StyleSheet.create({
     fontWeight: '600',
     fontSize: 15,
     lineHeight: 18,
+    letterSpacing: -0.24,
   },
 });
