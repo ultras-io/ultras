@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Alert, View} from 'react-native';
+import {ImageBackground, ScrollView, Alert, View} from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 
@@ -15,7 +15,6 @@ import {IconNamesEnum} from '../../../assets/icons';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 
 import CommentsCount from 'views/components/base/CommentsCount';
-
 import Like from 'views/components/base/Like';
 
 import MatchTime, {
@@ -53,346 +52,355 @@ const UIKit: React.FC = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <UltrasText style={styles.title}>UI Kit</UltrasText>
+    <ImageBackground
+      source={require('../../../assets/images/bg.png')}
+      resizeMode="cover"
+      style={styles.bg}>
+      <ScrollView style={styles.container}>
+        <UltrasText style={styles.title}>UI Kit</UltrasText>
 
-      <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
-      <View style={styles.rowContainer}>
-        <View style={styles.rowItem}>
-          <CommentsCount count={2} />
+        <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
+        <View style={styles.rowContainer}>
+          <View style={styles.rowItem}>
+            <CommentsCount count={2} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={25} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={432} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={2455} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={24354} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={243544} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={2432254} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={24600354} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={246003540} />
+          </View>
+          <View style={styles.rowItem}>
+            <CommentsCount count={2460035904} />
+          </View>
         </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={25} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={432} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={2455} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={24354} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={243544} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={2432254} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={24600354} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={246003540} />
-        </View>
-        <View style={styles.rowItem}>
-          <CommentsCount count={2460035904} />
-        </View>
-      </View>
 
-      <UltrasText style={styles.subTitle}>Like</UltrasText>
-      <Like onPress={() => {}} />
-      <Like isLiked onPress={() => {}} />
+        <UltrasText style={styles.subTitle}>Like</UltrasText>
+        <Like onPress={() => {}} />
+        <Like isLiked onPress={() => {}} />
 
-      <UltrasText style={styles.subTitle}>Button</UltrasText>
+        <UltrasText style={styles.subTitle}>Button</UltrasText>
 
-      <Button
-        title="Button"
-        onPress={log}
-        appearance={ButtonAppearance.Outline}
-        boxSize={ButtonBoxSize.Contain}
-        size={ButtonSize.Default}
-        color="text"
-        bgColor="primary"
-        icon={IconNamesEnum.Hearth}
-        iconPosition={ButtonIconPosition.Left}
-      />
+        <Button
+          title="Button"
+          onPress={log}
+          appearance={ButtonAppearance.Outline}
+          boxSize={ButtonBoxSize.Contain}
+          size={ButtonSize.Default}
+          color="text"
+          bgColor="primary"
+          icon={IconNamesEnum.Hearth}
+          iconPosition={ButtonIconPosition.Left}
+        />
 
-      <UltrasText style={styles.subTitle}>Input</UltrasText>
+        <UltrasText style={styles.subTitle}>Input</UltrasText>
 
-      <View style={{width: 200, marginTop: 10}}>
-        <Input name="Name" />
-      </View>
-      <View style={{width: 260, marginTop: 10}}>
-        <PhoneInput />
-      </View>
-      <View style={{width: 120, marginTop: 10}}>
-        <Input name="Phone Number" type={InputType.Phone} />
-      </View>
-      <View style={{width: 180, marginTop: 10}}>
-        <Input name="Email" type={InputType.Email} />
-      </View>
-
-      <UltrasText style={styles.subTitle}>Post Card</UltrasText>
-      <PostCard
-        date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
-        title={
-          "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
-        }
-        supportersClub={'Absolute Chelsea'}
-        commentsCount={37}
-        isFollowing={false}
-      />
-
-      <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
-      <SupportersClubCard
-        name="Juventus Official Fan Club Russia"
-        ultrasCount={48920}
-        city="Moscow"
-        avatarUri={rlUri}
-      />
-      <SupportersClubCard
-        name="Chelsea Pulse"
-        ultrasCount={122389}
-        city="London"
-        avatarUri={romanoUri}
-      />
-      <SupportersClubCard
-        name="Juventus Սեվ Սպիտակ Բանակ"
-        ultrasCount={2389}
-        city="Yerevan"
-        avatarUri={avatarUri}
-      />
-
-      <UltrasText style={styles.subTitle}>Team Card</UltrasText>
-      <TeamCard
-        name="AS Rome"
-        supportersClubsCount={47}
-        city="Rome"
-        country="Italy"
-        avatarUri={romanoUri}
-      />
-      <TeamCard
-        name="Chelsea FC"
-        supportersClubsCount={129}
-        city="London"
-        country="England"
-        avatarUri={rlUri}
-      />
-      <TeamCard name="Italy" supportersClubsCount={900} avatarUri={avatarUri} />
-
-      <UltrasText style={styles.subTitle}>Match Card</UltrasText>
-      <MatchCard
-        team1Name={'Union Berlin'}
-        team2Name={'Borussia Mönchengladbach'}
-        team1URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        team2URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        country={'Germany'}
-        league={'Bundesliga'}
-        // score,
-        leagueImageURI={
-          'https://media.api-sports.io/football/leagues/' +
-          Math.round(Math.random() * (55 - 1) + 1) +
-          '.png'
-        }
-        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
-      />
-
-      <MatchCard
-        matchState={MatcheTimeState.Penalties}
-        team1Name={'Barcelona'}
-        team2Name={'Benfica'}
-        team1URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        team2URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        league={'Champions League'}
-        score={{
-          team1Score: 2,
-          team2Score: 2,
-          team1Penalties: 3,
-          team2Penalties: 4,
-        }}
-        leagueImageURI={
-          'https://media.api-sports.io/football/leagues/' +
-          Math.round(Math.random() * (55 - 1) + 1) +
-          '.png'
-        }
-        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
-      />
-
-      <MatchCard
-        matchState={MatcheTimeState.Live}
-        minute={76}
-        team1Name={'Liverpool'}
-        team2Name={'Manchester United'}
-        team1URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        team2URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        country={'England'}
-        league={'Premier League'}
-        score={{team1Score: 3, team2Score: 1}}
-        leagueImageURI={
-          'https://media.api-sports.io/football/leagues/' +
-          Math.round(Math.random() * (55 - 1) + 1) +
-          '.png'
-        }
-        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
-      />
-
-      <MatchCard
-        matchState={MatcheTimeState.Finished}
-        team1Name={'Arsenal'}
-        team2Name={'Valencis'}
-        team1URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        team2URI={
-          'https://media.api-sports.io/football/teams/' +
-          Math.round(Math.random() * (4000 - 1) + 1) +
-          '.png'
-        }
-        league={'Europa League'}
-        score={{team1Score: 2, team2Score: 1}}
-        leagueImageURI={
-          'https://media.api-sports.io/football/leagues/' +
-          Math.round(Math.random() * (55 - 1) + 1) +
-          '.png'
-        }
-        startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
-      />
-
-      <UltrasText style={styles.subTitle}>Match Time</UltrasText>
-      <View style={styles.rowContainer}>
-        <View style={styles.rowItem}>
-          <MatchTime
-            leagueImageURI={
-              'https://media.api-sports.io/football/leagues/' +
-              Math.round(Math.random() * (55 - 1) + 1) +
-              '.png'
-            }
-            startTime={randomDate(
-              new Date(2021, 10, 10),
-              new Date(2021, 11, 11),
-            )}
-          />
+        <View style={{width: 200, marginTop: 10}}>
+          <Input name="Name" />
         </View>
-        <View style={styles.rowItem}>
-          <MatchTime
-            matchState={MatcheTimeState.Live}
-            minute={Math.round(Math.random() * (95 - 1) + 1)}
-            leagueImageURI={
-              'https://media.api-sports.io/football/leagues/' +
-              Math.round(Math.random() * (55 - 1) + 1) +
-              '.png'
-            }
-          />
+        <View style={{width: 260, marginTop: 10}}>
+          <PhoneInput />
         </View>
-        <View style={styles.rowItem}>
-          <MatchTime
-            matchState={MatcheTimeState.ExtraTime}
-            minute={Math.round(Math.random() * (123 - 91) + 91)}
-            leagueImageURI={
-              'https://media.api-sports.io/football/leagues/' +
-              Math.round(Math.random() * (55 - 1) + 1) +
-              '.png'
-            }
-          />
+        <View style={{width: 120, marginTop: 10}}>
+          <Input name="Phone Number" type={InputType.Phone} />
         </View>
-        <View style={styles.rowItem}>
-          <MatchTime
-            matchState={MatcheTimeState.Penalties}
-            leagueImageURI={
-              'https://media.api-sports.io/football/leagues/' +
-              Math.round(Math.random() * (55 - 1) + 1) +
-              '.png'
-            }
-          />
+        <View style={{width: 180, marginTop: 10}}>
+          <Input name="Email" type={InputType.Email} />
         </View>
-        <View style={styles.rowItem}>
-          <MatchTime
-            matchState={MatcheTimeState.Finished}
-            leagueImageURI={
-              'https://media.api-sports.io/football/leagues/' +
-              Math.round(Math.random() * (55 - 1) + 1) +
-              '.png'
-            }
-            startTime={randomDate(new Date(2021, 8, 8), new Date())}
-          />
-        </View>
-      </View>
 
-      <UltrasText style={styles.subTitle}>Divider</UltrasText>
-      <View style={styles.rowContainer}>
-        <View style={styles.rowItem}>
-          <UltrasText>Some Text</UltrasText>
-        </View>
-        <View style={styles.rowItem}>
-          <Divider />
-        </View>
-        <View style={styles.rowItem}>
-          <UltrasText>Another One</UltrasText>
-        </View>
-      </View>
+        <UltrasText style={styles.subTitle}>Post Card</UltrasText>
+        <PostCard
+          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          title={
+            "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
+          }
+          supportersClub={'Absolute Chelsea'}
+          commentsCount={37}
+          isFollowing={false}
+        />
 
-      <View style={styles.card}>
-        <Divider type={DividerType.Horizontal} />
-        <UltrasText>28.08.21</UltrasText>
-        <UltrasText>20:30</UltrasText>
-        <Divider type={DividerType.Horizontal} />
-      </View>
+        <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
+        <SupportersClubCard
+          name="Juventus Official Fan Club Russia"
+          ultrasCount={48920}
+          city="Moscow"
+          avatarUri={rlUri}
+        />
+        <SupportersClubCard
+          name="Chelsea Pulse"
+          ultrasCount={122389}
+          city="London"
+          avatarUri={romanoUri}
+        />
+        <SupportersClubCard
+          name="Juventus Սեվ Սպիտակ Բանակ"
+          ultrasCount={2389}
+          city="Yerevan"
+          avatarUri={avatarUri}
+        />
 
-      <View style={styles.rowContainer}>
-        <View style={styles.rowItem}>
-          <UltrasText>Lorem Ipsum</UltrasText>
-        </View>
-        <View style={styles.rowItem}>
-          <Divider type={DividerType.Vertical} />
-        </View>
-        <View style={styles.rowItem}>
-          <UltrasText>Dolor Sit</UltrasText>
-        </View>
-      </View>
+        <UltrasText style={styles.subTitle}>Team Card</UltrasText>
+        <TeamCard
+          name="AS Rome"
+          supportersClubsCount={47}
+          city="Rome"
+          country="Italy"
+          avatarUri={romanoUri}
+        />
+        <TeamCard
+          name="Chelsea FC"
+          supportersClubsCount={129}
+          city="London"
+          country="England"
+          avatarUri={rlUri}
+        />
+        <TeamCard
+          name="Italy"
+          supportersClubsCount={900}
+          avatarUri={avatarUri}
+        />
 
-      <UltrasText style={styles.subTitle}>Avatar & Badge</UltrasText>
-      <View style={styles.rowContainer}>
-        <View style={styles.rowItem}>
-          <WithBadge number={24} size={BadgeSize.Big} bgColor="danger">
-            <Avatar uri={avatarUri} size={AvatarSize.Big} />
-          </WithBadge>
+        <UltrasText style={styles.subTitle}>Match Card</UltrasText>
+        <MatchCard
+          team1Name={'Union Berlin'}
+          team2Name={'Borussia Mönchengladbach'}
+          team1URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          team2URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          country={'Germany'}
+          league={'Bundesliga'}
+          // score,
+          leagueImageURI={
+            'https://media.api-sports.io/football/leagues/' +
+            Math.round(Math.random() * (55 - 1) + 1) +
+            '.png'
+          }
+          startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+        />
+
+        <MatchCard
+          matchState={MatcheTimeState.Penalties}
+          team1Name={'Barcelona'}
+          team2Name={'Benfica'}
+          team1URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          team2URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          league={'Champions League'}
+          score={{
+            team1Score: 2,
+            team2Score: 2,
+            team1Penalties: 3,
+            team2Penalties: 4,
+          }}
+          leagueImageURI={
+            'https://media.api-sports.io/football/leagues/' +
+            Math.round(Math.random() * (55 - 1) + 1) +
+            '.png'
+          }
+          startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+        />
+
+        <MatchCard
+          matchState={MatcheTimeState.Live}
+          minute={76}
+          team1Name={'Liverpool'}
+          team2Name={'Manchester United'}
+          team1URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          team2URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          country={'England'}
+          league={'Premier League'}
+          score={{team1Score: 3, team2Score: 1}}
+          leagueImageURI={
+            'https://media.api-sports.io/football/leagues/' +
+            Math.round(Math.random() * (55 - 1) + 1) +
+            '.png'
+          }
+          startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+        />
+
+        <MatchCard
+          matchState={MatcheTimeState.Finished}
+          team1Name={'Arsenal'}
+          team2Name={'Valencis'}
+          team1URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          team2URI={
+            'https://media.api-sports.io/football/teams/' +
+            Math.round(Math.random() * (4000 - 1) + 1) +
+            '.png'
+          }
+          league={'Europa League'}
+          score={{team1Score: 2, team2Score: 1}}
+          leagueImageURI={
+            'https://media.api-sports.io/football/leagues/' +
+            Math.round(Math.random() * (55 - 1) + 1) +
+            '.png'
+          }
+          startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+        />
+
+        <UltrasText style={styles.subTitle}>Match Time</UltrasText>
+        <View style={styles.rowContainer}>
+          <View style={styles.rowItem}>
+            <MatchTime
+              leagueImageURI={
+                'https://media.api-sports.io/football/leagues/' +
+                Math.round(Math.random() * (55 - 1) + 1) +
+                '.png'
+              }
+              startTime={randomDate(
+                new Date(2021, 10, 10),
+                new Date(2021, 11, 11),
+              )}
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <MatchTime
+              matchState={MatcheTimeState.Live}
+              minute={Math.round(Math.random() * (95 - 1) + 1)}
+              leagueImageURI={
+                'https://media.api-sports.io/football/leagues/' +
+                Math.round(Math.random() * (55 - 1) + 1) +
+                '.png'
+              }
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <MatchTime
+              matchState={MatcheTimeState.ExtraTime}
+              minute={Math.round(Math.random() * (123 - 91) + 91)}
+              leagueImageURI={
+                'https://media.api-sports.io/football/leagues/' +
+                Math.round(Math.random() * (55 - 1) + 1) +
+                '.png'
+              }
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <MatchTime
+              matchState={MatcheTimeState.Penalties}
+              leagueImageURI={
+                'https://media.api-sports.io/football/leagues/' +
+                Math.round(Math.random() * (55 - 1) + 1) +
+                '.png'
+              }
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <MatchTime
+              matchState={MatcheTimeState.Finished}
+              leagueImageURI={
+                'https://media.api-sports.io/football/leagues/' +
+                Math.round(Math.random() * (55 - 1) + 1) +
+                '.png'
+              }
+              startTime={randomDate(new Date(2021, 8, 8), new Date())}
+            />
+          </View>
         </View>
-        <View style={styles.rowItem}>
-          <WithBadge
-            number={43768}
-            size={BadgeSize.Big}
-            bgColor="secondary"
-            color="danger">
-            <Avatar uri={romanoUri} size={AvatarSize.Big} />
-          </WithBadge>
+
+        <UltrasText style={styles.subTitle}>Divider</UltrasText>
+        <View style={styles.rowContainer}>
+          <View style={styles.rowItem}>
+            <UltrasText>Some Text</UltrasText>
+          </View>
+          <View style={styles.rowItem}>
+            <Divider />
+          </View>
+          <View style={styles.rowItem}>
+            <UltrasText>Another One</UltrasText>
+          </View>
         </View>
-        <View style={styles.rowItem}>
-          <WithBadge number={54} size={BadgeSize.Small}>
-            <Avatar uri={rlUri} />
-          </WithBadge>
+
+        <View style={styles.card}>
+          <Divider type={DividerType.Horizontal} />
+          <UltrasText>28.08.21</UltrasText>
+          <UltrasText>20:30</UltrasText>
+          <Divider type={DividerType.Horizontal} />
         </View>
-        <View style={styles.rowItem}>
-          <Avatar uri={rlUri} size={AvatarSize.Small} />
+
+        <View style={styles.rowContainer}>
+          <View style={styles.rowItem}>
+            <UltrasText>Lorem Ipsum</UltrasText>
+          </View>
+          <View style={styles.rowItem}>
+            <Divider type={DividerType.Vertical} />
+          </View>
+          <View style={styles.rowItem}>
+            <UltrasText>Dolor Sit</UltrasText>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+
+        <UltrasText style={styles.subTitle}>Avatar & Badge</UltrasText>
+        <View style={styles.rowContainer}>
+          <View style={styles.rowItem}>
+            <WithBadge number={24} size={BadgeSize.Big} bgColor="danger">
+              <Avatar uri={avatarUri} size={AvatarSize.Big} />
+            </WithBadge>
+          </View>
+          <View style={styles.rowItem}>
+            <WithBadge
+              number={43768}
+              size={BadgeSize.Big}
+              bgColor="secondary"
+              color="danger">
+              <Avatar uri={romanoUri} size={AvatarSize.Big} />
+            </WithBadge>
+          </View>
+          <View style={styles.rowItem}>
+            <WithBadge number={54} size={BadgeSize.Small}>
+              <Avatar uri={rlUri} />
+            </WithBadge>
+          </View>
+          <View style={styles.rowItem}>
+            <Avatar uri={rlUri} size={AvatarSize.Small} />
+          </View>
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 

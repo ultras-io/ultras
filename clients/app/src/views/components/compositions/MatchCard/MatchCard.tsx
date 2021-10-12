@@ -5,16 +5,12 @@ import UltrasText from 'views/components/base/UltrasText';
 
 import MatchTime from '../MatchTime';
 import MatchScore from 'views/components/base/MatchScore';
+import BluredView from 'views/components/base/BluredView';
 
 import {IMatchTimeProps} from '../MatchTime';
 import {IMatchCardProps} from './types';
 import styles from './styles';
 
-const StyledContainer = styled.View<IMatchCardProps & IMatchTimeProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.bgColor;
-  }};
-`;
 const StyledView = styled.View<IMatchCardProps & IMatchTimeProps>`
   background-color: ${({theme}) => {
     return theme.colors.text;
@@ -35,7 +31,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   minute,
 }) => {
   return (
-    <StyledContainer style={styles.container}>
+    <BluredView style={styles.container}>
       <UltrasText style={styles.league} color="text">
         {country} {league}
       </UltrasText>
@@ -77,7 +73,7 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
           />
         )}
       </View>
-    </StyledContainer>
+    </BluredView>
   );
 };
 

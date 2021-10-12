@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
-import styled from 'styled-components/native';
 import I18n from 'i18n/i18n';
 
+import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 
@@ -11,16 +11,11 @@ import Button, {
   BoxSizeEnum as ButtonBoxSize,
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
+import CommentsCount from 'views/components/base/CommentsCount';
 import {IconNamesEnum} from '../../../../assets/icons';
 
 import {IPostCardProps} from './types';
 import styles from './styles';
-
-const StyledContainer = styled.View<IPostCardProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.bgColor;
-  }};
-`;
 
 const PostCard: React.FC<IPostCardProps> = ({
   date,
@@ -30,7 +25,7 @@ const PostCard: React.FC<IPostCardProps> = ({
   isFollowing,
 }) => {
   return (
-    <StyledContainer style={styles.container}>
+    <BluredView style={styles.container}>
       <UltrasText style={styles.date} color="text">
         {date.toLocaleTimeString([], {
           month: 'short',
@@ -51,17 +46,17 @@ const PostCard: React.FC<IPostCardProps> = ({
       </UltrasText>
 
       <View style={styles.bottomButtons}>
-        <UltrasText color="text" style={styles.comments}>
-          {commentsCount} com.
-        </UltrasText>
+        <View style={styles.comments}>
+          <CommentsCount count={commentsCount} />
+        </View>
         {!isFollowing && (
           <Button
             title={I18n.t('postFollowTopic')}
             onPress={() => {}}
             boxSize={ButtonBoxSize.Contain}
-            size={ButtonSize.Default}
+            size={ButtonSize.Small}
             color="text"
-            bgColor="secondary"
+            bgColor="primary"
             icon={IconNamesEnum.Hearth}
             iconPosition={ButtonIconPosition.Right}
           />
@@ -70,7 +65,7 @@ const PostCard: React.FC<IPostCardProps> = ({
           <Icon key="icon" name={IconNamesEnum.ArrowRight} size={12} />
         </View>
       </View>
-    </StyledContainer>
+    </BluredView>
   );
 };
 

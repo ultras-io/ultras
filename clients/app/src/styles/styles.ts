@@ -11,6 +11,7 @@ export default StyleSheet.create({
     fontSize: 32,
     flex: 1,
   },
+
   headerLogo: {
     fontFamily: 'Montserrat',
     fontWeight: '600',

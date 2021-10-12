@@ -21,7 +21,7 @@ export default StyleSheet.create({
 
   // text Size
   textSizeSmall: {
-    fontSize: 13,
+    fontSize: 11,
     marginHorizontal: 2,
   },
   textSizeDefault: {

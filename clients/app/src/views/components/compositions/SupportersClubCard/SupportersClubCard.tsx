@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
-import styled from 'styled-components/native';
 import I18n from 'i18n/i18n';
 
+import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 import Divider from 'views/components/base/Divider';
@@ -13,12 +13,6 @@ import {ISupportersClubCardProps} from './types';
 
 import styles from './styles';
 
-const StyledView = styled.View<ISupportersClubCardProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.bgColor;
-  }};
-`;
-
 const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
   avatarUri,
   name,
@@ -26,7 +20,7 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
   city,
 }) => {
   return (
-    <StyledView style={styles.container}>
+    <BluredView style={styles.container}>
       <View style={styles.avatar}>
         <Avatar uri={avatarUri} size={AvatarSize.Big} />
       </View>
@@ -47,7 +41,7 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
           </UltrasText>
         </View>
       </View>
-    </StyledView>
+    </BluredView>
   );
 };
 

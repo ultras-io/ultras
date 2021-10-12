@@ -5,7 +5,14 @@ export default StyleSheet.create({
     flex: 1,
     paddingVertical: 50,
     padding: 8,
-    backgroundColor: 'rgba(39, 40, 41, 0.9)',
+    // backgroundColor: 'rgba(39, 40, 41, 0.9)',
+  },
+  bg: {
+    flex: 1,
+    alignContent: 'center',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   title: {
     fontWeight: 'bold',
