@@ -4,8 +4,8 @@
 
 ## Usage
 
-```
-const shared = require('shared');
+```js
+const shared = require('@ultras/shared');
 
-// TODO: DEMONSTRATE API
+shared.multiply(1,2) // 3
 ```
