@@ -12,7 +12,7 @@ import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
 import CommentsCount from 'views/components/base/CommentsCount';
-import {IconNamesEnum} from '../../../../assets/icons';
+import {IconNamesEnum} from 'assets/icons';
 
 import {IPostCardProps} from './types';
 import styles from './styles';

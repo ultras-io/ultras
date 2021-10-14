@@ -34,13 +34,13 @@ import styles from './styles';
 import gStyles from 'styles/styles';
 
 const avatarUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/163650366_582341719356091_276870700844455813_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=bFJHgQ-xwOkAX8WGSbe&edm=ABfd0MgBAAAA&ccb=7-4&oh=48c3ef745ef2eb0269b41acc83c4fb16&oe=61682632&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/22430351_1332354503541433_1723358505148088320_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=-wxLVV4C-KoAX_JuPB5&edm=ABfd0MgBAAAA&ccb=7-4&oh=d08b5086fcfc8af35e4f07c94a9598ad&oe=616ED379&_nc_sid=7bff83';
 
 const romanoUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/242809702_469878950673668_7726857470160677314_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=ADqqarorL1EAX_SB4-F&edm=ABfd0MgBAAAA&ccb=7-4&oh=9f05f765d78e4ecf72aad4e62a94e3e5&oe=61696472&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/242809702_469878950673668_7726857470160677314_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=c9SjnR2k8DoAX9dVioK&edm=ABfd0MgBAAAA&ccb=7-4&oh=9096649319e8abcef3f444daf6cbf6c6&oe=616F5332&_nc_sid=7bff83';
 
 const rlUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/65280369_508538103219999_1200879938362671104_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=0mi-ZtEFyX0AX-EVXEV&edm=ABfd0MgBAAAA&ccb=7-4&oh=0da3c68602fbb18395eb87a8db288e5c&oe=61694F61&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/67885761_771548493284007_2229076314248183808_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=ch9bbun-dYgAX9-4-NP&edm=ABfd0MgBAAAA&ccb=7-4&oh=989e449e860d54bd662b4437f5f9003b&oe=616F4369&_nc_sid=7bff83';
 
 const UIKit: React.FC = () => {
   const log = () => {
@@ -134,6 +134,9 @@ const UIKit: React.FC = () => {
         <UltrasText style={styles.subTitle}>Event Card</UltrasText>
 
         <EventCard
+          image={
+            'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
+          }
           date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
           title={
             'Celebrate all things Chelsea FC, the reigning Champions of Europe, at the Annual Lunch 2021.'
@@ -145,9 +148,6 @@ const UIKit: React.FC = () => {
           isLiked={true}
         />
         <EventCard
-          image={
-            'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
-          }
           date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
           title={'Watching Euro 2020 Final Together'}
           location={'Paulaner Beerhouse'}
@@ -199,6 +199,34 @@ const UIKit: React.FC = () => {
           city="Yerevan"
           avatarUri={avatarUri}
         />
+
+        <View style={styles.rowContainer}>
+          <View style={styles.rowItem}>
+            <SupportersClubCard
+              name="Juventus Official Fan Club Russia"
+              ultrasCount={48920}
+              city="Moscow"
+              avatarUri={avatarUri}
+              direction="horizontal"
+            />
+          </View>
+          <View style={styles.rowItem}>
+            <SupportersClubCard
+              name="Chelsea Pulse"
+              ultrasCount={122389}
+              city="London"
+              avatarUri={romanoUri}
+              direction="horizontal"
+            />
+          </View>
+          <SupportersClubCard
+            name="Juventus Official Club Russia Official Fan Club Juventus Official Fan Russia"
+            ultrasCount={48920}
+            city="Moscow"
+            avatarUri={rlUri}
+            direction="horizontal"
+          />
+        </View>
 
         <UltrasText style={styles.subTitle}>Team Card</UltrasText>
         <TeamCard
@@ -421,7 +449,7 @@ const UIKit: React.FC = () => {
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
             <WithBadge number={24} size={BadgeSize.Big} bgColor="danger">
-              <Avatar uri={avatarUri} size={AvatarSize.Big} />
+              <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
             </WithBadge>
           </View>
           <View style={styles.rowItem}>
@@ -430,16 +458,16 @@ const UIKit: React.FC = () => {
               size={BadgeSize.Big}
               bgColor="secondary"
               color="danger">
-              <Avatar uri={romanoUri} size={AvatarSize.Big} />
+              <Avatar avatarUri={romanoUri} size={AvatarSize.Big} />
             </WithBadge>
           </View>
           <View style={styles.rowItem}>
             <WithBadge number={54} size={BadgeSize.Small}>
-              <Avatar uri={rlUri} />
+              <Avatar avatarUri={rlUri} />
             </WithBadge>
           </View>
           <View style={styles.rowItem}>
-            <Avatar uri={rlUri} size={AvatarSize.Small} />
+            <Avatar avatarUri={rlUri} size={AvatarSize.Small} />
           </View>
         </View>
       </ScrollView>

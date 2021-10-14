@@ -23,7 +23,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({
   return (
     <BluredView style={styles.container}>
       <View style={styles.avatar}>
-        <Avatar uri={avatarUri} size={AvatarSize.Default} />
+        <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
       </View>
       <View style={styles.info}>
         <UltrasText color="text" style={styles.name}>

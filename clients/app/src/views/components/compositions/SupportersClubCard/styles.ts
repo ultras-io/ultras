@@ -35,4 +35,19 @@ export default StyleSheet.create({
     marginHorizontal: 6,
     justifyContent: 'center',
   },
+
+  // horizontal
+  containerH: {
+    width: 100,
+    paddingHorizontal: 4,
+    alignItems: 'center',
+  },
+  avatarH: {
+    marginBottom: 8,
+  },
+  nameH: {
+    fontWeight: '500',
+    fontSize: 11,
+    textAlign: 'center',
+  },
 });

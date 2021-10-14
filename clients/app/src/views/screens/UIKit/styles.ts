@@ -27,7 +27,6 @@ export default StyleSheet.create({
     marginTop: 10,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
   },
   rowItem: {
     marginRight: 10,

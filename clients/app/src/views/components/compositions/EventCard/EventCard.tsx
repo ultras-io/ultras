@@ -13,7 +13,7 @@ import Button, {
 } from 'views/components/base/Button';
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
-import {IconNamesEnum} from '../../../../assets/icons';
+import {IconNamesEnum} from 'assets/icons';
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
 import {IEventCardProps} from './types';
@@ -59,7 +59,6 @@ const EventCard: React.FC<IEventCardProps> = ({
           {I18n.t('eventsEventBy')} {creator}
           {supportersClub && ', ' + supportersClub}
         </UltrasText>
-
         <View style={styles.bottomButtons}>
           <View style={styles.comments}>
             <Like isLiked={isLiked} onPress={() => {}} />

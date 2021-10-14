@@ -9,7 +9,7 @@ import rootScreens from 'navigation/root/rootScreens';
 import {keyEnum as SearchListKey} from 'views/screens/SearchListModal';
 
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from '../../../../assets/icons';
+import {IconNamesEnum as Icons} from 'assets/icons';
 
 import {IInputProps, TypeEnum, StateEnum, KeyboardTypes} from './types';
 import styles from './styles';
