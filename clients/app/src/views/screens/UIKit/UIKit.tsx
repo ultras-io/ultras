@@ -26,6 +26,7 @@ import Input, {TypeEnum as InputType} from 'views/components/base/Input';
 import PhoneInput from 'views/components/compositions/PhoneInput';
 
 import PostCard from 'views/components/compositions/PostCard';
+import EventCard from 'views/components/compositions/EventCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
 
@@ -63,6 +64,9 @@ const UIKit: React.FC = () => {
         <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
+            <CommentsCount count={0} />
+          </View>
+          <View style={styles.rowItem}>
             <CommentsCount count={2} />
           </View>
           <View style={styles.rowItem}>
@@ -90,7 +94,7 @@ const UIKit: React.FC = () => {
             <CommentsCount count={246003540} />
           </View>
           <View style={styles.rowItem}>
-            <CommentsCount count={2460035904} />
+            <CommentsCount count={8460035904} />
           </View>
         </View>
 
@@ -126,6 +130,44 @@ const UIKit: React.FC = () => {
         <View style={{width: 180, marginTop: 10}}>
           <Input name="Email" type={InputType.Email} />
         </View>
+
+        <UltrasText style={styles.subTitle}>Event Card</UltrasText>
+
+        <EventCard
+          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          title={
+            'Celebrate all things Chelsea FC, the reigning Champions of Europe, at the Annual Lunch 2021.'
+          }
+          creator={'s.bridge'}
+          commentsCount={2560}
+          goingCount={120900}
+          isGoing={true}
+          isLiked={true}
+        />
+        <EventCard
+          image={
+            'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
+          }
+          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          title={'Watching Euro 2020 Final Together'}
+          location={'Paulaner Beerhouse'}
+          creator={'kirilbelsky'}
+          supportersClub={'Absolute Chelsea'}
+          commentsCount={37}
+          goingCount={124}
+          isGoing={false}
+          isLiked={true}
+        />
+        <EventCard
+          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          title={'Chelsea vs Villarreal 2021 UEFA Super Cup'}
+          location={'Dargett Brewpab'}
+          creator={'g.brzęczyszczykiewicz'}
+          commentsCount={0}
+          goingCount={12}
+          isGoing={false}
+          isLiked={false}
+        />
 
         <UltrasText style={styles.subTitle}>Post Card</UltrasText>
         <PostCard
