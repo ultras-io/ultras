@@ -16,7 +16,7 @@ const CommentsCount: React.FC<ICommentsCountProps> = ({count}) => {
       <Icon key="icon" name={Icons.Comments} size={24} />
       <View style={styles.commentsView}>
         <UltrasText style={styles.comments} numberOfLines={1}>
-          {getReadableNumber(count)}
+          {count !== 0 && getReadableNumber(count)}
         </UltrasText>
       </View>
     </View>

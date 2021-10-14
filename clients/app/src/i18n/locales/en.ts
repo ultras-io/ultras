@@ -19,6 +19,9 @@ export default {
   fc: 'Football Club',
   natioanlTeam: 'Natioanl Team',
   supportersClubs: 'Supporters Clubs',
+  going: 'going',
+  join: 'Join',
+  joined: 'Joined',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',
@@ -58,6 +61,10 @@ export default {
   // posts
   postDiscussionAt: 'Discussion at ',
   postFollowTopic: 'Follow Topic',
+
+  // events
+  events: 'Events',
+  eventsEventBy: 'Event by',
 
   // matches
   matches: 'Matches',

@@ -14,7 +14,7 @@ interface IRootNavigationProps {
 
 const RootNavigation: React.FC<IRootNavigationProps> = ({theme}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated] = useState<boolean>(false);
 
   if (!isLoading) {
     return <SplashScreen setIsLoading={setIsLoading} />;
