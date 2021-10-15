@@ -18,11 +18,12 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
   name,
   ultrasCount,
   city,
+  direction = 'vertical',
 }) => {
-  return (
+  return direction === 'vertical' ? (
     <BluredView style={styles.container}>
       <View style={styles.avatar}>
-        <Avatar uri={avatarUri} size={AvatarSize.Big} />
+        <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
       </View>
       <View style={styles.info}>
         <UltrasText color="text" style={styles.name}>
@@ -35,13 +36,21 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
           <View style={styles.divider}>
             <Divider />
           </View>
-
           <UltrasText color="text" style={styles.text}>
             {city}
           </UltrasText>
         </View>
       </View>
     </BluredView>
+  ) : (
+    <View style={styles.containerH}>
+      <View style={styles.avatarH}>
+        <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
+      </View>
+      <UltrasText color="text" style={styles.nameH} numberOfLines={3}>
+        {name}
+      </UltrasText>
+    </View>
   );
 };
 

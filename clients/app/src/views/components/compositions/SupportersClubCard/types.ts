@@ -6,4 +6,5 @@ export interface ISupportersClubCardProps {
   name: string;
   ultrasCount: number;
   city: string;
+  direction?: 'vertical' | 'horizontal';
 }

@@ -24,7 +24,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 6,
-    marginBottom: 12,
+    marginBottom: 8,
   },
   logoContainer: {
     width: 30,
@@ -45,6 +45,7 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 2.5,
   },
   team: {
     fontWeight: '600',

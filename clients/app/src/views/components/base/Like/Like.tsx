@@ -2,8 +2,7 @@ import React from 'react';
 import {Pressable} from 'react-native';
 
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from '../../../../assets/icons';
-// import {IconNamesEnum as Icons} from 'assets/icons';
+import {IconNamesEnum as Icons} from 'assets/icons';
 
 import {ILikeProps} from './type';
 import styles from './styles';
