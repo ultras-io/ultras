@@ -14,7 +14,7 @@ import MessageBox, {
 } from 'views/components/base/MessageBox';
 import Button, {SizeEnum as ButtonSize} from 'views/components/base/Button';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from '../../../assets/icons';
+import {IconNamesEnum as Icons} from 'assets/icons';
 import PhoneInput from 'views/components/compositions/PhoneInput';
 import FourDigitsContainer from 'views/containers/FourDigitsContainer';
 import Input, {TypeEnum as InputType} from 'views/components/base/Input';
@@ -182,8 +182,8 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
                       name={
                         item.action.type === ActionTypeEnum.AllowLocation &&
                         !isLocationEnabled
-                          ? Icons.Hearth // warn
-                          : Icons.Hearth
+                          ? Icons.Warning
+                          : Icons.Check
                       }
                       size={12}
                     />{' '}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImageBackground} from 'react-native';
 
-import testBg from '../../../assets/images/testBG.png';
+import testBg from 'assets/images/testBG.png';
 
 import MatchesContainer from './containers/MatchesContainer';
 
