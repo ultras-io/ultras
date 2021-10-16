@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 import FourDigitsInput from 'views/components/compositions/FourDigitsInput';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from '../../../assets/icons';
+import {IconNamesEnum as Icons} from 'assets/icons';
 import Button, {
   SizeEnum as ButtonSize,
   AppearanceEnum as ButtonAppearance,

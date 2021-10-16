@@ -99,7 +99,7 @@ const Input: React.FC<IInputProps> = ({
       />
       {_isSelect && (
         <View style={styles.icon}>
-          <Icon name={Icons.Hearth} size={12} />
+          <Icon name={Icons.ArrowDown} size={12} />
         </View>
       )}
     </View>

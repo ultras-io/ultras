@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {View, Image} from 'react-native';
+import {View, Image, Pressable} from 'react-native';
 import UltrasText from 'views/components/base/UltrasText';
 
 import MatchTime from '../MatchTime';
@@ -20,6 +20,7 @@ const StyledView = styled.View<IMatchCardProps & IMatchTimeProps>`
 
 const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   id,
+  onPress,
   team1Name,
   team2Name,
   team1URI,
@@ -33,61 +34,63 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   minute,
 }) => {
   return (
-    <BluredView style={styles.container}>
-      <View style={styles.league}>
-        {country && (
-          <>
-            <UltrasText style={styles.leagueText} color="secondaryText">
-              {country}
-            </UltrasText>
-            <View style={styles.divider}>
-              <Divider />
-            </View>
-          </>
-        )}
-        <UltrasText style={styles.leagueText} color="secondaryText">
-          {league}
-        </UltrasText>
-      </View>
-      <View style={styles.logoAndTime}>
-        <StyledView style={styles.logoContainer}>
-          <Image source={{uri: team1URI}} style={styles.logo} />
-        </StyledView>
-        <StyledView style={[styles.logoContainer, styles.logoContainer2]}>
-          <Image source={{uri: team2URI}} style={styles.logo} />
-        </StyledView>
-        <MatchTime
-          leagueImageURI={leagueImageURI}
-          matchState={matchState}
-          startTime={startTime}
-          minute={minute}
-        />
-      </View>
-      <View style={styles.teamAndScore}>
-        <UltrasText style={styles.team} color="secondaryText">
-          {team1Name}
-        </UltrasText>
-        {score && (
-          <MatchScore
-            score={score.team1Score}
-            penalties={score.team1Penalties}
+    <Pressable onPress={onPress}>
+      <BluredView style={styles.container}>
+        <View style={styles.league}>
+          {country && (
+            <>
+              <UltrasText style={styles.leagueText} color="secondaryText">
+                {country}
+              </UltrasText>
+              <View style={styles.divider}>
+                <Divider />
+              </View>
+            </>
+          )}
+          <UltrasText style={styles.leagueText} color="secondaryText">
+            {league}
+          </UltrasText>
+        </View>
+        <View style={styles.logoAndTime}>
+          <StyledView style={styles.logoContainer}>
+            <Image source={{uri: team1URI}} style={styles.logo} />
+          </StyledView>
+          <StyledView style={[styles.logoContainer, styles.logoContainer2]}>
+            <Image source={{uri: team2URI}} style={styles.logo} />
+          </StyledView>
+          <MatchTime
+            leagueImageURI={leagueImageURI}
             matchState={matchState}
+            startTime={startTime}
+            minute={minute}
           />
-        )}
-      </View>
-      <View style={styles.teamAndScore}>
-        <UltrasText style={styles.team} color="secondaryText">
-          {team2Name}
-        </UltrasText>
-        {score && (
-          <MatchScore
-            score={score.team2Score}
-            penalties={score.team2Penalties}
-            matchState={matchState}
-          />
-        )}
-      </View>
-    </BluredView>
+        </View>
+        <View style={styles.teamAndScore}>
+          <UltrasText style={styles.team} color="secondaryText">
+            {team1Name}
+          </UltrasText>
+          {score && (
+            <MatchScore
+              score={score.team1Score}
+              penalties={score.team1Penalties}
+              matchState={matchState}
+            />
+          )}
+        </View>
+        <View style={styles.teamAndScore}>
+          <UltrasText style={styles.team} color="secondaryText">
+            {team2Name}
+          </UltrasText>
+          {score && (
+            <MatchScore
+              score={score.team2Score}
+              penalties={score.team2Penalties}
+              matchState={matchState}
+            />
+          )}
+        </View>
+      </BluredView>
+    </Pressable>
   );
 };
 

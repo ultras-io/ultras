@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Pressable} from 'react-native';
+import {FlatList} from 'react-native';
 import {useScrollToTop} from '@react-navigation/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -27,22 +27,21 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
   useScrollToTop(ref);
 
   const renderRow = ({item}) => (
-    <Pressable onPress={() => navigateToMatch(item.id)}>
-      <MatchCard
-        id={item.id}
-        team1Name={item.team1Name}
-        team2Name={item.team2Name}
-        team1URI={item.team1URI}
-        team2URI={item.team2URI}
-        country={item.country}
-        league={item.league}
-        score={item.score}
-        matchState={item.matchState}
-        leagueImageURI={item.leagueImageURI}
-        startTime={item.startTime}
-        minute={item.minute}
-      />
-    </Pressable>
+    <MatchCard
+      id={item.id}
+      onPress={() => navigateToMatch(item.id)}
+      team1Name={item.team1Name}
+      team2Name={item.team2Name}
+      team1URI={item.team1URI}
+      team2URI={item.team2URI}
+      country={item.country}
+      league={item.league}
+      score={item.score}
+      matchState={item.matchState}
+      leagueImageURI={item.leagueImageURI}
+      startTime={item.startTime}
+      minute={item.minute}
+    />
   );
 
   return (
