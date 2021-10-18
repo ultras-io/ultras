@@ -3,5 +3,5 @@
 module.exports = coreApiSdk;
 
 function coreApiSdk() {
-    // TODO
+  // TODO
 }
