@@ -1,3 +1,23 @@
+lerna-debug.log
+# workspaces
+/packages/cli/node_modules
+/packages/cli/build
+
+/packages/shared/node_modules
+/packages/shared/build
+
+/packages/utils/node_modules
+/packages/utils/build
+
+/sdks/core-api-sdk/node_modules
+/sdks/core-api-sdk/build
+
+/apis/core-api/node_modules
+/apis/core-api/build
+
+/bls/**/node_modeuls
+/bls/**/build
+
 # Logs
 logs
 *.log

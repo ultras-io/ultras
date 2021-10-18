@@ -5,7 +5,11 @@
 ## Usage
 
 ```
-npm -g i @ultras/cli
+$ yarn add -D  @ultras/cli
 
-// cli --help
+$ ultras-cli create-component --name=<YourComponentName> --path=<YourComponentPath>
 ```
+
+### In clients/app project created a script ``create-component``
+
+``npm run create-component --name="" --path=="" ``
