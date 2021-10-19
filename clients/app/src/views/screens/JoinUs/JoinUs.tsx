@@ -224,7 +224,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={
-          Platform.OS === 'ios' ? getKeyboardOffset(step) : 0
+          Platform.OS === 'ios' ? getKeyboardOffset(step) : 80
         }>
         <FlatList
           ref={flatListRef}

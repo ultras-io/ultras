@@ -1,13 +1,13 @@
 import React, {useState, useCallback} from 'react';
+import {Pressable, View} from 'react-native';
 import {withTheme} from 'styled-components/native';
 import styled from 'styled-components/native';
-
-import {View} from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import rootScreens from 'navigation/root/rootScreens';
 import {keyEnum as SearchListKey} from 'views/screens/SearchListModal';
 
+import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 import {IconNamesEnum as Icons} from 'assets/icons';
 
@@ -49,6 +49,8 @@ const Input: React.FC<IInputProps> = ({
 
   const _isSelect = type === TypeEnum.Select;
 
+  // @TODO change select to view ,not input
+
   const [_value, _setValue] = useState(value);
 
   const _onChangeText = useCallback(
@@ -70,37 +72,33 @@ const Input: React.FC<IInputProps> = ({
     [onChange],
   );
 
-  const _onPressIn = useCallback(() => {
-    if (_isSelect) {
-      openModal(rootScreens.searchListModal.name, {key: SearchListKey.Code});
-    }
-  }, [_isSelect, openModal]);
+  const openSelectModal = useCallback(() => {
+    openModal(rootScreens.searchListModal.name, {key: SearchListKey.Code});
+  }, [openModal]);
 
   return (
     <View style={styles.container}>
-      <StyledInput
-        style={[
-          styles.input,
-          withBorder && styles.inputBorder,
-          _isSelect && styles.inputSelect,
-        ]}
-        onChangeText={_onChangeText}
-        value={_value}
-        defaultValue={value}
-        placeholder={name}
-        keyboardType={keyboardTypes[type]}
-        autoCorrect={false}
-        onEndEditing={_onEndEditing}
-        onPressIn={_onPressIn}
-        placeholderTextColor={theme?.colors.secondaryText}
-        selectionColor={theme?.colors.secondaryText}
-        autoCapitalize="none"
-        editable={!_isSelect}
-      />
-      {_isSelect && (
-        <View style={styles.icon}>
-          <Icon name={Icons.Hearth} size={12} />
-        </View>
+      {_isSelect ? (
+        <Pressable onPress={openSelectModal}>
+          <UltrasText>{value}</UltrasText>
+          <View style={styles.icon}>
+            <Icon name={Icons.Hearth} size={12} />
+          </View>
+        </Pressable>
+      ) : (
+        <StyledInput
+          style={[styles.input, withBorder && styles.inputBorder]}
+          onChangeText={_onChangeText}
+          value={_value}
+          defaultValue={value}
+          placeholder={name}
+          keyboardType={keyboardTypes[type]}
+          autoCorrect={false}
+          onEndEditing={_onEndEditing}
+          placeholderTextColor={theme?.colors.secondaryText}
+          selectionColor={theme?.colors.secondaryText}
+          autoCapitalize="none"
+        />
       )}
     </View>
   );

@@ -26,10 +26,11 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
-  const renderRow = ({item}) => (
-    <Pressable onPress={() => navigateToMatch(item.id)}>
+  const renderRow = React.useCallback(
+    ({item}) => (
       <MatchCard
         id={item.id}
+        onPress={() => navigateToMatch(item.id)}
         team1Name={item.team1Name}
         team2Name={item.team2Name}
         team1URI={item.team1URI}
@@ -42,7 +43,8 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
         startTime={item.startTime}
         minute={item.minute}
       />
-    </Pressable>
+    ),
+    [navigateToMatch],
   );
 
   return (

@@ -17,7 +17,8 @@ const SCREENS: HomeNavigationScreens = {
     component: Home,
     options: {
       headerShown: true,
-      headerLeft: () => <></>,
+      headerBackVisible: false,
+      headerShadowVisible: false,
       headerTitle: () => (
         <UltrasText style={styles.headerLogo} color="tertiary">
           {/* <UltrasText style={styles.screenTitle} color={'tertiary'}> */}
@@ -25,7 +26,6 @@ const SCREENS: HomeNavigationScreens = {
         </UltrasText>
       ),
       headerRight: () => <UltrasText color="text">b1 b2</UltrasText>,
-      headerShadowVisible: false,
     },
   },
   match: {

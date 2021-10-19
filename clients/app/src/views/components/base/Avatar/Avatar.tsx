@@ -21,7 +21,7 @@ const Avatar: React.FC<IAvatarProps> = ({
   return (
     <View style={styles.container}>
       <Image
-        source={{uri: avatarUri ? avatarUri : defaultAvatar}}
+        source={avatarUri ? {uri: avatarUri} : defaultAvatar}
         style={stylesDictionary.sizes[size]}
       />
     </View>
