@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback, Fragment} from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 import {View, KeyboardAvoidingView, FlatList, Platform} from 'react-native';
 import I18n from 'i18n/i18n';
 
@@ -33,7 +33,7 @@ const DELAY_DELTA = 200;
 
 const getKeyboardOffset = (step: number): number => {
   if (step === 3) return 20;
-  if (step === 4) return 65;
+  if (step === 4) return 64;
   if (step === 5) return 20;
   return 0;
 };
@@ -62,7 +62,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
   }, [setPhoneNumber, setStep, step]);
 
   const requestLocation = useCallback(async () => {
-    setIsLocationEnabled(await LocationService.requestLocation());
+    setIsLocationEnabled(await LocationService.hasLocationPermission());
     setStep(step + 1);
   }, [setIsLocationEnabled, setStep, step]);
 
@@ -222,8 +222,10 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
     <WithSafeArea>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={getKeyboardOffset(step)}>
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={
+          Platform.OS === 'ios' ? getKeyboardOffset(step) : undefined
+        }>
         <FlatList
           ref={flatListRef}
           style={styles.flatList}
