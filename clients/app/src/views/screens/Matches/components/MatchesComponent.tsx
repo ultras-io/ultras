@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Pressable} from 'react-native';
+import {FlatList} from 'react-native';
 import {useScrollToTop} from '@react-navigation/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';

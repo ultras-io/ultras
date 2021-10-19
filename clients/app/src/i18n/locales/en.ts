@@ -22,6 +22,7 @@ export default {
   going: 'going',
   join: 'Join',
   joined: 'Joined',
+  canChangeClub: 'You can change or add other favorite clubs later.',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',

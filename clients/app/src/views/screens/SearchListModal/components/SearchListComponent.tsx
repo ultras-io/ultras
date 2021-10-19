@@ -27,8 +27,14 @@ const StyledFlat = styled.View<ISearchListComponentProps>`
 `;
 
 const StyledRow = styled.View<ISearchListComponentProps>`
+  background-color: ${({theme}) => {
+    return theme.colors.opacityBgColor;
+  }};
+`;
+
+const BorderedRow = styled.View<ISearchListComponentProps>`
   border-color: ${({theme}) => {
-    return theme.colors.quaternaryText;
+    return theme.colors.opacityBgColor;
   }};
 `;
 
@@ -38,10 +44,21 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   onClose,
 }) => {
   const renderRow = ({item}) => (
-    <StyledRow style={styles.row}>
-      <UltrasText style={styles.text} color="text">
-        {item.title}
-      </UltrasText>
+    <StyledRow
+      style={[
+        styles.row,
+        item === data[0] && styles.firstRow,
+        item === data[data.length - 1] && styles.lastRow,
+      ]}>
+      <BorderedRow
+        style={[
+          styles.borderedRow,
+          item === data[data.length - 1] && styles.lastBorderedRow,
+        ]}>
+        <UltrasText style={styles.text} color="text">
+          {item.title}
+        </UltrasText>
+      </BorderedRow>
     </StyledRow>
   );
 
@@ -56,24 +73,29 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         />
       </View>
 
-      <UltrasText style={styles.title} color="text">
-        {I18n.t('select')} {name}
-      </UltrasText>
-
-      <View style={styles.searchRow}>
-        <View style={styles.searchInput}>
-          <Input name={I18n.t('searchFor') + ' ' + name} />
-        </View>
-      </View>
-
-      <StyledFlat style={styles.flatList}>
-        <FlatList
-          data={data}
-          keyExtractor={item => item.id.toString()}
-          renderItem={renderRow}
-          showsVerticalScrollIndicator={false}
-        />
-      </StyledFlat>
+      <FlatList
+        ListHeaderComponent={
+          <>
+            <UltrasText style={styles.title} color="text">
+              {I18n.t('select')} {name}
+            </UltrasText>
+            <View style={styles.searchRow}>
+              <View style={styles.searchInput}>
+                <Input name={I18n.t('searchFor') + ' ' + name} />
+              </View>
+            </View>
+          </>
+        }
+        ListFooterComponent={
+          <UltrasText color="secondaryText" style={styles.footerText}>
+            {I18n.t('canChangeClub')}
+          </UltrasText>
+        }
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        renderItem={renderRow}
+        showsVerticalScrollIndicator={false}
+      />
     </StyledView>
   );
 };

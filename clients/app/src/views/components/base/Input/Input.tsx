@@ -22,6 +22,15 @@ const keyboardTypes: KeyboardTypes = {
   [TypeEnum.Select]: 'default',
 };
 
+const StyledPressable = styled.Pressable<IInputProps>`
+  background-color: ${({theme}) => {
+    return theme.colors.opacityBgColor;
+  }};
+  border-color: ${({theme}) => {
+    return theme.colors.opacityBgColor;
+  }};
+`;
+
 const StyledInput = styled.TextInput<IInputProps>`
   background-color: ${({theme}) => {
     return theme.colors.opacityBgColor;
@@ -48,9 +57,6 @@ const Input: React.FC<IInputProps> = ({
   const {openModal} = useNavigationWithParams();
 
   const _isSelect = type === TypeEnum.Select;
-
-  // @TODO change select to view ,not input
-
   const [_value, _setValue] = useState(value);
 
   const _onChangeText = useCallback(
@@ -79,12 +85,12 @@ const Input: React.FC<IInputProps> = ({
   return (
     <View style={styles.container}>
       {_isSelect ? (
-        <Pressable onPress={openSelectModal}>
-          <UltrasText>{value}</UltrasText>
+        <StyledPressable onPress={openSelectModal} style={styles.select}>
+          <UltrasText color="text">{value}</UltrasText>
           <View style={styles.icon}>
-            <Icon name={Icons.Hearth} size={12} />
+            <Icon name={Icons.ArrowDown} size={12} />
           </View>
-        </Pressable>
+        </StyledPressable>
       ) : (
         <StyledInput
           style={[styles.input, withBorder && styles.inputBorder]}

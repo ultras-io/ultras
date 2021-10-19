@@ -12,7 +12,7 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
 
-import bg from '../../../assets/images/bg.png';
+import bg from 'assets/images/bg.png';
 import {IIntroProps} from './types';
 import styles from './styles';
 import gStyles from 'styles/styles';

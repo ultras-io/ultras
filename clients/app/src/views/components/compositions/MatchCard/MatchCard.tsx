@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+
 import {Pressable, View, Image} from 'react-native';
 import {ThemeInterface} from 'styled-components';
 

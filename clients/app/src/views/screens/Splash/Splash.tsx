@@ -8,7 +8,7 @@ import {ISplashProps} from './types';
 import styles from './styles';
 import gStyles from 'styles/styles';
 
-import bg from '../../../assets/images/bg.png';
+import bg from 'assets/images/bg.png';
 
 const Splash: React.FC<ISplashProps> = ({setIsLoading}) => {
   // check
