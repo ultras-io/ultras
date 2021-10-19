@@ -60,7 +60,9 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
 
   const onInputChange = React.useCallback(
     order => e => {
+      console.log('key');
       const {key} = e.nativeEvent;
+      console.log(key);
       if (key >= 0 && key <= 9) {
         const newCode = getNewCode(code, order, key);
         setCode(newCode);
@@ -96,7 +98,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
               style={[styles.input]}
               maxLength={1}
               onKeyPress={onInputChange(i)}
-              keyboardType={'numeric'}
+              keyboardType={'number-pad'}
               autoCorrect={false}
               placeholderTextColor={theme?.colors.bgColor}
               selectionColor={theme?.colors.bgColor}

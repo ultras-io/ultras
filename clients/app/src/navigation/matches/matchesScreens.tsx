@@ -18,13 +18,13 @@ const SCREENS: MatchesNavigationScreens = {
     component: Matches,
     options: {
       headerShown: true,
-      headerLeft: () => <></>,
+      headerBackVisible: false,
+      headerShadowVisible: false,
       headerTitle: () => (
         <UltrasText style={styles.screenTitle} color={'tertiary'}>
           {I18n.t('matches')}
         </UltrasText>
       ),
-      headerShadowVisible: false,
     },
   },
   match: {

@@ -26,22 +26,25 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
-  const renderRow = ({item}) => (
-    <MatchCard
-      id={item.id}
-      onPress={() => navigateToMatch(item.id)}
-      team1Name={item.team1Name}
-      team2Name={item.team2Name}
-      team1URI={item.team1URI}
-      team2URI={item.team2URI}
-      country={item.country}
-      league={item.league}
-      score={item.score}
-      matchState={item.matchState}
-      leagueImageURI={item.leagueImageURI}
-      startTime={item.startTime}
-      minute={item.minute}
-    />
+  const renderRow = React.useCallback(
+    ({item}) => (
+      <MatchCard
+        id={item.id}
+        onPress={() => navigateToMatch(item.id)}
+        team1Name={item.team1Name}
+        team2Name={item.team2Name}
+        team1URI={item.team1URI}
+        team2URI={item.team2URI}
+        country={item.country}
+        league={item.league}
+        score={item.score}
+        matchState={item.matchState}
+        leagueImageURI={item.leagueImageURI}
+        startTime={item.startTime}
+        minute={item.minute}
+      />
+    ),
+    [navigateToMatch],
   );
 
   return (

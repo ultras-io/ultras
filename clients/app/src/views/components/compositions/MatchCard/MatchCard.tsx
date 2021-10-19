@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {View, Image, Pressable} from 'react-native';
-import UltrasText from 'views/components/base/UltrasText';
 
+import {Pressable, View, Image} from 'react-native';
+import {ThemeInterface} from 'styled-components';
+
+import UltrasText from 'views/components/base/UltrasText';
 import MatchTime from '../MatchTime';
 import MatchScore from 'views/components/base/MatchScore';
 import BluredView from 'views/components/base/BluredView';
@@ -12,7 +14,7 @@ import {IMatchTimeProps} from '../MatchTime';
 import {IMatchCardProps} from './types';
 import styles from './styles';
 
-const StyledView = styled.View<IMatchCardProps & IMatchTimeProps>`
+const StyledView = styled.View<{theme: ThemeInterface}>`
   background-color: ${({theme}) => {
     return theme.colors.text;
   }};

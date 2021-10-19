@@ -33,7 +33,7 @@ const DELAY_DELTA = 200;
 
 const getKeyboardOffset = (step: number): number => {
   if (step === 3) return 20;
-  if (step === 4) return 70;
+  if (step === 4) return 65;
   if (step === 5) return 20;
   return 0;
 };
@@ -223,9 +223,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={
-          Platform.OS === 'ios' ? getKeyboardOffset(step) : 0
-        }>
+        keyboardVerticalOffset={getKeyboardOffset(step)}>
         <FlatList
           ref={flatListRef}
           style={styles.flatList}

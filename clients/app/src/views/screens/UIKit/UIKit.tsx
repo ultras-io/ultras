@@ -34,7 +34,7 @@ import styles from './styles';
 import gStyles from 'styles/styles';
 
 const avatarUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/22430351_1332354503541433_1723358505148088320_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=-wxLVV4C-KoAX_JuPB5&edm=ABfd0MgBAAAA&ccb=7-4&oh=d08b5086fcfc8af35e4f07c94a9598ad&oe=616ED379&_nc_sid=7bff83';
+  'http://th-test-11.slatic.net/p/b83332da81190c49946d8b00b93c063b.jpg_720x720q80.jpg';
 
 const romanoUri =
   'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/242809702_469878950673668_7726857470160677314_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=c9SjnR2k8DoAX9dVioK&edm=ABfd0MgBAAAA&ccb=7-4&oh=9096649319e8abcef3f444daf6cbf6c6&oe=616F5332&_nc_sid=7bff83';
