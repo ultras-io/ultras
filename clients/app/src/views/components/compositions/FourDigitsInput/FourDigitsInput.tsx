@@ -2,7 +2,7 @@ import React from 'react';
 import {withTheme} from 'styled-components/native';
 import styled from 'styled-components/native';
 
-import {View} from 'react-native';
+import {View, Platform} from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 
@@ -60,9 +60,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
 
   const onInputChange = React.useCallback(
     order => e => {
-      console.log('key');
       const {key} = e.nativeEvent;
-      console.log(key);
       if (key >= 0 && key <= 9) {
         const newCode = getNewCode(code, order, key);
         setCode(newCode);
@@ -77,6 +75,24 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
         if (code[order] === ' ' && order > 0) {
           setCode(getNewCode(code, order - 1, ' '));
           refs[order - 1].current?.focus();
+        }
+      }
+    },
+    [code, setCode, refs, onFill, getNewCode],
+  );
+
+  // onKeyPress event is not working for Android (as described in en docs), so here we go
+  const onChangeAndroid = React.useCallback(
+    order => e => {
+      const {text} = e.nativeEvent;
+      if (text >= 0 && text <= 9) {
+        const newCode = getNewCode(code, order, text);
+        setCode(() => newCode);
+        if (order < 3) {
+          refs[order + 1].current?.focus();
+        }
+        if (!newCode.includes(' ')) {
+          onFill(newCode);
         }
       }
     },
@@ -98,7 +114,10 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
               style={[styles.input]}
               maxLength={1}
               onKeyPress={onInputChange(i)}
-              keyboardType={'number-pad'}
+              onChange={
+                Platform.OS === 'android' ? onChangeAndroid(i) : undefined
+              }
+              keyboardType={'numeric'}
               autoCorrect={false}
               placeholderTextColor={theme?.colors.bgColor}
               selectionColor={theme?.colors.bgColor}

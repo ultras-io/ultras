@@ -86,7 +86,9 @@ const Input: React.FC<IInputProps> = ({
     <View style={styles.container}>
       {_isSelect ? (
         <StyledPressable onPress={openSelectModal} style={styles.select}>
-          <UltrasText color="text">{value}</UltrasText>
+          <UltrasText color={_value ? 'text' : 'secondaryText'}>
+            {_value ? _value : name}
+          </UltrasText>
           <View style={styles.icon}>
             <Icon name={Icons.ArrowDown} size={12} />
           </View>

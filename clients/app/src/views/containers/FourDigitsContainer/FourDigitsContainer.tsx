@@ -63,7 +63,7 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
       <View style={styles.textAndButton}>
         {isFilledWrong && (
           <UltrasText style={styles.text}>
-            <Icon key="icon" name={Icons.Hearth} size={12} color="secondary" />{' '}
+            <Icon key="icon" name={Icons.Warning} size={12} color="secondary" />{' '}
             {I18n.t('joinUsWrongCode')}
           </UltrasText>
         )}
