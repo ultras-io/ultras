@@ -9,8 +9,7 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontFamily: 'Montserrat',
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 32,
     paddingLeft: 16,
   },

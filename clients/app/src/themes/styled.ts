@@ -8,11 +8,13 @@ export type ColorKey =
   | 'transparent'
   | 'success'
   | 'danger'
+  | 'dark'
   | 'primary'
   | 'secondary'
   | 'tertiary'
   | 'quaternary'
   | 'primaryInactive'
+  | 'androidBlurColor'
   | 'text'
   | 'secondaryText'
   | 'tertiaryText'
@@ -32,11 +34,13 @@ declare module 'styled-components' {
       transparent: string;
       success: string;
       danger: string;
+      dark: string;
       primary: string;
       secondary: string;
       tertiary: string;
       quaternary: string;
       primaryInactive: string;
+      androidBlurColor: string;
       text: string;
       secondaryText: string;
       tertiaryText: string;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import moment from 'moment';
 import I18n from 'i18n/i18n';
 
 import BluredView from 'views/components/base/BluredView';
@@ -27,13 +28,7 @@ const PostCard: React.FC<IPostCardProps> = ({
   return (
     <BluredView style={styles.container}>
       <UltrasText style={styles.date} color="text">
-        {date.toLocaleTimeString([], {
-          month: 'short',
-          day: 'numeric',
-          hour12: false,
-          hour: '2-digit',
-          minute: '2-digit',
-        })}
+        {moment(date).fromNow()}
       </UltrasText>
       <UltrasText style={styles.title} color="text">
         {title}

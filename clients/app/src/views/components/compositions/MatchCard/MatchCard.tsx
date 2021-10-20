@@ -1,9 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/native';
-
 import {Pressable, View, Image} from 'react-native';
-import {ThemeInterface} from 'styled-components';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import MatchTime from '../MatchTime';
 import MatchScore from 'views/components/base/MatchScore';
@@ -13,12 +11,6 @@ import Divider from 'views/components/base/Divider';
 import {IMatchTimeProps} from '../MatchTime';
 import {IMatchCardProps} from './types';
 import styles from './styles';
-
-const StyledView = styled.View<{theme: ThemeInterface}>`
-  background-color: ${({theme}) => {
-    return theme.colors.text;
-  }};
-`;
 
 const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   id,
@@ -54,12 +46,14 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
           </UltrasText>
         </View>
         <View style={styles.logoAndTime}>
-          <StyledView style={styles.logoContainer}>
+          <Box style={styles.logoContainer} bgColor={'text'}>
             <Image source={{uri: team1URI}} style={styles.logo} />
-          </StyledView>
-          <StyledView style={[styles.logoContainer, styles.logoContainer2]}>
+          </Box>
+          <Box
+            style={[styles.logoContainer, styles.logoContainer2]}
+            bgColor={'text'}>
             <Image source={{uri: team2URI}} style={styles.logo} />
-          </StyledView>
+          </Box>
           <MatchTime
             leagueImageURI={leagueImageURI}
             matchState={matchState}

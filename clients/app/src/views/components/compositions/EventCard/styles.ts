@@ -12,17 +12,16 @@ export default StyleSheet.create({
   image: {
     width: '100%',
     height: 196,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   date: {
     fontSize: 12,
     lineHeight: 14,
   },
   title: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 16,
     lineHeight: 20,
-    fontWeight: '600',
     letterSpacing: -0.24,
     marginTop: 6,
     marginBottom: 5,

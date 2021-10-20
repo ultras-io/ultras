@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/native';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
@@ -21,12 +21,6 @@ const getStyles = (size: SizeEnum) => {
   }
 };
 
-const StyledView = styled.View<IBadgeProps>`
-  background-color: ${({theme, bgColor}) => {
-    return bgColor ? theme.colors[bgColor] : theme.colors.bgColor;
-  }};
-`;
-
 const Badge: React.FC<IBadgeProps> = ({
   number,
   size = SizeEnum.Default,
@@ -36,11 +30,11 @@ const Badge: React.FC<IBadgeProps> = ({
   const {bagdeStyles, numberStyles} = getStyles(size);
 
   return (
-    <StyledView bgColor={bgColor} style={[styles.container, bagdeStyles]}>
+    <Box bgColor={bgColor} style={[styles.container, bagdeStyles]}>
       <UltrasText style={[styles.number, numberStyles]} color={color}>
         {getReadableNumber(number)}
       </UltrasText>
-    </StyledView>
+    </Box>
   );
 };
 

@@ -14,8 +14,7 @@ export default StyleSheet.create({
     marginRight: 15,
   },
   name: {
-    fontFamily: 'Montserrat',
-    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 15,
     lineHeight: 18,
     marginBottom: 4,

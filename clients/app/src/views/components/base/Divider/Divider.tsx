@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/native';
+
+import Box from 'views/components/base/Box';
 
 import {IDividerProps, TypeEnum} from './types';
 import styles from './styles';
@@ -12,15 +13,12 @@ const stylesDictionary = {
   },
 };
 
-const StyledView = styled.View<IDividerProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.secondaryText;
-  }};
-`;
-
 const Devider: React.FC<IDividerProps> = ({type = TypeEnum.Dot}) => {
   return (
-    <StyledView style={[styles.container, stylesDictionary.types[type]]} />
+    <Box
+      style={[styles.container, stylesDictionary.types[type]]}
+      bgColor={'secondaryText'}
+    />
   );
 };
 

@@ -7,6 +7,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import rootScreens from 'navigation/root/rootScreens';
 import {keyEnum as SearchListKey} from 'views/screens/SearchListModal';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 import {IconNamesEnum as Icons} from 'assets/icons';
@@ -21,15 +22,6 @@ const keyboardTypes: KeyboardTypes = {
   [TypeEnum.Phone]: 'phone-pad',
   [TypeEnum.Select]: 'default',
 };
-
-const StyledPressable = styled.Pressable<IInputProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.opacityBgColor;
-  }};
-  border-color: ${({theme}) => {
-    return theme.colors.opacityBgColor;
-  }};
-`;
 
 const StyledInput = styled.TextInput<IInputProps>`
   background-color: ${({theme}) => {
@@ -85,14 +77,19 @@ const Input: React.FC<IInputProps> = ({
   return (
     <View style={styles.container}>
       {_isSelect ? (
-        <StyledPressable onPress={openSelectModal} style={styles.select}>
-          <UltrasText color={_value ? 'text' : 'secondaryText'}>
-            {_value ? _value : name}
-          </UltrasText>
-          <View style={styles.icon}>
-            <Icon name={Icons.ArrowDown} size={12} />
-          </View>
-        </StyledPressable>
+        <Pressable onPress={openSelectModal}>
+          <Box
+            style={styles.select}
+            bgColor={'opacityBgColor'}
+            borderColor={'opacityBgColor'}>
+            <UltrasText color={_value ? 'text' : 'secondaryText'}>
+              {_value ? _value : name}
+            </UltrasText>
+            <View style={styles.icon}>
+              <Icon name={Icons.ArrowDown} size={12} />
+            </View>
+          </Box>
+        </Pressable>
       ) : (
         <StyledInput
           style={[styles.input, withBorder && styles.inputBorder]}

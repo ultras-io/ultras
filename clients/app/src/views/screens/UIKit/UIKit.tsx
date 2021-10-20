@@ -34,13 +34,13 @@ import styles from './styles';
 import gStyles from 'styles/styles';
 
 const avatarUri =
-  'http://th-test-11.slatic.net/p/b83332da81190c49946d8b00b93c063b.jpg_720x720q80.jpg';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/245692061_118827353883430_918546161740613363_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=Q38iY40clh4AX9U4AFE&edm=ABfd0MgBAAAA&ccb=7-4&oh=926b599e68ad7b2af3595a77cbbc5254&oe=6176A1E6&_nc_sid=7bff83';
 
 const romanoUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/242809702_469878950673668_7726857470160677314_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=c9SjnR2k8DoAX9dVioK&edm=ABfd0MgBAAAA&ccb=7-4&oh=9096649319e8abcef3f444daf6cbf6c6&oe=616F5332&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/217873103_968817990562370_4111495490570018124_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=qtnuCC2YP5MAX_24T1W&edm=ABfd0MgBAAAA&ccb=7-4&oh=b6b5316d998ca633609d6b9967167cb8&oe=61760D06&_nc_sid=7bff83';
 
 const rlUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/67885761_771548493284007_2229076314248183808_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=ch9bbun-dYgAX9-4-NP&edm=ABfd0MgBAAAA&ccb=7-4&oh=989e449e860d54bd662b4437f5f9003b&oe=616F4369&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/109577192_268212927810876_6386893369770691063_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=AgmvTt1J3oMAX-4jzDe&edm=ABfd0MgBAAAA&ccb=7-4&oh=2e647653fa8992da767b6b5912ba5d7f&oe=61774F92&_nc_sid=7bff83';
 
 const UIKit: React.FC = () => {
   const log = () => {
@@ -60,7 +60,6 @@ const UIKit: React.FC = () => {
       style={gStyles.containerBg}>
       <ScrollView style={styles.container}>
         <UltrasText style={styles.title}>UI Kit</UltrasText>
-
         <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
@@ -97,13 +96,10 @@ const UIKit: React.FC = () => {
             <CommentsCount count={8460035904} />
           </View>
         </View>
-
         <UltrasText style={styles.subTitle}>Like</UltrasText>
         <Like onPress={() => {}} />
         <Like isLiked onPress={() => {}} />
-
         <UltrasText style={styles.subTitle}>Button</UltrasText>
-
         <Button
           title="Button"
           onPress={log}
@@ -115,9 +111,7 @@ const UIKit: React.FC = () => {
           icon={IconNamesEnum.Hearth}
           iconPosition={ButtonIconPosition.Left}
         />
-
         <UltrasText style={styles.subTitle}>Input</UltrasText>
-
         <View style={{width: 200, marginTop: 10}}>
           <Input name="Name" />
         </View>
@@ -130,14 +124,12 @@ const UIKit: React.FC = () => {
         <View style={{width: 180, marginTop: 10}}>
           <Input name="Email" type={InputType.Email} />
         </View>
-
         <UltrasText style={styles.subTitle}>Event Card</UltrasText>
-
         <EventCard
           image={
             'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
           }
-          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          date={randomDate(new Date(2021, 8, 10), new Date(2021, 11, 11))}
           title={
             'Celebrate all things Chelsea FC, the reigning Champions of Europe, at the Annual Lunch 2021.'
           }
@@ -148,7 +140,7 @@ const UIKit: React.FC = () => {
           isLiked={true}
         />
         <EventCard
-          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          date={randomDate(new Date(2021, 8, 10), new Date(2021, 11, 11))}
           title={'Watching Euro 2020 Final Together'}
           location={'Paulaner Beerhouse'}
           creator={'kirilbelsky'}
@@ -159,7 +151,7 @@ const UIKit: React.FC = () => {
           isLiked={true}
         />
         <EventCard
-          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          date={randomDate(new Date(2021, 8, 10), new Date(2021, 11, 11))}
           title={'Chelsea vs Villarreal 2021 UEFA Super Cup'}
           location={'Dargett Brewpab'}
           creator={'g.brzęczyszczykiewicz'}
@@ -168,10 +160,9 @@ const UIKit: React.FC = () => {
           isGoing={false}
           isLiked={false}
         />
-
         <UltrasText style={styles.subTitle}>Post Card</UltrasText>
         <PostCard
-          date={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
+          date={randomDate(new Date(2021, 1, 10), new Date(2021, 9, 9))}
           title={
             "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
           }
@@ -179,7 +170,15 @@ const UIKit: React.FC = () => {
           commentsCount={37}
           isFollowing={false}
         />
-
+        <PostCard
+          date={new Date(2021, 9, 20, 14, 23)}
+          title={
+            'Chelsea squad revealed for Malmo Champions League tie as Christian Pulisic suffers fresh setback'
+          }
+          supportersClub={'Moscow Blues'}
+          commentsCount={337}
+          isFollowing={true}
+        />
         <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
         <SupportersClubCard
           name="Juventus Official Fan Club Russia"
@@ -199,7 +198,6 @@ const UIKit: React.FC = () => {
           city="Yerevan"
           avatarUri={avatarUri}
         />
-
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
             <SupportersClubCard
@@ -227,7 +225,6 @@ const UIKit: React.FC = () => {
             direction="horizontal"
           />
         </View>
-
         <UltrasText style={styles.subTitle}>Team Card</UltrasText>
         <TeamCard
           name="AS Rome"
@@ -248,7 +245,6 @@ const UIKit: React.FC = () => {
           supportersClubsCount={900}
           avatarUri={avatarUri}
         />
-
         <UltrasText style={styles.subTitle}>Match Card</UltrasText>
         <MatchCard
           team1Name={'Union Berlin'}
@@ -273,7 +269,6 @@ const UIKit: React.FC = () => {
           }
           startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
         />
-
         <MatchCard
           matchState={MatcheTimeState.Penalties}
           team1Name={'Barcelona'}
@@ -302,7 +297,6 @@ const UIKit: React.FC = () => {
           }
           startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
         />
-
         <MatchCard
           matchState={MatcheTimeState.Live}
           minute={76}
@@ -328,7 +322,6 @@ const UIKit: React.FC = () => {
           }
           startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
         />
-
         <MatchCard
           matchState={MatcheTimeState.Finished}
           team1Name={'Arsenal'}
@@ -352,7 +345,6 @@ const UIKit: React.FC = () => {
           }
           startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
         />
-
         <UltrasText style={styles.subTitle}>Match Time</UltrasText>
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
@@ -412,7 +404,6 @@ const UIKit: React.FC = () => {
             />
           </View>
         </View>
-
         <UltrasText style={styles.subTitle}>Divider</UltrasText>
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
@@ -425,14 +416,12 @@ const UIKit: React.FC = () => {
             <UltrasText>Another One</UltrasText>
           </View>
         </View>
-
         <View style={styles.card}>
           <Divider type={DividerType.Horizontal} />
           <UltrasText>28.08.21</UltrasText>
           <UltrasText>20:30</UltrasText>
           <Divider type={DividerType.Horizontal} />
         </View>
-
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
             <UltrasText>Lorem Ipsum</UltrasText>
@@ -444,7 +433,6 @@ const UIKit: React.FC = () => {
             <UltrasText>Dolor Sit</UltrasText>
           </View>
         </View>
-
         <UltrasText style={styles.subTitle}>Avatar & Badge</UltrasText>
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
