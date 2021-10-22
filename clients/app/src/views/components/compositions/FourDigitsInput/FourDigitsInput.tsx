@@ -1,23 +1,20 @@
 import React from 'react';
 import {withTheme} from 'styled-components/native';
 import styled from 'styled-components/native';
+import {ThemeInterface} from 'styled-components';
 
 import {View, Platform} from 'react-native';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 
 import {IFourDigitsInputProps} from './types';
 import styles from './styles';
 
-const StyledView = styled.View<IFourDigitsInputProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.text;
-  }};
-`;
-
-const StyledInput = styled.TextInput<
-  {isActive: boolean} & IFourDigitsInputProps
->`
+const StyledInput = styled.TextInput<{
+  isActive: boolean;
+  theme: ThemeInterface;
+}>`
   background-color: ${({theme}) => {
     return theme.colors.text;
   }};
@@ -100,7 +97,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
   );
 
   return (
-    <StyledView style={styles.container}>
+    <Box style={styles.container} bgColor={'text'}>
       <UltrasText style={styles.text}>4-digit confirmation code</UltrasText>
       <View style={styles.inputs}>
         {refs.map((ref, i) => (
@@ -111,7 +108,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
               onBlur={onBlur}
               ref={ref}
               value={code[i] === ' ' ? '' : code[i]}
-              style={[styles.input]}
+              style={styles.input}
               maxLength={1}
               onKeyPress={onInputChange(i)}
               onChange={
@@ -127,7 +124,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
           </View>
         ))}
       </View>
-    </StyledView>
+    </Box>
   );
 };
 

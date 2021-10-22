@@ -1,7 +1,8 @@
 import React from 'react';
+import {Pressable} from 'react-native';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
-import styled from 'styled-components/native';
 import Icon from '../Icon';
 
 import {
@@ -56,26 +57,6 @@ const getIconSize = (size: SizeEnum) => {
   }
 };
 
-const StyledPressable = styled.Pressable<IButtonProps>`
-  background-color: ${({theme, bgColor, appearance}) => {
-    if (
-      appearance === AppearanceEnum.Minimal ||
-      appearance === AppearanceEnum.UnderLined ||
-      appearance === AppearanceEnum.Outline
-    )
-      return theme.colors.transparent;
-    return bgColor ? theme.colors[bgColor] : theme.colors.transparent;
-  }};
-  border-color: ${({theme, bgColor, appearance}) => {
-    if (
-      appearance === AppearanceEnum.Minimal ||
-      appearance === AppearanceEnum.UnderLined
-    )
-      return theme.colors.transparent;
-    return bgColor ? theme.colors[bgColor] : theme.colors.transparent;
-  }};
-`;
-
 const Button: React.FC<IButtonProps> = ({
   title,
   onPress,
@@ -113,20 +94,39 @@ const Button: React.FC<IButtonProps> = ({
 
   if (iconPosition === IconPositionEnum.Left) content = content.reverse();
 
+  const _bgColor = React.useMemo(() => {
+    if (
+      appearance === AppearanceEnum.Minimal ||
+      appearance === AppearanceEnum.UnderLined ||
+      appearance === AppearanceEnum.Outline
+    )
+      return 'transparent';
+    return bgColor ? bgColor : 'transparent';
+  }, [appearance, bgColor]);
+
+  const _borderColor = React.useMemo(() => {
+    if (
+      appearance === AppearanceEnum.Minimal ||
+      appearance === AppearanceEnum.UnderLined
+    )
+      return 'transparent';
+    return bgColor ? bgColor : 'transparent';
+  }, [appearance, bgColor]);
+
   return (
-    <StyledPressable
-      onPress={onPress}
-      disabled={isDisabled || isLoading}
-      bgColor={bgColor}
-      appearance={appearance}
-      style={[
-        styles.button,
-        (isDisabled || isLoading) && styles.buttonDisabled,
-        pressableSize,
-        pressableBoxSize,
-      ]}>
-      {isLoading ? <UltrasText>loader...</UltrasText> : content}
-    </StyledPressable>
+    <Pressable onPress={onPress} disabled={isDisabled || isLoading}>
+      <Box
+        bgColor={_bgColor}
+        borderColor={_borderColor}
+        style={[
+          styles.button,
+          (isDisabled || isLoading) && styles.buttonDisabled,
+          pressableSize,
+          pressableBoxSize,
+        ]}>
+        {isLoading ? <UltrasText>loader...</UltrasText> : content}
+      </Box>
+    </Pressable>
   );
 };
 

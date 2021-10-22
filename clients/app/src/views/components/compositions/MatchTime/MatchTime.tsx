@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react';
 import {View, Image} from 'react-native';
+import moment from 'moment';
 
 import UltrasText from 'views/components/base/UltrasText';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
@@ -21,18 +22,8 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
       matchState === MatchStateEnum.NotStarted ||
       matchState === MatchStateEnum.Finished
     ) {
-      date =
-        startTime?.toLocaleDateString('de-DE', {
-          year: '2-digit',
-          month: '2-digit',
-          day: '2-digit',
-        }) || '';
-      time =
-        startTime?.toLocaleTimeString([], {
-          hour12: false,
-          hour: '2-digit',
-          minute: '2-digit',
-        }) || '';
+      date = moment(startTime).format('DD.MM.YY');
+      time = moment(startTime).format('hh:mm');
     } else if (matchState === MatchStateEnum.Live) {
       date = 'Live';
       time = minute + '’';

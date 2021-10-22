@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Image} from 'react-native';
+import moment from 'moment';
 import I18n from 'i18n/i18n';
 
 import BluredView from 'views/components/base/BluredView';
@@ -36,13 +37,9 @@ const EventCard: React.FC<IEventCardProps> = ({
       {image && <Image source={{uri: image}} style={styles.image} />}
       <View style={styles.innerContainer}>
         <UltrasText style={styles.date} color="text">
-          {date.toLocaleTimeString([], {
-            month: 'short',
-            day: 'numeric',
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
+          {date < new Date()
+            ? moment(date).fromNow()
+            : moment(date).format('MMM DD, hh:mm')}
         </UltrasText>
         <UltrasText style={styles.title} color="text">
           {title}

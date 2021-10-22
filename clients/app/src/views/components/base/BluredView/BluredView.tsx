@@ -1,9 +1,10 @@
 import React from 'react';
-import {Platform, View} from 'react-native';
+import {Platform} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 
+import Box from 'views/components/base/Box';
+
 import {IBluredViewProps} from './types';
-import styles from './styles';
 
 const BluredView: React.FC<IBluredViewProps> = ({children, style}) => {
   return Platform.OS === 'ios' ? (
@@ -11,7 +12,9 @@ const BluredView: React.FC<IBluredViewProps> = ({children, style}) => {
       {children}
     </BlurView>
   ) : (
-    <View style={[styles.blur, style]}>{children}</View>
+    <Box bgColor={'androidBlurColor'} style={style}>
+      {children}
+    </Box>
   );
 };
 

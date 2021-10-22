@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
 
-import styled from 'styled-components/native';
 import I18n from 'i18n/i18n';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import Input from 'views/components/base/Input';
 import Button, {
@@ -14,43 +14,21 @@ import Button, {
 import {ISearchListComponentProps} from '../types';
 import styles from './styles';
 
-const StyledView = styled.View<ISearchListComponentProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.bgColor;
-  }};
-`;
-
-const StyledFlat = styled.View<ISearchListComponentProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.opacityBgColor;
-  }};
-`;
-
-const StyledRow = styled.View<ISearchListComponentProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.opacityBgColor;
-  }};
-`;
-
-const BorderedRow = styled.View<ISearchListComponentProps>`
-  border-color: ${({theme}) => {
-    return theme.colors.opacityBgColor;
-  }};
-`;
-
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   name,
   data,
   onClose,
 }) => {
   const renderRow = ({item}) => (
-    <StyledRow
+    <Box
+      bgColor={'opacityBgColor'}
       style={[
         styles.row,
         item === data[0] && styles.firstRow,
         item === data[data.length - 1] && styles.lastRow,
       ]}>
-      <BorderedRow
+      <Box
+        borderColor={'opacityBgColor'}
         style={[
           styles.borderedRow,
           item === data[data.length - 1] && styles.lastBorderedRow,
@@ -58,12 +36,12 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         <UltrasText style={styles.text} color="text">
           {item.title}
         </UltrasText>
-      </BorderedRow>
-    </StyledRow>
+      </Box>
+    </Box>
   );
 
   return (
-    <StyledView style={styles.container}>
+    <Box bgColor={'bgColor'} style={styles.container}>
       <View style={styles.closeButton}>
         <Button
           appearance={ButtonAppearance.Minimal}
@@ -96,7 +74,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         renderItem={renderRow}
         showsVerticalScrollIndicator={false}
       />
-    </StyledView>
+    </Box>
   );
 };
 

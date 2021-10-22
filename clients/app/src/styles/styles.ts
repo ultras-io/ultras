@@ -8,30 +8,26 @@ export default StyleSheet.create({
 
   containerBg: {
     flex: 1,
-    alignContent: 'center',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
 
   headerTitle: {
-    fontFamily: 'Montserrat',
-    fontWeight: '700',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 32,
     flex: 1,
   },
 
   headerLogo: {
-    fontFamily: 'Montserrat',
-    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 25,
     flex: 1,
     letterSpacing: -0.24,
   },
 
   screenTitle: {
-    fontFamily: 'Montserrat',
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 19,
     flex: 1,
     letterSpacing: -0.24,

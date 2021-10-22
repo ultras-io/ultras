@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   logo: {
-    fontFamily: 'Montserrat Alternates',
-    fontWeight: '500',
+    fontFamily: 'MontserratAlternates-Medium',
     fontSize: 64,
   },
   text: {
