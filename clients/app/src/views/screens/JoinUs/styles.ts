@@ -41,7 +41,6 @@ export default StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 20,
   },
-  flatList: {},
   avatar: {
     position: 'absolute',
     bottom: 10,
@@ -50,5 +49,11 @@ export default StyleSheet.create({
   messageWithAvatar: {
     marginLeft: 36,
     marginVertical: 10,
+  },
+  messageActionLeft: {
+    alignItems: 'flex-start',
+  },
+  messageActionRight: {
+    alignItems: 'flex-end',
   },
 });

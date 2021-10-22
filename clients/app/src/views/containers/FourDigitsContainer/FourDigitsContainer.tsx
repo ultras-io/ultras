@@ -62,7 +62,7 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
       <FourDigitsInput onFill={onFill} />
       <View style={styles.textAndButton}>
         {isFilledWrong && (
-          <UltrasText style={styles.text}>
+          <UltrasText style={styles.text} color={'tertiaryText'}>
             <Icon key="icon" name={Icons.Warning} size={12} color="secondary" />{' '}
             {I18n.t('joinUsWrongCode')}
           </UltrasText>

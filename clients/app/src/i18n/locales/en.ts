@@ -6,6 +6,7 @@ export default {
   okLetsStart: "Ok, Let's start",
   confirmNumber: 'Confirm Number',
   changeNumber: 'Change Number',
+  tapToChange: 'Tap to Change',
   almostDone: 'Almost done',
   confirm: 'Confirm',
   close: 'Close',
@@ -16,8 +17,9 @@ export default {
   gotIt: 'Got It',
   privacy: 'Privacy Policy',
   country: 'Country',
-  fc: 'Football Club',
-  natioanlTeam: 'Natioanl Team',
+  footballClubs: 'Football Clubs',
+  nationalTeams: 'Natioanl Teams',
+  team: 'Team',
   supportersClubs: 'Supporters Clubs',
   going: 'going',
   join: 'Join',
@@ -34,6 +36,8 @@ export default {
   // join us screen
   joinUsGreeting:
     'Nice Desision to Join Us.\nI am Robot Mobot and I will help you lorem ipsum.\n',
+  joinUsPickTeam: 'Which Club or National Team do you support?',
+  joinUsSelectTeam: 'Select Team',
   joinUsEnterPhone:
     'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
   joinUsLetMeEnter: 'Ok, Let me enter',

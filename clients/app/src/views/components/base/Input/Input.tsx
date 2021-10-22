@@ -51,28 +51,53 @@ const Input: React.FC<IInputProps> = ({
   const _isSelect = type === TypeEnum.Select;
   const [_value, _setValue] = useState(value);
 
+  const timerRef = React.useRef();
+
+  const _resetTimer = React.useCallback(() => {
+    clearTimeout(timerRef.current);
+  }, [timerRef]);
+
+  const _runTimeoutUpdate = React.useCallback(
+    value => {
+      _resetTimer();
+      timerRef.current = setTimeout(() => onChange && onChange(value), 600);
+    },
+    [onChange, _resetTimer],
+  );
+
   const _onChangeText = useCallback(
     text => {
       _setValue(text);
       onType && onType(text);
+      _runTimeoutUpdate({
+        isValid: true,
+        value: text,
+      });
     },
-    [_setValue, onType],
+    [_setValue, onType, _runTimeoutUpdate],
   );
 
   const _onEndEditing = useCallback(
     e => {
+      _resetTimer();
       onChange &&
         onChange({
           isValid: true,
           value: e.nativeEvent.text,
         });
     },
-    [onChange],
+    [onChange, _resetTimer],
   );
 
   const openSelectModal = useCallback(() => {
-    openModal(rootScreens.searchListModal.name, {key: SearchListKey.Code});
+    openModal(rootScreens.searchListModal.name, {dataKey: SearchListKey.Code});
   }, [openModal]);
+
+  React.useEffect(() => {
+    return () => {
+      _resetTimer();
+    };
+  }, [_resetTimer]);
 
   return (
     <View style={styles.container}>
@@ -94,12 +119,12 @@ const Input: React.FC<IInputProps> = ({
         <StyledInput
           style={[styles.input, withBorder && styles.inputBorder]}
           onChangeText={_onChangeText}
+          onEndEditing={_onEndEditing}
           value={_value}
           defaultValue={value}
           placeholder={name}
           keyboardType={keyboardTypes[type]}
           autoCorrect={false}
-          onEndEditing={_onEndEditing}
           placeholderTextColor={theme?.colors.secondaryText}
           selectionColor={theme?.colors.secondaryText}
           autoCapitalize="none"

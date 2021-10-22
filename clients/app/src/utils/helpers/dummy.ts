@@ -2,6 +2,8 @@
 
 import {MatchStateEnum as MatcheTimeState} from 'views/components/compositions/MatchTime';
 
+import {SearchItem} from 'views/screens/SearchListModal';
+
 const teams = [
   'Watford',
   'Liverpool',
@@ -94,6 +96,54 @@ const leagues = [
 ];
 
 const countries = ['England', 'France', 'Germany', 'Italy', 'Spain', undefined];
+const nationalTeams = [
+  'England',
+  'France',
+  'Germany',
+  'Italy',
+  'Spain',
+  'Armenia',
+  'Georgia',
+  'Afganstan',
+  'India',
+  'Brazil',
+  'Argentina',
+  'USA',
+  'Australia',
+  'Russia',
+  'Pakistan',
+  'Iran',
+  'Croatia',
+  'Northern Ireland',
+  'Ireland',
+  'Island',
+  'Luxembourg',
+  'South Korea',
+  'Japan',
+  'China',
+  'Portugal',
+  'Sweden',
+  'Norway',
+  'Czech Republic',
+  'Algeria',
+  'Angola',
+  'Austria',
+  'Belarus',
+  'Bangladesh',
+  'Costa Rica',
+  'Congo (Congo-Brazzaville)',
+  'Democratic Republic of the Congo',
+  'Ecuador',
+  'Egypt',
+  'Finland',
+  'Greece',
+  'Indonesia',
+  'Jamaica',
+  'Kazakhstan',
+  'Lebanan',
+  'Liechtenstein',
+  'Montenegro',
+];
 
 const randomDate = (start: Date, end: Date): Date => {
   return new Date(
@@ -109,10 +159,20 @@ const generateLeagueName = (): string => {
 const generateCountry = () => {
   return countries[parseInt(Math.random() * (5 - 1) + 1)];
 };
+const generateNationalTeam = () => {
+  return nationalTeams[parseInt(Math.random() * (46 - 1) + 1)];
+};
 const generateTeamURL = (): string => {
   return (
     'https://media.api-sports.io/football/teams/' +
     Math.round(Math.random() * (3000 - 1) + 1) +
+    '.png'
+  );
+};
+const generateFlagURL = (): string => {
+  return (
+    'https://media.api-sports.io/football/teams/' +
+    Math.round(Math.random() * (32 - 1) + 1) +
     '.png'
   );
 };
@@ -128,6 +188,10 @@ const generateScore = () => {
     team1Score: Math.round(Math.random() * (4 - 1) + 1),
     team2Score: Math.round(Math.random() * (4 - 1) + 1),
   };
+};
+
+const generateCode = () => {
+  return '+' + (Math.round(Math.random() * (800 - 1) + 1) + 120);
 };
 
 function uuidv4() {
@@ -180,4 +244,29 @@ export const generateMatches = (count: number) => {
     matchesData.push(generateMatch());
   }
   return matchesData;
+};
+
+export const generateClubsList = (count: number) => {
+  const teamsData = [];
+  for (let i = 0; i < count; i++) {
+    teamsData.push({
+      id: uuidv4(),
+      name: generateTeamName(),
+      logo: generateTeamURL(),
+    });
+  }
+  return teamsData;
+};
+
+export const generateTeamsList = (count: number): Array<SearchItem> => {
+  const teamsData = [];
+  for (let i = 0; i < count; i++) {
+    teamsData.push({
+      id: uuidv4(),
+      name: generateNationalTeam(),
+      logo: generateFlagURL(),
+      code: generateCode(),
+    });
+  }
+  return teamsData;
 };

@@ -58,3 +58,8 @@ export type SearchTabScreens = {
   event: NavigationScreen;
   team: NavigationScreen;
 };
+
+export type ListModalTabScreens = {
+  footballClubs: NavigationScreen;
+  nationalTeams: NavigationScreen;
+};
