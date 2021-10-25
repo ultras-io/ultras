@@ -40,6 +40,21 @@ const scenario: Array<ScenarStep> = [
       {
         messageId: 1,
         type: MessageTypeEnum.Default,
+        message: <UltrasText>{I18n.t('joinUsPickTeam')}</UltrasText>,
+      },
+    ],
+    action: {
+      type: ActionTypeEnum.Team,
+      title: I18n.t('joinUsSelectTeam'),
+      direction: AnimationDirection.Right2Left,
+    },
+  },
+  {
+    id: 2,
+    messages: [
+      {
+        messageId: 1,
+        type: MessageTypeEnum.Default,
         message: <UltrasText>{I18n.t('joinUsEnterPhone')}</UltrasText>,
         //direction: AnimationDirection.Left2Right,
       },
@@ -51,7 +66,7 @@ const scenario: Array<ScenarStep> = [
     },
   },
   {
-    id: 2,
+    id: 3,
     messages: [
       {
         messageId: 1,
@@ -67,11 +82,12 @@ const scenario: Array<ScenarStep> = [
     },
   },
   {
-    id: 3,
+    id: 4,
     messages: [
       {
         messageId: 1,
         type: MessageTypeEnum.Phone,
+        message: <UltrasText>{I18n.t('joinUsEnterCode')}</UltrasText>,
         messageRenderer: (number, changeNumber, canChange) => (
           <>
             <UltrasText>{I18n.t('joinUsEnterCode')}</UltrasText>
@@ -97,7 +113,7 @@ const scenario: Array<ScenarStep> = [
     },
   },
   {
-    id: 4,
+    id: 5,
     messages: [
       {
         messageId: 1,
@@ -119,7 +135,7 @@ const scenario: Array<ScenarStep> = [
     },
   },
   {
-    id: 5,
+    id: 6,
     messages: [
       {
         messageId: 1,
@@ -150,7 +166,7 @@ const scenario: Array<ScenarStep> = [
     },
   },
   {
-    id: 6,
+    id: 7,
     messages: [
       {
         messageId: 1,
@@ -166,7 +182,7 @@ const scenario: Array<ScenarStep> = [
     },
   },
   {
-    id: 7,
+    id: 8,
     messages: [
       {
         messageId: 1,

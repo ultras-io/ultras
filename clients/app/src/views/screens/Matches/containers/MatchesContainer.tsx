@@ -9,7 +9,7 @@ import styles from '../styles';
 import {generateMatches} from 'utils/helpers/dummy';
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState<Array<any>>([]);
 
   const getData = React.useCallback(() => {
     const matchesData = generateMatches(10);

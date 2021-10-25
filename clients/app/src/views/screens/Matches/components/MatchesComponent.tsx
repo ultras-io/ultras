@@ -6,6 +6,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import matchesScreens from 'navigation/matches/matchesScreens';
 
 import MatchCard from 'views/components/compositions/MatchCard';
+import UltrasText from 'views/components/base/UltrasText';
 
 import {IMatchesComponentProps} from '../types';
 import styles from '../styles';
@@ -49,6 +50,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
 
   return (
     <FlatList
+      ListHeaderComponent={<UltrasText color="text">Matches</UltrasText>}
       ref={ref}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={styles.flatList}
@@ -58,6 +60,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.7}
+      // stickyHeaderIndices={[0]}
     />
   );
 };
