@@ -49,4 +49,10 @@ export default StyleSheet.create({
     fontSize: 11,
     textAlign: 'center',
   },
+  ultrasCountH: {
+    marginTop: 5,
+    fontWeight: '500',
+    fontSize: 11,
+    textAlign: 'center',
+  },
 });

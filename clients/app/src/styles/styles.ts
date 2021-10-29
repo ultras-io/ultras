@@ -27,9 +27,8 @@ export default StyleSheet.create({
   },
 
   screenTitle: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'MontserratAlternates-Bold',
     fontSize: 19,
     flex: 1,
-    letterSpacing: -0.24,
   },
 });

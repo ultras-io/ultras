@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable} from 'react-native';
+import {Pressable, View} from 'react-native';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
@@ -88,7 +88,9 @@ const Button: React.FC<IButtonProps> = ({
       </UltrasText>
     ) : null,
     icon !== undefined ? (
-      <Icon key="icon" name={icon} size={getIconSize(size)} />
+      <View key="icon" style={styles.icon}>
+        <Icon name={icon} size={getIconSize(size)} />
+      </View>
     ) : null,
   ];
 
