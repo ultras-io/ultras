@@ -4,4 +4,5 @@ export interface IMatchScoreProps {
   score: number;
   penalties?: number;
   matchState?: MatchStateEnum;
+  invert?: boolean;
 }

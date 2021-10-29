@@ -13,11 +13,11 @@ const stylesDictionary = {
   },
 };
 
-const Devider: React.FC<IDividerProps> = ({type = TypeEnum.Dot}) => {
+const Devider: React.FC<IDividerProps> = ({type = TypeEnum.Dot, bgColor}) => {
   return (
     <Box
       style={[styles.container, stylesDictionary.types[type]]}
-      bgColor={'secondaryText'}
+      bgColor={bgColor ? bgColor : 'secondaryText'}
     />
   );
 };

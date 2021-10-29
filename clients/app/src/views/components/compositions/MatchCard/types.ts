@@ -18,4 +18,5 @@ export interface IMatchCardProps {
   country?: string;
   league: string;
   score?: Score;
+  horizontal?: boolean;
 }

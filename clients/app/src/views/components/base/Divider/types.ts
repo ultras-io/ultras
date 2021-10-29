@@ -1,4 +1,5 @@
 import {ThemeInterface} from 'styled-components';
+import {ColorKey} from 'themes/styled';
 
 export enum TypeEnum {
   Horizontal,
@@ -9,4 +10,5 @@ export enum TypeEnum {
 export interface IDividerProps {
   theme?: ThemeInterface;
   type?: TypeEnum;
+  bgColor?: ColorKey;
 }
