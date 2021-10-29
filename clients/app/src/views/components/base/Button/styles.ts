@@ -11,6 +11,9 @@ export default StyleSheet.create({
   buttonDisabled: {
     opacity: 0.7,
   },
+  icon: {
+    marginHorizontal: 2,
+  },
   text: {
     textAlign: 'center',
   },

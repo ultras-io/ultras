@@ -12,6 +12,7 @@ export default {
   close: 'Close',
   select: 'Select',
   searchFor: 'Search for',
+  discover: 'Discover',
   allowNotifications: 'Allow Notifications',
   enableLocationsServices: 'Enable Locations Services',
   gotIt: 'Got It',
@@ -72,5 +73,5 @@ export default {
   eventsEventBy: 'Event by',
 
   // matches
-  matches: 'Matches',
+  matches: 'matches',
 };

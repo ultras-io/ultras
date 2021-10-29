@@ -21,7 +21,7 @@ const SCREENS: MatchesNavigationScreens = {
       headerBackVisible: false,
       headerShadowVisible: false,
       headerTitle: () => (
-        <UltrasText style={styles.screenTitle} color={'tertiary'}>
+        <UltrasText style={styles.screenTitle} color={'primary'}>
           {I18n.t('matches')}
         </UltrasText>
       ),

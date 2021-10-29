@@ -5,6 +5,6 @@ export interface ISupportersClubCardProps {
   avatarUri: string;
   name: string;
   ultrasCount: number;
-  city: string;
+  city?: string;
   direction?: 'vertical' | 'horizontal';
 }

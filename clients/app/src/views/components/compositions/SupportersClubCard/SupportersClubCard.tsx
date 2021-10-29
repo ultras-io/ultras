@@ -50,6 +50,9 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
       <UltrasText color="text" style={styles.nameH} numberOfLines={3}>
         {name}
       </UltrasText>
+      <UltrasText color="secondaryText" style={styles.ultrasCountH}>
+        {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+      </UltrasText>
     </View>
   );
 };
