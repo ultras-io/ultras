@@ -1,27 +1,74 @@
 {
   "name": "@ultras/core-api",
   "version": "1.0.0",
-  "private": true,
-  "description": "Ultras Core Api",
-  "author": "rubenaprikyan <rubenaprikyan@gmail.com>",
-  "homepage": "https://github.com/ultras-io/ultras#readme",
-  "license": "ISC",
-  "main": "lib/core-api.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ultras-io/ultras.git"
-  },
+  "description": "The core api for the ultras app",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "rimraf ./build && tsc",
+    "dev": "nodemon",
+    "prod": "pm2 start build/api/index.js --name ultras-api",
+    "test": "echo Error: no test specified && exit 1",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
+    "lint": "eslint . --ext .ts .d.ts",
+    "lint-fix": "eslint . --ext .ts .d.ts --fix",
+    "migrate": "npx sequelize-cli db:migrate",
+    "unmigrate": "npx sequelize-cli db:migrate:undo:all",
+    "seed-up": "npx sequelize-cli db:seed:all",
+    "seed-down": "npx sequelize-cli db:seed:undo:all"
   },
-  "bugs": {
-    "url": "https://github.com/ultras-io/ultras/issues"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier-format && npm run lint-fix && npm run lint"
+    }
+  },
+  "author": "@ultras",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa__cors": "^3.0.3",
+    "@types/lodash": "^4.14.173",
+    "@types/node": "^16.10.3",
+    "@types/sequelize": "^4.28.10",
+    "@types/validator": "^13.6.3",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.32.0",
+    "axios": "^0.22.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.12",
+    "onchange": "^7.1.0",
+    "prettier": "2.4.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-respond": "^2.1.0",
+    "koa-router": "^10.1.1",
+    "lodash": "^4.17.21",
+    "module-alias": "^2.2.2",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5"
+  },
+  "_moduleAliases": {
+    "@root": "./src",
+    "api": "src/api",
+    "config": "src/config",
+    "core": "src/core",
+    "modules": "src/modules",
+    "scripts": "src/scripts",
+    "types": "src/types",
+    "utils": "src/utils",
+    "@constants": "src/config/constants.ts"
   }
 }
