@@ -253,6 +253,9 @@ export const generateClubsList = (count: number) => {
       id: uuidv4(),
       name: generateTeamName(),
       logo: generateTeamURL(),
+      city: generateTeamName(),
+      country: generateNationalTeam(),
+      supportersClubsCount: parseInt(Math.random() * (4466 - 1) + 176),
     });
   }
   return teamsData;

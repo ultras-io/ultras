@@ -1,45 +1,75 @@
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {withTheme} from 'styled-components/native';
-import {ThemeInterface} from 'styled-components';
+import SearchItem from 'views/screens/SearchItem';
+
 import screens, {TAB_NAME} from './searchTabScreens';
+import {ISearchTabNavigationProps} from './types';
 
 const Stack = createMaterialTopTabNavigator();
 
-interface ISearchTabNavigationProps {
-  theme?: ThemeInterface;
-}
-const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({theme}) => {
+const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
+  theme,
+  searchText,
+}) => {
   return (
     <Stack.Navigator
       initialRouteName={screens.all.name}
       screenOptions={{
         tabBarLabelStyle: {textTransform: 'none'},
         tabBarStyle: {backgroundColor: 'transparent'},
-        tabBarInactiveTintColor: theme?.colors.text,
-        tabBarActiveTintColor: theme?.colors.secondaryText,
+        tabBarInactiveTintColor: theme?.colors.tertiaryText,
+        tabBarActiveTintColor: theme?.colors.secondary,
         tabBarIndicatorStyle: {
           backgroundColor: theme?.colors.secondary,
         },
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.all.name}`}
-        options={{tabBarLabel: screens.all.name}}
+        options={{tabBarLabel: screens.all.tabName}}
         component={screens.all.component}
         initialParams={{tabName: TAB_NAME}}
       />
       <Stack.Screen
+        name={`${TAB_NAME}:${screens.ultras.name}`}
+        options={{tabBarLabel: screens.ultras.tabName}}
+        initialParams={{tabName: TAB_NAME}}>
+        {props => (
+          <SearchItem
+            {...props}
+            searchItem={'ultras'}
+            searchText={searchText}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen
         name={`${TAB_NAME}:${screens.event.name}`}
-        options={{tabBarLabel: screens.event.name}}
-        component={screens.event.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
+        options={{tabBarLabel: screens.event.tabName}}
+        initialParams={{tabName: TAB_NAME}}>
+        {props => (
+          <SearchItem
+            {...props}
+            searchItem={'events'}
+            searchText={searchText}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name={`${TAB_NAME}:${screens.supportersClubs.name}`}
+        options={{tabBarLabel: screens.supportersClubs.tabName}}
+        initialParams={{tabName: TAB_NAME}}>
+        {props => (
+          <SearchItem {...props} searchItem={'clubs'} searchText={searchText} />
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.team.name}`}
-        options={{tabBarLabel: screens.team.name}}
-        component={screens.team.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
+        options={{tabBarLabel: screens.team.tabName}}
+        initialParams={{tabName: TAB_NAME}}>
+        {props => (
+          <SearchItem {...props} searchItem={'teams'} searchText={searchText} />
+        )}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };

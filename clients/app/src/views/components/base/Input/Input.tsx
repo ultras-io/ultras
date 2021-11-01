@@ -128,6 +128,7 @@ const Input: React.FC<IInputProps> = ({
           placeholderTextColor={theme?.colors.secondaryText}
           selectionColor={theme?.colors.secondaryText}
           autoCapitalize="none"
+          clearButtonMode={'always'}
         />
       )}
     </View>

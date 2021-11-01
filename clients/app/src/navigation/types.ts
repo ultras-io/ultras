@@ -3,6 +3,7 @@ import {ComponentType} from 'react';
 
 export type NavigationScreen = {
   name: string;
+  tabName?: string;
   component: ComponentType<any>;
   options?: any; // NativeStackNavigationOptions
 };
@@ -57,6 +58,8 @@ export type SearchTabScreens = {
   all: NavigationScreen;
   event: NavigationScreen;
   team: NavigationScreen;
+  supportersClubs: NavigationScreen;
+  ultras: NavigationScreen;
 };
 
 export type ListModalTabScreens = {
