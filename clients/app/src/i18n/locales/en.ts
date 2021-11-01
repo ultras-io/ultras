@@ -22,11 +22,14 @@ export default {
   footballClubs: 'Football Clubs',
   nationalTeams: 'Natioanl Teams',
   team: 'Team',
-  supportersClubs: 'Supporters Clubs',
+  teams: 'Teams',
+  supportersClubs: 'Clubs',
   going: 'going',
   join: 'Join',
   joined: 'Joined',
-  canChangeClub: 'You can change or add other favorite clubs later.',
+  canChangeClub: 'You can change or add other favorite football club later.',
+  all: 'All',
+  search: 'Search',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',
@@ -38,7 +41,7 @@ export default {
   // join us screen
   joinUsGreeting:
     'Nice Desision to Join Us.\nI am Robot Mobot and I will help you lorem ipsum.\n',
-  joinUsPickTeam: 'Which Club or National Team do you support?',
+  joinUsPickTeam: 'Which Football Club or National Team do you support?',
   joinUsSelectTeam: 'Select Team',
   joinUsEnterPhone:
     'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
