@@ -31,7 +31,10 @@ const App = () => {
   // });
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar barStyle="light-content" backgroundColor={theme.colors.dark} />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.colors.bgColor}
+      />
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>
