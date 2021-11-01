@@ -21,12 +21,6 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
     // get data
     const data = [
       {
-        id: '6567JGGK5737HJJ3636338GGK',
-        name: 'Curva Nord Milano',
-        uri: 'https://lirp.cdn-website.com/ff6266e0/dms3rep/multi/opt/logo2016ombra-1920w.png',
-        ultrasCount: 34827,
-      },
-      {
         id: '4673736HJDGYWGD63637HJHU',
         name: 'Moscow Blues',
         uri: 'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/225592217_413834063322765_322468461727596377_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=pfY2QJDEFjwAX8_xxIP&edm=ABfd0MgBAAAA&ccb=7-4&oh=4e389f6db98b3cd2fbe3243653f624f4&oe=61835BD4&_nc_sid=7bff83',
@@ -37,6 +31,12 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
         name: 'VAK410',
         uri: 'https://ih1.redbubble.net/image.1761512726.1340/st,small,507x507-pad,600x600,f8f8f8.jpg',
         ultrasCount: 1034827,
+      },
+      {
+        id: '6567JGGK5737HJJ3636338GGK',
+        name: 'Curva Nord Milano',
+        uri: 'https://lirp.cdn-website.com/ff6266e0/dms3rep/multi/opt/logo2016ombra-1920w.png',
+        ultrasCount: 34827,
       },
       {
         id: '5673387JGHYU6474746BHJGVCYF',
@@ -66,7 +66,7 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
 
     const {changeTab} = useNavigationWithParams();
 
-    const navigateToMatches = React.useCallback(() => {
+    const navigateToClubs = React.useCallback(() => {
       changeTab(tabScreens.search.name); // maybe need to navigate searchSupportersClubScreen directly?
     }, [changeTab]);
 
@@ -78,7 +78,7 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
           </UltrasText>
           <Button
             title={I18n.t('discover')}
-            onPress={navigateToMatches}
+            onPress={navigateToClubs}
             appearance={ButtonAppearance.Minimal}
             boxSize={ButtonBoxSize.Contain}
             color="text"

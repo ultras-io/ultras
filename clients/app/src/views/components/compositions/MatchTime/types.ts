@@ -11,4 +11,5 @@ export interface IMatchTimeProps {
   leagueImageURI: string;
   startTime?: Date;
   minute?: number;
+  invert?: boolean;
 }

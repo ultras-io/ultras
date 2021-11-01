@@ -13,6 +13,7 @@ export default {
   select: 'Select',
   searchFor: 'Search for',
   discover: 'Discover',
+  viewAll: 'View All',
   allowNotifications: 'Allow Notifications',
   enableLocationsServices: 'Enable Locations Services',
   gotIt: 'Got It',
@@ -74,4 +75,5 @@ export default {
 
   // matches
   matches: 'matches',
+  upcomingMatches: 'Upcoming Matches',
 };

@@ -13,6 +13,7 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
   leagueImageURI,
   startTime,
   minute,
+  invert = false,
 }) => {
   const {date: formatedDate, time: formatedTime} = useMemo(() => {
     let date = '';
@@ -47,10 +48,14 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
       <View style={styles.logoWithTime}>
         <Image source={{uri: leagueImageURI}} style={styles.logo} />
         <View style={styles.dateTime}>
-          <UltrasText style={styles.date} color="tertiaryText">
+          <UltrasText
+            style={styles.date}
+            color={invert ? 'tertiaryTextInvert' : 'tertiaryText'}>
             {formatedDate}
           </UltrasText>
-          <UltrasText style={styles.time} color="text">
+          <UltrasText
+            style={styles.time}
+            color={invert ? 'textInvert' : 'text'}>
             {formatedTime}
           </UltrasText>
         </View>

@@ -26,22 +26,33 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   leagueImageURI,
   startTime,
   minute,
+  horizontal = false,
 }) => {
+  const Container = horizontal ? Box : BluredView;
+
   return (
     <Pressable onPress={onPress}>
-      <BluredView style={styles.container}>
+      <Container
+        style={horizontal ? styles.containerH : styles.container}
+        bgColor={'secondaryText'}>
         <View style={styles.league}>
           {country && (
             <>
-              <UltrasText style={styles.leagueText} color="secondaryText">
+              <UltrasText
+                style={styles.leagueText}
+                color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}>
                 {country}
               </UltrasText>
               <View style={styles.divider}>
-                <Divider />
+                <Divider
+                  bgColor={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
+                />
               </View>
             </>
           )}
-          <UltrasText style={styles.leagueText} color="secondaryText">
+          <UltrasText
+            style={styles.leagueText}
+            color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}>
             {league}
           </UltrasText>
         </View>
@@ -59,10 +70,13 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
             matchState={matchState}
             startTime={startTime}
             minute={minute}
+            invert={horizontal}
           />
         </View>
         <View style={styles.teamAndScore}>
-          <UltrasText style={styles.team} color="secondaryText">
+          <UltrasText
+            style={styles.team}
+            color={horizontal ? 'textInvert' : 'secondaryText'}>
             {team1Name}
           </UltrasText>
           {score && (
@@ -70,11 +84,14 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
               score={score.team1Score}
               penalties={score.team1Penalties}
               matchState={matchState}
+              invert={horizontal}
             />
           )}
         </View>
         <View style={styles.teamAndScore}>
-          <UltrasText style={styles.team} color="secondaryText">
+          <UltrasText
+            style={styles.team}
+            color={horizontal ? 'textInvert' : 'secondaryText'}>
             {team2Name}
           </UltrasText>
           {score && (
@@ -82,10 +99,11 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
               score={score.team2Score}
               penalties={score.team2Penalties}
               matchState={matchState}
+              invert={horizontal}
             />
           )}
         </View>
-      </BluredView>
+      </Container>
     </Pressable>
   );
 };

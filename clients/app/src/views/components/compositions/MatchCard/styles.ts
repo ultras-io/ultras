@@ -7,6 +7,13 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 13,
   },
+  containerH: {
+    marginLeft: 15,
+    paddingVertical: 13,
+    paddingHorizontal: 15,
+    borderRadius: 13,
+    width: 240,
+  },
   league: {
     display: 'flex',
     flexDirection: 'row',
@@ -50,7 +57,6 @@ export default StyleSheet.create({
   team: {
     fontWeight: '600',
     fontSize: 15,
-    lineHeight: 18,
     letterSpacing: -0.24,
   },
 });
