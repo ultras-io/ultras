@@ -1,8 +1,9 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
-import TeamCard from 'views/components/compositions/TeamCard';
+import UltrasCard from 'views/components/compositions/UltrasCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
+import TeamCard from 'views/components/compositions/TeamCard';
 
 import {ISearchItemComponentProps} from '../types';
 import styles from '../styles';
@@ -12,6 +13,16 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   searchItem,
   onEndReached,
 }) => {
+  const renderUltas = React.useCallback(
+    ({item}) => (
+      <UltrasCard
+        name={item.name}
+        userName={item.userName}
+        avatarUri={item.avatar}
+      />
+    ),
+    [],
+  );
   const renderClub = React.useCallback(
     ({item}) => (
       <SupportersClubCard
@@ -40,12 +51,14 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
 
   const renderItem = React.useMemo(() => {
     switch (searchItem) {
+      case 'ultras':
+        return renderUltas;
       case 'clubs':
         return renderClub;
       case 'teams':
         return renderTeam;
     }
-  }, [searchItem, renderClub, renderTeam]);
+  }, [searchItem, renderUltas, renderClub, renderTeam]);
 
   return (
     <FlatList

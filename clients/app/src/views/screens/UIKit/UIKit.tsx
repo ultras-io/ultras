@@ -29,12 +29,13 @@ import PostCard from 'views/components/compositions/PostCard';
 import EventCard from 'views/components/compositions/EventCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
+import UltrasCard from 'views/components/compositions/UltrasCard';
 
 import styles from './styles';
 import gStyles from 'styles/styles';
 
 const avatarUri =
-  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/245692061_118827353883430_918546161740613363_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=Q38iY40clh4AX9U4AFE&edm=ABfd0MgBAAAA&ccb=7-4&oh=926b599e68ad7b2af3595a77cbbc5254&oe=6176A1E6&_nc_sid=7bff83';
+  'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/241705368_353611506456650_7288059065358582739_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=EePcVgcMERoAX8MNHao&edm=ABmJApABAAAA&ccb=7-4&oh=d74bf8f88c93b6c9da752eb59acbe035&oe=6185C62B&_nc_sid=6136e7';
 
 const romanoUri =
   'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s320x320/217873103_968817990562370_4111495490570018124_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=qtnuCC2YP5MAX_24T1W&edm=ABfd0MgBAAAA&ccb=7-4&oh=b6b5316d998ca633609d6b9967167cb8&oe=61760D06&_nc_sid=7bff83';
@@ -245,6 +246,14 @@ const UIKit: React.FC = () => {
           supportersClubsCount={900}
           avatarUri={avatarUri}
         />
+        <UltrasText style={styles.subTitle}>Ultras Card</UltrasText>
+
+        <UltrasCard
+          name="Nathaniel Chalobah"
+          userName={'chalobah'}
+          avatarUri={avatarUri}
+        />
+
         <UltrasText style={styles.subTitle}>Match Card</UltrasText>
         <MatchCard
           team1Name={'Union Berlin'}
