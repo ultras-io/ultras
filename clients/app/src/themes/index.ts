@@ -4,6 +4,7 @@ export const theme: ThemeInterface = {
   colors: {
     bgColor: '#272829',
     bgColorInvert: '#EAEAEA',
+    bgColorLight: '#FFFFFF',
     opacityBgColor: 'rgba(255, 255, 255, 0.1)',
     opacityBgColorInvert: 'rgba(255, 255, 255, 0.85)',
     transparent: 'transparent',
@@ -31,6 +32,7 @@ export const lightTheme: ThemeInterface = {
   colors: {
     bgColor: '#272829',
     bgColorInvert: '#EAEAEA',
+    bgColorLight: '#FFFFFF',
     opacityBgColor: 'rgba(255, 255, 255, 0.1)',
     opacityBgColorInvert: 'rgba(255, 255, 255, 0.85)',
     transparent: 'transparent',

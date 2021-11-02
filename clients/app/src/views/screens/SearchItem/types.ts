@@ -1,4 +1,4 @@
-export type SearchItem = 'ultras' | 'events' | 'clubs' | 'teams';
+export type SearchItem = 'all' | 'ultras' | 'events' | 'clubs' | 'teams';
 
 export interface ISearchItemProps {
   searchItem: SearchItem;

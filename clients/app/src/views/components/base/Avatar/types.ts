@@ -7,4 +7,5 @@ export enum SizeEnum {
 export interface IAvatarProps {
   avatarUri?: string;
   size?: SizeEnum;
+  isTeam?: boolean;
 }

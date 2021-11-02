@@ -3,6 +3,7 @@ import 'styled-components';
 export type ColorKey =
   | 'bgColor'
   | 'bgColorInvert'
+  | 'bgColorLight'
   | 'opacityBgColor'
   | 'opacityBgColorInvert'
   | 'transparent'
@@ -29,6 +30,7 @@ declare module 'styled-components' {
     colors: {
       bgColor: string;
       bgColorInvert: string;
+      bgColorLight: string;
       opacityBgColor: string;
       opacityBgColorInvert: string;
       transparent: string;
