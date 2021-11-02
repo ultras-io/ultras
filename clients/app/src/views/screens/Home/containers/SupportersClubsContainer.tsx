@@ -13,6 +13,10 @@ import {IconNamesEnum as Icons} from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import tabScreens from 'navigation/tab/tabScreens';
 
+import searchTabScreens, {
+  TAB_NAME,
+} from 'navigation/searchTab/searchTabScreens';
+
 import {ISupportersClubsContainerProps} from '../types';
 import styles from '../styles';
 
@@ -67,7 +71,10 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
     const {changeTab} = useNavigationWithParams();
 
     const navigateToClubs = React.useCallback(() => {
-      changeTab(tabScreens.search.name); // maybe need to navigate searchSupportersClubScreen directly?
+      changeTab(tabScreens.search.name); // navigate to Search in TabNavigation
+      setTimeout(() => {
+        changeTab(`${TAB_NAME}:${searchTabScreens.supportersClubs.name}`); // navigate to clubs in TopTabNavigation
+      });
     }, [changeTab]);
 
     return (
