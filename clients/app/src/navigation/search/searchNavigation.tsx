@@ -28,4 +28,4 @@ const SearchNavigation = () => {
   );
 };
 
-export default SearchNavigation;
+export default React.memo(SearchNavigation);

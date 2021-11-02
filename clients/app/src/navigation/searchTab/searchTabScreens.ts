@@ -23,7 +23,7 @@ const SCREENS: SearchTabScreens = {
     component: SearchItem,
   },
   supportersClubs: {
-    name: 'SupportetsClubs',
+    name: 'SupportersClubs',
     tabName: I18n.t('supportersClubs'),
     component: SearchItem,
   },

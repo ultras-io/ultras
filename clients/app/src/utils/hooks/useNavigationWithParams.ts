@@ -20,7 +20,7 @@ const useNavigationWithParams = () => {
   };
 
   const changeTab = (tab: string) => {
-    navigation.navigate(`${tab}`);
+    navigation.navigate(tab);
   };
 
   return {
