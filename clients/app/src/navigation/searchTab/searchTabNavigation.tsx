@@ -27,9 +27,11 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
       <Stack.Screen
         name={`${TAB_NAME}:${screens.all.name}`}
         options={{tabBarLabel: screens.all.tabName}}
-        component={screens.all.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
+        initialParams={{tabName: TAB_NAME}}>
+        {props => (
+          <SearchItem {...props} searchItem={'all'} searchText={searchText} />
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.ultras.name}`}
         options={{tabBarLabel: screens.ultras.tabName}}

@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {Image} from 'react-native';
+import Box from 'views/components/base/Box';
 
 import defaultAvatar from 'assets/icons/avatar.jpeg';
 
@@ -17,14 +18,24 @@ const stylesDictionary = {
 const Avatar: React.FC<IAvatarProps> = ({
   avatarUri,
   size = SizeEnum.Default,
+  isTeam = false,
 }) => {
-  return (
-    <View style={styles.container}>
+  return isTeam ? (
+    <Box
+      style={[styles.container, stylesDictionary.sizes[size]]}
+      bgColor="bgColorLight">
+      <Image
+        source={avatarUri ? {uri: avatarUri} : defaultAvatar}
+        style={[styles.image]}
+      />
+    </Box>
+  ) : (
+    <Box style={styles.container}>
       <Image
         source={avatarUri ? {uri: avatarUri} : defaultAvatar}
         style={stylesDictionary.sizes[size]}
       />
-    </View>
+    </Box>
   );
 };
 

@@ -3,6 +3,15 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     alignSelf: 'flex-start',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  image: {
+    resizeMode: 'contain',
+    width: '65%',
+    height: '65%',
   },
   small: {
     width: 36,

@@ -49,8 +49,24 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
     [],
   );
 
+  const renderAll = React.useCallback(
+    ({item}) => {
+      switch (item.type) {
+        case 'ultras':
+          return renderUltas({item});
+        case 'clubs':
+          return renderClub({item});
+        case 'teams':
+          return renderTeam({item});
+      }
+    },
+    [renderClub, renderTeam, renderUltas],
+  );
+
   const renderItem = React.useMemo(() => {
     switch (searchItem) {
+      case 'all':
+        return renderAll;
       case 'ultras':
         return renderUltas;
       case 'clubs':
@@ -58,7 +74,7 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       case 'teams':
         return renderTeam;
     }
-  }, [searchItem, renderUltas, renderClub, renderTeam]);
+  }, [searchItem, renderAll, renderUltas, renderClub, renderTeam]);
 
   return (
     <FlatList

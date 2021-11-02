@@ -23,7 +23,7 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
   return direction === 'vertical' ? (
     <BluredView style={styles.container}>
       <View style={styles.avatar}>
-        <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
+        <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
       </View>
       <View style={styles.info}>
         <UltrasText color="text" style={styles.name}>

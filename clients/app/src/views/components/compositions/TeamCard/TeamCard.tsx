@@ -4,7 +4,7 @@ import I18n from 'i18n/i18n';
 
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
+import Avatar from 'views/components/base/Avatar';
 import Divider from 'views/components/base/Divider';
 
 import {getReadableNumber} from 'utils/helpers/readableNumber';
@@ -23,7 +23,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({
   return (
     <BluredView style={styles.container}>
       <View style={styles.avatar}>
-        <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
+        <Avatar avatarUri={avatarUri} isTeam />
       </View>
       <View style={styles.info}>
         <UltrasText color="text" style={styles.name}>
