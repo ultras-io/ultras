@@ -1,4 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const AsyncStorage = {
+  setItem: (key, value) => {},
+  getItem: key => {},
+  removeItem: key => {},
+  clear: () => {},
+};
 
 class StorageService {
   static setItem = async (key: string, value: string) => {

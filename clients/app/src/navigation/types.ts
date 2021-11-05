@@ -26,12 +26,16 @@ export type TabNavigationScreens = {
 
 export type HomeNavigationScreens = {
   home: NavigationScreen;
+  supportersClub: NavigationScreen;
+  supportersClubAbout: NavigationScreen;
   match: NavigationScreen;
   event: NavigationScreen;
 };
 
 export type SearchNavigationScreens = {
   search: NavigationScreen;
+  supportersClub: NavigationScreen;
+  supportersClubAbout: NavigationScreen;
   event: NavigationScreen;
   match: NavigationScreen;
 };

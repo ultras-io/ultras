@@ -12,6 +12,7 @@ import {IconNamesEnum as Icons} from 'assets/icons';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import tabScreens from 'navigation/tab/tabScreens';
+import homeScreens from 'navigation/home/homeScreens';
 
 import searchTabScreens, {
   TAB_NAME,
@@ -68,14 +69,21 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
       },
     ];
 
-    const {changeTab} = useNavigationWithParams();
+    const {changeTab, pushTo} = useNavigationWithParams();
 
-    const navigateToClubs = React.useCallback(() => {
+    const navigateToSupportersClubs = React.useCallback(() => {
       changeTab(tabScreens.search.name); // navigate to Search in TabNavigation
       setTimeout(() => {
         changeTab(`${TAB_NAME}:${searchTabScreens.supportersClubs.name}`); // navigate to clubs in TopTabNavigation
       });
     }, [changeTab]);
+
+    const navigateToSupportersClub = React.useCallback(
+      id => {
+        pushTo(homeScreens.supportersClub.name, {id});
+      },
+      [pushTo],
+    );
 
     return (
       <View>
@@ -85,14 +93,18 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
           </UltrasText>
           <Button
             title={I18n.t('discover')}
-            onPress={navigateToClubs}
+            onPress={navigateToSupportersClubs}
             appearance={ButtonAppearance.Minimal}
             boxSize={ButtonBoxSize.Contain}
             color="text"
             icon={Icons.ArrowRightRound}
           />
         </View>
-        <SupportersClubsComponent data={data} onEndReached={() => {}} />
+        <SupportersClubsComponent
+          data={data}
+          onPress={navigateToSupportersClub}
+          onEndReached={() => {}}
+        />
       </View>
     );
   };

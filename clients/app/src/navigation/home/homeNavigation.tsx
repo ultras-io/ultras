@@ -16,6 +16,7 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
     <Stack.Navigator
       initialRouteName={screens.home.name}
       screenOptions={{
+        headerShadowVisible: false,
         headerStyle: {backgroundColor: theme?.colors.bgColor},
         headerTintColor: theme?.colors.text,
       }}>
@@ -24,6 +25,15 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
         component={screens.home.component}
         initialParams={{tabName: TAB_NAME}}
         options={screens.home.options}
+      />
+      <Stack.Screen
+        name={`${TAB_NAME}:${screens.supportersClub.name}`}
+        component={screens.supportersClub.component}
+        initialParams={{tabName: TAB_NAME}}
+        options={{
+          headerTintColor: theme?.colors.secondary,
+          ...screens.supportersClub.options,
+        }}
       />
       <Stack.Screen
         name={`${TAB_NAME}:${screens.event.name}`}
@@ -35,6 +45,14 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
         component={screens.match.component}
         initialParams={{tabName: TAB_NAME}}
       />
+      <Stack.Group screenOptions={{presentation: 'modal'}}>
+        <Stack.Screen
+          name={`${TAB_NAME}:${screens.supportersClubAbout.name}`}
+          component={screens.supportersClubAbout.component}
+          initialParams={{tabName: TAB_NAME}}
+          options={screens.supportersClubAbout.options}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

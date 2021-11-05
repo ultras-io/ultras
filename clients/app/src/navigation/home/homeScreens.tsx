@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Home from 'views/screens/Home';
+import SupportersClub from 'views/screens/SupportersClub';
+import SupportersClubAbout from 'views/screens/SupportersClubAbout';
 import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
 
@@ -18,13 +20,26 @@ const SCREENS: HomeNavigationScreens = {
     options: {
       headerShown: true,
       headerBackVisible: false,
-      headerShadowVisible: false,
       headerTitle: () => (
-        <UltrasText style={styles.screenTitle} color="primary">
+        <UltrasText style={styles.headerLogo} color="primary">
           ultras
         </UltrasText>
       ),
-      headerRight: () => <UltrasText color="text">b1 b2</UltrasText>,
+    },
+  },
+  supportersClub: {
+    name: 'SupportersClub',
+    component: SupportersClub,
+    options: {
+      headerTitle: '',
+      headerBackTitle: '',
+    },
+  },
+  supportersClubAbout: {
+    name: 'SupportersClubAbout',
+    component: SupportersClubAbout,
+    options: {
+      headerShown: false,
     },
   },
   match: {

@@ -12,6 +12,7 @@ const stylesDictionary = {
     [SizeEnum.Small]: styles.small,
     [SizeEnum.Default]: styles.default,
     [SizeEnum.Big]: styles.big,
+    [SizeEnum.ExtraBig]: styles.extraBig,
   },
 };
 

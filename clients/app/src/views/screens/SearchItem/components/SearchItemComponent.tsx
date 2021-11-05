@@ -1,6 +1,9 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import screens from 'navigation/search/searchScreens';
+
 import UltrasCard from 'views/components/compositions/UltrasCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
@@ -13,6 +16,14 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   searchItem,
   onEndReached,
 }) => {
+  const {pushTo} = useNavigationWithParams();
+  const navigateToSupportersClub = React.useCallback(
+    (id: string) => {
+      pushTo(screens.supportersClub.name);
+    },
+    [pushTo],
+  );
+
   const renderUltas = React.useCallback(
     ({item}) => (
       <UltrasCard
@@ -27,14 +38,14 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
     ({item}) => (
       <SupportersClubCard
         // id={item.id}
-        // onPress={() => navigateToMatch(item.id)}
+        onPress={() => navigateToSupportersClub(item.id)}
         name={item.name}
         ultrasCount={item.ultrasCount}
         avatarUri={item.uri}
         city={'Yerevan'}
       />
     ),
-    [],
+    [navigateToSupportersClub],
   );
   const renderTeam = React.useCallback(
     ({item}) => (
@@ -86,6 +97,7 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.7}
+      keyboardDismissMode={'on-drag'}
     />
   );
 };

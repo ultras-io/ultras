@@ -28,4 +28,9 @@ export default StyleSheet.create({
     height: 72,
     borderRadius: 36,
   },
+  extraBig: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+  },
 });

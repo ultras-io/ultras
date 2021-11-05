@@ -145,18 +145,33 @@ const nationalTeams = [
   'Montenegro',
 ];
 
+const supportersClubs = [
+  'Moscow Blues',
+  'VAK410',
+  'Curva Nord Milano',
+  'Boixos Nois',
+  'ULTRAS SUR',
+  'Chelsea Headhunters',
+  'Millwall Bushwackers',
+  'Juventus Official Fan Club Russia',
+  'First Armenian Front (FAF)',
+];
+
 const randomDate = (start: Date, end: Date): Date => {
   return new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime()),
   );
 };
-const generateTeamName = (): string => {
+export const generateTeamName = (): string => {
   return teams[parseInt(Math.random() * (78 - 1) + 1)];
+};
+export const generateSupportersClubName = (): string => {
+  return supportersClubs[parseInt(Math.random() * (9 - 1) + 1)];
 };
 const generateLeagueName = (): string => {
   return leagues[parseInt(Math.random() * (7 - 1) + 1)];
 };
-const generateCountry = () => {
+export const generateCountry = () => {
   return countries[parseInt(Math.random() * (5 - 1) + 1)];
 };
 const generateNationalTeam = () => {

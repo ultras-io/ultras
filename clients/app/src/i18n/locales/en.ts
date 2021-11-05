@@ -79,4 +79,7 @@ export default {
   // matches
   matches: 'matches',
   upcomingMatches: 'Upcoming Matches',
+
+  // supporters clubs
+  supportersClubJoin: 'Join the Club',
 };
