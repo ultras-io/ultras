@@ -1,4 +1,6 @@
 import Search from 'views/screens/Search';
+import SupportersClub from 'views/screens/SupportersClub';
+import SupportersClubAbout from 'views/screens/SupportersClubAbout';
 import Event from 'views/screens/Event';
 import Match from 'views/screens/Match';
 
@@ -10,6 +12,21 @@ const SCREENS: SearchNavigationScreens = {
   search: {
     name: 'Search',
     component: Search,
+  },
+  supportersClub: {
+    name: 'SupportersClub',
+    component: SupportersClub,
+    options: {
+      headerTitle: '',
+      headerBackTitle: '',
+    },
+  },
+  supportersClubAbout: {
+    name: 'SupportersClubAbout',
+    component: SupportersClubAbout,
+    options: {
+      headerShown: false,
+    },
   },
   event: {
     name: 'Event',

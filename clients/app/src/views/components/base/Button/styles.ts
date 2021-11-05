@@ -12,7 +12,7 @@ export default StyleSheet.create({
     opacity: 0.7,
   },
   icon: {
-    marginHorizontal: 2,
+    // marginHorizontal: 2,
   },
   text: {
     textAlign: 'center',
@@ -31,13 +31,11 @@ export default StyleSheet.create({
     fontSize: 14,
     marginHorizontal: 4,
     fontWeight: '600',
-    lineHeight: 19,
   },
   textSizeBig: {
     fontSize: 17,
     marginHorizontal: 6,
     fontWeight: '600',
-    lineHeight: 22,
   },
 
   // sizes
@@ -55,6 +53,10 @@ export default StyleSheet.create({
     height: 50,
     paddingHorizontal: 13,
     borderRadius: 13,
+  },
+
+  noPadding: {
+    paddingHorizontal: 0,
   },
 
   // boxSize

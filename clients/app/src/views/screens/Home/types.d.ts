@@ -8,6 +8,7 @@ export interface ISupportersClubsContainerProps {
 
 export interface ISupportersClubsComponentProps {
   data: Array<any>; //@TODO
+  onPress: (id: string) => void;
   onEndReached: () => void;
 }
 

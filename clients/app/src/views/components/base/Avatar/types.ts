@@ -2,6 +2,7 @@ export enum SizeEnum {
   Small,
   Default,
   Big,
+  ExtraBig,
 }
 
 export interface IAvatarProps {

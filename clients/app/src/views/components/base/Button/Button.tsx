@@ -89,7 +89,7 @@ const Button: React.FC<IButtonProps> = ({
     ) : null,
     icon !== undefined ? (
       <View key="icon" style={styles.icon}>
-        <Icon name={icon} size={getIconSize(size)} />
+        <Icon name={icon} size={getIconSize(size)} color={color} />
       </View>
     ) : null,
   ];
@@ -125,6 +125,7 @@ const Button: React.FC<IButtonProps> = ({
           (isDisabled || isLoading) && styles.buttonDisabled,
           pressableSize,
           pressableBoxSize,
+          appearance === AppearanceEnum.Minimal && styles.noPadding,
         ]}>
         {isLoading ? <UltrasText>loader...</UltrasText> : content}
       </Box>

@@ -7,4 +7,5 @@ export interface ISupportersClubCardProps {
   ultrasCount: number;
   city?: string;
   direction?: 'vertical' | 'horizontal';
+  onPress: () => void;
 }

@@ -23,11 +23,16 @@ const useNavigationWithParams = () => {
     navigation.navigate(tab);
   };
 
+  const setOptions = (options: any) => {
+    navigation.setOptions(options);
+  };
+
   return {
     pushTo,
     openModal,
     goBack,
     changeTab,
+    setOptions,
   };
 };
 
