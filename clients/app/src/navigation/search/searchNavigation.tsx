@@ -45,6 +45,15 @@ const SearchNavigation = ({theme}: ISearchNavigationProps) => {
         component={screens.match.component}
         initialParams={{tabName: TAB_NAME}}
       />
+      <Stack.Screen
+        name={`${TAB_NAME}:${screens.team.name}`}
+        component={screens.team.component}
+        initialParams={{tabName: TAB_NAME}}
+        options={{
+          headerTintColor: theme?.colors.secondary,
+          ...screens.team.options,
+        }}
+      />
       <Stack.Group screenOptions={{presentation: 'modal'}}>
         <Stack.Screen
           name={`${TAB_NAME}:${screens.supportersClubAbout.name}`}

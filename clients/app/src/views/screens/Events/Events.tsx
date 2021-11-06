@@ -12,14 +12,13 @@ import styles from './styles';
 const Events: React.FC<IEventsProps> = () => {
   const {pushTo} = useNavigationWithParams();
 
-  const openNewEventModal = useCallback(() => {
-    pushTo(screens.newEvent.name);
-  }, [pushTo]);
-
   return (
     <View style={styles.container}>
       <UltrasText style={styles.text}>Events</UltrasText>
-      <Button title={'Open New Event Modal'} onPress={openNewEventModal} />
+      <Button
+        title={'Open New Event Modal'}
+        onPress={() => pushTo(screens.newEvent.name)}
+      />
     </View>
   );
 };

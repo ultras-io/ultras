@@ -78,13 +78,6 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
       });
     }, [changeTab]);
 
-    const navigateToSupportersClub = React.useCallback(
-      id => {
-        pushTo(commonScreens.supportersClub, {id});
-      },
-      [pushTo],
-    );
-
     return (
       <View>
         <View style={styles.header}>
@@ -102,7 +95,7 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
         </View>
         <SupportersClubsComponent
           data={data}
-          onPress={navigateToSupportersClub}
+          onPress={id => pushTo(commonScreens.supportersClub, {id})}
           onEndReached={() => {}}
         />
       </View>

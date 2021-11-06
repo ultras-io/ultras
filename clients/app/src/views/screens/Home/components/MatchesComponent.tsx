@@ -17,18 +17,11 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
   const scrollPosition = React.useRef({step: 0, x: 0});
   const {pushTo} = useNavigationWithParams();
 
-  const navigateToMatch = React.useCallback(
-    id => {
-      pushTo(commonScreens.match, {id});
-    },
-    [pushTo],
-  );
-
   const renderRow = React.useCallback(
     ({item}) => (
       <MatchCard
         id={item.id}
-        onPress={() => navigateToMatch(item.id)}
+        onPress={() => pushTo(commonScreens.match, {id: item.id})}
         team1Name={item.team1Name}
         team2Name={item.team2Name}
         team1URI={item.team1URI}
@@ -43,7 +36,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
         horizontal
       />
     ),
-    [navigateToMatch],
+    [pushTo],
   );
 
   const onScrollBeginDrag = React.useCallback(({nativeEvent}) => {

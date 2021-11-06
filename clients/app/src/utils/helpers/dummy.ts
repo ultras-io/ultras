@@ -177,14 +177,14 @@ export const generateCountry = () => {
 const generateNationalTeam = () => {
   return nationalTeams[parseInt(Math.random() * (46 - 1) + 1)];
 };
-const generateTeamURL = (): string => {
+export const generateTeamURL = (): string => {
   return (
     'https://media.api-sports.io/football/teams/' +
     Math.round(Math.random() * (3000 - 1) + 1) +
     '.png'
   );
 };
-const generateFlagURL = (): string => {
+export const generateFlagURL = (): string => {
   return (
     'https://media.api-sports.io/football/teams/' +
     Math.round(Math.random() * (32 - 1) + 1) +

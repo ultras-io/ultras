@@ -7,6 +7,7 @@ import SupportersClub from 'views/screens/SupportersClub';
 import SupportersClubAbout from 'views/screens/SupportersClubAbout';
 import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
+import Team from 'views/screens/Team';
 
 import UltrasText from 'views/components/base/UltrasText';
 
@@ -54,6 +55,14 @@ const SCREENS: HomeNavigationScreens = {
   event: {
     name: commonScreens.event,
     component: Event,
+  },
+  team: {
+    name: commonScreens.team,
+    component: Team,
+    options: {
+      headerTitle: '',
+      headerBackTitle: '',
+    },
   },
 };
 

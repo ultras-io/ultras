@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Pressable} from 'react-native';
 import I18n from 'i18n/i18n';
 
 import BluredView from 'views/components/base/BluredView';
@@ -19,44 +19,47 @@ const TeamCard: React.FC<ITeamCardProps> = ({
   supportersClubsCount,
   country,
   city,
+  onPress,
 }) => {
   return (
-    <BluredView style={styles.container}>
-      <View style={styles.avatar}>
-        <Avatar avatarUri={avatarUri} isTeam />
-      </View>
-      <View style={styles.info}>
-        <UltrasText color="text" style={styles.name}>
-          {name}
-        </UltrasText>
-        <View style={styles.line}>
-          <UltrasText color="secondaryText" style={styles.text}>
-            {getReadableNumber(supportersClubsCount)}{' '}
-            {I18n.t('supportersClubs')}
-          </UltrasText>
-          {country && (
-            <>
-              <View style={styles.divider}>
-                <Divider />
-              </View>
-              <UltrasText style={styles.text} color="secondaryText">
-                {country}
-              </UltrasText>
-            </>
-          )}
-          {city && (
-            <>
-              <View style={styles.divider}>
-                <Divider />
-              </View>
-              <UltrasText style={styles.text} color="secondaryText">
-                {city}
-              </UltrasText>
-            </>
-          )}
+    <Pressable onPress={onPress}>
+      <BluredView style={styles.container}>
+        <View style={styles.avatar}>
+          <Avatar avatarUri={avatarUri} isTeam />
         </View>
-      </View>
-    </BluredView>
+        <View style={styles.info}>
+          <UltrasText color="text" style={styles.name}>
+            {name}
+          </UltrasText>
+          <View style={styles.line}>
+            <UltrasText color="secondaryText" style={styles.text}>
+              {getReadableNumber(supportersClubsCount)}{' '}
+              {I18n.t('supportersClubs')}
+            </UltrasText>
+            {country && (
+              <>
+                <View style={styles.divider}>
+                  <Divider />
+                </View>
+                <UltrasText style={styles.text} color="secondaryText">
+                  {country}
+                </UltrasText>
+              </>
+            )}
+            {city && (
+              <>
+                <View style={styles.divider}>
+                  <Divider />
+                </View>
+                <UltrasText style={styles.text} color="secondaryText">
+                  {city}
+                </UltrasText>
+              </>
+            )}
+          </View>
+        </View>
+      </BluredView>
+    </Pressable>
   );
 };
 

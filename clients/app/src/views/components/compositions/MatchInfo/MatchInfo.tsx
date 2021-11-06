@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Image} from 'react-native';
 import I18n from 'i18n/i18n';
 
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import commonScreens from 'navigation/commonScreens';
 import {formatDateAndTime} from 'utils/helpers/matchTime';
 import {MatchStateEnum} from '../MatchTime';
 
@@ -30,6 +32,8 @@ const MatchInfo: React.FC<MatchInfoProps> = ({
   startTime,
   minute,
 }) => {
+  const {pushTo} = useNavigationWithParams();
+
   const {date: formatedDate, time: formatedTime} = React.useMemo(() => {
     return formatDateAndTime(startTime, matchState, minute);
   }, [startTime, matchState, minute]);
@@ -38,7 +42,12 @@ const MatchInfo: React.FC<MatchInfoProps> = ({
     <>
       <View style={styles.container}>
         <View style={styles.team}>
-          <Avatar avatarUri={team1URI} size={AvatarSize.Big} isTeam />
+          <Avatar
+            onPress={() => pushTo(commonScreens.team, {id: team1Name})} // team1Id
+            avatarUri={team1URI}
+            size={AvatarSize.Big}
+            isTeam
+          />
           <UltrasText style={styles.teamName} color="text" numberOfLines={2}>
             {team1Name}
           </UltrasText>
@@ -56,7 +65,6 @@ const MatchInfo: React.FC<MatchInfoProps> = ({
           <UltrasText color="tertiaryText" style={styles.date}>
             {formatedDate + ' ' + formatedTime}
           </UltrasText>
-
           {score && (
             <UltrasText
               style={styles.score}
@@ -80,7 +88,12 @@ const MatchInfo: React.FC<MatchInfoProps> = ({
           </UltrasText>
         </View>
         <View style={styles.team}>
-          <Avatar avatarUri={team2URI} size={AvatarSize.Big} isTeam />
+          <Avatar
+            onPress={() => pushTo(commonScreens.team, {id: team2Name})} // team2Id
+            avatarUri={team2URI}
+            size={AvatarSize.Big}
+            isTeam
+          />
           <UltrasText style={styles.teamName} color="text" numberOfLines={2}>
             {team2Name}
           </UltrasText>

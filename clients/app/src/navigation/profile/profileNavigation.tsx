@@ -17,10 +17,6 @@ interface IProfileNavigationProps {
 const ProfileNavigation: React.FC<IProfileNavigationProps> = ({theme}) => {
   const {pushTo} = useNavigationWithParams();
 
-  const navigateToSettings = useCallback(() => {
-    pushTo(screens.settings.name);
-  }, [pushTo]);
-
   return (
     <Stack.Navigator
       initialRouteName={screens.profile.name}
@@ -34,7 +30,9 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({theme}) => {
         initialParams={{tabName: TAB_NAME}}
         options={{
           headerTitle: () => <></>,
-          headerRight: () => <Button onPress={navigateToSettings} title="S" />,
+          headerRight: () => (
+            <Button onPress={() => pushTo(screens.settings.name)} title="S" />
+          ),
         }}
       />
       <Stack.Screen

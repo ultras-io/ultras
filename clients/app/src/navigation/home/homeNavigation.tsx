@@ -34,6 +34,12 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
         options={screens.supportersClub.options}
       />
       <Stack.Screen
+        name={`${TAB_NAME}:${screens.team.name}`}
+        component={screens.team.component}
+        initialParams={{tabName: TAB_NAME}}
+        options={screens.team.options}
+      />
+      <Stack.Screen
         name={`${TAB_NAME}:${screens.event.name}`}
         component={screens.event.component}
         initialParams={{tabName: TAB_NAME}}
