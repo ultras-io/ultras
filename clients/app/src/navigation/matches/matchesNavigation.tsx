@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {withTheme} from 'styled-components/native';
 import {ThemeInterface} from 'styled-components';
-
+import {generateCommonScreens} from '../commonScreens';
 import screens, {TAB_NAME} from './matchesScreens';
 
 const Stack = createNativeStackNavigator();
@@ -27,23 +27,7 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
         initialParams={{tabName: TAB_NAME}}
         options={screens.matches.options}
       />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.match.name}`}
-        component={screens.match.component}
-        initialParams={{tabName: TAB_NAME}}
-        options={screens.match.options}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.event.name}`}
-        component={screens.event.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.team.name}`}
-        component={screens.team.component}
-        initialParams={{tabName: TAB_NAME}}
-        options={screens.team.options}
-      />
+      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };

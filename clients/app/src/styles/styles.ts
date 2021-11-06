@@ -32,4 +32,12 @@ export default StyleSheet.create({
     flex: 1,
     paddingRight: 120,
   },
+
+  screenTitleLeft: {
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 17,
+    flex: 1,
+    paddingRight: 120,
+    marginLeft: 10,
+  },
 });

@@ -103,7 +103,7 @@ const MatchInfo: React.FC<MatchInfoProps> = ({
       <View style={styles.button}>
         <Button
           title={I18n.t('eventsCreate')}
-          onPress={() => {}}
+          onPress={() => pushTo(commonScreens.newEvent)}
           color="textInvert"
           bgColor="bgColorInvert"
           icon={Icons.Add}

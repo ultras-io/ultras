@@ -292,3 +292,32 @@ export const generateTeamsList = (count: number): Array<SearchItem> => {
   }
   return teamsData;
 };
+
+export const generateEvent = () => {
+  return {
+    id: uuidv4(),
+    imageUri:
+      Math.random() < 0.1
+        ? 'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
+        : undefined,
+    date: randomDate(new Date(2021, 7, 10), new Date(2022, 11, 11)),
+    title:
+      generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
+    creator: 'armando.broja',
+    supportersClub: generateSupportersClubName(),
+    location: 'Paulaner ' + generateCountry(),
+    commentsCount: parseInt(Math.random() * (4466 - 1) + 16),
+    goingCount: parseInt(Math.random() * (2466 - 1) + 1),
+    likeCount: parseInt(Math.random() * (477466 - 1) + 146),
+    isGoing: Math.random() > 0.5,
+    isLiked: Math.random() > 0.5,
+  };
+};
+
+export const generateEvents = (count: number) => {
+  const data = [];
+  for (let i = 0; i < count; i++) {
+    data.push(generateEvent());
+  }
+  return data;
+};

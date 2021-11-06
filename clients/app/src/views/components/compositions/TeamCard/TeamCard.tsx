@@ -10,7 +10,6 @@ import Divider from 'views/components/base/Divider';
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
 import {ITeamCardProps} from './types';
-
 import styles from './styles';
 
 const TeamCard: React.FC<ITeamCardProps> = ({

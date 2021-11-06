@@ -1,39 +1,35 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import {withTheme} from 'styled-components/native';
+import {ThemeInterface} from 'styled-components';
+import {generateCommonScreens} from '../commonScreens';
 import screens, {TAB_NAME} from './eventsScreens';
 
 const Stack = createNativeStackNavigator();
 
-const EventsNavigation = () => {
+interface IEventsNavigationProps {
+  theme?: ThemeInterface;
+}
+
+const EventsNavigation: React.FC<IEventsNavigationProps> = ({theme}) => {
   return (
-    <Stack.Navigator initialRouteName={screens.events.name}>
-      <Stack.Group>
-        <Stack.Screen
-          name={`${TAB_NAME}:${screens.events.name}`}
-          component={screens.events.component}
-          initialParams={{tabName: TAB_NAME}}
-        />
-        <Stack.Screen
-          name={`${TAB_NAME}:${screens.match.name}`}
-          component={screens.match.component}
-          initialParams={{tabName: TAB_NAME}}
-        />
-        <Stack.Screen
-          name={`${TAB_NAME}:${screens.event.name}`}
-          component={screens.event.component}
-          initialParams={{tabName: TAB_NAME}}
-        />
-      </Stack.Group>
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
-          name={`${TAB_NAME}:${screens.newEvent.name}`}
-          component={screens.newEvent.component}
-          initialParams={{tabName: TAB_NAME}}
-        />
-      </Stack.Group>
+    <Stack.Navigator
+      initialRouteName={screens.events.name}
+      screenOptions={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false,
+        headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerTintColor: theme?.colors.secondary,
+      }}>
+      <Stack.Screen
+        name={`${TAB_NAME}:${screens.events.name}`}
+        component={screens.events.component}
+        initialParams={{tabName: TAB_NAME}}
+        options={screens.events.options}
+      />
+      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };
 
-export default EventsNavigation;
+export default React.memo<IEventsNavigationProps>(withTheme(EventsNavigation));

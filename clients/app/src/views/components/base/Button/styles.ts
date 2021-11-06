@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
   textSizeBig: {
     fontSize: 17,
-    marginHorizontal: 6,
+    marginHorizontal: 5,
     fontWeight: '600',
   },
 
