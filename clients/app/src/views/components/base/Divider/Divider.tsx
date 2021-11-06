@@ -17,7 +17,7 @@ const Devider: React.FC<IDividerProps> = ({type = TypeEnum.Dot, bgColor}) => {
   return (
     <Box
       style={[styles.container, stylesDictionary.types[type]]}
-      bgColor={bgColor ? bgColor : 'quaternaryText'}
+      bgColor={bgColor ? bgColor : 'bgColorLight'}
     />
   );
 };

@@ -15,7 +15,7 @@ const Event: React.FC<IEventProps> = ({route}) => {
   const {pushTo} = useNavigationWithParams();
 
   const navigateToMatch = useCallback(() => {
-    pushTo(commonScreens.match.name);
+    pushTo(commonScreens.match);
   }, [pushTo]);
 
   return (

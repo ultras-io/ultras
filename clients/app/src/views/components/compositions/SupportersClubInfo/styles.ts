@@ -12,7 +12,6 @@ export default StyleSheet.create({
   },
   info: {
     flex: 1,
-    justifyContent: 'center',
   },
   name: {
     fontFamily: 'Montserrat-Bold',

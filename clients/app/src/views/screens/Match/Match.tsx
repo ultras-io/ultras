@@ -1,31 +1,28 @@
-import React, {useCallback} from 'react';
-import {View} from 'react-native';
+import React from 'react';
 
-import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+// import commonScreens from 'navigation/commonScreens';
 
-import Button from 'views/components/base/Button';
+import MatchContainer from './containers/MatchContainer';
+import WithSafeArea from 'views/components/base/WithSafeArea';
+import Like from 'views/components/base/Like';
 
 import {IMatchProps} from './types';
-import styles from './styles';
 
 const Match: React.FC<IMatchProps> = ({route}) => {
-  const {tabName, id} = route.params;
+  const {id} = route.params;
+  const {setOptions} = useNavigationWithParams();
 
-  const {pushTo} = useNavigationWithParams();
-
-  const navigateToEvent = useCallback(() => {
-    pushTo(commonScreens.event.name);
-  }, [pushTo]);
+  React.useLayoutEffect(() => {
+    setOptions({
+      headerRight: () => <Like isLiked onPress={() => {}} />,
+    });
+  }, [setOptions]);
 
   return (
-    <View style={styles.container}>
-      <UltrasText style={styles.text}>Single Match</UltrasText>
-      <UltrasText>tab: {tabName}</UltrasText>
-      <UltrasText>id: {id}</UltrasText>
-      <Button title="Push Single Event" onPress={navigateToEvent} />
-    </View>
+    <WithSafeArea>
+      <MatchContainer id={id} />
+    </WithSafeArea>
   );
 };
 

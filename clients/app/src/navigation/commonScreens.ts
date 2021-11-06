@@ -1,17 +1,10 @@
-import Match from 'views/screens/Match';
-import Event from 'views/screens/Event';
-
 export const TAB_NAME = 'Search';
 
 const SCREENS = {
-  match: {
-    name: 'Match',
-    component: Match,
-  },
-  event: {
-    name: 'Event',
-    component: Event,
-  },
+  match: 'Match',
+  event: 'Event',
+  supportersClub: 'SupportersClub',
+  supportersClubAbout: 'SupportersClubAbout',
 };
 
 export default SCREENS;

@@ -18,12 +18,11 @@ const SupportersClubContainer: React.FC<ISupportersClubContainerProps> = ({
     avatarUri:
       'https://ih1.redbubble.net/image.1855680265.4559/st,small,507x507-pad,600x600,f8f8f8.jpg',
     name: generateSupportersClubName(),
-    isOfficial: true,
     ultrasCount: parseInt(Math.random() * 1000000 + 25),
     city: generateCountry(),
     team: {
       name: generateTeamName(),
-      id: 'JHGFHJ45678765LKJHGFGHJ',
+      id: id + 'JHGFHJ45678765LKJHGFGHJ',
     },
     myStatus: 'join',
     feed: [

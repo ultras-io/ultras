@@ -1,4 +1,5 @@
 import {ThemeInterface} from 'styled-components';
+import {IMatchTimeProps} from '../MatchTime';
 
 export type Score = {
   team1Score: number;
@@ -20,3 +21,6 @@ export interface IMatchCardProps {
   score?: Score;
   horizontal?: boolean;
 }
+
+export type MatchInfoProps = Omit<IMatchCardProps, 'onPress' | 'horizontal'> &
+  IMatchTimeProps & {venue: string};

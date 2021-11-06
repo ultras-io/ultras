@@ -227,7 +227,9 @@ const generateMatch1 = () => {
     country: generateCountry(),
     league: generateLeagueName(),
     leagueImageURI: generateLeagueURL(),
+    matchState: MatcheTimeState.ExtraTime,
     startTime: randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11)),
+    venue: generateSupportersClubName(),
   };
 };
 const generateMatch2 = () => {
@@ -236,6 +238,7 @@ const generateMatch2 = () => {
     matchState: MatcheTimeState.Live,
     minute: Math.round(Math.random() * (97 - 1) + 1),
     score: generateScore(),
+    venue: generateSupportersClubName(),
   };
 };
 const generateMatch3 = () => {
@@ -243,10 +246,11 @@ const generateMatch3 = () => {
     ...generateMatch1(),
     matchState: MatcheTimeState.Finished,
     score: generateScore(),
+    venue: generateSupportersClubName(),
   };
 };
 
-const generateMatch = () => {
+export const generateMatch = () => {
   const x = Math.round(Math.random() * (3 - 1) + 1);
   if (x === 1) return generateMatch1();
   else if (x === 2) return generateMatch2();

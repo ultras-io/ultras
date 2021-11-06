@@ -20,13 +20,16 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
 
   const onScroll = React.useCallback(
     ({nativeEvent}) => {
+      let alpha = (nativeEvent.contentOffset.y - 30) / (70 - 30);
+      if (alpha < 0) alpha = 0;
+      else if (alpha > 1) alpha = 1;
       setOptions({
         headerTitle: () => (
           <UltrasText
-            style={gStyles.screenTitle}
+            style={[gStyles.screenTitle, {opacity: alpha}]}
             color={'tertiary'}
             numberOfLines={1}>
-            {nativeEvent.contentOffset.y > 40 ? data.name : ''}
+            {data.name}
           </UltrasText>
         ),
       });
@@ -42,7 +45,7 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
             image={
               'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
             }
-            date={new Date(2021, 8, 10)}
+            date={new Date(2021, 10, 4)}
             title={
               'Celebrate all things Chelsea FC, the reigning Champions of Europe, at the Annual Lunch 2021.'
             }
@@ -75,12 +78,11 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
       renderItem={renderColumn}
       data={data.feed}
       onScroll={onScroll}
-      scrollEventThrottle={160}
+      scrollEventThrottle={16}
       ListHeaderComponent={
         <SupportersClubInfo
           avatarUri={data.avatarUri}
           name={data.name}
-          isOfficial={data.isOfficial}
           ultrasCount={data.ultrasCount}
           city={data.city}
           team={data.team}

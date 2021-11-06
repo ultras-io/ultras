@@ -1,3 +1,5 @@
+import commonScreens from '../commonScreens';
+
 import Events from 'views/screens/Events';
 import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
@@ -13,11 +15,11 @@ const SCREENS: EventsNavigationScreens = {
     component: Events,
   },
   match: {
-    name: 'Match',
+    name: commonScreens.match,
     component: Match,
   },
   event: {
-    name: 'Event',
+    name: commonScreens.event,
     component: Event,
   },
   newEvent: {

@@ -1,7 +1,9 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {View, Image} from 'react-native';
-import moment from 'moment';
 
+import {formatDateAndTime} from 'utils/helpers/matchTime';
+
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
 
@@ -15,38 +17,20 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
   minute,
   invert = false,
 }) => {
-  const {date: formatedDate, time: formatedTime} = useMemo(() => {
-    let date = '';
-    let time = '';
-
-    if (
-      matchState === MatchStateEnum.NotStarted ||
-      matchState === MatchStateEnum.Finished
-    ) {
-      date = moment(startTime).format('DD.MM.YY');
-      time = moment(startTime).format('hh:mm');
-    } else if (matchState === MatchStateEnum.Live) {
-      date = 'Live';
-      time = minute + '’';
-    } else if (matchState === MatchStateEnum.ExtraTime) {
-      date = 'ET';
-      time = minute + '’';
-    } else if (matchState === MatchStateEnum.Penalties) {
-      date = 'Finished';
-      time = 'Pen.';
-    }
-
-    return {
-      date,
-      time,
-    };
+  const {date: formatedDate, time: formatedTime} = React.useMemo(() => {
+    return formatDateAndTime(startTime, matchState, minute);
   }, [startTime, matchState, minute]);
 
   return (
     <View style={styles.container}>
-      <Divider type={DividerType.Horizontal} />
+      <Divider
+        type={DividerType.Horizontal}
+        bgColor={invert ? 'bgColorLight' : 'tertiaryText'}
+      />
       <View style={styles.logoWithTime}>
-        <Image source={{uri: leagueImageURI}} style={styles.logo} />
+        <Box bgColor="secondaryText" style={styles.logoContainer}>
+          <Image source={{uri: leagueImageURI}} style={styles.logo} />
+        </Box>
         <View style={styles.dateTime}>
           <UltrasText
             style={styles.date}
@@ -60,7 +44,10 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
           </UltrasText>
         </View>
       </View>
-      <Divider type={DividerType.Horizontal} />
+      <Divider
+        type={DividerType.Horizontal}
+        bgColor={invert ? 'bgColorLight' : 'tertiaryText'}
+      />
     </View>
   );
 };

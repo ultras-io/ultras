@@ -1,3 +1,5 @@
+import commonScreens from '../commonScreens';
+
 import Search from 'views/screens/Search';
 import SupportersClub from 'views/screens/SupportersClub';
 import SupportersClubAbout from 'views/screens/SupportersClubAbout';
@@ -14,7 +16,7 @@ const SCREENS: SearchNavigationScreens = {
     component: Search,
   },
   supportersClub: {
-    name: 'SupportersClub',
+    name: commonScreens.supportersClub,
     component: SupportersClub,
     options: {
       headerTitle: '',
@@ -22,18 +24,18 @@ const SCREENS: SearchNavigationScreens = {
     },
   },
   supportersClubAbout: {
-    name: 'SupportersClubAbout',
+    name: commonScreens.supportersClubAbout,
     component: SupportersClubAbout,
     options: {
       headerShown: false,
     },
   },
   event: {
-    name: 'Event',
+    name: commonScreens.event,
     component: Event,
   },
   match: {
-    name: 'Match',
+    name: commonScreens.match,
     component: Match,
   },
 };
