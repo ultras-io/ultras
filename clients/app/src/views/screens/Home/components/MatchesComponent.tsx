@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList, Platform} from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import homeScreens from 'navigation/home/homeScreens';
+import commonScreens from 'navigation/commonScreens';
 
 import MatchCard from 'views/components/compositions/MatchCard';
 
@@ -19,7 +19,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
 
   const navigateToMatch = React.useCallback(
     id => {
-      pushTo(homeScreens.match.name, {id});
+      pushTo(commonScreens.match, {id});
     },
     [pushTo],
   );

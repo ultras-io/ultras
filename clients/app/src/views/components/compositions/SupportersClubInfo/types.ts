@@ -4,7 +4,6 @@ export interface ISupportersClubInfoProps {
   theme?: ThemeInterface;
   avatarUri: string;
   name: string;
-  isOfficial: boolean;
   ultrasCount: number;
   city?: string;
   team: {

@@ -16,8 +16,10 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
     <Stack.Navigator
       initialRouteName={screens.matches.name}
       screenOptions={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false,
         headerStyle: {backgroundColor: theme?.colors.bgColor},
-        headerTintColor: theme?.colors.text,
+        headerTintColor: theme?.colors.secondary,
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.matches.name}`}
@@ -29,6 +31,7 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
         name={`${TAB_NAME}:${screens.match.name}`}
         component={screens.match.component}
         initialParams={{tabName: TAB_NAME}}
+        options={screens.match.options}
       />
       <Stack.Screen
         name={`${TAB_NAME}:${screens.event.name}`}

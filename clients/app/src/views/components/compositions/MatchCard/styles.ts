@@ -55,8 +55,20 @@ export default StyleSheet.create({
     marginTop: 2.5,
   },
   team: {
+    flex: 1,
     fontWeight: '600',
     fontSize: 15,
     letterSpacing: -0.24,
+  },
+  actionBox: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    top: 15,
+    right: 15,
+  },
+  comments: {
+    marginTop: 5,
+    marginLeft: 15,
   },
 });

@@ -75,10 +75,15 @@ export default {
   // events
   events: 'Events',
   eventsEventBy: 'Event by',
+  eventsCreate: 'Create an Events',
 
   // matches
   matches: 'matches',
   upcomingMatches: 'Upcoming Matches',
+  matchesLive: 'Live',
+  matchesET: 'ET',
+  matchesFinished: 'Full Time',
+  matchesPenalties: 'Pen.',
 
   // supporters clubs
   supportersClubJoin: 'Join the Club',

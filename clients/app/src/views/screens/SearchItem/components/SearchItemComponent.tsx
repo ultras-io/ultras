@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import screens from 'navigation/search/searchScreens';
+import commonScreens from 'navigation/commonScreens';
 
 import UltrasCard from 'views/components/compositions/UltrasCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
@@ -19,7 +19,7 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   const {pushTo} = useNavigationWithParams();
   const navigateToSupportersClub = React.useCallback(
     (id: string) => {
-      pushTo(screens.supportersClub.name);
+      pushTo(commonScreens.supportersClub, {id});
     },
     [pushTo],
   );

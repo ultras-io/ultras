@@ -1,5 +1,7 @@
 import React from 'react';
 
+import commonScreens from '../commonScreens';
+
 import Home from 'views/screens/Home';
 import SupportersClub from 'views/screens/SupportersClub';
 import SupportersClubAbout from 'views/screens/SupportersClubAbout';
@@ -7,8 +9,8 @@ import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
 
 import UltrasText from 'views/components/base/UltrasText';
-import styles from 'styles/styles';
 
+import styles from 'styles/styles';
 import type {HomeNavigationScreens} from '../types';
 
 export const TAB_NAME = 'Home';
@@ -28,7 +30,7 @@ const SCREENS: HomeNavigationScreens = {
     },
   },
   supportersClub: {
-    name: 'SupportersClub',
+    name: commonScreens.supportersClub,
     component: SupportersClub,
     options: {
       headerTitle: '',
@@ -36,18 +38,21 @@ const SCREENS: HomeNavigationScreens = {
     },
   },
   supportersClubAbout: {
-    name: 'SupportersClubAbout',
+    name: commonScreens.supportersClubAbout,
     component: SupportersClubAbout,
     options: {
       headerShown: false,
     },
   },
   match: {
-    name: 'Match',
+    name: commonScreens.match,
     component: Match,
+    options: {
+      headerTitle: '',
+    },
   },
   event: {
-    name: 'Event',
+    name: commonScreens.event,
     component: Event,
   },
 };

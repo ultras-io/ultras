@@ -7,13 +7,14 @@ import MatchTime from '../MatchTime';
 import MatchScore from 'views/components/base/MatchScore';
 import BluredView from 'views/components/base/BluredView';
 import Divider from 'views/components/base/Divider';
+import Like from 'views/components/base/Like';
+import CommentsCount from 'views/components/base/CommentsCount';
 
 import {IMatchTimeProps} from '../MatchTime';
 import {IMatchCardProps} from './types';
 import styles from './styles';
 
 const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
-  id,
   onPress,
   team1Name,
   team2Name,
@@ -76,13 +77,14 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         <View style={styles.teamAndScore}>
           <UltrasText
             style={styles.team}
-            color={horizontal ? 'textInvert' : 'secondaryText'}>
+            color={horizontal ? 'textInvert' : 'secondaryText'}
+            numberOfLines={1}>
             {team1Name}
           </UltrasText>
           {score && (
             <MatchScore
-              score={score.team1Score}
-              penalties={score.team1Penalties}
+              score={score.team1Score || 0}
+              penalties={score.team1Penalties || 0}
               matchState={matchState}
               invert={horizontal}
             />
@@ -91,18 +93,31 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         <View style={styles.teamAndScore}>
           <UltrasText
             style={styles.team}
-            color={horizontal ? 'textInvert' : 'secondaryText'}>
+            color={horizontal ? 'textInvert' : 'secondaryText'}
+            numberOfLines={1}>
             {team2Name}
           </UltrasText>
           {score && (
             <MatchScore
-              score={score.team2Score}
-              penalties={score.team2Penalties}
+              score={score.team2Score || 0}
+              penalties={score.team2Penalties || 0}
               matchState={matchState}
               invert={horizontal}
             />
           )}
         </View>
+        {!horizontal && (
+          <View style={styles.actionBox}>
+            <Like
+              isLiked={Math.round(Math.random() * (4000 - 1)) > 2000}
+              onPress={() => {}}
+              count={Math.round(Math.random() * (4000 - 1) + 1)}
+            />
+            <View style={styles.comments}>
+              <CommentsCount count={345} />
+            </View>
+          </View>
+        )}
       </Container>
     </Pressable>
   );

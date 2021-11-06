@@ -3,10 +3,9 @@ import {FlatList} from 'react-native';
 import {useScrollToTop} from '@react-navigation/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import matchesScreens from 'navigation/matches/matchesScreens';
+import commonScreens from 'navigation/commonScreens';
 
 import MatchCard from 'views/components/compositions/MatchCard';
-import UltrasText from 'views/components/base/UltrasText';
 
 import {IMatchesComponentProps} from '../types';
 import styles from '../styles';
@@ -19,7 +18,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
 
   const navigateToMatch = React.useCallback(
     id => {
-      pushTo(matchesScreens.match.name, {id});
+      pushTo(commonScreens.match, {id});
     },
     [pushTo],
   );
@@ -50,7 +49,6 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
 
   return (
     <FlatList
-      ListHeaderComponent={<UltrasText color="text">Matches</UltrasText>}
       ref={ref}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={styles.flatList}

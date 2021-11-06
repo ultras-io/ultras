@@ -1,5 +1,7 @@
+import {RouteProp} from '@react-navigation/native';
+
 export interface ISupportersClubProps {
-  id: string;
+  route: RouteProp<{params: {tabName: string; id: string}}, 'params'>;
 }
 
 export interface ISupportersClubContainerProps {

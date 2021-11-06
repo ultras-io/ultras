@@ -10,20 +10,16 @@ import Button, {
   BoxSizeEnum as ButtonBoxSize,
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
-import Icon from 'views/components/base/Icon';
-
 import {IconNamesEnum as Icons} from 'assets/icons';
 
 import {getReadableNumber} from 'utils/helpers/readableNumber';
 
 import {ISupportersClubInfoProps} from './types';
-
 import styles from './styles';
 
 const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
   avatarUri,
   name,
-  isOfficial = false,
   ultrasCount,
   city,
   team,
@@ -37,10 +33,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
         </View>
         <View style={styles.info}>
           <UltrasText color="tertiary" style={styles.name}>
-            {name}{' '}
-            {isOfficial && (
-              <Icon name={Icons.Badge} size={17} color="success" />
-            )}
+            {name}
           </UltrasText>
           <View style={styles.line}>
             <UltrasText color="secondaryText" style={styles.text}>
@@ -75,7 +68,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
         </View>
       </View>
       <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} />
+        <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
       </View>
     </>
   );

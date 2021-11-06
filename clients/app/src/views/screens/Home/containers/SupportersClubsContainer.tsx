@@ -12,7 +12,7 @@ import {IconNamesEnum as Icons} from 'assets/icons';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import tabScreens from 'navigation/tab/tabScreens';
-import homeScreens from 'navigation/home/homeScreens';
+import commonScreens from 'navigation/commonScreens';
 
 import searchTabScreens, {
   TAB_NAME,
@@ -80,7 +80,7 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> =
 
     const navigateToSupportersClub = React.useCallback(
       id => {
-        pushTo(homeScreens.supportersClub.name, {id});
+        pushTo(commonScreens.supportersClub, {id});
       },
       [pushTo],
     );

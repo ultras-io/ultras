@@ -29,11 +29,13 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({theme}) => {
         name={screens.home.name}
         component={screens.home.component}
         initialParams={{tabName: screens.home.name}}
+        options={screens.home.options}
       />
       <Tab.Screen
         name={screens.search.name}
         component={screens.search.component}
         initialParams={{tabName: screens.search.name}}
+        options={screens.search.options}
       />
       <Tab.Screen
         name={screens.matches.name}

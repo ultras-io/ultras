@@ -1,5 +1,7 @@
 import React from 'react';
 
+import commonScreens from '../commonScreens';
+
 import Matches from 'views/screens/Matches';
 import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
@@ -19,7 +21,6 @@ const SCREENS: MatchesNavigationScreens = {
     options: {
       headerShown: true,
       headerBackVisible: false,
-      headerShadowVisible: false,
       headerTitle: () => (
         <UltrasText style={styles.screenTitle} color={'primary'}>
           {I18n.t('matches')}
@@ -28,11 +29,14 @@ const SCREENS: MatchesNavigationScreens = {
     },
   },
   match: {
-    name: 'Match',
+    name: commonScreens.match,
     component: Match,
+    options: {
+      headerTitle: '',
+    },
   },
   event: {
-    name: 'Event',
+    name: commonScreens.event,
     component: Event,
   },
 };

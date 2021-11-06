@@ -18,6 +18,7 @@ const SearchNavigation = ({theme}: ISearchNavigationProps) => {
       screenOptions={{
         headerShadowVisible: false,
         headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerBackTitleVisible: false,
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.search.name}`}

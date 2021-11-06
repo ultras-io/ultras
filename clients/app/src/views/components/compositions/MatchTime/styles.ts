@@ -10,9 +10,15 @@ export default StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 3,
   },
+  logoContainer: {
+    width: 20,
+    height: 20,
+    padding: 2,
+    borderRadius: 3,
+  },
   logo: {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     resizeMode: 'contain',
   },
   dateTime: {
