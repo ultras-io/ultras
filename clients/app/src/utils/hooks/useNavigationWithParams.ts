@@ -1,3 +1,4 @@
+import React from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 const useNavigationWithParams = () => {
@@ -7,25 +8,37 @@ const useNavigationWithParams = () => {
   const tabName = route.params?.tabName ?? '';
   const prefix = tabName ? tabName + ':' : '';
 
-  const pushTo = (name: string, params?: any) => {
-    navigation.push(prefix + name, {tabName, ...params});
-  };
+  const pushTo = React.useCallback(
+    (name: string, params?: any) => {
+      navigation.push(prefix + name, {tabName, ...params});
+    },
+    [navigation, prefix, tabName],
+  );
 
-  const openModal = (name: string, params?: any) => {
-    navigation.navigate(name, {...params});
-  };
+  const openModal = React.useCallback(
+    (name: string, params?: any) => {
+      navigation.navigate(name, {...params});
+    },
+    [navigation],
+  );
 
-  const goBack = () => {
+  const goBack = React.useCallback(() => {
     navigation.goBack();
-  };
+  }, [navigation]);
 
-  const changeTab = (tab: string) => {
-    navigation.navigate(tab);
-  };
+  const changeTab = React.useCallback(
+    (tab: string) => {
+      navigation.navigate(tab);
+    },
+    [navigation],
+  );
 
-  const setOptions = (options: any) => {
-    navigation.setOptions(options);
-  };
+  const setOptions = React.useCallback(
+    (options: any) => {
+      navigation.setOptions(options);
+    },
+    [navigation],
+  );
 
   return {
     pushTo,

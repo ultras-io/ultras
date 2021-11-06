@@ -20,10 +20,7 @@ export default {
   privacy: 'Privacy Policy',
   country: 'Country',
   footballClubs: 'Football Clubs',
-  nationalTeams: 'Natioanl Teams',
-  team: 'Team',
-  teams: 'Teams',
-  supportersClubs: 'Clubs',
+
   going: 'going',
   join: 'Join',
   joined: 'Joined',
@@ -86,5 +83,13 @@ export default {
   matchesPenalties: 'Pen.',
 
   // supporters clubs
+  supportersClubs: 'Clubs',
   supportersClubJoin: 'Join the Club',
+
+  //teams
+  team: 'Team',
+  teams: 'Teams',
+  nationalTeam: 'Natioanl Team',
+  nationalTeams: 'Natioanl Teams',
+  teamAdd: 'Add to My Teams',
 };

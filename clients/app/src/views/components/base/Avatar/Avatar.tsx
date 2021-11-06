@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Pressable, Image} from 'react-native';
 import Box from 'views/components/base/Box';
 
 import defaultAvatar from 'assets/icons/avatar.jpeg';
@@ -17,11 +17,12 @@ const stylesDictionary = {
 };
 
 const Avatar: React.FC<IAvatarProps> = ({
+  onPress,
   avatarUri,
   size = SizeEnum.Default,
   isTeam = false,
 }) => {
-  return isTeam ? (
+  const content = isTeam ? (
     <Box
       style={[styles.container, stylesDictionary.sizes[size]]}
       bgColor="bgColorLight">
@@ -38,6 +39,8 @@ const Avatar: React.FC<IAvatarProps> = ({
       />
     </Box>
   );
+
+  return onPress ? <Pressable onPress={onPress}>{content}</Pressable> : content;
 };
 
 export default React.memo<IAvatarProps>(Avatar);

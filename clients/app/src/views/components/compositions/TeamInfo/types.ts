@@ -1,11 +1,10 @@
 import {ThemeInterface} from 'styled-components';
 
-export interface ITeamCardProps {
+export interface ITeamInfoProps {
   theme?: ThemeInterface;
   avatarUri: string;
   name: string;
-  supportersClubsCount: number;
   country?: string;
   city?: string;
-  onPress: () => void;
+  inMyTeams: boolean;
 }

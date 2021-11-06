@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {View, ImageBackground} from 'react-native';
 
 import I18n from 'i18n/i18n';
@@ -20,14 +20,6 @@ import gStyles from 'styles/styles';
 const Intro: React.FC<IIntroProps> = () => {
   const {pushTo} = useNavigationWithParams();
 
-  const navigateToJoinUs = useCallback(() => {
-    pushTo(screens.joinUs.name);
-  }, [pushTo]);
-
-  const navigateToUIKit = useCallback(() => {
-    pushTo(screens.uikit.name);
-  }, [pushTo]);
-
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
       <UltrasText style={styles.logo} color="text">
@@ -39,13 +31,13 @@ const Intro: React.FC<IIntroProps> = () => {
       <View style={styles.buttons}>
         <Button
           title={I18n.t('introLetMeIn')}
-          onPress={navigateToJoinUs}
+          onPress={() => pushTo(screens.joinUs.name)}
           size={ButtonSize.Big}
           bgColor={'primary'}
         />
         <Button
           title={I18n.t('privacy')}
-          onPress={navigateToUIKit}
+          onPress={() => pushTo(screens.uikit.name)}
           size={ButtonSize.Default}
           appearance={ButtonAppearance.Minimal}
         />

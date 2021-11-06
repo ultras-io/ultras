@@ -5,6 +5,7 @@ import SupportersClub from 'views/screens/SupportersClub';
 import SupportersClubAbout from 'views/screens/SupportersClubAbout';
 import Event from 'views/screens/Event';
 import Match from 'views/screens/Match';
+import Team from 'views/screens/Team';
 
 import type {SearchNavigationScreens} from '../types';
 
@@ -37,6 +38,14 @@ const SCREENS: SearchNavigationScreens = {
   match: {
     name: commonScreens.match,
     component: Match,
+  },
+  team: {
+    name: commonScreens.team,
+    component: Team,
+    options: {
+      headerTitle: '',
+      headerBackTitle: '',
+    },
   },
 };
 

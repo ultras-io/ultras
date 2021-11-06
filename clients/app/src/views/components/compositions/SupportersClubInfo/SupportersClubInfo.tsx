@@ -2,6 +2,10 @@ import React from 'react';
 import {View} from 'react-native';
 import I18n from 'i18n/i18n';
 
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import commonScreens from 'navigation/commonScreens';
+import {getReadableNumber} from 'utils/helpers/readableNumber';
+
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
@@ -11,8 +15,6 @@ import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
 import {IconNamesEnum as Icons} from 'assets/icons';
-
-import {getReadableNumber} from 'utils/helpers/readableNumber';
 
 import {ISupportersClubInfoProps} from './types';
 import styles from './styles';
@@ -25,6 +27,8 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
   team,
   myStatus,
 }) => {
+  const {pushTo} = useNavigationWithParams();
+
   return (
     <>
       <View style={styles.container}>
@@ -48,7 +52,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
           </View>
           <Button
             title={team.name}
-            onPress={() => {}}
+            onPress={() => pushTo(commonScreens.team, {id: team.id})}
             boxSize={ButtonBoxSize.Contain}
             appearance={ButtonAppearance.Minimal}
             color="secondaryText"

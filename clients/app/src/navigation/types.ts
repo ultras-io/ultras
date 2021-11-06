@@ -30,6 +30,7 @@ export type HomeNavigationScreens = {
   supportersClubAbout: NavigationScreen;
   match: NavigationScreen;
   event: NavigationScreen;
+  team: NavigationScreen;
 };
 
 export type SearchNavigationScreens = {
@@ -38,12 +39,14 @@ export type SearchNavigationScreens = {
   supportersClubAbout: NavigationScreen;
   event: NavigationScreen;
   match: NavigationScreen;
+  team: NavigationScreen;
 };
 
 export type MatchesNavigationScreens = {
   matches: NavigationScreen;
   match: NavigationScreen;
   event: NavigationScreen;
+  team: NavigationScreen;
 };
 
 export type EventsNavigationScreens = {

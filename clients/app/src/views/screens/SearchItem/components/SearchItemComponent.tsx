@@ -17,12 +17,6 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   onEndReached,
 }) => {
   const {pushTo} = useNavigationWithParams();
-  const navigateToSupportersClub = React.useCallback(
-    (id: string) => {
-      pushTo(commonScreens.supportersClub, {id});
-    },
-    [pushTo],
-  );
 
   const renderUltas = React.useCallback(
     ({item}) => (
@@ -37,19 +31,19 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   const renderClub = React.useCallback(
     ({item}) => (
       <SupportersClubCard
-        // id={item.id}
-        onPress={() => navigateToSupportersClub(item.id)}
+        onPress={() => pushTo(commonScreens.supportersClub, {id: item.id})}
         name={item.name}
         ultrasCount={item.ultrasCount}
         avatarUri={item.uri}
         city={'Yerevan'}
       />
     ),
-    [navigateToSupportersClub],
+    [pushTo],
   );
   const renderTeam = React.useCallback(
     ({item}) => (
       <TeamCard
+        onPress={() => pushTo(commonScreens.team, {id: item.id})}
         name={item.name}
         supportersClubsCount={item.supportersClubsCount}
         avatarUri={item.logo}
@@ -57,7 +51,7 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
         country={item.country}
       />
     ),
-    [],
+    [pushTo],
   );
 
   const renderAll = React.useCallback(

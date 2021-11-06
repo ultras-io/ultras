@@ -38,6 +38,12 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
         component={screens.event.component}
         initialParams={{tabName: TAB_NAME}}
       />
+      <Stack.Screen
+        name={`${TAB_NAME}:${screens.team.name}`}
+        component={screens.team.component}
+        initialParams={{tabName: TAB_NAME}}
+        options={screens.team.options}
+      />
     </Stack.Navigator>
   );
 };

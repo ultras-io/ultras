@@ -6,6 +6,7 @@ export enum SizeEnum {
 }
 
 export interface IAvatarProps {
+  onPress?: () => void;
   avatarUri?: string;
   size?: SizeEnum;
   isTeam?: boolean;

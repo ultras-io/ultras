@@ -5,6 +5,7 @@ import commonScreens from '../commonScreens';
 import Matches from 'views/screens/Matches';
 import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
+import Team from 'views/screens/Team';
 
 import I18n from 'i18n/i18n';
 import UltrasText from 'views/components/base/UltrasText';
@@ -38,6 +39,14 @@ const SCREENS: MatchesNavigationScreens = {
   event: {
     name: commonScreens.event,
     component: Event,
+  },
+  team: {
+    name: commonScreens.team,
+    component: Team,
+    options: {
+      headerTitle: '',
+      headerBackTitle: '',
+    },
   },
 };
 

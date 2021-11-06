@@ -16,13 +16,6 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
 }) => {
   const {pushTo} = useNavigationWithParams();
 
-  const navigateToMatch = React.useCallback(
-    id => {
-      pushTo(commonScreens.match, {id});
-    },
-    [pushTo],
-  );
-
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
@@ -30,7 +23,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
     ({item}) => (
       <MatchCard
         id={item.id}
-        onPress={() => navigateToMatch(item.id)}
+        onPress={() => pushTo(commonScreens.match, {id: item.id})}
         team1Name={item.team1Name}
         team2Name={item.team2Name}
         team1URI={item.team1URI}
@@ -44,7 +37,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
         minute={item.minute}
       />
     ),
-    [navigateToMatch],
+    [pushTo],
   );
 
   return (
