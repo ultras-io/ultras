@@ -7,19 +7,21 @@ import Post from 'views/screens/Post';
 import Team from 'views/screens/Team';
 import SupportersClub from 'views/screens/SupportersClub';
 import SupportersClubAbout from 'views/screens/SupportersClubAbout';
+import Profile from 'views/screens/Profile';
 import NewEvent from 'views/screens/NewEvent';
 
 import type {CommonScreens} from './types';
 
 export const TAB_NAME = 'Search';
 
-const SCREENS: CommonScreens = {
+export const COMMON_SCREENS: CommonScreens = {
   match: 'Match',
   event: 'Event',
   post: 'Post',
   team: 'Team',
   supportersClub: 'SupportersClub',
   supportersClubAbout: 'SupportersClubAbout',
+  profile: 'Profile',
   newEvent: 'NewEvent',
 };
 
@@ -45,24 +47,31 @@ const generateScreen = (
 
 export const generateCommonScreens = (tabName: string, Stack: any) => (
   <>
-    {generateScreen(tabName, SCREENS.match, Stack, Match)}
-    {generateScreen(tabName, SCREENS.event, Stack, Event)}
-    {generateScreen(tabName, SCREENS.post, Stack, Post)}
-    {generateScreen(tabName, SCREENS.team, Stack, Team)}
-    {generateScreen(tabName, SCREENS.supportersClub, Stack, SupportersClub)}
+    {generateScreen(tabName, COMMON_SCREENS.match, Stack, Match)}
+    {generateScreen(tabName, COMMON_SCREENS.event, Stack, Event)}
+    {generateScreen(tabName, COMMON_SCREENS.post, Stack, Post)}
+    {generateScreen(tabName, COMMON_SCREENS.team, Stack, Team)}
+    {generateScreen(
+      tabName,
+      COMMON_SCREENS.supportersClub,
+      Stack,
+      SupportersClub,
+    )}
+    {generateScreen(tabName, COMMON_SCREENS.profile, Stack, Profile)}
+
     <Stack.Group screenOptions={{presentation: 'modal'}}>
       {generateScreen(
         tabName,
-        SCREENS.supportersClubAbout,
+        COMMON_SCREENS.supportersClubAbout,
         Stack,
         SupportersClubAbout,
         {
           headerShown: false,
         },
       )}
-      {generateScreen(tabName, SCREENS.newEvent, Stack, NewEvent)}
+      {generateScreen(tabName, COMMON_SCREENS.newEvent, Stack, NewEvent)}
     </Stack.Group>
   </>
 );
 
-export default SCREENS;
+export default COMMON_SCREENS;

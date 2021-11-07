@@ -3,9 +3,6 @@ import {View, Pressable} from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
 
-import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
-
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
@@ -29,8 +26,6 @@ const PostCard: React.FC<IPostCardProps> = ({
   likeCount,
   onPress,
 }) => {
-  const {pushTo} = useNavigationWithParams();
-
   return (
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
@@ -40,29 +35,17 @@ const PostCard: React.FC<IPostCardProps> = ({
         <UltrasText style={styles.title} color="text">
           {title}
         </UltrasText>
-
         <View style={styles.creatorContainer}>
-          <Pressable
-            onPress={
-              () => {} // pushTo profile
-            }>
-            <UltrasText style={styles.creator} color="text">
-              {I18n.t('eventsBy')} {creator}
-              {supportersClub && ', '}
-            </UltrasText>
-          </Pressable>
+          <UltrasText style={styles.creator} color="text">
+            {I18n.t('eventsBy')} {creator}
+            {supportersClub && ', '}
+          </UltrasText>
           {supportersClub && (
-            <Pressable
-              onPress={
-                () => pushTo(commonScreens.supportersClub, {id: 67}) // supporterClubsId
-              }>
-              <UltrasText style={styles.creator} color="secondary">
-                {supportersClub}
-              </UltrasText>
-            </Pressable>
+            <UltrasText style={styles.creator} color="secondary">
+              {supportersClub}
+            </UltrasText>
           )}
         </View>
-
         <View style={styles.bottomButtons}>
           <View style={styles.likeAndComment}>
             <View style={styles.like}>
@@ -70,7 +53,6 @@ const PostCard: React.FC<IPostCardProps> = ({
             </View>
             <CommentsCount count={commentsCount} />
           </View>
-
           <View style={styles.arrow}>
             <Icon key="icon" name={IconNamesEnum.ArrowRight} size={12} />
           </View>

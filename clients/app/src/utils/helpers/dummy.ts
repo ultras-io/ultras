@@ -4,6 +4,32 @@ import {MatchStateEnum as MatcheTimeState} from 'views/components/compositions/M
 
 import {SearchItem} from 'views/screens/SearchListModal';
 
+const profileAvatars = [
+  'https://pbs.twimg.com/profile_images/891997529096814592/ye6kbXzx_x96.jpg',
+  'https://pbs.twimg.com/profile_images/1346021630619779074/WsRa2NM7_x96.jpg',
+  'https://pbs.twimg.com/profile_images/1305953647088603138/JyNI76Ud_x96.jpg',
+  'https://pbs.twimg.com/profile_images/849140658979954688/g5H5KiOZ_x96.jpg',
+  'https://pbs.twimg.com/profile_images/1126646255550177280/yw-PP4aD_x96.jpg',
+  undefined,
+  undefined,
+];
+
+const names = [
+  'Soltan Alsultan',
+  'Nacho Azuara',
+  'Aram Magician',
+  'Fabien Rosales de Santacata',
+  'Baris',
+];
+
+const usernames = [
+  '__baris',
+  'carlosborrego_',
+  'juanito712ch',
+  'rugra11',
+  'miequipotiene13copasdeeuropasamerlouch',
+];
+
 const teams = [
   'Watford',
   'Liverpool',
@@ -340,4 +366,23 @@ export const generatePost = () => {
     likeCount: parseInt(Math.random() * (477466 - 1) + 146),
     isLiked: Math.random() > 0.5,
   };
+};
+
+export const generateProfile = () => {
+  return {
+    id: uuidv4(),
+    avatarUri: profileAvatars[parseInt(Math.random() * (7 - 1) + 1)],
+    name: names[parseInt(Math.random() * (5 - 1) + 1)],
+    username: usernames[parseInt(Math.random() * (5 - 1) + 1)],
+    teams: generateClubsList(3),
+    supportersClubs: [],
+  };
+};
+
+export const generateProfiles = (count: number) => {
+  const data = [];
+  for (let i = 0; i < count; i++) {
+    data.push(generateProfile());
+  }
+  return data;
 };

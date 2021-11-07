@@ -13,7 +13,7 @@ export default StyleSheet.create({
   avatar: {
     marginRight: 15,
   },
-  userName: {
+  username: {
     fontFamily: 'Montserrat-SemiBold',
     fontSize: 14,
     marginBottom: 4,

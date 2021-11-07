@@ -2,40 +2,13 @@ import React from 'react';
 
 import SearchItemComponent from '../components/SearchItemComponent';
 
-import {generateClubsList, generateEvents} from 'utils/helpers/dummy';
+import {
+  generateClubsList,
+  generateEvents,
+  generateProfiles,
+} from 'utils/helpers/dummy';
 
 import {ISearchItemProps} from '../types';
-
-const ultrasData = [
-  {
-    id: 'JHGF34567HGF76543567',
-    userName: 'GrzegorzDzya',
-    name: 'Grzegorz Brzęczyszczykiewiczt',
-    avatar:
-      'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/142022023_901753287321237_3374851877243534106_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=qXuY71SQamAAX-B18Nq&tn=sKVAP798p6JBPzPQ&edm=APQMUHMBAAAA&ccb=7-4&oh=3f67458cbd7adccd3b5664d4cecba61d&oe=618738BC&_nc_sid=e5d0a6',
-  },
-  {
-    id: 'JHGF343567HGF76543567',
-    userName: 'aram_magician',
-    name: 'Aram Gharibyan',
-    avatar:
-      'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/115719216_712125106294367_1537613344424960095_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=JcHp47BSR5IAX8xaunk&edm=ABmJApABAAAA&ccb=7-4&oh=84a37b54d4543ac29106a0c58a449a4d&oe=6187AB33&_nc_sid=6136e7',
-  },
-  {
-    id: 'JHGF3456557HGF76543567',
-    userName: 'jirayr10',
-    name: 'Jirayr Mirayr',
-    avatar:
-      'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/90402472_751039652094159_5039807598283456512_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=guiQJOPP9W8AX91kONF&edm=AEF8tYYBAAAA&ccb=7-4&oh=85718b01acbe85e103098e0122441f63&oe=6186FFE6&_nc_sid=a9513d',
-  },
-  {
-    id: 'JHGF34567HG343F76543567',
-    userName: 'youngchalobah',
-    name: 'Trevoh Chalobah',
-    avatar:
-      'https://instagram.fevn1-4.fna.fbcdn.net/v/t51.2885-19/s150x150/241705368_353611506456650_7288059065358582739_n.jpg?_nc_ht=instagram.fevn1-4.fna.fbcdn.net&_nc_ohc=EePcVgcMERoAX8MNHao&edm=ABmJApABAAAA&ccb=7-4&oh=d74bf8f88c93b6c9da752eb59acbe035&oe=6185C62B&_nc_sid=6136e7',
-  },
-];
 
 const clubsData = [
   {
@@ -113,7 +86,7 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({
     if (searchItem === 'all') {
       setData(
         shuffle([
-          ...ultrasData.map(x => {
+          ...generateProfiles(6).map(x => {
             return {...x, type: 'ultras'};
           }),
           ...clubsData.map(x => {
@@ -128,7 +101,7 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({
         ]),
       );
     } else if (searchItem === 'ultras') {
-      setData(ultrasData);
+      setData(generateProfiles(20));
     } else if (searchItem === 'teams') {
       setData(generateClubsList(20));
     } else if (searchItem === 'clubs') {

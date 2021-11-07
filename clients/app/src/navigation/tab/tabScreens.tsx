@@ -40,10 +40,28 @@ const SCREENS: TabNavigationScreens = {
   matches: {
     name: 'Matches',
     component: MatchesNavigation,
+    options: {
+      tabBarIcon: ({focused}: {focused: boolean}) => (
+        <Icon
+          name={Icons.Match}
+          size={24}
+          color={focused ? 'secondary' : 'secondaryText'}
+        />
+      ),
+    },
   },
   events: {
     name: 'Events',
     component: EventsNavigation,
+    options: {
+      tabBarIcon: ({focused}: {focused: boolean}) => (
+        <Icon
+          name={Icons.Event}
+          size={24}
+          color={focused ? 'secondary' : 'secondaryText'}
+        />
+      ),
+    },
   },
   profile: {
     name: 'Profile',

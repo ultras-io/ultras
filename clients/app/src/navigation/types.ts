@@ -7,6 +7,7 @@ export type CommonScreens = {
   team: string;
   supportersClub: string;
   supportersClubAbout: string;
+  profile: string;
   newEvent: string;
 };
 
@@ -50,7 +51,6 @@ export type EventsNavigationScreens = {
 };
 
 export type ProfileNavigationScreens = {
-  profile: NavigationScreen;
   settings: NavigationScreen;
 };
 

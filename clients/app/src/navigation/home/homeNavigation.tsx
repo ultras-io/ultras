@@ -14,7 +14,7 @@ interface IHomeNavigationProps {
 const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
   return (
     <Stack.Navigator
-      initialRouteName={screens.home.name}
+      initialRouteName={`${TAB_NAME}:${screens.home.name}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
