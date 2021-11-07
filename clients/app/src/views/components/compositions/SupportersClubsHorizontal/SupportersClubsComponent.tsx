@@ -3,29 +3,33 @@ import {FlatList} from 'react-native';
 
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 
-import {ISupportersClubsComponentProps} from '../types';
+import {ISupportersClubsComponentProps} from 'views/containers/SupportersClubsHorizontal';
+import styles from './styles';
 
 const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
   data,
+  avatarSize,
+  withBounce,
   onPress,
   onEndReached,
 }) => {
   const renderColumn = React.useCallback(
     ({item}) => (
       <SupportersClubCard
-        // id={item.id}
         onPress={() => onPress(item.id)}
         name={item.name}
         ultrasCount={item.ultrasCount}
-        avatarUri={item.uri}
+        avatarUri={item.avatarUri}
+        avatarSize={avatarSize}
         direction="horizontal"
       />
     ),
-    [onPress],
+    [onPress, avatarSize],
   );
 
   return (
     <FlatList
+      contentContainerStyle={styles.flatList}
       keyExtractor={item => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       renderItem={renderColumn}
@@ -33,6 +37,7 @@ const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
       onEndReached={onEndReached}
       onEndReachedThreshold={0.7}
       horizontal={true}
+      bounces={withBounce}
     />
   );
 };

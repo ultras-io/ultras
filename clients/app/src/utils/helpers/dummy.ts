@@ -14,6 +14,15 @@ const profileAvatars = [
   undefined,
 ];
 
+const sclubsAvatars = [
+  'https://1000logos.net/wp-content/uploads/2020/09/Leeds-United-1998.jpg',
+  'https://ih1.redbubble.net/image.1761512726.1340/st,small,507x507-pad,600x600,f8f8f8.jpg',
+  'https://lirp.cdn-website.com/ff6266e0/dms3rep/multi/opt/logo2016ombra-1920w.png',
+  'https://pbs.twimg.com/profile_images/1381694571571257349/SXBWBRWo_400x400.jpg',
+  'https://www.logolynx.com/images/logolynx/83/838e2ca12d1899915a9f0811a4702184.jpeg',
+  'https://ih1.redbubble.net/image.1855680265.4559/st,small,507x507-pad,600x600,f8f8f8.jpg',
+];
+
 const names = [
   'Soltan Alsultan',
   'Nacho Azuara',
@@ -368,14 +377,37 @@ export const generatePost = () => {
   };
 };
 
+const generateSupportersClub = (withUltrasCount = true) => {
+  return {
+    id: uuidv4(),
+    name: generateSupportersClubName(),
+    ultrasCount: withUltrasCount ? parseInt(Math.random() * 36566) : undefined,
+    avatarUri: sclubsAvatars[parseInt(Math.random() * (6 - 1))],
+  };
+};
+
+export const generateSupportersClubs = (
+  count: number,
+  withUltrasCount = true,
+) => {
+  const data = [];
+  for (let i = 0; i < count; i++) {
+    data.push(generateSupportersClub(withUltrasCount));
+  }
+  return data;
+};
+
 export const generateProfile = () => {
   return {
     id: uuidv4(),
-    avatarUri: profileAvatars[parseInt(Math.random() * (7 - 1) + 1)],
-    name: names[parseInt(Math.random() * (5 - 1) + 1)],
-    username: usernames[parseInt(Math.random() * (5 - 1) + 1)],
-    teams: generateClubsList(3),
-    supportersClubs: [],
+    avatarUri: profileAvatars[parseInt(Math.random() * (7 - 1))],
+    name: names[parseInt(Math.random() * (5 - 1))],
+    username: usernames[parseInt(Math.random() * (5 - 1))],
+    teams: generateClubsList(parseInt(Math.random() * 6) + 1),
+    supportersClubs: generateSupportersClubs(
+      parseInt(Math.random() * 10),
+      false,
+    ),
   };
 };
 
