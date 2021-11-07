@@ -321,3 +321,23 @@ export const generateEvents = (count: number) => {
   }
   return data;
 };
+
+export const generatePost = () => {
+  return {
+    id: uuidv4(),
+    imageUri:
+      Math.random() < 0.2
+        ? 'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
+        : undefined,
+    date: randomDate(new Date(2021, 7, 10), new Date(2021, 11, 11)),
+    title:
+      generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
+    content:
+      'The header hides and reveals based on the direction of the scroll and once the scrolling is stopped, the header conveniently snaps to the closest state i.e either half-hidden or fully revealed. This effect can be seen in apps like WhatsApp, Youtube, Telegram, etc. We’d be using React Native’s Animated API to build this so let’s get started!\n\nI made a starter template that would save us some time by focusing on the topic of animations in this article. So I recommend you to clone the repository and follow along :)',
+    creator: 'armando.broja',
+    supportersClub: generateSupportersClubName(),
+    commentsCount: parseInt(Math.random() * (4466 - 1) + 16),
+    likeCount: parseInt(Math.random() * (477466 - 1) + 146),
+    isLiked: Math.random() > 0.5,
+  };
+};

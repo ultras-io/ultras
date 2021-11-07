@@ -2,12 +2,13 @@ import {ThemeInterface} from 'styled-components';
 
 export interface IEventCardProps {
   theme?: ThemeInterface;
-  image?: string;
+  imageUri?: string;
   date: Date;
   title: string;
   location?: string;
   goingCount: number;
   commentsCount: number;
+  likeCount: number;
   creator: string;
   supportersClub?: string;
   isGoing: boolean;
@@ -15,6 +16,4 @@ export interface IEventCardProps {
   onPress: () => void;
 }
 
-export type EventInfoProps = Omit<IEventCardProps, 'onPress'> & {
-  likeCount: number;
-};
+export type EventInfoProps = Omit<IEventCardProps, 'onPress'>;

@@ -44,7 +44,7 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
         {item.type === 'event' ? (
           <EventCard
             onPress={() => pushTo(commonScreens.event, {id: 23})} //eventId
-            image={
+            imageUri={
               'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
             }
             date={new Date(2021, 10, 4)}
@@ -53,24 +53,27 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
             }
             creator={'s.bridge'}
             commentsCount={2560}
+            likeCount={130}
             goingCount={120900}
             isGoing={true}
             isLiked={true}
           />
         ) : (
           <PostCard
+            onPress={() => pushTo(commonScreens.post, {id: 23})} //postId
             date={new Date(2021, 9, 9)}
             title={
               "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
             }
-            supportersClub={'Absolute Chelsea'}
+            creator={'abu.hagob'}
             commentsCount={37}
-            isFollowing={false}
+            isLiked={false}
+            likeCount={345}
           />
         )}
       </View>
     ),
-    [],
+    [pushTo],
   );
 
   return (

@@ -5,7 +5,6 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 
 import UltrasCard from 'views/components/compositions/UltrasCard';
-import EventCard from 'views/components/compositions/EventCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
 
@@ -28,24 +27,6 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       />
     ),
     [],
-  );
-  const renderEvent = React.useCallback(
-    ({item}) => (
-      <EventCard
-        onPress={() => pushTo(commonScreens.event, {id: item.id})}
-        image={item.imageUri}
-        date={item.date}
-        title={item.title}
-        creator={item.creator}
-        supportersClub={item.supportersClub}
-        location={item.location}
-        commentsCount={item.commentsCount}
-        goingCount={item.goingCount}
-        isGoing={item.isGoing}
-        isLiked={item.isLiked}
-      />
-    ),
-    [pushTo],
   );
   const renderClub = React.useCallback(
     ({item}) => (
@@ -78,15 +59,14 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       switch (item.type) {
         case 'ultras':
           return renderUltas({item});
-        case 'events':
-          return renderEvent({item});
+
         case 'clubs':
           return renderClub({item});
         case 'teams':
           return renderTeam({item});
       }
     },
-    [renderClub, renderEvent, renderTeam, renderUltas],
+    [renderClub, renderTeam, renderUltas],
   );
 
   const renderItem = React.useMemo(() => {
@@ -95,14 +75,12 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
         return renderAll;
       case 'ultras':
         return renderUltas;
-      case 'events':
-        return renderEvent;
       case 'clubs':
         return renderClub;
       case 'teams':
         return renderTeam;
     }
-  }, [searchItem, renderAll, renderUltas, renderEvent, renderClub, renderTeam]);
+  }, [searchItem, renderAll, renderUltas, renderClub, renderTeam]);
 
   return (
     <FlatList

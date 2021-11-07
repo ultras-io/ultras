@@ -127,7 +127,7 @@ const UIKit: React.FC = () => {
         </View>
         <UltrasText style={styles.subTitle}>Event Card</UltrasText>
         <EventCard
-          image={
+          imageUri={
             'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
           }
           date={randomDate(new Date(2021, 8, 10), new Date(2021, 11, 11))}

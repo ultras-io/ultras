@@ -12,11 +12,6 @@ const SCREENS: SearchTabScreens = {
     tabName: I18n.t('all'),
     component: SearchItem,
   },
-  event: {
-    name: 'Events',
-    tabName: I18n.t('events'),
-    component: SearchItem,
-  },
   team: {
     name: 'Teams',
     tabName: I18n.t('teams'),
