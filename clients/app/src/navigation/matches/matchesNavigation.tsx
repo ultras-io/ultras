@@ -14,7 +14,7 @@ interface IMatchesNavigationProps {
 const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({theme}) => {
   return (
     <Stack.Navigator
-      initialRouteName={screens.matches.name}
+      initialRouteName={`${TAB_NAME}:${screens.matches.name}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,

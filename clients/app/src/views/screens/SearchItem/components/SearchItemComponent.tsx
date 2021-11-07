@@ -4,7 +4,7 @@ import {FlatList} from 'react-native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 
-import UltrasCard from 'views/components/compositions/UltrasCard';
+import ProfileCard from 'views/components/compositions/ProfileCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
 
@@ -20,13 +20,14 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
 
   const renderUltas = React.useCallback(
     ({item}) => (
-      <UltrasCard
+      <ProfileCard
+        onPress={() => pushTo(commonScreens.profile, {id: item.id})}
         name={item.name}
-        userName={item.userName}
-        avatarUri={item.avatar}
+        username={item.username}
+        avatarUri={item.avatarUri}
       />
     ),
-    [],
+    [pushTo],
   );
   const renderClub = React.useCallback(
     ({item}) => (

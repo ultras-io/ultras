@@ -29,7 +29,7 @@ import PostCard from 'views/components/compositions/PostCard';
 import EventCard from 'views/components/compositions/EventCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
-import UltrasCard from 'views/components/compositions/UltrasCard';
+import ProfileCard from 'views/components/compositions/ProfileCard';
 
 import styles from './styles';
 import gStyles from 'styles/styles';
@@ -248,9 +248,9 @@ const UIKit: React.FC = () => {
         />
         <UltrasText style={styles.subTitle}>Ultras Card</UltrasText>
 
-        <UltrasCard
+        <ProfileCard
           name="Nathaniel Chalobah"
-          userName={'chalobah'}
+          username={'chalobah'}
           avatarUri={avatarUri}
         />
 

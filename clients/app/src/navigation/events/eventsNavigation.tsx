@@ -14,7 +14,7 @@ interface IEventsNavigationProps {
 const EventsNavigation: React.FC<IEventsNavigationProps> = ({theme}) => {
   return (
     <Stack.Navigator
-      initialRouteName={screens.events.name}
+      initialRouteName={`${TAB_NAME}:${screens.events.name}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,

@@ -1,16 +1,16 @@
 import React from 'react';
-import {View} from 'react-native';
+import WithSafeArea from 'views/components/base/WithSafeArea';
 
-import UltrasText from 'views/components/base/UltrasText';
+import ProfileContainer from './containers/ProfileContainer';
 import {IProfileProps} from './types';
 
-import styles from './styles';
+const Profile: React.FC<IProfileProps> = ({route}) => {
+  const {id} = route.params;
 
-const Profile: React.FC<IProfileProps> = () => {
   return (
-    <View style={styles.container}>
-      <UltrasText style={styles.text}>Profile</UltrasText>
-    </View>
+    <WithSafeArea>
+      <ProfileContainer id={id} />
+    </WithSafeArea>
   );
 };
 

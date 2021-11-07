@@ -14,7 +14,7 @@ interface ISearchNavigationProps {
 const SearchNavigation = ({theme}: ISearchNavigationProps) => {
   return (
     <Stack.Navigator
-      initialRouteName={screens.search.name}
+      initialRouteName={`${TAB_NAME}:${screens.search.name}`}
       screenOptions={{
         headerShadowVisible: false,
         headerStyle: {backgroundColor: theme?.colors.bgColor},

@@ -14,7 +14,7 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
 }) => {
   return (
     <Stack.Navigator
-      initialRouteName={screens.all.name}
+      initialRouteName={`${TAB_NAME}:${screens.all.name}`}
       screenOptions={{
         tabBarLabelStyle: {textTransform: 'none'},
         tabBarStyle: {backgroundColor: 'transparent'},

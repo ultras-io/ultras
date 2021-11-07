@@ -1,8 +1,10 @@
 import {ThemeInterface} from 'styled-components';
 
-export interface IUltrasCardProps {
+export interface IProfileInfoProps {
   theme?: ThemeInterface;
   avatarUri: string;
   name: string;
-  userName: string;
+  username: string;
+  teams: Array<any>;
+  supportersClubs: Array<any>;
 }

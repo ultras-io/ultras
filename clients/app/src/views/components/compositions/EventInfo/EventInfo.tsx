@@ -74,7 +74,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
         <View style={styles.creatorContainer}>
           <Pressable
             onPress={
-              () => {} // pushTo profile
+              () => pushTo(commonScreens.profile, {id: 67}) // profileid
             }>
             <UltrasText style={styles.creator} color="text">
               {I18n.t('eventsBy')} {creator}
