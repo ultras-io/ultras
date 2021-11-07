@@ -21,12 +21,13 @@ import {IEventCardProps} from './types';
 import styles from './styles';
 
 const EventCard: React.FC<IEventCardProps> = ({
-  image,
+  imageUri,
   date,
   title,
   location,
   goingCount,
   commentsCount,
+  likeCount,
   creator,
   supportersClub,
   isGoing,
@@ -36,7 +37,7 @@ const EventCard: React.FC<IEventCardProps> = ({
   return (
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
-        {image && <Image source={{uri: image}} style={styles.image} />}
+        {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
         <View style={styles.innerContainer}>
           <UltrasText style={styles.date} color="text">
             {date < new Date()
@@ -60,7 +61,7 @@ const EventCard: React.FC<IEventCardProps> = ({
           </UltrasText>
           <View style={styles.bottomButtons}>
             <View style={styles.comments}>
-              <Like isLiked={isLiked} onPress={() => {}} />
+              <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
             </View>
             <View style={styles.comments}>
               <CommentsCount count={commentsCount} />

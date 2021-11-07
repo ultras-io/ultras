@@ -19,10 +19,18 @@ export default StyleSheet.create({
     marginTop: 6,
     marginBottom: 12,
   },
-  supportersClub: {
+
+  creatorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  creator: {
     fontSize: 11,
     lineHeight: 13,
+    letterSpacing: -0.24,
   },
+
   bold: {
     fontWeight: 'bold',
   },
@@ -30,9 +38,14 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: 5,
   },
-  comments: {
+  likeAndComment: {
+    marginRight: 15,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  like: {
     marginRight: 15,
   },
   arrow: {

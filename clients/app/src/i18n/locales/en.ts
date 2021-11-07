@@ -67,8 +67,6 @@ export default {
   joinUsSendAgainText: "Didn't get a text? Send text again.",
 
   // posts
-  postDiscussionAt: 'Discussion at ',
-  postFollowTopic: 'Follow Topic',
 
   // events
   events: 'Events',

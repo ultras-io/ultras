@@ -45,18 +45,6 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
         )}
       </Stack.Screen>
       <Stack.Screen
-        name={`${TAB_NAME}:${screens.event.name}`}
-        options={{tabBarLabel: screens.event.tabName}}
-        initialParams={{tabName: TAB_NAME}}>
-        {props => (
-          <SearchItem
-            {...props}
-            searchItem={'events'}
-            searchText={searchText}
-          />
-        )}
-      </Stack.Screen>
-      <Stack.Screen
         name={`${TAB_NAME}:${screens.supportersClubs.name}`}
         options={{tabBarLabel: screens.supportersClubs.tabName}}
         initialParams={{tabName: TAB_NAME}}>

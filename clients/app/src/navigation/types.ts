@@ -3,6 +3,7 @@ import {ComponentType} from 'react';
 export type CommonScreens = {
   match: string;
   event: string;
+  post: string;
   team: string;
   supportersClub: string;
   supportersClubAbout: string;
@@ -55,7 +56,6 @@ export type ProfileNavigationScreens = {
 
 export type SearchTabScreens = {
   all: NavigationScreen;
-  event: NavigationScreen;
   team: NavigationScreen;
   supportersClubs: NavigationScreen;
   ultras: NavigationScreen;

@@ -23,7 +23,7 @@ const EventsComponent: React.FC<IEventsComponentProps> = ({
     ({item}) => (
       <EventCard
         onPress={() => pushTo(commonScreens.event, {id: item.id})}
-        image={item.imageUri}
+        imageUri={item.imageUri}
         date={item.date}
         title={item.title}
         creator={item.creator}

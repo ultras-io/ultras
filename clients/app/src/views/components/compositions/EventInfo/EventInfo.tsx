@@ -25,7 +25,7 @@ import {upperCaseFirstLetter} from 'utils/helpers/string';
 import styles from './styles';
 
 const EventInfo: React.FC<EventInfoProps> = ({
-  image,
+  imageUri,
   date,
   title,
   location,
@@ -41,7 +41,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
 
   return (
     <>
-      {image && <Image source={{uri: image}} style={styles.image} />}
+      {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
 
       <View style={styles.container}>
         <UltrasText style={styles.date} color="secondaryText">

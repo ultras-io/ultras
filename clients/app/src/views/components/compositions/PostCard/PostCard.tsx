@@ -1,66 +1,82 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Pressable} from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
+
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import commonScreens from 'navigation/commonScreens';
 
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 
-import Button, {
-  SizeEnum as ButtonSize,
-  BoxSizeEnum as ButtonBoxSize,
-  IconPositionEnum as ButtonIconPosition,
-} from 'views/components/base/Button';
 import CommentsCount from 'views/components/base/CommentsCount';
+import Like from 'views/components/base/Like';
+
 import {IconNamesEnum} from 'assets/icons';
 
 import {IPostCardProps} from './types';
 import styles from './styles';
 
 const PostCard: React.FC<IPostCardProps> = ({
+  imageUri,
   date,
   title,
+  creator,
   supportersClub,
   commentsCount,
-  isFollowing,
+  isLiked,
+  likeCount,
+  onPress,
 }) => {
-  return (
-    <BluredView style={styles.container}>
-      <UltrasText style={styles.date} color="text">
-        {moment(date).fromNow()}
-      </UltrasText>
-      <UltrasText style={styles.title} color="text">
-        {title}
-      </UltrasText>
-      <UltrasText style={styles.supportersClub} color="text">
-        {I18n.t('postDiscussionAt')}
-        <UltrasText style={[styles.supportersClub, styles.bold]} color="text">
-          {supportersClub}
-        </UltrasText>
-      </UltrasText>
+  const {pushTo} = useNavigationWithParams();
 
-      <View style={styles.bottomButtons}>
-        <View style={styles.comments}>
-          <CommentsCount count={commentsCount} />
+  return (
+    <Pressable onPress={onPress}>
+      <BluredView style={styles.container}>
+        <UltrasText style={styles.date} color="text">
+          {moment(date).fromNow()}
+        </UltrasText>
+        <UltrasText style={styles.title} color="text">
+          {title}
+        </UltrasText>
+
+        <View style={styles.creatorContainer}>
+          <Pressable
+            onPress={
+              () => {} // pushTo profile
+            }>
+            <UltrasText style={styles.creator} color="text">
+              {I18n.t('eventsBy')} {creator}
+              {supportersClub && ', '}
+            </UltrasText>
+          </Pressable>
+          {supportersClub && (
+            <Pressable
+              onPress={
+                () => pushTo(commonScreens.supportersClub, {id: 67}) // supporterClubsId
+              }>
+              <UltrasText style={styles.creator} color="secondary">
+                {supportersClub}
+              </UltrasText>
+            </Pressable>
+          )}
         </View>
-        {!isFollowing && (
-          <Button
-            title={I18n.t('postFollowTopic')}
-            onPress={() => {}}
-            boxSize={ButtonBoxSize.Contain}
-            size={ButtonSize.Small}
-            color="text"
-            bgColor="primary"
-            icon={IconNamesEnum.Hearth}
-            iconPosition={ButtonIconPosition.Right}
-          />
-        )}
-        <View style={styles.arrow}>
-          <Icon key="icon" name={IconNamesEnum.ArrowRight} size={12} />
+
+        <View style={styles.bottomButtons}>
+          <View style={styles.likeAndComment}>
+            <View style={styles.like}>
+              <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
+            </View>
+            <CommentsCount count={commentsCount} />
+          </View>
+
+          <View style={styles.arrow}>
+            <Icon key="icon" name={IconNamesEnum.ArrowRight} size={12} />
+          </View>
         </View>
-      </View>
-    </BluredView>
+      </BluredView>
+    </Pressable>
   );
 };
 
