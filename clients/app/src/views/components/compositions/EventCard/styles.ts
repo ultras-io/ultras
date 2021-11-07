@@ -29,6 +29,7 @@ export default StyleSheet.create({
   smallText: {
     fontSize: 11,
     lineHeight: 13,
+    marginTop: 3,
   },
   location: {
     fontWeight: '600',

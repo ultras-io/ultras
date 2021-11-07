@@ -12,4 +12,9 @@ export interface IEventCardProps {
   supportersClub?: string;
   isGoing: boolean;
   isLiked: boolean;
+  onPress: () => void;
 }
+
+export type EventInfoProps = Omit<IEventCardProps, 'onPress'> & {
+  likeCount: number;
+};

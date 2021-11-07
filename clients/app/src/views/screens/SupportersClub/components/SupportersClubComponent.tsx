@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList, View} from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import commonScreens from 'navigation/commonScreens';
 
 import SupportersClubInfo from 'views/components/compositions/SupportersClubInfo';
 
@@ -16,7 +17,7 @@ import gStyles from 'styles/styles';
 const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
   data,
 }) => {
-  const {setOptions} = useNavigationWithParams();
+  const {setOptions, pushTo} = useNavigationWithParams();
 
   const onScroll = React.useCallback(
     ({nativeEvent}) => {
@@ -42,6 +43,7 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
       <View style={styles.flatListItem}>
         {item.type === 'event' ? (
           <EventCard
+            onPress={() => pushTo(commonScreens.event, {id: 23})} //eventId
             image={
               'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
             }

@@ -1,25 +1,15 @@
-import React, {useCallback} from 'react';
-import {View} from 'react-native';
+import React from 'react';
 
-import UltrasText from 'views/components/base/UltrasText';
-import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import screens from 'navigation/events/eventsScreens';
-import Button from 'views/components/base/Button';
+import WithSafeArea from 'views/components/base/WithSafeArea';
+import EventsContainer from './containers/EventsContainer';
 
 import {IEventsProps} from './types';
-import styles from './styles';
 
 const Events: React.FC<IEventsProps> = () => {
-  const {pushTo} = useNavigationWithParams();
-
   return (
-    <View style={styles.container}>
-      <UltrasText style={styles.text}>Events</UltrasText>
-      <Button
-        title={'Open New Event Modal'}
-        onPress={() => pushTo(screens.newEvent.name)}
-      />
-    </View>
+    <WithSafeArea>
+      <EventsContainer />
+    </WithSafeArea>
   );
 };
 

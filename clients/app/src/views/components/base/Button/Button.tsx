@@ -21,6 +21,8 @@ const getTextStyle = (size: SizeEnum) => {
       return styles.textSizeSmall;
     case SizeEnum.Big:
       return styles.textSizeBig;
+    case SizeEnum.ExtraBig:
+      return styles.textSizeBig;
     default:
       return styles.textSizeDefault;
   }
@@ -31,6 +33,8 @@ const getPressableSizeStyle = (size: SizeEnum) => {
     case SizeEnum.Small:
       return styles.buttonSizeSmall;
     case SizeEnum.Big:
+      return styles.buttonSizeBig;
+    case SizeEnum.ExtraBig:
       return styles.buttonSizeBig;
     default:
       return styles.buttonSizeDefault;
@@ -51,7 +55,9 @@ const getIconSize = (size: SizeEnum) => {
     case SizeEnum.Small:
       return 10;
     case SizeEnum.Big:
-      return 24;
+      return 18;
+    case SizeEnum.ExtraBig:
+      return 26;
     default:
       return 12;
   }

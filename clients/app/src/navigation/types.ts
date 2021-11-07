@@ -1,5 +1,13 @@
 import {ComponentType} from 'react';
-// import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+
+export type CommonScreens = {
+  match: string;
+  event: string;
+  team: string;
+  supportersClub: string;
+  supportersClubAbout: string;
+  newEvent: string;
+};
 
 export type NavigationScreen = {
   name: string;
@@ -26,34 +34,18 @@ export type TabNavigationScreens = {
 
 export type HomeNavigationScreens = {
   home: NavigationScreen;
-  supportersClub: NavigationScreen;
-  supportersClubAbout: NavigationScreen;
-  match: NavigationScreen;
-  event: NavigationScreen;
-  team: NavigationScreen;
 };
 
 export type SearchNavigationScreens = {
   search: NavigationScreen;
-  supportersClub: NavigationScreen;
-  supportersClubAbout: NavigationScreen;
-  event: NavigationScreen;
-  match: NavigationScreen;
-  team: NavigationScreen;
 };
 
 export type MatchesNavigationScreens = {
   matches: NavigationScreen;
-  match: NavigationScreen;
-  event: NavigationScreen;
-  team: NavigationScreen;
 };
 
 export type EventsNavigationScreens = {
   events: NavigationScreen;
-  match: NavigationScreen;
-  event: NavigationScreen;
-  newEvent: NavigationScreen;
 };
 
 export type ProfileNavigationScreens = {

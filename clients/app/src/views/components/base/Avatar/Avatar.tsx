@@ -25,7 +25,7 @@ const Avatar: React.FC<IAvatarProps> = ({
   const content = isTeam ? (
     <Box
       style={[styles.container, stylesDictionary.sizes[size]]}
-      bgColor="bgColorLight">
+      bgColor="bgColorLightSecondary">
       <Image
         source={avatarUri ? {uri: avatarUri} : defaultAvatar}
         style={[styles.image]}

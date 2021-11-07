@@ -20,6 +20,7 @@ export default {
   privacy: 'Privacy Policy',
   country: 'Country',
   footballClubs: 'Football Clubs',
+  likes: 'likes',
 
   going: 'going',
   join: 'Join',
@@ -71,11 +72,12 @@ export default {
 
   // events
   events: 'Events',
+  eventsBy: 'by',
   eventsEventBy: 'Event by',
   eventsCreate: 'Create an Events',
 
   // matches
-  matches: 'matches',
+  matches: 'Matches',
   upcomingMatches: 'Upcoming Matches',
   matchesLive: 'Live',
   matchesET: 'ET',

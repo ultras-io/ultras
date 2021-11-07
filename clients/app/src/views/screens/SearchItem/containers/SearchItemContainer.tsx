@@ -2,7 +2,7 @@ import React from 'react';
 
 import SearchItemComponent from '../components/SearchItemComponent';
 
-import {generateClubsList} from 'utils/helpers/dummy';
+import {generateClubsList, generateEvents} from 'utils/helpers/dummy';
 
 import {ISearchItemProps} from '../types';
 
@@ -122,6 +122,9 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({
           ...generateClubsList(5).map(x => {
             return {...x, type: 'teams'};
           }),
+          ...generateEvents(2).map(x => {
+            return {...x, type: 'events'};
+          }),
         ]),
       );
     } else if (searchItem === 'ultras') {
@@ -130,6 +133,8 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({
       setData(generateClubsList(20));
     } else if (searchItem === 'clubs') {
       setData(clubsData);
+    } else if (searchItem === 'events') {
+      setData(generateEvents(5));
     }
   }, [searchItem, searchText]);
 

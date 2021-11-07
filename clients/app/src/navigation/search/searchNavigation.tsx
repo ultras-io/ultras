@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {withTheme} from 'styled-components/native';
 import {ThemeInterface} from 'styled-components';
-
+import {generateCommonScreens} from '../commonScreens';
 import screens, {TAB_NAME} from './searchScreens';
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +18,7 @@ const SearchNavigation = ({theme}: ISearchNavigationProps) => {
       screenOptions={{
         headerShadowVisible: false,
         headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerTintColor: theme?.colors.secondary,
         headerBackTitleVisible: false,
       }}>
       <Stack.Screen
@@ -26,42 +27,7 @@ const SearchNavigation = ({theme}: ISearchNavigationProps) => {
         initialParams={{tabName: TAB_NAME}}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.supportersClub.name}`}
-        component={screens.supportersClub.component}
-        initialParams={{tabName: TAB_NAME}}
-        options={{
-          headerTintColor: theme?.colors.secondary,
-          ...screens.supportersClub.options,
-        }}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.event.name}`}
-        component={screens.event.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.match.name}`}
-        component={screens.match.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.team.name}`}
-        component={screens.team.component}
-        initialParams={{tabName: TAB_NAME}}
-        options={{
-          headerTintColor: theme?.colors.secondary,
-          ...screens.team.options,
-        }}
-      />
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
-          name={`${TAB_NAME}:${screens.supportersClubAbout.name}`}
-          component={screens.supportersClubAbout.component}
-          initialParams={{tabName: TAB_NAME}}
-          options={screens.supportersClubAbout.options}
-        />
-      </Stack.Group>
+      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };

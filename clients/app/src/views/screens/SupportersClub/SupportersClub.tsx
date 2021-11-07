@@ -25,7 +25,7 @@ const SupportersClub: React.FC<ISupportersClubProps> = ({route}) => {
             pushTo(commonScreens.supportersClubAbout);
           }}
           appearance={ButtonAppearance.Minimal}
-          size={ButtonSize.Big}
+          size={ButtonSize.ExtraBig}
           icon={Icons.Info}
         />
       ),

@@ -4,6 +4,7 @@ export type ColorKey =
   | 'bgColor'
   | 'bgColorInvert'
   | 'bgColorLight'
+  | 'bgColorLightSecondary'
   | 'opacityBgColor'
   | 'opacityBgColorInvert'
   | 'transparent'
@@ -31,6 +32,7 @@ declare module 'styled-components' {
       bgColor: string;
       bgColorInvert: string;
       bgColorLight: string;
+      bgColorLightSecondary: string;
       opacityBgColor: string;
       opacityBgColorInvert: string;
       transparent: string;
