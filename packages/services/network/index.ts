@@ -1,15 +1,12 @@
-import settings from 'config/settings';
-import { HttpRequestMethods, Interceptor, RequestOptions } from './types';
+import { HttpRequestMethods, HttpErrorMessages, Interceptor, RequestOptions } from './types';
 
 import exceptionDetector from './interceptors/exceptionDetector';
-
-const NETWORK_SERVICE = settings.NETWORK_SERVICE;
 
 class NetworkService {
   _interceptors: Interceptor[] = [exceptionDetector];
   _uri?: string = null;
 
-  constructor(uri, interceptors = []) {
+  constructor(uri: string, interceptors = []) {
     if (!uri || typeof uri !== 'string') {
       throw new Error('The "uri" argument must be string.');
     }
@@ -79,23 +76,23 @@ class NetworkService {
       return accumulator;
     }, '');
 
-  makeAPIRequest = (partUrl, options = {}) =>
+  makeAPIRequest = (partUrl: string, options: RequestOptions = {}) =>
     new Promise((resolve, reject) => {
       let url = this.createUrl(partUrl);
 
       if (!url) {
-        return reject(NETWORK_SERVICE.ERRORS.INVALID_REQUEST_PARAMS);
+        return reject(HttpErrorMessages.INVALID_REQUEST_PARAMS);
       }
 
       if (options.query_params) {
         url += `?${this.createQueryParams(options.query_params)}`;
       }
       if (!options.method) {
-        options.method = NETWORK_SERVICE.REQUEST_METHODS.GET;
+        options.method = HttpRequestMethods.GET;
       }
 
       // const auth_token = CacheService.getItem('auth_token');
-      const fetch_options = {
+      const fetch_options: RequestInit = {
         method: options.method,
         headers: options.headers || {
           Accept: 'application/json',
@@ -112,18 +109,18 @@ class NetworkService {
           fetch_options.body = JSON.stringify(options.body);
         }
       } catch (ex) {
-        return reject({ message: NETWORK_SERVICE.ERRORS.INVALID_REQUEST_PARAMS });
+        return reject({ message: HttpErrorMessages.INVALID_REQUEST_PARAMS });
       }
 
       fetch(url, fetch_options)
         .then(async response => {
           if (!response) {
             return reject({
-              message: NETWORK_SERVICE.ERRORS.INVALID_RESPONSE_DATA,
+              message: HttpErrorMessages.INVALID_RESPONSE_DATA,
             });
           }
           const { headers } = response;
-          let body = {};
+          let body: { status?: number } = {};
 
           const contentType = headers.get('content-type');
 
