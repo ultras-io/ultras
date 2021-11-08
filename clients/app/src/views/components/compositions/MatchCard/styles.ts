@@ -2,12 +2,27 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginBottom: 15,
     paddingVertical: 13,
     paddingHorizontal: 15,
     borderRadius: 13,
   },
+  containerH: {
+    marginLeft: 15,
+    paddingVertical: 13,
+    paddingHorizontal: 15,
+    borderRadius: 13,
+    width: 240,
+  },
   league: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  divider: {
+    marginHorizontal: 5,
+  },
+  leagueText: {
     fontSize: 11,
     lineHeight: 13,
   },
@@ -16,7 +31,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 6,
-    marginBottom: 12,
+    marginBottom: 8,
   },
   logoContainer: {
     width: 30,
@@ -37,10 +52,23 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 2.5,
   },
   team: {
+    flex: 1,
     fontWeight: '600',
     fontSize: 15,
-    lineHeight: 18,
+    letterSpacing: -0.24,
+  },
+  actionBox: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    top: 15,
+    right: 15,
+  },
+  comments: {
+    marginTop: 5,
+    marginLeft: 15,
   },
 });

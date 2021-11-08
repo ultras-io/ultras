@@ -20,12 +20,11 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   input: {
-    height: 50,
+    paddingVertical: 6,
     borderRadius: 10,
     borderWidth: 0.5,
     fontSize: 30,
-    fontWeight: 'bold',
-    paddingLeft: 12,
-    paddingRight: 0,
+    fontFamily: 'Montserrat-Bold',
+    textAlign: 'center',
   },
 });

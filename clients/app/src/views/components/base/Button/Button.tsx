@@ -1,7 +1,8 @@
 import React from 'react';
+import {Pressable, View} from 'react-native';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
-import styled from 'styled-components/native';
 import Icon from '../Icon';
 
 import {
@@ -20,6 +21,8 @@ const getTextStyle = (size: SizeEnum) => {
       return styles.textSizeSmall;
     case SizeEnum.Big:
       return styles.textSizeBig;
+    case SizeEnum.ExtraBig:
+      return styles.textSizeBig;
     default:
       return styles.textSizeDefault;
   }
@@ -30,6 +33,8 @@ const getPressableSizeStyle = (size: SizeEnum) => {
     case SizeEnum.Small:
       return styles.buttonSizeSmall;
     case SizeEnum.Big:
+      return styles.buttonSizeBig;
+    case SizeEnum.ExtraBig:
       return styles.buttonSizeBig;
     default:
       return styles.buttonSizeDefault;
@@ -50,37 +55,19 @@ const getIconSize = (size: SizeEnum) => {
     case SizeEnum.Small:
       return 10;
     case SizeEnum.Big:
-      return 24;
+      return 18;
+    case SizeEnum.ExtraBig:
+      return 26;
     default:
       return 12;
   }
 };
 
-const StyledPressable = styled.Pressable<IButtonProps>`
-  background-color: ${({theme, bgColor, appearance}) => {
-    if (
-      appearance === AppearanceEnum.Minimal ||
-      appearance === AppearanceEnum.UnderLined ||
-      appearance === AppearanceEnum.Outline
-    )
-      return theme.colors.transparent;
-    return bgColor ? theme.colors[bgColor] : theme.colors.transparent;
-  }};
-  border-color: ${({theme, bgColor, appearance}) => {
-    if (
-      appearance === AppearanceEnum.Minimal ||
-      appearance === AppearanceEnum.UnderLined
-    )
-      return theme.colors.transparent;
-    return bgColor ? theme.colors[bgColor] : theme.colors.transparent;
-  }};
-`;
-
 const Button: React.FC<IButtonProps> = ({
   title,
   onPress,
   size = SizeEnum.Default,
-  color = 'lightText',
+  color = 'text',
   bgColor = 'primary',
   boxSize = BoxSizeEnum.Cover,
   appearance = AppearanceEnum.Default,
@@ -107,26 +94,48 @@ const Button: React.FC<IButtonProps> = ({
       </UltrasText>
     ) : null,
     icon !== undefined ? (
-      <Icon key="icon" name={icon} size={getIconSize(size)} />
+      <View key="icon" style={styles.icon}>
+        <Icon name={icon} size={getIconSize(size)} color={color} />
+      </View>
     ) : null,
   ];
 
   if (iconPosition === IconPositionEnum.Left) content = content.reverse();
 
+  const _bgColor = React.useMemo(() => {
+    if (
+      appearance === AppearanceEnum.Minimal ||
+      appearance === AppearanceEnum.UnderLined ||
+      appearance === AppearanceEnum.Outline
+    )
+      return 'transparent';
+    return bgColor ? bgColor : 'transparent';
+  }, [appearance, bgColor]);
+
+  const _borderColor = React.useMemo(() => {
+    if (
+      appearance === AppearanceEnum.Minimal ||
+      appearance === AppearanceEnum.UnderLined
+    )
+      return 'transparent';
+    return bgColor ? bgColor : 'transparent';
+  }, [appearance, bgColor]);
+
   return (
-    <StyledPressable
-      onPress={onPress}
-      disabled={isDisabled || isLoading}
-      bgColor={bgColor}
-      appearance={appearance}
-      style={[
-        styles.button,
-        (isDisabled || isLoading) && styles.buttonDisabled,
-        pressableSize,
-        pressableBoxSize,
-      ]}>
-      {isLoading ? <UltrasText>loader...</UltrasText> : content}
-    </StyledPressable>
+    <Pressable onPress={onPress} disabled={isDisabled || isLoading}>
+      <Box
+        bgColor={_bgColor}
+        borderColor={_borderColor}
+        style={[
+          styles.button,
+          (isDisabled || isLoading) && styles.buttonDisabled,
+          pressableSize,
+          pressableBoxSize,
+          appearance === AppearanceEnum.Minimal && styles.noPadding,
+        ]}>
+        {isLoading ? <UltrasText>loader...</UltrasText> : content}
+      </Box>
+    </Pressable>
   );
 };
 

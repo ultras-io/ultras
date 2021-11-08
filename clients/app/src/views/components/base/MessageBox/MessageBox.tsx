@@ -1,28 +1,23 @@
 import React from 'react';
-import styled from 'styled-components/native';
+
+import Box from 'views/components/base/Box';
 
 import {IMessageBoxProps, SideEnum} from './types';
 import styles from './styles';
-
-const StyledView = styled.View<IMessageBoxProps>`
-  background-color: ${({theme, side}) => {
-    return side === SideEnum.Left ? theme.colors.lightText : theme.colors.tint;
-  }};
-`;
 
 const MessageBox: React.FC<IMessageBoxProps> = ({
   children,
   side = SideEnum.Left,
 }) => {
   return (
-    <StyledView
-      side={side}
+    <Box
+      bgColor={side === SideEnum.Left ? 'text' : 'quaternary'}
       style={[
         styles.container,
         side === SideEnum.Right ? styles.right : styles.left,
       ]}>
       {children}
-    </StyledView>
+    </Box>
   );
 };
 

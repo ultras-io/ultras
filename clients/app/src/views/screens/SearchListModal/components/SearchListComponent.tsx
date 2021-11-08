@@ -1,80 +1,71 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
-
-import styled from 'styled-components/native';
+import {View, Image, FlatList, ListRenderItem} from 'react-native';
 import I18n from 'i18n/i18n';
 
+import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
-import Input from 'views/components/base/Input';
-import Button, {
-  AppearanceEnum as ButtonAppearance,
-  BoxSizeEnum as ButtonBoxSize,
-} from 'views/components/base/Button';
 
-import {ISearchListComponentProps} from '../types';
-import styles from './styles';
-
-const StyledView = styled.View<ISearchListComponentProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.backgroundColor;
-  }};
-`;
-
-const StyledFlat = styled.View<ISearchListComponentProps>`
-  background-color: ${({theme}) => {
-    return theme.colors.boxBackgroundColor;
-  }};
-`;
-
-const StyledRow = styled.View<ISearchListComponentProps>`
-  border-color: ${({theme}) => {
-    return theme.colors.lightText2;
-  }};
-`;
+import {ISearchListComponentProps, SearchItem} from '../types';
+import styles from '../styles';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
-  name,
   data,
-  onClose,
+  onEndReached,
 }) => {
-  const renderRow = ({item}) => (
-    <StyledRow style={styles.row}>
-      <UltrasText style={styles.text} color="lightText">
-        {item.title}
-      </UltrasText>
-    </StyledRow>
+  // const flatListRef = React.useRef<FlatList<any>>();
+
+  const renderRow: ListRenderItem<SearchItem> = ({item}) => (
+    <Box
+      bgColor={'opacityBgColor'}
+      style={[
+        styles.row,
+        item === data[0] && styles.firstRow,
+        item === data[data.length - 1] && styles.lastRow,
+      ]}>
+      <Box
+        borderColor={'opacityBgColor'}
+        style={[
+          styles.borderedRow,
+          item === data[data.length - 1] && styles.lastBorderedRow,
+        ]}>
+        <View style={styles.rowContainer}>
+          {item.logo && <Image source={{uri: item.logo}} style={styles.logo} />}
+          <UltrasText style={styles.text} color="text">
+            {item.name}
+          </UltrasText>
+          {item.code && (
+            <UltrasText style={styles.text} color="tertiaryText">
+              {' '}
+              {item.code}
+            </UltrasText>
+          )}
+        </View>
+      </Box>
+    </Box>
   );
 
+  // React.useEffect(() => {
+  //   data.length && flatListRef?.current?.scrollToIndex({index: 0});
+  // }, [data]);
+
   return (
-    <StyledView style={styles.container}>
-      <View style={styles.closeButton}>
-        <Button
-          appearance={ButtonAppearance.Minimal}
-          boxSize={ButtonBoxSize.Contain}
-          title={I18n.t('close')}
-          onPress={onClose}
-        />
-      </View>
-
-      <UltrasText style={styles.title} color="lightText">
-        {I18n.t('select')} {name}
-      </UltrasText>
-
-      <View style={styles.searchRow}>
-        <View style={styles.searchInput}>
-          <Input name={I18n.t('searchFor') + ' ' + name} />
-        </View>
-      </View>
-
-      <StyledFlat style={styles.flatList}>
-        <FlatList
-          data={data}
-          keyExtractor={item => item.id.toString()}
-          renderItem={renderRow}
-          showsVerticalScrollIndicator={false}
-        />
-      </StyledFlat>
-    </StyledView>
+    <Box bgColor={'bgColor'} style={styles.flexList}>
+      <FlatList
+        // ref={flatListRef}
+        ListFooterComponent={
+          <UltrasText color="secondaryText" style={styles.footerText}>
+            {I18n.t('canChangeClub')}
+          </UltrasText>
+        }
+        ListHeaderComponent={<View style={styles.headerSpace} />}
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        renderItem={renderRow}
+        showsVerticalScrollIndicator={false}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.7}
+      />
+    </Box>
   );
 };
 

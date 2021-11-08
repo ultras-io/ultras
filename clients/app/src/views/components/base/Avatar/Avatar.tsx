@@ -1,5 +1,8 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {Pressable, Image} from 'react-native';
+import Box from 'views/components/base/Box';
+
+import defaultAvatar from 'assets/icons/avatar.jpeg';
 
 import {IAvatarProps, SizeEnum} from './types';
 import styles from './styles';
@@ -9,18 +12,35 @@ const stylesDictionary = {
     [SizeEnum.Small]: styles.small,
     [SizeEnum.Default]: styles.default,
     [SizeEnum.Big]: styles.big,
+    [SizeEnum.ExtraBig]: styles.extraBig,
   },
 };
 
-const Avatar: React.FC<IAvatarProps> = ({uri, size = SizeEnum.Default}) => {
-  return (
-    <View style={styles.container}>
+const Avatar: React.FC<IAvatarProps> = ({
+  onPress,
+  avatarUri,
+  size = SizeEnum.Default,
+  isTeam = false,
+}) => {
+  const content = isTeam ? (
+    <Box
+      style={[styles.container, stylesDictionary.sizes[size]]}
+      bgColor="bgColorLightSecondary">
       <Image
-        source={uri ? {uri} : require('../../../../assets/icons/avatar.jpeg')}
+        source={avatarUri ? {uri: avatarUri} : defaultAvatar}
+        style={[styles.image]}
+      />
+    </Box>
+  ) : (
+    <Box style={styles.container}>
+      <Image
+        source={avatarUri ? {uri: avatarUri} : defaultAvatar}
         style={stylesDictionary.sizes[size]}
       />
-    </View>
+    </Box>
   );
+
+  return onPress ? <Pressable onPress={onPress}>{content}</Pressable> : content;
 };
 
 export default React.memo<IAvatarProps>(Avatar);

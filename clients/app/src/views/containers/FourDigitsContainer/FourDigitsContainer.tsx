@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useState, useRef} from 'react';
 import {View} from 'react-native';
+import I18n from 'i18n/i18n';
 
 import FourDigitsInput from 'views/components/compositions/FourDigitsInput';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from '../../../assets/icons';
+import {IconNamesEnum as Icons} from 'assets/icons';
 import Button, {
   SizeEnum as ButtonSize,
   AppearanceEnum as ButtonAppearance,
@@ -61,20 +62,20 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
       <FourDigitsInput onFill={onFill} />
       <View style={styles.textAndButton}>
         {isFilledWrong && (
-          <UltrasText style={styles.text}>
-            <Icon key="icon" name={Icons.Hearth} size={12} color="secondary" />{' '}
-            Please enter the correct code
+          <UltrasText style={styles.text} color={'tertiaryText'}>
+            <Icon key="icon" name={Icons.Warning} size={12} color="secondary" />{' '}
+            {I18n.t('joinUsWrongCode')}
           </UltrasText>
         )}
         <Button
           appearance={ButtonAppearance.UnderLined}
           size={ButtonSize.Small}
-          color={'tint'}
+          color="quaternary"
           isDisabled={waitingTime > 0}
           title={
             waitingTime > 0
-              ? 'Text should arrive within ' + waitingTime + 's'
-              : "Didn't get a text? Send text again."
+              ? I18n.t('joinUsTextWillArive', {waitingTime})
+              : I18n.t('joinUsSendAgainText')
           }
           onPress={onPress}
         />

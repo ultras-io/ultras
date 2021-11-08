@@ -1,16 +1,16 @@
 import React from 'react';
-import {View} from 'react-native';
 
-import UltrasText from 'views/components/base/UltrasText';
+import WithSafeArea from 'views/components/base/WithSafeArea';
+import TeamContainer from './containers/TeamContainer';
+
 import {ITeamProps} from './types';
 
-import styles from './styles';
-
-const Team: React.FC<ITeamProps> = ({title}) => {
+const Team: React.FC<ITeamProps> = ({route}) => {
+  const {id} = route.params;
   return (
-    <View style={styles.container}>
-      <UltrasText style={styles.text}>{title}</UltrasText>
-    </View>
+    <WithSafeArea>
+      <TeamContainer id={id} />
+    </WithSafeArea>
   );
 };
 

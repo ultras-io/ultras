@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {View, ImageBackground} from 'react-native';
 
 import I18n from 'i18n/i18n';
@@ -12,41 +12,32 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
 
+import bg from 'assets/images/bg.png';
 import {IIntroProps} from './types';
 import styles from './styles';
+import gStyles from 'styles/styles';
 
 const Intro: React.FC<IIntroProps> = () => {
   const {pushTo} = useNavigationWithParams();
 
-  const navigateToJoinUs = useCallback(() => {
-    pushTo(screens.joinUs.name);
-  }, [pushTo]);
-
-  const navigateToUIKit = useCallback(() => {
-    pushTo(screens.uikit.name);
-  }, [pushTo]);
-
   return (
-    <ImageBackground
-      source={require('../../../assets/images/bg.png')}
-      resizeMode="cover"
-      style={styles.bg}>
-      <UltrasText style={styles.logo} color={'lightText'}>
+    <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
+      <UltrasText style={styles.logo} color="text">
         ultras
       </UltrasText>
-      <UltrasText style={styles.text} color={'lightText'}>
+      <UltrasText style={styles.text} color={'secondaryText'}>
         {I18n.t('splashText')}
       </UltrasText>
       <View style={styles.buttons}>
         <Button
           title={I18n.t('introLetMeIn')}
-          onPress={navigateToJoinUs}
+          onPress={() => pushTo(screens.joinUs.name)}
           size={ButtonSize.Big}
-          bgColor={'secondary'}
+          bgColor={'primary'}
         />
         <Button
           title={I18n.t('privacy')}
-          onPress={navigateToUIKit}
+          onPress={() => pushTo(screens.uikit.name)}
           size={ButtonSize.Default}
           appearance={ButtonAppearance.Minimal}
         />

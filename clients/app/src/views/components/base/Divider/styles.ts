@@ -12,10 +12,10 @@ export default StyleSheet.create({
   },
   horizontal: {
     width: '100%',
-    height: 1,
+    height: 0.4,
   },
   vertical: {
-    width: 1,
+    width: 0.4,
     height: '80%',
   },
 });

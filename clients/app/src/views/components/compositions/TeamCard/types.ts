@@ -7,4 +7,5 @@ export interface ITeamCardProps {
   supportersClubsCount: number;
   country?: string;
   city?: string;
+  onPress: () => void;
 }

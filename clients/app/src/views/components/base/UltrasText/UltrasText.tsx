@@ -5,7 +5,7 @@ import {IUltrasTextProps} from './types';
 
 const StyledText = styled.Text<IUltrasTextProps>`
   color: ${({theme, color}) => {
-    return color ? theme.colors[color] : theme.colors.darkText;
+    return color ? theme.colors[color] : theme.colors.textInvert;
   }};
 `;
 

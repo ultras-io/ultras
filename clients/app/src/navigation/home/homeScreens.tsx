@@ -1,12 +1,10 @@
 import React from 'react';
 
 import Home from 'views/screens/Home';
-import Match from 'views/screens/Match';
-import Event from 'views/screens/Event';
 
 import UltrasText from 'views/components/base/UltrasText';
-import styles from 'styles/styles';
 
+import styles from 'styles/styles';
 import type {HomeNavigationScreens} from '../types';
 
 export const TAB_NAME = 'Home';
@@ -17,23 +15,13 @@ const SCREENS: HomeNavigationScreens = {
     component: Home,
     options: {
       headerShown: true,
-      headerLeft: () => <></>,
+      headerBackVisible: false,
       headerTitle: () => (
-        <UltrasText style={styles.headerLogo} color={'lightText'}>
+        <UltrasText style={styles.headerLogo} color="primary">
           ultras
         </UltrasText>
       ),
-      headerRight: () => <UltrasText color={'lightText'}>b1 b2</UltrasText>,
-      headerShadowVisible: false,
     },
-  },
-  match: {
-    name: 'Match',
-    component: Match,
-  },
-  event: {
-    name: 'Event',
-    component: Event,
   },
 };
 

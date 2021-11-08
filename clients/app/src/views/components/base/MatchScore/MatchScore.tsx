@@ -10,11 +10,18 @@ const MatchScore: React.FC<IMatchScoreProps> = ({
   score,
   penalties,
   matchState,
+  invert = false,
 }) => {
   return (
     <UltrasText
       style={styles.score}
-      color={matchState === MatchState.Finished ? 'lightText' : 'primary'}>
+      color={
+        matchState === MatchState.Finished
+          ? invert
+            ? 'textInvert'
+            : 'text'
+          : 'success'
+      }>
       {score}
       {matchState === MatchState.Penalties && ' (' + penalties + ')'}
     </UltrasText>

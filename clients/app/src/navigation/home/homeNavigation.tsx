@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {withTheme} from 'styled-components/native';
 import {ThemeInterface} from 'styled-components';
-
+import {generateCommonScreens} from '../commonScreens';
 import screens, {TAB_NAME} from './homeScreens';
 
 const Stack = createNativeStackNavigator();
@@ -14,10 +14,12 @@ interface IHomeNavigationProps {
 const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
   return (
     <Stack.Navigator
-      initialRouteName={screens.home.name}
+      initialRouteName={`${TAB_NAME}:${screens.home.name}`}
       screenOptions={{
-        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
-        headerTintColor: theme?.colors.lightText,
+        headerShadowVisible: false,
+        headerBackTitleVisible: false,
+        headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerTintColor: theme?.colors.secondary,
       }}>
       <Stack.Screen
         name={`${TAB_NAME}:${screens.home.name}`}
@@ -25,16 +27,7 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({theme}) => {
         initialParams={{tabName: TAB_NAME}}
         options={screens.home.options}
       />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.event.name}`}
-        component={screens.event.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.match.name}`}
-        component={screens.match.component}
-        initialParams={{tabName: TAB_NAME}}
-      />
+      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };

@@ -6,6 +6,7 @@ export enum SizeEnum {
   Small,
   Default,
   Big,
+  ExtraBig,
 }
 
 export enum BoxSizeEnum {

@@ -2,6 +2,7 @@ import {DirectionENum} from 'views/components/base/WithAnimation';
 
 export enum ActionTypeEnum {
   Button,
+  Team,
   Phone,
   PhoneConfirm,
   UserName,

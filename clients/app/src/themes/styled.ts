@@ -1,32 +1,58 @@
 import 'styled-components';
 
 export type ColorKey =
-  | 'backgroundColor'
-  | 'boxBackgroundColor'
-  | 'backgroundColorOpacity'
+  | 'bgColor'
+  | 'bgColorInvert'
+  | 'bgColorLight'
+  | 'bgColorLightSecondary'
+  | 'opacityBgColor'
+  | 'opacityBgColorInvert'
+  | 'transparent'
+  | 'success'
+  | 'danger'
+  | 'dark'
   | 'primary'
   | 'secondary'
-  | 'danger'
-  | 'darkText'
-  | 'lightText'
-  | 'lightText2'
-  | 'tint'
-  | 'transparent';
+  | 'tertiary'
+  | 'quaternary'
+  | 'primaryInactive'
+  | 'androidBlurColor'
+  | 'text'
+  | 'secondaryText'
+  | 'tertiaryText'
+  | 'quaternaryText'
+  | 'textInvert'
+  | 'secondaryTextInvert'
+  | 'tertiaryTextInvert'
+  | 'quaternaryTextInvert';
 
 declare module 'styled-components' {
   export interface ThemeInterface {
     colors: {
-      backgroundColor: string;
-      boxBackgroundColor: string;
-      backgroundColorOpacity: string;
+      bgColor: string;
+      bgColorInvert: string;
+      bgColorLight: string;
+      bgColorLightSecondary: string;
+      opacityBgColor: string;
+      opacityBgColorInvert: string;
+      transparent: string;
+      success: string;
+      danger: string;
+      dark: string;
       primary: string;
       secondary: string;
-      danger: string;
-      darkText: string;
-      lightText: string;
-      lightText2: string;
-      tint: string;
-      transparent: string;
+      tertiary: string;
+      quaternary: string;
+      primaryInactive: string;
+      androidBlurColor: string;
+      text: string;
+      secondaryText: string;
+      tertiaryText: string;
+      quaternaryText: string;
+      textInvert: string;
+      secondaryTextInvert: string;
+      tertiaryTextInvert: string;
+      quaternaryTextInvert: string;
     };
   }
 }

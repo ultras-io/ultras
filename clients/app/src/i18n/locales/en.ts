@@ -6,19 +6,28 @@ export default {
   okLetsStart: "Ok, Let's start",
   confirmNumber: 'Confirm Number',
   changeNumber: 'Change Number',
+  tapToChange: 'Tap to Change',
   almostDone: 'Almost done',
   confirm: 'Confirm',
   close: 'Close',
   select: 'Select',
   searchFor: 'Search for',
+  discover: 'Discover',
+  viewAll: 'View All',
   allowNotifications: 'Allow Notifications',
   enableLocationsServices: 'Enable Locations Services',
   gotIt: 'Got It',
   privacy: 'Privacy Policy',
   country: 'Country',
-  fc: 'Football Club',
-  natioanlTeam: 'Natioanl Team',
-  supportersClubs: 'Supporters Clubs',
+  footballClubs: 'Football Clubs',
+  likes: 'likes',
+
+  going: 'going',
+  join: 'Join',
+  joined: 'Joined',
+  canChangeClub: 'You can change or add other favorite football club later.',
+  all: 'All',
+  search: 'Search',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',
@@ -30,6 +39,8 @@ export default {
   // join us screen
   joinUsGreeting:
     'Nice Desision to Join Us.\nI am Robot Mobot and I will help you lorem ipsum.\n',
+  joinUsPickTeam: 'Which Football Club or National Team do you support?',
+  joinUsSelectTeam: 'Select Team',
   joinUsEnterPhone:
     'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
   joinUsLetMeEnter: 'Ok, Let me enter',
@@ -51,8 +62,34 @@ export default {
   joinUsCongrats: 'Congrats, Lorem ipsum dolor sit amet,',
   joinUsCongratsText:
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  joinUsWrongCode: 'Please enter the correct code',
+  joinUsTextWillArive: 'Text should arrive within {{waitingTime}}s',
+  joinUsSendAgainText: "Didn't get a text? Send text again.",
 
   // posts
-  postDiscussionAt: 'Discussion at ',
-  postFollowTopic: 'Follow Topic',
+
+  // events
+  events: 'Events',
+  eventsBy: 'by',
+  eventsEventBy: 'Event by',
+  eventsCreate: 'Create an Events',
+
+  // matches
+  matches: 'Matches',
+  upcomingMatches: 'Upcoming Matches',
+  matchesLive: 'Live',
+  matchesET: 'ET',
+  matchesFinished: 'Full Time',
+  matchesPenalties: 'Pen.',
+
+  // supporters clubs
+  supportersClubs: 'Clubs',
+  supportersClubJoin: 'Join the Club',
+
+  //teams
+  team: 'Team',
+  teams: 'Teams',
+  nationalTeam: 'Natioanl Team',
+  nationalTeams: 'Natioanl Teams',
+  teamAdd: 'Add to My Teams',
 };

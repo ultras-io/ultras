@@ -22,13 +22,13 @@ const SCREENS: RootNavigationScreens = {
     component: JoinUs,
     options: {
       headerShown: true,
-      headerLeft: () => <></>,
+      headerBackVisible: false,
+      headerShadowVisible: false,
       headerTitle: () => (
-        <UltrasText style={styles.headerTitle} color={'lightText'}>
+        <UltrasText style={styles.headerTitle} color={'text'}>
           {I18n.t('joinUs')}
         </UltrasText>
       ),
-      headerShadowVisible: false,
     },
   },
   searchListModal: {

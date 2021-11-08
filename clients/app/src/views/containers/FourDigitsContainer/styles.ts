@@ -7,9 +7,10 @@ export default StyleSheet.create({
   textAndButton: {
     marginTop: 5,
     marginLeft: 10,
+    alignItems: 'flex-end',
   },
   text: {
-    color: 'rgba(266, 266, 255, .6)',
     fontSize: 12,
+    marginRight: 8,
   },
 });

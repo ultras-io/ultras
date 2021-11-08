@@ -11,6 +11,9 @@ export default StyleSheet.create({
   buttonDisabled: {
     opacity: 0.7,
   },
+  icon: {
+    // marginHorizontal: 2,
+  },
   text: {
     textAlign: 'center',
   },
@@ -21,20 +24,18 @@ export default StyleSheet.create({
 
   // text Size
   textSizeSmall: {
-    fontSize: 13,
+    fontSize: 11,
     marginHorizontal: 2,
   },
   textSizeDefault: {
     fontSize: 14,
     marginHorizontal: 4,
     fontWeight: '600',
-    lineHeight: 19,
   },
   textSizeBig: {
     fontSize: 17,
-    marginHorizontal: 6,
+    marginHorizontal: 5,
     fontWeight: '600',
-    lineHeight: 22,
   },
 
   // sizes
@@ -52,6 +53,10 @@ export default StyleSheet.create({
     height: 50,
     paddingHorizontal: 13,
     borderRadius: 13,
+  },
+
+  noPadding: {
+    paddingHorizontal: 0,
   },
 
   // boxSize

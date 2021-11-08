@@ -2,13 +2,14 @@ import React from 'react';
 import {Pressable} from 'react-native';
 
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from '../../../../assets/icons';
-// import {IconNamesEnum as Icons} from 'assets/icons';
+import {IconNamesEnum as Icons} from 'assets/icons';
+import UltrasText from 'views/components/base/UltrasText';
+import {getReadableNumber} from 'utils/helpers/readableNumber';
 
 import {ILikeProps} from './type';
 import styles from './styles';
 
-const Like: React.FC<ILikeProps> = ({isLiked = false, onPress}) => {
+const Like: React.FC<ILikeProps> = ({isLiked = false, count = 0, onPress}) => {
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <Icon
@@ -16,6 +17,11 @@ const Like: React.FC<ILikeProps> = ({isLiked = false, onPress}) => {
         color={isLiked ? 'primary' : undefined}
         size={24}
       />
+      {count > 0 && (
+        <UltrasText style={styles.count} color="text">
+          {getReadableNumber(count)}
+        </UltrasText>
+      )}
     </Pressable>
   );
 };

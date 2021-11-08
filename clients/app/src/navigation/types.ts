@@ -1,8 +1,19 @@
 import {ComponentType} from 'react';
-// import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+
+export type CommonScreens = {
+  match: string;
+  event: string;
+  post: string;
+  team: string;
+  supportersClub: string;
+  supportersClubAbout: string;
+  profile: string;
+  newEvent: string;
+};
 
 export type NavigationScreen = {
   name: string;
+  tabName?: string;
   component: ComponentType<any>;
   options?: any; // NativeStackNavigationOptions
 };
@@ -25,36 +36,32 @@ export type TabNavigationScreens = {
 
 export type HomeNavigationScreens = {
   home: NavigationScreen;
-  match: NavigationScreen;
-  event: NavigationScreen;
 };
 
 export type SearchNavigationScreens = {
   search: NavigationScreen;
-  event: NavigationScreen;
-  match: NavigationScreen;
 };
 
 export type MatchesNavigationScreens = {
   matches: NavigationScreen;
-  match: NavigationScreen;
-  event: NavigationScreen;
 };
 
 export type EventsNavigationScreens = {
   events: NavigationScreen;
-  match: NavigationScreen;
-  event: NavigationScreen;
-  newEvent: NavigationScreen;
 };
 
 export type ProfileNavigationScreens = {
-  profile: NavigationScreen;
   settings: NavigationScreen;
 };
 
 export type SearchTabScreens = {
   all: NavigationScreen;
-  event: NavigationScreen;
   team: NavigationScreen;
+  supportersClubs: NavigationScreen;
+  ultras: NavigationScreen;
+};
+
+export type ListModalTabScreens = {
+  footballClubs: NavigationScreen;
+  nationalTeams: NavigationScreen;
 };

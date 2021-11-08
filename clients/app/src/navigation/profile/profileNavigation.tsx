@@ -1,11 +1,8 @@
-import React, {useCallback} from 'react';
-
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {withTheme} from 'styled-components/native';
 import {ThemeInterface} from 'styled-components';
-
-import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import Button from 'views/components/base/Button';
+import {generateCommonScreens, COMMON_SCREENS} from '../commonScreens';
 import screens, {TAB_NAME} from './profileScreens';
 
 const Stack = createNativeStackNavigator();
@@ -15,28 +12,16 @@ interface IProfileNavigationProps {
 }
 
 const ProfileNavigation: React.FC<IProfileNavigationProps> = ({theme}) => {
-  const {pushTo} = useNavigationWithParams();
-
-  const navigateToSettings = useCallback(() => {
-    pushTo(screens.settings.name);
-  }, [pushTo]);
-
   return (
     <Stack.Navigator
-      initialRouteName={screens.profile.name}
+      initialRouteName={`${TAB_NAME}:${COMMON_SCREENS.profile}`}
       screenOptions={{
-        headerStyle: {backgroundColor: theme?.colors.backgroundColor},
-        headerTintColor: theme?.colors.lightText,
+        headerShadowVisible: false,
+        headerBackTitleVisible: false,
+        headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerTintColor: theme?.colors.secondary,
       }}>
-      <Stack.Screen
-        name={`${TAB_NAME}:${screens.profile.name}`}
-        component={screens.profile.component}
-        initialParams={{tabName: TAB_NAME}}
-        options={{
-          headerTitle: () => <></>,
-          headerRight: () => <Button onPress={navigateToSettings} title="S" />,
-        }}
-      />
+      {generateCommonScreens(TAB_NAME, Stack)}
       <Stack.Screen
         name={`${TAB_NAME}:${screens.settings.name}`}
         component={screens.settings.component}

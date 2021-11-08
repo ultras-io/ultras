@@ -13,7 +13,13 @@ export default StyleSheet.create({
   inputBorder: {
     borderWidth: 0.5,
   },
-  inputSelect: {},
+  select: {
+    paddingHorizontal: 12,
+    height: 40,
+    borderRadius: 10,
+    paddingRight: 20,
+    justifyContent: 'center',
+  },
   icon: {
     position: 'absolute',
     right: 5,

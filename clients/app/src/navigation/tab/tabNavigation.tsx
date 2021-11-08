@@ -19,37 +19,41 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({theme}) => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: theme?.colors.backgroundColor,
-          borderTopColor: theme?.colors.backgroundColorOpacity,
+          backgroundColor: theme?.colors.bgColor,
+          borderTopColor: theme?.colors.opacityBgColor,
         },
         tabBarActiveTintColor: theme?.colors.secondary,
-        tabBarInactiveTintColor: theme?.colors.lightText2,
+        tabBarInactiveTintColor: theme?.colors.secondaryText,
       }}>
       <Tab.Screen
         name={screens.home.name}
         component={screens.home.component}
         initialParams={{tabName: screens.home.name}}
+        options={screens.home.options}
       />
       <Tab.Screen
         name={screens.search.name}
         component={screens.search.component}
         initialParams={{tabName: screens.search.name}}
+        options={screens.search.options}
       />
       <Tab.Screen
         name={screens.matches.name}
         component={screens.matches.component}
         initialParams={{tabName: screens.matches.name}}
-        options={{tabBarBadge: 3}}
+        options={screens.matches.options}
       />
       <Tab.Screen
         name={screens.events.name}
         component={screens.events.component}
         initialParams={{tabName: screens.events.name}}
+        options={screens.events.options}
       />
       <Tab.Screen
         name={screens.profile.name}
         component={screens.profile.component}
         initialParams={{tabName: screens.profile.name}}
+        options={{tabBarBadge: ''}}
       />
     </Tab.Navigator>
   );
