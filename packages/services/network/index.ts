@@ -1,20 +1,18 @@
-import settings from 'config/settings';
+import { HttpRequestMethods, HttpErrorMessages, Interceptor, RequestOptions } from './types';
 
 import exceptionDetector from './interceptors/exceptionDetector';
 
-const NETWORK_SERVICE = settings.NETWORK_SERVICE;
-
 class NetworkService {
-  _interceptors = [exceptionDetector];
-  _uri = null;
+  _interceptors: Interceptor[] = [exceptionDetector];
+  _uri?: string = null;
 
-  constructor(uri, interceptors = []) {
+  constructor(uri: string, interceptors = []) {
     if (!uri || typeof uri !== 'string') {
       throw new Error('The "uri" argument must be string.');
     }
 
     if (interceptors.length) {
-      interceptors.forEach(interceptor => {
+      interceptors.forEach((interceptor: Interceptor) => {
         if (typeof interceptor !== 'function') {
           throw new Error(`The '${interceptor}' is not a function.`);
         }
@@ -29,29 +27,29 @@ class NetworkService {
     // CacheService.clearStorage();
   };
 
-  makeAPIGetRequest = (url, options = {}) => {
+  makeAPIGetRequest = (url: string, options: RequestOptions = {}) => {
     options = options || {};
-    options.method = NETWORK_SERVICE.REQUEST_METHODS.GET;
+    options.method = HttpRequestMethods.GET;
     return this.makeAPIRequest(url, options);
   };
 
-  makeAPIPostRequest = (url, options = {}) => {
-    options.method = NETWORK_SERVICE.REQUEST_METHODS.POST;
+  makeAPIPostRequest = (url: string, options: RequestOptions = {}) => {
+    options.method = HttpRequestMethods.POST;
     return this.makeAPIRequest(url, options);
   };
 
-  makeAPIPutRequest = (urlPrefix, options = {}) => {
-    options.method = NETWORK_SERVICE.REQUEST_METHODS.PUT;
+  makeAPIPutRequest = (urlPrefix: string, options: RequestOptions = {}) => {
+    options.method = HttpRequestMethods.PUT;
     return this.makeAPIRequest(urlPrefix, options);
   };
 
-  makeAPIDeleteRequest = (urlPrefix, options = {}) => {
-    options.method = NETWORK_SERVICE.REQUEST_METHODS.DELETE;
+  makeAPIDeleteRequest = (urlPrefix: string, options: RequestOptions = {}) => {
+    options.method = HttpRequestMethods.DELETE;
     return this.makeAPIRequest(urlPrefix, options);
   };
 
-  makeAPIPatchRequest = (urlPrefix, options = {}) => {
-    options.method = NETWORK_SERVICE.REQUEST_METHODS.PATCH;
+  makeAPIPatchRequest = (urlPrefix: string, options: RequestOptions = {}) => {
+    options.method = HttpRequestMethods.PATCH;
     return this.makeAPIRequest(urlPrefix, options);
   };
 
@@ -78,23 +76,23 @@ class NetworkService {
       return accumulator;
     }, '');
 
-  makeAPIRequest = (partUrl, options = {}) =>
+  makeAPIRequest = (partUrl: string, options: RequestOptions = {}) =>
     new Promise((resolve, reject) => {
       let url = this.createUrl(partUrl);
 
       if (!url) {
-        return reject(NETWORK_SERVICE.ERRORS.INVALID_REQUEST_PARAMS);
+        return reject(HttpErrorMessages.INVALID_REQUEST_PARAMS);
       }
 
       if (options.query_params) {
         url += `?${this.createQueryParams(options.query_params)}`;
       }
       if (!options.method) {
-        options.method = NETWORK_SERVICE.REQUEST_METHODS.GET;
+        options.method = HttpRequestMethods.GET;
       }
 
       // const auth_token = CacheService.getItem('auth_token');
-      const fetch_options = {
+      const fetch_options: RequestInit = {
         method: options.method,
         headers: options.headers || {
           Accept: 'application/json',
@@ -111,18 +109,18 @@ class NetworkService {
           fetch_options.body = JSON.stringify(options.body);
         }
       } catch (ex) {
-        return reject({message: NETWORK_SERVICE.ERRORS.INVALID_REQUEST_PARAMS});
+        return reject({ message: HttpErrorMessages.INVALID_REQUEST_PARAMS });
       }
 
       fetch(url, fetch_options)
         .then(async response => {
           if (!response) {
             return reject({
-              message: NETWORK_SERVICE.ERRORS.INVALID_RESPONSE_DATA,
+              message: HttpErrorMessages.INVALID_RESPONSE_DATA,
             });
           }
-          const {headers} = response;
-          let body = {};
+          const { headers } = response;
+          let body: { status?: number } = {};
 
           const contentType = headers.get('content-type');
 
@@ -141,14 +139,14 @@ class NetworkService {
               });
             }
           } catch (e) {
-            reject({message: e.message, res: {body, headers}});
+            reject({ message: e.message, res: { body, headers } });
           }
 
           if (response.status > 400) {
             return reject(body);
           }
 
-          return resolve({body, headers});
+          return resolve({ body, headers });
         })
         .catch(err => reject(err));
     });

@@ -1,7 +1,7 @@
 {
-  "name": "ultras-server",
+  "name": "@ultras/core-api",
   "version": "1.0.0",
-  "description": "The server for the ultras app",
+  "description": "The core api for the ultras app",
   "main": "build/index.js",
   "scripts": {
     "build": "rimraf ./build && tsc",

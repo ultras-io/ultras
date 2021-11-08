@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const yargs = require('yargs/yargs');
+
+const commands = {
+  'create-component': '../commands/createComponent'
+}
+
+function getCommand() {
+  return yargs(process.argv.slice(2)).argv._[0]
+}
+
+require(commands[getCommand()]);

@@ -1,7 +1,6 @@
 'use strict';
 
-
-const getTypesBaseCode = (name) => `
+const getTypesBaseCode = name => `
 export interface I${name}Props {
     title: string;
 };
@@ -20,7 +19,7 @@ export default StyleSheet.create({
 });
 `;
 
-const getComponentBaseCode = (name) => `
+const getComponentBaseCode = name => `
 import React from 'react';
 import {View} from 'react-native';
 import UltrasText from 'views/components/base/UltrasText';
@@ -41,7 +40,7 @@ export default React.memo<I${name}Props>(${name});
 
 `;
 
-const getExportsBaseCode = (name) => `
+const getExportsBaseCode = name => `
 import ${name} from './${name}';
 export default ${name};
 
@@ -50,8 +49,8 @@ export * from './${name}';
 `;
 
 module.exports = {
-    getTypesBaseCode,
-    getStylesBaseCode,
-    getComponentBaseCode,
-    getExportsBaseCode
+  getTypesBaseCode,
+  getStylesBaseCode,
+  getComponentBaseCode,
+  getExportsBaseCode,
 };

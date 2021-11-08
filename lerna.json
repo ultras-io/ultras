@@ -1,0 +1,14 @@
+{
+  "packages": [
+    "packages/*",
+    "clients/*",
+    "bls/*",
+    "apis/*",
+    "sdks/*"
+  ],
+  "version": "independent",
+  "npmClient": "yarn",
+  "npmClientArgs": [
+    "--no-lockfile"
+  ]
+}

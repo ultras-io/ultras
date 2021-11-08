@@ -1,0 +1,23 @@
+{
+  "name": "@ultras/core-api-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Core api sdk",
+  "author": "rubenaprikyan <rubenaprikyan@gmail.com>",
+  "homepage": "https://github.com/ultras-io/ultras#readme",
+  "license": "ISC",
+  "main": "lib/core-api-sdk.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultras-io/ultras.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "yargs": "^17.2.1"
+  },
+  "bugs": {
+    "url": "https://github.com/ultras-io/ultras/issues"
+  }
+}
