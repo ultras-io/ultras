@@ -37,7 +37,6 @@ export default StyleSheet.create({
 
   // horizontal
   containerH: {
-    width: 100,
     paddingHorizontal: 4,
     alignItems: 'center',
   },
@@ -54,5 +53,18 @@ export default StyleSheet.create({
     fontWeight: '500',
     fontSize: 11,
     textAlign: 'center',
+  },
+
+  small: {
+    width: 60,
+  },
+  default: {
+    width: 80,
+  },
+  big: {
+    width: 100,
+  },
+  extraBig: {
+    width: 140,
   },
 });

@@ -4,6 +4,9 @@ import {View} from 'react-native';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
 
+import TeamsContainer from 'views/containers/TeamsHorizontal/TeamsContainer';
+import SupportersClubsContainer from 'views/containers/SupportersClubsHorizontal/SupportersClubsContainer';
+
 import {IProfileInfoProps} from './types';
 import styles from './styles';
 
@@ -32,6 +35,15 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({
           </UltrasText>
         </View>
       </View>
+      {teams.length > 0 && <TeamsContainer data={teams} withBounce={false} />}
+      {supportersClubs.length > 0 && (
+        <SupportersClubsContainer
+          data={supportersClubs}
+          showHeaderButton={false}
+          withBounce={false}
+          avatarSize={AvatarSize.Default}
+        />
+      )}
     </>
   );
 };

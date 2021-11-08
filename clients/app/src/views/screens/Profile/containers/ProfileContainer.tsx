@@ -10,14 +10,6 @@ const ProfileContainer: React.FC<IProfileContainerProps> = ({id}) => {
   // get Profiles's data by id
   const data = generateProfile();
 
-  // {
-  //   avatarUri: '',
-  //   name: 'Grzegorz Brzęczyszczykiewicz',
-  //   username: 'grzegorzDja',
-  //   teams: [],
-  //   supportersClubs: [],
-  // };
-
   return <ProfileComponent data={data} />;
 };
 

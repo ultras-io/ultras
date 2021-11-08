@@ -13,8 +13,16 @@ import {ISupportersClubCardProps} from './types';
 
 import styles from './styles';
 
+const stylesDictionary = {
+  [AvatarSize.Small]: styles.small,
+  [AvatarSize.Default]: styles.default,
+  [AvatarSize.Big]: styles.big,
+  [AvatarSize.ExtraBig]: styles.extraBig,
+};
+
 const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
   avatarUri,
+  avatarSize,
   name,
   ultrasCount,
   city,
@@ -46,16 +54,18 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
           </View>
         </BluredView>
       ) : (
-        <View style={styles.containerH}>
+        <View style={[styles.containerH, stylesDictionary[avatarSize]]}>
           <View style={styles.avatarH}>
-            <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
+            <Avatar avatarUri={avatarUri} size={avatarSize} />
           </View>
-          <UltrasText color="text" style={styles.nameH} numberOfLines={3}>
+          <UltrasText color="text" style={styles.nameH} numberOfLines={2}>
             {name}
           </UltrasText>
-          <UltrasText color="secondaryText" style={styles.ultrasCountH}>
-            {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
-          </UltrasText>
+          {ultrasCount && (
+            <UltrasText color="secondaryText" style={styles.ultrasCountH}>
+              {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+            </UltrasText>
+          )}
         </View>
       )}
     </Pressable>

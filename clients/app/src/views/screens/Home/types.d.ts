@@ -2,16 +2,6 @@ import {ThemeInterface} from 'styled-components';
 
 export interface IHomeProps {}
 
-export interface ISupportersClubsContainerProps {
-  theme?: ThemeInterface;
-}
-
-export interface ISupportersClubsComponentProps {
-  data: Array<any>; //@TODO
-  onPress: (id: string) => void;
-  onEndReached: () => void;
-}
-
 export interface IMatchesContainerProps {
   theme?: ThemeInterface;
 }
