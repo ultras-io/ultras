@@ -1,3 +1,3 @@
-import humanizeDate from "./humanizeDate";
+import humanizeDate from './humanizeDate';
 
 export { humanizeDate };
