@@ -1,11 +1,11 @@
 import Router from 'koa-router';
 
-import nationalTeams from './nationalTeams';
+import countries from './countries';
 
 const router = new Router({
   prefix: '/v1',
 });
 
-router.use(nationalTeams.routes());
+router.use(countries.routes());
 
 export default router;

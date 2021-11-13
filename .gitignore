@@ -1,22 +1,17 @@
 lerna-debug.log
 # workspaces
-/packages/cli/node_modules
-/packages/cli/build
 
-/packages/shared/node_modules
-/packages/shared/build
+/sdks/**/node_modules
+/sdks/**/build
 
-/packages/utils/node_modules
-/packages/utils/build
+/apis/**/node_modules
+/apis/**/build
 
-/sdks/core-api-sdk/node_modules
-/sdks/core-api-sdk/build
+/clients/**/node_modules
+/clients/**/build
 
-/apis/core-api/node_modules
-/apis/core-api/build
-
-/bls/**/node_modeuls
-/bls/**/build
+/packages/**/node_modeuls
+/packages/**/build
 
 # Logs
 logs

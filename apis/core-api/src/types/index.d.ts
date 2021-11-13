@@ -10,9 +10,7 @@ interface ExtendableContext extends Context {
   forbidden: (response?: string | Record<string, unknown>) => Koa.Context;
   notFound: (response?: string | Record<string, unknown>) => Koa.Context;
   locked: (response?: string | Record<string, unknown>) => Koa.Context;
-  internalServerError: (
-    response?: string | Record<string, unknown>,
-  ) => Koa.Context;
+  internalServerError: (response?: string | Record<string, unknown>) => Koa.Context;
   notImplemented: (response?: string | Record<string, unknown>) => Koa.Context;
 }
 
@@ -50,6 +48,7 @@ export enum Order {
 
 export interface ListRequestParams extends PaginationParams {
   order?: Order;
+  orderAttr?: string;
 }
 
 export interface ControllerListActionResult<T> {
@@ -57,4 +56,8 @@ export interface ControllerListActionResult<T> {
   limit: number;
   offset: number;
   count: number;
+}
+
+export interface ControllerActionOperatedResult<T> {
+  data: T;
 }

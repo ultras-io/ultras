@@ -14,7 +14,7 @@ export default async function syncTeams() {
     data: { response },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-  } = await axios(config('countries'));
+  } = await axios(config('country'));
   const d: never[] = [];
   const count = 0;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
