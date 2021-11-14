@@ -7,7 +7,7 @@ const options = {
     'x-rapidapi-key': process.env.X_RAPID_API_KEY,
   },
 };
-console.log(options);
+
 const network = new NetworkService(options.url);
 
 export type RapidApiCountry = {
