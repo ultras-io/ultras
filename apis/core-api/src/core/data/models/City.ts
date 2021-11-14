@@ -15,6 +15,7 @@ export interface CityAttributes {
   id: number;
   name: string;
   countryId: number;
+  dataRapidId: number;
 }
 
 export type CityCreationAttributes = Optional<CityAttributes, 'id'>;
@@ -26,6 +27,7 @@ export class City
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public name!: string;
   public countryId!: number;
+  public dataRapidId!: number;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -41,6 +43,20 @@ export class City
   public static associations: {
     city: Association<City, Country>;
   };
+
+  // associations
+  /**
+   * Currently this doesn't need, useful when need to use as city.getCountry() method
+   * Having this now will load runtime process memory
+    static associate(models: any) {
+      // define association here
+      City.hasOne(models.Country, {
+        sourceKey: 'id',
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+        foreignKey: 'countryId',
+      });
+    }
+  */
 }
 
 module.exports = (sequelize: Sequelize): typeof City => {
@@ -58,6 +74,10 @@ module.exports = (sequelize: Sequelize): typeof City => {
           name: 'City_name_unique_constraint',
           msg: 'City name should be unique',
         },
+      },
+      dataRapidId: {
+        type: new DataTypes.INTEGER(),
+        allowNull: false,
       },
       countryId: {
         type: DataTypes.INTEGER.UNSIGNED,

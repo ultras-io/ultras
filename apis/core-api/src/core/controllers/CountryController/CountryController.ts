@@ -91,11 +91,12 @@ class CountryController {
       const records: CountryCreationAttributes[] = [];
 
       response.forEach((item: RapidApiCountry) => {
+        console.log(item);
         records.push({
           name: item.name,
           code: item.code,
           flag: item.flag,
-          rapId: item.id,
+          dataRapidId: item.id,
         });
       });
 

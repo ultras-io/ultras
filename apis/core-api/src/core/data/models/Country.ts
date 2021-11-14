@@ -17,7 +17,7 @@ export interface CountryAttributes {
   code: string;
   flag: string;
   telPrefix?: string;
-  rapId?: number; // id of rapid api
+  dataRapidId?: number; // id of rapid api
 }
 
 export type CountryCreationAttributes = Optional<CountryAttributes, 'id'>;
@@ -31,7 +31,7 @@ export class Country
   public code!: string;
   public flag!: string;
   public telPrefix!: string;
-  public rapId!: number;
+  public dataRapidId!: number;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -87,7 +87,7 @@ module.exports = (sequelize: Sequelize): typeof Country => {
         type: new DataTypes.STRING(20),
         allowNull: true,
       },
-      rapId: {
+      dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: true,
       },
