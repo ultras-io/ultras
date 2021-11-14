@@ -48,15 +48,15 @@ export class City
   /**
    * Currently this doesn't need, useful when need to use as city.getCountry() method
    * Having this now will load runtime process memory
-    static associate(models: any) {
-      // define association here
-      City.hasOne(models.Country, {
-        sourceKey: 'id',
-        as: resources.COUNTRY.ALIAS.SINGULAR,
-        foreignKey: 'countryId',
-      });
-    }
-  */
+   *   */
+
+  static associate(models: any) {
+    // define association here
+    City.belongsTo(models.Country, {
+      as: resources.COUNTRY.ALIAS.SINGULAR,
+      foreignKey: 'countryId',
+    });
+  }
 }
 
 module.exports = (sequelize: Sequelize): typeof City => {
@@ -70,10 +70,6 @@ module.exports = (sequelize: Sequelize): typeof City => {
       name: {
         type: new DataTypes.STRING(),
         allowNull: false,
-        unique: {
-          name: 'City_name_unique_constraint',
-          msg: 'City name should be unique',
-        },
       },
       dataRapidId: {
         type: new DataTypes.INTEGER(),
