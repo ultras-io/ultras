@@ -89,9 +89,7 @@ class CountryController {
         body: { response },
       } = await injectCountries();
       const records: CountryCreationAttributes[] = [];
-
       response.forEach((item: RapidApiCountry) => {
-        console.log(item);
         records.push({
           name: item.name,
           code: item.code,

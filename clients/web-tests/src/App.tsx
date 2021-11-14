@@ -2,17 +2,17 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { CountrySdk } from '@ultras/core-api-sdk';
+import { CitySdk } from '@ultras/core-api-sdk';
 
-const sdk = new CountrySdk('dev');
+const sdk = new CitySdk('dev');
 
 function App() {
   sdk
-    .getCountries()
-    ?.then(countries => {
+    .getCities({ countryId: 6 })
+    ?.then((countries: any) => {
       console.log(countries);
     })
-    ?.catch(err => {
+    ?.catch((err: any) => {
       console.error(err);
     });
 

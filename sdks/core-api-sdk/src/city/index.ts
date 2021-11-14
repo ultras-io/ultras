@@ -1,17 +1,18 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 
-export class CountrySdk extends CoreApiBaseSDK {
+export class CitySdk extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
-    super(mode, 'countries');
+    super(mode, 'cities');
   }
 
-  public getCountries(params: { name?: string; code?: string } = {}) {
+  // @TODO write types
+  public getCities(params = {}) {
     return this.api?.makeAPIGetRequest('', {
       query_params: params,
     });
   }
 
-  public getCountry(id: number) {
+  public getCity(id: number) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }
