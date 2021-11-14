@@ -1,12 +1,13 @@
 import { NetworkService } from '@ultras/services';
 
 const options = {
-  url: 'https://api-football-beta.p.rapidapi.com/countries',
+  url: process.env.RAPID_FOOTBALL_API_URL || '',
   headers: {
-    'x-rapidapi-host': 'api-football-beta.p.rapidapi.com',
-    'x-rapidapi-key': '43a63e0425mshfae301cb794607bp1defa2jsn766f0985d22a',
+    'x-rapidapi-host': process.env.X_RAPID_API_HOST,
+    'x-rapidapi-key': process.env.X_RAPID_API_KEY,
   },
 };
+console.log(options);
 const network = new NetworkService(options.url);
 
 export type RapidApiCountry = {
