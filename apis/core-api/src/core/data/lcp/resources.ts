@@ -1,30 +1,6 @@
 import { Model } from 'sequelize';
 
 const resources = {
-  /*  USER_ROLE: {
-    RELATION: 'UserRole',
-    MODEL: 'UserRole',
-    ALIAS: {
-      SINGULAR: 'role',
-      PLURAL: 'roles',
-    },
-  },
-  TOPIC: {
-    RELATION: 'Topic',
-    MODEL: 'Topic',
-    ALIAS: {
-      SINGULAR: 'topic',
-      PLURAL: 'topics',
-    },
-  },
-  TOKEN: {
-    RELATION: 'Token',
-    MODEL: 'Token',
-    ALIAS: {
-      SINGULAR: 'token',
-      PLURAL: 'tokens',
-    },
-  },*/
   TOKEN_TYPE: {
     RELATION: 'TokenType',
     MODEL: 'TokenType',
@@ -42,20 +18,61 @@ const resources = {
     },
   },
 
-  FOOTBALL_CLUB: {
-    RELATION: 'FootballClub',
-    MODEL: 'FootballClub',
+  // venue-team-country-league-match-score system
+  VENUE: {
+    RELATION: 'Venue',
+    MODEL: 'Venue',
     ALIAS: {
-      SINGULAR: 'footballClub',
-      PLURAL: 'footballClubs',
+      SINGULAR: 'venue',
+      PLURAL: 'venues',
     },
   },
-  NATIONAL_TEAM: {
-    RELATION: 'NationalTeam',
-    MODEL: 'NationalTeam',
+  COUNTRY: {
+    RELATION: 'Country',
+    MODEL: 'Country',
     ALIAS: {
-      SINGULAR: 'nationalTeams',
-      PLURAL: 'nationalTeams',
+      SINGULAR: 'country',
+      PLURAL: 'country',
+    },
+  },
+  CITY: {
+    RELATION: 'City',
+    MODEL: 'City',
+    ALIAS: {
+      SINGULAR: 'city',
+      PLURAL: 'cities',
+    },
+  },
+  LEAGUE: {
+    RELATION: 'League',
+    MODEL: 'League',
+    ALIAS: {
+      SINGULAR: 'league',
+      PLURAL: 'leagues',
+    },
+  },
+  TEAM: {
+    RELATION: 'Team',
+    MODEL: 'Team',
+    ALIAS: {
+      SINGULAR: 'team',
+      PLURAL: 'teams',
+    },
+  },
+  SCORE: {
+    RELATION: 'Score',
+    MODEL: 'Score',
+    ALIAS: {
+      SINGULAR: 'score',
+      PLURAL: 'scores',
+    },
+  },
+  MATCH: {
+    RELATION: 'Match',
+    MODEL: 'Match',
+    ALIAS: {
+      SINGULAR: 'match',
+      PLURAL: 'matches',
     },
   },
 };
@@ -63,8 +80,8 @@ const resources = {
 export interface IDBSet {
   User?: typeof Model;
   TokenType?: typeof Model;
-  FootballClub?: typeof Model;
-  NationalTeam: typeof Model;
+  City: typeof Model;
+  Country: typeof Model;
 }
 
 export default resources;

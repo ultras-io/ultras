@@ -1,10 +1,18 @@
-import { HttpRequestMethods, HttpErrorMessages, Interceptor, RequestOptions } from './types';
+import {
+  HttpRequestMethods,
+  HttpErrorMessages,
+  Interceptor,
+  RequestOptions,
+  RequestInit,
+} from './types';
 
 import exceptionDetector from './interceptors/exceptionDetector';
 
+import 'isomorphic-fetch';
+
 class NetworkService {
   _interceptors: Interceptor[] = [exceptionDetector];
-  _uri?: string = null;
+  _uri?: string;
 
   constructor(uri: string, interceptors = []) {
     if (!uri || typeof uri !== 'string') {
@@ -53,14 +61,14 @@ class NetworkService {
     return this.makeAPIRequest(urlPrefix, options);
   };
 
-  createUrl = arg => {
+  createUrl = (arg: string) => {
     if (Array.isArray(arg)) {
       return [this._uri, ...arg].join('/');
     }
     return `${this._uri}/${arg}`;
   };
 
-  createQueryParams = queryParams =>
+  createQueryParams = (queryParams: Record<string, unknown>) =>
     Object.keys(queryParams).reduce((accumulator, key) => {
       const item = queryParams[key];
       if (item === null || item === undefined) return accumulator;
@@ -76,7 +84,10 @@ class NetworkService {
       return accumulator;
     }, '');
 
-  makeAPIRequest = (partUrl: string, options: RequestOptions = {}) =>
+  makeAPIRequest = (
+    partUrl: string,
+    options: RequestOptions = {},
+  ): Promise<{ body: any; headers: any }> =>
     new Promise((resolve, reject) => {
       let url = this.createUrl(partUrl);
 
@@ -112,8 +123,10 @@ class NetworkService {
         return reject({ message: HttpErrorMessages.INVALID_REQUEST_PARAMS });
       }
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       fetch(url, fetch_options)
-        .then(async response => {
+        .then(async (response: { json?: any; status?: any; headers?: any }) => {
           if (!response) {
             return reject({
               message: HttpErrorMessages.INVALID_RESPONSE_DATA,
@@ -138,7 +151,7 @@ class NetworkService {
                 }
               });
             }
-          } catch (e) {
+          } catch (e: any) {
             reject({ message: e.message, res: { body, headers } });
           }
 
@@ -148,7 +161,7 @@ class NetworkService {
 
           return resolve({ body, headers });
         })
-        .catch(err => reject(err));
+        .catch((err: any) => reject(err));
     });
 }
 
