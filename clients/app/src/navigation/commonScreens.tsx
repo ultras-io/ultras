@@ -9,6 +9,7 @@ import SupportersClub from 'views/screens/SupportersClub';
 import SupportersClubAbout from 'views/screens/SupportersClubAbout';
 import Profile from 'views/screens/Profile';
 import NewEvent from 'views/screens/NewEvent';
+import ProfileList from 'views/screens/ProfileList';
 
 import type {CommonScreens} from './types';
 
@@ -23,6 +24,7 @@ export const COMMON_SCREENS: CommonScreens = {
   supportersClubAbout: 'SupportersClubAbout',
   profile: 'Profile',
   newEvent: 'NewEvent',
+  profileList: 'ProfileList',
 };
 
 const defaultOptions = {
@@ -58,6 +60,7 @@ export const generateCommonScreens = (tabName: string, Stack: any) => (
       SupportersClub,
     )}
     {generateScreen(tabName, COMMON_SCREENS.profile, Stack, Profile)}
+    {generateScreen(tabName, COMMON_SCREENS.profileList, Stack, ProfileList)}
 
     <Stack.Group screenOptions={{presentation: 'modal'}}>
       {generateScreen(

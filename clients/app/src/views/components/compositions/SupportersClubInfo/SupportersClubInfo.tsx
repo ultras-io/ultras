@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Pressable} from 'react-native';
 import I18n from 'i18n/i18n';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -40,9 +40,14 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
             {name}
           </UltrasText>
           <View style={styles.line}>
-            <UltrasText color="secondaryText" style={styles.text}>
-              {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
-            </UltrasText>
+            <Pressable
+              onPress={() =>
+                pushTo(commonScreens.profileList, {title: I18n.t('ultras')})
+              }>
+              <UltrasText color="secondaryText" style={styles.text}>
+                {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+              </UltrasText>
+            </Pressable>
             <View style={styles.divider}>
               <Divider />
             </View>

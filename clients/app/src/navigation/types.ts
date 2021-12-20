@@ -9,6 +9,7 @@ export type CommonScreens = {
   supportersClubAbout: string;
   profile: string;
   newEvent: string;
+  profileList: string;
 };
 
 export type NavigationScreen = {
