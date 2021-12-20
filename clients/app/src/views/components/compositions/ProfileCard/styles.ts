@@ -10,6 +10,13 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  containerMinimal: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 1,
+    marginTop: 15,
+    paddingHorizontal: 15,
+  },
   avatar: {
     marginRight: 15,
   },

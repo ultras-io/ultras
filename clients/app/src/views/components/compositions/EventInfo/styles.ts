@@ -45,18 +45,22 @@ export default StyleSheet.create({
     letterSpacing: -0.24,
   },
 
+  stats: {
+    marginTop: 10,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
   going: {
     fontSize: 13,
     lineHeight: 16,
-    marginTop: 10,
     letterSpacing: -0.24,
   },
 
   divider: {
     paddingHorizontal: 6,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: 20,
+    paddingTop: 2,
+    height: 18,
   },
 
   actionBox: {

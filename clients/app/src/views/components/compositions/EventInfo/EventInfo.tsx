@@ -93,13 +93,27 @@ const EventInfo: React.FC<EventInfoProps> = ({
           )}
         </View>
 
-        <UltrasText style={styles.going} color="tertiaryText">
-          {getReadableNumber(goingCount)} {I18n.t('going')}
+        <View style={styles.stats}>
+          <Pressable
+            onPress={() =>
+              pushTo(commonScreens.profileList, {title: I18n.t('going')})
+            }>
+            <UltrasText style={styles.going} color="tertiaryText">
+              {getReadableNumber(goingCount)} {I18n.t('going')}
+            </UltrasText>
+          </Pressable>
           <View style={styles.divider}>
             <Divider type={DividerType.Vertical} />
           </View>
-          {getReadableNumber(likeCount)} {I18n.t('likes')}
-        </UltrasText>
+          <Pressable
+            onPress={() =>
+              pushTo(commonScreens.profileList, {title: I18n.t('likes')})
+            }>
+            <UltrasText style={styles.going} color="tertiaryText">
+              {getReadableNumber(likeCount)} {I18n.t('likes')}
+            </UltrasText>
+          </Pressable>
+        </View>
 
         <View style={styles.actionBox}>
           <View style={styles.goingButton}>

@@ -14,10 +14,16 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
   name,
   username,
   onPress,
+  appearence,
 }) => {
+  const Container = appearence === 'minimal' ? View : BluredView;
+
   return (
     <Pressable onPress={onPress}>
-      <BluredView style={styles.container}>
+      <Container
+        style={
+          appearence === 'minimal' ? styles.containerMinimal : styles.container
+        }>
         <View style={styles.avatar}>
           <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
         </View>
@@ -29,7 +35,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
             {name}
           </UltrasText>
         </View>
-      </BluredView>
+      </Container>
     </Pressable>
   );
 };

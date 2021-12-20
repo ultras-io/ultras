@@ -17,7 +17,7 @@ export const theme: ThemeInterface = {
     tertiary: '#EDE4CC',
     quaternary: '#007AFF',
     primaryInactive: 'rgba(171, 151, 96, 0.2)',
-    androidBlurColor: '#3D3E3F',
+    androidBlurColor: 'rgba(61,62,63,.6)',
     text: '#FFFFFF',
     secondaryText: 'rgba(255, 255, 255, 0.8)',
     tertiaryText: 'rgba(255, 255, 255, 0.6)',
