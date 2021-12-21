@@ -20,6 +20,7 @@ export default StyleSheet.create({
   },
 
   headerLogo: {
+    marginLeft: 10,
     fontFamily: 'Montserrat-SemiBold',
     fontSize: 25,
     flex: 1,

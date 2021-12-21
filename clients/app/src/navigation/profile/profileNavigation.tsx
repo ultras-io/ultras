@@ -25,6 +25,13 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({theme}) => {
       <Stack.Screen
         name={`${TAB_NAME}:${screens.settings.name}`}
         component={screens.settings.component}
+        options={screens.settings.options}
+        initialParams={{tabName: TAB_NAME}}
+      />
+      <Stack.Screen
+        name={`${TAB_NAME}:${screens.notifications.name}`}
+        component={screens.notifications.component}
+        options={screens.notifications.options}
         initialParams={{tabName: TAB_NAME}}
       />
     </Stack.Navigator>

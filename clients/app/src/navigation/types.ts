@@ -53,6 +53,7 @@ export type EventsNavigationScreens = {
 
 export type ProfileNavigationScreens = {
   settings: NavigationScreen;
+  notifications: NavigationScreen;
 };
 
 export type SearchTabScreens = {
