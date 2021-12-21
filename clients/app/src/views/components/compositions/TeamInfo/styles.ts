@@ -24,7 +24,4 @@ export default StyleSheet.create({
     width: '80%',
     marginTop: 20,
   },
-  dividerH: {
-    marginBottom: 10,
-  },
 });

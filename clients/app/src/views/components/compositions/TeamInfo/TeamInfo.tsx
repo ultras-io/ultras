@@ -45,9 +45,8 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({
           </View>
         </View>
       </View>
-      <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
-      </View>
+
+      <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
     </>
   );
 };
