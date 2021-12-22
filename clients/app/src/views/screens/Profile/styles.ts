@@ -9,4 +9,10 @@ export default StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
+  headerButtonsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 70,
+  },
 });

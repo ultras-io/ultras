@@ -3,10 +3,11 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     position: 'absolute',
-    right: 0,
+    top: 5,
+    right: -3,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
   },
   withContainer: {
     alignSelf: 'flex-start',

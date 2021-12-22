@@ -92,4 +92,8 @@ export default {
   nationalTeam: 'Natioanl Team',
   nationalTeams: 'Natioanl Teams',
   teamAdd: 'Add to My Teams',
+
+  //profile
+  settings: 'Settings',
+  notifications: 'Notifications',
 };

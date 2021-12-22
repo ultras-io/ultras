@@ -11,7 +11,10 @@ import Profile from 'views/screens/Profile';
 import NewEvent from 'views/screens/NewEvent';
 import ProfileList from 'views/screens/ProfileList';
 
+import UltrasText from 'views/components/base/UltrasText';
+
 import type {CommonScreens} from './types';
+import styles from 'styles/styles';
 
 export const TAB_NAME = 'Search';
 
@@ -59,7 +62,13 @@ export const generateCommonScreens = (tabName: string, Stack: any) => (
       Stack,
       SupportersClub,
     )}
-    {generateScreen(tabName, COMMON_SCREENS.profile, Stack, Profile)}
+    {generateScreen(tabName, COMMON_SCREENS.profile, Stack, Profile, {
+      headerTitle: () => (
+        <UltrasText style={styles.headerLogo} color="primary">
+          ultras
+        </UltrasText>
+      ),
+    })}
     {generateScreen(tabName, COMMON_SCREENS.profileList, Stack, ProfileList)}
 
     <Stack.Group screenOptions={{presentation: 'modal'}}>
