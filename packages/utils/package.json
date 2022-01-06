@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build": "tsc ."
+    "build": "rimraf ./build && tsc"
   },
   "bugs": {
     "url": "https://github.com/ultras-io/ultras/issues"
