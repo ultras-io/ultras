@@ -67,3 +67,8 @@ export type ListModalTabScreens = {
   footballClubs: NavigationScreen;
   nationalTeams: NavigationScreen;
 };
+
+export type TeamTabScreens = {
+  matches: NavigationScreen;
+  events: NavigationScreen;
+};
