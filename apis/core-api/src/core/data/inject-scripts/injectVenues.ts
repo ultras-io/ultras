@@ -8,19 +8,26 @@ const options = {
   },
 };
 
-export type RapidApiCountry = {
-  name: string;
-  code: string;
+export type RapidApiVenue = {
   id: number;
-  flag: string;
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+  capacity: number;
+  surface: string;
+  image: string;
 };
 
-const getCountries = () => {
+const getVenuesByCountryName = (countryName: string) => {
   const network = new NetworkService(options.url);
 
-  return network.makeAPIGetRequest('countries', {
+  return network.makeAPIGetRequest('venues', {
     headers: options.headers,
+    query_params: {
+      country: countryName,
+    },
   });
 };
 
-export default getCountries;
+export default getVenuesByCountryName;

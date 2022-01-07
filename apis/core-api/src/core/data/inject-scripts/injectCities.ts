@@ -5,7 +5,7 @@ const options = {
   url: process.env.RAPID_GEO_API_URL || '',
   headers: {
     'x-rapidapi-host': process.env.X_RAPID_API_GEO_HOST,
-    'x-rapidapi-key': process.env.X_RAPID_API_KEY,
+    'x-rapidapi-key': process.env.X_RAPID_API_GEO_KEY,
   },
 };
 
