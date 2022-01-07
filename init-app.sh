@@ -13,83 +13,129 @@ fi
 
 ROOT_DIR="$PWD"
 
-# # remove all node_modules and build folders
-# find . -type d -name node_modules | xargs rm -rf
-# find . -type d -name build | xargs rm -rf
+function pad_dots() {
+  local MESSAGE="$1"
+
+  local LENGTH_MSG=${#MESSAGE}
+  local LENGTH_DOT=$(( 60 - $LENGTH_MSG ))
+  
+  for INDEX in `seq $LENGTH_DOT`; do
+    echo -en "."
+  done
+}
+
+function print_row_wait() {
+  local MESSAGE="$1"
+  local DOTS="$2"
+
+  local DOTS="$(pad_dots "$MESSAGE")"
+
+  echo -en " \033[1;34m* $MESSAGE\033[0m $DOTS "
+  echo -en "\033[0;100;5m WAIT \033[0m "
+}
+
+function end_cmd() {
+  local EXIT_CODE=$1
+  local ERROR_MSG="$2"
+
+  if [[ 0 == $EXIT_CODE ]]; then
+    echo -e "\b\b\b\b\b\b\b\033[0;42m DONE \033[0m"
+  else
+    echo -e "\b\b\b\b\b\b\b\033[0;41m FAIL \033[0m"
+    echo ""
+    echo -e " 😱 \033[0;31mOh-no. $ERROR_MSG\033[0m 💀"
+    echo ""
+
+    exit 1
+  fi
+}
+
+# start
+echo ""
+echo " ======================================================================"
+echo " =================    ULTRAS APP INITIATOR STARTED    ================="
+echo " ======================================================================"
+echo ""
+
+# remove all node_modules folders
+print_row_wait "Cleaning old node modules"
+find . -type d -name node_modules | xargs rm -rf > /dev/null 2>&1
+end_cmd $? "Couldn't delete node_modules folder(s)."
+
+# remove all build folders
+print_row_wait "Cleaning old builds"
+find . -type d -name build | xargs rm -rf > /dev/null 2>&1
+end_cmd $? "Couldn't delete build folder(s)."
 
 # install typescript globally
 if [[ "" == "$(command -v tsc)" ]]; then
-  yarn global add typescript
+  print_row_wait "Installing typescript globally via yarn"
+  yarn global add typescript > /dev/null 2>&1
+  end_cmd $? "Couldn't install typescript globally."
 fi
 
 # install rimraf globally
 if [[ "" == "$(command -v rimraf)" ]]; then
-  yarn global add rimraf
+  print_row_wait "Installing rimraf globally via yarn"
+  yarn global add rimraf > /dev/null 2>&1
+  end_cmd $? "Couldn't install rimraf globally."
 fi
 
 # make linkage
 cd "$ROOT_DIR"
 if [[ ! -d "node_modules" ]]; then
-  echo "Please install node modules (via yarn install), and this script will "
-  echo "be called again automatically."
-  exit 3
+  print_row_wait "Installing node modules via yarn"
+  yarn install > /dev/null 2>&1
+  end_cmd $? "Couldn't install node modules."
 fi
 
 # make linkage
 cd "$ROOT_DIR"
-yarn link-all
-if [[ $? != 0 ]]; then
-  echo "Couldn't make package linkage."
-  exit 4
-fi
+print_row_wait "Linking all sub-packages"
+yarn link-all > /dev/null 2>&1
+end_cmd $? "Couldn't make package linkage."
 
-# build services
-cd "$ROOT_DIR/packages/utils"
-if [[ ! -d "build" ]] ; then
-  yarn build
-  if [[ $? != 0 ]]; then
-    echo "Couldn't build package @ultras/utils."
-    exit 5
-  fi
-fi
+# build packages (ORDER OF PACKAGES IMPORTANT !!!)
+ITEMS_BUILD=(\
+  "packages/utils"\
+  "packages/services"\
+  "sdks/core-api-sdk"\
+)
 
-# build services
-cd "$ROOT_DIR/packages/services"
-if [[ ! -d "build" ]] ; then
-  yarn build
-  if [[ $? != 0 ]]; then
-    echo "Couldn't build package @ultras/services."
-    exit 6
-  fi
-fi
+for ITEM_BUILD in ${ITEMS_BUILD[@]}; do
+  cd "$ROOT_DIR/$ITEM_BUILD"
+  PKG_NAME="$(cat package.json | grep '"name":' | sed 's/"name"://g' | sed 's/"//g' | sed 's/,//g' | xargs)"
 
-# build sdks
-cd "$ROOT_DIR/sdks/core-api-sdk"
-if [[ ! -d "build" ]] ; then
-  yarn build
-  if [[ $? != 0 ]]; then
-    echo "Couldn't build @ultras/core-api-sdk."
-    exit 7
+  if [[ ! -d "build" ]] ; then
+    print_row_wait "Building sub-package [$PKG_NAME]"
+    yarn build > /dev/null 2>&1
+    end_cmd $? "Couldn't build package $PKG_NAME."
   fi
-fi
+done
 
 # install CocoPods if is in macOS
 if [[ "Darwin" == "$(uname)" ]]; then
   if [[ "" == "$(command -v xcode-select)" ]]; then
-    echo "Please install XCode if you want to run iOS app."
-    exit 8
+    # echo "Please install XCode if you want to run iOS app."
+    exit
+  else
+    if [[ "" == "$(command -v gem)" ]]; then
+      # echo "Please install Ruby and CocoPods if you want to run iOS app."
+      exit
+    else
+      if [[ "" == "$(command -v pod)" ]]; then
+        print_row_wait "Installing CocoaPods engine"
+        sudo gem install cocoapods > /dev/null 2>&1
+        end_cmd $? "Couldn't install CocoaPods."
+      fi
+
+      cd "$ROOT_DIR/clients/app/ios"
+
+      print_row_wait "Installing CocoaPods packages"
+      pod install > /dev/null 2>&1
+      end_cmd $? "Couldn't install CocoaPods packages."
+    fi
   fi
-
-  if [[ "" == "$(command -v gem)" ]]; then
-    echo "Please install Ruby and CocoPods if you want to run iOS app."
-    exit 9
-  fi
-
-  cd "$ROOT_DIR/clients/app/ios"
-
-  if [[ "" == "$(command -v pod)" ]]; then
-    sudo gem install cocoapods
-  fi
-
-  pod install
 fi
+
+echo ""

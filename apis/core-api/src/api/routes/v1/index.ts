@@ -11,4 +11,5 @@ const router = new Router({
 router.use(countries.routes());
 router.use(cities.routes());
 router.use(venues.routes());
+
 export default router;

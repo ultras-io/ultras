@@ -1,7 +1,7 @@
 import { NetworkService } from '@ultras/services';
 
 const options = {
-  url: process.env.RAPID_FOOTBALL_API_URL_VENUES || '',
+  url: process.env.RAPID_FOOTBALL_API_URL || '',
   headers: {
     'x-rapidapi-host': process.env.X_RAPID_API_FOOTBALL_HOST,
     'x-rapidapi-key': process.env.X_RAPID_API_FOOTBALL_KEY,
@@ -22,7 +22,7 @@ export type RapidApiVenue = {
 const getVenuesByCountryName = (countryName: string) => {
   const network = new NetworkService(options.url);
 
-  return network.makeAPIGetRequest('', {
+  return network.makeAPIGetRequest('venues', {
     headers: options.headers,
     query_params: {
       country: countryName,

@@ -1,7 +1,6 @@
-// import path from "path";
-// import fs from "fs";
-
 import db from 'core/data/models';
+import { VenueCreationAttributes } from 'core/data/models/Venue';
+import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
@@ -17,8 +16,6 @@ import {
   InjectVenuesDataResult,
   GetVenueByIdResult,
 } from './types';
-import { SomethingWentWrong } from 'modules/exceptions';
-import { VenueCreationAttributes } from 'core/data/models/Venue';
 
 class VenueController {
   static async getAll({
@@ -100,6 +97,7 @@ class VenueController {
       data: Venue,
     };
   }
+
   /**
    * used to development purposes
    */
@@ -124,9 +122,6 @@ class VenueController {
         order: [['name', Order.asc]],
       });
 
-      // const missingCities = [];
-      // const missingNames = [];
-
       for (const country of countries) {
         const {
           body: { response },
@@ -140,7 +135,6 @@ class VenueController {
         for (const responseItem of response) {
           const item: RapidApiVenue = responseItem as RapidApiVenue;
           if (!item.name) {
-            // missingNames.push(item);
             continue;
           }
 
@@ -153,7 +147,6 @@ class VenueController {
 
           if (!city) {
             console.log(`>>> missing in DB[city]: ${item.city}`);
-            // missingCities.push(item);
             continue;
           }
 
@@ -170,14 +163,6 @@ class VenueController {
 
         await db.Venue.bulkCreate(records);
       }
-
-      // fs.writeFileSync(
-      //   path.join(__dirname, "missing.json"),
-      //   JSON.stringify({
-      //     names: missingNames,
-      //     cities: missingCities,
-      //   })
-      // );
 
       return { data: { success: true } };
     } catch (e: any) {
