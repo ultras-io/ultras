@@ -4,7 +4,7 @@ const options = {
   url: process.env.RAPID_FOOTBALL_API_URL_COUNTRIES || '',
   headers: {
     'x-rapidapi-host': process.env.X_RAPID_API_FOOTBALL_HOST,
-    'x-rapidapi-key': process.env.X_RAPID_API_KEY,
+    'x-rapidapi-key': process.env.X_RAPID_API_FOOTBALL_KEY,
   },
 };
 
@@ -18,7 +18,7 @@ export type RapidApiCountry = {
 const getCountries = () => {
   const network = new NetworkService(options.url);
 
-  return network.makeAPIGetRequest('country', {
+  return network.makeAPIGetRequest('', {
     headers: options.headers,
   });
 };

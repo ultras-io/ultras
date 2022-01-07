@@ -1,3 +1,6 @@
+// import path from "path";
+// import fs from "fs";
+
 import db from 'core/data/models';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
@@ -121,15 +124,23 @@ class VenueController {
         order: [['name', Order.asc]],
       });
 
+      // const missingCities = [];
+      // const missingNames = [];
+
       for (const country of countries) {
         const {
           body: { response },
         } = await injectVenues(country.getDataValue('name'));
 
+        if (response.length === 0) {
+          continue;
+        }
+
         const records: VenueCreationAttributes[] = [];
         for (const responseItem of response) {
           const item: RapidApiVenue = responseItem as RapidApiVenue;
           if (!item.name) {
+            // missingNames.push(item);
             continue;
           }
 
@@ -142,6 +153,7 @@ class VenueController {
 
           if (!city) {
             console.log(`>>> missing in DB[city]: ${item.city}`);
+            // missingCities.push(item);
             continue;
           }
 
@@ -158,6 +170,14 @@ class VenueController {
 
         await db.Venue.bulkCreate(records);
       }
+
+      // fs.writeFileSync(
+      //   path.join(__dirname, "missing.json"),
+      //   JSON.stringify({
+      //     names: missingNames,
+      //     cities: missingCities,
+      //   })
+      // );
 
       return { data: { success: true } };
     } catch (e: any) {
