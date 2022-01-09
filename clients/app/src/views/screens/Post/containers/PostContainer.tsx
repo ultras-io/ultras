@@ -5,6 +5,7 @@ import {generatePost} from 'utils/helpers/dummy';
 
 import {IPostContainerProps} from '../types';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PostContainer: React.FC<IPostContainerProps> = ({id}) => {
   // get Post's data by id
 

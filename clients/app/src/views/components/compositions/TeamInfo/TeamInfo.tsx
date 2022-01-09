@@ -18,7 +18,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({
   name,
   country,
   city,
-  inMyTeams,
+  inMyTeams, //eslint-disable-line @typescript-eslint/no-unused-vars
 }) => {
   return (
     <>

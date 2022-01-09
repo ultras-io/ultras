@@ -1,4 +1,4 @@
-import {ThemeInterface} from 'styled-components';
+import { ThemeInterface } from 'styled-components';
 
 export interface IMatchesProps {}
 export interface IMatchesContainerProps {

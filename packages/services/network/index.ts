@@ -86,7 +86,7 @@ class NetworkService {
 
   makeAPIRequest = (
     partUrl: string,
-    options: RequestOptions = {},
+    options: RequestOptions = {}
   ): Promise<{ body: any; headers: any }> =>
     new Promise((resolve, reject) => {
       let url = this.createUrl(partUrl);

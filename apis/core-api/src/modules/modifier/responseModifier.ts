@@ -11,12 +11,14 @@ import set from 'lodash/set';
  *    4. ctx.ok({ meta: { refreshToken } })
  * In any case the actual response will be { data: {}, meta: {} } except for the
  *   following conditions:
- *    - when status code > = 204 and status code < 400 at the same time or status code = 405
- *    in this cases actual response will not be modified
+ *    - when status code >= 204 and status code < 400 at the same time or
+ *      status code = 405 in this cases actual response will not be modified
  * @param {Context} ctx - koa context
  */
 export default (ctx: Context): void => {
-  if ((ctx.status >= 204 && ctx.status < 400) || ctx.status === 405 || !ctx.body) return;
+  if ((ctx.status >= 204 && ctx.status < 400) || ctx.status === 405 || !ctx.body) {
+    return;
+  }
 
   let result = ctx.body;
   if (result && result.dataValues) {
@@ -42,8 +44,12 @@ export default (ctx: Context): void => {
     set(ctx, 'status', result.status);
     delete result.status;
   }
-  if (!result.data && !result.meta) result.data = { ...result };
-  if (!result.meta && result.data) result.meta = {};
+  if (!result.data && !result.meta) {
+    result.data = { ...result };
+  }
+  if (!result.meta && result.data) {
+    result.meta = {};
+  }
 
   set(response, 'data', result.data);
   // set(response, 'meta', result.meta); @TODO check why is need this line

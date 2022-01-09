@@ -23,11 +23,15 @@
     "url": "git+https://github.com/ultras-io/ultras.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "prettier-format": "prettier --config .prettierrc '**/*.js' --write"
   },
   "dependencies": {
     "eslint": "^8.0.1",
     "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
   },
   "bugs": {
     "url": "https://github.com/ultras-io/ultras/issues"

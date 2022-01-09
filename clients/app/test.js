@@ -1,4 +1,4 @@
-const countrySdk = requrie('@ultras/core-api-sdk');
+const { CountrySdk } = require('@ultras/core-api-sdk');
 
 const countrySdk = new CountrySdk('development');
 

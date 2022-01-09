@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -24,6 +24,6 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: '50%',
-    transform: [{translateY: -6}],
+    transform: [{ translateY: -6 }],
   },
 });

@@ -12,13 +12,11 @@
     "prettier"
   ],
   "rules": {
-    "no-console": 1,
-    "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "no-console": "warn",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
 
-    // Means warning
-    "prettier/prettier": 1,
-    "max-len": [1, { "code": 90 }]
-    // Means error
+    "prettier/prettier": "warn",
+    "max-len": ["error", { "code": 90 }]
   }
 }

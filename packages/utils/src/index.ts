@@ -1,4 +1,4 @@
 import humanizeDate from './humanizeDate';
 
-export * from "./enums";
+export * from './enums';
 export { humanizeDate };

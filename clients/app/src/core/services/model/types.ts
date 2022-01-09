@@ -5,6 +5,6 @@ export interface IModel<T> {
   setState: (data: Partial<T>) => void;
   subscribe: (
     evt: 'INIT' | 'UPDATE',
-    fn: (data: T) => void,
-  ) => {unsubscribe: () => void};
+    fn: (data: T) => void
+  ) => { unsubscribe: () => void };
 }

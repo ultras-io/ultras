@@ -1,8 +1,8 @@
 //this file should be removed
 
-import {MatchStateEnum as MatcheTimeState} from 'views/components/compositions/MatchTime';
+import { MatchStateEnum as MatcheTimeState } from 'views/components/compositions/MatchTime';
 
-import {SearchItem} from 'views/screens/SearchListModal';
+import { SearchItem } from 'views/screens/SearchListModal';
 
 const profileAvatars = [
   'https://pbs.twimg.com/profile_images/891997529096814592/ye6kbXzx_x96.jpg',
@@ -193,9 +193,7 @@ const supportersClubs = [
 ];
 
 const randomDate = (start: Date, end: Date): Date => {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime()),
-  );
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
 export const generateTeamName = (): string => {
   return teams[parseInt(Math.random() * (78 - 1) + 1)];
@@ -336,8 +334,7 @@ export const generateEvent = () => {
         ? 'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
         : undefined,
     date: randomDate(new Date(2021, 7, 10), new Date(2022, 11, 11)),
-    title:
-      generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
+    title: generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
     creator: 'armando.broja',
     supportersClub: generateSupportersClubName(),
     location: 'Paulaner ' + generateCountry(),
@@ -365,8 +362,7 @@ export const generatePost = () => {
         ? 'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
         : undefined,
     date: randomDate(new Date(2021, 7, 10), new Date(2021, 11, 11)),
-    title:
-      generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
+    title: generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
     content:
       'The header hides and reveals based on the direction of the scroll and once the scrolling is stopped, the header conveniently snaps to the closest state i.e either half-hidden or fully revealed. This effect can be seen in apps like WhatsApp, Youtube, Telegram, etc. We’d be using React Native’s Animated API to build this so let’s get started!\n\nI made a starter template that would save us some time by focusing on the topic of animations in this article. So I recommend you to clone the repository and follow along :)',
     creator: 'armando.broja',
@@ -386,10 +382,7 @@ const generateSupportersClub = (withUltrasCount = true) => {
   };
 };
 
-export const generateSupportersClubs = (
-  count: number,
-  withUltrasCount = true,
-) => {
+export const generateSupportersClubs = (count: number, withUltrasCount = true) => {
   const data = [];
   for (let i = 0; i < count; i++) {
     data.push(generateSupportersClub(withUltrasCount));
@@ -404,10 +397,7 @@ export const generateProfile = () => {
     name: names[parseInt(Math.random() * (5 - 1))],
     username: usernames[parseInt(Math.random() * (5 - 1))],
     teams: generateClubsList(parseInt(Math.random() * 6) + 1),
-    supportersClubs: generateSupportersClubs(
-      parseInt(Math.random() * 10),
-      false,
-    ),
+    supportersClubs: generateSupportersClubs(parseInt(Math.random() * 10), false),
   };
 };
 

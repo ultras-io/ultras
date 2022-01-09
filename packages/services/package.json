@@ -24,7 +24,10 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build": "rimraf ./build && tsc"
+    "build": "rimraf ./build && tsc",
+    "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix"
   },
   "bugs": {
     "url": "https://github.com/ultras-io/ultras/issues"
@@ -32,5 +35,14 @@
   "dependencies": {
     "@ultras/utils": "^1.0.0",
     "isomorphic-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.4"
   }
 }

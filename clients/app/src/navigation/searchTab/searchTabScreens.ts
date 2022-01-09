@@ -2,7 +2,7 @@ import I18n from 'i18n/i18n';
 
 import SearchItem from 'views/screens/SearchItem';
 
-import type {SearchTabScreens} from '../types';
+import type { SearchTabScreens } from '../types';
 
 export const TAB_NAME = 'Search';
 

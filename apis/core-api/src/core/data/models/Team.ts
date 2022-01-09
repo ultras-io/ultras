@@ -137,7 +137,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
       timestamps: true,
       freezeTableName: true,
       sequelize,
-    },
+    }
   );
 
   return Team;

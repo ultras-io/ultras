@@ -1,4 +1,3 @@
-
 export interface ItesttesProps {
-    title: string;
-};
+  title: string;
+}

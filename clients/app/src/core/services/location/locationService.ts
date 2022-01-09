@@ -1,5 +1,5 @@
 import Geolocation from 'react-native-geolocation-service';
-import {Platform, Linking, Alert, PermissionsAndroid} from 'react-native';
+import { Platform, Linking, Alert, PermissionsAndroid } from 'react-native';
 import appConfig from '/app.json';
 
 //TODO locale texts
@@ -26,9 +26,9 @@ class LocationService {
         `Turn on Location Services to allow "${appConfig.displayName}" to determine your location.`,
         '',
         [
-          {text: 'Go to Settings', onPress: openSetting},
-          {text: "Don't Use Location", onPress: () => {}},
-        ],
+          { text: 'Go to Settings', onPress: openSetting },
+          { text: "Don't Use Location", onPress: () => {} },
+        ]
       );
     }
 
@@ -46,7 +46,7 @@ class LocationService {
     }
 
     const hasPermission = await PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
 
     if (hasPermission) {
@@ -54,7 +54,7 @@ class LocationService {
     }
 
     const status = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
 
     if (status === PermissionsAndroid.RESULTS.GRANTED) {
@@ -94,7 +94,7 @@ class LocationService {
         timeout: 15000,
         maximumAge: 10000,
         distanceFilter: 0,
-      },
+      }
     );
   };
 }

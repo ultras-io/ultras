@@ -1,5 +1,5 @@
-import {RouteProp} from '@react-navigation/native';
-import {ThemeInterface} from 'styled-components';
+import { RouteProp } from '@react-navigation/native';
+import { ThemeInterface } from 'styled-components';
 
 export enum keyEnum {
   Code,
@@ -21,7 +21,7 @@ export type SearchItem = {
 
 export interface ISearchListModalProps {
   theme?: ThemeInterface;
-  route: RouteProp<{params: {dataKey: keyEnum}}, 'params'>;
+  route: RouteProp<{ params: { dataKey: keyEnum } }, 'params'>;
 }
 
 export interface ISearchListContainerProps {

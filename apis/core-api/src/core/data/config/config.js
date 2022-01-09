@@ -1,6 +1,6 @@
 import { dbConfig } from '../../../config';
 
-export const development = {
+const configs = {
   username: dbConfig.username,
   password: dbConfig.password,
   database: dbConfig.database,
@@ -8,10 +8,4 @@ export const development = {
   dialect: 'postgres',
 };
 
-export const production = {
-  username: dbConfig.username,
-  password: dbConfig.password,
-  database: dbConfig.database,
-  host: dbConfig.host,
-  dialect: 'postgres',
-};
+export default configs;

@@ -31,7 +31,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
   location,
   goingCount,
   likeCount,
-  commentsCount,
+  commentsCount, // eslint-disable-line @typescript-eslint/no-unused-vars
   creator,
   supportersClub,
   isGoing,

@@ -1,5 +1,5 @@
 import Search from 'views/screens/Search';
-import type {SearchNavigationScreens} from '../types';
+import type { SearchNavigationScreens } from '../types';
 
 export const TAB_NAME = 'Search';
 

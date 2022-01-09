@@ -11,6 +11,7 @@ import {
 
 import {ITeamContainerProps} from '../types';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TeamContainer: React.FC<ITeamContainerProps> = ({id}) => {
   // get teams's data by id
   const data = {

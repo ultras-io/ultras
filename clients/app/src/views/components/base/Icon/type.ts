@@ -1,6 +1,6 @@
-import {ThemeInterface} from 'styled-components';
-import {IconNamesEnum} from 'assets/icons';
-import {ColorKey} from 'themes/styled';
+import { ThemeInterface } from 'styled-components';
+import { IconNamesEnum } from 'assets/icons';
+import { ColorKey } from 'themes/styled';
 
 export interface IIconProps {
   theme?: ThemeInterface;

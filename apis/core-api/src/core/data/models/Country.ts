@@ -98,7 +98,7 @@ module.exports = (sequelize: Sequelize): typeof Country => {
       timestamps: true,
       freezeTableName: true,
       sequelize,
-    },
+    }
   );
 
   return Country;

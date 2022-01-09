@@ -40,9 +40,9 @@ const Input: React.FC<IInputProps> = ({
   name,
   value,
   type = TypeEnum.Text,
-  state = StateEnum.Default,
+  state = StateEnum.Default, // eslint-disable-line @typescript-eslint/no-unused-vars
   withBorder = false,
-  validation,
+  validation, // eslint-disable-line @typescript-eslint/no-unused-vars
   onChange,
   onType,
 }) => {

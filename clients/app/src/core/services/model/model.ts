@@ -1,8 +1,8 @@
-import {IModel} from './types';
+import { IModel } from './types';
 
 function createModel<T>(initialState: T): IModel<T> {
   let state: T | null = initialState;
-  const subscriptions: {[key: string]: {(data: T): void}[]} = {
+  const subscriptions: { [key: string]: { (data: T): void }[] } = {
     INIT: [],
     UPDATE: [],
   };

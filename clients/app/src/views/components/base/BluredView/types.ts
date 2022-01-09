@@ -1,5 +1,5 @@
-import {StyleProp, ViewStyle} from 'react-native';
-import {ThemeInterface} from 'styled-components';
+import { StyleProp, ViewStyle } from 'react-native';
+import { ThemeInterface } from 'styled-components';
 
 export interface IBluredViewProps {
   theme?: ThemeInterface;

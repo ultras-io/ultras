@@ -130,7 +130,7 @@ class CityController {
       try {
         const cities = await getCountryCities(
           country.dataValues.code,
-          country.dataValues.id,
+          country.dataValues.id
         );
         citiesToInject = [...citiesToInject, ...cities];
       } catch (e: any) {

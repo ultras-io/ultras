@@ -111,7 +111,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
       timestamps: true,
       freezeTableName: true,
       sequelize,
-    },
+    }
   );
 
   return Venue;
