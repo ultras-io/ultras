@@ -3,9 +3,7 @@ import { ENVS } from 'config/constants';
 const MODE: string = process.env.NODE_ENV || 'development';
 
 if (!MODE)
-  throw new Error(
-    'The NODE_ENV environment variable is required but was not specified.',
-  );
+  throw new Error('The NODE_ENV environment variable is required but was not specified.');
 
 if (!ENVS[MODE])
   throw new Error(

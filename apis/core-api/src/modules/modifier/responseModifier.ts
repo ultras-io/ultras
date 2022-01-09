@@ -16,12 +16,7 @@ import set from 'lodash/set';
  * @param {Context} ctx - koa context
  */
 export default (ctx: Context): void => {
-  if (
-    (ctx.status >= 204 && ctx.status < 400) ||
-    ctx.status === 405 ||
-    !ctx.body
-  )
-    return;
+  if ((ctx.status >= 204 && ctx.status < 400) || ctx.status === 405 || !ctx.body) return;
 
   let result = ctx.body;
   if (result && result.dataValues) {
@@ -33,18 +28,10 @@ export default (ctx: Context): void => {
   const pagination = {};
   // eslint-disable-next-line no-prototype-builtins
   if (Array.isArray(result.data) && result.hasOwnProperty('total')) {
-    set(
-      pagination,
-      'limit',
-      parseInt(ctx.request.query.limit || result.limit, 10),
-    );
+    set(pagination, 'limit', parseInt(ctx.request.query.limit || result.limit, 10));
     // if offset not provided , it should be null,
     // but offset of s3 request is not a number  so we can't parse the request's offset
-    set(
-      pagination,
-      'offset',
-      parseInt(ctx.request.query.limit || result.offset, 10),
-    );
+    set(pagination, 'offset', parseInt(ctx.request.query.limit || result.offset, 10));
     set(pagination, 'total', result.total);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

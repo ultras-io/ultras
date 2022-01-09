@@ -7,3 +7,11 @@ export const development = {
   host: dbConfig.host,
   dialect: 'postgres',
 };
+
+export const production = {
+  username: dbConfig.username,
+  password: dbConfig.password,
+  database: dbConfig.database,
+  host: dbConfig.host,
+  dialect: 'postgres',
+};

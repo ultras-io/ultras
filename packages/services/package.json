@@ -7,6 +7,7 @@
   "license": "ISC",
   "types": "build/types",
   "module": "build/index.js",
+  "main": "build/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

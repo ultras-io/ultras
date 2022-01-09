@@ -1,3 +1,4 @@
-import MatchStatuses from './matchStatuses';
+import MatchStatuses from './MatchStatuses';
+import TeamTypes from './TeamTypes';
 
-export { MatchStatuses };
+export { MatchStatuses, TeamTypes };

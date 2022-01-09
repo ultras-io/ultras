@@ -1,4 +1,5 @@
-import 'module-alias/register';
+// import 'module-alias/register';
+import '../module-alias.js';
 
 import Koa from 'koa';
 import { App, Database } from 'modules/initializators';

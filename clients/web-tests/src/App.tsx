@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { CountrySdk, CitySdk, VenueSdk } from '@ultras/core-api-sdk';
+import { CountrySdk, CitySdk, VenueSdk, TeamSdk } from '@ultras/core-api-sdk';
 
 const sdkCountry = new CountrySdk('dev');
 const sdkCity = new CitySdk('dev');
 const sdkVenue = new VenueSdk('dev');
+const sdkTeam = new TeamSdk('dev');
 
 function App() {
-  React.useEffect(() => {
+  useEffect(() => {
     sdkCountry
       .getCountries()
       ?.then((countries: any) => {
@@ -30,11 +31,26 @@ function App() {
 
     sdkVenue
       .getVenues({ countryId: 328, name: 'arena' })
-      ?.then((cities: any) => {
-        console.log('response of sdkVenue.getVenues({ countryId: 328, name: \'arena\' }):', cities);
+      ?.then((venues: any) => {
+        console.log(
+          "response of sdkVenue.getVenues({ countryId: 328, name: 'arena' }):",
+          venues,
+        );
       })
       ?.catch((err: any) => {
-        console.error('result of sdkVenue.getVenues({ countryId: 328, name: \'arena\' }):', err);
+        console.error(
+          "result of sdkVenue.getVenues({ countryId: 328, name: 'arena' }):",
+          err,
+        );
+      });
+
+    sdkTeam
+      .getTeams({ cityId: 61 })
+      ?.then((teams: any) => {
+        console.log('response of sdkTeam.getTeams({ cityId: 61 }):', teams);
+      })
+      ?.catch((err: any) => {
+        console.error('result of sdkTeam.getTeams({ cityId: 61 }):', err);
       });
   }, []);
 
