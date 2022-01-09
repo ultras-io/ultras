@@ -26,7 +26,7 @@ export type RapidApiCity = {
  */
 const getCountryCities = async (
   countryCode: string,
-  countryId: number,
+  countryId: number
 ): Promise<CityCreationAttributes[]> => {
   const network = new NetworkService(options.url);
 

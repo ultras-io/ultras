@@ -1,41 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { CountrySdk, CitySdk, VenueSdk } from '@ultras/core-api-sdk';
+import { CountrySdk, CitySdk, VenueSdk, TeamSdk } from '@ultras/core-api-sdk';
+import { TeamTypes, MatchStatuses } from '@ultras/utils';
 
 const sdkCountry = new CountrySdk('dev');
 const sdkCity = new CitySdk('dev');
 const sdkVenue = new VenueSdk('dev');
+const sdkTeam = new TeamSdk('dev');
 
 function App() {
-  React.useEffect(() => {
-    sdkCountry
-      .getCountries()
-      ?.then((countries: any) => {
-        console.log('response of sdkCountry.getCountries():', countries);
-      })
-      ?.catch((err: any) => {
-        console.error('result of sdkCountry.getCountries():', err);
-      });
+  useEffect(() => {
+    // sdkCountry
+    //   .getCountries()
+    //   ?.then((countries: any) => {
+    //     console.log('response of sdkCountry.getCountries():', countries);
+    //   })
+    //   ?.catch((err: any) => {
+    //     console.error('result of sdkCountry.getCountries():', err);
+    //   });
 
-    sdkCity
-      .getCities({ countryId: 6 })
-      ?.then((cities: any) => {
-        console.log('response of sdkCity.getCities({ countryId: 6 }):', cities);
-      })
-      ?.catch((err: any) => {
-        console.error('result of sdkCity.getCities({ countryId: 6 }):', err);
-      });
+    // sdkCity
+    //   .getCities({ countryId: 6 })
+    //   ?.then((cities: any) => {
+    //     console.log('response of sdkCity.getCities({ countryId: 6 }):', cities);
+    //   })
+    //   ?.catch((err: any) => {
+    //     console.error('result of sdkCity.getCities({ countryId: 6 }):', err);
+    //   });
 
-    sdkVenue
-      .getVenues({ countryId: 328, name: 'arena' })
-      ?.then((cities: any) => {
-        console.log('response of sdkVenue.getVenues({ countryId: 328, name: \'arena\' }):', cities);
-      })
-      ?.catch((err: any) => {
-        console.error('result of sdkVenue.getVenues({ countryId: 328, name: \'arena\' }):', err);
-      });
+    // sdkVenue
+    //   .getVenues({ countryId: 328, name: 'arena' })
+    //   ?.then((venues: any) => {
+    //     console.log(
+    //       "response of sdkVenue.getVenues({ countryId: 328, name: 'arena' }):",
+    //       venues,
+    //     );
+    //   })
+    //   ?.catch((err: any) => {
+    //     console.error(
+    //       "result of sdkVenue.getVenues({ countryId: 328, name: 'arena' }):",
+    //       err,
+    //     );
+    //   });
+
+    // sdkTeam
+    //   .getTeams({ cityId: 61 })
+    //   ?.then((teams: any) => {
+    //     console.log('response of sdkTeam.getTeams({ cityId: 61 }):', teams);
+    //   })
+    //   ?.catch((err: any) => {
+    //     console.error('result of sdkTeam.getTeams({ cityId: 61 }):', err);
+    //   });
+
+    console.log("enums:", {
+      TeamTypes,
+      teamNational: TeamTypes.national,
+      MatchStatuses,
+      matchHalfTime: MatchStatuses.halfTime,
+    });
   }, []);
 
   return (

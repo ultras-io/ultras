@@ -4,23 +4,18 @@
   "description": "The core api for the ultras app",
   "main": "build/index.js",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc --rootDir src",
     "dev": "nodemon",
-    "prod": "pm2 start build/api/index.js --name ultras-api",
+    "prod": "NODE_ENV=production pm2 start build/api/index.js --env production --name ultras-api",
     "test": "echo Error: no test specified && exit 1",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "lint": "eslint . --ext .ts .d.ts",
-    "lint-fix": "eslint . --ext .ts .d.ts --fix",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix",
     "migrate": "npx sequelize-cli db:migrate",
     "unmigrate": "npx sequelize-cli db:migrate:undo:all",
     "seed-up": "npx sequelize-cli db:seed:all",
     "seed-down": "npx sequelize-cli db:seed:undo:all"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier-format && npm run lint-fix && npm run lint"
-    }
   },
   "author": "@ultras",
   "license": "ISC",
@@ -38,7 +33,6 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.2",
     "module-alias": "^2.2.2",
     "nodemon": "^2.0.12",
     "onchange": "^7.1.0",
@@ -50,6 +44,7 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "@ultras/services": "^1.0.0",
+    "@ultras/utils": "^1.0.0",
     "dotenv": "^10.0.0",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
@@ -60,16 +55,5 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5"
-  },
-  "_moduleAliases": {
-    "@root": "./src",
-    "api": "src/api",
-    "config": "src/config",
-    "core": "src/core",
-    "modules": "src/modules",
-    "scripts": "src/scripts",
-    "types": "src/types",
-    "utils": "src/utils",
-    "@constants": "src/config/constants.ts"
   }
 }

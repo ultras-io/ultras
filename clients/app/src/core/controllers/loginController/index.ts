@@ -1,4 +1,4 @@
-import {createModel, IModel} from 'services/model';
+import { createModel, IModel } from 'services/model';
 import loginSDK from 'core/sdk/loginSDK';
 
 export type Step = {
@@ -82,4 +82,4 @@ function ping() {
   });
 }
 
-export {model, startStep, ping};
+export { model, startStep, ping };

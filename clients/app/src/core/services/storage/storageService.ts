@@ -1,8 +1,11 @@
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AsyncStorage = {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setItem: (key, value) => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getItem: key => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeItem: key => {},
   clear: () => {},
 };

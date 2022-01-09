@@ -25,7 +25,7 @@ class App implements IApp {
     this.app.use(
       cors({
         origin: verifyCorsOrigin,
-      }),
+      })
     );
 
     // proxy

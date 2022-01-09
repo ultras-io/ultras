@@ -1,5 +1,10 @@
 import { JWT_ERRORS, SEQUELIZE_ERRORS } from 'modules/exceptions/constants';
-import { SequelizeError, BaseError, InternalServerError, AuthenticationError } from 'modules/exceptions';
+import {
+  SequelizeError,
+  BaseError,
+  InternalServerError,
+  AuthenticationError,
+} from 'modules/exceptions';
 import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types/index';
 
 function normalizeError(exception: Exception | AuthErrorDetail | ErrorDetail) {

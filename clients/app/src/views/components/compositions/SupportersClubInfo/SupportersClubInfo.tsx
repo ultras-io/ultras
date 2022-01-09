@@ -25,7 +25,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
   ultrasCount,
   city,
   team,
-  myStatus,
+  myStatus, // eslint-disable-line @typescript-eslint/no-unused-vars
 }) => {
   const {pushTo} = useNavigationWithParams();
 

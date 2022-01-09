@@ -4,7 +4,12 @@
 const fs = require('fs');
 const yargs = require('yargs/yargs');
 
-const { getTypesBaseCode, getStylesBaseCode, getComponentBaseCode, getExportsBaseCode } = require('../data/codeBase');
+const {
+  getTypesBaseCode,
+  getStylesBaseCode,
+  getComponentBaseCode,
+  getExportsBaseCode,
+} = require('../data/codeBase');
 
 const messages = {
   ERROR_NAME: "error: Component's name missing.",

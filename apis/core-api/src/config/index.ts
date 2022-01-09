@@ -21,8 +21,7 @@ const serverConfig = {
 const authConfig = {
   apiAuthSecretKey: process.env.API_KEY || 'API_KEY',
   authTokenSecret: process.env.AUTHORIZATION_TOKEN_SECRET || 'LOCAL_SECRET_KEY',
-  resetPasswordTokenSecret:
-    process.env.RESET_PASSWORD_TOKEN_SECRET || 'EMAIL_SECRET_KEY',
+  resetPasswordTokenSecret: process.env.RESET_PASSWORD_TOKEN_SECRET || 'EMAIL_SECRET_KEY',
 };
 
 const awsConfig = {
@@ -54,11 +53,4 @@ const whiteList = process.env.CORS_WHITE_LIST;
 
 const apiFootballKey = process.env.API_FOOTBALL_KEY;
 
-export {
-  dbConfig,
-  awsConfig,
-  authConfig,
-  whiteList,
-  serverConfig,
-  apiFootballKey,
-};
+export { dbConfig, awsConfig, authConfig, whiteList, serverConfig, apiFootballKey };

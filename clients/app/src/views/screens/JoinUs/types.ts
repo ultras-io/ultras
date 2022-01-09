@@ -1,4 +1,4 @@
-import {DirectionENum} from 'views/components/base/WithAnimation';
+import { DirectionENum } from 'views/components/base/WithAnimation';
 
 export enum ActionTypeEnum {
   Button,
@@ -29,7 +29,7 @@ export type Message = {
   messageRenderer?: (
     value: string,
     changeNumber: () => void,
-    canChange: boolean,
+    canChange: boolean
   ) => React.ReactNode;
 };
 

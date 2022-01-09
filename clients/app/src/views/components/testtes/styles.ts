@@ -1,11 +1,10 @@
-
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
-        padding: 8,
-    },
-    text: {
-        fontSize: 12,
-    },
+  container: {
+    padding: 8,
+  },
+  text: {
+    fontSize: 12,
+  },
 });

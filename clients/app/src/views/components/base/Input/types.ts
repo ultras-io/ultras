@@ -1,5 +1,5 @@
-import {KeyboardType} from 'react-native';
-import {ThemeInterface} from 'styled-components';
+import { KeyboardType } from 'react-native';
+import { ThemeInterface } from 'styled-components';
 
 export enum TypeEnum {
   Text,

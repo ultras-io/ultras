@@ -1,12 +1,12 @@
 import moment from 'moment';
 import I18n from 'i18n/i18n';
 
-import {MatchStateEnum} from 'views/components/compositions/MatchTime';
+import { MatchStateEnum } from 'views/components/compositions/MatchTime';
 
 export const formatDateAndTime = (
   startTime?: Date,
   matchState?: MatchStateEnum,
-  minute?: number,
+  minute?: number
 ) => {
   let date = '';
   let time = '';

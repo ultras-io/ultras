@@ -16,7 +16,7 @@ import {IPostCardProps} from './types';
 import styles from './styles';
 
 const PostCard: React.FC<IPostCardProps> = ({
-  imageUri,
+  imageUri, // eslint-disable-line @typescript-eslint/no-unused-vars
   date,
   title,
   creator,

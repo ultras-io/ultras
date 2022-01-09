@@ -1,5 +1,5 @@
-import {ThemeInterface} from 'styled-components';
-import {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
+import { ThemeInterface } from 'styled-components';
+import { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 
 export interface ISupportersClubCardProps {
   theme?: ThemeInterface;

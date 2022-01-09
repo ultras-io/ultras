@@ -1,4 +1,4 @@
-import {MatchStateEnum} from 'views/components/compositions/MatchTime';
+import { MatchStateEnum } from 'views/components/compositions/MatchTime';
 
 export interface IMatchScoreProps {
   score: number;
