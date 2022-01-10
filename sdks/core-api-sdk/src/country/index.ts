@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam } from '../types';
+import { QueryParam, DynamicQueryParam } from '../types';
 
 type GetCountriesFilter = {
   name?: string;
@@ -13,7 +13,7 @@ export class CountrySdk extends CoreApiBaseSDK {
 
   public getCountries(params: QueryParam<GetCountriesFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
-      query_params: params,
+      query_params: params as DynamicQueryParam,
     });
   }
 

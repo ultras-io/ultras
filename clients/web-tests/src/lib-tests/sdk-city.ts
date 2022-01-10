@@ -1,14 +1,29 @@
 import { CitySdk } from '@ultras/core-api-sdk';
+import { OrderEnum } from '@ultras/utils';
 
 const sdk = new CitySdk('dev');
 
 export const runTest = () => {
+  const params = {
+    countryId: 6,
+    limit: 4,
+    offset: 4,
+    order: OrderEnum.desc,
+    orderAttr: 'id',
+  };
+
   sdk
-    .getCities({ countryId: 6, limit: 4, offset: 4 })
+    .getCities(params)
     ?.then((cities: any) => {
-      console.log('CitySdk.getCities({ countryId: 6, limit: 4, offset: 4 }):', cities);
+      console.log('CitySdk.getCities():', {
+        params,
+        result: cities,
+      });
     })
     ?.catch((err: any) => {
-      console.error('CitySdk.getCities({ countryId: 6, limit: 4, offset: 4 }):', err);
+      console.error('CitySdk.getCities():', {
+        params,
+        error: err,
+      });
     });
 };

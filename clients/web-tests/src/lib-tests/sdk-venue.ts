@@ -3,12 +3,23 @@ import { VenueSdk } from '@ultras/core-api-sdk';
 const sdk = new VenueSdk('dev');
 
 export const runTest = () => {
+  const params = {
+    countryId: 328,
+    name: 'arena',
+  };
+
   sdk
-    .getVenues({ countryId: 328, name: 'arena' })
+    .getVenues(params)
     ?.then((venues: any) => {
-      console.log("VenueSdk.getVenues({ countryId: 328, name: 'arena' }):", venues);
+      console.log('VenueSdk.getVenues():', {
+        params,
+        result: venues,
+      });
     })
     ?.catch((err: any) => {
-      console.error("VenueSdk.getVenues({ countryId: 328, name: 'arena' }):", err);
+      console.error('VenueSdk.getVenues():', {
+        params,
+        error: err,
+      });
     });
 };

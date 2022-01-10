@@ -3,12 +3,22 @@ import { LeagueSdk } from '@ultras/core-api-sdk';
 const sdk = new LeagueSdk('dev');
 
 export const runTest = () => {
+  const params = {
+    countryId: 494,
+  };
+
   sdk
-    .getLeagues({ countryId: 494 })
+    .getLeagues(params)
     ?.then((leagues: any) => {
-      console.log('LeagueSdk.getLeagues({ countryId: 494 }):', leagues);
+      console.log('LeagueSdk.getLeagues():', {
+        params,
+        result: leagues,
+      });
     })
     ?.catch((err: any) => {
-      console.error('LeagueSdk.getLeagues({ countryId: 494 }):', err);
+      console.error('LeagueSdk.getLeagues():', {
+        params,
+        error: err,
+      });
     });
 };

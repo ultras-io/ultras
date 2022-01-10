@@ -138,7 +138,7 @@ class CityController {
         }
       }
     }
-    
+
     await db.City.bulkCreate(citiesToInject);
     return { data: { success: true } };
   }

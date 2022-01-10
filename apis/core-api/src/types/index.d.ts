@@ -37,16 +37,6 @@ export type Exception = {
   details?: ErrorDetail;
 };
 
-export type PaginationParams = {
-  limit?: number;
-  offset?: number;
-};
-
-export interface ListRequestParams extends PaginationParams {
-  order?: OrderEnum;
-  orderAttr?: string;
-}
-
 export interface ControllerListActionResult<T> {
   data: T[];
   limit: number;

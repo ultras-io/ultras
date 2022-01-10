@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam } from '../types';
+import { QueryParam, DynamicQueryParam } from '../types';
 
 type GetTeamsFilter = {
   name?: string;
@@ -14,7 +14,7 @@ export class TeamSdk extends CoreApiBaseSDK {
 
   public getTeams(params: QueryParam<GetTeamsFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
-      query_params: params,
+      query_params: params as DynamicQueryParam,
     });
   }
 

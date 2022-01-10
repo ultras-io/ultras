@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam } from '../types';
+import { QueryParam, DynamicQueryParam } from '../types';
 
 type GetLeaguesFilter = {
   name?: string;
@@ -13,7 +13,7 @@ export class LeagueSdk extends CoreApiBaseSDK {
 
   public getLeagues(params: QueryParam<GetLeaguesFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
-      query_params: params,
+      query_params: params as DynamicQueryParam,
     });
   }
 
