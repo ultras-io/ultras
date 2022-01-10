@@ -1,8 +1,5 @@
 import { ListRequestParams } from '@ultras/utils';
-import {
-  ControllerActionOperatedResult,
-  ControllerListActionResult,
-} from 'types';
+import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
 import { VenueAttributes } from 'core/data/models/Venue';
 
 export interface GetAllVenuesActionParams extends ListRequestParams {
