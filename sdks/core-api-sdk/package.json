@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ultras/services": "^1.0.0",
+    "@ultras/utils": "^1.0.0",
     "yargs": "^17.2.1"
   },
   "devDependencies": {

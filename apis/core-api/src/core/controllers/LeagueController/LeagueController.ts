@@ -1,14 +1,11 @@
 import db from 'core/data/models';
+import { OrderEnum } from '@ultras/utils';
+
 import { LeagueCreationAttributes } from 'core/data/models/League';
 import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
-
-enum Order {
-  asc = 'asc',
-  desc = 'desc',
-}
 
 import {
   GetAllLeaguesActionParams,
@@ -22,7 +19,7 @@ class LeagueController {
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
     orderAttr = 'id',
-    order = Order.asc,
+    order = OrderEnum.asc,
     name,
     countryId,
   }: GetAllLeaguesActionParams): Promise<GetAllLeaguesActionResult> {
@@ -99,7 +96,7 @@ class LeagueController {
           ],
         },
         attributes: ['name', 'id'],
-        order: [['name', Order.asc]],
+        order: [['name', OrderEnum.asc]],
       });
 
       for (const country of countries) {

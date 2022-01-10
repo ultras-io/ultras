@@ -1,12 +1,17 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
+import { QueryParam } from '../types';
+
+type GetCitiesFilter = {
+  name?: string;
+  countryId?: number;
+};
 
 export class CitySdk extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'cities');
   }
 
-  // @TODO write types
-  public getCities(params = {}) {
+  public getCities(params: QueryParam<GetCitiesFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
       query_params: params,
     });

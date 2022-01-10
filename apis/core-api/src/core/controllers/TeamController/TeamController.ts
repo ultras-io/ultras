@@ -2,14 +2,9 @@ import db from 'core/data/models';
 import { TeamCreationAttributes } from 'core/data/models/Team';
 import { SomethingWentWrong } from 'modules/exceptions';
 
-import { TeamTypes } from '@ultras/utils';
+import { TeamTypesEnum, OrderEnum } from '@ultras/utils';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
-
-enum Order {
-  asc = 'asc',
-  desc = 'desc',
-}
 
 import {
   GetAllTeamsActionParams,
@@ -23,7 +18,7 @@ class TeamController {
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
     orderAttr = 'id',
-    order = Order.asc,
+    order = OrderEnum.asc,
     name,
     countryId,
     cityId,
@@ -120,7 +115,7 @@ class TeamController {
           ],
         },
         attributes: ['name', 'id'],
-        order: [['name', Order.asc]],
+        order: [['name', OrderEnum.asc]],
       });
 
       for (const country of countries) {
@@ -158,7 +153,7 @@ class TeamController {
             venueId: venue.getDataValue('id'),
             founded: item.team.founded,
             logo: item.team.logo,
-            type: item.team.national ? TeamTypes.national : TeamTypes.club,
+            type: item.team.national ? TeamTypesEnum.national : TeamTypesEnum.club,
             dataRapidId: item.team.id,
           });
         }

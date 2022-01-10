@@ -3,3 +3,5 @@
 
 cd "$(dirname "$0")" || exit 1
 bash ./_execute.sh "pre-commit"
+
+git add .

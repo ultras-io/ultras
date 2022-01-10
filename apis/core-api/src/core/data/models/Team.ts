@@ -1,6 +1,6 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
 
-import { TeamTypes } from '@ultras/utils';
+import { TeamTypesEnum } from '@ultras/utils';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -17,7 +17,7 @@ export interface TeamAttributes {
   venueId: number | null;
   founded?: number;
   logo: string;
-  type: TeamTypes;
+  type: TeamTypesEnum;
   dataRapidId: number;
 }
 
@@ -34,7 +34,7 @@ export class Team
   public venueId!: number;
   public founded!: number;
   public logo!: string;
-  public type!: TeamTypes;
+  public type!: TeamTypesEnum;
   public dataRapidId!: number;
 
   // timestamps!
@@ -122,7 +122,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
       },
       type: {
         type: new DataTypes.ENUM({
-          values: [TeamTypes.club, TeamTypes.national],
+          values: [TeamTypesEnum.club, TeamTypesEnum.national],
         }),
         allowNull: false,
       },
