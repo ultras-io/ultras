@@ -1,8 +1,5 @@
-import {
-  ControllerActionOperatedResult,
-  ControllerListActionResult,
-  ListRequestParams,
-} from 'types';
+import { ListRequestParams } from '@ultras/utils';
+import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
 import { CountryAttributes } from 'core/data/models/Country';
 
 export interface GetAllCountriesActionParams extends ListRequestParams {

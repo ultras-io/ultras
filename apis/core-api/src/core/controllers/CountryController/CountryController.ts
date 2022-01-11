@@ -1,14 +1,10 @@
 import db from 'core/data/models';
+import { OrderEnum } from '@ultras/utils';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectCountries, {
   RapidApiCountry,
 } from 'core/data/inject-scripts/injectCountries';
-
-enum Order {
-  asc = 'asc',
-  desc = 'desc',
-}
 
 import {
   GetAllCountriesActionParams,
@@ -24,7 +20,7 @@ class CountryController {
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
     orderAttr = 'name',
-    order = Order.asc,
+    order = OrderEnum.asc,
     name,
     code,
   }: GetAllCountriesActionParams): Promise<GetAllCountriesActionResult> {

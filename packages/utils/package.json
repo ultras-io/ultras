@@ -6,7 +6,7 @@
   "homepage": "https://github.com/ultras-io/ultras#readme",
   "license": "ISC",
   "main": "build/index.js",
-  "types": "build/types",
+  "types": "build/types/index.d.ts",
   "sideEffects": false,
   "directories": {
     "src": "src",

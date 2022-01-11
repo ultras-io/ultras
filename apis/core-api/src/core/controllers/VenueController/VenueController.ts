@@ -1,14 +1,11 @@
 import db from 'core/data/models';
+import { OrderEnum } from '@ultras/utils';
+
 import { VenueCreationAttributes } from 'core/data/models/Venue';
 import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
-
-enum Order {
-  asc = 'asc',
-  desc = 'desc',
-}
 
 import {
   GetAllVenuesActionParams,
@@ -22,7 +19,7 @@ class VenueController {
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
     orderAttr = 'id',
-    order = Order.asc,
+    order = OrderEnum.asc,
     name,
     countryId,
     cityId,
@@ -119,7 +116,7 @@ class VenueController {
           ],
         },
         attributes: ['name', 'id'],
-        order: [['name', Order.asc]],
+        order: [['name', OrderEnum.asc]],
       });
 
       for (const country of countries) {

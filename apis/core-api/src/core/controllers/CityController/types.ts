@@ -1,8 +1,5 @@
-import {
-  ControllerActionOperatedResult,
-  ControllerListActionResult,
-  ListRequestParams,
-} from 'types';
+import { ListRequestParams } from '@ultras/utils';
+import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
 import { CityCreationAttributes } from 'core/data/models/City';
 
 export interface GetAllCitiesActionParams extends ListRequestParams {

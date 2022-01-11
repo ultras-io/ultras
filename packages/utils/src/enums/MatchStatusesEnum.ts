@@ -1,4 +1,4 @@
-enum MatchStatuses {
+enum MatchStatusesEnum {
   /**
    * Till start the match
    */
@@ -40,4 +40,4 @@ enum MatchStatuses {
   canceled = 'canceled',
 }
 
-export default MatchStatuses;
+export default MatchStatusesEnum;

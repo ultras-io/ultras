@@ -1,5 +1,6 @@
 import * as Koa from 'Koa';
 import * as Router from 'koa-router';
+import { OrderEnum } from '@ultras/utils';
 
 interface ExtendableContext extends Context {
   ok: (response?: string | Record<string, unknown>) => Koa.Context;
@@ -35,21 +36,6 @@ export type Exception = {
   debug: string;
   details?: ErrorDetail;
 };
-
-export type PaginationParams = {
-  limit?: number;
-  offset?: number;
-};
-
-export enum Order {
-  desc = 'desc',
-  asc = 'asc',
-}
-
-export interface ListRequestParams extends PaginationParams {
-  order?: Order;
-  orderAttr?: string;
-}
 
 export interface ControllerListActionResult<T> {
   data: T[];

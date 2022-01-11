@@ -1,11 +1,7 @@
 import db from 'core/data/models';
+import { OrderEnum } from '@ultras/utils';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-
-enum Order {
-  asc = 'asc',
-  desc = 'desc',
-}
 
 import {
   GetAllCitiesActionResult,
@@ -23,7 +19,7 @@ class CityController {
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
     orderAttr = 'name',
-    order = Order.asc,
+    order = OrderEnum.asc,
     name,
     countryId,
   }: GetAllCitiesActionParams): Promise<GetAllCitiesActionResult> {
@@ -122,7 +118,7 @@ class CityController {
         ],
       },
       attributes: ['code', 'id'],
-      order: [['code', Order.asc]],
+      order: [['code', OrderEnum.asc]],
     });
 
     let citiesToInject: CityCreationAttributes[] = [];
@@ -142,6 +138,7 @@ class CityController {
         }
       }
     }
+
     await db.City.bulkCreate(citiesToInject);
     return { data: { success: true } };
   }

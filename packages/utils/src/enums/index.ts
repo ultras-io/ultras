@@ -1,4 +1,5 @@
-import MatchStatuses from './MatchStatuses';
-import TeamTypes from './TeamTypes';
+import OrderEnum from './OrderEnum';
+import MatchStatusesEnum from './MatchStatusesEnum';
+import TeamTypesEnum from './TeamTypesEnum';
 
-export { MatchStatuses, TeamTypes };
+export { OrderEnum, MatchStatusesEnum, TeamTypesEnum };

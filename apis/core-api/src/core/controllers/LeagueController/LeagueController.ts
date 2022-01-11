@@ -1,19 +1,20 @@
 import db from 'core/data/models';
-import { TeamCreationAttributes } from 'core/data/models/Team';
+import { OrderEnum } from '@ultras/utils';
+
+import { LeagueCreationAttributes } from 'core/data/models/League';
 import { SomethingWentWrong } from 'modules/exceptions';
 
-import { TeamTypesEnum, OrderEnum } from '@ultras/utils';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
+import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
 
 import {
-  GetAllTeamsActionParams,
-  GetAllTeamsActionResult,
-  InjectTeamsDataResult,
-  GetTeamByIdResult,
+  GetAllLeaguesActionParams,
+  GetAllLeaguesActionResult,
+  InjectLeaguesDataResult,
+  GetLeagueByIdResult,
 } from './types';
 
-class TeamController {
+class LeagueController {
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -21,11 +22,9 @@ class TeamController {
     order = OrderEnum.asc,
     name,
     countryId,
-    cityId,
-  }: GetAllTeamsActionParams): Promise<GetAllTeamsActionResult> {
+  }: GetAllLeaguesActionParams): Promise<GetAllLeaguesActionResult> {
     let nameQuery = null;
     let countryIdQuery: any = null;
-    let cityIdQuery: any = null;
     let query = null;
 
     if (name) {
@@ -40,38 +39,20 @@ class TeamController {
         countryId,
       };
     }
-    if (cityId) {
-      cityIdQuery = {
-        cityId: cityId,
-      };
-    }
 
-    if (nameQuery && (countryIdQuery || cityIdQuery)) {
+    if (nameQuery && countryIdQuery) {
       query = {
-        [db.Sequelize.Op.and]: [nameQuery],
-      };
-
-      if (countryIdQuery) {
-        query[db.Sequelize.Op.and].push(countryIdQuery);
-      }
-      if (cityIdQuery) {
-        query[db.Sequelize.Op.and].push(cityIdQuery);
-      }
-    } else if (countryIdQuery && cityIdQuery) {
-      query = {
-        [db.Sequelize.Op.and]: [countryIdQuery, cityIdQuery],
+        [db.Sequelize.Op.and]: [nameQuery, countryIdQuery],
       };
     } else {
       if (countryIdQuery) {
         query = countryIdQuery;
-      } else if (cityIdQuery) {
-        query = cityIdQuery;
       } else {
         query = nameQuery;
       }
     }
 
-    const { rows, count } = await db.Team.findAndCountAll({
+    const { rows, count } = await db.League.findAndCountAll({
       limit,
       offset,
       where: query,
@@ -86,18 +67,18 @@ class TeamController {
     };
   }
 
-  static async getById(id: number): Promise<GetTeamByIdResult> {
-    const Team = await db.Team.findByPk(id);
+  static async getById(id: number): Promise<GetLeagueByIdResult> {
+    const League = await db.League.findByPk(id);
 
     return {
-      data: Team,
+      data: League,
     };
   }
 
   /**
    * used to development purposes
    */
-  static async inject(): Promise<InjectTeamsDataResult> {
+  static async inject(): Promise<InjectLeaguesDataResult> {
     // inject here
     try {
       const excludedCountryCodes = ['AW', 'XK', 'PS', 'GP', 'GI', 'FO', 'CW', 'BM'];
@@ -121,44 +102,28 @@ class TeamController {
       for (const country of countries) {
         const {
           body: { response },
-        } = await injectTeams(country.getDataValue('name'));
+        } = await injectLeagues(country.getDataValue('name'));
 
         if (response.length === 0) {
           continue;
         }
 
-        const records: TeamCreationAttributes[] = [];
+        const records: LeagueCreationAttributes[] = [];
         for (const responseItem of response) {
-          const item: RapidApiTeam = responseItem as RapidApiTeam;
-          if (!item.team.name) {
-            continue;
-          }
-
-          const venue = await db.Venue.findOne({
-            where: {
-              dataRapidId: { [db.Sequelize.Op.eq]: item.venue.id },
-            },
-            attributes: ['id', 'cityId'],
-          });
-
-          if (!venue) {
-            console.log(`>>> missing in DB[venue]: ${item.venue.name}`);
+          const item: RapidApiLeague = responseItem as RapidApiLeague;
+          if (!item.league.name) {
             continue;
           }
 
           records.push({
-            name: item.team.name,
-            cityId: venue.getDataValue('cityId'),
+            name: item.league.name,
             countryId: country.getDataValue('id'),
-            venueId: venue.getDataValue('id'),
-            founded: item.team.founded,
-            logo: item.team.logo,
-            type: item.team.national ? TeamTypesEnum.national : TeamTypesEnum.club,
-            dataRapidId: item.team.id,
+            logo: item.league.logo,
+            dataRapidId: item.league.id,
           });
         }
 
-        await db.Team.bulkCreate(records);
+        await db.League.bulkCreate(records);
       }
 
       return { data: { success: true } };
@@ -171,4 +136,4 @@ class TeamController {
   }
 }
 
-export default TeamController;
+export default LeagueController;

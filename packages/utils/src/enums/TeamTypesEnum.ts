@@ -1,4 +1,4 @@
-enum TeamTypes {
+enum TeamTypesEnum {
   /**
    * Club team.
    */
@@ -10,4 +10,4 @@ enum TeamTypes {
   national = 'national',
 }
 
-export default TeamTypes;
+export default TeamTypesEnum;
