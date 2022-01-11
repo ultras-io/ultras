@@ -5,5 +5,6 @@ export * from './city';
 export * from './venue';
 export * from './team';
 export * from './league';
+export * from './match';
 
 export default CoreApiBaseSdk;

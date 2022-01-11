@@ -1,5 +1,6 @@
 import OrderEnum from './OrderEnum';
-import MatchStatusesEnum from './MatchStatusesEnum';
 import TeamTypesEnum from './TeamTypesEnum';
+import MatchStatusesEnum from './MatchStatusesEnum';
+import WinnerEnum from './WinnerEnum';
 
-export { OrderEnum, MatchStatusesEnum, TeamTypesEnum };
+export { OrderEnum, TeamTypesEnum, MatchStatusesEnum, WinnerEnum };

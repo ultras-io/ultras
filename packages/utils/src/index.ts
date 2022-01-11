@@ -1,6 +1,5 @@
-import humanizeDate from './humanizeDate';
+import humanizeDate from './helpers/humanizeDate';
 
 export * from './request';
 export * from './enums';
-
-export { humanizeDate };
+export * from './helpers';

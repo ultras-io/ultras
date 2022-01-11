@@ -87,10 +87,10 @@ class TeamController {
   }
 
   static async getById(id: number): Promise<GetTeamByIdResult> {
-    const Team = await db.Team.findByPk(id);
+    const team = await db.Team.findByPk(id);
 
     return {
-      data: Team,
+      data: team,
     };
   }
 

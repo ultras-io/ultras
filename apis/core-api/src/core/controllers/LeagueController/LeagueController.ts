@@ -68,10 +68,10 @@ class LeagueController {
   }
 
   static async getById(id: number): Promise<GetLeagueByIdResult> {
-    const League = await db.League.findByPk(id);
+    const league = await db.League.findByPk(id);
 
     return {
-      data: League,
+      data: league,
     };
   }
 
