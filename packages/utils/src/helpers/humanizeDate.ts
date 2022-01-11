@@ -27,7 +27,7 @@ function humanizeDate(date: Date | string, withDay = true): string {
     'Nov',
     'Dec',
   ];
-  
+
   return `${months[_date.getMonth()]}${
     withDay ? ` ${_date.getDate()}, ` : ' '
   }${_date.getFullYear()}`;

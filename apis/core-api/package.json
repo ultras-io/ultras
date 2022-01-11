@@ -8,7 +8,7 @@
     "dev": "nodemon",
     "prod": "NODE_ENV=production pm2 start build/api/index.js --env production --name ultras-api",
     "test": "echo Error: no test specified && exit 1",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.(ts|js)' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",

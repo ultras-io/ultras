@@ -25,7 +25,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build": "rimraf ./build && tsc",
-    "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
+    "prettier-format": "prettier --config .prettierrc '**/*.(ts|js)' --write",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix"
   },

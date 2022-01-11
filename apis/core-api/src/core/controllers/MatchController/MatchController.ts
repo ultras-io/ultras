@@ -28,7 +28,7 @@ class MatchController {
     leagueId,
     teamId,
   }: GetAllMatchesActionParams): Promise<GetAllMatchesActionResult> {
-    let query: any = {
+    const query: any = {
       [db.Sequelize.Op.and]: [],
     };
 

@@ -1,8 +1,11 @@
 #!/usr/env/bin bash
 cd "$(dirname "$0")" || exit 1
 
+CURRENT_PATH="$(realpath "$PWD")"
 ROOT_DIR="$(realpath "$PWD/..")"
 HOOK_CMD="$1"
+HOOK_PATH="scripts/git-hooks"
+OUTPUT_FILE="$CURRENT_PATH/output/$HOOK_CMD.log"
 
 # check is valid script
 if [[ "" == "$HOOK_CMD" ]]; then
@@ -13,12 +16,11 @@ fi
 # folder that script need to run
 PACKAGES_ROOT=(
   "apis"
-  "clients"
+  # "clients"
   "packages"
   "sdks"
 )
 
-OUTPUT_FILE="$(realpath "$(dirname "$0")")/output/$HOOK_CMD.log"
 rm -f "$OUTPUT_FILE"
 touch "$OUTPUT_FILE"
 
@@ -32,10 +34,10 @@ for PACKAGE in ${PACKAGES_ROOT[@]}; do
       continue
     fi
 
-    GIT_HOOK_SCRIPT="$SUB_PACKAGE/hooks/$HOOK_CMD.sh"
+    GIT_HOOK_SCRIPT="$SUB_PACKAGE/$HOOK_PATH/$HOOK_CMD.sh"
 
     if [[ -f "$GIT_HOOK_SCRIPT" ]]; then
-      RELATIVE_GIT_HOOK_SCRIPT="$PACKAGE/$(basename "$SUB_PACKAGE")/hooks/$HOOK_CMD.sh"
+      RELATIVE_GIT_HOOK_SCRIPT="$PACKAGE/$(basename "$SUB_PACKAGE")/$HOOK_PATH/$HOOK_CMD.sh"
       echo "---------------------------------------------------------------------------" >> "$OUTPUT_FILE"
       echo "-- Executing: $RELATIVE_GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
       echo "" >> "$OUTPUT_FILE"
