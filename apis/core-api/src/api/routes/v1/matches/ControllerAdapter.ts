@@ -5,7 +5,7 @@ import { Context } from 'types/index';
 class ControllerAdapter {
   static async inject(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const date = '2022-01-12';
+    const date = '2022-01-15';
 
     /** CONTROLLERS */
     const { data } = await MatchController.inject(date);

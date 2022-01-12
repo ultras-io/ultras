@@ -1,3 +1,5 @@
+
+import fs from "fs";
 import db from 'core/data/models';
 import { OrderEnum, WinnerEnum } from '@ultras/utils';
 
@@ -155,9 +157,9 @@ class MatchController {
           winner: WinnerEnum.draw,
           dataRapidId: item.fixture.id,
         });
-
-        await db.Match.bulkCreate(records);
       }
+
+      await db.Match.bulkCreate(records);
 
       return { data: { success: true } };
     } catch (e: any) {
