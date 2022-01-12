@@ -129,6 +129,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
       dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: false,
+        unique: true,
       },
     },
     {

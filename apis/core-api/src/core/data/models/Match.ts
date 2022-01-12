@@ -158,6 +158,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
       dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: false,
+        unique: true,
       },
     },
     {
