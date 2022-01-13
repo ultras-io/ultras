@@ -90,6 +90,7 @@ module.exports = (sequelize: Sequelize): typeof Country => {
       dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: true,
+        unique: true,
       },
     },
     {

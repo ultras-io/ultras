@@ -103,6 +103,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
       dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: false,
+        unique: true,
       },
     },
     {

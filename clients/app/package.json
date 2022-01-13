@@ -8,7 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.(ts|tsx|js|jsx)' --write",
     "create-component": "ultras-cli create-component"
   },
   "dependencies": {

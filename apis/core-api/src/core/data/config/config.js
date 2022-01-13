@@ -6,6 +6,10 @@ const configs = {
   database: dbConfig.database,
   host: dbConfig.host,
   dialect: 'postgres',
+  dialectOptions: {
+    useUTC: true,
+  },
+  timezone: '+00:00',
 };
 
 export default configs;

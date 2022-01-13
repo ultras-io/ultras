@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
 
-import { runTest as testEnums } from './lib-tests/enums';
+import { runTest as testUtilEnums } from './lib-tests/util-enums';
+import { runTest as testUtilTimezone } from './lib-tests/util-timezone';
 import { runTest as testSdkCountry } from './lib-tests/sdk-country';
 import { runTest as testSdkCity } from './lib-tests/sdk-city';
 import { runTest as testSdkVenue } from './lib-tests/sdk-venue';
 import { runTest as testSdkTeam } from './lib-tests/sdk-team';
 import { runTest as testSdkLeague } from './lib-tests/sdk-league';
+import { runTest as testSdkMatch } from './lib-tests/sdk-match';
 
 function App() {
   useEffect(() => {
-    testEnums();
+    testUtilEnums();
+    testUtilTimezone();
     testSdkCountry();
     testSdkCity();
     testSdkVenue();
     testSdkTeam();
     testSdkLeague();
+    testSdkMatch();
   }, []);
 
   return <div className="App">Open console to see test results.</div>;

@@ -72,6 +72,7 @@ module.exports = (sequelize: Sequelize): typeof League => {
       dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: false,
+        unique: true,
       },
     },
     {

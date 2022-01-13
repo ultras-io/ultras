@@ -1,11 +1,42 @@
 #!/usr/env/bin bash
 cd "$(dirname "$0")" || exit 1
-
+CURRENT_PATH="$(realpath "$PWD")"
 ROOT_DIR="$(realpath "$PWD/..")"
-HOOK_CMD="$1"
+
+. "$ROOT_DIR/.helpers.sh"
+
+# fill arguments
+SKIP_CHANGES_CHECK="false"
+HOOK_COMMAND=""
+
+for ARG in "$@"; do
+  if [[ "$ARG" =~ "--skip-check-changes=" ]]; then
+    SKIP_CHANGES_CHECK="${ARG:21}"
+  elif [[ "$ARG" =~ "--command=" ]]; then
+    HOOK_COMMAND="${ARG:10}"
+  fi
+done
+
+# variables
+HOOK_PATH="scripts/git-hooks"
+OUTPUT_FILE="$CURRENT_PATH/output/$HOOK_COMMAND.log"
+MODIFIED_LIST="$(cd $ROOT_DIR; git status --short | sed 's|[A-Z\?]*||' | grep -v .husky | xargs)"
+
+# check any git modification exists
+if [[ "true" == $SKIP_CHANGES_CHECK ]]; then
+  HAS_MODIFICATION=0
+  for MODIFIED_ITEM in ${MODIFIED_LIST[@]}; do
+    HAS_MODIFICATION=1
+    break
+  done
+
+  if [[ 0 == $HAS_MODIFICATION ]]; then
+    exit 0
+  fi
+fi
 
 # check is valid script
-if [[ "" == "$HOOK_CMD" ]]; then
+if [[ "" == "$HOOK_COMMAND" ]]; then
   echo "Hook name is required (e.g. pre-commit)."
   exit 2
 fi
@@ -13,12 +44,11 @@ fi
 # folder that script need to run
 PACKAGES_ROOT=(
   "apis"
-  "clients"
+  # "clients"
   "packages"
   "sdks"
 )
 
-OUTPUT_FILE="$(realpath "$(dirname "$0")")/output/$HOOK_CMD.log"
 rm -f "$OUTPUT_FILE"
 touch "$OUTPUT_FILE"
 
@@ -32,36 +62,51 @@ for PACKAGE in ${PACKAGES_ROOT[@]}; do
       continue
     fi
 
-    GIT_HOOK_SCRIPT="$SUB_PACKAGE/hooks/$HOOK_CMD.sh"
+    GIT_HOOK_SCRIPT="$SUB_PACKAGE/$HOOK_PATH/$HOOK_COMMAND.sh"
+    RELATIVE_GIT_HOOK_SCRIPT="$PACKAGE/$(basename "$SUB_PACKAGE")/$HOOK_PATH/$HOOK_COMMAND.sh"
+    SUB_PACKAGE_NAME="$(echo "$SUB_PACKAGE" | sed "s|$ROOT_DIR/||")"
 
-    if [[ -f "$GIT_HOOK_SCRIPT" ]]; then
-      RELATIVE_GIT_HOOK_SCRIPT="$PACKAGE/$(basename "$SUB_PACKAGE")/hooks/$HOOK_CMD.sh"
-      echo "---------------------------------------------------------------------------" >> "$OUTPUT_FILE"
-      echo "-- Executing: $RELATIVE_GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
-      echo "" >> "$OUTPUT_FILE"
+    if [[ "true" == $SKIP_CHANGES_CHECK ]]; then
+      SUB_PACKAGE_MODIFIED=0
+      for MODIFIED_ITEM in ${MODIFIED_LIST[@]}; do
+        if [[ "$MODIFIED_ITEM" =~ "$SUB_PACKAGE_NAME" ]]; then
+          SUB_PACKAGE_MODIFIED=1
+          break
+        fi
+      done
 
-      echo -en "  Executing $RELATIVE_GIT_HOOK_SCRIPT ... "
-      bash "$GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
+      if [[ 0 == $SUB_PACKAGE_MODIFIED ]]; then
+        echo "---------------------------------------------------------------------------" >> "$OUTPUT_FILE"
+        echo "-- No changes found: $RELATIVE_GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
+        echo "" >> "$OUTPUT_FILE"
 
-      if [[ $? != 0 ]]; then
-        echo "FAIL"
-        echo ""
+        print_row_wait "[$HOOK_COMMAND] No changes found $SUB_PACKAGE_NAME"
+        print_skip
 
-        echo -en "\033[0;31m"
-        echo "  Oooops !!!"
-        echo "  "
-        echo "  Something is not perfect, please fix the issue(s) and then run command again."
-        echo "  See output in $OUTPUT_FILE"
-        echo "  "
-        echo -en "\033[0m"
-
-        exit 3
+        continue
       fi
+    fi
 
-      echo "DONE"
+    if [[ ! -f "$GIT_HOOK_SCRIPT" ]]; then
+      echo "---------------------------------------------------------------------------" >> "$OUTPUT_FILE"
+      echo "-- Git-hook missing: $RELATIVE_GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
+      echo "" >> "$OUTPUT_FILE"
+
+      print_row_wait "[$HOOK_COMMAND] Git-hook missing $SUB_PACKAGE_NAME"
+      print_skip
+    else
+      echo "---------------------------------------------------------------------------" >> "$OUTPUT_FILE"
+      echo "-- Execute git-hook: $RELATIVE_GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
+      echo "" >> "$OUTPUT_FILE"
+
+      print_row_wait "[$HOOK_COMMAND] Execute git-hook $SUB_PACKAGE_NAME"
+      bash "$GIT_HOOK_SCRIPT" >> "$OUTPUT_FILE"
+      EXIT_CODE=$?
 
       echo "" >> "$OUTPUT_FILE"
       echo "" >> "$OUTPUT_FILE"
+
+      end_cmd_die $EXIT_CODE "Something is not perfect, please fix the issue(s) and then run command again.\n See output in $OUTPUT_FILE"
     fi
   done
 done

@@ -74,6 +74,7 @@ module.exports = (sequelize: Sequelize): typeof City => {
       dataRapidId: {
         type: new DataTypes.INTEGER(),
         allowNull: false,
+        unique: true,
       },
       countryId: {
         type: DataTypes.INTEGER.UNSIGNED,

@@ -88,10 +88,10 @@ class VenueController {
   }
 
   static async getById(id: number): Promise<GetVenueByIdResult> {
-    const Venue = await db.Venue.findByPk(id);
+    const venue = await db.Venue.findByPk(id);
 
     return {
-      data: Venue,
+      data: venue,
     };
   }
 
