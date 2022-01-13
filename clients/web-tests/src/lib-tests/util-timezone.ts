@@ -1,9 +1,11 @@
 import { timezone } from '@ultras/utils';
 
 export const runTest = () => {
-  const dateTime = '2021-01-01 00:00:00.000';
+  const dateTime = '2021-01-01 08:00:00.000';
 
-  console.log({
+  console.log('timezone:', {
+    dateTime,
+    
     zuluL2U: timezone.localToZulu(dateTime),
     zuluU2L: timezone.utcToZulu(dateTime),
 

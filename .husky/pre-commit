@@ -1,7 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-
 cd "$(dirname "$0")/../" || exit 1
-bash "$(dirname "$0")/_execute.sh" "pre-commit"
+
+bash "$(dirname "$0")/_execute.sh" \
+    --command=pre-commit\
+    --skip-check-changes=true
 
 git add .

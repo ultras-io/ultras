@@ -16,11 +16,6 @@ export class MatchSdk extends CoreApiBaseSDK {
     super(mode, 'matches');
   }
 
-  private dateToUtc(date: string, type: 'start' | 'end'): string {
-    const time = 'start' === type ? '00:00:00.000' : '23:59:59.999';
-    return timezone.localToZulu(`${date} ${time}`);
-  }
-
   public getMatches(params: QueryParam<GetMatchesFilter> = {}) {
     if (params.date) {
       params.dateFrom = params.date;
@@ -30,10 +25,10 @@ export class MatchSdk extends CoreApiBaseSDK {
     }
 
     if (params.dateFrom) {
-      params.dateFrom = this.dateToUtc(params.dateFrom, 'start');
+      params.dateFrom = timezone.localToZulu(`${params.dateFrom} 00:00:00.000`);
     }
     if (params.dateTo) {
-      params.dateTo = this.dateToUtc(params.dateTo, 'end');
+      params.dateTo = timezone.localToZulu(`${params.dateTo} 23:59:59.999`);
     }
 
     return this.api?.makeAPIGetRequest('', {

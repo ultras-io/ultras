@@ -1,5 +1,3 @@
-
-import fs from "fs";
 import db from 'core/data/models';
 import { OrderEnum, WinnerEnum } from '@ultras/utils';
 
