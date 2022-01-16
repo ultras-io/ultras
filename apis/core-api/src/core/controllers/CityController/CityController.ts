@@ -128,6 +128,7 @@ class CityController {
           country.dataValues.code,
           country.dataValues.id
         );
+
         citiesToInject = [...citiesToInject, ...cities];
       } catch (e: any) {
         if (![429, 404].includes(e.status)) {
@@ -139,7 +140,17 @@ class CityController {
       }
     }
 
-    await db.City.bulkCreate(citiesToInject);
+    const uniqueCitiesGrouped = citiesToInject.reduce(
+      (acc: any, item: CityCreationAttributes) => {
+        acc[item.dataRapidId] = item;
+        return acc;
+      },
+      {}
+    );
+
+    const uniqueCities = Object.values(uniqueCitiesGrouped);
+    await db.City.bulkCreate(uniqueCities);
+
     return { data: { success: true } };
   }
 }

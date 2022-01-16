@@ -70,16 +70,16 @@ module.exports = (sequelize: Sequelize): typeof Team => {
   Team.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cityId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -90,7 +90,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       countryId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,
@@ -101,7 +101,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: {
@@ -113,11 +113,11 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       founded: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       logo: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       type: {
@@ -127,7 +127,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         allowNull: false,
       },
       dataRapidId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },

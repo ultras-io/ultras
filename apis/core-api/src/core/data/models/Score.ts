@@ -50,12 +50,12 @@ module.exports = (sequelize: Sequelize): typeof Score => {
   Score.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       matchId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.MATCH.RELATION,
@@ -78,12 +78,12 @@ module.exports = (sequelize: Sequelize): typeof Score => {
         defaultValue: MatchScoreTypesEnum.fullTime,
       },
       home: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },
       away: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },

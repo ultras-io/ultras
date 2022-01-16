@@ -63,12 +63,12 @@ module.exports = (sequelize: Sequelize): typeof Country => {
   Country.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
         unique: {
           name: 'Country_name_unique_constraint',
@@ -76,11 +76,11 @@ module.exports = (sequelize: Sequelize): typeof Country => {
         },
       },
       code: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: true,
       },
       flag: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: true,
       },
       telPrefix: {
@@ -88,7 +88,7 @@ module.exports = (sequelize: Sequelize): typeof Country => {
         allowNull: true,
       },
       dataRapidId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: true,
         unique: true,
       },

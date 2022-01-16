@@ -118,6 +118,7 @@ class TeamController {
         order: [['name', OrderEnum.asc]],
       });
 
+      const records: TeamCreationAttributes[] = [];
       for (const country of countries) {
         const {
           body: { response },
@@ -127,7 +128,6 @@ class TeamController {
           continue;
         }
 
-        const records: TeamCreationAttributes[] = [];
         for (const responseItem of response) {
           const item: RapidApiTeam = responseItem as RapidApiTeam;
           if (!item.team.name) {
@@ -157,9 +157,18 @@ class TeamController {
             dataRapidId: item.team.id,
           });
         }
-
-        await db.Team.bulkCreate(records);
       }
+
+      const uniqueTeamsGrouped = records.reduce(
+        (acc: any, item: TeamCreationAttributes) => {
+          acc[item.dataRapidId] = item;
+          return acc;
+        },
+        {}
+      );
+
+      const uniqueTeams = Object.values(uniqueTeamsGrouped);
+      await db.Team.bulkCreate(uniqueTeams);
 
       return { data: { success: true } };
     } catch (e: any) {

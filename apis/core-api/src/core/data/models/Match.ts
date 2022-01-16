@@ -90,16 +90,16 @@ module.exports = (sequelize: Sequelize): typeof Match => {
   Match.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       dateTime: {
-        type: DataTypes.DATE(),
+        type: DataTypes.DATE,
         allowNull: false,
       },
       teamHomeId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -110,7 +110,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       teamAwayId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -121,7 +121,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.VENUE.RELATION,
@@ -132,7 +132,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       leagueId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.LEAGUE.RELATION,
@@ -165,19 +165,19 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         allowNull: false,
       },
       goalsHome: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       goalsAway: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       elapsedTime: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       dataRapidId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },

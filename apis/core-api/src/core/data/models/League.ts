@@ -46,16 +46,16 @@ module.exports = (sequelize: Sequelize): typeof League => {
   League.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       countryId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,
@@ -66,11 +66,11 @@ module.exports = (sequelize: Sequelize): typeof League => {
         onDelete: 'CASCADE',
       },
       logo: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       dataRapidId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },

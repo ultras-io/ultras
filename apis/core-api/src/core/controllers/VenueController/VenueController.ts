@@ -119,6 +119,7 @@ class VenueController {
         order: [['name', OrderEnum.asc]],
       });
 
+      const records: VenueCreationAttributes[] = [];
       for (const country of countries) {
         const {
           body: { response },
@@ -128,7 +129,6 @@ class VenueController {
           continue;
         }
 
-        const records: VenueCreationAttributes[] = [];
         for (const responseItem of response) {
           const item: RapidApiVenue = responseItem as RapidApiVenue;
           if (!item.name) {
@@ -157,9 +157,18 @@ class VenueController {
             dataRapidId: item.id,
           });
         }
-
-        await db.Venue.bulkCreate(records);
       }
+
+      const uniqueVenuesGrouped = records.reduce(
+        (acc: any, item: VenueCreationAttributes) => {
+          acc[item.dataRapidId] = item;
+          return acc;
+        },
+        {}
+      );
+
+      const uniqueVenues = Object.values(uniqueVenuesGrouped);
+      await db.Venue.bulkCreate(uniqueVenues);
 
       return { data: { success: true } };
     } catch (e: any) {

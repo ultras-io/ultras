@@ -59,23 +59,23 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
   Venue.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       address: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: true,
       },
       capacity: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
       },
       cityId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -86,7 +86,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         onDelete: 'CASCADE',
       },
       countryId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,
@@ -97,11 +97,11 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         onDelete: 'CASCADE',
       },
       imageUri: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       dataRapidId: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },
