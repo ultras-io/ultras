@@ -4,6 +4,7 @@ CURRENT_PATH="$(realpath "$PWD")"
 ROOT_DIR="$(realpath "$PWD/..")"
 
 source "$ROOT_DIR/scripts/.helpers.sh"
+trap on_process_kill SIGINT
 
 # fill arguments
 ADD_GIT_FILE="false"
@@ -94,6 +95,7 @@ function execute_git_hook_command() {
     echo "***************************************************************************************" >> "$OUTPUT_FILE"
     echo "" >> "$OUTPUT_FILE"
 
+    set_title "[$HOOK_COMMAND, $EXECUTION_PATH] Execute git-hook $SUB_PACKAGE_NAME ..."
     print_row_wait "[$HOOK_COMMAND, $EXECUTION_PATH] Execute git-hook $SUB_PACKAGE_NAME"
     bash "$HOOK_FILE_REAL" $SUB_PACKAGE_NAME >> "$OUTPUT_FILE"
     EXIT_CODE=$?
