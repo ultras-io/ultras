@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import { View, Image } from 'react-native';
 
-import {formatDateAndTime} from 'utils/helpers/matchTime';
+import { formatDateAndTime } from 'utils/helpers/matchTime';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
-import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
+import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 
-import {IMatchTimeProps, MatchStateEnum} from './types';
+import { IMatchTimeProps, MatchStateEnum } from './types';
 import styles from './styles';
 
 const MatchTime: React.FC<IMatchTimeProps> = ({
@@ -17,7 +17,7 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
   minute,
   invert = false,
 }) => {
-  const {date: formatedDate, time: formatedTime} = React.useMemo(() => {
+  const { date: formatedDate, time: formatedTime } = React.useMemo(() => {
     return formatDateAndTime(startTime, matchState, minute);
   }, [startTime, matchState, minute]);
 
@@ -29,17 +29,16 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
       />
       <View style={styles.logoWithTime}>
         <Box bgColor="secondaryText" style={styles.logoContainer}>
-          <Image source={{uri: leagueImageURI}} style={styles.logo} />
+          <Image source={{ uri: leagueImageURI }} style={styles.logo} />
         </Box>
         <View style={styles.dateTime}>
           <UltrasText
             style={styles.date}
-            color={invert ? 'tertiaryTextInvert' : 'tertiaryText'}>
+            color={invert ? 'tertiaryTextInvert' : 'tertiaryText'}
+          >
             {formatedDate}
           </UltrasText>
-          <UltrasText
-            style={styles.time}
-            color={invert ? 'textInvert' : 'text'}>
+          <UltrasText style={styles.time} color={invert ? 'textInvert' : 'text'}>
             {formatedTime}
           </UltrasText>
         </View>

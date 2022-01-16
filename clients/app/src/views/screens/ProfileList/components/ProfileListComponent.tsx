@@ -1,25 +1,25 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 import ProfileCard from 'views/components/compositions/ProfileCard';
-import {IProfileListComponentProps} from '../types';
+import { IProfileListComponentProps } from '../types';
 import styles from '../styles';
 
-const ProfileListComponent: React.FC<IProfileListComponentProps> = ({data}) => {
-  const {pushTo} = useNavigationWithParams();
+const ProfileListComponent: React.FC<IProfileListComponentProps> = ({ data }) => {
+  const { pushTo } = useNavigationWithParams();
 
   const renderRow = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <ProfileCard
-        onPress={() => pushTo(commonScreens.profile, {id: item.id})}
+        onPress={() => pushTo(commonScreens.profile, { id: item.id })}
         name={item.name}
         username={item.username}
         avatarUri={item.avatarUri}
         appearence="minimal"
       />
     ),
-    [pushTo],
+    [pushTo]
   );
 
   return (

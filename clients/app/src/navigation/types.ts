@@ -1,22 +1,44 @@
-import { ComponentType } from 'react';
+import React, { ComponentType } from 'react';
 
-export type CommonScreens = {
-  match: string;
-  event: string;
-  post: string;
-  team: string;
-  supportersClub: string;
-  supportersClubAbout: string;
-  profile: string;
-  newEvent: string;
-  profileList: string;
-};
+export type CommonScreens = Record<
+  | 'match'
+  | 'event'
+  | 'post'
+  | 'team'
+  | 'supportersClub'
+  | 'supportersClubAbout'
+  | 'profile'
+  | 'newEvent'
+  | 'profileList',
+  {
+    name:
+      | 'Match'
+      | 'Event'
+      | 'Post'
+      | 'Team'
+      | 'SupportersClub'
+      | 'SupportersClubAbout'
+      | 'Profile'
+      | 'NewEvent'
+      | 'ProfileList';
+    component: React.FC<any>;
+    headerTitle?: React.FunctionComponent<any>;
+    isModal?: boolean;
+    headerShown?: boolean;
+  }
+>;
 
 export type NavigationScreen = {
   name: string;
   tabName?: string;
   component: ComponentType<any>;
-  options?: any; // NativeStackNavigationOptions
+  options?: {
+    headerTitle?: React.FunctionComponent<any>;
+    tabBarIcon?: React.FunctionComponent<any>;
+    isModal?: boolean;
+    headerShown?: boolean;
+    headerBackVisible?: boolean;
+  };
 };
 
 export type RootNavigationScreens = {
@@ -33,10 +55,6 @@ export type TabNavigationScreens = {
   matches: NavigationScreen;
   events: NavigationScreen;
   profile: NavigationScreen;
-};
-
-export type HomeNavigationScreens = {
-  home: NavigationScreen;
 };
 
 export type SearchNavigationScreens = {
@@ -72,3 +90,12 @@ export type TeamTabScreens = {
   matches: NavigationScreen;
   events: NavigationScreen;
 };
+
+export type ScreenNavigationConfig = Record<
+  string,
+  {
+    tabName: string;
+    initialScreenName: string;
+    screens: NavigationScreen[];
+  }
+>;

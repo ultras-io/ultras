@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Pressable} from 'react-native';
+import { View, Image, Pressable } from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
 
@@ -14,10 +14,10 @@ import Button, {
 } from 'views/components/base/Button';
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
-import {IconNamesEnum} from 'assets/icons';
-import {getReadableNumber} from 'utils/helpers/readableNumber';
+import { IconNamesEnum } from 'assets/icons';
+import { getReadableNumber } from 'utils/helpers/readableNumber';
 
-import {IEventCardProps} from './types';
+import { IEventCardProps } from './types';
 import styles from './styles';
 
 const EventCard: React.FC<IEventCardProps> = ({
@@ -37,7 +37,7 @@ const EventCard: React.FC<IEventCardProps> = ({
   return (
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
-        {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
+        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <View style={styles.innerContainer}>
           <UltrasText style={styles.date} color="text">
             {date < new Date()

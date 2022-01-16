@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import TeamsComponent from 'views/components/compositions/TeamsHorizontal/TeamsComponent';
@@ -7,14 +7,11 @@ import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 
-import {ITeamsContainerProps} from './types';
+import { ITeamsContainerProps } from './types';
 import styles from 'views/components/compositions/TeamsHorizontal/styles';
 
-const TeamsContainer: React.FC<ITeamsContainerProps> = ({
-  data,
-  withBounce = true,
-}) => {
-  const {pushTo} = useNavigationWithParams();
+const TeamsContainer: React.FC<ITeamsContainerProps> = ({ data, withBounce = true }) => {
+  const { pushTo } = useNavigationWithParams();
 
   return (
     <View>
@@ -25,7 +22,7 @@ const TeamsContainer: React.FC<ITeamsContainerProps> = ({
       </View>
       <TeamsComponent
         data={data}
-        onPress={id => pushTo(commonScreens.team, {id})}
+        onPress={id => pushTo(commonScreens.team, { id })}
         withBounce={withBounce}
       />
     </View>

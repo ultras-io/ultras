@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import WithSafeArea from 'views/components/base/WithSafeArea';
@@ -7,7 +7,7 @@ import Input from 'views/components/base/Input';
 
 import SearchTabNavigation from 'navigation/searchTab/searchTabNavigation';
 
-import {ISearchProps} from './types';
+import { ISearchProps } from './types';
 import styles from './styles';
 
 const Search: React.FC<ISearchProps> = () => {
@@ -17,7 +17,7 @@ const Search: React.FC<ISearchProps> = () => {
     text => {
       setSearchText(text.value);
     },
-    [setSearchText],
+    [setSearchText]
   );
   return (
     <WithSafeArea>

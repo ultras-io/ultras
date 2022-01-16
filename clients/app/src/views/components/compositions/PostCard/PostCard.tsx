@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Pressable} from 'react-native';
+import { View, Pressable } from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
 
@@ -10,9 +10,9 @@ import Icon from 'views/components/base/Icon';
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
 
-import {IconNamesEnum} from 'assets/icons';
+import { IconNamesEnum } from 'assets/icons';
 
-import {IPostCardProps} from './types';
+import { IPostCardProps } from './types';
 import styles from './styles';
 
 const PostCard: React.FC<IPostCardProps> = ({

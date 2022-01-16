@@ -1,22 +1,22 @@
 import React from 'react';
-import {View, Pressable} from 'react-native';
+import { View, Pressable } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
-import {getReadableNumber} from 'utils/helpers/readableNumber';
+import { getReadableNumber } from 'utils/helpers/readableNumber';
 
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
-import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
+import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
+import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 import Button, {
   AppearanceEnum as ButtonAppearance,
   BoxSizeEnum as ButtonBoxSize,
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { IconNamesEnum as Icons } from 'assets/icons';
 
-import {ISupportersClubInfoProps} from './types';
+import { ISupportersClubInfoProps } from './types';
 import styles from './styles';
 
 const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
@@ -27,7 +27,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
   team,
   myStatus, // eslint-disable-line @typescript-eslint/no-unused-vars
 }) => {
-  const {pushTo} = useNavigationWithParams();
+  const { pushTo } = useNavigationWithParams();
 
   return (
     <>
@@ -42,8 +42,9 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
           <View style={styles.line}>
             <Pressable
               onPress={() =>
-                pushTo(commonScreens.profileList, {title: I18n.t('ultras')})
-              }>
+                pushTo(commonScreens.profileList, { title: I18n.t('ultras') })
+              }
+            >
               <UltrasText color="secondaryText" style={styles.text}>
                 {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
               </UltrasText>
@@ -57,7 +58,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
           </View>
           <Button
             title={team.name}
-            onPress={() => pushTo(commonScreens.team, {id: team.id})}
+            onPress={() => pushTo(commonScreens.team, { id: team.id })}
             boxSize={ButtonBoxSize.Contain}
             appearance={ButtonAppearance.Minimal}
             color="secondaryText"

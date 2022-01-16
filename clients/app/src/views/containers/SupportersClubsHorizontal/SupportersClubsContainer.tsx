@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import SupportersClubsComponent from 'views/components/compositions/SupportersClubsHorizontal/SupportersClubsComponent';
@@ -8,21 +8,19 @@ import Button, {
   BoxSizeEnum as ButtonBoxSize,
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
-import {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
+import { IconNamesEnum as Icons } from 'assets/icons';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import tabScreens from 'navigation/tab/tabScreens';
 import commonScreens from 'navigation/commonScreens';
 
-import searchTabScreens, {
-  TAB_NAME,
-} from 'navigation/searchTab/searchTabScreens';
+import searchTabScreens, { TAB_NAME } from 'navigation/searchTab/searchTabScreens';
 
-import {ISupportersClubsContainerProps} from './types';
+import { ISupportersClubsContainerProps } from './types';
 import styles from 'views/components/compositions/SupportersClubsHorizontal/styles';
 
-import {generateSupportersClubs} from 'utils/helpers/dummy';
+import { generateSupportersClubs } from 'utils/helpers/dummy';
 
 const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> = ({
   showHeaderButton = true,
@@ -33,7 +31,7 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> = ({
   // get data
   data = data ? data : generateSupportersClubs(10);
 
-  const {changeTab, pushTo} = useNavigationWithParams();
+  const { changeTab, pushTo } = useNavigationWithParams();
 
   const navigateToSupportersClubs = React.useCallback(() => {
     changeTab(tabScreens.search.name); // navigate to Search in TabNavigation
@@ -61,7 +59,7 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> = ({
       </View>
       <SupportersClubsComponent
         data={data}
-        onPress={id => pushTo(commonScreens.supportersClub, {id})}
+        onPress={id => pushTo(commonScreens.supportersClub.name, { id })}
         onEndReached={() => {}}
         avatarSize={avatarSize}
         withBounce={withBounce}

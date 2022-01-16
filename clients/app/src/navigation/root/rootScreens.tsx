@@ -10,7 +10,7 @@ import I18n from 'i18n/i18n';
 import UltrasText from 'views/components/base/UltrasText';
 import styles from 'styles/styles';
 
-import type {RootNavigationScreens} from '../types';
+import type { RootNavigationScreens } from '../types';
 
 const SCREENS: RootNavigationScreens = {
   intro: {

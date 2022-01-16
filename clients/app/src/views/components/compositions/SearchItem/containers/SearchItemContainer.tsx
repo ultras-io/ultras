@@ -2,13 +2,9 @@ import React from 'react';
 
 import SearchItemComponent from '../components/SearchItemComponent';
 
-import {
-  generateClubsList,
-  generateEvents,
-  generateProfiles,
-} from 'utils/helpers/dummy';
+import { generateClubsList, generateEvents, generateProfiles } from 'utils/helpers/dummy';
 
-import {ISearchItemProps} from '../types';
+import { ISearchItemProps } from '../types';
 
 const clubsData = [
   {
@@ -55,10 +51,7 @@ const clubsData = [
   },
 ];
 
-const SearchItemContainer: React.FC<ISearchItemProps> = ({
-  searchItem,
-  searchText,
-}) => {
+const SearchItemContainer: React.FC<ISearchItemProps> = ({ searchItem, searchText }) => {
   const [data, setData] = React.useState<Array<any>>([]);
 
   function shuffle(array: Array<any>) {
@@ -87,18 +80,18 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({
       setData(
         shuffle([
           ...generateProfiles(6).map(x => {
-            return {...x, type: 'ultras'};
+            return { ...x, type: 'ultras' };
           }),
           ...clubsData.map(x => {
-            return {...x, type: 'clubs'};
+            return { ...x, type: 'clubs' };
           }),
           ...generateClubsList(5).map(x => {
-            return {...x, type: 'teams'};
+            return { ...x, type: 'teams' };
           }),
           ...generateEvents(2).map(x => {
-            return {...x, type: 'events'};
+            return { ...x, type: 'events' };
           }),
-        ]),
+        ])
       );
     } else if (searchItem === 'ultras') {
       setData(generateProfiles(20));

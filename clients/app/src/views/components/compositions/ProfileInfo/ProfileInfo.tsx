@@ -1,13 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
+import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 
 import TeamsContainer from 'views/containers/TeamsHorizontal/TeamsContainer';
 import SupportersClubsContainer from 'views/containers/SupportersClubsHorizontal/SupportersClubsContainer';
 
-import {IProfileInfoProps} from './types';
+import { IProfileInfoProps } from './types';
 import styles from './styles';
 
 const ProfileInfo: React.FC<IProfileInfoProps> = ({
@@ -27,10 +27,7 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({
           <UltrasText color="tertiary" style={styles.name}>
             {name}
           </UltrasText>
-          <UltrasText
-            color="tertiaryText"
-            style={styles.username}
-            numberOfLines={1}>
+          <UltrasText color="tertiaryText" style={styles.username} numberOfLines={1}>
             {username}
           </UltrasText>
         </View>

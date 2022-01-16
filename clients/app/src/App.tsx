@@ -1,11 +1,11 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import { StatusBar } from 'react-native';
 // import moment from 'moment';
-import {ThemeProvider} from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import RootNavigation from 'navigation/root/rootNavigation';
-import {theme} from 'themes';
+import { theme } from 'themes';
 
 const App = () => {
   // TODO locales
@@ -31,10 +31,7 @@ const App = () => {
   // });
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colors.bgColor}
-      />
+      <StatusBar barStyle="light-content" backgroundColor={theme.colors.bgColor} />
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>

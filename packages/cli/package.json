@@ -1,39 +1,35 @@
 {
-  "name": "@ultras/cli",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Cli commands for ultras internal usages ",
-  "author": "rubenaprikyan <rubenaprikyan@gmail.com>",
-  "homepage": "https://github.com/ultras-io/ultras#readme",
-  "license": "ISC",
-  "main": "commands/createComponent.js.js",
-  "bin": {
-    "ultras-cli": "bin/cli"
-  },
-  "directories": {
-    "lib": "commands",
-    "test": "__tests__"
-  },
-  "files": [
-    "bin",
-    "lib"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ultras-io/ultras.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
-    "prettier-format": "prettier --config .prettierrc '**/*.js' --write"
-  },
-  "dependencies": {
-    "eslint": "^8.0.1",
-    "yargs": "^17.2.1"
-  },
-  "devDependencies": {
-    "prettier": "^2.5.1"
-  },
-  "bugs": {
-    "url": "https://github.com/ultras-io/ultras/issues"
-  }
+	"name": "@ultras/cli",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Cli commands for ultras internal usages ",
+	"author": "rubenaprikyan <rubenaprikyan@gmail.com>",
+	"homepage": "https://github.com/ultras-io/ultras#readme",
+	"license": "ISC",
+	"main": "commands/createComponent.js.js",
+	"bin": {
+		"ultras-cli": "bin/cli"
+	},
+	"directories": {
+		"lib": "commands",
+		"test": "__tests__"
+	},
+	"files": [
+		"bin",
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ultras-io/ultras.git"
+	},
+	"dependencies": {
+		"eslint": "^8.0.1",
+		"yargs": "^17.2.1"
+	},
+	"devDependencies": {
+		"prettier": "^2.5.1"
+	},
+	"bugs": {
+		"url": "https://github.com/ultras-io/ultras/issues"
+	}
 }

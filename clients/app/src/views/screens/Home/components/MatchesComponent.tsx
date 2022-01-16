@@ -1,27 +1,25 @@
 import React from 'react';
-import {FlatList, Platform} from 'react-native';
+import { FlatList, Platform } from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 
 import MatchCard from 'views/components/compositions/MatchCard';
 
-import {IMatchesComponentProps} from '../types';
+import { IMatchesComponentProps } from '../types';
 import styles from '../styles';
 
-const MatchesComponent: React.FC<IMatchesComponentProps> = ({
-  data,
-  onEndReached,
-}) => {
-  const flatListRef = React.useRef<FlatList<any>>();
-  const scrollPosition = React.useRef({step: 0, x: 0});
-  const {pushTo} = useNavigationWithParams();
+const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached }) => {
+  const flatListRef: React.MutableRefObject<FlatList<unknown> | undefined> =
+    React.useRef<FlatList<unknown>>();
+  const scrollPosition = React.useRef({ step: 0, x: 0 });
+  const { pushTo } = useNavigationWithParams();
 
   const renderRow = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <MatchCard
         id={item.id}
-        onPress={() => pushTo(commonScreens.match, {id: item.id})}
+        onPress={() => pushTo(commonScreens.match.name, { id: item.id })}
         team1Name={item.team1Name}
         team2Name={item.team2Name}
         team1URI={item.team1URI}
@@ -36,17 +34,16 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
         horizontal
       />
     ),
-    [pushTo],
+    [pushTo]
   );
 
-  const onScrollBeginDrag = React.useCallback(({nativeEvent}) => {
+  const onScrollBeginDrag = React.useCallback(({ nativeEvent }) => {
     scrollPosition.current.x = nativeEvent.contentOffset.x;
   }, []);
 
   const onScrollEndDrag = React.useCallback(
-    ({nativeEvent}) => {
-      const step =
-        scrollPosition.current.x < nativeEvent.contentOffset.x ? 1 : -1;
+    ({ nativeEvent }) => {
+      const step = scrollPosition.current.x < nativeEvent.contentOffset.x ? 1 : -1;
       let newStep = scrollPosition.current.step + step;
       newStep = newStep < 0 ? 0 : newStep;
       newStep = newStep >= data.length ? data.length - 1 : newStep;
@@ -55,7 +52,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
         index: scrollPosition.current.step,
       });
     },
-    [data.length],
+    [data.length]
   );
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Pressable} from 'react-native';
+import { View, Image, Pressable } from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
 
@@ -13,14 +13,14 @@ import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import Like from 'views/components/base/Like';
 import Box from 'views/components/base/Box';
-import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
-import {EventInfoProps} from '../EventCard';
+import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
+import { EventInfoProps } from '../EventCard';
 
-import {getReadableNumber} from 'utils/helpers/readableNumber';
-import {upperCaseFirstLetter} from 'utils/helpers/string';
+import { getReadableNumber } from 'utils/helpers/readableNumber';
+import { upperCaseFirstLetter } from 'utils/helpers/string';
 
 import styles from './styles';
 
@@ -37,11 +37,11 @@ const EventInfo: React.FC<EventInfoProps> = ({
   isGoing,
   isLiked,
 }) => {
-  const {pushTo} = useNavigationWithParams();
+  const { pushTo } = useNavigationWithParams();
 
   return (
     <>
-      {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
+      {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
 
       <View style={styles.container}>
         <UltrasText style={styles.date} color="secondaryText">
@@ -57,7 +57,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
           <Button
             title={'Chelsea - Manchester United'}
             onPress={
-              () => pushTo(commonScreens.match, {id: 67}) // matchId
+              () => pushTo(commonScreens.match.name, { id: 67 }) // matchId
             }
             color="textInvert"
             bgColor="opacityBgColorInvert"
@@ -74,8 +74,9 @@ const EventInfo: React.FC<EventInfoProps> = ({
         <View style={styles.creatorContainer}>
           <Pressable
             onPress={
-              () => pushTo(commonScreens.profile, {id: 67}) // profileid
-            }>
+              () => pushTo(commonScreens.profile.name, { id: 67 }) // profileid
+            }
+          >
             <UltrasText style={styles.creator} color="text">
               {I18n.t('eventsBy')} {creator}
               {supportersClub && ', '}
@@ -84,8 +85,9 @@ const EventInfo: React.FC<EventInfoProps> = ({
           {supportersClub && (
             <Pressable
               onPress={
-                () => pushTo(commonScreens.supportersClub, {id: 67}) // supporterClubsId
-              }>
+                () => pushTo(commonScreens.supportersClub.name, { id: 67 }) // supporterClubsId
+              }
+            >
               <UltrasText style={styles.creator} color="secondary">
                 {supportersClub}
               </UltrasText>
@@ -96,8 +98,9 @@ const EventInfo: React.FC<EventInfoProps> = ({
         <View style={styles.stats}>
           <Pressable
             onPress={() =>
-              pushTo(commonScreens.profileList, {title: I18n.t('going')})
-            }>
+              pushTo(commonScreens.profileList.name, { title: I18n.t('going') })
+            }
+          >
             <UltrasText style={styles.going} color="tertiaryText">
               {getReadableNumber(goingCount)} {I18n.t('going')}
             </UltrasText>
@@ -107,8 +110,9 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </View>
           <Pressable
             onPress={() =>
-              pushTo(commonScreens.profileList, {title: I18n.t('likes')})
-            }>
+              pushTo(commonScreens.profileList.name, { title: I18n.t('likes') })
+            }
+          >
             <UltrasText style={styles.going} color="tertiaryText">
               {getReadableNumber(likeCount)} {I18n.t('likes')}
             </UltrasText>
@@ -118,9 +122,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
         <View style={styles.actionBox}>
           <View style={styles.goingButton}>
             <Button
-              title={
-                isGoing ? upperCaseFirstLetter(I18n.t('going')) : I18n.t('join')
-              }
+              title={isGoing ? upperCaseFirstLetter(I18n.t('going')) : I18n.t('join')}
               onPress={() => {}}
               boxSize={ButtonBoxSize.Cover}
               size={ButtonSize.Big}

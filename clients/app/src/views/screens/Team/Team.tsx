@@ -5,10 +5,10 @@ import TeamContainer from './containers/TeamContainer';
 
 import TeamTabNavigation from 'navigation/teamTab/teamTabNavigation';
 
-import {ITeamProps} from './types';
+import { ITeamProps } from './types';
 
-const Team: React.FC<ITeamProps> = ({route}) => {
-  const {id, tabName} = route.params;
+const Team: React.FC<ITeamProps> = ({ route }) => {
+  const { id, tabName } = route.params;
   return (
     <WithSafeArea>
       <TeamContainer id={id} />

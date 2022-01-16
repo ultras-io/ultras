@@ -1,6 +1,6 @@
 import I18n from 'i18n/i18n';
 
-import SearchItem from 'views/screens/SearchItem';
+import SearchItem from 'views/components/compositions/SearchItem';
 
 import type { SearchTabScreens } from '../types';
 

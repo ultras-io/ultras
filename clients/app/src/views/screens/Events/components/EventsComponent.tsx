@@ -1,28 +1,25 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useScrollToTop} from '@react-navigation/native';
+import { FlatList } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import commonScreens from 'navigation/commonScreens';
 
 import EventCard from 'views/components/compositions/EventCard';
 
-import {IEventsComponentProps} from '../types';
+import { IEventsComponentProps } from '../types';
 import styles from '../styles';
 
-const EventsComponent: React.FC<IEventsComponentProps> = ({
-  data,
-  onEndReached,
-}) => {
-  const {pushTo} = useNavigationWithParams();
+const EventsComponent: React.FC<IEventsComponentProps> = ({ data, onEndReached }) => {
+  const { pushTo } = useNavigationWithParams();
 
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
   const renderRow = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <EventCard
-        onPress={() => pushTo(commonScreens.event, {id: item.id})}
+        onPress={() => pushTo(commonScreens.event.name, { id: item.id })}
         imageUri={item.imageUri}
         date={item.date}
         title={item.title}
@@ -35,7 +32,7 @@ const EventsComponent: React.FC<IEventsComponentProps> = ({
         isLiked={item.isLiked}
       />
     ),
-    [pushTo],
+    [pushTo]
   );
 
   return (

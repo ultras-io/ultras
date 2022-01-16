@@ -1,12 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 import MatchesComponent from '../components/MatchesComponent';
 
-import {IMatchesContainerProps} from '../types';
+import { IMatchesContainerProps } from '../types';
 import styles from '../styles';
 
-import {generateMatches} from 'utils/helpers/dummy';
+import { generateMatches } from 'utils/helpers/dummy';
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
   const [data, setData] = React.useState<Array<any>>([]);

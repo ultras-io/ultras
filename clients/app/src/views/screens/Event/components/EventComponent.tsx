@@ -5,9 +5,9 @@ import React from 'react';
 
 import EventInfo from 'views/components/compositions/EventInfo';
 
-import {IEventComponentProps} from '../types';
+import { IEventComponentProps } from '../types';
 
-const EventComponent: React.FC<IEventComponentProps> = ({data}) => {
+const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   // const {setOptions, pushTo} = useNavigationWithParams();
 
   return (

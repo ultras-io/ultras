@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SearchListComponent from '../components/SearchListComponent';
-import {ISearchListContainerProps, SearchItem, dataTypeEnum} from '../types';
+import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
 
-import {generateClubsList, generateTeamsList} from 'utils/helpers/dummy';
+import { generateClubsList, generateTeamsList } from 'utils/helpers/dummy';
 
 const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,

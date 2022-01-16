@@ -1,9 +1,9 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
 
-import {ISupportersClubsComponentProps} from 'views/containers/SupportersClubsHorizontal';
+import { ISupportersClubsComponentProps } from 'views/containers/SupportersClubsHorizontal';
 import styles from './styles';
 
 const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
@@ -14,7 +14,7 @@ const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
   onEndReached,
 }) => {
   const renderColumn = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <SupportersClubCard
         onPress={() => onPress(item.id)}
         name={item.name}
@@ -24,7 +24,7 @@ const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
         direction="horizontal"
       />
     ),
-    [onPress, avatarSize],
+    [onPress, avatarSize]
   );
 
   return (

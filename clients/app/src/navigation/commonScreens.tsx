@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComponentType} from 'react';
+import { ComponentType } from 'react';
 
 import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
@@ -13,26 +13,62 @@ import ProfileList from 'views/screens/ProfileList';
 
 import UltrasText from 'views/components/base/UltrasText';
 
-import type {CommonScreens} from './types';
+import type { CommonScreens } from './types';
 import styles from 'styles/styles';
 
-export const TAB_NAME = 'Search';
-
+// don't touch ordering
 export const COMMON_SCREENS: CommonScreens = {
-  match: 'Match',
-  event: 'Event',
-  post: 'Post',
-  team: 'Team',
-  supportersClub: 'SupportersClub',
-  supportersClubAbout: 'SupportersClubAbout',
-  profile: 'Profile',
-  newEvent: 'NewEvent',
-  profileList: 'ProfileList',
+  match: {
+    name: 'Match',
+    component: Match,
+  },
+  event: {
+    name: 'Event',
+    component: Event,
+  },
+  post: {
+    name: 'Post',
+    component: Post,
+  },
+  team: {
+    name: 'Team',
+    component: Team,
+  },
+  supportersClub: {
+    name: 'SupportersClub',
+    component: SupportersClub,
+  },
+  profile: {
+    name: 'Profile',
+    component: Profile,
+    headerTitle: () => (
+      <UltrasText style={styles.headerLogo} color="primary">
+        ultras
+      </UltrasText>
+    ),
+  },
+  profileList: {
+    name: 'ProfileList',
+    component: ProfileList,
+  },
+  newEvent: {
+    name: 'NewEvent', // @TODO change to create Event
+    component: NewEvent,
+    isModal: true,
+    headerShown: false,
+  },
+  supportersClubAbout: {
+    name: 'SupportersClubAbout',
+    component: SupportersClubAbout,
+    isModal: true,
+    headerShown: true,
+  },
 };
 
 const defaultOptions = {
   headerTitle: '',
   headerBackTitle: '',
+  headerShown: true,
 };
 
 const generateScreen = (
@@ -40,50 +76,45 @@ const generateScreen = (
   screenName: string,
   Stack: any,
   component: ComponentType<any>,
-  options: any = defaultOptions,
+  options: any = defaultOptions
 ) => (
   <Stack.Screen
+    key={`${tabName}:${screenName}`}
     name={`${tabName}:${screenName}`}
     component={component}
-    initialParams={{tabName: tabName}}
+    initialParams={{ tabName }}
     options={options}
   />
 );
 
 export const generateCommonScreens = (tabName: string, Stack: any) => (
-  <>
-    {generateScreen(tabName, COMMON_SCREENS.match, Stack, Match)}
-    {generateScreen(tabName, COMMON_SCREENS.event, Stack, Event)}
-    {generateScreen(tabName, COMMON_SCREENS.post, Stack, Post)}
-    {generateScreen(tabName, COMMON_SCREENS.team, Stack, Team)}
-    {generateScreen(
-      tabName,
-      COMMON_SCREENS.supportersClub,
-      Stack,
-      SupportersClub,
-    )}
-    {generateScreen(tabName, COMMON_SCREENS.profile, Stack, Profile, {
-      headerTitle: () => (
-        <UltrasText style={styles.headerLogo} color="primary">
-          ultras
-        </UltrasText>
-      ),
+  <React.Fragment>
+    {Object.values(COMMON_SCREENS).map(item => {
+      if (!item.isModal) {
+        return generateScreen(
+          tabName,
+          item.name,
+          Stack,
+          item.component,
+          item.headerTitle
+            ? {
+                headerTitle: item.headerTitle,
+              }
+            : defaultOptions
+        );
+      }
     })}
-    {generateScreen(tabName, COMMON_SCREENS.profileList, Stack, ProfileList)}
 
-    <Stack.Group screenOptions={{presentation: 'modal'}}>
-      {generateScreen(
-        tabName,
-        COMMON_SCREENS.supportersClubAbout,
-        Stack,
-        SupportersClubAbout,
-        {
-          headerShown: false,
-        },
-      )}
-      {generateScreen(tabName, COMMON_SCREENS.newEvent, Stack, NewEvent)}
+    <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      {Object.values(COMMON_SCREENS).map(item => {
+        if (item.isModal) {
+          return generateScreen(tabName, item.name, Stack, item.component, {
+            headerShown: item.headerShown,
+          });
+        }
+      })}
     </Stack.Group>
-  </>
+  </React.Fragment>
 );
 
 export default COMMON_SCREENS;

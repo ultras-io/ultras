@@ -1,9 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
-import Input, {TypeEnum as InputType} from 'views/components/base/Input';
+import Input, { TypeEnum as InputType } from 'views/components/base/Input';
 
-import {IPhoneInputProps} from './types';
+import { IPhoneInputProps } from './types';
 import styles from './styles';
 
 const PhoneInput: React.FC<IPhoneInputProps> = ({
@@ -20,11 +20,7 @@ const PhoneInput: React.FC<IPhoneInputProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.code}>
-        <Input
-          name={codePlaceholder || 'Code'}
-          type={InputType.Select}
-          value={code}
-        />
+        <Input name={codePlaceholder || 'Code'} type={InputType.Select} value={code} />
       </View>
       <View style={styles.number}>
         <Input

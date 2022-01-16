@@ -5,9 +5,9 @@ import React from 'react';
 
 import PostInfo from 'views/components/compositions/PostInfo';
 
-import {IPostComponentProps} from '../types';
+import { IPostComponentProps } from '../types';
 
-const PostComponent: React.FC<IPostComponentProps> = ({data}) => {
+const PostComponent: React.FC<IPostComponentProps> = ({ data }) => {
   // const {setOptions, pushTo} = useNavigationWithParams();
 
   return (

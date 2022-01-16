@@ -1,8 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
-import {INotificationsProps} from './types';
+import { INotificationsProps } from './types';
 
 import styles from './styles';
 

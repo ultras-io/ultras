@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ImageBackground} from 'react-native';
+import { View, ImageBackground } from 'react-native';
 
 import I18n from 'i18n/i18n';
 
@@ -13,12 +13,12 @@ import Button, {
 } from 'views/components/base/Button';
 
 import bg from 'assets/images/bg.png';
-import {IIntroProps} from './types';
+import { IIntroProps } from './types';
 import styles from './styles';
 import gStyles from 'styles/styles';
 
 const Intro: React.FC<IIntroProps> = () => {
-  const {pushTo} = useNavigationWithParams();
+  const { pushTo } = useNavigationWithParams();
 
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>

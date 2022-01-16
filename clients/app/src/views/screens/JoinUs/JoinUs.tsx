@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, KeyboardAvoidingView, FlatList, Platform} from 'react-native';
+import { View, KeyboardAvoidingView, FlatList, Platform } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import scenario from './content';
@@ -9,24 +9,22 @@ import WithSafeArea from 'views/components/base/WithSafeArea';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import rootScreens from 'navigation/root/rootScreens';
-import {keyEnum as SearchListKey} from 'views/screens/SearchListModal';
+import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import WithAnimation from 'views/components/base/WithAnimation';
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
-import MessageBox, {
-  SideEnum as MessageSide,
-} from 'views/components/base/MessageBox';
+import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
+import MessageBox, { SideEnum as MessageSide } from 'views/components/base/MessageBox';
 import Button, {
   SizeEnum as ButtonSize,
   BoxSizeEnum as ButtonBoxSizeEnum,
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import PhoneInput from 'views/components/compositions/PhoneInput';
 import FourDigitsContainer from 'views/containers/FourDigitsContainer';
-import Input, {TypeEnum as InputType} from 'views/components/base/Input';
+import Input, { TypeEnum as InputType } from 'views/components/base/Input';
 
 import {
   IJoinUsProps,
@@ -50,14 +48,14 @@ const getKeyboardOffset = (step: number): number => {
 
 const JoinUs: React.FC<IJoinUsProps> = () => {
   const [step, setStep] = React.useState<number>(1);
-  const [phoneNumber, setPhoneNumber] = React.useState({code: '', number: ''});
+  const [phoneNumber, setPhoneNumber] = React.useState({ code: '', number: '' });
   const [isLocationEnabled, setIsLocationEnabled] = React.useState(false);
   const [code, setCode] = React.useState<string>('');
-  const [team, setTeam] = React.useState<{id: number; name: string}>({
+  const [team, setTeam] = React.useState<{ id: number; name: string }>({
     id: 0,
     name: '',
   });
-  const {openModal} = useNavigationWithParams();
+  const { openModal } = useNavigationWithParams();
 
   const flatListRef = React.useRef<FlatList<any>>();
 
@@ -72,7 +70,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
     // show validation error if needed
     // or set number if its correct
 
-    setPhoneNumber({code: '+374', number: '99233353'});
+    setPhoneNumber({ code: '+374', number: '99233353' });
     setStep(step + 1);
   }, [setPhoneNumber, setStep, step]);
 
@@ -81,7 +79,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
       dataKey: SearchListKey.Team,
     });
     // remove this
-    setTeam({id: 1, name: 'Manchester City'});
+    setTeam({ id: 1, name: 'Manchester City' });
     setStep(step + 1);
   }, [openModal, setStep, step, setTeam]);
 
@@ -96,7 +94,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         <PhoneInput code={phoneNumber.code} number={phoneNumber.number} />
       </View>
     ),
-    [phoneNumber],
+    [phoneNumber]
   );
 
   const render4DigitsInput = React.useCallback(
@@ -110,7 +108,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         />
       </View>
     ),
-    [setCode, setStep, step],
+    [setCode, setStep, step]
   );
 
   const renderUserNameInput = React.useCallback(
@@ -119,18 +117,16 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         <Input withBorder type={InputType.Text} name="Username" />
       </View>
     ),
-    [],
+    []
   );
 
   const renderActionButton = React.useCallback(
     item => {
       let onPress = () => setStep(step + 1);
-      if (item.action.type === ActionTypeEnum.Team)
-        onPress = () => openTeamModal();
+      if (item.action.type === ActionTypeEnum.Team) onPress = () => openTeamModal();
       if (item.action.type === ActionTypeEnum.AllowLocation)
         onPress = () => requestLocation();
-      if (item.action.type === ActionTypeEnum.Phone)
-        onPress = () => checkPhone();
+      if (item.action.type === ActionTypeEnum.Phone) onPress = () => checkPhone();
 
       return (
         <View style={styles.action}>
@@ -144,7 +140,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         </View>
       );
     },
-    [setStep, step, openTeamModal, requestLocation, checkPhone],
+    [setStep, step, openTeamModal, requestLocation, checkPhone]
   );
 
   const getMessageIcon = React.useCallback(
@@ -152,7 +148,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
       !isLocationEnabled && item.action.type === ActionTypeEnum.AllowLocation
         ? Icons.Warning
         : Icons.Check,
-    [isLocationEnabled],
+    [isLocationEnabled]
   );
 
   const getMessageText = React.useCallback(
@@ -174,7 +170,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           return '';
       }
     },
-    [code, isLocationEnabled, phoneNumber, team],
+    [code, isLocationEnabled, phoneNumber, team]
   );
 
   const getMessageButton = React.useCallback(
@@ -190,18 +186,17 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           />
         </View>
       ) : null,
-    [openTeamModal],
+    [openTeamModal]
   );
 
   const getMessageSubText = React.useCallback(
     item =>
-      !isLocationEnabled &&
-      item.action.type === ActionTypeEnum.AllowLocation ? (
+      !isLocationEnabled && item.action.type === ActionTypeEnum.AllowLocation ? (
         <UltrasText style={styles.actionSubText} color="text">
           {I18n.t('joinUsLocationNotEnabledText')}
         </UltrasText>
       ) : null,
-    [isLocationEnabled],
+    [isLocationEnabled]
   );
 
   const renderStepAsMessages = React.useCallback(
@@ -217,7 +212,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         {getMessageSubText(item)}
       </>
     ),
-    [getMessageButton, getMessageIcon, getMessageSubText, getMessageText],
+    [getMessageButton, getMessageIcon, getMessageSubText, getMessageText]
   );
 
   const getBotsAvatar = React.useCallback(
@@ -227,7 +222,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           <Avatar size={AvatarSize.Small} />
         </View>
       ) : null,
-    [],
+    []
   );
 
   const getBotsMessageButton = React.useCallback(
@@ -250,7 +245,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           )}
         </>
       ) : null,
-    [changeNumber, phoneNumber, step],
+    [changeNumber, phoneNumber, step]
   );
 
   const renderBotsMessages = React.useCallback(
@@ -261,7 +256,8 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           <WithAnimation
             key={id + '-' + m.messageId}
             delay={DELAY_DELTA * m.messageId}
-            direction={m.direction}>
+            direction={m.direction}
+          >
             {getBotsAvatar(i)}
             <View style={styles.messageWithAvatar}>
               <MessageBox>
@@ -271,24 +267,22 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
             </View>
           </WithAnimation>
         )),
-    [getBotsAvatar, getBotsMessageButton],
+    [getBotsAvatar, getBotsMessageButton]
   );
 
   const renderStep = React.useCallback(
-    ({item}: {item: ScenarStep}) => (
+    ({ item }: { item: ScenarStep }) => (
       <>
         <WithAnimation
           delay={(item.messages.length + 1) * DELAY_DELTA}
-          direction={item.action.direction}>
+          direction={item.action.direction}
+        >
           <View style={styles.step}>
             {item.id + 1 === step ? (
               <>
-                {item.action.type === ActionTypeEnum.Phone &&
-                  renderPhoneInput()}
-                {item.action.type === ActionTypeEnum.PhoneConfirm &&
-                  render4DigitsInput()}
-                {item.action.type === ActionTypeEnum.UserName &&
-                  renderUserNameInput()}
+                {item.action.type === ActionTypeEnum.Phone && renderPhoneInput()}
+                {item.action.type === ActionTypeEnum.PhoneConfirm && render4DigitsInput()}
+                {item.action.type === ActionTypeEnum.UserName && renderUserNameInput()}
                 {item.action.type !== ActionTypeEnum.PhoneConfirm &&
                   renderActionButton(item)}
               </>
@@ -308,13 +302,13 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
       renderStepAsMessages,
       renderUserNameInput,
       step,
-    ],
+    ]
   );
 
   const data = scenario.filter(stepContent => stepContent.id < step);
 
   React.useEffect(() => {
-    setTimeout(() => flatListRef?.current?.scrollToIndex({index: 0}));
+    setTimeout(() => flatListRef?.current?.scrollToIndex({ index: 0 }));
   }, [step]);
 
   return (
@@ -324,7 +318,8 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={
           Platform.OS === 'ios' ? getKeyboardOffset(step) : undefined
-        }>
+        }
+      >
         <FlatList
           ref={flatListRef}
           data={data}

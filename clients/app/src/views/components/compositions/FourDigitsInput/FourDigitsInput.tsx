@@ -1,29 +1,29 @@
 import React from 'react';
-import {withTheme} from 'styled-components/native';
+import { withTheme } from 'styled-components/native';
 import styled from 'styled-components/native';
-import {ThemeInterface} from 'styled-components';
+import { ThemeInterface } from 'styled-components';
 
-import {View, Platform} from 'react-native';
+import { View, Platform } from 'react-native';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 
-import {IFourDigitsInputProps} from './types';
+import { IFourDigitsInputProps } from './types';
 import styles from './styles';
 
 const StyledInput = styled.TextInput<{
   isActive: boolean;
   theme: ThemeInterface;
 }>`
-  background-color: ${({theme}) => {
+  background-color: ${({ theme }) => {
     return theme.colors.text;
   }};
-  border-color: ${({theme, isActive}) => {
+  border-color: ${({ theme, isActive }) => {
     return isActive ? theme.colors.quaternary : theme.colors.textInvert;
   }};
 `;
 
-const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
+const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ theme, onFill }) => {
   const [code, setCode] = React.useState('    ');
   const [activeInput, setActiveInput] = React.useState(-1);
 
@@ -34,7 +34,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
 
   const refs = React.useMemo(
     () => [firstInput, secondInput, thirdInput, fourthInput],
-    [],
+    []
   );
 
   const onFocus = React.useCallback(
@@ -44,7 +44,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
       setActiveInput(k + 1);
       refs[k + 1].current?.focus();
     },
-    [setActiveInput, refs, code],
+    [setActiveInput, refs, code]
   );
 
   const onBlur = React.useCallback(() => {
@@ -57,7 +57,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
 
   const onInputChange = React.useCallback(
     order => e => {
-      const {key} = e.nativeEvent;
+      const { key } = e.nativeEvent;
       if (key >= 0 && key <= 9) {
         const newCode = getNewCode(code, order, key);
         setCode(newCode);
@@ -75,13 +75,13 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
         }
       }
     },
-    [code, setCode, refs, onFill, getNewCode],
+    [code, setCode, refs, onFill, getNewCode]
   );
 
   // onKeyPress event is not working for Android (as described in en docs), so here we go
   const onChangeAndroid = React.useCallback(
     order => e => {
-      const {text} = e.nativeEvent;
+      const { text } = e.nativeEvent;
       if (text >= 0 && text <= 9) {
         const newCode = getNewCode(code, order, text);
         setCode(() => newCode);
@@ -93,7 +93,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
         }
       }
     },
-    [code, setCode, refs, onFill, getNewCode],
+    [code, setCode, refs, onFill, getNewCode]
   );
 
   return (
@@ -111,9 +111,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({theme, onFill}) => {
               style={styles.input}
               maxLength={1}
               onKeyPress={onInputChange(i)}
-              onChange={
-                Platform.OS === 'android' ? onChangeAndroid(i) : undefined
-              }
+              onChange={Platform.OS === 'android' ? onChangeAndroid(i) : undefined}
               keyboardType={'numeric'}
               autoCorrect={false}
               placeholderTextColor={theme?.colors.bgColor}

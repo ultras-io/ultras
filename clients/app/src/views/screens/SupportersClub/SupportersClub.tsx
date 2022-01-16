@@ -8,14 +8,14 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
   SizeEnum as ButtonSize,
 } from 'views/components/base/Button';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 
-import {ISupportersClubProps} from './types';
+import { ISupportersClubProps } from './types';
 
-const SupportersClub: React.FC<ISupportersClubProps> = ({route}) => {
-  const {id} = route.params;
-  const {setOptions, pushTo} = useNavigationWithParams();
+const SupportersClub: React.FC<ISupportersClubProps> = ({ route }) => {
+  const { id } = route.params;
+  const { setOptions, pushTo } = useNavigationWithParams();
 
   React.useLayoutEffect(() => {
     setOptions({

@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {withTheme} from 'styled-components/native';
-import {ThemeInterface} from 'styled-components';
+import React, { useState } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { withTheme } from 'styled-components/native';
+import { ThemeInterface } from 'styled-components';
 
 import SplashScreen from 'views/screens/Splash';
 import screens from './rootScreens';
@@ -12,7 +12,7 @@ interface IRootNavigationProps {
   theme?: ThemeInterface;
 }
 
-const RootNavigation: React.FC<IRootNavigationProps> = ({theme}) => {
+const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated] = useState<boolean>(true);
 
@@ -24,9 +24,10 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({theme}) => {
     <Stack.Navigator
       initialRouteName={screens.intro.name}
       screenOptions={{
-        headerStyle: {backgroundColor: theme?.colors.bgColor},
+        headerStyle: { backgroundColor: theme?.colors.bgColor },
         headerShown: false,
-      }}>
+      }}
+    >
       {isAuthenticated ? (
         <Stack.Screen
           name={screens.tabNavigation.name}
@@ -34,14 +35,8 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({theme}) => {
         />
       ) : (
         <Stack.Group>
-          <Stack.Screen
-            name={screens.intro.name}
-            component={screens.intro.component}
-          />
-          <Stack.Screen
-            name={screens.uikit.name}
-            component={screens.uikit.component}
-          />
+          <Stack.Screen name={screens.intro.name} component={screens.intro.component} />
+          <Stack.Screen name={screens.uikit.name} component={screens.uikit.component} />
           <Stack.Screen
             name={screens.joinUs.name}
             component={screens.joinUs.component}
