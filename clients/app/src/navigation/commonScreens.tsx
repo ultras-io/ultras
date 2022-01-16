@@ -68,7 +68,6 @@ export const COMMON_SCREENS: CommonScreens = {
 const defaultOptions = {
   headerTitle: '',
   headerBackTitle: '',
-  headerShown: true,
 };
 
 const generateScreen = (

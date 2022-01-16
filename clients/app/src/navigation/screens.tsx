@@ -6,20 +6,33 @@ import Events from 'views/screens/Events';
 import Matches from 'views/screens/Matches';
 import Settings from 'views/screens/Settings';
 import Notifications from 'views/screens/Notifications';
+import commonScreens from 'navigation/commonScreens';
 
 import I18n from 'i18n/i18n';
-
 import UltrasText from 'views/components/base/UltrasText';
 import { ScreenNavigationConfig } from './types';
 import styles from 'styles/styles';
 
+// @TODO complete list, change all names using in pushTo
+export const screenSettings = {
+  home: 'Home',
+  search: 'Search',
+  matches: 'Matches',
+  events: 'Events',
+  profile: 'Profiles',
+  settings: 'Settings',
+  notifications: 'Notifications',
+};
+
+const commonScreensMap = Object.values(commonScreens);
+
 const SCREENS: ScreenNavigationConfig = {
   home: {
-    tabName: 'Home',
-    initialScreenName: 'Home',
+    tabName: screenSettings.home,
+    initialScreenName: screenSettings.home,
     screens: [
       {
-        name: 'Home',
+        name: screenSettings.home,
         component: Home,
         options: {
           headerShown: true,
@@ -31,27 +44,29 @@ const SCREENS: ScreenNavigationConfig = {
           ),
         },
       },
+      ...commonScreensMap,
     ],
   },
   search: {
-    tabName: 'Search',
-    initialScreenName: 'Search',
+    tabName: screenSettings.search,
+    initialScreenName: screenSettings.search,
     screens: [
       {
-        name: 'Search',
+        name: screenSettings.search,
         component: Search,
         options: {
           headerShown: false,
         },
       },
+      ...commonScreensMap,
     ],
   },
   matches: {
-    tabName: 'Matches',
-    initialScreenName: 'Matches',
+    tabName: screenSettings.matches,
+    initialScreenName: screenSettings.matches,
     screens: [
       {
-        name: 'Matches',
+        name: screenSettings.matches,
         component: Matches,
         options: {
           headerShown: true,
@@ -63,14 +78,15 @@ const SCREENS: ScreenNavigationConfig = {
           ),
         },
       },
+      ...commonScreensMap,
     ],
   },
   events: {
-    tabName: 'Events',
-    initialScreenName: 'Events',
+    tabName: screenSettings.events,
+    initialScreenName: screenSettings.events,
     screens: [
       {
-        name: 'Events',
+        name: screenSettings.events,
         component: Events,
         options: {
           headerShown: true,
@@ -82,14 +98,15 @@ const SCREENS: ScreenNavigationConfig = {
           ),
         },
       },
+      ...commonScreensMap,
     ],
   },
   profile: {
-    tabName: 'Profile',
-    initialScreenName: 'Profile',
+    tabName: screenSettings.profile,
+    initialScreenName: screenSettings.profile,
     screens: [
       {
-        name: 'Settings',
+        name: screenSettings.settings,
         component: Settings,
         options: {
           headerTitle: () => (
@@ -100,7 +117,7 @@ const SCREENS: ScreenNavigationConfig = {
         },
       },
       {
-        name: 'Notifications',
+        name: screenSettings.notifications,
         component: Notifications,
         options: {
           headerTitle: () => (
@@ -110,14 +127,9 @@ const SCREENS: ScreenNavigationConfig = {
           ),
         },
       },
+      ...commonScreensMap,
     ],
   },
-};
-
-// @TODO complete list, make usage for SCREENS, change all names using in pushTo
-export const screenSettings = {
-  settings: 'Settings',
-  notifications: 'Notifications',
 };
 
 export default SCREENS;

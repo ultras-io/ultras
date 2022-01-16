@@ -71,3 +71,9 @@ const SCREENS: TabNavigationScreens = {
 };
 
 export default SCREENS;
+
+// tabs navigation
+
+// views/screens
+//    events -> navigation
+//    profile -> navigation

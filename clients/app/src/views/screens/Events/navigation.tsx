@@ -36,7 +36,6 @@ const EventsNavigation: React.FC<IEventsNavigationProps> = ({ theme }) => {
           />
         );
       })}
-      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };

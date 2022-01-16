@@ -35,7 +35,6 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({ theme }) => {
           />
         );
       })}
-      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };

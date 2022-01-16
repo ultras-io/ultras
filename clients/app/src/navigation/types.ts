@@ -38,6 +38,8 @@ export type NavigationScreen = {
     isModal?: boolean;
     headerShown?: boolean;
     headerBackVisible?: boolean;
+    headerShadowVisible?: boolean;
+    presentation?: string;
   };
 };
 

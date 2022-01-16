@@ -36,8 +36,6 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({ theme }) => {
           />
         );
       })}
-
-      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };

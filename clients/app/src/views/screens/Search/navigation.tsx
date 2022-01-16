@@ -35,7 +35,6 @@ const SearchNavigation = ({ theme }: ISearchNavigationProps) => {
           />
         );
       })}
-      {generateCommonScreens(TAB_NAME, Stack)}
     </Stack.Navigator>
   );
 };
