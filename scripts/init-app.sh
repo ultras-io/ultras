@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-cd "$(dirname "$0")" || exit 1
+cd "$(dirname "$0")/.." || exit 1
 ROOT_DIR="$(realpath "$PWD")"
 
-. "$ROOT_DIR/.helpers.sh"
+. "$(dirname "$0")/.helpers.sh"
 
 # check yarn installed
 if [[ "" == "$(command -v yarn)" ]]; then
@@ -15,12 +15,13 @@ if [[ "" == "$(command -v yarn)" ]]; then
   exit 2
 fi
 
-
 # start
+clear
+
 echo ""
-echo " ======================================================================"
-echo " =================    ULTRAS APP INITIATOR STARTED    ================="
-echo " ======================================================================"
+echo -e " \033[0;32m================================================================================\033[0m"
+echo -e " \033[0;32m======================    ULTRAS APP INITIATOR STARTED    ======================\033[0m"
+echo -e " \033[0;32m================================================================================\033[0m"
 echo ""
 
 # remove all node_modules folders
@@ -32,20 +33,6 @@ end_cmd_die $? "Couldn't delete node_modules folder(s)."
 print_row_wait "Cleaning old builds"
 find . -type d -name build | xargs rm -rf > /dev/null 2>&1
 end_cmd_die $? "Couldn't delete build folder(s)."
-
-# install typescript globally
-if [[ "" == "$(command -v tsc)" ]]; then
-  print_row_wait "Installing typescript globally via yarn"
-  yarn global add typescript > /dev/null 2>&1
-  end_cmd_die $? "Couldn't install typescript globally."
-fi
-
-# install rimraf globally
-if [[ "" == "$(command -v rimraf)" ]]; then
-  print_row_wait "Installing rimraf globally via yarn"
-  yarn global add rimraf > /dev/null 2>&1
-  end_cmd_die $? "Couldn't install rimraf globally."
-fi
 
 # make linkage
 cd "$ROOT_DIR"

@@ -2,7 +2,7 @@ function pad_dots() {
   local MESSAGE="$1"
 
   local LENGTH_MSG=${#MESSAGE}
-  local LENGTH_DOT=$(( 60 - $LENGTH_MSG ))
+  local LENGTH_DOT=$(( 70 - $LENGTH_MSG ))
   
   for INDEX in `seq $LENGTH_DOT`; do
     echo -en "."
