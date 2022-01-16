@@ -13,11 +13,11 @@ import ProfileList from 'views/screens/ProfileList';
 
 import UltrasText from 'views/components/base/UltrasText';
 
-import type { CommonScreens } from './types';
+import type { CommonScreens } from '../types';
 import styles from 'styles/styles';
 
 // don't touch ordering
-export const COMMON_SCREENS: CommonScreens = {
+const SCREENS: CommonScreens = {
   match: {
     name: 'Match',
     component: Match,
@@ -88,7 +88,7 @@ const generateScreen = (
 
 export const generateCommonScreens = (tabName: string, Stack: any) => (
   <React.Fragment>
-    {Object.values(COMMON_SCREENS).map(item => {
+    {Object.values(SCREENS).map(item => {
       if (!item.isModal) {
         return generateScreen(
           tabName,
@@ -105,7 +105,7 @@ export const generateCommonScreens = (tabName: string, Stack: any) => (
     })}
 
     <Stack.Group screenOptions={{ presentation: 'modal' }}>
-      {Object.values(COMMON_SCREENS).map(item => {
+      {Object.values(SCREENS).map(item => {
         if (item.isModal) {
           return generateScreen(tabName, item.name, Stack, item.component, {
             headerShown: item.headerShown,
@@ -116,4 +116,4 @@ export const generateCommonScreens = (tabName: string, Stack: any) => (
   </React.Fragment>
 );
 
-export default COMMON_SCREENS;
+export default SCREENS;

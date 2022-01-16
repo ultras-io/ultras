@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+import { commonScreens } from 'navigation/screens';
 
 import ProfileCard from 'views/components/compositions/ProfileCard';
 import SupportersClubCard from 'views/components/compositions/SupportersClubCard';

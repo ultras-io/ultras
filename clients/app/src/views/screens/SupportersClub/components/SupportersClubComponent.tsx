@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+import { commonScreens } from 'navigation/screens';
 
 import SupportersClubInfo from 'views/components/compositions/SupportersClubInfo';
 

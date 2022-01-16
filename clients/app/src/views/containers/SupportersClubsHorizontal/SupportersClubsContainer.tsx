@@ -12,10 +12,10 @@ import { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import { IconNamesEnum as Icons } from 'assets/icons';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import tabScreens from 'navigation/tab/tabScreens';
-import commonScreens from 'navigation/commonScreens';
+import { tabScreens, searchTabScreens } from 'navigation/screens';
+import { commonScreens } from 'navigation/screens';
 
-import searchTabScreens, { TAB_NAME } from 'navigation/searchTab/searchTabScreens';
+const TAB_NAME = 'Search';
 
 import { ISupportersClubsContainerProps } from './types';
 import styles from 'views/components/compositions/SupportersClubsHorizontal/styles';

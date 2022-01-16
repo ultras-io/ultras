@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components/native';
 
 import { ThemeInterface } from 'styled-components';
 
-import screens from './tabScreens';
+import { tabScreens } from './screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ interface ITabNavigationProps {
 const TabNavigation: React.FC<ITabNavigationProps> = ({ theme }) => {
   return (
     <Tab.Navigator
-      initialRouteName={screens.home.name}
+      initialRouteName={tabScreens.home.name}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -27,33 +27,33 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({ theme }) => {
       }}
     >
       <Tab.Screen
-        name={screens.home.name}
-        component={screens.home.component}
-        initialParams={{ tabName: screens.home.name }}
-        options={screens.home.options}
+        name={tabScreens.home.name}
+        component={tabScreens.home.component}
+        initialParams={{ tabName: tabScreens.home.name }}
+        options={tabScreens.home.options}
       />
       <Tab.Screen
-        name={screens.search.name}
-        component={screens.search.component}
-        initialParams={{ tabName: screens.search.name }}
-        options={screens.search.options}
+        name={tabScreens.search.name}
+        component={tabScreens.search.component}
+        initialParams={{ tabName: tabScreens.search.name }}
+        options={tabScreens.search.options}
       />
       <Tab.Screen
-        name={screens.matches.name}
-        component={screens.matches.component}
-        initialParams={{ tabName: screens.matches.name }}
-        options={screens.matches.options}
+        name={tabScreens.matches.name}
+        component={tabScreens.matches.component}
+        initialParams={{ tabName: tabScreens.matches.name }}
+        options={tabScreens.matches.options}
       />
       <Tab.Screen
-        name={screens.events.name}
-        component={screens.events.component}
-        initialParams={{ tabName: screens.events.name }}
-        options={screens.events.options}
+        name={tabScreens.events.name}
+        component={tabScreens.events.component}
+        initialParams={{ tabName: tabScreens.events.name }}
+        options={tabScreens.events.options}
       />
       <Tab.Screen
-        name={screens.profile.name}
-        component={screens.profile.component}
-        initialParams={{ tabName: screens.profile.name }}
+        name={tabScreens.profile.name}
+        component={tabScreens.profile.component}
+        initialParams={{ tabName: tabScreens.profile.name }}
         options={{ tabBarBadge: '' }}
       />
     </Tab.Navigator>

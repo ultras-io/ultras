@@ -1,4 +1,4 @@
-import config from 'config';
+import config from 'screens';
 
 export default {
   NETWORK_SERVICE: {

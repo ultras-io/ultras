@@ -2,7 +2,7 @@ import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import screens, { TAB_NAME } from './listModalTabScreens';
+import { listModalTabScreens } from 'navigation/screens';
 
 const Stack = createMaterialTopTabNavigator();
 
@@ -10,10 +10,12 @@ interface IListModalTabProps {
   theme?: ThemeInterface;
 }
 
-const ListModalTab: React.FC<IListModalTabProps> = ({ theme }) => {
+const TAB_NAME = 'ListModal';
+
+const ListModalTabMavigation: React.FC<IListModalTabProps> = ({ theme }) => {
   return (
     <Stack.Navigator
-      initialRouteName={`${TAB_NAME}:${screens.footballClubs.name}`}
+      initialRouteName={`${TAB_NAME}:${listModalTabScreens.footballClubs.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
         tabBarStyle: { backgroundColor: 'transparent' },
@@ -25,19 +27,19 @@ const ListModalTab: React.FC<IListModalTabProps> = ({ theme }) => {
       }}
     >
       <Stack.Screen
-        name={`${TAB_NAME}:${screens.footballClubs.name}`}
-        options={{ tabBarLabel: screens.footballClubs.name }}
-        component={screens.footballClubs.component}
+        name={`${TAB_NAME}:${listModalTabScreens.footballClubs.name}`}
+        options={{ tabBarLabel: listModalTabScreens.footballClubs.name }}
+        component={listModalTabScreens.footballClubs.component}
         initialParams={{ tabName: TAB_NAME }}
       />
       <Stack.Screen
-        name={`${TAB_NAME}:${screens.nationalTeams.name}`}
-        options={{ tabBarLabel: screens.nationalTeams.name }}
-        component={screens.nationalTeams.component}
+        name={`${TAB_NAME}:${listModalTabScreens.nationalTeams.name}`}
+        options={{ tabBarLabel: listModalTabScreens.nationalTeams.name }}
+        component={listModalTabScreens.nationalTeams.component}
         initialParams={{ tabName: TAB_NAME }}
       />
     </Stack.Navigator>
   );
 };
 
-export default React.memo<IListModalTabProps>(withTheme(ListModalTab));
+export default React.memo<IListModalTabProps>(withTheme(ListModalTabMavigation));

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+import { commonScreens } from 'navigation/screens';
 
 import SupportersClubContainer from './containers/SupportersClubContainer';
 import Button, {
@@ -22,7 +22,7 @@ const SupportersClub: React.FC<ISupportersClubProps> = ({ route }) => {
       headerRight: () => (
         <Button
           onPress={() => {
-            pushTo(commonScreens.supportersClubAbout);
+            pushTo(commonScreens.supportersClubAbout.name);
           }}
           appearance={ButtonAppearance.Minimal}
           size={ButtonSize.ExtraBig}

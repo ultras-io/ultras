@@ -8,7 +8,7 @@ import LocationService from 'services/location/locationService';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import rootScreens from 'navigation/root/rootScreens';
+import { rootScreens } from 'navigation/screens';
 import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import WithAnimation from 'views/components/base/WithAnimation';

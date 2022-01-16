@@ -1,7 +1,7 @@
 import React from 'react';
 
 // import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-// import commonScreens from 'navigation/commonScreens';
+// import { commonScreens } from 'navigation/screens';
 
 import EventInfo from 'views/components/compositions/EventInfo';
 

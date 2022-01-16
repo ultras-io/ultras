@@ -4,7 +4,8 @@ import Intro from 'views/screens/Intro';
 import JoinUs from 'views/screens/JoinUs';
 import SearchListModal from 'views/screens/SearchListModal';
 import UIKit from 'views/screens/UIKit';
-import TabNavigation from '../tab/tabNavigation';
+
+import TabNavigation from '../TabNavigation';
 
 import I18n from 'i18n/i18n';
 import UltrasText from 'views/components/base/UltrasText';

@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+import { commonScreens } from 'navigation/screens';
 import { formatDateAndTime } from 'utils/helpers/matchTime';
 import { MatchStateEnum } from '../MatchTime';
 

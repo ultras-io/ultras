@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-// import commonScreens from 'navigation/commonScreens';
+// import { commonScreens } from 'navigation/screens';
 
 import MatchContainer from './containers/MatchContainer';
 import WithSafeArea from 'views/components/base/WithSafeArea';

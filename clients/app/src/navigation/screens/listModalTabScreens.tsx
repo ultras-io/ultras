@@ -5,8 +5,6 @@ import NationalTeams from 'views/screens/SearchListModal/containers/NationalTeam
 
 import type { ListModalTabScreens } from '../types';
 
-export const TAB_NAME = 'ListModal';
-
 const SCREENS: ListModalTabScreens = {
   footballClubs: {
     name: I18n.t('footballClubs'),

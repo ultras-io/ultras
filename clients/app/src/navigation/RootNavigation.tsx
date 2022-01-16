@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
 
 import SplashScreen from 'views/screens/Splash';
-import screens from './rootScreens';
+import { rootScreens } from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +22,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
 
   return (
     <Stack.Navigator
-      initialRouteName={screens.intro.name}
+      initialRouteName={rootScreens.intro.name}
       screenOptions={{
         headerStyle: { backgroundColor: theme?.colors.bgColor },
         headerShown: false,
@@ -30,24 +30,30 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
     >
       {isAuthenticated ? (
         <Stack.Screen
-          name={screens.tabNavigation.name}
-          component={screens.tabNavigation.component}
+          name={rootScreens.tabNavigation.name}
+          component={rootScreens.tabNavigation.component}
         />
       ) : (
         <Stack.Group>
-          <Stack.Screen name={screens.intro.name} component={screens.intro.component} />
-          <Stack.Screen name={screens.uikit.name} component={screens.uikit.component} />
           <Stack.Screen
-            name={screens.joinUs.name}
-            component={screens.joinUs.component}
-            options={screens.joinUs.options}
+            name={rootScreens.intro.name}
+            component={rootScreens.intro.component}
+          />
+          <Stack.Screen
+            name={rootScreens.uikit.name}
+            component={rootScreens.uikit.component}
+          />
+          <Stack.Screen
+            name={rootScreens.joinUs.name}
+            component={rootScreens.joinUs.component}
+            options={rootScreens.joinUs.options}
           />
         </Stack.Group>
       )}
       <Stack.Screen
-        name={screens.searchListModal.name}
-        component={screens.searchListModal.component}
-        options={screens.searchListModal.options}
+        name={rootScreens.searchListModal.name}
+        component={rootScreens.searchListModal.component}
+        options={rootScreens.searchListModal.options}
       />
     </Stack.Navigator>
   );

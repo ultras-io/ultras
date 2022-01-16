@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components/native';
 import styled from 'styled-components/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import rootScreens from 'navigation/root/rootScreens';
+import { rootScreens } from 'navigation/screens';
 import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import Box from 'views/components/base/Box';

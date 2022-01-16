@@ -1,4 +1,5 @@
 import React, { ComponentType } from 'react';
+import { ThemeInterface } from 'styled-components';
 
 export type CommonScreens = Record<
   | 'match'
@@ -101,3 +102,13 @@ export type ScreenNavigationConfig = Record<
     screens: NavigationScreen[];
   }
 >;
+
+export interface ITeamTabNavigationProps {
+  theme?: ThemeInterface;
+  tabName: string;
+}
+
+export interface ISearchTabNavigationProps {
+  searchText: string;
+  theme?: ThemeInterface;
+}

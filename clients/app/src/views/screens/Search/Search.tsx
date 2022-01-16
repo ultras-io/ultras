@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import Input from 'views/components/base/Input';
 
-import SearchTabNavigation from 'navigation/searchTab/searchTabNavigation';
+import SearchTabNavigation from './components/SearchTabNavigation';
 
 import { ISearchProps } from './types';
 import styles from './styles';

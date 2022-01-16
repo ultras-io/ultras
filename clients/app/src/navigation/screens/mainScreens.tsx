@@ -6,15 +6,15 @@ import Events from 'views/screens/Events';
 import Matches from 'views/screens/Matches';
 import Settings from 'views/screens/Settings';
 import Notifications from 'views/screens/Notifications';
-import commonScreens from 'navigation/commonScreens';
+import commonScreens from './commonScreens';
 
 import I18n from 'i18n/i18n';
 import UltrasText from 'views/components/base/UltrasText';
-import { ScreenNavigationConfig } from './types';
+import { ScreenNavigationConfig } from '../types';
 import styles from 'styles/styles';
 
 // @TODO complete list, change all names using in pushTo
-export const screenSettings = {
+const screenSettings = {
   home: 'Home',
   search: 'Search',
   matches: 'Matches',

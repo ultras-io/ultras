@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 
 import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import screens from 'navigation/root/rootScreens';
+import { rootScreens } from 'navigation/screens';
 
 import Button, {
   SizeEnum as ButtonSize,
@@ -31,13 +31,13 @@ const Intro: React.FC<IIntroProps> = () => {
       <View style={styles.buttons}>
         <Button
           title={I18n.t('introLetMeIn')}
-          onPress={() => pushTo(screens.joinUs.name)}
+          onPress={() => pushTo(rootScreens.joinUs.name)}
           size={ButtonSize.Big}
           bgColor={'primary'}
         />
         <Button
           title={I18n.t('privacy')}
-          onPress={() => pushTo(screens.uikit.name)}
+          onPress={() => pushTo(rootScreens.uikit.name)}
           size={ButtonSize.Default}
           appearance={ButtonAppearance.Minimal}
         />

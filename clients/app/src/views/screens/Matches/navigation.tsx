@@ -2,8 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import { generateCommonScreens } from 'navigation/commonScreens';
-import screens from 'navigation/screens';
+import { mainScreens as screens } from 'navigation/screens';
 
 const Stack = createNativeStackNavigator();
 

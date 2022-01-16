@@ -3,7 +3,7 @@ import React from 'react';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import TeamContainer from './containers/TeamContainer';
 
-import TeamTabNavigation from 'navigation/teamTab/teamTabNavigation';
+import TeamTabNavigation from './components/TeamTabNavigation';
 
 import { ITeamProps } from './types';
 

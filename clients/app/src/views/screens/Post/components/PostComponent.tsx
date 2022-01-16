@@ -1,7 +1,7 @@
 import React from 'react';
 
 // import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-// import commonScreens from 'navigation/commonScreens';
+// import { commonScreens } from 'navigation/screens';
 
 import PostInfo from 'views/components/compositions/PostInfo';
 
