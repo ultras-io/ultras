@@ -75,11 +75,11 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         primaryKey: true,
       },
       name: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING(),
         allowNull: false,
       },
       cityId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -90,7 +90,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       countryId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,
@@ -101,7 +101,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         allowNull: true,
         references: {
           model: {
@@ -113,21 +113,21 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       founded: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         allowNull: true,
       },
       logo: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING(),
         allowNull: false,
       },
       type: {
-        type: new DataTypes.ENUM({
+        type: DataTypes.ENUM({
           values: [TeamTypesEnum.club, TeamTypesEnum.national],
         }),
         allowNull: false,
       },
       dataRapidId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         allowNull: false,
         unique: true,
       },

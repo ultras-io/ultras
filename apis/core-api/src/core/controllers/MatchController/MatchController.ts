@@ -1,14 +1,11 @@
 import db from 'core/data/models';
-import { OrderEnum, WinnerEnum } from '@ultras/utils';
+import { parseMatchStatus, OrderEnum, WinnerEnum } from '@ultras/utils';
 
 import { MatchCreationAttributes } from 'core/data/models/Match';
 import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import injectMatches, {
-  statusAdapter,
-  RapidApiMatch,
-} from 'core/data/inject-scripts/injectMatches';
+import injectMatches, { RapidApiMatch } from 'core/data/inject-scripts/injectMatches';
 
 import {
   GetAllMatchesActionParams,
@@ -151,8 +148,11 @@ class MatchController {
           teamAwayId: teamAway.getDataValue('id'),
           venueId: venue.getDataValue('id'),
           leagueId: league.getDataValue('id'),
-          status: statusAdapter[item.fixture.status.short],
+          status: parseMatchStatus(item.fixture.status.short),
           winner: WinnerEnum.draw,
+          goalsHome: item.goals.home,
+          goalsAway: item.goals.away,
+          elapsedTime: item.fixture.status.elapsed,
           dataRapidId: item.fixture.id,
         });
       }

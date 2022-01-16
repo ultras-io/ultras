@@ -68,11 +68,11 @@ module.exports = (sequelize: Sequelize): typeof City => {
         primaryKey: true,
       },
       name: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING(),
         allowNull: false,
       },
       dataRapidId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         allowNull: false,
         unique: true,
       },

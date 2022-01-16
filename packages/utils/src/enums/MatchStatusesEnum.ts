@@ -1,8 +1,13 @@
 enum MatchStatusesEnum {
   /**
-   * Till start the match
+   * Time to be defined.
    */
-  preMatch = 'preMatch',
+  timeToBeDefined = 'time-to-be-defined',
+
+  /**
+   * Till start the match.
+   */
+  preMatch = 'pre-match',
 
   /**
    * Match started [0, 45] [45, 90]
@@ -10,34 +15,44 @@ enum MatchStatusesEnum {
   live = 'live',
 
   /**
-   * half time, break time
+   * half time, break time.
    */
-  halfTime = 'halfTime',
+  halfTime = 'half-time',
 
   /**
    * 45+, 90 +
    */
-  extraTime = 'extraTime',
+  extraTime = 'extra-time',
 
   /**
-   *
+   * Penalties time.
    */
   penalties = 'penalties',
 
   /**
-   * Match finished
+   * Match finished.
    */
   finished = 'finished',
 
   /**
-   * Match postponed
+   * Match postponed.
    */
   postponed = 'postponed',
 
   /**
-   * Match canceled
+   * Match canceled.
    */
   canceled = 'canceled',
+
+  /**
+   * Match suspended.
+   */
+  suspended = 'suspended',
+
+  /**
+   * Match interrupted.
+   */
+  interrupted = 'interrupted',
 }
 
 export default MatchStatusesEnum;

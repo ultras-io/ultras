@@ -68,7 +68,7 @@ module.exports = (sequelize: Sequelize): typeof Country => {
         primaryKey: true,
       },
       name: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING(),
         allowNull: false,
         unique: {
           name: 'Country_name_unique_constraint',
@@ -76,19 +76,19 @@ module.exports = (sequelize: Sequelize): typeof Country => {
         },
       },
       code: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING(),
         allowNull: true,
       },
       flag: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING(),
         allowNull: true,
       },
       telPrefix: {
-        type: new DataTypes.STRING(20),
+        type: DataTypes.STRING(20),
         allowNull: true,
       },
       dataRapidId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         allowNull: true,
         unique: true,
       },

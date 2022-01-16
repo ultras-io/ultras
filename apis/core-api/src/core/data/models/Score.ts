@@ -1,4 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
+import { MatchScoreTypesEnum } from '@ultras/utils';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -8,15 +9,14 @@ import { Match } from 'core/data/models/Match';
 export interface ScoreAttributes {
   id: number;
   matchId: number;
-  teamHomeScore: number;
-  teamHomePenalties: number;
-  teamAwayScore: number;
-  teamAwayPenalties: number;
+  type: MatchScoreTypesEnum;
+  home: number;
+  away: number;
 }
 
 export type ScoreCreationAttributes = Optional<
   ScoreAttributes,
-  'id' | 'teamHomeScore' | 'teamHomePenalties' | 'teamAwayScore' | 'teamAwayPenalties'
+  'id' | 'type' | 'home' | 'away'
 >;
 
 export class Score
@@ -25,10 +25,9 @@ export class Score
 {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public matchId!: number;
-  public teamHomeScore!: number;
-  public teamHomePenalties!: number;
-  public teamAwayScore!: number;
-  public teamAwayPenalties!: number;
+  public type!: MatchScoreTypesEnum;
+  public home!: number;
+  public away!: number;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -56,7 +55,7 @@ module.exports = (sequelize: Sequelize): typeof Score => {
         primaryKey: true,
       },
       matchId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER(),
         references: {
           model: {
             tableName: resources.MATCH.RELATION,
@@ -66,23 +65,25 @@ module.exports = (sequelize: Sequelize): typeof Score => {
         },
         onDelete: 'CASCADE',
       },
-      teamHomeScore: {
-        type: new DataTypes.INTEGER(),
+      type: {
+        type: DataTypes.ENUM({
+          values: [
+            MatchScoreTypesEnum.halfTime,
+            MatchScoreTypesEnum.fullTime,
+            MatchScoreTypesEnum.extraTime,
+            MatchScoreTypesEnum.penalties,
+          ],
+        }),
+        allowNull: false,
+        defaultValue: MatchScoreTypesEnum.fullTime,
+      },
+      home: {
+        type: DataTypes.INTEGER(),
         allowNull: false,
         defaultValue: 0,
       },
-      teamHomePenalties: {
-        type: new DataTypes.INTEGER(),
-        allowNull: false,
-        defaultValue: 0,
-      },
-      teamAwayScore: {
-        type: new DataTypes.INTEGER(),
-        allowNull: false,
-        defaultValue: 0,
-      },
-      teamAwayPenalties: {
-        type: new DataTypes.INTEGER(),
+      away: {
+        type: DataTypes.INTEGER(),
         allowNull: false,
         defaultValue: 0,
       },

@@ -10,6 +10,13 @@ const configs = {
     useUTC: true,
   },
   timezone: '+00:00',
+  define: {
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    },
+  },
 };
 
 export default configs;
