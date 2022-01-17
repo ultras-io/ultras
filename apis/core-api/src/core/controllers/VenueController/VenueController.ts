@@ -6,6 +6,7 @@ import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
+import resources from 'core/data/lcp';
 
 import {
   GetAllVenuesActionParams,
@@ -15,6 +16,22 @@ import {
 } from './types';
 
 class VenueController {
+  private static includeRelations = {
+    attributes: {
+      exclude: ['countryId', 'cityId'],
+    },
+    include: [
+      {
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+      },
+      {
+        model: db.City,
+        as: resources.CITY.ALIAS.SINGULAR,
+      },
+    ],
+  };
+
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -77,6 +94,7 @@ class VenueController {
       offset,
       where: query,
       order: [[orderAttr, order]],
+      ...this.includeRelations,
     });
 
     return {
@@ -88,7 +106,9 @@ class VenueController {
   }
 
   static async getById(id: number): Promise<GetVenueByIdResult> {
-    const venue = await db.Venue.findByPk(id);
+    const venue = await db.Venue.findByPk(id, {
+      ...this.includeRelations,
+    });
 
     return {
       data: venue,

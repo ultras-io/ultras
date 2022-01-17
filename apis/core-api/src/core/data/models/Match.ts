@@ -60,17 +60,17 @@ export class Match
 
   static associate(models: any) {
     Match.belongsTo(models.Team, {
-      as: resources.TEAM.ALIAS.SINGULAR,
+      as: resources.TEAM.ALIAS.SINGULAR + 'Home',
       foreignKey: 'teamHomeId',
     });
 
     Match.belongsTo(models.Team, {
-      as: resources.TEAM.ALIAS.SINGULAR + 'Home',
+      as: resources.TEAM.ALIAS.SINGULAR + 'Away',
       foreignKey: 'teamAwayId',
     });
 
     Match.belongsTo(models.Venue, {
-      as: resources.VENUE.ALIAS.SINGULAR + 'Away',
+      as: resources.VENUE.ALIAS.SINGULAR,
       foreignKey: 'venueId',
     });
 
@@ -79,8 +79,8 @@ export class Match
       foreignKey: 'leagueId',
     });
 
-    Match.hasOne(models.Score, {
-      as: resources.SCORE.ALIAS.SINGULAR,
+    Match.hasMany(models.Score, {
+      as: resources.SCORE.ALIAS.PLURAL,
       foreignKey: 'matchId',
     });
   }
@@ -99,7 +99,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         allowNull: false,
       },
       teamHomeId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -110,7 +110,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       teamAwayId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -121,7 +121,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.VENUE.RELATION,
@@ -132,7 +132,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       leagueId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.LEAGUE.RELATION,
@@ -165,15 +165,15 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         allowNull: false,
       },
       goalsHome: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.SMALLINT,
         allowNull: true,
       },
       goalsAway: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.SMALLINT,
         allowNull: true,
       },
       elapsedTime: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.SMALLINT,
         allowNull: true,
       },
       dataRapidId: {

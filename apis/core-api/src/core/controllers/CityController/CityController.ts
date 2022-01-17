@@ -15,6 +15,18 @@ import getCountryCities from 'core/data/inject-scripts/injectCities';
 import resources from 'core/data/lcp';
 
 class CityController {
+  private static includeRelations = {
+    attributes: {
+      exclude: ['countryId'],
+    },
+    include: [
+      {
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+      },
+    ],
+  };
+
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -57,18 +69,7 @@ class CityController {
       offset,
       where: query,
       order: [[orderAttr, order]],
-      attributes: {
-        exclude: ['countryId'],
-      },
-      include: [
-        {
-          model: db.Country,
-          attributes: {
-            exclude: ['createdAt', 'updatedAt'],
-          },
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-        },
-      ],
+      ...this.includeRelations,
     });
 
     return {
@@ -81,18 +82,7 @@ class CityController {
 
   static async getById(id: number): Promise<GetCityByIdResult> {
     const city = await db.City.findByPk(id, {
-      attributes: {
-        exclude: ['countryId'],
-      },
-      include: [
-        {
-          model: db.Country,
-          attributes: {
-            exclude: ['createdAt', 'updatedAt'],
-          },
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-        },
-      ],
+      ...this.includeRelations,
     });
 
     return {

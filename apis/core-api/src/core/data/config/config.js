@@ -13,7 +13,7 @@ const configs = {
   define: {
     defaultScope: {
       attributes: {
-        exclude: ['createdAt', 'updatedAt'],
+        exclude: ['dataRapidId', 'createdAt', 'updatedAt'],
       },
     },
   },

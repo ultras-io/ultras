@@ -55,7 +55,7 @@ module.exports = (sequelize: Sequelize): typeof League => {
         allowNull: false,
       },
       countryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,

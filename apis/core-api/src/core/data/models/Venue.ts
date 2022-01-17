@@ -75,7 +75,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         type: DataTypes.INTEGER,
       },
       cityId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -86,7 +86,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         onDelete: 'CASCADE',
       },
       countryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,
