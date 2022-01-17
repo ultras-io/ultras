@@ -2,8 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import { mainScreens } from 'navigation/screens';
-
+import mainScreens from 'navigation/screens/mainScreens';
 const Stack = createNativeStackNavigator();
 
 interface IHomeNavigationProps {

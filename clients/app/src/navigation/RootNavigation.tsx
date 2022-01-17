@@ -4,7 +4,9 @@ import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
 
 import SplashScreen from 'views/screens/Splash';
-import { rootScreens } from './screens';
+import screens from './screens';
+
+const rootScreens = screens.rootScreens;
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +16,7 @@ interface IRootNavigationProps {
 
 const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated] = useState<boolean>(false);
 
   if (!isLoading) {
     return <SplashScreen setIsLoading={setIsLoading} />;

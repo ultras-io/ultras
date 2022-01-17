@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 
 import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { rootScreens } from 'navigation/screens';
+import rootScreens from 'navigation/screens/rootScreens';
 
 import Button, {
   SizeEnum as ButtonSize,

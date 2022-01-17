@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import { mainScreens as screens } from 'navigation/screens';
+import screens from 'navigation/screens/mainScreens';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +15,7 @@ const TAB_NAME = screens.search.tabName;
 const SearchNavigation = ({ theme }: ISearchNavigationProps) => {
   return (
     <Stack.Navigator
-      initialRouteName={`${TAB_NAME}:${screens.search.initialScreenName}`}
+      initialRouteName={`${TAB_NAME}:${screens.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
         headerStyle: { backgroundColor: theme?.colors.bgColor },

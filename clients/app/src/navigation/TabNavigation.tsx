@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components/native';
 
 import { ThemeInterface } from 'styled-components';
 
-import { tabScreens } from './screens';
+import tabScreens from './screens/tabScreens';
 
 const Tab = createBottomTabNavigator();
 

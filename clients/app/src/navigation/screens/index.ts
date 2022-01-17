@@ -1,15 +1,17 @@
-import x from './tabScreens';
-import y from './mainScreens';
-import z from './rootScreens';
-import k from './commonScreens';
-import l from './teamTabScreens';
-import m from './searchTabScreens';
-import n from './listModalTabScreens';
+import tabScreens from './tabScreens';
+import mainScreens from './mainScreens';
+import rootScreens from './rootScreens';
+import commonScreens from './commonScreens';
+import teamTabScreens from './teamTabScreens';
+import searchTabScreens from './searchTabScreens';
+import listModalTabScreens from './listModalTabScreens';
 
-export const tabScreens = x;
-export const mainScreens = y;
-export const rootScreens = z;
-export const commonScreens = k;
-export const teamTabScreens = l;
-export const searchTabScreens = m;
-export const listModalTabScreens = n;
+export default {
+  tabScreens,
+  rootScreens,
+  mainScreens,
+  commonScreens,
+  teamTabScreens,
+  searchTabScreens,
+  listModalTabScreens,
+};
