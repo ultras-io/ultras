@@ -2,7 +2,7 @@ function pad_dots() {
   local MESSAGE="$1"
 
   local LENGTH_MSG=${#MESSAGE}
-  local LENGTH_DOT=$(( 60 - $LENGTH_MSG ))
+  local LENGTH_DOT=$(( 70 - $LENGTH_MSG ))
   
   for INDEX in `seq $LENGTH_DOT`; do
     echo -en "."
@@ -27,8 +27,12 @@ function print_fail() {
   echo -e "\b\b\b\b\b\b\b\033[0;41m FAIL \033[0m"
 }
 
+function print_kill() {
+  echo -e "\b\b\b\b\b\b\b\033[0;43m KILL \033[0m"
+}
+
 function print_skip() {
-  echo -e "\b\b\b\b\b\b\b\033[0;43m SKIP \033[0m"
+  echo -e "\b\b\b\b\b\b\b\033[0;44m SKIP \033[0m"
 }
 
 function end_cmd_die() {
@@ -55,4 +59,18 @@ function end_cmd() {
   else
     print_fail
   fi
+}
+
+function on_process_kill() {
+  echo -en "\b\b"
+  print_kill
+
+  echo ""
+  exit 10000
+}
+
+function set_title() {
+  local TITLE="$1"
+
+  printf "\e]2;$TITLE\a"
 }

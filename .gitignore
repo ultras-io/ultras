@@ -1,4 +1,5 @@
 lerna-debug.log
+package.json.lerna_backup
 # workspaces
 
 /sdks/**/node_modules

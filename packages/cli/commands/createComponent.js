@@ -1,5 +1,7 @@
-// run command
+/* eslint-disable max-len */
+// run command:
 // npm run create-component -- --name=ComponentName --path=/path/where/component/shouldBeCreated
+/* eslint-enable max-len */
 
 const fs = require('fs');
 const yargs = require('yargs/yargs');

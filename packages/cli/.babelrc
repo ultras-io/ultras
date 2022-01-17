@@ -1,0 +1,21 @@
+{
+  "sourceType": "unambiguous",
+  "compact": false,
+  "presets": [
+    "@babel/preset-env",
+    // [
+    //   "minify",
+    //   {
+    //     "keepFnName": true,
+    //     "builtIns": false,
+    //     "evaluate": false,
+    //     "mangle": false
+    //   }
+    // ]
+  ],
+  "comments": false,
+  "targets": {
+    "chrome": "58",
+    "ie": "11"
+  }
+}

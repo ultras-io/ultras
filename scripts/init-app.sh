@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-cd "$(dirname "$0")" || exit 1
+cd "$(dirname "$0")/.." || exit 1
 ROOT_DIR="$(realpath "$PWD")"
 
-. "$ROOT_DIR/.helpers.sh"
+. "$(dirname "$0")/.helpers.sh"
+trap on_process_kill SIGINT
 
 # check yarn installed
 if [[ "" == "$(command -v yarn)" ]]; then
@@ -15,41 +16,29 @@ if [[ "" == "$(command -v yarn)" ]]; then
   exit 2
 fi
 
-
 # start
 echo ""
-echo " ======================================================================"
-echo " =================    ULTRAS APP INITIATOR STARTED    ================="
-echo " ======================================================================"
+echo -e " \033[0;32m================================================================================\033[0m"
+echo -e " \033[0;32m======================    ULTRAS APP INITIATOR STARTED    ======================\033[0m"
+echo -e " \033[0;32m================================================================================\033[0m"
 echo ""
 
 # remove all node_modules folders
+set_title "Cleaning old node modules ..."
 print_row_wait "Cleaning old node modules"
 find . -type d -name node_modules | xargs rm -rf > /dev/null 2>&1
 end_cmd_die $? "Couldn't delete node_modules folder(s)."
 
 # remove all build folders
+set_title "Cleaning old builds ..."
 print_row_wait "Cleaning old builds"
 find . -type d -name build | xargs rm -rf > /dev/null 2>&1
 end_cmd_die $? "Couldn't delete build folder(s)."
 
-# install typescript globally
-if [[ "" == "$(command -v tsc)" ]]; then
-  print_row_wait "Installing typescript globally via yarn"
-  yarn global add typescript > /dev/null 2>&1
-  end_cmd_die $? "Couldn't install typescript globally."
-fi
-
-# install rimraf globally
-if [[ "" == "$(command -v rimraf)" ]]; then
-  print_row_wait "Installing rimraf globally via yarn"
-  yarn global add rimraf > /dev/null 2>&1
-  end_cmd_die $? "Couldn't install rimraf globally."
-fi
-
 # make linkage
 cd "$ROOT_DIR"
 if [[ ! -d "node_modules" ]]; then
+  set_title "Installing node modules via yarn ..."
   print_row_wait "Installing node modules via yarn"
   yarn install > /dev/null 2>&1
   end_cmd_die $? "Couldn't install node modules."
@@ -57,6 +46,7 @@ fi
 
 # make linkage
 cd "$ROOT_DIR"
+set_title "Linking all sub-packages ..."
 print_row_wait "Linking all sub-packages"
 yarn link-all > /dev/null 2>&1
 end_cmd_die $? "Couldn't make package linkage."
@@ -73,6 +63,7 @@ for ITEM_BUILD in ${ITEMS_BUILD[@]}; do
   PKG_NAME="$(cat package.json | grep '"name":' | sed 's/"name"://g' | sed 's/"//g' | sed 's/,//g' | xargs)"
 
   if [[ ! -d "build" ]] ; then
+    set_title "Building sub-package [$PKG_NAME] ..."
     print_row_wait "Building sub-package [$PKG_NAME]"
     yarn build > /dev/null 2>&1
     end_cmd_die $? "Couldn't build package $PKG_NAME."
@@ -90,6 +81,7 @@ if [[ "Darwin" == "$(uname)" ]]; then
       exit
     else
       if [[ "" == "$(command -v pod)" ]]; then
+        set_title "Installing CocoaPods engine ..."
         print_row_wait "Installing CocoaPods engine"
         sudo gem install cocoapods > /dev/null 2>&1
         end_cmd_die $? "Couldn't install CocoaPods."
@@ -97,6 +89,7 @@ if [[ "Darwin" == "$(uname)" ]]; then
 
       cd "$ROOT_DIR/clients/app/ios"
 
+      set_title "Installing CocoaPods packages ..."
       print_row_wait "Installing CocoaPods packages"
       pod install > /dev/null 2>&1
       end_cmd_die $? "Couldn't install CocoaPods packages."
@@ -104,4 +97,6 @@ if [[ "Darwin" == "$(uname)" ]]; then
   fi
 fi
 
+echo ""
+echo -e " \033[0;32m Yu-hu, initiation completed successfully 🎉 🎉 🎉 \033[0m"
 echo ""
