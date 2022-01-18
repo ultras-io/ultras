@@ -63,7 +63,7 @@ module.exports = (sequelize: Sequelize): typeof City => {
   City.init(
     {
       id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -77,7 +77,7 @@ module.exports = (sequelize: Sequelize): typeof City => {
         unique: true,
       },
       countryId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         allowNull: false,
         references: {
           model: {

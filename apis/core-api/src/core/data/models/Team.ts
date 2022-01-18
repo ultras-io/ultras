@@ -79,7 +79,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         allowNull: false,
       },
       cityId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -90,7 +90,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       countryId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,

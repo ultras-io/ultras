@@ -59,7 +59,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
   Venue.init(
     {
       id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -75,7 +75,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         type: DataTypes.INTEGER,
       },
       cityId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -86,7 +86,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         onDelete: 'CASCADE',
       },
       countryId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         references: {
           model: {
             tableName: resources.COUNTRY.RELATION,
