@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import screens from 'navigation/screens/mainScreens';
+import mainScreens from 'navigation/screens/mainScreens';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,12 +10,12 @@ interface IMatchesNavigationProps {
   theme?: ThemeInterface;
 }
 
-const TAB_NAME = screens.matches.tabName;
+const TAB_NAME = mainScreens.matches.tabName;
 
 const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({ theme }) => {
   return (
     <Stack.Navigator
-      initialRouteName={`${TAB_NAME}:${screens.matches.initialScreenName}`}
+      initialRouteName={`${TAB_NAME}:${mainScreens.matches.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
@@ -23,7 +23,7 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({ theme }) => {
         headerTintColor: theme?.colors.secondary,
       }}
     >
-      {screens.matches.screens.map(item => {
+      {mainScreens.matches.screens.map(item => {
         return (
           <Stack.Screen
             key={`${TAB_NAME}:${item.name}`}

@@ -1,5 +1,6 @@
 import React, { ComponentType } from 'react';
 import { ThemeInterface } from 'styled-components';
+import { ScreenProps } from 'react-native-screens';
 
 export type CommonScreens = Record<
   | 'match'
@@ -29,19 +30,21 @@ export type CommonScreens = Record<
   }
 >;
 
+interface ScreenOptions extends ScreenProps {
+  headerTitle?: React.FunctionComponent<any>;
+  tabBarIcon?: React.FunctionComponent<any>;
+  isModal?: boolean;
+  headerShown?: boolean;
+  headerBackVisible?: boolean;
+  headerShadowVisible?: boolean;
+  presentation?: string;
+}
+
 export type NavigationScreen = {
   name: string;
   tabName?: string;
   component: ComponentType<any>;
-  options?: {
-    headerTitle?: React.FunctionComponent<any>;
-    tabBarIcon?: React.FunctionComponent<any>;
-    isModal?: boolean;
-    headerShown?: boolean;
-    headerBackVisible?: boolean;
-    headerShadowVisible?: boolean;
-    presentation?: string;
-  };
+  options?: ScreenOptions;
 };
 
 export type RootNavigationScreens = {

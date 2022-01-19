@@ -17,6 +17,7 @@ const SCREENS: RootNavigationScreens = {
   intro: {
     name: 'Intro',
     component: Intro,
+    options: {},
   },
   joinUs: {
     name: 'JoinUs',

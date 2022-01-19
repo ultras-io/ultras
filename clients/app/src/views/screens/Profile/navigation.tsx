@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import screens from 'navigation/screens/mainScreens';
+import mainScreens from 'navigation/screens/mainScreens';
 import COMMON_SCREENS from 'navigation/screens/commonScreens';
 
 const Stack = createNativeStackNavigator();
@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 interface IProfileNavigationProps {
   theme?: ThemeInterface;
 }
-const TAB_NAME = screens.profile.tabName;
+const TAB_NAME = mainScreens.profile.tabName;
 
 const ProfileNavigation: React.FC<IProfileNavigationProps> = ({ theme }) => {
   return (
@@ -23,7 +23,7 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({ theme }) => {
         headerTintColor: theme?.colors.secondary,
       }}
     >
-      {screens.profile.screens.map(item => {
+      {mainScreens.profile.screens.map(item => {
         return (
           <Stack.Screen
             key={`${TAB_NAME}:${item.name}`}

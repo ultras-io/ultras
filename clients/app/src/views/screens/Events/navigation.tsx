@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import screens from 'navigation/screens/mainScreens';
+import mainScreens from 'navigation/screens/mainScreens';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,12 +11,12 @@ interface IEventsNavigationProps {
   theme?: ThemeInterface;
 }
 
-const TAB_NAME = screens.events.tabName;
+const TAB_NAME = mainScreens.events.tabName;
 
 const EventsNavigation: React.FC<IEventsNavigationProps> = ({ theme }) => {
   return (
     <Stack.Navigator
-      initialRouteName={`${TAB_NAME}:${screens.events.initialScreenName}`}
+      initialRouteName={`${TAB_NAME}:${mainScreens.events.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
@@ -24,7 +24,7 @@ const EventsNavigation: React.FC<IEventsNavigationProps> = ({ theme }) => {
         headerTintColor: theme?.colors.secondary,
       }}
     >
-      {screens.events.screens.map(item => {
+      {mainScreens.events.screens.map(item => {
         return (
           <Stack.Screen
             key={`${TAB_NAME}:${item.name}`}

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ComponentType } from 'react';
 
 import Match from 'views/screens/Match';
