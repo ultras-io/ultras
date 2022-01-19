@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, View} from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
@@ -89,7 +89,8 @@ const Button: React.FC<IButtonProps> = ({
           textStyle,
           appearance === AppearanceEnum.UnderLined && styles.underlined,
         ]}
-        color={color}>
+        color={color}
+      >
         {title}
       </UltrasText>
     ) : null,
@@ -113,10 +114,7 @@ const Button: React.FC<IButtonProps> = ({
   }, [appearance, bgColor]);
 
   const _borderColor = React.useMemo(() => {
-    if (
-      appearance === AppearanceEnum.Minimal ||
-      appearance === AppearanceEnum.UnderLined
-    )
+    if (appearance === AppearanceEnum.Minimal || appearance === AppearanceEnum.UnderLined)
       return 'transparent';
     return bgColor ? bgColor : 'transparent';
   }, [appearance, bgColor]);
@@ -132,7 +130,8 @@ const Button: React.FC<IButtonProps> = ({
           pressableSize,
           pressableBoxSize,
           appearance === AppearanceEnum.Minimal && styles.noPadding,
-        ]}>
+        ]}
+      >
         {isLoading ? <UltrasText>loader...</UltrasText> : content}
       </Box>
     </Pressable>

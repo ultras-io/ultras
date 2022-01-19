@@ -2,12 +2,12 @@ import React from 'react';
 import I18n from 'i18n/i18n';
 
 import UltrasText from 'views/components/base/UltrasText';
-import {DirectionENum as AnimationDirection} from 'views/components/base/WithAnimation';
+import { DirectionENum as AnimationDirection } from 'views/components/base/WithAnimation';
 import Button, {
   SizeEnum as ButtonSize,
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
-import {ScenarStep, ActionTypeEnum, MessageTypeEnum} from './types';
+import { ScenarStep, ActionTypeEnum, MessageTypeEnum } from './types';
 import styles from './styles';
 
 const scenario: Array<ScenarStep> = [
@@ -21,9 +21,7 @@ const scenario: Array<ScenarStep> = [
           <>
             <UltrasText style={styles.textBold}>{I18n.t('hi')}</UltrasText>
             <UltrasText>{I18n.t('joinUsGreeting')}</UltrasText>
-            <UltrasText style={styles.textBold}>
-              {I18n.t('letsStart')}
-            </UltrasText>
+            <UltrasText style={styles.textBold}>{I18n.t('letsStart')}</UltrasText>
           </>
         ),
       },
@@ -153,9 +151,7 @@ const scenario: Array<ScenarStep> = [
       {
         messageId: 2,
         type: MessageTypeEnum.Default,
-        message: (
-          <UltrasText>{I18n.t('joinUsNotificationsLocation')}</UltrasText>
-        ),
+        message: <UltrasText>{I18n.t('joinUsNotificationsLocation')}</UltrasText>,
         //direction: AnimationDirection.Left2Right,
       },
     ],
@@ -189,9 +185,7 @@ const scenario: Array<ScenarStep> = [
         type: MessageTypeEnum.Default,
         message: (
           <>
-            <UltrasText style={styles.textBold}>
-              {I18n.t('joinUsCongrats')}
-            </UltrasText>
+            <UltrasText style={styles.textBold}>{I18n.t('joinUsCongrats')}</UltrasText>
             <UltrasText>{I18n.t('joinUsCongratsText')}</UltrasText>
           </>
         ),

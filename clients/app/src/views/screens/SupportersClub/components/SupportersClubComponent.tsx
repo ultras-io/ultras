@@ -1,8 +1,8 @@
 import React from 'react';
-import {FlatList, View} from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+import { commonScreens } from 'navigation/screens';
 
 import SupportersClubInfo from 'views/components/compositions/SupportersClubInfo';
 
@@ -10,40 +10,39 @@ import EventCard from 'views/components/compositions/EventCard';
 import PostCard from 'views/components/compositions/PostCard';
 import UltrasText from 'views/components/base/UltrasText';
 
-import {ISupportersClubComponentProps} from '../types';
+import { ISupportersClubComponentProps } from '../types';
 import styles from '../styles';
 import gStyles from 'styles/styles';
 
-const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
-  data,
-}) => {
-  const {setOptions, pushTo} = useNavigationWithParams();
+const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({ data }) => {
+  const { setOptions, pushTo } = useNavigationWithParams();
 
   const onScroll = React.useCallback(
-    ({nativeEvent}) => {
+    ({ nativeEvent }) => {
       let alpha = (nativeEvent.contentOffset.y - 30) / (70 - 30);
       if (alpha < 0) alpha = 0;
       else if (alpha > 1) alpha = 1;
       setOptions({
         headerTitle: () => (
           <UltrasText
-            style={[gStyles.screenTitle, {opacity: alpha}]}
+            style={[gStyles.screenTitle, { opacity: alpha }]}
             color={'tertiary'}
-            numberOfLines={1}>
+            numberOfLines={1}
+          >
             {data.name}
           </UltrasText>
         ),
       });
     },
-    [data.name, setOptions],
+    [data.name, setOptions]
   );
 
   const renderColumn = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <View style={styles.flatListItem}>
         {item.type === 'event' ? (
           <EventCard
-            onPress={() => pushTo(commonScreens.event, {id: 23})} //eventId
+            onPress={() => pushTo(commonScreens.event, { id: 23 })} //eventId
             imageUri={
               'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
             }
@@ -60,7 +59,7 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
           />
         ) : (
           <PostCard
-            onPress={() => pushTo(commonScreens.post, {id: 23})} //postId
+            onPress={() => pushTo(commonScreens.post, { id: 23 })} //postId
             date={new Date(2021, 9, 9)}
             title={
               "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
@@ -73,7 +72,7 @@ const SupportersClubComponent: React.FC<ISupportersClubComponentProps> = ({
         )}
       </View>
     ),
-    [pushTo],
+    [pushTo]
   );
 
   return (

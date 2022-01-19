@@ -1,13 +1,13 @@
 import React from 'react';
 
 // import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-// import commonScreens from 'navigation/commonScreens';
+// import { commonScreens } from 'navigation/screens';
 
 import EventInfo from 'views/components/compositions/EventInfo';
 
-import {IEventComponentProps} from '../types';
+import { IEventComponentProps } from '../types';
 
-const EventComponent: React.FC<IEventComponentProps> = ({data}) => {
+const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   // const {setOptions, pushTo} = useNavigationWithParams();
 
   return (

@@ -48,7 +48,7 @@ export class City
   /**
    * Currently this doesn't need, useful when need to use as city.getCountry() method
    * Having this now will load runtime process memory
-   *   */
+   */
 
   static associate(models: any) {
     // define association here
@@ -63,21 +63,21 @@ module.exports = (sequelize: Sequelize): typeof City => {
   City.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.SMALLINT,
         autoIncrement: true,
         primaryKey: true,
       },
       name: {
-        type: new DataTypes.STRING(),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       dataRapidId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },
       countryId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.SMALLINT,
         allowNull: false,
         references: {
           model: {

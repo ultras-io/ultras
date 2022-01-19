@@ -8,11 +8,9 @@ import {
   generateCountry,
 } from 'utils/helpers/dummy';
 
-import {ISupportersClubContainerProps} from '../types';
+import { ISupportersClubContainerProps } from '../types';
 
-const SupportersClubContainer: React.FC<ISupportersClubContainerProps> = ({
-  id,
-}) => {
+const SupportersClubContainer: React.FC<ISupportersClubContainerProps> = ({ id }) => {
   // get club's data by id
   const data = {
     avatarUri:

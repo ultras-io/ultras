@@ -3,7 +3,7 @@ import React from 'react';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import EventsContainer from './containers/EventsContainer';
 
-import {IEventsProps} from './types';
+import { IEventsProps } from './types';
 
 const Events: React.FC<IEventsProps> = () => {
   return (

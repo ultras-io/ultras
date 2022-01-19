@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, View, Image} from 'react-native';
+import { Pressable, View, Image } from 'react-native';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
@@ -10,8 +10,8 @@ import Divider from 'views/components/base/Divider';
 import Like from 'views/components/base/Like';
 import CommentsCount from 'views/components/base/CommentsCount';
 
-import {IMatchTimeProps} from '../MatchTime';
-import {IMatchCardProps} from './types';
+import { IMatchTimeProps } from '../MatchTime';
+import { IMatchCardProps } from './types';
 import styles from './styles';
 
 const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
@@ -35,36 +35,35 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
     <Pressable onPress={onPress}>
       <Container
         style={horizontal ? styles.containerH : styles.container}
-        bgColor={'secondaryText'}>
+        bgColor={'secondaryText'}
+      >
         <View style={styles.league}>
           {country && (
             <>
               <UltrasText
                 style={styles.leagueText}
-                color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}>
+                color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
+              >
                 {country}
               </UltrasText>
               <View style={styles.divider}>
-                <Divider
-                  bgColor={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
-                />
+                <Divider bgColor={horizontal ? 'secondaryTextInvert' : 'secondaryText'} />
               </View>
             </>
           )}
           <UltrasText
             style={styles.leagueText}
-            color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}>
+            color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
+          >
             {league}
           </UltrasText>
         </View>
         <View style={styles.logoAndTime}>
           <Box style={styles.logoContainer} bgColor={'text'}>
-            <Image source={{uri: team1URI}} style={styles.logo} />
+            <Image source={{ uri: team1URI }} style={styles.logo} />
           </Box>
-          <Box
-            style={[styles.logoContainer, styles.logoContainer2]}
-            bgColor={'text'}>
-            <Image source={{uri: team2URI}} style={styles.logo} />
+          <Box style={[styles.logoContainer, styles.logoContainer2]} bgColor={'text'}>
+            <Image source={{ uri: team2URI }} style={styles.logo} />
           </Box>
           <MatchTime
             leagueImageURI={leagueImageURI}
@@ -78,7 +77,8 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
           <UltrasText
             style={styles.team}
             color={horizontal ? 'textInvert' : 'secondaryText'}
-            numberOfLines={1}>
+            numberOfLines={1}
+          >
             {team1Name}
           </UltrasText>
           {score && (
@@ -94,7 +94,8 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
           <UltrasText
             style={styles.team}
             color={horizontal ? 'textInvert' : 'secondaryText'}
-            numberOfLines={1}>
+            numberOfLines={1}
+          >
             {team2Name}
           </UltrasText>
           {score && (

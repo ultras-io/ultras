@@ -2,9 +2,9 @@ import React from 'react';
 
 import ProfileInfo from 'views/components/compositions/ProfileInfo';
 
-import {IProfileComponentProps} from '../types';
+import { IProfileComponentProps } from '../types';
 
-const ProfileComponent: React.FC<IProfileComponentProps> = ({data}) => {
+const ProfileComponent: React.FC<IProfileComponentProps> = ({ data }) => {
   return (
     <ProfileInfo
       avatarUri={data.avatarUri}

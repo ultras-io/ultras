@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -12,14 +12,14 @@ import Button, {
 import Box from 'views/components/base/Box';
 
 import Countries from './containers/Countries';
-import ListModalTab from 'navigation/listModalTab/listModalTabNavigation';
+import ListModalTabNavigation from './components/ListModalTabMavigation';
 
-import {ISearchListModalProps, keyEnum} from './types';
+import { ISearchListModalProps, keyEnum } from './types';
 import styles from './styles';
 
-const SearchListModal: React.FC<ISearchListModalProps> = ({route}) => {
-  const {goBack} = useNavigationWithParams();
-  const {dataKey} = route.params;
+const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
+  const { goBack } = useNavigationWithParams();
+  const { dataKey } = route.params;
 
   const [searchText, setSearchText] = React.useState<string>('');
 
@@ -27,7 +27,7 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({route}) => {
     text => {
       setSearchText(text.value);
     },
-    [setSearchText],
+    [setSearchText]
   );
 
   const name = dataKey === keyEnum.Code ? I18n.t('country') : I18n.t('team');
@@ -54,7 +54,7 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({route}) => {
       {dataKey === keyEnum.Code ? (
         <Countries searchText={searchText} />
       ) : (
-        <ListModalTab />
+        <ListModalTabNavigation />
       )}
     </Box>
   );

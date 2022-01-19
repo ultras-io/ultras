@@ -1,14 +1,12 @@
 import db from 'core/data/models';
-import { OrderEnum, WinnerEnum } from '@ultras/utils';
+import { parseMatchStatus, OrderEnum, WinnerEnum } from '@ultras/utils';
 
 import { MatchCreationAttributes } from 'core/data/models/Match';
 import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import injectMatches, {
-  statusAdapter,
-  RapidApiMatch,
-} from 'core/data/inject-scripts/injectMatches';
+import injectMatches, { RapidApiMatch } from 'core/data/inject-scripts/injectMatches';
+import resources from 'core/data/lcp';
 
 import {
   GetAllMatchesActionParams,
@@ -18,6 +16,34 @@ import {
 } from './types';
 
 class MatchController {
+  private static includeRelations = {
+    attributes: {
+      exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
+    },
+    include: [
+      {
+        model: db.Team,
+        as: resources.TEAM.ALIAS.SINGULAR + 'Home',
+      },
+      {
+        model: db.Team,
+        as: resources.TEAM.ALIAS.SINGULAR + 'Away',
+      },
+      {
+        model: db.Venue,
+        as: resources.VENUE.ALIAS.SINGULAR,
+      },
+      {
+        model: db.League,
+        as: resources.LEAGUE.ALIAS.SINGULAR,
+      },
+      {
+        model: db.Score,
+        as: resources.SCORE.ALIAS.PLURAL,
+      },
+    ],
+  };
+
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -61,6 +87,7 @@ class MatchController {
       offset,
       where: query,
       order: [[orderAttr, order]],
+      ...this.includeRelations,
     });
 
     return {
@@ -72,7 +99,9 @@ class MatchController {
   }
 
   static async getById(id: number): Promise<GetMatchByIdResult> {
-    const match = await db.Match.findByPk(id);
+    const match = await db.Match.findByPk(id, {
+      ...this.includeRelations,
+    });
 
     return {
       data: match,
@@ -151,8 +180,11 @@ class MatchController {
           teamAwayId: teamAway.getDataValue('id'),
           venueId: venue.getDataValue('id'),
           leagueId: league.getDataValue('id'),
-          status: statusAdapter[item.fixture.status.short],
+          status: parseMatchStatus(item.fixture.status.short),
           winner: WinnerEnum.draw,
+          goalsHome: item.goals.home,
+          goalsAway: item.goals.away,
+          elapsedTime: item.fixture.status.elapsed,
           dataRapidId: item.fixture.id,
         });
       }

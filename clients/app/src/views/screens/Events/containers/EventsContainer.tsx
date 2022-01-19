@@ -1,12 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 import EventsComponent from '../components/EventsComponent';
 
-import {IEventsContainerProps} from '../types';
+import { IEventsContainerProps } from '../types';
 import styles from '../styles';
 
-import {generateEvents} from 'utils/helpers/dummy';
+import { generateEvents } from 'utils/helpers/dummy';
 
 const EventsContainer: React.FC<IEventsContainerProps> = () => {
   const [data, setData] = React.useState<Array<any>>([]);

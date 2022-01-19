@@ -30,8 +30,6 @@ const getCountryCities = async (
 ): Promise<CityCreationAttributes[]> => {
   const network = new NetworkService(options.url);
 
-  const cities: CityCreationAttributes[] = [];
-
   const {
     body: { data },
   } = await network.makeAPIGetRequest('cities', {
@@ -43,13 +41,12 @@ const getCountryCities = async (
       offset: 0,
     },
   });
-  data.forEach((item: RapidApiCity) => {
-    cities.push({
-      name: item.name,
-      dataRapidId: item.id,
-      countryId,
-    });
-  });
+
+  const cities: CityCreationAttributes[] = data.map((item: RapidApiCity) => ({
+    name: item.name,
+    dataRapidId: item.id,
+    countryId,
+  }));
 
   return cities;
 };

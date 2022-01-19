@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, ScrollView, Alert, View} from 'react-native';
+import { ImageBackground, ScrollView, Alert, View } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 
@@ -9,10 +9,10 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
-import {WithBadge, SizeEnum as BadgeSize} from 'views/components/base/Badge';
-import {IconNamesEnum} from '../../../assets/icons';
-import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
+import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
+import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/Badge';
+import { IconNamesEnum } from '../../../assets/icons';
+import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
@@ -22,7 +22,7 @@ import MatchTime, {
 } from 'views/components/compositions/MatchTime';
 
 import MatchCard from 'views/components/compositions/MatchCard';
-import Input, {TypeEnum as InputType} from 'views/components/base/Input';
+import Input, { TypeEnum as InputType } from 'views/components/base/Input';
 import PhoneInput from 'views/components/compositions/PhoneInput';
 
 import PostCard from 'views/components/compositions/PostCard';
@@ -49,16 +49,15 @@ const UIKit: React.FC = () => {
   };
 
   const randomDate = (start: Date, end: Date): Date => {
-    return new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime()),
-    );
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   };
 
   return (
     <ImageBackground
       source={require('../../../assets/images/bg.png')}
       resizeMode="cover"
-      style={gStyles.containerBg}>
+      style={gStyles.containerBg}
+    >
       <ScrollView style={styles.container}>
         <UltrasText style={styles.title}>UI Kit</UltrasText>
         <UltrasText style={styles.subTitle}>Comments Count</UltrasText>
@@ -113,16 +112,16 @@ const UIKit: React.FC = () => {
           iconPosition={ButtonIconPosition.Left}
         />
         <UltrasText style={styles.subTitle}>Input</UltrasText>
-        <View style={{width: 200, marginTop: 10}}>
+        <View style={{ width: 200, marginTop: 10 }}>
           <Input name="Name" />
         </View>
-        <View style={{width: 260, marginTop: 10}}>
+        <View style={{ width: 260, marginTop: 10 }}>
           <PhoneInput />
         </View>
-        <View style={{width: 120, marginTop: 10}}>
+        <View style={{ width: 120, marginTop: 10 }}>
           <Input name="Phone Number" type={InputType.Phone} />
         </View>
-        <View style={{width: 180, marginTop: 10}}>
+        <View style={{ width: 180, marginTop: 10 }}>
           <Input name="Email" type={InputType.Email} />
         </View>
         <UltrasText style={styles.subTitle}>Event Card</UltrasText>
@@ -241,11 +240,7 @@ const UIKit: React.FC = () => {
           country="England"
           avatarUri={rlUri}
         />
-        <TeamCard
-          name="Italy"
-          supportersClubsCount={900}
-          avatarUri={avatarUri}
-        />
+        <TeamCard name="Italy" supportersClubsCount={900} avatarUri={avatarUri} />
         <UltrasText style={styles.subTitle}>Ultras Card</UltrasText>
 
         <ProfileCard
@@ -323,7 +318,7 @@ const UIKit: React.FC = () => {
           }
           country={'England'}
           league={'Premier League'}
-          score={{team1Score: 3, team2Score: 1}}
+          score={{ team1Score: 3, team2Score: 1 }}
           leagueImageURI={
             'https://media.api-sports.io/football/leagues/' +
             Math.round(Math.random() * (55 - 1) + 1) +
@@ -346,7 +341,7 @@ const UIKit: React.FC = () => {
             '.png'
           }
           league={'Europa League'}
-          score={{team1Score: 2, team2Score: 1}}
+          score={{ team1Score: 2, team2Score: 1 }}
           leagueImageURI={
             'https://media.api-sports.io/football/leagues/' +
             Math.round(Math.random() * (55 - 1) + 1) +
@@ -363,10 +358,7 @@ const UIKit: React.FC = () => {
                 Math.round(Math.random() * (55 - 1) + 1) +
                 '.png'
               }
-              startTime={randomDate(
-                new Date(2021, 10, 10),
-                new Date(2021, 11, 11),
-              )}
+              startTime={randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11))}
             />
           </View>
           <View style={styles.rowItem}>
@@ -454,7 +446,8 @@ const UIKit: React.FC = () => {
               number={43768}
               size={BadgeSize.Big}
               bgColor="secondary"
-              color="danger">
+              color="danger"
+            >
               <Avatar avatarUri={romanoUri} size={AvatarSize.Big} />
             </WithBadge>
           </View>

@@ -5,6 +5,7 @@ import { SomethingWentWrong } from 'modules/exceptions';
 import { TeamTypesEnum, OrderEnum } from '@ultras/utils';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
+import resources from 'core/data/lcp';
 
 import {
   GetAllTeamsActionParams,
@@ -14,6 +15,26 @@ import {
 } from './types';
 
 class TeamController {
+  private static includeRelations = {
+    attributes: {
+      exclude: ['countryId', 'cityId', 'venueId'],
+    },
+    include: [
+      {
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+      },
+      {
+        model: db.City,
+        as: resources.CITY.ALIAS.SINGULAR,
+      },
+      {
+        model: db.Venue,
+        as: resources.VENUE.ALIAS.SINGULAR,
+      },
+    ],
+  };
+
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -76,6 +97,7 @@ class TeamController {
       offset,
       where: query,
       order: [[orderAttr, order]],
+      ...this.includeRelations,
     });
 
     return {
@@ -87,7 +109,9 @@ class TeamController {
   }
 
   static async getById(id: number): Promise<GetTeamByIdResult> {
-    const team = await db.Team.findByPk(id);
+    const team = await db.Team.findByPk(id, {
+      ...this.includeRelations,
+    });
 
     return {
       data: team,
@@ -118,6 +142,7 @@ class TeamController {
         order: [['name', OrderEnum.asc]],
       });
 
+      const records: TeamCreationAttributes[] = [];
       for (const country of countries) {
         const {
           body: { response },
@@ -127,7 +152,6 @@ class TeamController {
           continue;
         }
 
-        const records: TeamCreationAttributes[] = [];
         for (const responseItem of response) {
           const item: RapidApiTeam = responseItem as RapidApiTeam;
           if (!item.team.name) {
@@ -157,9 +181,18 @@ class TeamController {
             dataRapidId: item.team.id,
           });
         }
-
-        await db.Team.bulkCreate(records);
       }
+
+      const uniqueTeamsGrouped = records.reduce(
+        (acc: any, item: TeamCreationAttributes) => {
+          acc[item.dataRapidId] = item;
+          return acc;
+        },
+        {}
+      );
+
+      const uniqueTeams = Object.values(uniqueTeamsGrouped);
+      await db.Team.bulkCreate(uniqueTeams);
 
       return { data: { success: true } };
     } catch (e: any) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Box from 'views/components/base/Box';
 
-import {IDividerProps, TypeEnum} from './types';
+import { IDividerProps, TypeEnum } from './types';
 import styles from './styles';
 
 const stylesDictionary = {
@@ -13,7 +13,7 @@ const stylesDictionary = {
   },
 };
 
-const Devider: React.FC<IDividerProps> = ({type = TypeEnum.Dot, bgColor}) => {
+const Devider: React.FC<IDividerProps> = ({ type = TypeEnum.Dot, bgColor }) => {
   return (
     <Box
       style={[styles.container, stylesDictionary.types[type]]}

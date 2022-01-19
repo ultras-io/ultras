@@ -1,18 +1,18 @@
-import React, {useState, useCallback} from 'react';
-import {Pressable, View} from 'react-native';
-import {withTheme} from 'styled-components/native';
+import React, { useState, useCallback } from 'react';
+import { Pressable, View } from 'react-native';
+import { withTheme } from 'styled-components/native';
 import styled from 'styled-components/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import rootScreens from 'navigation/root/rootScreens';
-import {keyEnum as SearchListKey} from 'views/screens/SearchListModal';
+import { rootScreens } from 'navigation/screens';
+import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { IconNamesEnum as Icons } from 'assets/icons';
 
-import {IInputProps, TypeEnum, StateEnum, KeyboardTypes} from './types';
+import { IInputProps, TypeEnum, StateEnum, KeyboardTypes } from './types';
 import styles from './styles';
 
 const keyboardTypes: KeyboardTypes = {
@@ -24,13 +24,13 @@ const keyboardTypes: KeyboardTypes = {
 };
 
 const StyledInput = styled.TextInput<IInputProps>`
-  background-color: ${({theme}) => {
+  background-color: ${({ theme }) => {
     return theme.colors.opacityBgColor;
   }};
-  border-color: ${({theme}) => {
+  border-color: ${({ theme }) => {
     return theme.colors.opacityBgColor;
   }};
-  color: ${({theme}) => {
+  color: ${({ theme }) => {
     return theme.colors.text;
   }};
 `;
@@ -46,7 +46,7 @@ const Input: React.FC<IInputProps> = ({
   onChange,
   onType,
 }) => {
-  const {openModal} = useNavigationWithParams();
+  const { openModal } = useNavigationWithParams();
 
   const _isSelect = type === TypeEnum.Select;
   const [_value, _setValue] = useState(value);
@@ -62,7 +62,7 @@ const Input: React.FC<IInputProps> = ({
       _resetTimer();
       timerRef.current = setTimeout(() => onChange && onChange(value), 600);
     },
-    [onChange, _resetTimer],
+    [onChange, _resetTimer]
   );
 
   const _onChangeText = useCallback(
@@ -74,7 +74,7 @@ const Input: React.FC<IInputProps> = ({
         value: text,
       });
     },
-    [_setValue, onType, _runTimeoutUpdate],
+    [_setValue, onType, _runTimeoutUpdate]
   );
 
   const _onEndEditing = useCallback(
@@ -86,11 +86,11 @@ const Input: React.FC<IInputProps> = ({
           value: e.nativeEvent.text,
         });
     },
-    [onChange, _resetTimer],
+    [onChange, _resetTimer]
   );
 
   const openSelectModal = useCallback(() => {
-    openModal(rootScreens.searchListModal.name, {dataKey: SearchListKey.Code});
+    openModal(rootScreens.searchListModal.name, { dataKey: SearchListKey.Code });
   }, [openModal]);
 
   React.useEffect(() => {
@@ -106,7 +106,8 @@ const Input: React.FC<IInputProps> = ({
           <Box
             style={styles.select}
             bgColor={'opacityBgColor'}
-            borderColor={'opacityBgColor'}>
+            borderColor={'opacityBgColor'}
+          >
             <UltrasText color={_value ? 'text' : 'secondaryText'}>
               {_value ? _value : name}
             </UltrasText>

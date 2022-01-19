@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Pressable} from 'react-native';
+import { View, Pressable } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
+import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import Divider from 'views/components/base/Divider';
 
-import {getReadableNumber} from 'utils/helpers/readableNumber';
+import { getReadableNumber } from 'utils/helpers/readableNumber';
 
-import {ISupportersClubCardProps} from './types';
+import { ISupportersClubCardProps } from './types';
 
 import styles from './styles';
 

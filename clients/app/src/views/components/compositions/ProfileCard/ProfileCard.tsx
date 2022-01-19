@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Pressable} from 'react-native';
+import { View, Pressable } from 'react-native';
 
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, {SizeEnum as AvatarSize} from 'views/components/base/Avatar';
+import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 
-import {IProfileCardProps} from './types';
+import { IProfileCardProps } from './types';
 
 import styles from './styles';
 
@@ -21,9 +21,8 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
   return (
     <Pressable onPress={onPress}>
       <Container
-        style={
-          appearence === 'minimal' ? styles.containerMinimal : styles.container
-        }>
+        style={appearence === 'minimal' ? styles.containerMinimal : styles.container}
+      >
         <View style={styles.avatar}>
           <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
         </View>

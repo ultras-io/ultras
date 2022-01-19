@@ -111,7 +111,7 @@ class NetworkService {
           fetch_options.body = JSON.stringify(options.body);
         }
       } catch (ex) {
-        return reject({message: NETWORK_SERVICE.ERRORS.INVALID_REQUEST_PARAMS});
+        return reject({ message: NETWORK_SERVICE.ERRORS.INVALID_REQUEST_PARAMS });
       }
 
       fetch(url, fetch_options)
@@ -121,7 +121,7 @@ class NetworkService {
               message: NETWORK_SERVICE.ERRORS.INVALID_RESPONSE_DATA,
             });
           }
-          const {headers} = response;
+          const { headers } = response;
           let body = {};
 
           const contentType = headers.get('content-type');
@@ -141,14 +141,14 @@ class NetworkService {
               });
             }
           } catch (e) {
-            reject({message: e.message, res: {body, headers}});
+            reject({ message: e.message, res: { body, headers } });
           }
 
           if (response.status > 400) {
             return reject(body);
           }
 
-          return resolve({body, headers});
+          return resolve({ body, headers });
         })
         .catch(err => reject(err));
     });

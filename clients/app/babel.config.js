@@ -5,19 +5,11 @@ module.exports = {
       'module-resolver',
       {
         root: ['./src'],
-        extensions: [
-          '.ios.js',
-          '.android.js',
-          '.js',
-          '.ts',
-          '.d.ts',
-          '.tsx',
-          '.json',
-        ],
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.d.ts', '.tsx', '.json'],
         alias: {
           assets: './src/assets',
           views: './src/views',
-          config: './src/config',
+          config: './src/screens',
           core: './src/core',
           services: './src/core/services',
           navigation: './src/navigation',

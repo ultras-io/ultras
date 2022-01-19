@@ -1,7 +1,7 @@
-import React, {useRef, useEffect} from 'react';
-import {Animated} from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { Animated } from 'react-native';
 
-import {IWithAnimationProps, DirectionENum} from './types';
+import { IWithAnimationProps, DirectionENum } from './types';
 
 const WithAnimation: React.FC<IWithAnimationProps> = ({
   children,
@@ -23,11 +23,11 @@ const WithAnimation: React.FC<IWithAnimationProps> = ({
     x = 200;
   }
 
-  const pan = useRef(new Animated.ValueXY({x, y})).current;
+  const pan = useRef(new Animated.ValueXY({ x, y })).current;
 
   useEffect(() => {
     Animated.timing(pan, {
-      toValue: {x: 0, y: 0},
+      toValue: { x: 0, y: 0 },
       duration,
       delay,
       useNativeDriver: true,
@@ -37,8 +37,9 @@ const WithAnimation: React.FC<IWithAnimationProps> = ({
   return (
     <Animated.View
       style={{
-        transform: [{translateX: pan.x}, {translateY: pan.y}],
-      }}>
+        transform: [{ translateX: pan.x }, { translateY: pan.y }],
+      }}
+    >
       {children}
     </Animated.View>
   );
