@@ -1,5 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { MatchStatusesEnum, WinnerEnum } from '@ultras/utils';
+import { MatchScoreTypesEnum, MatchStatusesEnum, WinnerEnum } from '@ultras/utils';
 
 import db from 'core/data/models';
 import resources from 'core/data/lcp';
@@ -18,10 +18,16 @@ export interface MatchAttributes {
   leagueId: number;
   status: MatchStatusesEnum;
   winner: WinnerEnum;
+  goalsHome: null | number;
+  goalsAway: null | number;
+  elapsedTime: number;
   dataRapidId: number;
 }
 
-export type MatchCreationAttributes = Optional<MatchAttributes, 'id'>;
+export type MatchCreationAttributes = Optional<
+  MatchAttributes,
+  'id' | 'goalsHome' | 'goalsAway' | 'elapsedTime'
+>;
 
 export class Match
   extends Model<MatchAttributes, MatchCreationAttributes>
@@ -35,6 +41,9 @@ export class Match
   public leagueId!: number;
   public status!: MatchStatusesEnum;
   public winner!: WinnerEnum;
+  public goalsHome!: number;
+  public goalsAway!: number;
+  public elapsedTime!: number;
   public dataRapidId!: number;
 
   // timestamps!
@@ -51,17 +60,17 @@ export class Match
 
   static associate(models: any) {
     Match.belongsTo(models.Team, {
-      as: resources.TEAM.ALIAS.SINGULAR,
+      as: resources.TEAM.ALIAS.SINGULAR + 'Home',
       foreignKey: 'teamHomeId',
     });
 
     Match.belongsTo(models.Team, {
-      as: resources.TEAM.ALIAS.SINGULAR + 'Home',
+      as: resources.TEAM.ALIAS.SINGULAR + 'Away',
       foreignKey: 'teamAwayId',
     });
 
     Match.belongsTo(models.Venue, {
-      as: resources.VENUE.ALIAS.SINGULAR + 'Away',
+      as: resources.VENUE.ALIAS.SINGULAR,
       foreignKey: 'venueId',
     });
 
@@ -70,8 +79,8 @@ export class Match
       foreignKey: 'leagueId',
     });
 
-    Match.hasOne(models.Score, {
-      as: resources.SCORE.ALIAS.SINGULAR,
+    Match.hasMany(models.Score, {
+      as: resources.SCORE.ALIAS.PLURAL,
       foreignKey: 'matchId',
     });
   }
@@ -81,16 +90,16 @@ module.exports = (sequelize: Sequelize): typeof Match => {
   Match.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
       dateTime: {
-        type: new DataTypes.DATE(),
+        type: DataTypes.DATE,
         allowNull: false,
       },
       teamHomeId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -101,7 +110,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       teamAwayId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -112,7 +121,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.VENUE.RELATION,
@@ -123,7 +132,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       leagueId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.BIGINT,
         references: {
           model: {
             tableName: resources.LEAGUE.RELATION,
@@ -134,7 +143,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       status: {
-        type: new DataTypes.ENUM({
+        type: DataTypes.ENUM({
           values: [
             MatchStatusesEnum.preMatch,
             MatchStatusesEnum.live,
@@ -150,13 +159,25 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         defaultValue: MatchStatusesEnum.preMatch,
       },
       winner: {
-        type: new DataTypes.ENUM({
+        type: DataTypes.ENUM({
           values: [WinnerEnum.draw, WinnerEnum.home, WinnerEnum.away],
         }),
         allowNull: false,
       },
+      goalsHome: {
+        type: DataTypes.SMALLINT,
+        allowNull: true,
+      },
+      goalsAway: {
+        type: DataTypes.SMALLINT,
+        allowNull: true,
+      },
+      elapsedTime: {
+        type: DataTypes.SMALLINT,
+        allowNull: true,
+      },
       dataRapidId: {
-        type: new DataTypes.INTEGER(),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },
@@ -171,6 +192,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
           // create Score row with default data for new Match.
           const scores = instances.map((instance: Match) => ({
             matchId: instance.getDataValue('id'),
+            type: MatchScoreTypesEnum.fullTime,
           }));
 
           db.Score.bulkCreate(scores);
@@ -179,6 +201,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
           // create Score row with default data for new Match.
           db.Score.create({
             matchId: instance.getDataValue('id'),
+            type: MatchScoreTypesEnum.fullTime,
           });
         },
       },

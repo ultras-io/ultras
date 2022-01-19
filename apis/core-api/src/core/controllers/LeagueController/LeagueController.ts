@@ -6,6 +6,7 @@ import { SomethingWentWrong } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
+import resources from 'core/data/lcp';
 
 import {
   GetAllLeaguesActionParams,
@@ -15,6 +16,18 @@ import {
 } from './types';
 
 class LeagueController {
+  private static includeRelations = {
+    attributes: {
+      exclude: ['countryId'],
+    },
+    include: [
+      {
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+      },
+    ],
+  };
+
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -57,6 +70,7 @@ class LeagueController {
       offset,
       where: query,
       order: [[orderAttr, order]],
+      ...this.includeRelations,
     });
 
     return {
@@ -68,7 +82,9 @@ class LeagueController {
   }
 
   static async getById(id: number): Promise<GetLeagueByIdResult> {
-    const league = await db.League.findByPk(id);
+    const league = await db.League.findByPk(id, {
+      ...this.includeRelations,
+    });
 
     return {
       data: league,
