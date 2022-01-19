@@ -1,10 +1,10 @@
 import React from 'react';
-import {FlatList, Pressable, View} from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar from 'views/components/base/Avatar';
 
-import {ITeamsComponentProps} from 'views/containers/TeamsHorizontal';
+import { ITeamsComponentProps } from 'views/containers/TeamsHorizontal';
 import styles from './styles';
 
 const TeamsComponent: React.FC<ITeamsComponentProps> = ({
@@ -13,7 +13,7 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({
   onPress,
 }) => {
   const renderColumn = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <Pressable onPress={() => onPress(item.id)} style={styles.container}>
         <View style={styles.avatar}>
           <Avatar avatarUri={item.logo} isTeam />
@@ -23,7 +23,7 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({
         </UltrasText>
       </Pressable>
     ),
-    [onPress],
+    [onPress]
   );
 
   return (

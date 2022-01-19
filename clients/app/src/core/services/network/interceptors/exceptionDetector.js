@@ -1,6 +1,6 @@
 // @flow
 
-/* import { history } from 'config/routes';
+/* import { history } from 'screens/routes';
 import CacheService from 'services/storage/CacheService'; */
 
 export default data => {

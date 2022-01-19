@@ -1,16 +1,16 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from '../Icon';
-import {IconNamesEnum as Icons} from 'assets/icons';
-import {getReadableNumber} from 'utils/helpers/readableNumber';
+import { IconNamesEnum as Icons } from 'assets/icons';
+import { getReadableNumber } from 'utils/helpers/readableNumber';
 
-import {ICommentsCountProps} from './types';
+import { ICommentsCountProps } from './types';
 
 import styles from './styles';
 
-const CommentsCount: React.FC<ICommentsCountProps> = ({count}) => {
+const CommentsCount: React.FC<ICommentsCountProps> = ({ count }) => {
   return (
     <View style={styles.container}>
       <Icon key="icon" name={Icons.Comments} size={24} />

@@ -1,24 +1,22 @@
-import React, {useCallback, useEffect, useState, useRef} from 'react';
-import {View} from 'react-native';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { View } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import FourDigitsInput from 'views/components/compositions/FourDigitsInput';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from 'assets/icons';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import Button, {
   SizeEnum as ButtonSize,
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
 
-import {IFourDigitsContainerProps} from './types';
+import { IFourDigitsContainerProps } from './types';
 import styles from './styles';
 
 const SMS_TIME = 60;
 
-const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
-  passStep,
-}) => {
+const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({ passStep }) => {
   const [isFilledWrong, setIsFilledWrong] = useState(false);
   const [waitingTime, setWaitingTime] = useState(SMS_TIME);
   const intervalRef = useRef();
@@ -54,7 +52,7 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
         passStep(code);
       }
     },
-    [rightCode, setIsFilledWrong, passStep],
+    [rightCode, setIsFilledWrong, passStep]
   );
 
   return (
@@ -74,7 +72,7 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({
           isDisabled={waitingTime > 0}
           title={
             waitingTime > 0
-              ? I18n.t('joinUsTextWillArive', {waitingTime})
+              ? I18n.t('joinUsTextWillArive', { waitingTime })
               : I18n.t('joinUsSendAgainText')
           }
           onPress={onPress}

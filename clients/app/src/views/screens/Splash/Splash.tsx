@@ -1,15 +1,15 @@
 import React from 'react';
-import {ImageBackground} from 'react-native';
+import { ImageBackground } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 
-import {ISplashProps} from './types';
+import { ISplashProps } from './types';
 import styles from './styles';
 import gStyles from 'styles/styles';
 
 import bg from 'assets/images/bg.png';
 
-const Splash: React.FC<ISplashProps> = ({setIsLoading}) => {
+const Splash: React.FC<ISplashProps> = ({ setIsLoading }) => {
   // check
   setTimeout(() => {
     setIsLoading(true);

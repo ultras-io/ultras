@@ -1,8 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import Badge from './index';
 
-import {IWithBadgeProps, IBadgeProps, SizeEnum} from './types';
+import { IWithBadgeProps, IBadgeProps, SizeEnum } from './types';
 import styles from './styles';
 
 export const WithBadge: React.FC<IBadgeProps & IWithBadgeProps> = ({

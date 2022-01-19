@@ -1,10 +1,10 @@
 import React from 'react';
-import {Pressable, Image} from 'react-native';
+import { Pressable, Image } from 'react-native';
 import Box from 'views/components/base/Box';
 
 import defaultAvatar from 'assets/icons/avatar.jpeg';
 
-import {IAvatarProps, SizeEnum} from './types';
+import { IAvatarProps, SizeEnum } from './types';
 import styles from './styles';
 
 const stylesDictionary = {
@@ -25,16 +25,17 @@ const Avatar: React.FC<IAvatarProps> = ({
   const content = isTeam ? (
     <Box
       style={[styles.container, stylesDictionary.sizes[size]]}
-      bgColor="bgColorLightSecondary">
+      bgColor="bgColorLightSecondary"
+    >
       <Image
-        source={avatarUri ? {uri: avatarUri} : defaultAvatar}
+        source={avatarUri ? { uri: avatarUri } : defaultAvatar}
         style={[styles.image]}
       />
     </Box>
   ) : (
     <Box style={styles.container}>
       <Image
-        source={avatarUri ? {uri: avatarUri} : defaultAvatar}
+        source={avatarUri ? { uri: avatarUri } : defaultAvatar}
         style={stylesDictionary.sizes[size]}
       />
     </Box>

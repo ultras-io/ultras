@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Image, FlatList, ListRenderItem} from 'react-native';
+import { View, Image, FlatList, ListRenderItem } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 
-import {ISearchListComponentProps, SearchItem} from '../types';
+import { ISearchListComponentProps, SearchItem } from '../types';
 import styles from '../styles';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
@@ -14,22 +14,24 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
 }) => {
   // const flatListRef = React.useRef<FlatList<any>>();
 
-  const renderRow: ListRenderItem<SearchItem> = ({item}) => (
+  const renderRow: ListRenderItem<SearchItem> = ({ item }) => (
     <Box
       bgColor={'opacityBgColor'}
       style={[
         styles.row,
         item === data[0] && styles.firstRow,
         item === data[data.length - 1] && styles.lastRow,
-      ]}>
+      ]}
+    >
       <Box
         borderColor={'opacityBgColor'}
         style={[
           styles.borderedRow,
           item === data[data.length - 1] && styles.lastBorderedRow,
-        ]}>
+        ]}
+      >
         <View style={styles.rowContainer}>
-          {item.logo && <Image source={{uri: item.logo}} style={styles.logo} />}
+          {item.logo && <Image source={{ uri: item.logo }} style={styles.logo} />}
           <UltrasText style={styles.text} color="text">
             {item.name}
           </UltrasText>

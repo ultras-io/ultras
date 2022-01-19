@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import {IUltrasTextProps} from './types';
+import { IUltrasTextProps } from './types';
 
 const StyledText = styled.Text<IUltrasTextProps>`
-  color: ${({theme, color}) => {
+  color: ${({ theme, color }) => {
     return color ? theme.colors[color] : theme.colors.textInvert;
   }};
 `;
@@ -21,7 +21,8 @@ const UltrasText: React.FC<IUltrasTextProps> = ({
       color={color}
       adjustsFontSizeToFit
       allowFontScaling
-      numberOfLines={numberOfLines}>
+      numberOfLines={numberOfLines}
+    >
       {children}
     </StyledText>
   );

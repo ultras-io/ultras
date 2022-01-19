@@ -241,7 +241,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				882D1E8926FC982B0096586F /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -258,6 +257,7 @@
 				E233CBF5F47BEE60B243DCF8 /* Pods */,
 				53D5B60F8C744A73B1162052 /* Resources */,
 				88BB84BB270F19FE002D97C5 /* app-Bridging-Header.h */,
+				882D1E8926FC982B0096586F /* RNCAsyncStorage.xcodeproj */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";

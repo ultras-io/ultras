@@ -1,29 +1,26 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useScrollToTop} from '@react-navigation/native';
+import { FlatList } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
+import { commonScreens } from 'navigation/screens';
 
 import MatchCard from 'views/components/compositions/MatchCard';
 
-import {IMatchesComponentProps} from '../types';
+import { IMatchesComponentProps } from '../types';
 import styles from '../styles';
 
-const MatchesComponent: React.FC<IMatchesComponentProps> = ({
-  data,
-  onEndReached,
-}) => {
-  const {pushTo} = useNavigationWithParams();
+const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached }) => {
+  const { pushTo } = useNavigationWithParams();
 
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
   const renderRow = React.useCallback(
-    ({item}) => (
+    ({ item }) => (
       <MatchCard
         id={item.id}
-        onPress={() => pushTo(commonScreens.match, {id: item.id})}
+        onPress={() => pushTo(commonScreens.match.name, { id: item.id })}
         team1Name={item.team1Name}
         team2Name={item.team2Name}
         team1URI={item.team1URI}
@@ -37,7 +34,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
         minute={item.minute}
       />
     ),
-    [pushTo],
+    [pushTo]
   );
 
   return (

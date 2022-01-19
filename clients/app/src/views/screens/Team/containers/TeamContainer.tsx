@@ -9,10 +9,10 @@ import {
   // generateFlagURL,
 } from 'utils/helpers/dummy';
 
-import {ITeamContainerProps} from '../types';
+import { ITeamContainerProps } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const TeamContainer: React.FC<ITeamContainerProps> = ({id}) => {
+const TeamContainer: React.FC<ITeamContainerProps> = ({ id }) => {
   // get teams's data by id
   const data = {
     avatarUri: generateTeamURL(),

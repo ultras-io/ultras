@@ -3,12 +3,12 @@ import React from 'react';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import TeamContainer from './containers/TeamContainer';
 
-import TeamTabNavigation from 'navigation/teamTab/teamTabNavigation';
+import TeamTabNavigation from './components/TeamTabNavigation';
 
-import {ITeamProps} from './types';
+import { ITeamProps } from './types';
 
-const Team: React.FC<ITeamProps> = ({route}) => {
-  const {id, tabName} = route.params;
+const Team: React.FC<ITeamProps> = ({ route }) => {
+  const { id, tabName } = route.params;
   return (
     <WithSafeArea>
       <TeamContainer id={id} />

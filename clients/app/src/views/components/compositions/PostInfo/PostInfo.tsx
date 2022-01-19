@@ -1,18 +1,18 @@
 import React from 'react';
-import {View, Image, Pressable} from 'react-native';
+import { View, Image, Pressable } from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import commonScreens from 'navigation/commonScreens';
-import {getReadableNumber} from 'utils/helpers/readableNumber';
+import { commonScreens } from 'navigation/screens';
+import { getReadableNumber } from 'utils/helpers/readableNumber';
 
 import UltrasText from 'views/components/base/UltrasText';
 import Like from 'views/components/base/Like';
 import Icon from 'views/components/base/Icon';
-import {IconNamesEnum as Icons} from 'assets/icons';
-import Divider, {TypeEnum as DividerType} from 'views/components/base/Divider';
-import {PostInfoProps} from '../PostCard';
+import { IconNamesEnum as Icons } from 'assets/icons';
+import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
+import { PostInfoProps } from '../PostCard';
 
 import styles from './styles';
 
@@ -27,11 +27,11 @@ const PostInfo: React.FC<PostInfoProps> = ({
   isLiked,
   likeCount,
 }) => {
-  const {pushTo} = useNavigationWithParams();
+  const { pushTo } = useNavigationWithParams();
 
   return (
     <>
-      {imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
+      {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
 
       <View style={styles.container}>
         <UltrasText style={styles.date} color="secondaryText">
@@ -48,8 +48,9 @@ const PostInfo: React.FC<PostInfoProps> = ({
         <View style={styles.creatorContainer}>
           <Pressable
             onPress={
-              () => pushTo(commonScreens.profile, {id: 67}) // profileId
-            }>
+              () => pushTo(commonScreens.profile, { id: 67 }) // profileId
+            }
+          >
             <UltrasText style={styles.creator} color="text">
               {I18n.t('eventsBy')} {creator}
               {supportersClub && ', '}
@@ -58,8 +59,9 @@ const PostInfo: React.FC<PostInfoProps> = ({
           {supportersClub && (
             <Pressable
               onPress={
-                () => pushTo(commonScreens.supportersClub, {id: 67}) // supporterClubsId
-              }>
+                () => pushTo(commonScreens.supportersClub, { id: 67 }) // supporterClubsId
+              }
+            >
               <UltrasText style={styles.creator} color="secondary">
                 {supportersClub}
               </UltrasText>

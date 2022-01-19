@@ -1,5 +1,5 @@
 import { createModel, IModel } from 'services/model';
-import loginSDK from 'core/sdk/loginSDK';
+// import loginSDK from 'core/sdk/loginSDK';
 
 export type Step = {
   stepId: StepsEnum;
@@ -72,14 +72,11 @@ function startStep(step: StepsEnum) {
 
 function ping() {
   setPending(true);
-  loginSDK.ping().then((data: any) => {
-    setTimeout(() => {
-      model.setState({
-        isPending: false,
-        data,
-      });
-    }, 3000);
-  });
+  setTimeout(() => {
+    model.setState({
+      isPending: false,
+    });
+  }, 3000);
 }
 
 export { model, startStep, ping };

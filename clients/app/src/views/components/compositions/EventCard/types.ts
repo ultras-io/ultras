@@ -8,7 +8,7 @@ export interface IEventCardProps {
   location?: string;
   goingCount: number;
   commentsCount: number;
-  likeCount: number;
+  likeCount?: number;
   creator: string;
   supportersClub?: string;
   isGoing: boolean;
