@@ -1,4 +1,4 @@
-import { NetworkService } from '@ultras/services';
+import NetworkService from '@ultras/services/NetworkService';
 
 export type Mode = 'dev' | 'staging' | 'production';
 

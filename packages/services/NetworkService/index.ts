@@ -11,8 +11,8 @@ import exceptionDetector from './interceptors/exceptionDetector';
 import 'isomorphic-fetch';
 
 class NetworkService {
-  _interceptors: Interceptor[] = [exceptionDetector];
-  _uri?: string;
+  private interceptors: Interceptor[] = [exceptionDetector];
+  private uri?: string;
 
   constructor(uri: string, interceptors = []) {
     if (!uri || typeof uri !== 'string') {
@@ -24,11 +24,11 @@ class NetworkService {
         if (typeof interceptor !== 'function') {
           throw new Error(`The '${interceptor}' is not a function.`);
         }
-        this._interceptors.push(interceptor);
+        this.interceptors.push(interceptor);
       });
     }
 
-    this._uri = uri;
+    this.uri = uri;
   }
 
   clearAuthenticatedState = () => {
@@ -63,9 +63,9 @@ class NetworkService {
 
   createUrl = (arg: string) => {
     if (Array.isArray(arg)) {
-      return [this._uri, ...arg].join('/');
+      return [this.uri, ...arg].join('/');
     }
-    return `${this._uri}/${arg}`;
+    return `${this.uri}/${arg}`;
   };
 
   createQueryParams = (queryParams: Record<string, unknown>) =>
@@ -132,6 +132,7 @@ class NetworkService {
               message: HttpErrorMessages.INVALID_RESPONSE_DATA,
             });
           }
+
           const { headers } = response;
           let body: { status?: number } = {};
 
@@ -144,8 +145,8 @@ class NetworkService {
           body.status = response.status;
 
           try {
-            if (this._interceptors.length) {
-              this._interceptors.forEach(interceptor => {
+            if (this.interceptors.length) {
+              this.interceptors.forEach(interceptor => {
                 if (typeof interceptor === 'function') {
                   body = interceptor(body, headers);
                 }
