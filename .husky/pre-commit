@@ -3,7 +3,8 @@
 cd "$(dirname "$0")/../" || exit 1
 
 bash "$(dirname "$0")/_execute.sh" \
-    --command=pre-commit\
-    --skip-check-changes=true
-
-git add .
+  --hook-command=pre-commit\
+  --add-git-files-on-finish=true\
+  --skip-check-changes=false\
+  --continue-on-error=true\
+  --ignore-missing-subpackage=true
