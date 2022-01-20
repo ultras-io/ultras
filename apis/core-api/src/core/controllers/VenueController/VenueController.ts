@@ -1,37 +1,18 @@
-import db from 'core/data/models';
 import { OrderEnum } from '@ultras/utils';
-
-import { VenueCreationAttributes } from 'core/data/models/Venue';
-import { SomethingWentWrong } from 'modules/exceptions';
+import BaseController from 'base/BaseController';
+import { VenueService, CountryService } from 'services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
-import resources from 'core/data/lcp';
+import { DbIdentifier } from 'types';
 
 import {
-  GetAllVenuesActionParams,
-  GetAllVenuesActionResult,
-  InjectVenuesDataResult,
-  GetVenueByIdResult,
+  VenuesListParams,
+  VenuesListResult,
+  VenueByIdResult,
+  VenuesInjectDataResult,
 } from './types';
 
-class VenueController {
-  private static includeRelations = {
-    attributes: {
-      exclude: ['countryId', 'cityId'],
-    },
-    include: [
-      {
-        model: db.Country,
-        as: resources.COUNTRY.ALIAS.SINGULAR,
-      },
-      {
-        model: db.City,
-        as: resources.CITY.ALIAS.SINGULAR,
-      },
-    ],
-  };
-
+class VenueController extends BaseController {
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -40,61 +21,15 @@ class VenueController {
     name,
     countryId,
     cityId,
-  }: GetAllVenuesActionParams): Promise<GetAllVenuesActionResult> {
-    let nameQuery = null;
-    let countryIdQuery: any = null;
-    let cityIdQuery: any = null;
-    let query = null;
-
-    if (name) {
-      nameQuery = {
-        name: {
-          [db.Sequelize.Op.iLike]: `%${name}%`,
-        },
-      };
-    }
-    if (countryId) {
-      countryIdQuery = {
-        countryId,
-      };
-    }
-    if (cityId) {
-      cityIdQuery = {
-        cityId: cityId,
-      };
-    }
-
-    if (nameQuery && (countryIdQuery || cityIdQuery)) {
-      query = {
-        [db.Sequelize.Op.and]: [nameQuery],
-      };
-
-      if (countryIdQuery) {
-        query[db.Sequelize.Op.and].push(countryIdQuery);
-      }
-      if (cityIdQuery) {
-        query[db.Sequelize.Op.and].push(cityIdQuery);
-      }
-    } else if (countryIdQuery && cityIdQuery) {
-      query = {
-        [db.Sequelize.Op.and]: [countryIdQuery, cityIdQuery],
-      };
-    } else {
-      if (countryIdQuery) {
-        query = countryIdQuery;
-      } else if (cityIdQuery) {
-        query = cityIdQuery;
-      } else {
-        query = nameQuery;
-      }
-    }
-
-    const { rows, count } = await db.Venue.findAndCountAll({
+  }: VenuesListParams): VenuesListResult {
+    const { rows, count } = await VenueService.getAll({
       limit,
       offset,
-      where: query,
-      order: [[orderAttr, order]],
-      ...this.includeRelations,
+      orderAttr,
+      order,
+      name,
+      countryId,
+      cityId,
     });
 
     return {
@@ -105,10 +40,8 @@ class VenueController {
     };
   }
 
-  static async getById(id: number): Promise<GetVenueByIdResult> {
-    const venue = await db.Venue.findByPk(id, {
-      ...this.includeRelations,
-    });
+  static async getById(id: DbIdentifier): VenueByIdResult {
+    const venue = await VenueService.getById(id);
 
     return {
       data: venue,
@@ -116,86 +49,23 @@ class VenueController {
   }
 
   /**
-   * used to development purposes
+   * NOTICE: used to development purposes
    */
-  static async inject(): Promise<InjectVenuesDataResult> {
-    // inject here
+  static async inject(): VenuesInjectDataResult {
+    const countries = await CountryService.getCodesAndIds();
+
     try {
-      const excludedCountryCodes = ['AW', 'XK', 'PS', 'GP', 'GI', 'FO', 'CW', 'BM'];
-      const excludedCountriesQuery = excludedCountryCodes.map(country => ({
-        code: { [db.Sequelize.Op.ne]: country },
-      }));
-
-      const countries = await db.Country.findAll({
-        where: {
-          [db.Sequelize.Op.and]: [
-            {
-              name: { [db.Sequelize.Op.ne]: 'World' },
-            },
-            ...excludedCountriesQuery,
-          ],
-        },
-        attributes: ['name', 'id'],
-        order: [['name', OrderEnum.asc]],
-      });
-
-      const records: VenueCreationAttributes[] = [];
       for (const country of countries) {
-        const {
-          body: { response },
-        } = await injectVenues(country.getDataValue('name'));
-
-        if (response.length === 0) {
-          continue;
-        }
-
-        for (const responseItem of response) {
-          const item: RapidApiVenue = responseItem as RapidApiVenue;
-          if (!item.name) {
-            continue;
-          }
-
-          const city = await db.City.findOne({
-            where: {
-              name: { [db.Sequelize.Op.eq]: item.city },
-            },
-            attributes: ['id'],
-          });
-
-          if (!city) {
-            console.log(`>>> missing in DB[city]: ${item.city}`);
-            continue;
-          }
-
-          records.push({
-            name: item.name,
-            address: item.address,
-            capacity: item.capacity,
-            cityId: city.getDataValue('id'),
-            countryId: country.getDataValue('id'),
-            imageUri: item.image,
-            dataRapidId: item.id,
-          });
-        }
+        await VenueService.inject(
+          country.getDataValue('name'),
+          country.getDataValue('id')
+        );
       }
 
-      const uniqueVenuesGrouped = records.reduce(
-        (acc: any, item: VenueCreationAttributes) => {
-          acc[item.dataRapidId] = item;
-          return acc;
-        },
-        {}
-      );
-
-      const uniqueVenues = Object.values(uniqueVenuesGrouped);
-      await db.Venue.bulkCreate(uniqueVenues);
-
-      return { data: { success: true } };
+      return this.sendSuccessStatus();
     } catch (e: any) {
-      throw new SomethingWentWrong({
-        message: "Api throws error or couldn't insert",
-        originalMessage: e?.message,
-      });
+      this.riseSomethingWrong(e, "API throws error or couldn't insert");
+      return this.sendFailureStatus();
     }
   }
 }

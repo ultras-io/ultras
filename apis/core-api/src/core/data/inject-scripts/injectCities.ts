@@ -24,15 +24,10 @@ export type RapidApiCity = {
  * @param countryCode
  * @param countryId
  */
-const getCountryCities = async (
-  countryCode: string,
-  countryId: number
-): Promise<CityCreationAttributes[]> => {
+const getCountryCities = async (countryCode: string) => {
   const network = new NetworkService(options.url);
 
-  const {
-    body: { data },
-  } = await network.makeAPIGetRequest('cities', {
+  return network.makeAPIGetRequest('cities', {
     headers: options.headers,
     query_params: {
       countryIds: countryCode,
@@ -41,14 +36,6 @@ const getCountryCities = async (
       offset: 0,
     },
   });
-
-  const cities: CityCreationAttributes[] = data.map((item: RapidApiCity) => ({
-    name: item.name,
-    dataRapidId: item.id,
-    countryId,
-  }));
-
-  return cities;
 };
 
 export default getCountryCities;

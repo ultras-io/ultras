@@ -1,16 +1,17 @@
-import { ListRequestParams } from '@ultras/utils';
-import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
+import {
+  ControllerListParamsType,
+  ControllerListResultType,
+  ControllerByIdResultType,
+  ControllerInjectionResultType,
+} from 'types';
 import { CountryAttributes } from 'core/data/models/Country';
 
-export interface GetAllCountriesActionParams extends ListRequestParams {
+interface CountriesFilterInterface {
   name?: string;
   code?: string;
 }
 
-export type GetAllCountriesActionResult = ControllerListActionResult<CountryAttributes>;
-
-export type InjectCountriesDataResult = ControllerActionOperatedResult<{
-  success: boolean;
-}>;
-
-export type GetCountryByIdResult = ControllerActionOperatedResult<CountryAttributes>;
+export type CountriesListParams = ControllerListParamsType<CountriesFilterInterface>;
+export type CountriesListResult = ControllerListResultType<CountryAttributes>;
+export type CountryByIdResult = ControllerByIdResultType<CountryAttributes>;
+export type CountriesInjectDataResult = ControllerInjectionResultType;

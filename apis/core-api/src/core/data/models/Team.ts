@@ -1,4 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
+import { DbIdentifier } from 'types';
 
 import { TeamTypesEnum } from '@ultras/utils';
 
@@ -10,11 +11,11 @@ import { City } from 'core/data/models/City';
 import { Venue } from 'core/data/models/Venue';
 
 export interface TeamAttributes {
-  id: number;
+  id: DbIdentifier;
   name: string;
-  cityId: number;
-  countryId: number;
-  venueId: number | null;
+  cityId: DbIdentifier;
+  countryId: DbIdentifier;
+  venueId: DbIdentifier | null;
   founded?: number;
   logo: string;
   type: TeamTypesEnum;
@@ -27,11 +28,12 @@ export class Team
   extends Model<TeamAttributes, TeamCreationAttributes>
   implements TeamAttributes
 {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  // Note that the `null assertion` `!` is required in strict mode.
+  public id!: DbIdentifier;
   public name!: string;
-  public cityId!: number;
-  public countryId!: number;
-  public venueId!: number;
+  public cityId!: DbIdentifier;
+  public countryId!: DbIdentifier;
+  public venueId!: DbIdentifier | null;
   public founded!: number;
   public logo!: string;
   public type!: TeamTypesEnum;
@@ -49,6 +51,12 @@ export class Team
   // associations
 
   static associate(models: any) {
+    Team.belongsToMany(models.User, {
+      as: resources.TEAM.ALIAS.PLURAL,
+      through: resources.FAVORITE_TEAM.RELATION,
+      foreignKey: 'teamId',
+    });
+
     Team.belongsTo(models.Country, {
       as: resources.COUNTRY.ALIAS.SINGULAR,
       foreignKey: 'countryId',

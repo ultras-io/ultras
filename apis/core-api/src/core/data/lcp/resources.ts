@@ -59,6 +59,14 @@ const resources = {
       PLURAL: 'teams',
     },
   },
+  FAVORITE_TEAM: {
+    RELATION: 'FavoriteTeam',
+    MODEL: 'FavoriteTeam',
+    ALIAS: {
+      SINGULAR: 'favoriteTeam',
+      PLURAL: 'favoriteTeams',
+    },
+  },
   SCORE: {
     RELATION: 'Score',
     MODEL: 'Score',

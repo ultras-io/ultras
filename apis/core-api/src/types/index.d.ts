@@ -1,6 +1,6 @@
 import * as Koa from 'Koa';
 import * as Router from 'koa-router';
-import { OrderEnum } from '@ultras/utils';
+import { ListRequestParams, OrderEnum } from '@ultras/utils';
 
 interface ExtendableContext extends Context {
   ok: (response?: string | Record<string, unknown>) => Koa.Context;
@@ -37,6 +37,9 @@ export type Exception = {
   details?: ErrorDetail;
 };
 
+// NOTE: replace with string if UUIDv4 will be used as data identifier.
+export type DbIdentifier = number;
+
 export interface ControllerListActionResult<T> {
   data: T[];
   limit: number;
@@ -47,3 +50,38 @@ export interface ControllerListActionResult<T> {
 export interface ControllerActionOperatedResult<T> {
   data: T;
 }
+
+// #region controller params and result types
+interface ControllerResultInterface<T> {
+  data: T;
+}
+
+export type ControllerListParamsType<T> = T & ListRequestParams;
+
+export type ControllerListResultType<T> = Promise<
+  ControllerResultInterface<Array<T>> & {
+    count: number;
+    limit: number;
+    offset: number;
+  }
+>;
+
+export type ControllerByIdResultType<T> = Promise<ControllerResultInterface<T | null>>;
+
+export type ControllerInjectionResultType = Promise<
+  ControllerResultInterface<{
+    success: boolean;
+  }>
+>;
+// #endregion
+
+// #region service params and result types
+export type ServiceListParamsType<T> = T & ListRequestParams;
+
+export type ServiceListResultType<T> = Promise<{
+  rows: Array<T>;
+  count: number;
+}>;
+
+export type ServiceByIdResultType<T> = Promise<null | T>;
+// #endregion

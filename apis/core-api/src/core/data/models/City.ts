@@ -6,16 +6,17 @@ import {
   Association,
   HasOneGetAssociationMixin,
 } from 'sequelize';
+import { DbIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { Country } from 'core/data/models/Country';
 
 export interface CityAttributes {
-  id: number;
+  id: DbIdentifier;
   name: string;
-  countryId: number;
-  dataRapidId: number;
+  countryId: DbIdentifier;
+  dataRapidId: DbIdentifier;
 }
 
 export type CityCreationAttributes = Optional<CityAttributes, 'id'>;
@@ -24,10 +25,11 @@ export class City
   extends Model<CityAttributes, CityCreationAttributes>
   implements CityAttributes
 {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  // Note that the `null assertion` `!` is required in strict mode.
+  public id!: DbIdentifier;
   public name!: string;
-  public countryId!: number;
-  public dataRapidId!: number;
+  public countryId!: DbIdentifier;
+  public dataRapidId!: DbIdentifier;
 
   // timestamps!
   public readonly createdAt!: Date;

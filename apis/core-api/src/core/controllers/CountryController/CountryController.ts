@@ -1,21 +1,17 @@
-import db from 'core/data/models';
 import { OrderEnum } from '@ultras/utils';
+import BaseController from 'base/BaseController';
+import { CountryService } from 'services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import injectCountries, {
-  RapidApiCountry,
-} from 'core/data/inject-scripts/injectCountries';
-
+import { DbIdentifier } from 'types';
 import {
-  GetAllCountriesActionParams,
-  GetAllCountriesActionResult,
-  InjectCountriesDataResult,
-  GetCountryByIdResult,
+  CountriesListParams,
+  CountriesListResult,
+  CountryByIdResult,
+  CountriesInjectDataResult,
 } from './types';
-import { SomethingWentWrong } from 'modules/exceptions';
-import { CountryCreationAttributes } from 'core/data/models/Country';
 
-class CountryController {
+class CountryController extends BaseController {
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -23,41 +19,14 @@ class CountryController {
     order = OrderEnum.asc,
     name,
     code,
-  }: GetAllCountriesActionParams): Promise<GetAllCountriesActionResult> {
-    let nameQuery = null;
-    let codeQuery = null;
-    let query = null;
-
-    if (name) {
-      nameQuery = {
-        name: {
-          [db.Sequelize.Op.iLike]: `%${name}%`,
-        },
-      };
-    }
-    if (code) {
-      codeQuery = {
-        code,
-      };
-    }
-
-    if (nameQuery && codeQuery) {
-      query = {
-        [db.Sequelize.Op.and]: [nameQuery, codeQuery],
-      };
-    } else {
-      if (codeQuery) {
-        query = codeQuery;
-      } else {
-        query = nameQuery;
-      }
-    }
-
-    const { rows, count } = await db.Country.findAndCountAll({
+  }: CountriesListParams): CountriesListResult {
+    const { rows, count } = await CountryService.getAll({
       limit,
       offset,
-      where: query,
-      order: [[orderAttr, order]],
+      orderAttr,
+      order,
+      name,
+      code,
     });
 
     return {
@@ -68,39 +37,24 @@ class CountryController {
     };
   }
 
-  static async getById(id: number): Promise<GetCountryByIdResult> {
-    const country = await db.Country.findByPk(id);
+  static async getById(id: DbIdentifier): CountryByIdResult {
+    const country = await CountryService.getById(id);
 
     return {
       data: country,
     };
   }
-  /**
-   * used to development purposes
-   */
-  static async inject(): Promise<InjectCountriesDataResult> {
-    // inject here
-    try {
-      const {
-        body: { response },
-      } = await injectCountries();
-      const records: CountryCreationAttributes[] = [];
-      response.forEach((item: RapidApiCountry) => {
-        records.push({
-          name: item.name,
-          code: item.code,
-          flag: item.flag,
-          dataRapidId: item.id,
-        });
-      });
 
-      await db.Country.bulkCreate(records);
-      return { data: { success: true } };
+  /**
+   * NOTICE: used to development purposes
+   */
+  static async inject(): CountriesInjectDataResult {
+    try {
+      await CountryService.inject();
+      return this.sendSuccessStatus();
     } catch (e: any) {
-      throw new SomethingWentWrong({
-        message: "Api throws error or couldn't insert",
-        originalMessage: e?.message,
-      });
+      this.riseSomethingWrong(e, "API throws error or couldn't insert");
+      return this.sendFailureStatus();
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
+import { DbIdentifier } from 'types';
 import { MatchScoreTypesEnum, MatchStatusesEnum, WinnerEnum } from '@ultras/utils';
 
 import db from 'core/data/models';
@@ -10,12 +11,12 @@ import { Venue } from 'core/data/models/Venue';
 import { League } from 'core/data/models/League';
 
 export interface MatchAttributes {
-  id: number;
+  id: DbIdentifier;
   dateTime: string;
-  teamHomeId: number;
-  teamAwayId: number;
-  venueId: number;
-  leagueId: number;
+  teamHomeId: DbIdentifier;
+  teamAwayId: DbIdentifier;
+  venueId: DbIdentifier;
+  leagueId: DbIdentifier;
   status: MatchStatusesEnum;
   winner: WinnerEnum;
   goalsHome: null | number;
@@ -33,12 +34,13 @@ export class Match
   extends Model<MatchAttributes, MatchCreationAttributes>
   implements MatchAttributes
 {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  // Note that the `null assertion` `!` is required in strict mode.
+  public id!: DbIdentifier;
   public dateTime!: string;
-  public teamHomeId!: number;
-  public teamAwayId!: number;
-  public venueId!: number;
-  public leagueId!: number;
+  public teamHomeId!: DbIdentifier;
+  public teamAwayId!: DbIdentifier;
+  public venueId!: DbIdentifier;
+  public leagueId!: DbIdentifier;
   public status!: MatchStatusesEnum;
   public winner!: WinnerEnum;
   public goalsHome!: number;
