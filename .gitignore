@@ -1,18 +1,14 @@
+# Lerna
 lerna-debug.log
 package.json.lerna_backup
-# workspaces
 
-/sdks/**/node_modules
-/sdks/**/build
+# Workspaces
+.env
+!.env.example
 
-/apis/**/node_modules
-/apis/**/build
-
-/clients/**/node_modules
-/clients/**/build
-
-/packages/**/node_modeuls
-/packages/**/build
+# Dependencies and builds
+node_modules
+build
 
 # Logs
 logs
@@ -21,6 +17,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vscode
+
 # Runtime data
 pids
 *.pid
@@ -125,4 +122,3 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-lerna-debug.log

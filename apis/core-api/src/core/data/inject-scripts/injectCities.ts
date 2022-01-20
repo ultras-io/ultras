@@ -1,11 +1,11 @@
-import { NetworkService } from '@ultras/services';
+import NetworkService from '@ultras/services/NetworkService';
 import { CityCreationAttributes } from 'core/data/models/City';
 
 const options = {
-  url: process.env.RAPID_GEO_API_URL || '',
+  url: process.env.RAPIDAPI_GEODB_BASEURL || '',
   headers: {
-    'x-rapidapi-host': process.env.X_RAPID_API_GEO_HOST,
-    'x-rapidapi-key': process.env.X_RAPID_API_GEO_KEY,
+    'x-rapidapi-host': process.env.RAPIDAPI_GEODB_HEADER_HOST,
+    'x-rapidapi-key': process.env.RAPIDAPI_GEODB_HEADER_KEY,
   },
 };
 

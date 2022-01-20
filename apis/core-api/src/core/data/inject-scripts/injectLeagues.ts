@@ -1,10 +1,10 @@
-import { NetworkService } from '@ultras/services';
+import NetworkService from '@ultras/services/NetworkService';
 
 const options = {
-  url: process.env.RAPID_FOOTBALL_API_URL || '',
+  url: process.env.RAPIDAPI_FOOTBALL_API_BASEURL || '',
   headers: {
-    'x-rapidapi-host': process.env.X_RAPID_API_FOOTBALL_HOST,
-    'x-rapidapi-key': process.env.X_RAPID_API_FOOTBALL_KEY,
+    'x-rapidapi-host': process.env.RAPIDAPI_FOOTBALL_API_HEADER_HOST,
+    'x-rapidapi-key': process.env.RAPIDAPI_FOOTBALL_API_HEADER_KEY,
   },
 };
 
