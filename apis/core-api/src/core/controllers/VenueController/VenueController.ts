@@ -1,5 +1,5 @@
 import { OrderEnum } from '@ultras/utils';
-import BaseController from 'base/BaseController';
+import BaseController from 'abstraction/BaseController';
 import { VenueService, CountryService } from 'services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';

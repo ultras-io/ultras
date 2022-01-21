@@ -1,6 +1,6 @@
 // import { parseMatchStatus, OrderEnum, WinnerEnum } from '@ultras/utils';
 import { OrderEnum } from '@ultras/utils';
-import BaseController from 'base/BaseController';
+import BaseController from 'abstraction/BaseController';
 import { MatchService } from 'services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';

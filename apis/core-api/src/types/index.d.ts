@@ -12,6 +12,7 @@ interface ExtendableContext extends Context {
   notFound: (response?: string | Record<string, unknown>) => Koa.Context;
   locked: (response?: string | Record<string, unknown>) => Koa.Context;
   internalServerError: (response?: string | Record<string, unknown>) => Koa.Context;
+  rateLimitExceeded: (response?: string | Record<string, unknown>) => Koa.Context;
   notImplemented: (response?: string | Record<string, unknown>) => Koa.Context;
 }
 
@@ -58,6 +59,8 @@ interface ControllerResultInterface<T> {
 
 export type ControllerListParamsType<T> = T & ListRequestParams;
 
+export type ControllerResultType<T> = Promise<ControllerResultInterface<T>>;
+
 export type ControllerListResultType<T> = Promise<
   ControllerResultInterface<Array<T>> & {
     count: number;
@@ -66,22 +69,22 @@ export type ControllerListResultType<T> = Promise<
   }
 >;
 
-export type ControllerByIdResultType<T> = Promise<ControllerResultInterface<T | null>>;
+export type ControllerByIdResultType<T> = ControllerResultType<T | null>;
 
-export type ControllerInjectionResultType = Promise<
-  ControllerResultInterface<{
-    success: boolean;
-  }>
->;
+export type ControllerInjectionResultType = ControllerResultType<{
+  success: boolean;
+}>;
 // #endregion
 
 // #region service params and result types
 export type ServiceListParamsType<T> = T & ListRequestParams;
 
-export type ServiceListResultType<T> = Promise<{
+export type ServiceResultType<T> = Promise<T>;
+
+export type ServiceListResultType<T> = ServiceResultType<{
   rows: Array<T>;
   count: number;
 }>;
 
-export type ServiceByIdResultType<T> = Promise<null | T>;
+export type ServiceByIdResultType<T> = ServiceResultType<null | T>;
 // #endregion

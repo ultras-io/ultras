@@ -6,6 +6,7 @@ import venues from './venues';
 import teams from './teams';
 import leagues from './leagues';
 import matches from './matches';
+import users from './users';
 
 const router = new Router({
   prefix: '/v1',
@@ -17,5 +18,6 @@ router.use(venues.routes());
 router.use(teams.routes());
 router.use(leagues.routes());
 router.use(matches.routes());
+router.use(users.routes());
 
 export default router;

@@ -1,6 +1,6 @@
 import VenueController from 'core/controllers/VenueController';
 
-import { Context } from 'types/index';
+import { Context } from 'types';
 
 class ControllerAdapter {
   static async inject(ctx: Context): Promise<void> {

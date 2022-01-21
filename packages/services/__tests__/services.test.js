@@ -42,7 +42,7 @@ const { default: SMSService } = require('../build/SMSService');
 const serviceSms = new SMSService(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 describe('@ultras/services', () => {
-  describe('@ultras/services/MailerService', () => {
+  describe('@ultras/services/NetworkService', () => {
     // it('needs tests');
   });
 

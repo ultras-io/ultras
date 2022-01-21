@@ -13,6 +13,7 @@ const HTTP_STATUS_METHODS: Record<string, number> = {
   unauthorized: 401,
   forbidden: 403,
   notFound: 404,
+  rateLimitExceeded: 429,
   unavailableForLegalReasons: 451,
   internalServerError: 500,
   serviceNotAvailable: 503,

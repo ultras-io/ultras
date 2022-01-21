@@ -18,6 +18,23 @@ const resources = {
     },
   },
 
+  FAVORITE_TEAM: {
+    RELATION: 'FavoriteTeam',
+    MODEL: 'FavoriteTeam',
+    ALIAS: {
+      SINGULAR: 'favoriteTeam',
+      PLURAL: 'favoriteTeams',
+    },
+  },
+  VERIFICATION_CODE: {
+    RELATION: 'VerificationCode',
+    MODEL: 'VerificationCode',
+    ALIAS: {
+      SINGULAR: 'verificationCode',
+      PLURAL: 'verificationCodes',
+    },
+  },
+
   // venue-team-country-league-match-score system
   VENUE: {
     RELATION: 'Venue',
@@ -57,14 +74,6 @@ const resources = {
     ALIAS: {
       SINGULAR: 'team',
       PLURAL: 'teams',
-    },
-  },
-  FAVORITE_TEAM: {
-    RELATION: 'FavoriteTeam',
-    MODEL: 'FavoriteTeam',
-    ALIAS: {
-      SINGULAR: 'favoriteTeam',
-      PLURAL: 'favoriteTeams',
     },
   },
   SCORE: {

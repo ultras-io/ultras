@@ -7,7 +7,7 @@ import registerRoute from 'api/routes';
 
 import { IDatabase } from './types';
 import { AppArgs, IApp, RunArgs } from './types';
-import { KoaApp } from 'types/index';
+import { KoaApp } from 'types';
 
 class App implements IApp {
   private database: IDatabase;

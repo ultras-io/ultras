@@ -1,4 +1,4 @@
-import { Exception } from 'types/index';
+import { Exception } from 'types';
 
 const SEQUELIZE_ERRORS: Record<string, boolean> = {
   SequelizeValidationError: true,
@@ -58,6 +58,11 @@ const BASE_ERRORS: Record<string, Exception> = {
     status: 400,
     statusName: 'badRequest',
     debug: 'RESOURCE_DUPLICATION_ERROR',
+  },
+  RATE_LIMIT_EXCEEDED: {
+    status: 429,
+    statusName: 'rateLimitExceeded',
+    debug: 'RATE_LIMIT_EXCEEDED',
   },
   SERVICE_NOT_AVAILABLE: {
     status: 503,

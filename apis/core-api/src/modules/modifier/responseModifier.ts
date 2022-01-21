@@ -1,4 +1,4 @@
-import { Context } from 'types/index';
+import { Context } from 'types';
 
 import set from 'lodash/set';
 
@@ -40,15 +40,23 @@ export default (ctx: Context): void => {
     set(response.meta, 'pagination', pagination);
   }
 
-  if (result.status) {
-    set(ctx, 'status', result.status);
-    delete result.status;
-  }
-  if (!result.data && !result.meta) {
-    result.data = { ...result };
-  }
-  if (!result.meta && result.data) {
-    result.meta = {};
+  if ('object' == typeof result) {
+    if (result.status) {
+      set(ctx, 'status', result.status);
+      delete result.status;
+    }
+    if (!result.data && !result.meta) {
+      result.data = { ...result };
+    }
+    if (!result.meta && result.data) {
+      result.meta = {};
+    }
+  } else {
+    set(ctx, 'status', 403);
+    result = {
+      meta: {},
+      data: [],
+    };
   }
 
   set(response, 'data', result.data);

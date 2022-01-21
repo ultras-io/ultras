@@ -5,7 +5,7 @@ const aliases = {
   '@root': '.',
   api: './api',
   config: './config',
-  base: './base',
+  abstraction: './abstraction',
   core: './core',
   modules: './modules',
   scripts: './scripts',

@@ -5,7 +5,7 @@ import {
   DbIdentifier,
 } from 'types';
 
-import BaseService from 'base/BaseService';
+import BaseService from 'abstraction/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { VenueAttributes, VenueCreationAttributes } from 'core/data/models/Venue';

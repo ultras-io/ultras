@@ -1,7 +1,6 @@
-import OrderEnum from './OrderEnum';
-import TeamTypesEnum from './TeamTypesEnum';
-import MatchStatusesEnum from './MatchStatusesEnum';
-import MatchScoreTypesEnum from './MatchScoreTypesEnum';
-import WinnerEnum from './WinnerEnum';
-
-export { OrderEnum, TeamTypesEnum, MatchStatusesEnum, MatchScoreTypesEnum, WinnerEnum };
+export { default as OrderEnum } from './OrderEnum';
+export { default as TeamTypesEnum } from './TeamTypesEnum';
+export { default as MatchStatusesEnum } from './MatchStatusesEnum';
+export { default as MatchScoreTypesEnum } from './MatchScoreTypesEnum';
+export { default as WinnerEnum } from './WinnerEnum';
+export { default as NotifiedProviderEnum } from './NotifiedProviderEnum';

@@ -1,4 +1,3 @@
-// import 'module-alias/register';
 import '../module-alias.js';
 
 import Koa from 'koa';
@@ -9,6 +8,8 @@ import { MODE } from 'utils/processEnvDetector';
 
 import { dbConfig, serverConfig } from 'config';
 import { KoaApp } from 'types';
+
+import bootstrap from './bootstrap';
 
 // database instance
 const database: IDatabase = new Database(dbConfig.logging);
@@ -21,6 +22,11 @@ const server: IApp = new App({
   database,
   app,
 });
+
+/**
+ * ############## BOOTSTRAP APP ##############
+ */
+bootstrap();
 
 /**
  * ############## RUN SERVER ##############
