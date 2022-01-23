@@ -9,7 +9,7 @@ interface OptionsInterface {
 }
 
 const getClientFingerprint = (ctx: Context): string => {
-  console.log(ctx);
+  // console.log(ctx);
   return ctx.ip;
 };
 

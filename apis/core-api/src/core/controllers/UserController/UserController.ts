@@ -3,6 +3,7 @@ import BaseController from 'abstraction/BaseController';
 import {
   UserService,
   VerificationCodeService,
+  FavoriteTeamService,
   SMSService,
   MailerService,
 } from 'services';
@@ -35,9 +36,9 @@ class UserController extends BaseController {
     phone,
     email,
   }: UserConfirmIdentityParams): UserConfirmIdentityResult {
-    // @TODO: rate limit
     const code = await VerificationCodeService.generate();
     let provider: null | NotifiedProviderEnum = null;
+    let userExists = false;
 
     if (email) {
       provider = NotifiedProviderEnum.email;
@@ -45,12 +46,16 @@ class UserController extends BaseController {
         code,
         email,
       });
+
+      userExists = await UserService.isEmailTaken(email);
     } else if (phone) {
       provider = NotifiedProviderEnum.sms;
       await SMSService.sendVerificationCode({
         code,
         phone,
       });
+
+      userExists = await UserService.isPhoneTaken(phone);
     }
 
     if (null != provider) {
@@ -66,6 +71,7 @@ class UserController extends BaseController {
       data: {
         success: null != provider,
         provider: provider,
+        userExists: userExists,
       },
     };
   }
@@ -75,9 +81,16 @@ class UserController extends BaseController {
     email,
     code,
   }: UserVerifyCodeParams): UserVerifyCodeResult {
+    const verificationCode = await VerificationCodeService.getVerificationCode({
+      phone,
+      email,
+      code,
+    });
+
     return {
       data: {
-        success: false,
+        valid: null != verificationCode,
+        details: verificationCode,
       },
     };
   }
@@ -86,13 +99,72 @@ class UserController extends BaseController {
     code,
     email,
     phone,
+    avatar,
     username,
     fullname,
     teamId,
   }: UserRegistrationParams): UserRegistrationResult {
+    const respondWithError = (error: string) => {
+      return {
+        data: {
+          error: error,
+          success: false,
+        },
+      };
+    };
+
+    const verificationCode = await VerificationCodeService.getVerificationCode({
+      phone,
+      email,
+      code,
+    });
+
+    if (verificationCode == null) {
+      return respondWithError('verification_code_not_valid');
+    }
+
+    await VerificationCodeService.removeVerificationCode({
+      phone,
+      email,
+      code,
+    });
+
+    const isUsernameTaken = await UserService.isUsernameTaken(username);
+    if (isUsernameTaken) {
+      return respondWithError('username_already_taken');
+    }
+
+    const isEmailTaken = await UserService.isEmailTaken(username);
+    if (isEmailTaken) {
+      return respondWithError('email_already_taken');
+    }
+
+    const isPhoneTaken = await UserService.isPhoneTaken(username);
+    if (isPhoneTaken) {
+      return respondWithError('phone_already_taken');
+    }
+
+    const user = await UserService.create({
+      email,
+      phone,
+      avatar,
+      username,
+      fullname,
+    });
+
+    if (null == user) {
+      return respondWithError('unknown_error');
+    }
+
+    if (teamId) {
+      const userId = user.getDataAttribute('id');
+      await FavoriteTeamService.addToUserFavorites(userId, teamId);
+    }
+
     return {
       data: {
         success: true,
+        user: user,
       },
     };
   }

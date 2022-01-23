@@ -17,7 +17,7 @@ export interface UserAttributes {
 
 export type UserCreationAttributes = Optional<
   UserAttributes,
-  'id' | 'phone' | 'email' | 'avatar'
+  'id' | 'phone' | 'email' | 'avatar' | 'fullname'
 >;
 
 export class User

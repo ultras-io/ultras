@@ -8,3 +8,4 @@ export { default as UserService } from './UserService';
 export { default as SMSService } from './SMSService';
 export { default as MailerService } from './MailerService';
 export { default as VerificationCodeService } from './VerificationCodeService';
+export { default as FavoriteTeamService } from './FavoriteTeamService';

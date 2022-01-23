@@ -13,10 +13,10 @@ export interface FavoriteTeamAttributes {
   teamId: DbIdentifier;
 }
 
-export type UserCreationAttributes = Optional<FavoriteTeamAttributes, 'id'>;
+export type FavoriteTeamCreationAttributes = Optional<FavoriteTeamAttributes, 'id'>;
 
 export class FavoriteTeam
-  extends Model<FavoriteTeamAttributes, UserCreationAttributes>
+  extends Model<FavoriteTeamAttributes, FavoriteTeamCreationAttributes>
   implements FavoriteTeamAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.

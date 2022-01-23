@@ -1,4 +1,5 @@
 import { SomethingWentWrong } from 'modules/exceptions';
+import { ControllerResultType } from 'types';
 
 abstract class BaseController {
   protected static riseSomethingWrong(exception: Error, message?: string) {
