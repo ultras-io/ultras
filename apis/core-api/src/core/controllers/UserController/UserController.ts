@@ -1,4 +1,4 @@
-import { NotifiedProviderEnum } from '@ultras/utils';
+import { NotifiedProviderEnum, AuthSignupErrorEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import {
   UserService,
@@ -20,6 +20,15 @@ import {
 } from './types';
 
 class UserController extends BaseController {
+  private static respondAuthError<T>(error: T) {
+    return {
+      data: {
+        error: error,
+        success: false,
+      },
+    };
+  }
+
   static async checkUsernameExists({
     username,
   }: UserCheckUsernameParams): UserCheckUsernameResult {
@@ -104,15 +113,6 @@ class UserController extends BaseController {
     fullname,
     teamId,
   }: UserRegistrationParams): UserRegistrationResult {
-    const respondWithError = (error: string) => {
-      return {
-        data: {
-          error: error,
-          success: false,
-        },
-      };
-    };
-
     const verificationCode = await VerificationCodeService.getVerificationCode({
       phone,
       email,
@@ -120,22 +120,26 @@ class UserController extends BaseController {
     });
 
     if (verificationCode == null) {
-      return respondWithError('verification_code_not_valid');
+      return this.respondAuthError(AuthSignupErrorEnum.invalidVerificationCode);
     }
 
     const isUsernameTaken = await UserService.isUsernameTaken(username);
     if (isUsernameTaken) {
-      return respondWithError('username_already_taken');
+      return this.respondAuthError(AuthSignupErrorEnum.usernameTaken);
     }
 
-    const isEmailTaken = await UserService.isEmailTaken(username);
-    if (isEmailTaken) {
-      return respondWithError('email_already_taken');
+    if (email) {
+      const isEmailTaken = await UserService.isEmailTaken(email);
+      if (isEmailTaken) {
+        return this.respondAuthError(AuthSignupErrorEnum.emailTaken);
+      }
     }
 
-    const isPhoneTaken = await UserService.isPhoneTaken(username);
-    if (isPhoneTaken) {
-      return respondWithError('phone_already_taken');
+    if (phone) {
+      const isPhoneTaken = await UserService.isPhoneTaken(phone);
+      if (isPhoneTaken) {
+        return this.respondAuthError(AuthSignupErrorEnum.phoneTaken);
+      }
     }
 
     const user = await UserService.create({
@@ -147,7 +151,7 @@ class UserController extends BaseController {
     });
 
     if (null == user) {
-      return respondWithError('unknown_error');
+      return this.respondAuthError(AuthSignupErrorEnum.unknown);
     }
 
     if (teamId) {

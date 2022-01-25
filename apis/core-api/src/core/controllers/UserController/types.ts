@@ -1,4 +1,4 @@
-import { NotifiedProviderEnum } from '@ultras/utils';
+import { NotifiedProviderEnum, AuthSignupErrorEnum } from '@ultras/utils';
 import { UserAttributes } from 'core/data/models/User';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
 import { ControllerResultType, DbIdentifier } from 'types';
@@ -42,6 +42,6 @@ export type UserRegistrationParams = PhoneOrEmail & {
 
 export type UserRegistrationResult = ControllerResultType<{
   success: boolean;
-  error?: string;
+  error?: AuthSignupErrorEnum;
   user?: UserAttributes;
 }>;
