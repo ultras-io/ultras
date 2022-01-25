@@ -15,7 +15,7 @@ HOOK_COMMAND=""
 
 for ARG in "$@"; do
   if [[ "$ARG" =~ "--add-git-files-on-finish=" ]]; then
-    ADD_GIT_FILE="${ARG:16}"
+    ADD_GIT_FILE="${ARG:26}"
   elif [[ "$ARG" =~ "--skip-check-changes=" ]]; then
     SKIP_CHANGES_CHECK="${ARG:21}"
   elif [[ "$ARG" =~ "--hook-command=" ]]; then

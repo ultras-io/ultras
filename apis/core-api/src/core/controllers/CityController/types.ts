@@ -1,17 +1,18 @@
-import { ListRequestParams } from '@ultras/utils';
-import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
-import { CityCreationAttributes } from 'core/data/models/City';
+import {
+  ControllerListParamsType,
+  ControllerListResultType,
+  ControllerByIdResultType,
+  ControllerInjectionResultType,
+  DbIdentifier,
+} from 'types';
+import { CityAttributes } from 'core/data/models/City';
 
-export interface GetAllCitiesActionParams extends ListRequestParams {
+interface CitiesFilterInterface {
   name?: string;
-  code?: string;
-  countryId?: number;
+  countryId?: DbIdentifier;
 }
 
-export type GetAllCitiesActionResult = ControllerListActionResult<CityCreationAttributes>;
-
-export type InjectCitiesDataResult = ControllerActionOperatedResult<{
-  success: boolean;
-}>;
-
-export type GetCityByIdResult = ControllerActionOperatedResult<CityCreationAttributes>;
+export type CitiesListParams = ControllerListParamsType<CitiesFilterInterface>;
+export type CitiesListResult = ControllerListResultType<CityAttributes>;
+export type CityByIdResult = ControllerByIdResultType<CityAttributes>;
+export type CitiesInjectDataResult = ControllerInjectionResultType;

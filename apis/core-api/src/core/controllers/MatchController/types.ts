@@ -1,18 +1,23 @@
-import { ListRequestParams } from '@ultras/utils';
-import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
+import {
+  ControllerListParamsType,
+  ControllerListResultType,
+  ControllerByIdResultType,
+  ControllerInjectionResultType,
+  DbIdentifier,
+} from 'types';
 import { MatchAttributes } from 'core/data/models/Match';
 
-export interface GetAllMatchesActionParams extends ListRequestParams {
+interface MatchesFilterInterface {
   dateFrom?: string;
   dateTo?: string;
-  teamId?: number;
-  leagueId?: number;
+  leagueId?: DbIdentifier;
+  venueId?: DbIdentifier;
+  teamId?: DbIdentifier;
+  teamHomeId?: DbIdentifier;
+  teamAwayId?: DbIdentifier;
 }
 
-export type GetAllMatchesActionResult = ControllerListActionResult<MatchAttributes>;
-
-export type InjectMatchesDataResult = ControllerActionOperatedResult<{
-  success: boolean;
-}>;
-
-export type GetMatchByIdResult = ControllerActionOperatedResult<MatchAttributes>;
+export type MatchesListParams = ControllerListParamsType<MatchesFilterInterface>;
+export type MatchesListResult = ControllerListResultType<MatchAttributes>;
+export type MatchByIdResult = ControllerByIdResultType<MatchAttributes>;
+export type MatchesInjectDataResult = ControllerInjectionResultType;

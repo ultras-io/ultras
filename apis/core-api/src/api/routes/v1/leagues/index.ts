@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import ControllerAdapter from 'api/routes/v1/leagues/ControllerAdapter';
+import ControllerAdapter from './ControllerAdapter';
 
 const router = new Router({
   prefix: '/leagues',

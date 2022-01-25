@@ -1,5 +1,5 @@
 import { BASE_ERRORS } from './constants';
-import { AuthErrorDetail, ErrorDetail, Exception } from 'types/index';
+import { AuthErrorDetail, ErrorDetail, Exception } from 'types';
 
 class BaseError<T1, T2> extends Error {
   protected details?: T1 | ErrorDetail = {};
@@ -16,7 +16,27 @@ class InternalServerError extends BaseError<null, null> {
     let error: Exception = BASE_ERRORS.INTERNAL_SERVER_ERROR;
     if (this.details) {
       error = { ...error, details: this.details };
-    } else error = { ...error, details: BASE_ERRORS.INTERNAL_SERVER_ERROR.debug };
+    } else {
+      error = { ...error, details: BASE_ERRORS.INTERNAL_SERVER_ERROR.debug };
+    }
+
+    return error;
+  }
+}
+
+class RateLimitExceeded extends BaseError<null, null> {
+  public constructor(details?: ErrorDetail) {
+    super();
+    this.details = details;
+  }
+
+  public getError(): Exception {
+    let error: Exception = BASE_ERRORS.RATE_LIMIT_EXCEEDED;
+    if (this.details) {
+      error = { ...error, details: this.details };
+    } else {
+      error = { ...error, details: BASE_ERRORS.RATE_LIMIT_EXCEEDED.debug };
+    }
 
     return error;
   }
@@ -246,6 +266,7 @@ export {
   BaseError,
   BadRequest,
   InternalServerError,
+  RateLimitExceeded,
   InvalidUserCredentials,
   InvalidUserInput,
   RequiredParameterNotProvided,

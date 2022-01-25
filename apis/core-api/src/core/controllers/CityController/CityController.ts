@@ -1,32 +1,18 @@
-import db from 'core/data/models';
 import { OrderEnum } from '@ultras/utils';
+import BaseController from 'core/controllers/BaseController';
+import { CityService, CountryService } from 'services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
+import { DbIdentifier } from 'types';
 
 import {
-  GetAllCitiesActionResult,
-  GetAllCitiesActionParams,
-  InjectCitiesDataResult,
-  GetCityByIdResult,
+  CitiesListParams,
+  CitiesListResult,
+  CityByIdResult,
+  CitiesInjectDataResult,
 } from './types';
-import { SomethingWentWrong } from 'modules/exceptions';
-import { CityCreationAttributes } from 'core/data/models/City';
-import getCountryCities from 'core/data/inject-scripts/injectCities';
-import resources from 'core/data/lcp';
 
-class CityController {
-  private static includeRelations = {
-    attributes: {
-      exclude: ['countryId'],
-    },
-    include: [
-      {
-        model: db.Country,
-        as: resources.COUNTRY.ALIAS.SINGULAR,
-      },
-    ],
-  };
-
+class CityController extends BaseController {
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
@@ -34,42 +20,14 @@ class CityController {
     order = OrderEnum.asc,
     name,
     countryId,
-  }: GetAllCitiesActionParams): Promise<GetAllCitiesActionResult> {
-    let nameQuery = null;
-    let countryIdQuery = null;
-    let query = null;
-
-    if (name) {
-      nameQuery = {
-        name: {
-          [db.Sequelize.Op.iLike]: `%${name}%`,
-        },
-      };
-    }
-    if (countryId) {
-      countryIdQuery = {
-        countryId,
-      };
-    }
-
-    if (nameQuery && countryIdQuery) {
-      query = {
-        [db.Sequelize.Op.and]: [nameQuery, countryIdQuery],
-      };
-    } else {
-      if (countryIdQuery) {
-        query = countryIdQuery;
-      } else {
-        query = nameQuery;
-      }
-    }
-
-    const { rows, count } = await db.City.findAndCountAll({
+  }: CitiesListParams): CitiesListResult {
+    const { rows, count } = await CityService.getAll({
       limit,
       offset,
-      where: query,
-      order: [[orderAttr, order]],
-      ...this.includeRelations,
+      orderAttr,
+      order,
+      name,
+      countryId,
     });
 
     return {
@@ -80,68 +38,32 @@ class CityController {
     };
   }
 
-  static async getById(id: number): Promise<GetCityByIdResult> {
-    const city = await db.City.findByPk(id, {
-      ...this.includeRelations,
-    });
+  static async getById(id: DbIdentifier): CityByIdResult {
+    const city = await CityService.getById(id);
 
     return {
       data: city,
     };
   }
+
   /**
-   * used to development purposes
+   * NOTICE: used to development purposes
    */
-  static async inject(): Promise<InjectCitiesDataResult> {
-    const excludedCountryCodes = ['AW', 'XK', 'PS', 'GP', 'GI', 'FO', 'CW', 'BM'];
-    const excludedCountriesQuery = excludedCountryCodes.map(country => ({
-      code: { [db.Sequelize.Op.ne]: country },
-    }));
+  static async inject(): CitiesInjectDataResult {
+    const countries = await CountryService.getCodesAndIds();
 
-    const countries = await db.Country.findAll({
-      where: {
-        [db.Sequelize.Op.and]: [
-          {
-            name: { [db.Sequelize.Op.ne]: 'World' },
-          },
-          ...excludedCountriesQuery,
-        ],
-      },
-      attributes: ['code', 'id'],
-      order: [['code', OrderEnum.asc]],
-    });
-
-    let citiesToInject: CityCreationAttributes[] = [];
     for (const country of countries) {
       try {
-        const cities = await getCountryCities(
-          country.dataValues.code,
-          country.dataValues.id
-        );
-
-        citiesToInject = [...citiesToInject, ...cities];
+        await CityService.inject(country.dataValues.code, country.dataValues.id);
       } catch (e: any) {
         if (![429, 404].includes(e.status)) {
-          throw new SomethingWentWrong({
-            message: "Api throws error or couldn't insert",
-            originalMessage: e?.message,
-          });
+          this.riseSomethingWrong(e, "API throws error or couldn't insert");
+          return this.sendFailureStatus();
         }
       }
     }
 
-    const uniqueCitiesGrouped = citiesToInject.reduce(
-      (acc: any, item: CityCreationAttributes) => {
-        acc[item.dataRapidId] = item;
-        return acc;
-      },
-      {}
-    );
-
-    const uniqueCities = Object.values(uniqueCitiesGrouped);
-    await db.City.bulkCreate(uniqueCities);
-
-    return { data: { success: true } };
+    return this.sendSuccessStatus();
   }
 }
 

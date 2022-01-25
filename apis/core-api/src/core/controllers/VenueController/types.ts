@@ -1,17 +1,19 @@
-import { ListRequestParams } from '@ultras/utils';
-import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
+import {
+  ControllerListParamsType,
+  ControllerListResultType,
+  ControllerByIdResultType,
+  ControllerInjectionResultType,
+  DbIdentifier,
+} from 'types';
 import { VenueAttributes } from 'core/data/models/Venue';
 
-export interface GetAllVenuesActionParams extends ListRequestParams {
+interface VenuesFilterInterface {
   name?: string;
-  countryId?: number;
-  cityId?: number;
+  countryId?: DbIdentifier;
+  cityId?: DbIdentifier;
 }
 
-export type GetAllVenuesActionResult = ControllerListActionResult<VenueAttributes>;
-
-export type InjectVenuesDataResult = ControllerActionOperatedResult<{
-  success: boolean;
-}>;
-
-export type GetVenueByIdResult = ControllerActionOperatedResult<VenueAttributes>;
+export type VenuesListParams = ControllerListParamsType<VenuesFilterInterface>;
+export type VenuesListResult = ControllerListResultType<VenueAttributes>;
+export type VenueByIdResult = ControllerByIdResultType<VenueAttributes>;
+export type VenuesInjectDataResult = ControllerInjectionResultType;

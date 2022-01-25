@@ -1,16 +1,18 @@
-import { ListRequestParams } from '@ultras/utils';
-import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
+import {
+  ControllerListParamsType,
+  ControllerListResultType,
+  ControllerByIdResultType,
+  ControllerInjectionResultType,
+  DbIdentifier,
+} from 'types';
 import { LeagueAttributes } from 'core/data/models/League';
 
-export interface GetAllLeaguesActionParams extends ListRequestParams {
+interface LeaguesFilterInterface {
   name?: string;
-  countryId?: number;
+  countryId?: DbIdentifier;
 }
 
-export type GetAllLeaguesActionResult = ControllerListActionResult<LeagueAttributes>;
-
-export type InjectLeaguesDataResult = ControllerActionOperatedResult<{
-  success: boolean;
-}>;
-
-export type GetLeagueByIdResult = ControllerActionOperatedResult<LeagueAttributes>;
+export type LeaguesListParams = ControllerListParamsType<LeaguesFilterInterface>;
+export type LeaguesListResult = ControllerListResultType<LeagueAttributes>;
+export type LeagueByIdResult = ControllerByIdResultType<LeagueAttributes>;
+export type LeaguesInjectDataResult = ControllerInjectionResultType;

@@ -1,6 +1,6 @@
 import TeamController from 'core/controllers/TeamController';
 
-import { Context } from 'types/index';
+import { Context } from 'types';
 
 class ControllerAdapter {
   static async inject(ctx: Context): Promise<void> {

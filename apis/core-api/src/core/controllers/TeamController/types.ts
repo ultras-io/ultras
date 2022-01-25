@@ -1,17 +1,20 @@
-import { ListRequestParams } from '@ultras/utils';
-import { ControllerActionOperatedResult, ControllerListActionResult } from 'types';
+import {
+  ControllerListParamsType,
+  ControllerListResultType,
+  ControllerByIdResultType,
+  ControllerInjectionResultType,
+  DbIdentifier,
+} from 'types';
 import { TeamAttributes } from 'core/data/models/Team';
 
-export interface GetAllTeamsActionParams extends ListRequestParams {
+interface TeamsFilterInterface {
   name?: string;
-  countryId?: number;
-  cityId?: number;
+  countryId?: DbIdentifier;
+  cityId?: DbIdentifier;
+  venueId?: DbIdentifier;
 }
 
-export type GetAllTeamsActionResult = ControllerListActionResult<TeamAttributes>;
-
-export type InjectTeamsDataResult = ControllerActionOperatedResult<{
-  success: boolean;
-}>;
-
-export type GetTeamByIdResult = ControllerActionOperatedResult<TeamAttributes>;
+export type TeamsListParams = ControllerListParamsType<TeamsFilterInterface>;
+export type TeamsListResult = ControllerListResultType<TeamAttributes>;
+export type TeamByIdResult = ControllerByIdResultType<TeamAttributes>;
+export type TeamsInjectDataResult = ControllerInjectionResultType;

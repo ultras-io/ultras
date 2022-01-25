@@ -1,4 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
+import { DbIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -7,12 +8,12 @@ import { Country } from 'core/data/models/Country';
 import { City } from 'core/data/models/City';
 
 export interface VenueAttributes {
-  id: number;
+  id: DbIdentifier;
   name: string;
   address?: string;
   capacity: number;
-  cityId: number;
-  countryId: number;
+  cityId: DbIdentifier;
+  countryId: DbIdentifier;
   imageUri: string;
   dataRapidId: number;
 }
@@ -23,12 +24,13 @@ export class Venue
   extends Model<VenueAttributes, VenueCreationAttributes>
   implements VenueAttributes
 {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  // Note that the `null assertion` `!` is required in strict mode.
+  public id!: DbIdentifier;
   public name!: string;
   public address?: string;
   public capacity!: number;
-  public cityId!: number;
-  public countryId!: number;
+  public cityId!: DbIdentifier;
+  public countryId!: DbIdentifier;
   public imageUri!: string;
   public dataRapidId!: number;
 

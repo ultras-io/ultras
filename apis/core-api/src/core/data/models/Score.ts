@@ -1,4 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
+import { DbIdentifier } from 'types';
 import { MatchScoreTypesEnum } from '@ultras/utils';
 
 import resources from 'core/data/lcp';
@@ -7,8 +8,8 @@ import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { Match } from 'core/data/models/Match';
 
 export interface ScoreAttributes {
-  id: number;
-  matchId: number;
+  id: DbIdentifier;
+  matchId: DbIdentifier;
   type: MatchScoreTypesEnum;
   home: number;
   away: number;
@@ -23,8 +24,9 @@ export class Score
   extends Model<ScoreAttributes, ScoreCreationAttributes>
   implements ScoreAttributes
 {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
-  public matchId!: number;
+  // Note that the `null assertion` `!` is required in strict mode.
+  public id!: DbIdentifier;
+  public matchId!: DbIdentifier;
   public type!: MatchScoreTypesEnum;
   public home!: number;
   public away!: number;

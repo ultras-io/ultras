@@ -11,12 +11,14 @@ interface FromInterface {
 export type FromType = string | FromInterface;
 
 interface SendEmailCommonOptionsInterface {
-  from: FromType;
+  from?: FromType;
   subject: string;
   html: string;
 }
 
-export interface SendEmailFinalOptionsInterface extends SendEmailCommonOptionsInterface {
+export interface SendEmailFinalOptionsInterface
+  extends Omit<SendEmailCommonOptionsInterface, 'from'> {
+  from: FromType;
   to: string;
   cc?: string[];
   bcc?: string[];

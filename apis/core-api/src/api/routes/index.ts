@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { Context, KoaApp } from 'types/index';
+import { Context, KoaApp } from 'types';
 
 import v1Routes from './v1';
 

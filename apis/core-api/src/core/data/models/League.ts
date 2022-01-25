@@ -1,4 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
+import { DbIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -6,9 +7,9 @@ import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { Country } from 'core/data/models/Country';
 
 export interface LeagueAttributes {
-  id: number;
+  id: DbIdentifier;
   name: string;
-  countryId: number;
+  countryId: DbIdentifier;
   logo: string;
   dataRapidId: number;
 }
@@ -19,9 +20,10 @@ export class League
   extends Model<LeagueAttributes, LeagueCreationAttributes>
   implements LeagueAttributes
 {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  // Note that the `null assertion` `!` is required in strict mode.
+  public id!: DbIdentifier;
   public name!: string;
-  public countryId!: number;
+  public countryId!: DbIdentifier;
   public logo!: string;
   public dataRapidId!: number;
 

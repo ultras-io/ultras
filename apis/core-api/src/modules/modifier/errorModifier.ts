@@ -3,9 +3,10 @@ import {
   SequelizeError,
   BaseError,
   InternalServerError,
+  RateLimitExceeded,
   AuthenticationError,
 } from 'modules/exceptions';
-import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types/index';
+import { AuthErrorDetail, Context, ErrorDetail, Exception } from 'types';
 
 function normalizeError(exception: Exception | AuthErrorDetail | ErrorDetail) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -21,6 +22,7 @@ function normalizeError(exception: Exception | AuthErrorDetail | ErrorDetail) {
 
   return exception;
 }
+
 export default (ctx: Context, exception: ErrorDetail): BaseError<any, any> => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -32,5 +34,10 @@ export default (ctx: Context, exception: ErrorDetail): BaseError<any, any> => {
   }
   // eslint-disable-next-line no-console
   console.error(exception);
+
+  if (ctx.status == 429) {
+    return new RateLimitExceeded({ message: ctx.body });
+  }
+
   return new InternalServerError();
 };
