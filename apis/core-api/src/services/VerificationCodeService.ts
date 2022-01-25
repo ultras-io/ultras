@@ -1,5 +1,5 @@
 import { generateToken, NotifiedProviderEnum } from '@ultras/utils';
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
@@ -22,8 +22,8 @@ interface ValidateResultInterface {
   provider: null | NotifiedProviderEnum;
 }
 
-// 20 minute
-const expireAfterMs = 20 * 60 * 1000;
+// 5 minute
+const expireAfterMs = 5 * 60 * 1000;
 
 class VerificationCodeService extends BaseService {
   private static buildQuery(

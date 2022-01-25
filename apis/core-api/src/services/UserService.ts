@@ -1,4 +1,4 @@
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 import { ServiceResultType } from 'types';
 
 import resources from 'core/data/lcp';

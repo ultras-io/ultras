@@ -9,7 +9,7 @@ interface OptionsInterface {
 }
 
 const getClientFingerprint = (ctx: Context): string => {
-  // console.log(ctx);
+  // TODO: generate more identific token.
   return ctx.ip;
 };
 

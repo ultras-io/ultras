@@ -1,5 +1,5 @@
 import { NotifiedProviderEnum } from '@ultras/utils';
-import BaseController from 'abstraction/BaseController';
+import BaseController from 'core/controllers/BaseController';
 import {
   UserService,
   VerificationCodeService,
@@ -123,12 +123,6 @@ class UserController extends BaseController {
       return respondWithError('verification_code_not_valid');
     }
 
-    await VerificationCodeService.removeVerificationCode({
-      phone,
-      email,
-      code,
-    });
-
     const isUsernameTaken = await UserService.isUsernameTaken(username);
     if (isUsernameTaken) {
       return respondWithError('username_already_taken');
@@ -157,9 +151,15 @@ class UserController extends BaseController {
     }
 
     if (teamId) {
-      const userId = user.getDataAttribute('id');
+      const userId = user.getDataValue('id');
       await FavoriteTeamService.addToUserFavorites(userId, teamId);
     }
+
+    await VerificationCodeService.removeVerificationCode({
+      phone,
+      email,
+      code,
+    });
 
     return {
       data: {

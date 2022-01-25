@@ -1,5 +1,5 @@
 import CoreSMSService from '@ultras/services/SMSService';
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 
 class SMSService extends BaseService {
   static async sendVerificationCode({ phone, code }: any): Promise<boolean> {

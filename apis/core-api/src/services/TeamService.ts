@@ -6,7 +6,7 @@ import {
   DbIdentifier,
 } from 'types';
 
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { TeamAttributes, TeamCreationAttributes } from 'core/data/models/Team';

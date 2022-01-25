@@ -6,7 +6,7 @@ import {
   DbIdentifier,
 } from 'types';
 
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 import db from 'core/data/models';
 import { CountryAttributes, CountryCreationAttributes } from 'core/data/models/Country';
 

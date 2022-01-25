@@ -10,7 +10,7 @@ router.get('/check-username', ControllerAdapter.checkUsernameExists);
 
 router.post(
   '/identity-confirm',
-  rateLimit({ seconds: 60, requests: 1 }),
+  rateLimit({ seconds: 60, requests: 3 }),
   ControllerAdapter.confirmUserIdentity
 );
 

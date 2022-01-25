@@ -1,5 +1,5 @@
 import CoreMailerService from '@ultras/services/MailerService';
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 
 class MailerService extends BaseService {
   static async sendVerificationCode({ email, code }: any): Promise<boolean> {

@@ -1,5 +1,5 @@
 import { DbIdentifier } from 'types';
-import BaseService from 'abstraction/BaseService';
+import BaseService from 'services/BaseService';
 
 import db from 'core/data/models';
 import { FavoriteTeamCreationAttributes } from 'core/data/models/FavoriteTeam';
