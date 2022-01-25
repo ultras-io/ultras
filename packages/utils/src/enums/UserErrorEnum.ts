@@ -32,7 +32,7 @@ enum UserErrorEnum {
   /**
    * Email address or phone number is required.
    */
-   requiredEmailOrPhone = 'email-phone-required',
+  requiredEmailOrPhone = 'email-phone-required',
 
   /**
    * Unknown error rejected.
