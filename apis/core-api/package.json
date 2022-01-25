@@ -21,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/ioredis": "^4.28.7",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/koa": "^2.13.4",
     "@types/koa-ratelimit": "^4.2.4",
     "@types/koa-router": "^7.4.4",
@@ -49,6 +50,7 @@
     "@ultras/utils": "^1.0.0",
     "dotenv": "^10.0.0",
     "ioredis": "^4.28.3",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
     "koa-ratelimit": "^5.0.1",

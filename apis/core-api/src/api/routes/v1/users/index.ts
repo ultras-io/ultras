@@ -16,5 +16,6 @@ router.post(
 
 router.post('/verify-code', ControllerAdapter.verifyCode);
 router.post('/register', ControllerAdapter.registerUser);
+router.post('/login', ControllerAdapter.loginUser);
 
 export default router;

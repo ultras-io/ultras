@@ -3,7 +3,13 @@ import { ServiceResultType } from 'types';
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { UserCreationAttributes } from 'core/data/models/User';
+import { User, UserCreationAttributes } from 'core/data/models/User';
+
+interface UserUniqueIdentifierInterface {
+  phone?: null | string;
+  email?: null | string;
+  username?: null | string;
+}
 
 class UserService extends BaseService {
   static async isUsernameTaken(username: string): ServiceResultType<boolean> {
@@ -63,6 +69,13 @@ class UserService extends BaseService {
       fullname,
     });
 
+    return user;
+  }
+
+  static async findByUniqueIdentifier(
+    identifier: UserUniqueIdentifierInterface
+  ): ServiceResultType<null | User> {
+    const user = await db.User.findOne(identifier);
     return user;
   }
 }
