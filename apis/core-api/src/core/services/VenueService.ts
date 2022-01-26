@@ -4,12 +4,12 @@ import {
   ServiceByIdResultType,
   DbIdentifier,
 } from 'types';
-
-import BaseService from 'services/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { VenueAttributes, VenueCreationAttributes } from 'core/data/models/Venue';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
+
+import BaseService from './BaseService';
 
 export interface VenuesListParamsInterface {
   name?: string;

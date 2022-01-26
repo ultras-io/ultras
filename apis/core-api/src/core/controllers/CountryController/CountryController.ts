@@ -1,6 +1,6 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
-import { CountryService } from 'services';
+import { CountryService } from 'core/services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';

@@ -5,12 +5,12 @@ import {
   ServiceByIdResultType,
   DbIdentifier,
 } from 'types';
-
-import BaseService from 'services/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { TeamAttributes, TeamCreationAttributes } from 'core/data/models/Team';
 import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
+
+import BaseService from './BaseService';
 
 export interface TeamsListParamsInterface {
   name?: string;

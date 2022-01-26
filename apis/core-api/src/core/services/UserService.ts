@@ -1,9 +1,9 @@
-import BaseService from 'services/BaseService';
 import { ServiceResultType } from 'types';
-
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { User, UserCreationAttributes } from 'core/data/models/User';
+
+import BaseService from './BaseService';
 
 interface UserUniqueIdentifierInterface {
   phone?: null | string;

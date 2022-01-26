@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import BaseService from 'services/BaseService';
 import { User } from 'core/data/models/User';
+import BaseService from './BaseService';
 
 import { ServiceResultType } from 'types';
 
@@ -25,17 +25,16 @@ class AuthService extends BaseService {
     return accessToken;
   }
 
-  static async verifyAccessToken(token: string): ServiceResultType<boolean> {
-    try {
-      this.decode(token);
-      return true;
-    } catch (e) {
-      return false;
-    }
+  static verifyAccessToken(token: string): boolean {
+    return null != this.decode(token);
   }
 
-  static async decode<T = any>(token: string): ServiceResultType<T> {
-    return jwt.verify(token, this.getSecret()) as T;
+  static decode<T = any>(token: string): T | null {
+    try {
+      return jwt.verify(token, this.getSecret()) as T;
+    } catch (e) {
+      return null;
+    }
   }
 }
 

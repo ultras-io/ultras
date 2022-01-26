@@ -13,7 +13,7 @@ import {
   FavoriteTeamService,
   SMSService,
   MailerService,
-} from 'services';
+} from 'core/services';
 
 import {
   UserCheckUsernameParams,

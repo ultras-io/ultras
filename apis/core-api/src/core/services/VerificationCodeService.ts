@@ -1,8 +1,9 @@
 import { generateToken, NotifiedProviderEnum } from '@ultras/utils';
-import BaseService from 'services/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
+
+import BaseService from './BaseService';
 
 interface StoreInterface {
   code: string;
