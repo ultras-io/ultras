@@ -9,8 +9,7 @@ interface OptionsInterface {
 }
 
 const getClientFingerprint = (ctx: Context): string => {
-  // TODO: generate more identific token.
-  return ctx.ip;
+  return ctx.ip + ' @@ ' + ctx.headers['user-agent'];
 };
 
 export default ({ seconds = 60, requests = 20 }: OptionsInterface): Middleware => {

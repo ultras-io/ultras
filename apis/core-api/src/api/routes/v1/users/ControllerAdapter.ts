@@ -18,12 +18,12 @@ const handlePhoneOrEmail = ({ email, phone }: PhoneOrEmail) => {
 };
 
 class ControllerAdapter {
-  static async checkUsernameExists(ctx: Context): Promise<void> {
+  static async checkUsernameExistence(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { username } = ctx.request.query;
 
     /** CONTROLLERS */
-    const { data } = await UserController.checkUsernameExists({
+    const { data } = await UserController.checkUsernameExistence({
       username,
     });
 
@@ -77,13 +77,13 @@ class ControllerAdapter {
     return ctx.ok(response);
   }
 
-  static async registerUser(ctx: Context): Promise<void> {
+  static async register(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { code, phone, email, username, fullname, teamId } = ctx.request.body;
     handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
-    const { data } = await UserController.registerUser({
+    const { data } = await UserController.register({
       code,
       phone,
       email,
@@ -101,13 +101,14 @@ class ControllerAdapter {
     return ctx.ok(response);
   }
 
-  static async loginUser(ctx: Context): Promise<void> {
+  static async login(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { code, phone, email } = ctx.request.body;
     handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
-    const { data } = await UserController.loginUser(ctx, {
+    const { data } = await UserController.login({
+      userAgent: ctx.headers['user-agent'],
       code,
       phone,
       email,

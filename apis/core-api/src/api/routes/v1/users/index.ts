@@ -6,7 +6,7 @@ const router = new Router({
   prefix: '/users',
 });
 
-router.get('/check-username', ControllerAdapter.checkUsernameExists);
+router.get('/check-username-existence', ControllerAdapter.checkUsernameExistence);
 
 router.post(
   '/identity-confirm',
@@ -15,7 +15,7 @@ router.post(
 );
 
 router.post('/verify-code', ControllerAdapter.verifyCode);
-router.post('/register', ControllerAdapter.registerUser);
-router.post('/login', ControllerAdapter.loginUser);
+router.post('/register', ControllerAdapter.register);
+router.post('/login', ControllerAdapter.login);
 
 export default router;

@@ -47,6 +47,7 @@ export type UserRegistrationResult = ControllerResultType<{
 }>;
 
 export type UserLoginParams = PhoneOrEmail & {
+  userAgent?: null | string;
   code: string;
 };
 
