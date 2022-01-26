@@ -1,7 +1,7 @@
 // import { parseMatchStatus, OrderEnum, WinnerEnum } from '@ultras/utils';
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
-import { MatchService } from 'services';
+import { MatchService } from 'core/services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';

@@ -1,14 +1,29 @@
+import { UserErrorEnum } from '@ultras/utils';
 import UserController from 'core/controllers/UserController';
+import { InvalidUserInput } from 'modules/exceptions';
 
 import { Context } from 'types';
 
+interface PhoneOrEmail {
+  phone?: string;
+  email?: string;
+}
+
+const handlePhoneOrEmail = ({ email, phone }: PhoneOrEmail) => {
+  if (!phone && !email) {
+    throw new InvalidUserInput({
+      reason: UserErrorEnum.requiredEmailOrPhone,
+    });
+  }
+};
+
 class ControllerAdapter {
-  static async checkUsernameExists(ctx: Context): Promise<void> {
+  static async checkUsernameExistence(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { username } = ctx.request.query;
 
     /** CONTROLLERS */
-    const { data } = await UserController.checkUsernameExists({
+    const { data } = await UserController.checkUsernameExistence({
       username,
     });
 
@@ -24,6 +39,7 @@ class ControllerAdapter {
   static async confirmUserIdentity(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { phone, email } = ctx.request.body;
+    handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
     const { data } = await UserController.confirmUserIdentity({
@@ -43,6 +59,7 @@ class ControllerAdapter {
   static async verifyCode(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { phone, email, code } = ctx.request.body;
+    handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
     const { data } = await UserController.verifyCode({
@@ -60,18 +77,41 @@ class ControllerAdapter {
     return ctx.ok(response);
   }
 
-  static async registerUser(ctx: Context): Promise<void> {
+  static async register(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { code, phone, email, username, fullname, teamId } = ctx.request.body;
+    handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
-    const { data } = await UserController.registerUser({
+    const { data } = await UserController.register({
       code,
       phone,
       email,
       username,
       fullname,
       teamId,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async login(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { code, phone, email } = ctx.request.body;
+    handlePhoneOrEmail({ phone, email });
+
+    /** CONTROLLERS */
+    const { data } = await UserController.login({
+      userAgent: ctx.headers['user-agent'],
+      code,
+      phone,
+      email,
     });
 
     /** RESPONSE */

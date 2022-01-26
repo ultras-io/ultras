@@ -1,6 +1,6 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
-import { LeagueService, CountryService } from 'services';
+import { LeagueService, CountryService } from 'core/services';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';

@@ -4,12 +4,12 @@ import {
   ServiceByIdResultType,
   DbIdentifier,
 } from 'types';
-
-import BaseService from 'services/BaseService';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { LeagueAttributes, LeagueCreationAttributes } from 'core/data/models/League';
 import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
+
+import BaseService from './BaseService';
 
 export interface LeaguesListParamsInterface {
   name?: string;

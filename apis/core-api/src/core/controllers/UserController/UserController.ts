@@ -1,12 +1,19 @@
-import { NotifiedProviderEnum, AuthSignupErrorEnum } from '@ultras/utils';
+import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import {
+  AuthenticationError,
+  BadRequest,
+  InvalidUserInput,
+  ResourceDuplicationError,
+} from 'modules/exceptions';
+import {
+  AuthService,
   UserService,
   VerificationCodeService,
   FavoriteTeamService,
   SMSService,
   MailerService,
-} from 'services';
+} from 'core/services';
 
 import {
   UserCheckUsernameParams,
@@ -17,19 +24,12 @@ import {
   UserVerifyCodeResult,
   UserRegistrationParams,
   UserRegistrationResult,
+  UserLoginParams,
+  UserLoginResult,
 } from './types';
 
 class UserController extends BaseController {
-  private static respondAuthError<T>(error: T) {
-    return {
-      data: {
-        error: error,
-        success: false,
-      },
-    };
-  }
-
-  static async checkUsernameExists({
+  static async checkUsernameExistence({
     username,
   }: UserCheckUsernameParams): UserCheckUsernameResult {
     const isTaken = await UserService.isUsernameTaken(username);
@@ -104,7 +104,7 @@ class UserController extends BaseController {
     };
   }
 
-  static async registerUser({
+  static async register({
     code,
     email,
     phone,
@@ -120,25 +120,23 @@ class UserController extends BaseController {
     });
 
     if (verificationCode == null) {
-      return this.respondAuthError(AuthSignupErrorEnum.invalidVerificationCode);
+      throw new BadRequest(UserErrorEnum.invalidVerificationCode);
     }
 
     const isUsernameTaken = await UserService.isUsernameTaken(username);
     if (isUsernameTaken) {
-      return this.respondAuthError(AuthSignupErrorEnum.usernameTaken);
+      throw new ResourceDuplicationError(UserErrorEnum.usernameTaken);
     }
 
     if (email) {
       const isEmailTaken = await UserService.isEmailTaken(email);
       if (isEmailTaken) {
-        return this.respondAuthError(AuthSignupErrorEnum.emailTaken);
+        throw new ResourceDuplicationError(UserErrorEnum.emailTaken);
       }
-    }
-
-    if (phone) {
+    } else if (phone) {
       const isPhoneTaken = await UserService.isPhoneTaken(phone);
       if (isPhoneTaken) {
-        return this.respondAuthError(AuthSignupErrorEnum.phoneTaken);
+        throw new ResourceDuplicationError(UserErrorEnum.phoneTaken);
       }
     }
 
@@ -149,10 +147,6 @@ class UserController extends BaseController {
       username,
       fullname,
     });
-
-    if (null == user) {
-      return this.respondAuthError(AuthSignupErrorEnum.unknown);
-    }
 
     if (teamId) {
       const userId = user.getDataValue('id');
@@ -168,6 +162,68 @@ class UserController extends BaseController {
     return {
       data: {
         success: true,
+        user: user,
+      },
+    };
+  }
+
+  static async login({
+    userAgent,
+    code,
+    email,
+    phone,
+  }: UserLoginParams): UserLoginResult {
+    const verificationCode = await VerificationCodeService.getVerificationCode({
+      phone,
+      email,
+      code,
+    });
+
+    if (verificationCode == null) {
+      throw new BadRequest(UserErrorEnum.invalidVerificationCode);
+    }
+
+    if (email) {
+      const isEmailAvailable = await UserService.isEmailAvailable(email);
+      if (isEmailAvailable) {
+        throw new AuthenticationError(UserErrorEnum.incorrectEmail);
+      }
+    } else if (phone) {
+      const isPhoneAvailable = await UserService.isPhoneAvailable(phone);
+      if (isPhoneAvailable) {
+        throw new AuthenticationError(UserErrorEnum.incorrectPhone);
+      }
+    }
+
+    const user = await UserService.findByUniqueIdentifier({
+      email,
+      phone,
+    });
+
+    if (null == user) {
+      if (email) {
+        throw new AuthenticationError(UserErrorEnum.incorrectEmail);
+      } else if (phone) {
+        throw new AuthenticationError(UserErrorEnum.incorrectPhone);
+      }
+
+      throw new InvalidUserInput(UserErrorEnum.requiredEmailOrPhone);
+    }
+
+    await VerificationCodeService.removeVerificationCode({
+      phone,
+      email,
+      code,
+    });
+
+    const accessToken = await AuthService.generateAccessToken(user, {
+      ua: userAgent,
+    });
+
+    return {
+      data: {
+        success: true,
+        accessToken: accessToken,
         user: user,
       },
     };

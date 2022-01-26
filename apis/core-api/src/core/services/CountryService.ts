@@ -6,13 +6,13 @@ import {
   DbIdentifier,
 } from 'types';
 
-import BaseService from 'services/BaseService';
 import db from 'core/data/models';
 import { CountryAttributes, CountryCreationAttributes } from 'core/data/models/Country';
-
 import injectCountries, {
   RapidApiCountry,
 } from 'core/data/inject-scripts/injectCountries';
+
+import BaseService from './BaseService';
 
 export interface CountriesListParamsInterface {
   name?: string;
