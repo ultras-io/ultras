@@ -1,28 +1,32 @@
+import { authConfig } from 'config';
+import { DbIdentifier } from 'types';
 import jwt from 'jsonwebtoken';
-import { User } from 'core/data/models/User';
 import BaseService from './BaseService';
 
-import { ServiceResultType } from 'types';
+interface DataToHashInterface {
+  userId: DbIdentifier;
+  fingerprint: string;
+}
+
+interface AuthTokenResultInterface {
+  authToken: string;
+  expiresAt: number;
+}
 
 class AuthService extends BaseService {
-  private static getSecret(): string {
-    return process.env.ACCESS_TOKEN_SECRET || 'secret';
-  }
+  static generateAuthToken(dataToHash: DataToHashInterface): AuthTokenResultInterface {
+    const expiresIn = authConfig.accessTokenLifetime;
+    const expiresAt = Date.now() + expiresIn * 1000;
 
-  static async generateAccessToken(
-    user: User,
-    mergeData: any = {}
-  ): ServiceResultType<string> {
-    const dataToHash = {
-      userId: user.getDataValue('id'),
-      ...mergeData,
-    };
-
-    const accessToken = jwt.sign(dataToHash, this.getSecret(), {
+    const authToken = jwt.sign(dataToHash, authConfig.accessTokenSecret, {
       algorithm: 'HS512',
+      expiresIn: expiresIn,
     });
 
-    return accessToken;
+    return {
+      authToken,
+      expiresAt,
+    };
   }
 
   static verifyAccessToken(token: string): boolean {
@@ -31,7 +35,7 @@ class AuthService extends BaseService {
 
   static decode<T = any>(token: string): T | null {
     try {
-      return jwt.verify(token, this.getSecret()) as T;
+      return jwt.verify(token, authConfig.accessTokenSecret) as T;
     } catch (e) {
       return null;
     }

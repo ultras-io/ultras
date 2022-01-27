@@ -35,6 +35,15 @@ const resources = {
     },
   },
 
+  USER_SESSION: {
+    RELATION: 'UserSession',
+    MODEL: 'UserSession',
+    ALIAS: {
+      SINGULAR: 'userSession',
+      PLURAL: 'userSessions',
+    },
+  },
+
   // venue-team-country-league-match-score system
   VENUE: {
     RELATION: 'Venue',
