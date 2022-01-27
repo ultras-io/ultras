@@ -86,7 +86,9 @@ class UserAgentService extends BaseService {
     }
 
     const mobilePattern =
+      // eslint-disable-next-line max-len
       /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/;
+
     if (mobilePattern.test(userAgent)) {
       return 'mobile';
     }
