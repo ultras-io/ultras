@@ -83,7 +83,8 @@ class ControllerAdapter {
     handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
-    const { data } = await UserController.register({
+    const { data, token } = await UserController.register({
+      fingerprint: ctx.fingerprint,
       code,
       phone,
       email,
@@ -96,6 +97,7 @@ class ControllerAdapter {
     // @TODO make response types
     const response = {
       data,
+      token,
     };
 
     return ctx.ok(response);
@@ -107,8 +109,8 @@ class ControllerAdapter {
     handlePhoneOrEmail({ phone, email });
 
     /** CONTROLLERS */
-    const { data } = await UserController.login({
-      userAgent: ctx.headers['user-agent'],
+    const { data, token } = await UserController.login({
+      fingerprint: ctx.fingerprint,
       code,
       phone,
       email,
@@ -118,6 +120,7 @@ class ControllerAdapter {
     // @TODO make response types
     const response = {
       data,
+      token,
     };
 
     return ctx.ok(response);

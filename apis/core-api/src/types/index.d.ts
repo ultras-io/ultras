@@ -53,27 +53,31 @@ export interface ControllerActionOperatedResult<T> {
 }
 
 // #region controller params and result types
-interface ControllerResultInterface<T> {
+type ControllerResultBaseType<T, P = {}> = P & {
   data: T;
-}
+};
 
 export type ControllerListParamsType<T> = T & ListRequestParams;
 
-export type ControllerResultType<T> = Promise<ControllerResultInterface<T>>;
+export type ControllerResultType<T, P = {}> = Promise<ControllerResultBaseType<T, P>>;
 
-export type ControllerListResultType<T> = Promise<
-  ControllerResultInterface<Array<T>> & {
+export type ControllerListResultType<T, P = {}> = Promise<
+  ControllerResultBaseType<Array<T>> & {
     count: number;
     limit: number;
     offset: number;
-  }
+  },
+  P
 >;
 
-export type ControllerByIdResultType<T> = ControllerResultType<T | null>;
+export type ControllerByIdResultType<T, P = {}> = ControllerResultType<T | null, P>;
 
-export type ControllerInjectionResultType = ControllerResultType<{
-  success: boolean;
-}>;
+export type ControllerInjectionResultType<P = {}> = ControllerResultType<
+  {
+    success: boolean;
+  },
+  P
+>;
 // #endregion
 
 // #region service params and result types

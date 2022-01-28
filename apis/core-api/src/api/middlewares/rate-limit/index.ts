@@ -9,7 +9,8 @@ interface OptionsInterface {
 }
 
 const getClientFingerprint = (ctx: Context): string => {
-  return ctx.ip + ' @@ ' + ctx.headers['user-agent'];
+  // return ctx.ip + ' @@ ' + ctx.fingerprint;
+  return ctx.fingerprint;
 };
 
 export default ({ seconds = 60, requests = 20 }: OptionsInterface): Middleware => {

@@ -16,6 +16,7 @@ import {
 } from 'core/services';
 
 import {
+  AuthTokenType,
   UserCheckUsernameParams,
   UserCheckUsernameResult,
   UserConfirmIdentityParams,
@@ -105,6 +106,7 @@ class UserController extends BaseController {
   }
 
   static async register({
+    fingerprint,
     code,
     email,
     phone,
@@ -159,7 +161,13 @@ class UserController extends BaseController {
       code,
     });
 
+    const token = AuthService.generateAuthToken({
+      userId: user.getDataValue('id'),
+      fingerprint,
+    });
+
     return {
+      token: token,
       data: {
         success: true,
         user: user,
@@ -168,7 +176,7 @@ class UserController extends BaseController {
   }
 
   static async login({
-    userAgent,
+    fingerprint,
     code,
     email,
     phone,
@@ -216,14 +224,15 @@ class UserController extends BaseController {
       code,
     });
 
-    const accessToken = await AuthService.generateAccessToken(user, {
-      ua: userAgent,
+    const token = AuthService.generateAuthToken({
+      userId: user.getDataValue('id'),
+      fingerprint,
     });
 
     return {
+      token: token,
       data: {
         success: true,
-        accessToken: accessToken,
         user: user,
       },
     };

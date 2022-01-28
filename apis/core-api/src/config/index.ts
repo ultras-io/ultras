@@ -1,16 +1,21 @@
 import envConfigs from 'dotenv';
+import path from 'path';
 
-envConfigs.config({ path: `${__dirname}/../../.env` });
+envConfigs.config({
+  path: path.join(__dirname, '..', '..', '.env'),
+});
 
-const DEFAULT_DATABASE_PORT = '5432';
+const intConf = (value: string | number): number => {
+  return 'string' == typeof value ? parseInt(value, 10) : value;
+};
 
 const dbConfig = {
   host: process.env.DB_HOST || '',
   database: process.env.DB_NAME || '',
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
-  port: parseInt(process.env.DB_PORT || DEFAULT_DATABASE_PORT),
-  logging: Boolean(parseInt(process.env.DB_LOGGING || '1', 10)) || false,
+  port: intConf(process.env.DB_PORT || 5432),
+  logging: Boolean(intConf(process.env.DB_LOGGING || 1)) || false,
 };
 
 const serverConfig = {
@@ -19,9 +24,8 @@ const serverConfig = {
 };
 
 const authConfig = {
-  apiAuthSecretKey: process.env.API_KEY || 'API_KEY',
-  authTokenSecret: process.env.AUTHORIZATION_TOKEN_SECRET || 'LOCAL_SECRET_KEY',
-  resetPasswordTokenSecret: process.env.RESET_PASSWORD_TOKEN_SECRET || 'EMAIL_SECRET_KEY',
+  accessTokenSecret: process.env.AUTH_ACCESS_TOKEN_SECRET || '',
+  accessTokenLifetime: intConf(process.env.AUTH_ACCESS_TOKEN_LIFETIME || 300),
 };
 
 const awsConfig = {
@@ -45,12 +49,39 @@ const awsConfig = {
   },
 };
 
-/*const mailerConfig = {
-  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY || null,
-};*/
+const mailerConfig = {
+  apiKey: process.env.SENDGRID_API_KEY || '',
+};
+
+const smsConfig = {
+  accountSid: process.env.TWILIO_ACCOUNT_SID || '',
+  authToken: process.env.TWILIO_AUTH_TOKEN || '',
+  phoneNumber: process.env.TWILIO_SENDER_PHONE_NUMBER || '',
+  messageServiceId: process.env.TWILIO_MESSAGE_SERVICE_ID || '',
+};
 
 const whiteList = process.env.CORS_WHITE_LIST;
 
-const apiFootballKey = process.env.API_FOOTBALL_KEY;
+const rapidApiConfig = {
+  footballApi: {
+    host: process.env.RAPIDAPI_FOOTBALL_API_HEADER_HOST,
+    key: process.env.RAPIDAPI_FOOTBALL_API_HEADER_KEY,
+    baseUrl: process.env.RAPIDAPI_FOOTBALL_API_BASEURL,
+  },
+  geoDb: {
+    host: process.env.RAPIDAPI_GEODB_HEADER_HOST,
+    key: process.env.RAPIDAPI_GEODB_HEADER_KEY,
+    baseUrl: process.env.RAPIDAPI_GEODB_BASEURL,
+  },
+};
 
-export { dbConfig, awsConfig, authConfig, whiteList, serverConfig, apiFootballKey };
+export {
+  dbConfig,
+  awsConfig,
+  authConfig,
+  whiteList,
+  serverConfig,
+  mailerConfig,
+  smsConfig,
+  rapidApiConfig,
+};

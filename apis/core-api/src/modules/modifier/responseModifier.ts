@@ -24,9 +24,11 @@ export default (ctx: Context): void => {
   if (result && result.dataValues) {
     result = result.dataValues;
   }
+
   const response = {
     meta: {},
   };
+
   const pagination = {};
   // eslint-disable-next-line no-prototype-builtins
   if (Array.isArray(result.data) && result.hasOwnProperty('total')) {
@@ -38,6 +40,11 @@ export default (ctx: Context): void => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     set(response.meta, 'pagination', pagination);
+  }
+
+  if (result && result.token) {
+    set(response.meta, 'token', result.token);
+    delete result.token;
   }
 
   if ('object' == typeof result) {
