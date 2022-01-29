@@ -84,7 +84,7 @@ class ControllerAdapter {
 
     /** CONTROLLERS */
     const { data, token } = await UserController.register({
-      fingerprint: ctx.fingerprint,
+      fingerprint: ctx.device.fingerprint,
       code,
       phone,
       email,
