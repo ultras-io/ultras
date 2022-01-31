@@ -1,6 +1,7 @@
 import { authConfig } from 'config';
 import { DbIdentifier } from 'types';
 import jwt from 'jsonwebtoken';
+import db from 'core/data/models';
 import BaseService from './BaseService';
 
 interface DataToHashInterface {
@@ -8,7 +9,7 @@ interface DataToHashInterface {
   fingerprint: string;
 }
 
-interface AuthTokenResultInterface {
+export interface AuthTokenResultInterface extends DataToHashInterface {
   authToken: string;
   expiresAt: number;
 }
@@ -18,12 +19,14 @@ class AuthService extends BaseService {
     const expiresIn = authConfig.accessTokenLifetime;
     const expiresAt = Date.now() + expiresIn * 1000;
 
+    console.log(dataToHash);
     const authToken = jwt.sign(dataToHash, authConfig.accessTokenSecret, {
       algorithm: 'HS512',
       expiresIn: expiresIn,
     });
 
     return {
+      ...dataToHash,
       authToken,
       expiresAt,
     };
@@ -33,12 +36,25 @@ class AuthService extends BaseService {
     return null != this.decode(token);
   }
 
-  static decode<T = any>(token: string): T | null {
+  static decode<T = any>(token: string, ignoreExpiration: boolean = false): T | null {
     try {
-      return jwt.verify(token, authConfig.accessTokenSecret) as T;
+      const options = {
+        ignoreExpiration: ignoreExpiration,
+      };
+
+      return jwt.verify(token, authConfig.accessTokenSecret, options) as T;
     } catch (e) {
       return null;
     }
+  }
+
+  static getUserSession(fingerprint: string, authToken: string) {
+    return db.UserSession.findOne({
+      where: {
+        fingerprint,
+        authToken,
+      },
+    });
   }
 }
 

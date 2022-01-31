@@ -24,8 +24,9 @@ const serverConfig = {
 };
 
 const authConfig = {
-  accessTokenSecret: process.env.AUTH_ACCESS_TOKEN_SECRET || '',
-  accessTokenLifetime: intConf(process.env.AUTH_ACCESS_TOKEN_LIFETIME || 300),
+  authTokenReauthBefore: intConf(process.env.AUTH_TOKEN_REAUTH_BEFORE || 10),
+  accessTokenSecret: process.env.AUTH_TOKEN_SECRET || '',
+  accessTokenLifetime: intConf(process.env.AUTH_TOKEN_LIFETIME || 300),
 };
 
 const awsConfig = {

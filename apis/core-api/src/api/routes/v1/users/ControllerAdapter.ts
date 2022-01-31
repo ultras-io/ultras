@@ -110,7 +110,7 @@ class ControllerAdapter {
 
     /** CONTROLLERS */
     const { data, token } = await UserController.login({
-      fingerprint: ctx.fingerprint,
+      fingerprint: ctx.device.fingerprint,
       code,
       phone,
       email,
@@ -121,6 +121,24 @@ class ControllerAdapter {
     const response = {
       data,
       token,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async getTokenInfo(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const authToken = (ctx.headers['authorization'] || '').replace('Bearer ', '');
+
+    /** CONTROLLERS */
+    const { data } = await UserController.getTokenInfo({
+      token: authToken,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
     };
 
     return ctx.ok(response);

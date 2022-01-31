@@ -27,6 +27,8 @@ import {
   UserRegistrationResult,
   UserLoginParams,
   UserLoginResult,
+  TokenInfoParams,
+  TokenInfoResult,
 } from './types';
 
 class UserController extends BaseController {
@@ -234,6 +236,21 @@ class UserController extends BaseController {
       data: {
         success: true,
         user: user,
+      },
+    };
+  }
+
+  static async getTokenInfo({ token }: TokenInfoParams): TokenInfoResult {
+    const decodedData = AuthService.decode(token);
+    let model = null;
+
+    if (decodedData) {
+      model = await AuthService.getUserSession(decodedData.fingerprint, token);
+    }
+
+    return {
+      data: {
+        info: model,
       },
     };
   }

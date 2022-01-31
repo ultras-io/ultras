@@ -3,6 +3,7 @@ import cors from '@koa/cors';
 
 import restify from 'api/middlewares/restify';
 import deviceFingerprint from 'api/middlewares/device-fingerprint';
+import authToken from 'api/middlewares/auth-token';
 import verifyCorsOrigin from 'utils/verifyCorsOrigin';
 import registerRoute from 'api/routes';
 
@@ -32,11 +33,14 @@ class App implements IApp {
     // proxy
     this.configureProxy();
 
-    // restify
-    this.app.use(restify());
-
     // device fingerprint
     this.app.use(deviceFingerprint());
+
+    // store/update auth token
+    this.app.use(authToken());
+
+    // restify
+    this.app.use(restify());
 
     // routes
     registerRoute(this.app);

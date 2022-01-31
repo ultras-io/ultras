@@ -75,3 +75,9 @@ export type UserLoginResult = ControllerResultType<
     token: AuthTokenType;
   }
 >;
+
+export type TokenInfoParams = {
+  token: string;
+};
+
+export type TokenInfoResult = ControllerResultType<any>;
