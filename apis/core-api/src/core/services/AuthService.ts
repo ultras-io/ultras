@@ -19,7 +19,6 @@ class AuthService extends BaseService {
     const expiresIn = authConfig.accessTokenLifetime;
     const expiresAt = Date.now() + expiresIn * 1000;
 
-    console.log(dataToHash);
     const authToken = jwt.sign(dataToHash, authConfig.accessTokenSecret, {
       algorithm: 'HS512',
       expiresIn: expiresIn,

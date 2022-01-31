@@ -37,17 +37,11 @@ const reUpdateTokenIfExpired = (
   authToken: string
 ): AuthTokenResultInterface | null => {
   const data = AuthService.decode(authToken, true);
-  console.log(data, authToken);
   if (!data) {
     return null;
   }
 
   const isExpired = Date.now() + expireOffset < data.expiresAt;
-  console.log({
-    isExpired,
-    max: Date.now() + expireOffset,
-    expiresAt: data.expiresAt,
-  });
   if (!isExpired) {
     return null;
   }
@@ -73,7 +67,6 @@ const storeAuthToken = async (
   token: AuthTokenResultInterface,
   isReGeneratedToken: boolean
 ) => {
-  console.log(isReGeneratedToken, ctx.device, token);
   if (!isContainsTokenMeta(ctx)) {
     return;
   }
