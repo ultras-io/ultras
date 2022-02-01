@@ -109,6 +109,12 @@ class UserController extends BaseController {
 
   static async register({
     fingerprint,
+    ip,
+    device,
+    osName,
+    osVersion,
+    browser,
+    userAgent,
     code,
     email,
     phone,
@@ -163,10 +169,20 @@ class UserController extends BaseController {
       code,
     });
 
-    const token = AuthService.generateAuthToken({
-      userId: user.getDataValue('id'),
-      fingerprint,
-    });
+    const token = await AuthService.generateAuthToken(
+      {
+        userId: user.getDataValue('id'),
+        fingerprint,
+      },
+      {
+        ip,
+        device,
+        osName,
+        osVersion,
+        browser,
+        userAgent,
+      }
+    );
 
     return {
       token: token,
@@ -179,6 +195,12 @@ class UserController extends BaseController {
 
   static async login({
     fingerprint,
+    ip,
+    device,
+    osName,
+    osVersion,
+    browser,
+    userAgent,
     code,
     email,
     phone,
@@ -226,10 +248,20 @@ class UserController extends BaseController {
       code,
     });
 
-    const token = AuthService.generateAuthToken({
-      userId: user.getDataValue('id'),
-      fingerprint,
-    });
+    const token = await AuthService.generateAuthToken(
+      {
+        userId: user.getDataValue('id'),
+        fingerprint,
+      },
+      {
+        ip,
+        device,
+        osName,
+        osVersion,
+        browser,
+        userAgent,
+      }
+    );
 
     return {
       token: token,
@@ -241,7 +273,7 @@ class UserController extends BaseController {
   }
 
   static async getTokenInfo({ token }: TokenInfoParams): TokenInfoResult {
-    const decodedData = AuthService.decode(token);
+    const decodedData = AuthService.decode(token, true);
     let model = null;
 
     if (decodedData) {

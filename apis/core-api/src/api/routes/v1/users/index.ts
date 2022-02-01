@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import authToken from 'api/middlewares/auth-token';
+import checkUserAuth from 'api/middlewares/check-user-auth';
 import rateLimit from 'api/middlewares/rate-limit';
 import ControllerAdapter from './ControllerAdapter';
 import { Context } from 'types';
@@ -20,6 +20,6 @@ router.post('/verify-code', ControllerAdapter.verifyCode);
 router.post('/register', ControllerAdapter.register);
 router.post('/login', ControllerAdapter.login);
 
-router.get('/token', ControllerAdapter.getTokenInfo);
+router.get('/token', checkUserAuth(), ControllerAdapter.getTokenInfo);
 
 export default router;

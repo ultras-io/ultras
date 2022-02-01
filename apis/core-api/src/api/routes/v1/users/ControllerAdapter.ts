@@ -85,6 +85,12 @@ class ControllerAdapter {
     /** CONTROLLERS */
     const { data, token } = await UserController.register({
       fingerprint: ctx.device.fingerprint,
+      ip: ctx.ip,
+      device: ctx.device.type,
+      osName: ctx.device.os.name,
+      osVersion: ctx.device.os.version,
+      browser: ctx.device.browser,
+      userAgent: ctx.headers['user-agent'],
       code,
       phone,
       email,
@@ -111,6 +117,12 @@ class ControllerAdapter {
     /** CONTROLLERS */
     const { data, token } = await UserController.login({
       fingerprint: ctx.device.fingerprint,
+      ip: ctx.ip,
+      device: ctx.device.type,
+      osName: ctx.device.os.name,
+      osVersion: ctx.device.os.version,
+      browser: ctx.device.browser,
+      userAgent: ctx.headers['user-agent'],
       code,
       phone,
       email,

@@ -2,8 +2,7 @@ import http from 'http';
 import cors from '@koa/cors';
 
 import restify from 'api/middlewares/restify';
-import deviceFingerprint from 'api/middlewares/device-fingerprint';
-import authToken from 'api/middlewares/auth-token';
+import deviceFingerprint from 'api/middlewares/detect-device';
 import verifyCorsOrigin from 'utils/verifyCorsOrigin';
 import registerRoute from 'api/routes';
 
@@ -35,9 +34,6 @@ class App implements IApp {
 
     // device fingerprint
     this.app.use(deviceFingerprint());
-
-    // store/update auth token
-    this.app.use(authToken());
 
     // restify
     this.app.use(restify());

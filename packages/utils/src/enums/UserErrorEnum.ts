@@ -35,6 +35,21 @@ enum UserErrorEnum {
   requiredEmailOrPhone = 'email-phone-required',
 
   /**
+   * Auth token is not provided by headers.
+   */
+  authTokenRequired = 'auth-token-required',
+
+  /**
+   * Provided auth token is not a valid.
+   */
+  authTokenInvalid = 'auth-token-invalid',
+
+  /**
+   * Provided auth token is expired.
+   */
+  authTokenExpired = 'auth-token-expired',
+
+  /**
    * Unknown error rejected.
    */
   unknown = 'unknown-error',
