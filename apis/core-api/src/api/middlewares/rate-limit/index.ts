@@ -1,6 +1,6 @@
-import Redis from 'ioredis';
-import rateLimit from 'koa-ratelimit';
 import { Middleware } from 'koa';
+import rateLimit from 'koa-ratelimit';
+import Redis from 'ioredis';
 import { Context } from 'types';
 
 interface OptionsInterface {
@@ -9,14 +9,20 @@ interface OptionsInterface {
 }
 
 const getClientFingerprint = (ctx: Context): string => {
-  // return ctx.ip + ' @@ ' + ctx.fingerprint;
-  return ctx.fingerprint;
+  if (ctx.device && ctx.device.fingerprint) {
+    return ctx.device.fingerprint;
+  }
+
+  return ctx.ip + ' @@ ' + ctx.device.fingerprint;
 };
 
-export default ({ seconds = 60, requests = 20 }: OptionsInterface): Middleware => {
+export default (options: OptionsInterface): Middleware => {
+  options.seconds = options.seconds || 60;
+  options.requests = options.requests || 20;
+
   return rateLimit({
-    duration: seconds * 1000,
-    max: requests,
+    duration: options.seconds * 1000,
+    max: options.requests,
     id: getClientFingerprint,
     throw: true,
 

@@ -167,7 +167,7 @@ class MatchService extends BaseService {
         }
       );
 
-      if (null == teamHome || null == teamAway) {
+      if (!teamHome || !teamAway) {
         continue;
       }
 

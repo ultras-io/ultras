@@ -43,6 +43,7 @@ export default (ctx: Context): void => {
   }
 
   if (result && result.token) {
+    response.meta = response.meta || {};
     set(response.meta, 'token', result.token);
     delete result.token;
   }

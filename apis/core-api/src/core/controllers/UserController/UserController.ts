@@ -27,6 +27,8 @@ import {
   UserRegistrationResult,
   UserLoginParams,
   UserLoginResult,
+  TokenInfoParams,
+  TokenInfoResult,
 } from './types';
 
 class UserController extends BaseController {
@@ -68,7 +70,7 @@ class UserController extends BaseController {
       userExists = await UserService.isPhoneTaken(phone);
     }
 
-    if (null != provider) {
+    if (provider) {
       await VerificationCodeService.store({
         code,
         provider,
@@ -79,7 +81,7 @@ class UserController extends BaseController {
 
     return {
       data: {
-        success: null != provider,
+        success: !!provider,
         provider: provider,
         userExists: userExists,
       },
@@ -99,7 +101,7 @@ class UserController extends BaseController {
 
     return {
       data: {
-        valid: null != verificationCode,
+        valid: !!verificationCode,
         details: verificationCode,
       },
     };
@@ -107,6 +109,12 @@ class UserController extends BaseController {
 
   static async register({
     fingerprint,
+    ip,
+    device,
+    osName,
+    osVersion,
+    browser,
+    userAgent,
     code,
     email,
     phone,
@@ -161,10 +169,20 @@ class UserController extends BaseController {
       code,
     });
 
-    const token = AuthService.generateAuthToken({
-      userId: user.getDataValue('id'),
-      fingerprint,
-    });
+    const token = await AuthService.generateAuthToken(
+      {
+        userId: user.getDataValue('id'),
+        fingerprint,
+      },
+      {
+        ip,
+        device,
+        osName,
+        osVersion,
+        browser,
+        userAgent,
+      }
+    );
 
     return {
       token: token,
@@ -177,6 +195,12 @@ class UserController extends BaseController {
 
   static async login({
     fingerprint,
+    ip,
+    device,
+    osName,
+    osVersion,
+    browser,
+    userAgent,
     code,
     email,
     phone,
@@ -208,7 +232,7 @@ class UserController extends BaseController {
       phone,
     });
 
-    if (null == user) {
+    if (!user) {
       if (email) {
         throw new AuthenticationError(UserErrorEnum.incorrectEmail);
       } else if (phone) {
@@ -224,16 +248,41 @@ class UserController extends BaseController {
       code,
     });
 
-    const token = AuthService.generateAuthToken({
-      userId: user.getDataValue('id'),
-      fingerprint,
-    });
+    const token = await AuthService.generateAuthToken(
+      {
+        userId: user.getDataValue('id'),
+        fingerprint,
+      },
+      {
+        ip,
+        device,
+        osName,
+        osVersion,
+        browser,
+        userAgent,
+      }
+    );
 
     return {
       token: token,
       data: {
         success: true,
         user: user,
+      },
+    };
+  }
+
+  static async getTokenInfo({ token }: TokenInfoParams): TokenInfoResult {
+    const decodedData = AuthService.decode(token, true);
+    let model = null;
+
+    if (decodedData) {
+      model = await AuthService.getUserSession(decodedData.fingerprint, token);
+    }
+
+    return {
+      data: {
+        info: model,
       },
     };
   }

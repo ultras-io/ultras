@@ -11,7 +11,8 @@ export interface UserSessionAttributes {
   fingerprint: string;
   ip: string;
   device: string;
-  os: string;
+  osName: string;
+  osVersion: string;
   browser: string;
   userAgent: string;
   lastAccess: number;
@@ -31,7 +32,8 @@ export class UserSession
   public fingerprint!: string;
   public ip!: string;
   public device!: string;
-  public os!: string;
+  public osName!: string;
+  public osVersion!: string;
   public browser!: string;
   public userAgent!: string;
   public lastAccess!: number;
@@ -87,7 +89,11 @@ module.exports = (sequelize: Sequelize): typeof UserSession => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      os: {
+      osName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      osVersion: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -104,7 +110,7 @@ module.exports = (sequelize: Sequelize): typeof UserSession => {
         allowNull: false,
       },
       authToken: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       tokenExpiresAt: {

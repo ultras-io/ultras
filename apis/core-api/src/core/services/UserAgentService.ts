@@ -2,29 +2,24 @@ import BaseService from './BaseService';
 
 type MaybeUnknown<T> = T | 'UNKNOWN';
 
-type BrowserType =
-  | 'Opera'
-  | 'Firefox'
-  | 'Microsoft Edge'
-  | 'Chrome'
-  | 'Safari'
-  | 'Internet Explorer';
+export type BrowserType = MaybeUnknown<
+  'Opera' | 'Firefox' | 'Microsoft Edge' | 'Chrome' | 'Safari' | 'Internet Explorer'
+>;
 
-type OperationSystemType =
-  | 'Windows 10'
-  | 'Windows 8.1'
-  | 'Windows 8'
-  | 'Windows 7'
-  | 'Windows'
-  | 'Android'
-  | 'iOS'
-  | 'macOS'
-  | 'Linux';
+export type OperationSystemType = {
+  name: MaybeUnknown<'Windows' | 'Android' | 'iOS' | 'macOS' | 'Linux'>;
+  version: MaybeUnknown<string>;
+};
 
-type DeviceType = 'tablet' | 'mobile' | 'desktop';
+export type DeviceType = 'tablet' | 'mobile' | 'desktop';
 
 class UserAgentService extends BaseService {
-  static browser(userAgent: string): MaybeUnknown<BrowserType> {
+  private static getByPattern(userAgent: string, pattern: RegExp): MaybeUnknown<string> {
+    const matches = userAgent.match(/ios (\d+)/i);
+    return null != matches ? matches[1] : 'UNKNOWN';
+  }
+
+  static browser(userAgent: string): BrowserType {
     if (userAgent.indexOf('Opera') != -1 || userAgent.indexOf('OPR') != -1) {
       return 'Opera';
     }
@@ -47,36 +42,47 @@ class UserAgentService extends BaseService {
     return 'UNKNOWN';
   }
 
-  static os(userAgent: string): MaybeUnknown<OperationSystemType> {
-    if (userAgent.indexOf('Windows NT 10.0') != -1) {
-      return 'Windows 10';
-    }
-    if (userAgent.indexOf('Windows NT 6.3') != -1) {
-      return 'Windows 8.1';
-    }
-    if (userAgent.indexOf('Windows NT 6.2') != -1) {
-      return 'Windows 8';
-    }
-    if (userAgent.indexOf('Windows NT 6.1') != -1) {
-      return 'Windows 7';
-    }
-    if (userAgent.indexOf('Windows') != -1) {
-      return 'Windows';
-    }
+  static os(userAgent: string): OperationSystemType {
+    const info: OperationSystemType = {
+      name: 'UNKNOWN',
+      version: 'UNKNOWN',
+    };
+
     if (userAgent.indexOf('Android') != -1) {
-      return 'Android';
-    }
-    if (/(iPhone|iPad|iPod)/.test(userAgent)) {
-      return 'iOS';
-    }
-    if (userAgent.indexOf('Mac') != -1) {
-      return 'macOS';
-    }
-    if (userAgent.indexOf('Linux') != -1 || userAgent.indexOf('X11') != -1) {
-      return 'Linux';
+      info.name = 'Android';
+      info.version = this.getByPattern(userAgent, /android (\d+(\.\d+)?)/i);
     }
 
-    return 'UNKNOWN';
+    if (/(iPhone|iPad|iPod|iOS)/.test(userAgent)) {
+      info.name = 'iOS';
+      info.version = this.getByPattern(userAgent, /ios (\d+)/i);
+    }
+
+    if (userAgent.indexOf('Windows') != -1) {
+      // TODO: Windows 11 does not send a version info in user-agent
+      //       Can't handle it for now
+      if (userAgent.indexOf('Windows NT 10.0') != -1) {
+        info.version = '10';
+      } else if (userAgent.indexOf('Windows NT 6.3') != -1) {
+        info.version = '8.1';
+      } else if (userAgent.indexOf('Windows NT 6.2') != -1) {
+        info.version = '8';
+      } else if (userAgent.indexOf('Windows NT 6.1') != -1) {
+        info.version = '7';
+      }
+    }
+
+    if (userAgent.indexOf('Mac') != -1) {
+      info.name = 'macOS';
+      // TODO: detect macOS version
+    }
+
+    if (userAgent.indexOf('Linux') != -1 || userAgent.indexOf('X11') != -1) {
+      info.name = 'Linux';
+      // TODO: detect linux header version
+    }
+
+    return info;
   }
 
   static device(userAgent: string): DeviceType {

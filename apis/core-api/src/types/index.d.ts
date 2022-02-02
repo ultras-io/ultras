@@ -1,19 +1,34 @@
-import * as Koa from 'Koa';
+import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import { ListRequestParams, OrderEnum } from '@ultras/utils';
+import {
+  BrowserType,
+  OperationSystemType,
+  DeviceType,
+} from 'core/services/UserAgentService';
+
+type ExtendableContextCallType = (
+  response?: string | Record<string, unknown>
+) => Koa.Context;
 
 interface ExtendableContext extends Context {
-  ok: (response?: string | Record<string, unknown>) => Koa.Context;
-  created: (response?: string | Record<string, unknown>) => Koa.Context;
-  noContent: (response?: string | Record<string, unknown>) => Koa.Context;
-  badRequest: (response?: string | Record<string, unknown>) => Koa.Context;
-  unauthorized: (response?: string | Record<string, unknown>) => Koa.Context;
-  forbidden: (response?: string | Record<string, unknown>) => Koa.Context;
-  notFound: (response?: string | Record<string, unknown>) => Koa.Context;
-  locked: (response?: string | Record<string, unknown>) => Koa.Context;
-  internalServerError: (response?: string | Record<string, unknown>) => Koa.Context;
-  rateLimitExceeded: (response?: string | Record<string, unknown>) => Koa.Context;
-  notImplemented: (response?: string | Record<string, unknown>) => Koa.Context;
+  ok: ExtendableContextCallType;
+  created: ExtendableContextCallType;
+  noContent: ExtendableContextCallType;
+  badRequest: ExtendableContextCallType;
+  unauthorized: ExtendableContextCallType;
+  forbidden: ExtendableContextCallType;
+  notFound: ExtendableContextCallType;
+  locked: ExtendableContextCallType;
+  internalServerError: ExtendableContextCallType;
+  rateLimitExceeded: ExtendableContextCallType;
+  notImplemented: ExtendableContextCallType;
+  device: {
+    fingerprint: string;
+    os: OperationSystemType;
+    browser: BrowserType;
+    type: DeviceType;
+  };
 }
 
 export type Context = ExtendableContext<

@@ -10,6 +10,14 @@ type WithPhoneOrEmail = {
 type WithVerificationCode = {
   code: string;
 };
+type WithDeviceInfo = {
+  ip: string;
+  device: string;
+  osName: string;
+  osVersion: string;
+  browser: string;
+  userAgent: string;
+};
 type WithFingerprint = {
   fingerprint: string;
 };
@@ -43,7 +51,8 @@ export type UserVerifyCodeResult = ControllerResultType<{
 
 export type UserRegistrationParams = WithPhoneOrEmail &
   WithVerificationCode &
-  WithFingerprint & {
+  WithFingerprint &
+  WithDeviceInfo & {
     username: string;
     avatar?: string;
     fullname?: string;
@@ -63,7 +72,8 @@ export type UserRegistrationResult = ControllerResultType<
 
 export type UserLoginParams = WithPhoneOrEmail &
   WithVerificationCode &
-  WithFingerprint & {};
+  WithFingerprint &
+  WithDeviceInfo & {};
 
 export type UserLoginResult = ControllerResultType<
   {
@@ -75,3 +85,9 @@ export type UserLoginResult = ControllerResultType<
     token: AuthTokenType;
   }
 >;
+
+export type TokenInfoParams = {
+  token: string;
+};
+
+export type TokenInfoResult = ControllerResultType<any>;
