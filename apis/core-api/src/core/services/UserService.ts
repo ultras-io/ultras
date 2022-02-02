@@ -75,6 +75,10 @@ class UserService extends BaseService {
   static async findByUniqueIdentifier(
     identifier: UserUniqueIdentifierInterface
   ): ServiceResultType<null | User> {
+    if (!identifier.email && !identifier.phone && !identifier.username) {
+      return null;
+    }
+
     const user = await db.User.findOne(identifier);
     return user;
   }

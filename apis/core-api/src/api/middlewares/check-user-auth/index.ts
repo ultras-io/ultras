@@ -26,7 +26,7 @@ const getTokenModel = (ctx: Context, authToken: string) => {
   return AuthService.getUserSession(ctx.device.fingerprint, authToken);
 };
 
-const reUpdateTokenIfExpired = async (
+const updateTokenIfExpired = async (
   ctx: Context,
   authToken: string
 ): Promise<AuthTokenResultInterface | null> => {
@@ -61,17 +61,17 @@ const reUpdateTokenIfExpired = async (
 export default (): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     let authToken = getAuthToken(ctx);
-    if (null == authToken) {
+    if (!authToken) {
       throw new AuthenticationError(UserErrorEnum.authTokenRequired);
     }
 
     const model = await getTokenModel(ctx, authToken);
-    if (null == model) {
+    if (!model) {
       throw new AuthenticationError(UserErrorEnum.authTokenInvalid);
     }
 
-    const newAuthTokenResult = await reUpdateTokenIfExpired(ctx, authToken);
-    if (null != newAuthTokenResult) {
+    const newAuthTokenResult = await updateTokenIfExpired(ctx, authToken);
+    if (newAuthTokenResult) {
       authToken = newAuthTokenResult.authToken;
       updateAuthTokenHeader(ctx, authToken);
     }
@@ -79,7 +79,7 @@ export default (): Middleware => {
     await AuthService.updateLastAccess(ctx.device.fingerprint, authToken);
     await next();
 
-    if (null != newAuthTokenResult) {
+    if (newAuthTokenResult) {
       if ('object' == typeof ctx.body) {
         ctx.body.token = newAuthTokenResult;
       }

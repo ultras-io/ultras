@@ -53,7 +53,7 @@ class AuthService extends BaseService {
       },
     });
 
-    if (null == model) {
+    if (!model) {
       await db.UserSession.create({
         userId: dataToHash.userId,
         fingerprint: dataToHash.fingerprint,

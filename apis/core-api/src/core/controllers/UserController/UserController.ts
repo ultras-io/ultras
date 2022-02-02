@@ -70,7 +70,7 @@ class UserController extends BaseController {
       userExists = await UserService.isPhoneTaken(phone);
     }
 
-    if (null != provider) {
+    if (provider) {
       await VerificationCodeService.store({
         code,
         provider,
@@ -81,7 +81,7 @@ class UserController extends BaseController {
 
     return {
       data: {
-        success: null != provider,
+        success: !!provider,
         provider: provider,
         userExists: userExists,
       },
@@ -101,7 +101,7 @@ class UserController extends BaseController {
 
     return {
       data: {
-        valid: null != verificationCode,
+        valid: !!verificationCode,
         details: verificationCode,
       },
     };
@@ -232,7 +232,7 @@ class UserController extends BaseController {
       phone,
     });
 
-    if (null == user) {
+    if (!user) {
       if (email) {
         throw new AuthenticationError(UserErrorEnum.incorrectEmail);
       } else if (phone) {
