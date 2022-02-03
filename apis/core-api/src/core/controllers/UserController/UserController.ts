@@ -31,6 +31,8 @@ import {
   TokenInfoResult,
   RevokeTokenParams,
   RevokeTokenResult,
+  GetMeParams,
+  GetMeResult,
 } from './types';
 
 class UserController extends BaseController {
@@ -301,6 +303,21 @@ class UserController extends BaseController {
     return {
       data: {
         success,
+      },
+    };
+  }
+
+  static async getMe({ token }: GetMeParams): GetMeResult {
+    const decodedData = AuthService.decode(token, true);
+    const authToken = await AuthService.getUserSession(decodedData.fingerprint, token);
+
+    const user = await UserService.findByUniqueIdentifier({
+      id: authToken.getDataValue('userId'),
+    });
+
+    return {
+      data: {
+        user,
       },
     };
   }

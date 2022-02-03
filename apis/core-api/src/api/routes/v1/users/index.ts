@@ -20,7 +20,7 @@ router.post('/verify-code', ControllerAdapter.verifyCode);
 router.post('/register', ControllerAdapter.register);
 router.post('/login', ControllerAdapter.login);
 
-router.get('/token', checkUserAuth(), ControllerAdapter.getTokenInfo);
 router.delete('/revoke-token', checkUserAuth(), ControllerAdapter.revokeToken);
+router.get('/me', checkUserAuth(), ControllerAdapter.getMe);
 
 export default router;

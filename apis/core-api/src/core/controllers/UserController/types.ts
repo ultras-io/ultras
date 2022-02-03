@@ -1,5 +1,5 @@
 import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
-import { UserAttributes } from 'core/data/models/User';
+import { UserAttributes, User } from 'core/data/models/User';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
 import { ControllerResultType, DbIdentifier } from 'types';
 
@@ -97,3 +97,11 @@ export type RevokeTokenParams = {
 };
 
 export type RevokeTokenResult = ControllerResultType<any>;
+
+export type GetMeParams = {
+  token: string;
+};
+
+export type GetMeResult = ControllerResultType<{
+  user: User | null;
+}>;
