@@ -62,12 +62,18 @@ export default (): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     let authToken = getAuthToken(ctx);
     if (!authToken) {
-      throw new AuthenticationError(UserErrorEnum.authTokenRequired);
+      throw new AuthenticationError({
+        errorCode: UserErrorEnum.authTokenRequired,
+        message: 'Authorization token header is missing.',
+      });
     }
 
     const model = await getTokenModel(ctx, authToken);
     if (!model) {
-      throw new AuthenticationError(UserErrorEnum.authTokenInvalid);
+      throw new AuthenticationError({
+        errorCode: UserErrorEnum.authTokenInvalid,
+        message: 'Authorization token is invalid.',
+      });
     }
 
     const newAuthTokenResult = await updateTokenIfExpired(ctx, authToken);

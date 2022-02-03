@@ -132,23 +132,35 @@ class UserController extends BaseController {
     });
 
     if (verificationCode == null) {
-      throw new BadRequest(UserErrorEnum.invalidVerificationCode);
+      throw new BadRequest({
+        errorCode: UserErrorEnum.invalidVerificationCode,
+        message: 'Your provided verification code is invalid or is expired.',
+      });
     }
 
     const isUsernameTaken = await UserService.isUsernameTaken(username);
     if (isUsernameTaken) {
-      throw new ResourceDuplicationError(UserErrorEnum.usernameTaken);
+      throw new ResourceDuplicationError({
+        errorCode: UserErrorEnum.usernameTaken,
+        message: 'The username is already taken.',
+      });
     }
 
     if (email) {
       const isEmailTaken = await UserService.isEmailTaken(email);
       if (isEmailTaken) {
-        throw new ResourceDuplicationError(UserErrorEnum.emailTaken);
+        throw new ResourceDuplicationError({
+          errorCode: UserErrorEnum.emailTaken,
+          message: 'The email address is already taken.',
+        });
       }
     } else if (phone) {
       const isPhoneTaken = await UserService.isPhoneTaken(phone);
       if (isPhoneTaken) {
-        throw new ResourceDuplicationError(UserErrorEnum.phoneTaken);
+        throw new ResourceDuplicationError({
+          errorCode: UserErrorEnum.phoneTaken,
+          message: 'The phone number is already taken.',
+        });
       }
     }
 
@@ -214,18 +226,27 @@ class UserController extends BaseController {
     });
 
     if (verificationCode == null) {
-      throw new BadRequest(UserErrorEnum.invalidVerificationCode);
+      throw new BadRequest({
+        errorCode: UserErrorEnum.invalidVerificationCode,
+        message: 'Your provided verification code is invalid or is expired.',
+      });
     }
 
     if (email) {
       const isEmailAvailable = await UserService.isEmailAvailable(email);
       if (isEmailAvailable) {
-        throw new AuthenticationError(UserErrorEnum.incorrectEmail);
+        throw new AuthenticationError({
+          errorCode: UserErrorEnum.incorrectEmail,
+          message: 'Incorrect email address provided.',
+        });
       }
     } else if (phone) {
       const isPhoneAvailable = await UserService.isPhoneAvailable(phone);
       if (isPhoneAvailable) {
-        throw new AuthenticationError(UserErrorEnum.incorrectPhone);
+        throw new AuthenticationError({
+          errorCode: UserErrorEnum.incorrectPhone,
+          message: 'Incorrect email address provided.',
+        });
       }
     }
 
@@ -236,12 +257,21 @@ class UserController extends BaseController {
 
     if (!user) {
       if (email) {
-        throw new AuthenticationError(UserErrorEnum.incorrectEmail);
+        throw new AuthenticationError({
+          errorCode: UserErrorEnum.incorrectEmail,
+          message: 'Incorrect email address provided.',
+        });
       } else if (phone) {
-        throw new AuthenticationError(UserErrorEnum.incorrectPhone);
+        throw new AuthenticationError({
+          errorCode: UserErrorEnum.incorrectPhone,
+          message: 'Incorrect email address provided.',
+        });
       }
 
-      throw new InvalidUserInput(UserErrorEnum.requiredEmailOrPhone);
+      throw new InvalidUserInput({
+        errorCode: UserErrorEnum.requiredEmailOrPhone,
+        message: 'Email address or phone number required.',
+      });
     }
 
     await VerificationCodeService.removeVerificationCode({
