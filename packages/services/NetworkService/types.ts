@@ -21,9 +21,10 @@ export type RequestOptions = {
   method?: HttpRequestMethods;
   query_params?: Record<string, unknown>;
   headers?: Record<string, unknown>;
-  body?: {
-    status: number;
-  };
+  body?: string | Record<string, any>;
+  // body?: {
+  //   status: number;
+  // };
 };
 
 export interface RequestInit {

@@ -1,7 +1,7 @@
-import { CitySdk } from '@ultras/core-api-sdk';
+import { CitySDK } from '@ultras/core-api-sdk';
 import { OrderEnum } from '@ultras/utils';
 
-const sdk = new CitySdk('dev');
+const sdk = new CitySDK('dev');
 
 export const runTest = () => {
   const params = {
@@ -15,13 +15,13 @@ export const runTest = () => {
   sdk
     .getCities(params)
     ?.then((cities: any) => {
-      console.log('CitySdk.getCities():', {
+      console.log('CitySDK.getCities():', {
         params,
         result: cities,
       });
     })
     ?.catch((err: any) => {
-      console.error('CitySdk.getCities():', {
+      console.error('CitySDK.getCities():', {
         params,
         error: err,
       });

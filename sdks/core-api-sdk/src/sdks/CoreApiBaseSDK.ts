@@ -1,25 +1,30 @@
 import NetworkService from '@ultras/services/NetworkService';
+import { Interceptor } from '../interceptors/types';
+import { AuthTokenInterceptor } from '../interceptors';
 
 export type Mode = 'dev' | 'staging' | 'production';
 
 class CoreApiBaseSDK {
-  mode: Mode;
-  api: NetworkService | undefined;
+  protected api: NetworkService | undefined;
 
-  public constructor(mode: Mode = 'staging', uri: string) {
-    this.mode = mode;
+  private interceptors: Array<Interceptor> = [AuthTokenInterceptor];
+
+  public constructor(protected mode: Mode = 'staging', protected baseUri: string) {
+    let uri = '';
 
     switch (mode) {
       case 'dev':
-        this.api = new NetworkService(`http://localhost:10001/v1/${uri}`);
+        uri = `http://localhost:10001/v1/${baseUri}`;
         break;
       case 'staging':
-        this.api = new NetworkService(`http://api.ultras.io/v1/${uri}`);
+        uri = `http://api.ultras.io/v1/${baseUri}`;
         break;
       case 'production':
         // not implemented yet
         break;
     }
+
+    this.api = new NetworkService(uri, this.interceptors);
   }
 
   public ping() {

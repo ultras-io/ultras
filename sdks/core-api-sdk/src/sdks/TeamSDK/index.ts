@@ -1,15 +1,10 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam } from '../types';
+import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { GetTeamsFilter } from './types';
 
-type GetTeamsFilter = {
-  name?: string;
-  countryId?: number;
-  cityId?: number;
-};
-
-export class TeamSdk extends CoreApiBaseSDK {
+export class TeamSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
-    super(mode, 'Teams');
+    super(mode, 'teams');
   }
 
   public getTeams(params: QueryParam<GetTeamsFilter> = {}) {
@@ -18,7 +13,7 @@ export class TeamSdk extends CoreApiBaseSDK {
     });
   }
 
-  public getTeam(id: number) {
+  public getTeam(id: DbIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

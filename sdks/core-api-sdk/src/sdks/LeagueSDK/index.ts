@@ -1,12 +1,12 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam } from '../types';
+import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
 
 type GetLeaguesFilter = {
   name?: string;
-  countryId?: number;
+  countryId?: DbIdentifier;
 };
 
-export class LeagueSdk extends CoreApiBaseSDK {
+export class LeagueSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'leagues');
   }
@@ -17,7 +17,7 @@ export class LeagueSdk extends CoreApiBaseSDK {
     });
   }
 
-  public getLeague(id: number) {
+  public getLeague(id: DbIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

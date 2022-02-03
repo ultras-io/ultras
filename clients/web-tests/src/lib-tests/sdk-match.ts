@@ -1,6 +1,6 @@
-import { MatchSdk } from '@ultras/core-api-sdk';
+import { MatchSDK } from '@ultras/core-api-sdk';
 
-const sdk = new MatchSdk('dev');
+const sdk = new MatchSDK('dev');
 
 export const runTest = () => {
   const params = {
@@ -10,13 +10,13 @@ export const runTest = () => {
   sdk
     .getMatches(params)
     ?.then((matches: any) => {
-      console.log('MatchSdk.getMatches():', {
+      console.log('MatchSDK.getMatches():', {
         params,
         result: matches,
       });
     })
     ?.catch((err: any) => {
-      console.error('MatchSdk.getMatches():', {
+      console.error('MatchSDK.getMatches():', {
         params,
         error: err,
       });
