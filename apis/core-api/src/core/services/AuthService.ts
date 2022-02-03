@@ -83,7 +83,7 @@ class AuthService extends BaseService {
     return null != this.decode(token);
   }
 
-  static decode<T = any>(token: string, ignoreExpiration: boolean = false): T | null {
+  static decode<T = any>(token: string, ignoreExpiration = false): T | null {
     try {
       const options = {
         ignoreExpiration: ignoreExpiration,
@@ -117,6 +117,21 @@ class AuthService extends BaseService {
         limit: 1,
       }
     );
+  }
+
+  static async removeUserSession(
+    fingerprint: string,
+    authToken: string,
+    forceDelete = false
+  ) {
+    return db.UserSession.destroy({
+      where: {
+        fingerprint,
+        authToken,
+      },
+      limit: 1,
+      force: forceDelete,
+    });
   }
 }
 

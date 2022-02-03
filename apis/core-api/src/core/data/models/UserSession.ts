@@ -123,6 +123,7 @@ module.exports = (sequelize: Sequelize): typeof UserSession => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

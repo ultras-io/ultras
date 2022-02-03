@@ -91,3 +91,9 @@ export type TokenInfoParams = {
 };
 
 export type TokenInfoResult = ControllerResultType<any>;
+
+export type RevokeTokenParams = {
+  token: string;
+};
+
+export type RevokeTokenResult = ControllerResultType<any>;
