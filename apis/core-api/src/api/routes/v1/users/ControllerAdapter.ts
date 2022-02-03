@@ -12,7 +12,8 @@ interface PhoneOrEmail {
 const handlePhoneOrEmail = ({ email, phone }: PhoneOrEmail) => {
   if (!phone && !email) {
     throw new InvalidUserInput({
-      reason: UserErrorEnum.requiredEmailOrPhone,
+      errorCode: UserErrorEnum.requiredEmailOrPhone,
+      message: 'Please provide a email address or phone number',
     });
   }
 };
