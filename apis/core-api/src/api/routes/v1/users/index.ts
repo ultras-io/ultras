@@ -21,5 +21,6 @@ router.post('/register', ControllerAdapter.register);
 router.post('/login', ControllerAdapter.login);
 
 router.get('/token', checkUserAuth(), ControllerAdapter.getTokenInfo);
+router.delete('/revoke-token', checkUserAuth(), ControllerAdapter.revokeToken);
 
 export default router;

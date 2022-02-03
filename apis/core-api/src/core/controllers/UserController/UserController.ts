@@ -29,6 +29,8 @@ import {
   UserLoginResult,
   TokenInfoParams,
   TokenInfoResult,
+  RevokeTokenParams,
+  RevokeTokenResult,
 } from './types';
 
 class UserController extends BaseController {
@@ -283,6 +285,22 @@ class UserController extends BaseController {
     return {
       data: {
         info: model,
+      },
+    };
+  }
+
+  static async revokeToken({ token }: RevokeTokenParams): RevokeTokenResult {
+    const decodedData = AuthService.decode(token, true);
+    let success = false;
+
+    if (decodedData) {
+      await AuthService.removeUserSession(decodedData.fingerprint, token);
+      success = true;
+    }
+
+    return {
+      data: {
+        success,
       },
     };
   }

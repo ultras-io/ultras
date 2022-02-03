@@ -155,6 +155,24 @@ class ControllerAdapter {
 
     return ctx.ok(response);
   }
+
+  static async revokeToken(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const authToken = (ctx.headers['authorization'] || '').replace('Bearer ', '');
+
+    /** CONTROLLERS */
+    const { data } = await UserController.revokeToken({
+      token: authToken,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
 }
 
 export default ControllerAdapter;
