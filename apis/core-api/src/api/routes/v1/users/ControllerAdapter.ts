@@ -17,6 +17,10 @@ const handlePhoneOrEmail = ({ email, phone }: PhoneOrEmail) => {
   }
 };
 
+const getAuthHeader = (ctx: Context): string => {
+  return (ctx.headers['authorization'] || '').replace('Bearer ', '');
+};
+
 class ControllerAdapter {
   static async checkUsernameExistence(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
@@ -138,12 +142,12 @@ class ControllerAdapter {
     return ctx.ok(response);
   }
 
-  static async getTokenInfo(ctx: Context): Promise<void> {
+  static async revokeToken(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const authToken = (ctx.headers['authorization'] || '').replace('Bearer ', '');
+    const authToken = getAuthHeader(ctx);
 
     /** CONTROLLERS */
-    const { data } = await UserController.getTokenInfo({
+    const { data } = await UserController.revokeToken({
       token: authToken,
     });
 
@@ -156,12 +160,12 @@ class ControllerAdapter {
     return ctx.ok(response);
   }
 
-  static async revokeToken(ctx: Context): Promise<void> {
+  static async getMe(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const authToken = (ctx.headers['authorization'] || '').replace('Bearer ', '');
+    const authToken = getAuthHeader(ctx);
 
     /** CONTROLLERS */
-    const { data } = await UserController.revokeToken({
+    const { data } = await UserController.getMe({
       token: authToken,
     });
 

@@ -1,4 +1,4 @@
-import { ServiceResultType } from 'types';
+import { DbIdentifier, ServiceResultType } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { User, UserCreationAttributes } from 'core/data/models/User';
@@ -9,6 +9,7 @@ interface UserUniqueIdentifierInterface {
   phone?: null | string;
   email?: null | string;
   username?: null | string;
+  id?: null | DbIdentifier;
 }
 
 class UserService extends BaseService {
@@ -75,7 +76,12 @@ class UserService extends BaseService {
   static async findByUniqueIdentifier(
     identifier: UserUniqueIdentifierInterface
   ): ServiceResultType<null | User> {
-    if (!identifier.email && !identifier.phone && !identifier.username) {
+    if (
+      !identifier.email &&
+      !identifier.phone &&
+      !identifier.username &&
+      !identifier.id
+    ) {
       return null;
     }
 
