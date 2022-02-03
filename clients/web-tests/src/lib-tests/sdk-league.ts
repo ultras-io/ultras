@@ -1,6 +1,6 @@
-import { LeagueSdk } from '@ultras/core-api-sdk';
+import { LeagueSDK } from '@ultras/core-api-sdk';
 
-const sdk = new LeagueSdk('dev');
+const sdk = new LeagueSDK('dev');
 
 export const runTest = () => {
   const params = {
@@ -10,13 +10,13 @@ export const runTest = () => {
   sdk
     .getLeagues(params)
     ?.then((leagues: any) => {
-      console.log('LeagueSdk.getLeagues():', {
+      console.log('LeagueSDK.getLeagues():', {
         params,
         result: leagues,
       });
     })
     ?.catch((err: any) => {
-      console.error('LeagueSdk.getLeagues():', {
+      console.error('LeagueSDK.getLeagues():', {
         params,
         error: err,
       });

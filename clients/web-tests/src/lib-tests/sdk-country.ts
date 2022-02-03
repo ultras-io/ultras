@@ -1,6 +1,6 @@
-import { CountrySdk } from '@ultras/core-api-sdk';
+import { CountrySDK } from '@ultras/core-api-sdk';
 
-const sdk = new CountrySdk('dev');
+const sdk = new CountrySDK('dev');
 
 export const runTest = () => {
   const params = {};
@@ -8,13 +8,13 @@ export const runTest = () => {
   sdk
     .getCountries(params)
     ?.then((countries: any) => {
-      console.log('CountrySdk.getCountries():', {
+      console.log('CountrySDK.getCountries():', {
         params,
         result: countries,
       });
     })
     ?.catch((err: any) => {
-      console.error('CountrySdk.getCountries():', {
+      console.error('CountrySDK.getCountries():', {
         params,
         error: err,
       });

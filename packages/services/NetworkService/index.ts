@@ -14,7 +14,7 @@ class NetworkService {
   private interceptors: Interceptor[] = [exceptionDetector];
   private uri?: string;
 
-  constructor(uri: string, interceptors = []) {
+  constructor(uri: string, interceptors: Array<Interceptor> = []) {
     if (!uri || typeof uri !== 'string') {
       throw new Error('The "uri" argument must be string.');
     }

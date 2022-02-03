@@ -1,17 +1,17 @@
 import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam } from '../types';
+import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
 
 type GetMatchesFilter = {
   date?: string;
   dateFrom?: string;
   dateTo?: string;
-  teamId?: number;
-  leagueId?: number;
+  teamId?: DbIdentifier;
+  leagueId?: DbIdentifier;
 };
 
-export class MatchSdk extends CoreApiBaseSDK {
+export class MatchSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'matches');
   }
@@ -36,7 +36,7 @@ export class MatchSdk extends CoreApiBaseSDK {
     });
   }
 
-  public getMatch(id: number) {
+  public getMatch(id: DbIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

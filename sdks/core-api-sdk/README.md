@@ -11,9 +11,9 @@ It needs to specify Mode while creating the instance.
 
 `production` - Will connect to the production server <api.ultras.io>. Not specified yet
 ```
-import { CountrySdk } from '@ultras/core-api-sdk';
+import { CountrySDK } from '@ultras/core-api-sdk';
 
-const sdk = new CountrySdk('dev');
+const sdk = new CountrySDK('dev');
 
 sdk.getCountries()
     ?.then(countries => {

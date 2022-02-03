@@ -1,13 +1,13 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam } from '../types';
+import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
 
 type GetVenuesFilter = {
   name?: string;
-  countryId?: number;
-  cityId?: number;
+  countryId?: DbIdentifier;
+  cityId?: DbIdentifier;
 };
 
-export class VenueSdk extends CoreApiBaseSDK {
+export class VenueSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'venues');
   }
@@ -18,7 +18,7 @@ export class VenueSdk extends CoreApiBaseSDK {
     });
   }
 
-  public getVenue(id: number) {
+  public getVenue(id: DbIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

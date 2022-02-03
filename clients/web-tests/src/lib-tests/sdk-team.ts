@@ -1,6 +1,6 @@
-import { TeamSdk } from '@ultras/core-api-sdk';
+import { TeamSDK } from '@ultras/core-api-sdk';
 
-const sdk = new TeamSdk('dev');
+const sdk = new TeamSDK('dev');
 
 export const runTest = () => {
   const params = {
@@ -10,13 +10,13 @@ export const runTest = () => {
   sdk
     .getTeams(params)
     ?.then((teams: any) => {
-      console.log('TeamSdk.getTeams():', {
+      console.log('TeamSDK.getTeams():', {
         params,
         result: teams,
       });
     })
     ?.catch((err: any) => {
-      console.error('TeamSdk.getTeams():', {
+      console.error('TeamSDK.getTeams():', {
         params,
         error: err,
       });
