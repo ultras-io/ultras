@@ -76,16 +76,21 @@ class UserService extends BaseService {
   static async findByUniqueIdentifier(
     identifier: UserUniqueIdentifierInterface
   ): ServiceResultType<null | User> {
-    if (
-      !identifier.email &&
-      !identifier.phone &&
-      !identifier.username &&
-      !identifier.id
-    ) {
+    const query = this.queryInit();
+
+    if (identifier.email) {
+      this.queryAppend(query, 'email', identifier.email);
+    } else if (identifier.phone) {
+      this.queryAppend(query, 'phone', identifier.phone);
+    } else if (identifier.username) {
+      this.queryAppend(query, 'username', identifier.username);
+    } else if (identifier.id) {
+      this.queryAppend(query, 'id', identifier.id);
+    } else {
       return null;
     }
 
-    const user = await db.User.findOne(identifier);
+    const user = await db.User.findOne({ where: query });
     return user;
   }
 }
