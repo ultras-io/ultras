@@ -86,7 +86,7 @@ export default (): Middleware => {
     await next();
 
     if (newAuthTokenResult) {
-      if ('object' == typeof ctx.body) {
+      if ('object' == typeof ctx.body && ctx.body) {
         ctx.body.token = newAuthTokenResult;
       }
     }
