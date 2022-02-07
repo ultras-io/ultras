@@ -2,7 +2,6 @@ import Router from 'koa-router';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import rateLimit from 'api/middlewares/rate-limit';
 import ControllerAdapter from './ControllerAdapter';
-import { Context } from 'types';
 
 const router = new Router({
   prefix: '/users',
@@ -20,7 +19,14 @@ router.post('/verify-code', ControllerAdapter.verifyCode);
 router.post('/register', ControllerAdapter.register);
 router.post('/login', ControllerAdapter.login);
 
-router.delete('/revoke-token', checkUserAuth(), ControllerAdapter.revokeToken);
+router.delete(
+  '/revoke-token',
+  checkUserAuth({
+    regenerateOnExpire: false,
+  }),
+  ControllerAdapter.revokeToken
+);
+
 router.get('/me', checkUserAuth(), ControllerAdapter.getMe);
 
 export default router;

@@ -3,11 +3,11 @@ import { Context } from 'types';
 import { UserErrorEnum } from '@ultras/utils';
 import { AuthenticationError } from 'modules/exceptions';
 import { AuthService } from 'core/services';
-import { authConfig } from 'config';
 import { AuthTokenResultInterface } from 'core/services/AuthService';
-import { X509Certificate } from 'crypto';
 
-const expireOffset = authConfig.authTokenReauthBefore * 1000;
+interface OptionsInterface {
+  regenerateOnExpire?: boolean;
+}
 
 const getAuthToken = (ctx: Context): null | string => {
   const token = ctx.headers['authorization'];
@@ -26,19 +26,25 @@ const getTokenModel = (ctx: Context, authToken: string) => {
   return AuthService.getUserSession(ctx.device.fingerprint, authToken);
 };
 
+const isExpired = (authToken: string) => {
+  const data = AuthService.decode(authToken, true);
+  if (!data) {
+    return true;
+  }
+
+  const isExpired = Date.now() >= data.expiresAt;
+  return isExpired;
+};
+
 const updateTokenIfExpired = async (
   ctx: Context,
   authToken: string
 ): Promise<AuthTokenResultInterface | null> => {
-  const data = AuthService.decode(authToken, true);
-  if (!data) {
+  if (!isExpired(authToken)) {
     return null;
   }
 
-  const isExpired = Date.now() + expireOffset >= data.expiresAt;
-  if (!isExpired) {
-    return null;
-  }
+  const data = AuthService.decode(authToken, true);
 
   const token = await AuthService.generateAuthToken(
     {
@@ -58,7 +64,7 @@ const updateTokenIfExpired = async (
   return token;
 };
 
-export default (): Middleware => {
+export default (options?: OptionsInterface): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     let authToken = getAuthToken(ctx);
     if (!authToken) {
@@ -73,6 +79,17 @@ export default (): Middleware => {
       throw new AuthenticationError({
         errorCode: UserErrorEnum.authTokenInvalid,
         message: 'Authorization token is invalid.',
+      });
+    }
+
+    if (false === options?.regenerateOnExpire) {
+      if (!isExpired(authToken)) {
+        return next();
+      }
+
+      throw new AuthenticationError({
+        errorCode: UserErrorEnum.authTokenExpired,
+        message: 'Authorization token is expired.',
       });
     }
 
