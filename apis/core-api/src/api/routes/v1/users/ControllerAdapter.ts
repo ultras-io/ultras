@@ -148,17 +148,12 @@ class ControllerAdapter {
     const authToken = getAuthHeader(ctx);
 
     /** CONTROLLERS */
-    const { data } = await UserController.revokeToken({
+    await UserController.revokeToken({
       token: authToken,
     });
 
     /** RESPONSE */
-    // @TODO make response types
-    const response = {
-      data,
-    };
-
-    return ctx.ok(response);
+    return ctx.noContent();
   }
 
   static async getMe(ctx: Context): Promise<void> {
