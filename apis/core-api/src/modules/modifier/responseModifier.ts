@@ -44,7 +44,10 @@ export default (ctx: Context): void => {
 
   if (result && result.token) {
     response.meta = response.meta || {};
-    set(response.meta, 'token', result.token);
+    if (result.token.authToken) {
+      set(response.meta, 'auth_token', result.token.authToken);
+    }
+
     delete result.token;
   }
 
