@@ -16,7 +16,7 @@ export interface CityAttributes {
   id: DbIdentifier;
   name: string;
   countryId: DbIdentifier;
-  dataRapidId: DbIdentifier;
+  dataRapidId: number;
 }
 
 export type CityCreationAttributes = Optional<CityAttributes, 'id'>;

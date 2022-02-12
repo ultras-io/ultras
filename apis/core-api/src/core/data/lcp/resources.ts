@@ -101,6 +101,22 @@ const resources = {
       PLURAL: 'matches',
     },
   },
+  FAN_CLUB: {
+    RELATION: 'FanClub',
+    MODEL: 'FanClub',
+    ALIAS: {
+      SINGULAR: 'fanClub',
+      PLURAL: 'fanClubs',
+    },
+  },
+  FAN_CLUB_MEMBER: {
+    RELATION: 'FanClubMember',
+    MODEL: 'FanClubMember',
+    ALIAS: {
+      SINGULAR: 'fanClubMember',
+      PLURAL: 'fanClubMembers',
+    },
+  },
 };
 
 export interface IDBSet {

@@ -6,3 +6,6 @@ export { default as WinnerEnum } from './WinnerEnum';
 export { default as NotifiedProviderEnum } from './NotifiedProviderEnum';
 export { default as AuthSignupErrorEnum } from './UserErrorEnum';
 export { default as UserErrorEnum } from './UserErrorEnum';
+export { default as FanClubPrivacyEnum } from './FanClubPrivacyEnum';
+export { default as FanClubMemberRoleEnum } from './FanClubMemberRoleEnum';
+export { default as FanClubMemberStatusEnum } from './FanClubMemberStatusEnum';
