@@ -97,7 +97,7 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
           values: [
             FanClubMemberRoleEnum.admin,
             FanClubMemberRoleEnum.moderator,
-            FanClubMemberRoleEnum.standard,
+            FanClubMemberRoleEnum.member,
           ],
         }),
         allowNull: false,

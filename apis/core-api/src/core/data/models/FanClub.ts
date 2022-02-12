@@ -23,13 +23,13 @@ export interface FanClubAttributes {
   teamId: DbIdentifier;
   avatar: string;
   coverPhoto: string | null;
-  official: boolean;
-  clubPrivacy: FanClubPrivacyEnum;
+  isOfficial: boolean;
+  privacy: FanClubPrivacyEnum;
 }
 
 export type FanClubCreationAttributes = Optional<
   FanClubAttributes,
-  'id' | 'description' | 'coverPhoto' | 'official'
+  'id' | 'description' | 'coverPhoto' | 'isOfficial'
 >;
 
 export class FanClub
@@ -45,8 +45,8 @@ export class FanClub
   public teamId!: DbIdentifier;
   public avatar!: string;
   public coverPhoto!: string | null;
-  public official!: boolean;
-  public clubPrivacy!: FanClubPrivacyEnum;
+  public isOfficial!: boolean;
+  public privacy!: FanClubPrivacyEnum;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -142,12 +142,12 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      official: {
+      isOfficial: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      clubPrivacy: {
+      privacy: {
         type: DataTypes.ENUM({
           values: [FanClubPrivacyEnum.public, FanClubPrivacyEnum.private],
         }),

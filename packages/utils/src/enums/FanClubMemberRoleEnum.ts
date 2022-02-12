@@ -12,7 +12,7 @@ enum FanClubMemberRoleEnum {
   /**
    * FanClub standard.
    */
-  standard = 'standard',
+  member = 'member',
 }
 
 export default FanClubMemberRoleEnum;
