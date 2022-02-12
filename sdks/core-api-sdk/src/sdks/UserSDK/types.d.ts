@@ -9,7 +9,7 @@ interface CodeInterface {
   code: string;
 }
 
-export interface ConfirmIdentityInterface extends PhoneOrEmailInterface {}
+export type ConfirmIdentityInterface = PhoneOrEmailInterface;
 
 export interface VerifyCodeInterface extends PhoneOrEmailInterface, CodeInterface {}
 
