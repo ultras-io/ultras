@@ -65,24 +65,24 @@ class FanClubService extends BaseService {
       },
     });
 
-    if (typeof name != 'undefined') {
+    if (name) {
       fanClub.setDataValue('name', name);
     }
     if (typeof description != 'undefined') {
       fanClub.setDataValue('description', description);
     }
-    if (typeof avatar != 'undefined') {
+    if (avatar) {
       fanClub.setDataValue('avatar', avatar);
     }
     if (typeof coverPhoto != 'undefined') {
       fanClub.setDataValue('coverPhoto', coverPhoto);
     }
-    if (typeof privacy != 'undefined') {
+    if (privacy) {
       fanClub.setDataValue('privacy', privacy);
     }
 
     // if cityId provided then countryId must be updated same time.
-    if (typeof cityId != 'undefined') {
+    if (cityId && countryId) {
       fanClub.setDataValue('cityId', cityId);
       fanClub.setDataValue('countryId', countryId);
     }
