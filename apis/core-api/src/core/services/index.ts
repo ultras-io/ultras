@@ -11,3 +11,4 @@ export { default as MailerService } from './MailerService';
 export { default as VerificationCodeService } from './VerificationCodeService';
 export { default as FavoriteTeamService } from './FavoriteTeamService';
 export { default as UserAgentService } from './UserAgentService';
+export { default as FanClubService } from './FanClubService';

@@ -339,7 +339,7 @@ class UserController extends BaseController {
 
   static async getMe({ token }: GetMeParams): GetMeResult {
     const decodedData = AuthService.decode(token, true);
-    const authToken = await AuthService.getUserSession(decodedData.fingerprint, token);
+    const authToken = await AuthService.getUserSession(decodedData!.fingerprint, token);
 
     const user = await UserService.findByUniqueIdentifier({
       id: authToken.getDataValue('userId'),
