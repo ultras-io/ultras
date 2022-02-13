@@ -12,7 +12,15 @@ export default async (ctx: Context, next: () => Promise<Middleware>) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const error = errorModifier(ctx, ex).getError();
-    ctx[error.statusName]({ error });
+
+    const response: any = { error };
+    if (ctx.newAuthToken && typeof response == 'object') {
+      response.meta = response.meta || {};
+      response.meta.auth_token = ctx.newAuthToken.authToken;
+    }
+
+    const ctxCall = ctx[error.statusName];
+    ctxCall(response);
     // logger.info(ctx)
   }
 };

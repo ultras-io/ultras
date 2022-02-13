@@ -83,7 +83,10 @@ class AuthService extends BaseService {
     return null != this.decode(token);
   }
 
-  static decode<T = any>(token: string, ignoreExpiration = false): T | null {
+  static decode<T = FinalDataToHashInterface>(
+    token: string,
+    ignoreExpiration = false
+  ): T | null {
     try {
       const options = {
         ignoreExpiration: ignoreExpiration,

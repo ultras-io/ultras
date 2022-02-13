@@ -18,8 +18,11 @@ const getAuthToken = (ctx: Context): null | string => {
   return token.replace('Bearer ', '');
 };
 
-const updateAuthTokenHeader = (ctx: Context, newAuthToken: string) => {
-  ctx.headers['authorization'] = `Bearer ${newAuthToken}`;
+const updateAuthTokenHeader = (ctx: Context, newAuthToken: AuthTokenResultInterface) => {
+  ctx.set('X-New-AuthToken', newAuthToken.authToken);
+  ctx.newAuthToken = newAuthToken;
+
+  ctx.headers['authorization'] = `Bearer ${newAuthToken.authToken}`;
 };
 
 const getTokenModel = (ctx: Context, authToken: string) => {
@@ -45,6 +48,9 @@ const updateTokenIfExpired = async (
   }
 
   const data = AuthService.decode(authToken, true);
+  if (!data) {
+    return null;
+  }
 
   const token = await AuthService.generateAuthToken(
     {
@@ -62,6 +68,13 @@ const updateTokenIfExpired = async (
   );
 
   return token;
+};
+
+const callNextFunc = async (ctx: Context, next: KoaNext, authToken: string) => {
+  await AuthService.updateLastAccess(ctx.device.fingerprint, authToken);
+  ctx.user = AuthService.decode(authToken, true);
+
+  return next();
 };
 
 export default (options?: OptionsInterface): Middleware => {
@@ -84,7 +97,7 @@ export default (options?: OptionsInterface): Middleware => {
 
     if (false === options?.regenerateOnExpire) {
       if (!isExpired(authToken)) {
-        return next();
+        return callNextFunc(ctx, next, authToken);
       }
 
       throw new AuthenticationError({
@@ -96,11 +109,10 @@ export default (options?: OptionsInterface): Middleware => {
     const newAuthTokenResult = await updateTokenIfExpired(ctx, authToken);
     if (newAuthTokenResult) {
       authToken = newAuthTokenResult.authToken;
-      updateAuthTokenHeader(ctx, authToken);
+      updateAuthTokenHeader(ctx, newAuthTokenResult);
     }
 
-    await AuthService.updateLastAccess(ctx.device.fingerprint, authToken);
-    await next();
+    await callNextFunc(ctx, next, authToken);
 
     if (newAuthTokenResult) {
       if ('object' == typeof ctx.body && ctx.body) {
