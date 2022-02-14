@@ -1,8 +1,12 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import db from 'core/data/models';
-import { Optional } from 'sequelize';
-import { DbIdentifier } from 'types';
-import { FanClub, FanClubCreationAttributes } from 'core/data/models/FanClub';
+import {
+  DbIdentifier,
+  ServiceByIdResultType,
+  ServiceListParamsType,
+  ServiceListResultType,
+} from 'types';
+import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
 
 import BaseService from './BaseService';
 
@@ -21,6 +25,13 @@ interface CreateMemberInterface
   extends MembershipInterface,
     WithRoleInterface,
     WithStatusInterface {}
+
+export interface FanClubListParamsInterface {
+  name?: string;
+  countryId?: DbIdentifier;
+  cityId?: DbIdentifier;
+  teamId?: DbIdentifier;
+}
 
 class FanClubService extends BaseService {
   static async create({
@@ -167,6 +178,42 @@ class FanClubService extends BaseService {
         },
       }
     );
+  }
+
+  static async getAll(
+    params: ServiceListParamsType<FanClubListParamsInterface>
+  ): ServiceListResultType<FanClubAttributes> {
+    const query: any = this.queryInit();
+
+    if (params.name) {
+      this.queryAppend(query, 'name', {
+        [db.Sequelize.Op.iLike]: `%${params.name}%`,
+      });
+    }
+
+    if (params.countryId) {
+      this.queryAppend(query, 'countryId', {
+        [db.Sequelize.Op.eq]: params.countryId,
+      });
+    }
+
+    if (params.cityId) {
+      this.queryAppend(query, 'cityId', {
+        [db.Sequelize.Op.eq]: params.cityId,
+      });
+    }
+
+    if (params.teamId) {
+      this.queryAppend(query, 'teamId', {
+        [db.Sequelize.Op.eq]: params.teamId,
+      });
+    }
+
+    return this.findAndCountAll(db.FanClub, query, params);
+  }
+
+  static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubAttributes> {
+    return this.findById(db.FanClub, id);
   }
 }
 

@@ -8,5 +8,7 @@ const router = new Router({
 
 router.post('/', checkUserAuth(), ControllerAdapter.create);
 router.patch('/:id', checkUserAuth(), ControllerAdapter.update);
+router.get('/', ControllerAdapter.getAll);
+router.get('/:id', ControllerAdapter.getById);
 
 export default router;
