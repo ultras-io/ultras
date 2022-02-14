@@ -189,6 +189,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       hooks: {
         afterBulkCreate: (instances, options) => {
           // create Score row with default data for new Match.

@@ -96,6 +96,7 @@ module.exports = (sequelize: Sequelize): typeof City => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

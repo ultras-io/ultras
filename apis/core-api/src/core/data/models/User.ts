@@ -87,6 +87,7 @@ module.exports = (sequelize: Sequelize): typeof User => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );
