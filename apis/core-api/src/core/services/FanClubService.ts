@@ -1,4 +1,7 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
+import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
+
+import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import {
   DbIdentifier,
@@ -6,7 +9,6 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
 } from 'types';
-import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
 
 import BaseService from './BaseService';
 
@@ -34,6 +36,28 @@ export interface FanClubListParamsInterface {
 }
 
 class FanClubService extends BaseService {
+  protected static includeRelations() {
+    return {
+      attributes: {
+        exclude: ['cityId', 'countryId', 'teamId'],
+      },
+      include: [
+        {
+          model: db.City,
+          as: resources.CITY.ALIAS.SINGULAR,
+        },
+        {
+          model: db.Country,
+          as: resources.COUNTRY.ALIAS.SINGULAR,
+        },
+        {
+          model: db.Team,
+          as: resources.TEAM.ALIAS.SINGULAR,
+        },
+      ],
+    };
+  }
+
   static async create({
     name,
     description,
