@@ -1,6 +1,7 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { CityService, CountryService } from 'core/services';
+import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';
@@ -40,6 +41,12 @@ class CityController extends BaseController {
 
   static async getById(id: DbIdentifier): CityByIdResult {
     const city = await CityService.getById(id);
+
+    if (!city) {
+      throw new ResourceNotFoundError({
+        message: 'City not found.',
+      });
+    }
 
     return {
       data: city,

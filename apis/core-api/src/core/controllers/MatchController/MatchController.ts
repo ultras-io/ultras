@@ -2,6 +2,7 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { MatchService } from 'core/services';
+import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';
@@ -51,6 +52,12 @@ class MatchController extends BaseController {
 
   static async getById(id: DbIdentifier): MatchByIdResult {
     const match = await MatchService.getById(id);
+
+    if (!match) {
+      throw new ResourceNotFoundError({
+        message: 'Match not found.',
+      });
+    }
 
     return {
       data: match,
