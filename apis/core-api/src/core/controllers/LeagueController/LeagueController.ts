@@ -1,6 +1,7 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { LeagueService, CountryService } from 'core/services';
+import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';
@@ -40,6 +41,12 @@ class LeagueController extends BaseController {
 
   static async getById(id: DbIdentifier): LeagueByIdResult {
     const league = await LeagueService.getById(id);
+
+    if (!league) {
+      throw new ResourceNotFoundError({
+        message: 'League not found.',
+      });
+    }
 
     return {
       data: league,

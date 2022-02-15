@@ -1,6 +1,7 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { VenueService, CountryService } from 'core/services';
+import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';
@@ -42,6 +43,12 @@ class VenueController extends BaseController {
 
   static async getById(id: DbIdentifier): VenueByIdResult {
     const venue = await VenueService.getById(id);
+
+    if (!venue) {
+      throw new ResourceNotFoundError({
+        message: 'Venue not found.',
+      });
+    }
 
     return {
       data: venue,

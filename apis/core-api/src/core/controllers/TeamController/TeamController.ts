@@ -1,6 +1,7 @@
 import { OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { CountryService, TeamService } from 'core/services';
+import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import { DbIdentifier } from 'types';
@@ -44,6 +45,12 @@ class TeamController extends BaseController {
 
   static async getById(id: DbIdentifier): TeamByIdResult {
     const team = await TeamService.getById(id);
+
+    if (!team) {
+      throw new ResourceNotFoundError({
+        message: 'Team not found.',
+      });
+    }
 
     return {
       data: team,
