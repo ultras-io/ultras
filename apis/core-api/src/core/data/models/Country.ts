@@ -100,6 +100,7 @@ module.exports = (sequelize: Sequelize): typeof Country => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

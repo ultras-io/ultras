@@ -82,6 +82,7 @@ module.exports = (sequelize: Sequelize): typeof League => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

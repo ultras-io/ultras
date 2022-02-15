@@ -113,6 +113,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

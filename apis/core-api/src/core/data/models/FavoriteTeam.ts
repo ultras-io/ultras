@@ -85,6 +85,7 @@ module.exports = (sequelize: Sequelize): typeof FavoriteTeam => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

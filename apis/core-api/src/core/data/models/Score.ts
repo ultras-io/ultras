@@ -95,6 +95,7 @@ module.exports = (sequelize: Sequelize): typeof Score => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );

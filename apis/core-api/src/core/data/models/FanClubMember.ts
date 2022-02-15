@@ -119,6 +119,7 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
       indexes: [
         {

@@ -145,6 +145,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,
+      paranoid: true,
       sequelize,
     }
   );
