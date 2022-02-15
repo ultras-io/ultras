@@ -1,12 +1,18 @@
-import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
+import { OrderEnum, FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { CityService, FanClubService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
+
+import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
+import { DbIdentifier } from 'types';
 import {
   FanClubCreateParams,
   FanClubCreateResult,
   FanClubUpdateParams,
   FanClubUpdateResult,
+  FanClubsListParams,
+  FanClubsListResult,
+  FanClubByIdResult,
 } from './types';
 
 class UserController extends BaseController {
@@ -91,6 +97,49 @@ class UserController extends BaseController {
       data: {
         fanClub: fanClub,
       },
+    };
+  }
+
+  static async getAll({
+    limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
+    offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
+    orderAttr = 'name',
+    order = OrderEnum.asc,
+    name,
+    cityId,
+    countryId,
+    teamId,
+  }: FanClubsListParams): FanClubsListResult {
+    const { rows, count } = await FanClubService.getAll({
+      limit,
+      offset,
+      orderAttr,
+      order,
+      name,
+      cityId,
+      countryId,
+      teamId,
+    });
+
+    return {
+      data: rows,
+      count,
+      limit,
+      offset,
+    };
+  }
+
+  static async getById(id: DbIdentifier): FanClubByIdResult {
+    const fanClub = await FanClubService.getById(id);
+
+    if (!fanClub) {
+      throw new ResourceNotFoundError({
+        message: 'Fan club not found.',
+      });
+    }
+
+    return {
+      data: fanClub,
     };
   }
 }
