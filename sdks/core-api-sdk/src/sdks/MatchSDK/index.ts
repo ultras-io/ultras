@@ -2,14 +2,7 @@ import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
-
-type GetMatchesFilter = {
-  date?: string;
-  dateFrom?: string;
-  dateTo?: string;
-  teamId?: DbIdentifier;
-  leagueId?: DbIdentifier;
-};
+import { GetMatchesFilter } from './types';
 
 export class MatchSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {

@@ -1,10 +1,6 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
-
-type GetCitiesFilter = {
-  name?: string;
-  countryId?: DbIdentifier;
-};
+import { GetCitiesFilter } from './types';
 
 export class CitySDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {

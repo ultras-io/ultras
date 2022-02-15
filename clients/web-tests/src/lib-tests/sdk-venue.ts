@@ -1,6 +1,6 @@
-import { VenueSDk } from '@ultras/core-api-sdk';
+import { VenueSDK } from '@ultras/core-api-sdk';
 
-const sdk = new VenueSDk('dev');
+const sdk = new VenueSDK('dev');
 
 export const runTest = () => {
   const params = {
@@ -11,13 +11,13 @@ export const runTest = () => {
   sdk
     .getVenues(params)
     ?.then((venues: any) => {
-      console.log('VenueSDk.getVenues():', {
+      console.log('VenueSDK.getVenues():', {
         params,
         result: venues,
       });
     })
     ?.catch((err: any) => {
-      console.error('VenueSDk.getVenues():', {
+      console.error('VenueSDK.getVenues():', {
         params,
         error: err,
       });

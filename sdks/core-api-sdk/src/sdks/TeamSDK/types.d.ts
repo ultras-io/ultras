@@ -1,5 +1,7 @@
+import { DbIdentifier } from '../types';
+
 export type GetTeamsFilter = {
   name?: string;
-  countryId?: number;
-  cityId?: number;
+  countryId?: DbIdentifier;
+  cityId?: DbIdentifier;
 };
