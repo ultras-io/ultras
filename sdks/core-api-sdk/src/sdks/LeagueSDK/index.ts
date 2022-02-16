@@ -1,10 +1,6 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
-
-type GetLeaguesFilter = {
-  name?: string;
-  countryId?: DbIdentifier;
-};
+import { GetLeaguesFilter } from './types';
 
 export class LeagueSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {

@@ -6,3 +6,5 @@ export * from './VenueSDK';
 export * from './TeamSDK';
 export * from './LeagueSDK';
 export * from './MatchSDK';
+export * from './UserSDK';
+export * from './FanClubSDK';
