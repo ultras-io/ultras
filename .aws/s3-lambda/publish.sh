@@ -10,12 +10,15 @@ function exit_app() {
 # build typescript project
 cd "$CURRENT_DIR/lambda"
 npm run build
+if [[ $? != 0 ]]; then
+  exit_app 2 "Failed to build lambda function project."
+fi
 cd "$CURRENT_DIR"
 
 # build aws serverless application model project
 sam build
 if [[ $? != 0 ]]; then
-  exit_app 2 "Failed to build AWS SAM project."
+  exit_app 3 "Failed to build AWS SAM project."
 fi
 
 # rebuild sharp inside of built folders
@@ -29,7 +32,7 @@ done
 # deploy aws serverless application model project
 sam deploy --guided
 if [[ $? != 0 ]]; then
-  exit_app 3 "Failed to deploy AWS SAM project."
+  exit_app 4 "Failed to deploy AWS SAM project."
 fi
 
 # cleanup build
