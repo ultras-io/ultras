@@ -9,7 +9,7 @@ const S3 = new AWS.S3({
 
 async function processItem(bucketName: string, objectKey: string) {
   const format = objectKey.endsWith('.png') ? 'png' : 'jpeg';
-  const fileName = objectKey.replace(`${configs.paths.root}/`, '');
+  const fileName = objectKey.replace(new RegExp(`^${configs.paths.root}/`), '');
 
   // load uploaded file data from AWS S3
   const objectGetParams = {
