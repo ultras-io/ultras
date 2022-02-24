@@ -273,9 +273,9 @@ PODS:
     - React
   - react-native-geolocation-service (5.3.0-beta.4):
     - React
-  - react-native-pager-view (5.4.9):
+  - react-native-pager-view (5.4.11):
     - React-Core
-  - react-native-safe-area-context (3.3.2):
+  - react-native-safe-area-context (3.4.1):
     - React-Core
   - React-perflogger (0.65.1)
   - React-RCTActionSheet (0.65.1):
@@ -343,7 +343,7 @@ PODS:
     - React-perflogger (= 0.65.1)
   - RNI18n (2.0.15):
     - React
-  - RNScreens (3.10.2):
+  - RNScreens (3.12.0):
     - React-Core
     - React-RCTImage
   - RNSVG (12.1.1):
@@ -534,8 +534,8 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-geolocation-service: c0efb872258ed9240f1003a70fca9e9757e5c785
-  react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
-  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-pager-view: 7f00d63688f7df9fad86dfb0154814419cc5eb8d
+  react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
   React-RCTAnimation: 2119a18ee26159004b001bc56404ca5dbaae6077
@@ -549,7 +549,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 85187f19dd9c47a7c102f9994f9d14e4dc2110de
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
-  RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
+  RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
