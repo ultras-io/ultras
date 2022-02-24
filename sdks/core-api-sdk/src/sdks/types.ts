@@ -4,4 +4,4 @@ import { ListRequestParams } from '@ultras/utils';
 export type DbIdentifier = number;
 
 export type QueryParam<T> = T & ListRequestParams;
-export type DynamicQueryParam = Record<string, unknown>;
+export type DynamicQueryParam = Record<string, any>;
