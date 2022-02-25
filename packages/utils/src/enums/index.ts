@@ -10,3 +10,4 @@ export { default as FanClubPrivacyEnum } from './FanClubPrivacyEnum';
 export { default as FanClubMemberRoleEnum } from './FanClubMemberRoleEnum';
 export { default as FanClubMemberStatusEnum } from './FanClubMemberStatusEnum';
 export { default as AwsS3ErrorEnum } from './AwsS3ErrorEnum';
+export { default as AwsS3FolderEnum } from './AwsS3FolderEnum';

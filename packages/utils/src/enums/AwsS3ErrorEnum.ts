@@ -5,6 +5,11 @@ enum AswS3ErrorEnum {
   folderMissing = 'folder-missing',
 
   /**
+   * Parameter folder name is unknown.
+   */
+  folderUnknown = 'folder-unknown',
+
+  /**
    * Parameter extension is missing.
    */
   extensionMissing = 'extension-missing',
@@ -12,7 +17,7 @@ enum AswS3ErrorEnum {
   /**
    * Provided extension is not allowed.
    */
-  extensionNotAllowed = 'extension-now-allowed',
+  extensionNotAllowed = 'extension-not-allowed',
 
   /**
    * AWS S3 service is not unavailable.

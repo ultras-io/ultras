@@ -1,3 +1,5 @@
+import { AwsS3FolderEnum } from '@ultras/utils';
+
 const ENVS: Record<string, string> = {
   production: 'production',
   staging: 'staging',
@@ -24,4 +26,23 @@ const DEFAULT_PAGINATION_ATTRIBUTES = {
   OFFSET: 0,
 };
 
-export { ENVS, HTTP_STATUS_METHODS, DEFAULT_PAGINATION_ATTRIBUTES };
+const AWS_S3_BUCKET_FOLDERS: Record<AwsS3FolderEnum, string> = {
+  profilePicture: 'profile-pictures',
+  fanClubAvatar: 'fun-clubs/avatars',
+  fanClubCover: 'fun-clubs/covers',
+  topic: 'topics',
+};
+
+const MIME_TYPES: Record<string, string> = {
+  png: 'image/png',
+  jpeg: 'image/jpeg',
+  jpg: 'image/jpeg',
+};
+
+export {
+  ENVS,
+  HTTP_STATUS_METHODS,
+  DEFAULT_PAGINATION_ATTRIBUTES,
+  AWS_S3_BUCKET_FOLDERS,
+  MIME_TYPES,
+};

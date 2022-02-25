@@ -1,21 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import awsSdk from 'aws-sdk';
-import { buildFileName } from '@ultras/utils';
+import { buildFileName, AwsS3FolderEnum } from '@ultras/utils';
+import { AWS_S3_BUCKET_FOLDERS, MIME_TYPES } from '@constants';
 import { awsConfig } from 'config';
-import BaseService from './BaseService';
-
-const bucketFolders: Record<string, string> = {
-  profilePicture: 'profile-pictures',
-  fanClubAvatar: 'fun-clubs/avatars',
-  fanClubCover: 'fun-clubs/covers',
-  topic: 'topics',
-};
-
-const mimeTypes: Record<string, string> = {
-  png: 'image/png',
-  jpeg: 'image/jpeg',
-  jpg: 'image/jpeg',
-};
+import BaseService from '../BaseService';
 
 const s3 = new awsSdk.S3({
   apiVersion: '2010-09-09',
@@ -25,17 +13,17 @@ const s3 = new awsSdk.S3({
   signatureVersion: 'v4',
 });
 
-class AwsS3Service extends BaseService {
-  static async getSignedUrl(folderName: string, extension: string) {
+class S3Service extends BaseService {
+  static async getSignedUrl(folderName: AwsS3FolderEnum, extension: string) {
     // build unique file name with provided extension
-    const folder = bucketFolders[folderName] || '';
+    const folder = AWS_S3_BUCKET_FOLDERS[folderName];
     const key = `${folder}/${buildFileName(uuidv4())}.${extension}`;
 
     // generate putObject url in AWS.
     const putUrl = await s3.getSignedUrlPromise('putObject', {
       Bucket: awsConfig.s3.Bucket,
       ACL: awsConfig.s3.ACL,
-      ContentType: mimeTypes[extension],
+      ContentType: MIME_TYPES[extension],
       Expires: awsConfig.signedUrlExpires,
       Key: key,
     });
@@ -47,4 +35,4 @@ class AwsS3Service extends BaseService {
   }
 }
 
-export default AwsS3Service;
+export default S3Service;
