@@ -1,6 +1,6 @@
-import { AwsS3SDK } from '@ultras/core-api-sdk';
+import { UltrasS3SDK } from '@ultras/core-api-sdk';
 
-const sdk = new AwsS3SDK('dev');
+const sdk = new UltrasS3SDK('dev');
 
 const buildImageFile = (): File => {
   const b64Data =
@@ -31,13 +31,13 @@ export const runTest = () => {
   sdk
     .upload(params)
     ?.then((result: any) => {
-      console.log('AwsS3SDK.upload():', {
+      console.log('UltrasS3SDK.upload():', {
         params,
         result: result,
       });
     })
     ?.catch((err: any) => {
-      console.error('AwsS3SDK.upload():', {
+      console.error('UltrasS3SDK.upload():', {
         params,
         error: err,
       });

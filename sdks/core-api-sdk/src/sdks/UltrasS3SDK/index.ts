@@ -7,17 +7,24 @@ import {
   UploadParamsInterface,
 } from './types';
 
-export class AwsS3SDK extends CoreApiBaseSDK {
+export class UltrasS3SDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 's3');
   }
 
+  /**
+   * Will generate a file path and signed url to upload into AWS S3.
+   */
   public getSignedUrl(params: SigningUrlParamsInterface) {
     return this.api?.makeAPIGetRequest('signed-url', {
       query_params: params as DynamicQueryParam,
     });
   }
 
+  /**
+   * File must be uploaded to AWS S3 using pre-signed url.
+   * Just provide a file instance and pre-signed url.
+   */
   public uploadViaSignedUrl(params: UploadViaSignedUrlParamsInterface) {
     return this.api?.request(params.signedUrl, {
       body: params.file,
@@ -25,6 +32,11 @@ export class AwsS3SDK extends CoreApiBaseSDK {
     });
   }
 
+  /**
+   * Will generate a file path and signed url to upload into AWS S3,
+   * after that it will be upload file to AWS S3 using pre-signed url
+   * and give you back saved file path.
+   */
   public async upload(params: UploadParamsInterface) {
     const extension = params.file.name.split('.').pop() || '';
     const responseSigning = await this.getSignedUrl({
