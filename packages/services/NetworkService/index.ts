@@ -68,64 +68,34 @@ class NetworkService {
     return `${this.uri}/${arg}`;
   };
 
-  createQueryParams = (queryParams: Record<string, unknown>) =>
-    Object.keys(queryParams).reduce((accumulator, key) => {
-      const item = queryParams[key];
-      if (item === null || item === undefined) return accumulator;
+  createQueryParams = (queryParams: Record<string, unknown>) => {
+    return Object.keys(queryParams)
+      .reduce((accumulator: Array<string>, key: string) => {
+        const item = queryParams[key];
+        if (item === null || item === undefined) return accumulator;
 
-      if (Array.isArray(item)) {
-        for (let index = 0; index < item.length; index++) {
-          const arrItem = item[index];
-          accumulator += `${key}=${arrItem}&`;
+        if (Array.isArray(item)) {
+          for (let index = 0; index < item.length; index++) {
+            const arrItem = item[index];
+            accumulator.push(`${key}=${arrItem}`);
+          }
+        } else {
+          accumulator.push(`${key}=${item}`);
         }
-      } else {
-        accumulator += `${key}=${item}&`;
-      }
-      return accumulator;
-    }, '');
+
+        return accumulator;
+      }, [])
+      .join('&');
+  };
 
   makeAPIRequest = (
     partUrl: string,
     options: RequestOptions = {}
-  ): Promise<{ body: any; headers: any }> =>
-    new Promise((resolve, reject) => {
+  ): Promise<{ body: any; headers: any }> => {
+    return new Promise((resolve, reject) => {
       let url = this.createUrl(partUrl);
 
-      if (!url) {
-        return reject(HttpErrorMessages.INVALID_REQUEST_PARAMS);
-      }
-
-      if (options.query_params) {
-        url += `?${this.createQueryParams(options.query_params)}`;
-      }
-      if (!options.method) {
-        options.method = HttpRequestMethods.GET;
-      }
-
-      // const auth_token = CacheService.getItem('auth_token');
-      const fetch_options: RequestInit = {
-        method: options.method,
-        headers: options.headers || {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          // Authorization: auth_token ? `Bearer ${auth_token}` : null,
-        },
-      };
-
-      if (options.headers) {
-        fetch_options.headers = options.headers;
-      }
-      try {
-        if (options.body) {
-          fetch_options.body = JSON.stringify(options.body);
-        }
-      } catch (ex) {
-        return reject({ message: HttpErrorMessages.INVALID_REQUEST_PARAMS });
-      }
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      fetch(url, fetch_options)
+      this.request(url, options)
         .then(async (response: { json?: any; status?: any; headers?: any }) => {
           if (!response) {
             return reject({
@@ -164,6 +134,62 @@ class NetworkService {
         })
         .catch((err: any) => reject(err));
     });
+  };
+
+  request = (url: string, options: RequestOptions = {}) => {
+    return new Promise<any>((resolve, reject) => {
+      if (!url) {
+        return reject(HttpErrorMessages.INVALID_REQUEST_PARAMS);
+      }
+
+      if (options.query_params) {
+        const queryParams = this.createQueryParams(options.query_params);
+
+        if (queryParams) {
+          const paramGlue = url.includes('?') ? '&' : '?';
+          url += `${paramGlue}${queryParams}`;
+        }
+      }
+
+      if (!options.method) {
+        options.method = HttpRequestMethods.GET;
+      }
+
+      // const auth_token = CacheService.getItem('auth_token');
+      const fetchOptions: RequestInit = {
+        method: options.method,
+        headers: options.headers || {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          // Authorization: auth_token ? `Bearer ${auth_token}` : null,
+        },
+      };
+
+      if (options.headers) {
+        fetchOptions.headers = options.headers;
+      }
+
+      try {
+        if (options.body) {
+          if (options.body instanceof File) {
+            fetchOptions.body = options.body;
+          } else {
+            fetchOptions.body = JSON.stringify(options.body);
+          }
+        }
+      } catch (ex) {
+        return reject({
+          message: HttpErrorMessages.INVALID_REQUEST_PARAMS,
+        });
+      }
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      fetch(url, fetchOptions)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  };
 }
 
 export default NetworkService;

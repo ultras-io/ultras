@@ -21,7 +21,7 @@ export type RequestOptions = {
   method?: HttpRequestMethods;
   query_params?: Record<string, unknown>;
   headers?: Record<string, unknown>;
-  body?: string | Record<string, any>;
+  body?: string | Record<string, any> | File;
   // body?: {
   //   status: number;
   // };
@@ -31,7 +31,7 @@ export interface RequestInit {
   /**
    * A BodyInit object or null to set request's body.
    */
-  body?: string | Record<string, unknown> | null;
+  body?: string | Record<string, unknown> | File | null;
 
   /**
    * A string indicating how the request will interact with the

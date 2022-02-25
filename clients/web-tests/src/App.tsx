@@ -9,6 +9,7 @@ import { runTest as testSdkTeam } from './lib-tests/sdk-team';
 import { runTest as testSdkLeague } from './lib-tests/sdk-league';
 import { runTest as testSdkMatch } from './lib-tests/sdk-match';
 import { runTest as testSdkFanClub } from './lib-tests/sdk-fanClub';
+import { runTest as testSdkAwsS3 } from './lib-tests/sdk-awsS3';
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
     testSdkLeague();
     testSdkMatch();
     testSdkFanClub();
+    testSdkAwsS3();
   }, []);
 
   return <div className="App">Open console to see test results.</div>;

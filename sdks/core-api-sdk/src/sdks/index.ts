@@ -8,3 +8,4 @@ export * from './LeagueSDK';
 export * from './MatchSDK';
 export * from './UserSDK';
 export * from './FanClubSDK';
+export * from './UltrasS3SDK';
