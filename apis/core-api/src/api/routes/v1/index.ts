@@ -8,6 +8,7 @@ import leagues from './leagues';
 import matches from './matches';
 import users from './users';
 import fanClubs from './fanClubs';
+import aws from './aws';
 
 const router = new Router({
   prefix: '/v1',
@@ -21,5 +22,6 @@ router.use(leagues.routes());
 router.use(matches.routes());
 router.use(users.routes());
 router.use(fanClubs.routes());
+router.use(aws.routes());
 
 export default router;

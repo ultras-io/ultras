@@ -34,19 +34,10 @@ const awsConfig = {
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: 'us-east-1',
     ACL: 'public-read',
-    Bucket: '<bucket name>',
-    BucketFolder: 'bucket folder',
-    contentType: 'binary/octet-stream',
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
   },
-  allowedExtensions: ['jpeg', 'jpg', 'svg', 'png', 'pdf', 'docx'],
-  rootFolders: {
-    jpeg: 'images',
-    jpg: 'images',
-    svg: 'images',
-    png: 'images',
-    pdf: 'documents',
-    docx: 'documents',
-  },
+  allowedExtensions: ['jpeg', 'jpg', 'png'],
+  signedUrlExpires: intConf(process.env.AWS_S3_SIGNED_URL_EXPIRATION || 300),
 };
 
 const mailerConfig = {
