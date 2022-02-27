@@ -28,8 +28,8 @@ const DEFAULT_PAGINATION_ATTRIBUTES = {
 
 const AWS_S3_BUCKET_FOLDERS: Record<AwsS3FolderEnum, string> = {
   profilePicture: 'profile-pictures',
-  fanClubAvatar: 'fun-clubs/avatars',
-  fanClubCover: 'fun-clubs/covers',
+  fanClubAvatar: 'fan-clubs/avatars',
+  fanClubCover: 'fan-clubs/covers',
   topic: 'topics',
 };
 
