@@ -9,7 +9,7 @@ import {
 
 export class UltrasS3SDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
-    super(mode, 's3');
+    super(mode, 'aws/s3');
   }
 
   /**
