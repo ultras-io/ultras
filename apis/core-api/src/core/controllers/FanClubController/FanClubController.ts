@@ -17,7 +17,7 @@ import {
 
 class UserController extends BaseController {
   static async create({
-    creatorId,
+    ownerId,
     name,
     description,
     cityId,
@@ -40,6 +40,7 @@ class UserController extends BaseController {
       cityId,
       countryId,
       teamId,
+      ownerId,
       avatar,
       coverPhoto,
       privacy,
@@ -47,8 +48,8 @@ class UserController extends BaseController {
 
     await FanClubService.addMember({
       fanClubId: fanClub.getDataValue('id'),
-      userId: creatorId,
-      role: FanClubMemberRoleEnum.admin,
+      userId: ownerId,
+      role: FanClubMemberRoleEnum.owner,
       status: FanClubMemberStatusEnum.active,
     });
 

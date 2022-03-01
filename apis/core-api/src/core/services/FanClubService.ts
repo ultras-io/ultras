@@ -33,13 +33,14 @@ export interface FanClubListParamsInterface {
   countryId?: DbIdentifier;
   cityId?: DbIdentifier;
   teamId?: DbIdentifier;
+  ownerId?: DbIdentifier;
 }
 
 class FanClubService extends BaseService {
   protected static includeRelations() {
     return {
       attributes: {
-        exclude: ['cityId', 'countryId', 'teamId'],
+        exclude: ['cityId', 'countryId', 'teamId', 'ownerId'],
       },
       include: [
         {
@@ -54,6 +55,10 @@ class FanClubService extends BaseService {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR,
         },
+        {
+          model: db.User,
+          as: 'owner',
+        },
       ],
     };
   }
@@ -64,6 +69,7 @@ class FanClubService extends BaseService {
     cityId,
     countryId,
     teamId,
+    ownerId,
     avatar,
     coverPhoto,
     privacy,
@@ -74,6 +80,7 @@ class FanClubService extends BaseService {
       cityId,
       countryId,
       teamId,
+      ownerId,
       avatar,
       coverPhoto,
       privacy,
@@ -82,6 +89,7 @@ class FanClubService extends BaseService {
     return fanClub;
   }
 
+  // ownerId and teamId is not mutable
   static async update(
     id: DbIdentifier,
     {
@@ -135,6 +143,9 @@ class FanClubService extends BaseService {
       paranoid: false,
     });
 
+    const roleId = await this.getRoleId(role);
+    console.log({ roleId, role });
+
     // we need to restore deleted row if user was previously a member of a fan club
     if (existingMember) {
       // restore fan club and user membership
@@ -143,7 +154,7 @@ class FanClubService extends BaseService {
       // update role/status, because maybe user now joined to fan club
       // with another role/status
       existingMember.setDataValue('status', status);
-      existingMember.setDataValue('role', role);
+      existingMember.setDataValue('roleId', roleId);
       await existingMember.save();
 
       return existingMember;
@@ -152,7 +163,7 @@ class FanClubService extends BaseService {
     const newMember = db.FanClubMember.create({
       fanClubId,
       userId,
-      role,
+      roleId,
       status,
     });
 
@@ -238,6 +249,79 @@ class FanClubService extends BaseService {
 
   static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubAttributes> {
     return this.findById(db.FanClub, id);
+  }
+
+  static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<DbIdentifier | null> {
+    const role = await db.FanClubMemberRole.findOne({
+      where: { role: roleName },
+    });
+
+    if (!role) {
+      return null;
+    }
+
+    return role.getDataValue('id') as DbIdentifier;
+  }
+
+  // check if user has provided role(s)
+  static async isMemberHasRole(
+    fanClubId: DbIdentifier,
+    memberId: DbIdentifier,
+    roles: FanClubMemberRoleEnum | Array<FanClubMemberRoleEnum>
+  ): Promise<boolean> {
+    if (!Array.isArray(roles)) {
+      roles = [roles];
+    }
+
+    // get member in fan club with their role relation
+    const fanClubMember = await db.FanClubMember.findOne({
+      where: {
+        fanClubId,
+        memberId,
+      },
+      include: [
+        {
+          model: db.FanClubMemberRole,
+          as: resources.FAN_CLUB_MEMBER_ROLE.ALIAS.SINGULAR,
+          require: true,
+          select: ['role'],
+        },
+      ],
+    });
+
+    // it's not a fan club member
+    if (!fanClubMember) {
+      return false;
+    }
+
+    const role = fanClubMember.getDataValue('fanClubMemberRole').getDataValue('role');
+    return roles.includes(role);
+  }
+
+  // check if user has provided status(es)
+  static async isMemberHasStatus(
+    fanClubId: DbIdentifier,
+    memberId: DbIdentifier,
+    statuses: FanClubMemberStatusEnum | Array<FanClubMemberStatusEnum>
+  ): Promise<boolean> {
+    if (!Array.isArray(statuses)) {
+      statuses = [statuses];
+    }
+
+    const fanClubMember = await db.FanClubMember.findOne({
+      where: {
+        fanClubId,
+        memberId,
+      },
+    });
+
+    // it's not a fan club member
+    if (!fanClubMember) {
+      return false;
+    }
+
+    const status = fanClubMember.getDataValue('status');
+    return statuses.includes(status);
   }
 }
 

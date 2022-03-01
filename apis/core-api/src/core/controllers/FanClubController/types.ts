@@ -17,7 +17,7 @@ interface FanClubsFilterInterface {
 }
 
 export type FanClubCreateParams = {
-  creatorId: DbIdentifier;
+  ownerId: DbIdentifier;
   name: string;
   description: string | null;
   cityId: DbIdentifier;
