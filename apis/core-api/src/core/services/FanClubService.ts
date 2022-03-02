@@ -144,7 +144,6 @@ class FanClubService extends BaseService {
     });
 
     const roleId = await this.getRoleId(role);
-    console.log({ roleId, role });
 
     // we need to restore deleted row if user was previously a member of a fan club
     if (existingMember) {

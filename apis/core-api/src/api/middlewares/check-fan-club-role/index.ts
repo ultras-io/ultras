@@ -22,7 +22,7 @@ export default (
     if (!hasRole) {
       throw new AccessDeniedError({
         errorCode: FanClubMemberErrorEnum.permissionDenied,
-        message: "You don't have a valid role to complete this action.",
+        message: 'You have not permission.',
         allowed: roles,
       });
     }
