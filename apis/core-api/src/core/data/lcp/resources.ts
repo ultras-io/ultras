@@ -117,6 +117,14 @@ const resources = {
       PLURAL: 'fanClubMembers',
     },
   },
+  FAN_CLUB_MEMBER_ROLE: {
+    RELATION: 'FanClubMemberRole',
+    MODEL: 'FanClubMemberRole',
+    ALIAS: {
+      SINGULAR: 'fanClubMemberRole',
+      PLURAL: 'fanClubMemberRoles',
+    },
+  },
 };
 
 export interface IDBSet {

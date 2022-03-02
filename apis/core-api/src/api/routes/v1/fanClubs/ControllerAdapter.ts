@@ -12,7 +12,7 @@ class ControllerAdapter {
 
     /** CONTROLLERS */
     const { data } = await FanClubController.create({
-      creatorId: userId,
+      ownerId: userId,
       name,
       description,
       cityId,

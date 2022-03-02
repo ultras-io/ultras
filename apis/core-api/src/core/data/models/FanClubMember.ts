@@ -1,4 +1,4 @@
-import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
+import { FanClubMemberStatusEnum } from '@ultras/utils';
 import {
   Model,
   Optional,
@@ -12,12 +12,13 @@ import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { User } from 'core/data/models/User';
 import { FanClub } from 'core/data/models/FanClub';
+import { FanClubMemberRole } from './FanClubMemberRole';
 
 export interface FanClubMemberAttributes {
   id: DbIdentifier;
   fanClubId: DbIdentifier;
-  userId: DbIdentifier;
-  role: FanClubMemberRoleEnum;
+  memberId: DbIdentifier;
+  roleId: DbIdentifier;
   status: FanClubMemberStatusEnum;
 }
 
@@ -30,8 +31,8 @@ export class FanClubMember
   // Note that the `null assertion` `!` is required in strict mode.
   public id!: DbIdentifier;
   public fanClubId!: DbIdentifier;
-  public userId!: DbIdentifier;
-  public role!: FanClubMemberRoleEnum;
+  public memberId!: DbIdentifier;
+  public roleId!: DbIdentifier;
   public status!: FanClubMemberStatusEnum;
 
   // timestamps!
@@ -41,6 +42,7 @@ export class FanClubMember
   // associated properties
   public readonly fanClub?: FanClub;
   public readonly member?: User;
+  public readonly fanClubMemberRole?: FanClubMemberRole;
 
   // association methods
   public getFanClub!: HasOneGetAssociationMixin<FanClub>;
@@ -54,8 +56,13 @@ export class FanClubMember
     });
 
     FanClubMember.belongsTo(models.User, {
-      as: resources.USER.ALIAS.SINGULAR,
-      foreignKey: 'userId',
+      as: 'member',
+      foreignKey: 'memberId',
+    });
+
+    FanClubMember.belongsTo(models.FanClubMemberRole, {
+      as: resources.FAN_CLUB_MEMBER_ROLE.ALIAS.SINGULAR,
+      foreignKey: 'roleId',
     });
   }
 }
@@ -80,7 +87,7 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
         },
         onDelete: 'CASCADE',
       },
-      userId: {
+      memberId: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -92,15 +99,17 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
         },
         onDelete: 'CASCADE',
       },
-      role: {
-        type: DataTypes.ENUM({
-          values: [
-            FanClubMemberRoleEnum.admin,
-            FanClubMemberRoleEnum.moderator,
-            FanClubMemberRoleEnum.member,
-          ],
-        }),
+      roleId: {
+        type: DataTypes.BIGINT,
         allowNull: false,
+        references: {
+          model: {
+            tableName: resources.FAN_CLUB_MEMBER_ROLE.RELATION,
+            schema: schemas.ULTRAS_CORE,
+          },
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
       },
       status: {
         type: DataTypes.ENUM({
@@ -124,8 +133,8 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
       indexes: [
         {
           unique: true,
-          fields: ['fanClubId', 'userId'],
-          name: 'FanClubMember_fanClubId_userId_unique_constraint',
+          fields: ['fanClubId', 'memberId'],
+          name: 'FanClubMember_fanClubId_memberId_unique_constraint',
         },
       ],
     }

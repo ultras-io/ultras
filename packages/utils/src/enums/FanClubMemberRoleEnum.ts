@@ -1,13 +1,13 @@
 enum FanClubMemberRoleEnum {
   /**
-   * FanClub admin or owner.
+   * FanClub creator or owner.
    */
-  admin = 'admin',
+  owner = 'owner',
 
   /**
-   * FanClub moderator.
+   * FanClub admin.
    */
-  moderator = 'moderator',
+  admin = 'admin',
 
   /**
    * FanClub standard.

@@ -21,6 +21,7 @@ export interface FanClubAttributes {
   countryId: DbIdentifier;
   cityId: DbIdentifier;
   teamId: DbIdentifier;
+  ownerId: DbIdentifier;
   avatar: string;
   coverPhoto: string | null;
   isOfficial: boolean;
@@ -43,6 +44,7 @@ export class FanClub
   public countryId!: DbIdentifier;
   public cityId!: DbIdentifier;
   public teamId!: DbIdentifier;
+  public ownerId!: DbIdentifier;
   public avatar!: string;
   public coverPhoto!: string | null;
   public isOfficial!: boolean;
@@ -78,6 +80,11 @@ export class FanClub
     FanClub.belongsTo(models.Team, {
       as: resources.TEAM.ALIAS.SINGULAR,
       foreignKey: 'teamId',
+    });
+
+    FanClub.belongsTo(models.User, {
+      as: 'owner',
+      foreignKey: 'ownerId',
     });
   }
 }
@@ -128,6 +135,18 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
+            schema: schemas.ULTRAS_CORE,
+          },
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+      },
+      ownerId: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        references: {
+          model: {
+            tableName: resources.USER.RELATION,
             schema: schemas.ULTRAS_CORE,
           },
           key: 'id',
