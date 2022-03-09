@@ -1,4 +1,3 @@
-import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
 
 import resources from 'core/data/lcp';
@@ -12,28 +11,17 @@ import {
 
 import BaseService from './BaseService';
 
-interface MembershipInterface {
-  fanClubId: DbIdentifier;
-  userId: DbIdentifier;
-}
-interface WithRoleInterface {
-  role: FanClubMemberRoleEnum;
-}
-interface WithStatusInterface {
-  status: FanClubMemberStatusEnum;
-}
-
-interface CreateMemberInterface
-  extends MembershipInterface,
-    WithRoleInterface,
-    WithStatusInterface {}
-
 export interface FanClubListParamsInterface {
   name?: string;
   countryId?: DbIdentifier;
   cityId?: DbIdentifier;
   teamId?: DbIdentifier;
   ownerId?: DbIdentifier;
+}
+
+export interface FanClubMembershipListParamsInterface {
+  name: string;
+  fanClubId: DbIdentifier;
 }
 
 class FanClubService extends BaseService {
@@ -134,86 +122,6 @@ class FanClubService extends BaseService {
     return fanClub;
   }
 
-  static async addMember({ fanClubId, userId, role, status }: CreateMemberInterface) {
-    const existingMember = await db.FanClubMember.findOne({
-      where: {
-        fanClubId: fanClubId,
-        userId: userId,
-      },
-      paranoid: false,
-    });
-
-    const roleId = await this.getRoleId(role);
-
-    // we need to restore deleted row if user was previously a member of a fan club
-    if (existingMember) {
-      // restore fan club and user membership
-      await existingMember.restore();
-
-      // update role/status, because maybe user now joined to fan club
-      // with another role/status
-      existingMember.setDataValue('status', status);
-      existingMember.setDataValue('roleId', roleId);
-      await existingMember.save();
-
-      return existingMember;
-    }
-
-    const newMember = db.FanClubMember.create({
-      fanClubId,
-      userId,
-      roleId,
-      status,
-    });
-
-    return newMember;
-  }
-
-  static async removeMember({ fanClubId, userId }: MembershipInterface) {
-    await db.FanClubMember.destroy({
-      where: {
-        fanClubId: fanClubId,
-        userId: userId,
-      },
-    });
-  }
-
-  static async updateMemberRole(
-    fanClubId: DbIdentifier,
-    userId: DbIdentifier,
-    role: FanClubMemberRoleEnum
-  ) {
-    await db.FanClubMember.update(
-      {
-        role: role,
-      },
-      {
-        where: {
-          fanClubId: fanClubId,
-          userId: userId,
-        },
-      }
-    );
-  }
-
-  static async updateMemberStatus(
-    fanClubId: DbIdentifier,
-    userId: DbIdentifier,
-    status: FanClubMemberStatusEnum
-  ) {
-    await db.FanClubMember.update(
-      {
-        status: status,
-      },
-      {
-        where: {
-          fanClubId: fanClubId,
-          userId: userId,
-        },
-      }
-    );
-  }
-
   static async getAll(
     params: ServiceListParamsType<FanClubListParamsInterface>
   ): ServiceListResultType<FanClubAttributes> {
@@ -250,77 +158,8 @@ class FanClubService extends BaseService {
     return this.findById(db.FanClub, id);
   }
 
-  static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<DbIdentifier | null> {
-    const role = await db.FanClubMemberRole.findOne({
-      where: { role: roleName },
-    });
-
-    if (!role) {
-      return null;
-    }
-
-    return role.getDataValue('id') as DbIdentifier;
-  }
-
-  // check if user has provided role(s)
-  static async isMemberHasRole(
-    fanClubId: DbIdentifier,
-    memberId: DbIdentifier,
-    roles: FanClubMemberRoleEnum | Array<FanClubMemberRoleEnum>
-  ): Promise<boolean> {
-    if (!Array.isArray(roles)) {
-      roles = [roles];
-    }
-
-    // get member in fan club with their role relation
-    const fanClubMember = await db.FanClubMember.findOne({
-      where: {
-        fanClubId,
-        memberId,
-      },
-      include: [
-        {
-          model: db.FanClubMemberRole,
-          as: resources.FAN_CLUB_MEMBER_ROLE.ALIAS.SINGULAR,
-          require: true,
-          select: ['role'],
-        },
-      ],
-    });
-
-    // it's not a fan club member
-    if (!fanClubMember) {
-      return false;
-    }
-
-    const role = fanClubMember.getDataValue('fanClubMemberRole').getDataValue('role');
-    return roles.includes(role);
-  }
-
-  // check if user has provided status(es)
-  static async isMemberHasStatus(
-    fanClubId: DbIdentifier,
-    memberId: DbIdentifier,
-    statuses: FanClubMemberStatusEnum | Array<FanClubMemberStatusEnum>
-  ): Promise<boolean> {
-    if (!Array.isArray(statuses)) {
-      statuses = [statuses];
-    }
-
-    const fanClubMember = await db.FanClubMember.findOne({
-      where: {
-        fanClubId,
-        memberId,
-      },
-    });
-
-    // it's not a fan club member
-    if (!fanClubMember) {
-      return false;
-    }
-
-    const status = fanClubMember.getDataValue('status');
-    return statuses.includes(status);
+  static async exists(id: DbIdentifier): ServiceByIdResultType<boolean> {
+    return this.checkExistsById(db.FanClub, id);
   }
 }
 

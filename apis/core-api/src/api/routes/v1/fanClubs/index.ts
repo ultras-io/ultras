@@ -1,14 +1,12 @@
 import Router from 'koa-router';
-import checkUserAuth from 'api/middlewares/check-user-auth';
-import ControllerAdapter from './ControllerAdapter';
+import routeMembershipAdmin from './admin';
+import routeMembershipFanClubs from './fanClubs';
 
 const router = new Router({
   prefix: '/fan-clubs',
 });
 
-router.post('/', checkUserAuth(), ControllerAdapter.create);
-router.patch('/:id', checkUserAuth(), ControllerAdapter.update);
-router.get('/', ControllerAdapter.getAll);
-router.get('/:id', ControllerAdapter.getById);
+router.use(routeMembershipAdmin.routes());
+router.use(routeMembershipFanClubs.routes());
 
 export default router;

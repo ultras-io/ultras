@@ -1,6 +1,6 @@
 import { OrderEnum, FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
-import { CityService, FanClubService } from 'core/services';
+import { CityService, FanClubMemberService, FanClubService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
@@ -15,7 +15,7 @@ import {
   FanClubByIdResult,
 } from './types';
 
-class UserController extends BaseController {
+class FanClubController extends BaseController {
   static async create({
     ownerId,
     name,
@@ -46,9 +46,9 @@ class UserController extends BaseController {
       privacy,
     });
 
-    await FanClubService.addMember({
+    await FanClubMemberService.add({
       fanClubId: fanClub.getDataValue('id'),
-      userId: ownerId,
+      memberId: ownerId,
       role: FanClubMemberRoleEnum.owner,
       status: FanClubMemberStatusEnum.active,
     });
@@ -145,4 +145,4 @@ class UserController extends BaseController {
   }
 }
 
-export default UserController;
+export default FanClubController;

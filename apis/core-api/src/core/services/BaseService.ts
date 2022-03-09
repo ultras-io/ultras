@@ -6,10 +6,16 @@ abstract class BaseService {
     return {};
   }
 
-  protected static queryInit(): any {
-    return {
+  protected static queryInit(initialConditions: any = {}): any {
+    const query: any = {
       [db.Sequelize.Op.and]: [],
     };
+
+    for (const field in initialConditions) {
+      this.queryAppend(query, field, initialConditions[field]);
+    }
+
+    return query;
   }
 
   protected static queryAppend(query: any, fieldName: string, condition: any) {
@@ -21,16 +27,24 @@ abstract class BaseService {
   protected static async findAndCountAll<T>(
     model: any,
     query: any,
-    params: ServiceListParamsType<T>
+    params: ServiceListParamsType<T>,
+    includeModelRelations = true
   ) {
-    const { rows, count } = await model.findAndCountAll({
+    let queryOptions = {
       limit: params.limit,
       offset: params.offset,
       where: query,
       order: [[params.orderAttr, params.order]],
-      ...this.includeRelations(),
-    });
+    };
 
+    if (includeModelRelations) {
+      queryOptions = {
+        ...queryOptions,
+        ...this.includeRelations(),
+      };
+    }
+
+    const { rows, count } = await model.findAndCountAll(queryOptions);
     return { rows, count };
   }
 
@@ -43,6 +57,17 @@ abstract class BaseService {
     });
 
     return data;
+  }
+
+  protected static async checkExistsById(model: any, id: DbIdentifier) {
+    const count = await model.count({
+      where: {
+        id: id,
+      },
+      limit: 1,
+    });
+
+    return count == 1;
   }
 }
 
