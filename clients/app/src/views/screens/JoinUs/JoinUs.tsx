@@ -46,7 +46,7 @@ const getKeyboardOffset = (step: number): number => {
   return 0;
 };
 
-const JoinUs: React.FC<IJoinUsProps> = () => {
+const JoinUs: React.FC<IJoinUsProps> = () => sa{
   const [step, setStep] = React.useState<number>(1);
   const [phoneNumber, setPhoneNumber] = React.useState({ code: '', number: '' });
   const [isLocationEnabled, setIsLocationEnabled] = React.useState(false);
