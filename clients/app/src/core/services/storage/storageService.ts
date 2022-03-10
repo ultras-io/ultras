@@ -2,16 +2,18 @@
 
 const AsyncStorage = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setItem: (key, value) => {},
+  setItem: (key: string, value: string) => {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getItem: key => {},
+  getItem: (key: string): string => {
+    return '';
+  },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeItem: key => {},
+  removeItem: (key: string) => {},
   clear: () => {},
 };
 
 class StorageService {
-  static setItem = async (key: string, value: string) => {
+  static setItem = async (key: string, value: any) => {
     try {
       return await AsyncStorage.setItem(key, value);
     } catch (e) {
@@ -19,9 +21,9 @@ class StorageService {
     }
   };
 
-  static getItem = async (key: string) => {
+  static getItem = async (key: string): Promise<string> => {
     try {
-      return await AsyncStorage.getItem(key);
+      return AsyncStorage.getItem(key);
     } catch (e) {
       // handle error;
       return '';
@@ -33,7 +35,7 @@ class StorageService {
   };
 
   static getObject = async (key: string) => {
-    const json = StorageService.getItem(key);
+    const json = await StorageService.getItem(key);
     return JSON.parse(json);
   };
 

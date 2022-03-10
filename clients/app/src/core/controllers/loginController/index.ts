@@ -1,82 +1,77 @@
-import { createModel, IModel } from 'services/model';
-// import loginSDK from 'core/sdk/loginSDK';
+// @ts-ignore @TODO find type declaration package
+import create from 'zustand';
 
-export type Step = {
-  stepId: StepsEnum;
-  processed: boolean;
-};
+import {
+  GetState,
+  IControllerMethods,
+  ILoginModel,
+  SetState,
+  Step,
+  StepsEnum,
+} from './types';
 
-export enum StepsEnum {
-  start,
-  second,
-}
-
-export type Steps = Step[];
-
-export type LoginModelState = {
-  steps: Steps;
-  currentStep: StepsEnum;
-  isPending: boolean;
-  data?: any;
-};
-
-const steps: Steps = [
-  {
-    stepId: StepsEnum.start,
-    processed: false,
-  },
-  {
-    stepId: StepsEnum.second,
-    processed: false,
-  },
-];
-
-const model: IModel<LoginModelState> = createModel<LoginModelState>({
-  steps: steps,
+const model = create<ILoginModel>((set: SetState, get: GetState) => ({
+  steps: [
+    {
+      stepId: StepsEnum.start,
+      processed: false,
+    },
+    {
+      stepId: StepsEnum.second,
+      processed: false,
+    },
+  ],
   currentStep: StepsEnum.start,
   isPending: false,
-});
+  ...generateControllerMethods(set, get),
+}));
 
-function setPending(value: boolean) {
-  model.setState({
-    isPending: value,
-  });
-}
+function generateControllerMethods(set: SetState, get: GetState): IControllerMethods {
+  function setPending(value: boolean) {
+    set(state => ({
+      ...state,
+      isPending: value,
+    }));
+  }
 
-function processStep(step: StepsEnum) {
-  const state = model.getState();
-  const newSteps = state.steps?.map((item: Step) => {
-    if (item.stepId === step) {
-      return {
-        ...item,
-        processed: true,
-      };
-    }
-    return item;
-  });
-
-  const newState: LoginModelState = {
-    ...state,
-    isPending: false,
-    currentStep: ++step,
-    steps: newSteps,
-  };
-
-  model.setState(newState);
-}
-
-function startStep(step: StepsEnum) {
-  setPending(true);
-  processStep(step);
-}
-
-function ping() {
-  setPending(true);
-  setTimeout(() => {
-    model.setState({
-      isPending: false,
+  function processStep(step: StepsEnum) {
+    const steps = get().steps;
+    const newSteps = steps?.map((item: Step) => {
+      if (item.stepId === step) {
+        return {
+          ...item,
+          processed: true,
+        };
+      }
+      return item;
     });
-  }, 3000);
+
+    set(state => ({
+      ...state,
+      isPending: false,
+      currentStep: ++step,
+      steps: newSteps,
+    }));
+  }
+
+  function startStep(step: StepsEnum) {
+    setPending(true);
+    processStep(step);
+  }
+
+  function ping() {
+    setPending(true);
+    setTimeout(() => {
+      setPending(false);
+    }, 4000);
+  }
+
+  return {
+    ping,
+    startStep,
+    setPending,
+    processStep,
+  };
 }
 
-export { model, startStep, ping };
+export default model;
