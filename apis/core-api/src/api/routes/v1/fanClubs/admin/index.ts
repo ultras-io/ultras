@@ -22,5 +22,9 @@ const middlewares = [
 router.post('/invite-member', ...middlewares, ControllerAdapter.invite);
 router.delete('/', ...middlewares, ControllerAdapter.remove);
 router.delete('/:id', ...middlewares, ControllerAdapter.removeById);
+router.get('/', ...middlewares, ControllerAdapter.getAll);
+router.get('/:id', ...middlewares, ControllerAdapter.getById);
+router.patch('/', ...middlewares, ControllerAdapter.update);
+router.patch('/:id', ...middlewares, ControllerAdapter.updateById);
 
 export default router;

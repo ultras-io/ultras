@@ -68,6 +68,92 @@ class ControllerAdapter {
     /** RESPONSE */
     return ctx.noContent();
   }
+
+  static async getAll(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { fanClubId } = ctx.request.params;
+    const params = ctx.request.query;
+
+    /** CONTROLLERS */
+    const { data, limit, offset, count } = await FanClubMembershipController.getAll({
+      ...params,
+      fanClubId,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+      limit,
+      offset,
+      total: count,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async getById(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { fanClubId, id } = ctx.request.params;
+
+    /** CONTROLLERS */
+    const { data } = await FanClubMembershipController.getById({
+      fanClubId,
+      membershipId: id,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async update(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { fanClubId } = ctx.request.params;
+    const updates = ctx.request.body;
+
+    /** CONTROLLERS */
+    const { data } = await FanClubMembershipController.update({
+      fanClubId,
+      updates,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async updateById(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { fanClubId, id } = ctx.request.params;
+    const { role, status } = ctx.request.body;
+
+    /** CONTROLLERS */
+    const { data } = await FanClubMembershipController.update({
+      fanClubId,
+      updates: {
+        membershipId: id,
+        role,
+        status,
+      },
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
 }
 
 export default ControllerAdapter;

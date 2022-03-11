@@ -1,17 +1,28 @@
-import { FanClubMemberStatusEnum } from '@ultras/utils';
+import { FanClubMemberStatusEnum, OrderEnum } from '@ultras/utils';
 import { DbIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
 import { FanClubMemberAttributes } from 'core/data/models/FanClubMember';
 import { FanClubMemberService, UserService } from 'core/services';
+import { ResourceNotFoundError } from 'modules/exceptions';
 
+import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import {
   FanClubMembershipInviteParams,
   FanClubMembershipInviteResult,
+  FanClubMembershipUpdateParams,
+  FanClubMembershipUpdateResult,
   FanClubMembershipDeleteByIdParams,
   FanClubMembershipDeleteByIdResult,
   FanClubMembershipActionParams,
   FanClubMembershipActionResult,
+  FanClubMembershipByIdParams,
+  FanClubMembershipByIdResult,
+  FanClubMembershipsListParams,
+  FanClubMembershipsListResult,
+  FanClubMembershipsByMemberIdListParams,
+  FanClubMembershipsByMemberIdListResult,
   InvitationsType,
+  UpdatesType,
 } from './types';
 
 class FanClubMembershipController extends BaseController {
@@ -160,6 +171,127 @@ class FanClubMembershipController extends BaseController {
       data: {
         success: true,
       },
+    };
+  }
+
+  static async update({
+    fanClubId,
+    updates,
+  }: FanClubMembershipUpdateParams): FanClubMembershipUpdateResult {
+    let isBulkAction = true;
+    if (!Array.isArray(updates)) {
+      isBulkAction = false;
+      updates = [updates];
+    }
+
+    const updatesCast = updates as Array<InvitationsType>;
+    const promises = updatesCast.map((update: UpdatesType) => {
+      return FanClubMemberService.updateStatusAndRole({
+        fanClubId,
+        status: update.status,
+        role: update.role,
+        membershipId: update.membershipId,
+        memberId: update.memberId,
+      });
+    });
+
+    const membershipsUpdateResult = await Promise.all(promises);
+    const memberships = membershipsUpdateResult
+      .map(membership => membership as [number, Array<FanClubMemberAttributes>])
+      .map(membershipInfo => {
+        if (Array.isArray(membershipInfo[1]) && membershipInfo[1].length > 0) {
+          return membershipInfo[1][0];
+        }
+        return null;
+      })
+      .filter(membership => !!membership) as Array<FanClubMemberAttributes>;
+
+    if (isBulkAction) {
+      return {
+        data: {
+          memberships: memberships,
+        },
+      };
+    }
+
+    return {
+      data: {
+        membership: memberships[0],
+      },
+    };
+  }
+
+  static async getAll({
+    limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
+    offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
+    orderAttr = '',
+    order = OrderEnum.asc,
+    search,
+    roleId,
+    status,
+    fanClubId,
+  }: FanClubMembershipsListParams): FanClubMembershipsListResult {
+    const { rows, count } = await FanClubMemberService.getAll({
+      limit,
+      offset,
+      orderAttr,
+      order,
+      search,
+      roleId,
+      status,
+      fanClubId,
+    });
+
+    return {
+      data: rows,
+      count,
+      limit,
+      offset,
+    };
+  }
+
+  static async getById({
+    membershipId,
+  }: FanClubMembershipByIdParams): FanClubMembershipByIdResult {
+    const fanClub = await FanClubMemberService.getById(membershipId);
+
+    if (!fanClub) {
+      throw new ResourceNotFoundError({
+        message: 'Fan club and user membership not found.',
+      });
+    }
+
+    return {
+      data: fanClub,
+    };
+  }
+
+  static async getByMemberId({
+    limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
+    offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
+    orderAttr = 'name',
+    order = OrderEnum.asc,
+    search,
+    roleId,
+    status,
+    memberId,
+  }: FanClubMembershipsByMemberIdListParams): FanClubMembershipsByMemberIdListResult {
+    const { rows, count } = await FanClubMemberService.getAll({
+      limit,
+      offset,
+      orderAttr,
+      order,
+      search,
+      roleId,
+      status,
+      memberId,
+    });
+
+    return {
+      data: rows,
+      count,
+      limit,
+      offset,
     };
   }
 }
