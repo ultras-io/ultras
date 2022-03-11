@@ -13,10 +13,12 @@ const configs = {
   define: {
     defaultScope: {
       attributes: {
-        exclude: ['dataRapidId', 'createdAt', 'updatedAt'],
+        exclude: ['dataRapidId', 'createdAt', 'updatedAt', 'deletedAt'],
       },
     },
   },
 };
 
 export default configs;
+export const production = configs;
+export const development = configs;

@@ -11,7 +11,6 @@ interface UserUniqueIdentifierInterface {
   username?: null | string;
   id?: null | DbIdentifier;
 }
-
 class UserService extends BaseService {
   static async isUsernameTaken(username: string): ServiceResultType<boolean> {
     const user = await db.User.findOne({
@@ -92,6 +91,20 @@ class UserService extends BaseService {
 
     const user = await db.User.findOne({ where: query });
     return user;
+  }
+
+  static async createUserFromInvitationByPhone(
+    phone: string
+  ): ServiceResultType<null | User> {
+    // TODO: write logic to create user and send notification
+    return null;
+  }
+
+  static async createUserFromInvitationByEmail(
+    email: string
+  ): ServiceResultType<null | User> {
+    // TODO: write logic to create user and send notification
+    return null;
   }
 }
 

@@ -26,6 +26,7 @@
     ],
 
     "prettier/prettier": "warn",
-    "max-len": ["error", { "code": 90 }]
+    "max-len": ["error", { "code": 90 }],
+    "no-async-promise-executor": "off"
   }
 }
