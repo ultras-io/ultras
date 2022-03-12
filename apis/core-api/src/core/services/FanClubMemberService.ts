@@ -212,6 +212,138 @@ class FanClubMemberService extends BaseService {
     const status = fanClubMember.getDataValue('status');
     return statuses.includes(status);
   }
+
+  // update member role and/or status on fan club
+  static async updateStatusAndRole({
+    fanClubId,
+    membershipId,
+    memberId,
+    role,
+    status,
+  }: UpdateRoleStatusInterface) {
+    const updateField: any = {};
+    if (role) {
+      const roleId = await this.getRoleId(role);
+      updateField.roleId = roleId;
+    }
+    if (status) {
+      updateField.status = status;
+    }
+
+    if (Object.keys(updateField).length == 0) {
+      return;
+    }
+
+    const query = this.queryInit({
+      fanClubId: fanClubId,
+    });
+
+    if (membershipId) {
+      this.queryAppend(query, 'id', membershipId);
+    }
+    if (memberId) {
+      this.queryAppend(query, 'memberId', memberId);
+    }
+
+    const result = await db.FanClubMember.update(updateField, {
+      where: query,
+      returning: true,
+    });
+
+    return result;
+  }
+
+  static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubMemberAttributes> {
+    return this.findById(db.FanClubMember, id);
+  }
+
+  static async getAll(
+    params: ServiceListParamsType<FanClubMembershipListParamsInterface>
+  ) {
+    // fan club id or memberId must be provided
+    if (!params.fanClubId && !params.memberId) {
+      return { rows: [], count: 0 };
+    }
+
+    // build generic query options
+    const queryOptions: any = {
+      limit: params.limit,
+      offset: params.offset,
+      where: {},
+      ...this.includeRelations(),
+    };
+
+    // add role based condition
+    if (params.roleId) {
+      queryOptions.where.roleId = params.roleId;
+    }
+
+    // add status based condition
+    if (params.status) {
+      queryOptions.where.status = params.status;
+    }
+
+    if (params.memberId) {
+      queryOptions.where.memberId = params.memberId;
+      queryOptions.order = [
+        [resources.FAN_CLUB.ALIAS.SINGULAR, params.orderAttr || 'name', params.order],
+      ];
+
+      // if member id and search query provided then we need to search
+      // in fan club fields
+      if (params.search) {
+        // remove fan club relation
+        queryOptions.include = queryOptions.include.filter(
+          (include: any) => include.as != resources.FAN_CLUB.ALIAS.SINGULAR
+        );
+
+        const searchCondition = ['name'].map(field => ({
+          [field]: {
+            [db.Sequelize.Op.iLike]: `%${params.search}%`,
+          },
+        }));
+
+        // add fan club relation with search conditions
+        queryOptions.include.push({
+          model: db.FanClub,
+          as: resources.FAN_CLUB.ALIAS.SINGULAR,
+          required: true,
+          where: searchCondition,
+        });
+      }
+    } else if (params.fanClubId) {
+      queryOptions.where.fanClubId = params.fanClubId;
+      queryOptions.order = [['member', params.orderAttr || 'fullname', params.order]];
+
+      // if fan club id and search query provided then we need to search
+      // in user fields
+      if (params.search) {
+        // remove member relation
+        queryOptions.include = queryOptions.include.filter(
+          (include: any) => include.as != 'member'
+        );
+
+        const searchCondition = ['email', 'fullname', 'username'].map(field => ({
+          [field]: {
+            [db.Sequelize.Op.iLike]: `%${params.search}%`,
+          },
+        }));
+
+        // add member relation with search conditions
+        queryOptions.include.push({
+          model: db.User,
+          as: 'member',
+          required: true,
+          where: {
+            [db.Sequelize.Op.or]: searchCondition,
+          },
+        });
+      }
+    }
+
+    const { rows, count } = await db.FanClubMember.findAndCountAll(queryOptions);
+    return { rows, count };
+  }
 }
 
 export default FanClubMemberService;
