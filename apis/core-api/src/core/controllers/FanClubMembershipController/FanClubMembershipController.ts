@@ -357,6 +357,75 @@ class FanClubMembershipController extends BaseController {
       },
     };
   }
+  static async acceptInvitation({
+    fanClubId,
+    membershipId,
+    memberId,
+  }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
+    await FanClubMemberService.updateStatusAndRole({
+      memberId,
+      membershipId,
+      fanClubId,
+      status: FanClubMemberStatusEnum.active,
+    });
+
+    return {
+      data: {
+        success: true,
+      },
+    };
+  }
+
+  static async rejectInvitation({
+    fanClubId,
+    membershipId,
+    memberId,
+  }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
+    await FanClubMemberService.remove({
+      memberId,
+      membershipId,
+      fanClubId,
+    });
+
+    return {
+      data: {
+        success: true,
+      },
+    };
+  }
+
+  static async acceptRequest({
+    fanClubId,
+    membershipId,
+  }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
+    await FanClubMemberService.updateStatusAndRole({
+      membershipId,
+      fanClubId,
+      status: FanClubMemberStatusEnum.active,
+    });
+
+    return {
+      data: {
+        success: true,
+      },
+    };
+  }
+
+  static async rejectRequest({
+    fanClubId,
+    membershipId,
+  }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
+    await FanClubMemberService.remove({
+      membershipId,
+      fanClubId,
+    });
+
+    return {
+      data: {
+        success: true,
+      },
+    };
+  }
 }
 
 export default FanClubMembershipController;

@@ -26,5 +26,7 @@ router.get('/', ...middlewares, ControllerAdapter.getAll);
 router.get('/:id', ...middlewares, ControllerAdapter.getById);
 router.patch('/', ...middlewares, ControllerAdapter.update);
 router.patch('/:id', ...middlewares, ControllerAdapter.updateById);
+router.patch('/:id/accept-request', ...middlewares, ControllerAdapter.acceptRequest);
+router.patch('/:id/reject-request', ...middlewares, ControllerAdapter.rejectRequest);
 
 export default router;

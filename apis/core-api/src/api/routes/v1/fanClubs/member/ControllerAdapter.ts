@@ -68,6 +68,48 @@ class ControllerAdapter {
 
     return ctx.ok(response);
   }
+
+  static async acceptInvitation(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { fanClubId, id } = ctx.request.params;
+    const { userId } = ctx.user;
+
+    /** CONTROLLERS */
+    const { data } = await FanClubMembershipController.acceptInvitation({
+      fanClubId,
+      membershipId: id,
+      memberId: userId,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async rejectInvitation(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { fanClubId, id } = ctx.request.params;
+    const { userId } = ctx.user;
+
+    /** CONTROLLERS */
+    const { data } = await FanClubMembershipController.rejectInvitation({
+      fanClubId,
+      membershipId: id,
+      memberId: userId,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
 }
 
 export default ControllerAdapter;

@@ -26,6 +26,24 @@ routerWithFanClubId.delete(
   checkFanClubRole([FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member], idKey),
   ControllerAdapter.leave
 );
+
+// add middleware that checks member roles and pending status
+const middlewaresWithFanClubIdAndChecks = [
+  ...middlewaresWithFanClubId,
+  checkFanClubRole([FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member], idKey),
+  checkFanClubStatus([FanClubMemberStatusEnum.pendingInvitation], idKey),
+];
+
+routerWithFanClubId.patch(
+  '/:id/accept-invitation',
+  ...middlewaresWithFanClubIdAndChecks,
+  ControllerAdapter.acceptInvitation
+);
+routerWithFanClubId.patch(
+  '/:id/reject-invitation',
+  ...middlewaresWithFanClubIdAndChecks,
+  ControllerAdapter.rejectInvitation
+);
 // #endregion
 
 // #region - without fan club id routes
