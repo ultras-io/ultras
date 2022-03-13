@@ -1,4 +1,4 @@
-import { FanClubMemberStatusEnum, OrderEnum } from '@ultras/utils';
+import { FanClubMemberStatusEnum, FanClubMemberRoleEnum, OrderEnum } from '@ultras/utils';
 import { DbIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
 import { FanClubMemberAttributes } from 'core/data/models/FanClubMember';
@@ -23,6 +23,10 @@ import {
   FanClubMembershipsByMemberIdListResult,
   InvitationsType,
   UpdatesType,
+  FanClubMembershipRequestParams,
+  FanClubMembershipRequestResult,
+  FanClubAcceptOrRejectInvitationParams,
+  FanClubAcceptOrRejectInvitationResult,
 } from './types';
 
 class FanClubMembershipController extends BaseController {
@@ -292,6 +296,65 @@ class FanClubMembershipController extends BaseController {
       count,
       limit,
       offset,
+    };
+  }
+
+  static async requestJoin({
+    fanClubId,
+    memberId,
+  }: FanClubMembershipRequestParams): FanClubMembershipRequestResult {
+    let isBulkAction = false;
+    if (!Array.isArray(fanClubId)) {
+      isBulkAction = true;
+      fanClubId = [fanClubId];
+    }
+
+    const promises = fanClubId.map(id => {
+      const promise = FanClubMemberService.add({
+        fanClubId: id,
+        status: FanClubMemberStatusEnum.pendingRequest,
+        role: FanClubMemberRoleEnum.member,
+        memberId: memberId,
+      });
+
+      return promise;
+    });
+
+    const membershipsResult = await Promise.all(promises);
+    const memberships = membershipsResult
+      .filter(membership => !!membership)
+      .map(membership => membership as FanClubMemberAttributes);
+
+    if (isBulkAction) {
+      return {
+        data: {
+          memberships: memberships,
+        },
+      };
+    }
+
+    return {
+      data: {
+        membership: memberships[0],
+      },
+    };
+  }
+
+  static async leave({
+    fanClubId,
+    membershipId,
+    memberId,
+  }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
+    await FanClubMemberService.remove({
+      membershipId,
+      memberId,
+      fanClubId,
+    });
+
+    return {
+      data: {
+        success: true,
+      },
     };
   }
 }
