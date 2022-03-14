@@ -30,7 +30,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
         headerShown: false,
       }}
     >
-      {isAuthenticated ? (
+      {!isAuthenticated ? (
         <Stack.Screen
           name={rootScreens.tabNavigation.name}
           component={rootScreens.tabNavigation.component}

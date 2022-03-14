@@ -46,7 +46,7 @@ const getKeyboardOffset = (step: number): number => {
   return 0;
 };
 
-const JoinUs: React.FC<IJoinUsProps> = () => sa{
+const JoinUs: React.FC<IJoinUsProps> = () => {
   const [step, setStep] = React.useState<number>(1);
   const [phoneNumber, setPhoneNumber] = React.useState({ code: '', number: '' });
   const [isLocationEnabled, setIsLocationEnabled] = React.useState(false);
@@ -63,7 +63,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => sa{
     setStep(NUMBER_STEP);
   }, [setStep]);
 
-  // create containet and move this logic
+  // create container and move this logic
   const checkPhone = React.useCallback(() => {
     // get number from component
     // validate number

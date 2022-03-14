@@ -6,7 +6,7 @@ import teamTabScreens from './teamTabScreens';
 import searchTabScreens from './searchTabScreens';
 import listModalTabScreens from './listModalTabScreens';
 
-export default {
+export {
   tabScreens,
   rootScreens,
   mainScreens,

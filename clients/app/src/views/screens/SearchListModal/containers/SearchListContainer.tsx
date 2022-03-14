@@ -22,8 +22,6 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     }
   }, [dataType]);
 
-  console.log(searchText);
-
   const initData = React.useCallback(() => {
     setData([]);
     const newData = fetchData(50);
