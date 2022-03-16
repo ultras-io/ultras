@@ -1,31 +1,48 @@
-import React, { useEffect } from 'react';
-
-import { runTest as testUtilEnums } from './lib-tests/util-enums';
-import { runTest as testUtilTimezone } from './lib-tests/util-timezone';
-import { runTest as testSdkCountry } from './lib-tests/sdk-country';
-import { runTest as testSdkCity } from './lib-tests/sdk-city';
-import { runTest as testSdkVenue } from './lib-tests/sdk-venue';
-import { runTest as testSdkTeam } from './lib-tests/sdk-team';
-import { runTest as testSdkLeague } from './lib-tests/sdk-league';
-import { runTest as testSdkMatch } from './lib-tests/sdk-match';
-import { runTest as testSdkFanClub } from './lib-tests/sdk-fanClub';
-import { runTest as testSdkAwsS3 } from './lib-tests/sdk-awsS3';
+import React, { useMemo, useState, useCallback, MouseEvent } from 'react';
+import tests from './tests';
 
 function App() {
-  useEffect(() => {
-    testUtilEnums();
-    testUtilTimezone();
-    testSdkCountry();
-    testSdkCity();
-    testSdkVenue();
-    testSdkTeam();
-    testSdkLeague();
-    testSdkMatch();
-    testSdkFanClub();
-    testSdkAwsS3();
+  const testNames = useMemo(() => Object.keys(tests), []);
+  const [running, setRunning] = useState<boolean>(false);
+
+  const onRunClick = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
+    const button = event.target as HTMLButtonElement;
+    const testName = button.dataset.testName as keyof typeof tests;
+    const testFunction = tests[testName];
+
+    if ('function' == typeof testFunction) {
+      setRunning(true);
+      await testFunction();
+      setRunning(false);
+    }
   }, []);
 
-  return <div className="App">Open console to see test results.</div>;
+  return (
+    <div className="App">
+      <table>
+        <thead>
+          <tr>
+            <th>Test name</th>
+            <th>Run</th>
+          </tr>
+        </thead>
+        <tbody>
+          {testNames.map((testName: string) => (
+            <tr key={`test-${testName}`}>
+              <td>{testName}</td>
+              <td>
+                <button data-test-name={testName} disabled={running} onClick={onRunClick}>
+                  Run test
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p>Run test and open console to see test results.</p>
+    </div>
+  );
 }
 
 export default App;

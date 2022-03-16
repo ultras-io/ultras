@@ -12,7 +12,7 @@ export const runTest = () => {
     orderAttr: 'id',
   };
 
-  sdk
+  return sdk
     .getCities(params)
     ?.then((cities: any) => {
       console.log('CitySDK.getCities():', {

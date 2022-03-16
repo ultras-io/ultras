@@ -8,7 +8,7 @@ export const runTest = () => {
     name: 'arena',
   };
 
-  sdk
+  return sdk
     .getVenues(params)
     ?.then((venues: any) => {
       console.log('VenueSDK.getVenues():', {

@@ -7,7 +7,7 @@ export const runTest = () => {
     teamId: 23,
   };
 
-  sdk
+  return sdk
     .getFanClubs(params)
     ?.then((fanClubs: any) => {
       console.log('FanClubSDk.getFanClubs():', {

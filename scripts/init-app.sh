@@ -55,6 +55,7 @@ end_cmd_die $? "Couldn't make package linkage."
 ITEMS_BUILD=(\
   "packages/utils"\
   "packages/services"\
+  "view-models/core-api"\
   "sdks/core-api-sdk"\
 )
 

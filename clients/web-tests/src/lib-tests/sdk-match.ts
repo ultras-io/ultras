@@ -7,7 +7,7 @@ export const runTest = () => {
     date: '2022-01-12',
   };
 
-  sdk
+  return sdk
     .getMatches(params)
     ?.then((matches: any) => {
       console.log('MatchSDK.getMatches():', {

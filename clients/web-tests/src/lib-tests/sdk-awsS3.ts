@@ -28,7 +28,7 @@ export const runTest = () => {
     file: fileToUpload,
   };
 
-  sdk
+  return sdk
     .upload(params)
     ?.then((result: any) => {
       console.log('UltrasS3SDK.upload():', {

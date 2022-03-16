@@ -10,6 +10,21 @@ import exceptionDetector from './interceptors/exceptionDetector';
 
 import 'isomorphic-fetch';
 
+interface RequestResultInterface {
+  headers?: any;
+  json?: any;
+  status?: any;
+}
+
+export type ResponseBodyType<TBody> = TBody & {
+  status: number;
+};
+
+export interface ResponseInterface<TBody = any, THeaders = any> {
+  headers: THeaders;
+  body: ResponseBodyType<TBody>;
+}
+
 class NetworkService {
   private interceptors: Interceptor[] = [exceptionDetector];
   private uri?: string;
@@ -35,30 +50,45 @@ class NetworkService {
     // CacheService.clearStorage();
   };
 
-  makeAPIGetRequest = (url: string, options: RequestOptions = {}) => {
+  makeAPIGetRequest = <TBody = any, THeaders = any>(
+    url: string,
+    options: RequestOptions = {}
+  ) => {
     options = options || {};
     options.method = HttpRequestMethods.GET;
-    return this.makeAPIRequest(url, options);
+    return this.makeAPIRequest<TBody, THeaders>(url, options);
   };
 
-  makeAPIPostRequest = (url: string, options: RequestOptions = {}) => {
+  makeAPIPostRequest = <TBody = any, THeaders = any>(
+    url: string,
+    options: RequestOptions = {}
+  ) => {
     options.method = HttpRequestMethods.POST;
-    return this.makeAPIRequest(url, options);
+    return this.makeAPIRequest<TBody, THeaders>(url, options);
   };
 
-  makeAPIPutRequest = (urlPrefix: string, options: RequestOptions = {}) => {
+  makeAPIPutRequest = <TBody = any, THeaders = any>(
+    urlPrefix: string,
+    options: RequestOptions = {}
+  ) => {
     options.method = HttpRequestMethods.PUT;
-    return this.makeAPIRequest(urlPrefix, options);
+    return this.makeAPIRequest<TBody, THeaders>(urlPrefix, options);
   };
 
-  makeAPIDeleteRequest = (urlPrefix: string, options: RequestOptions = {}) => {
+  makeAPIDeleteRequest = <TBody = any, THeaders = any>(
+    urlPrefix: string,
+    options: RequestOptions = {}
+  ) => {
     options.method = HttpRequestMethods.DELETE;
-    return this.makeAPIRequest(urlPrefix, options);
+    return this.makeAPIRequest<TBody, THeaders>(urlPrefix, options);
   };
 
-  makeAPIPatchRequest = (urlPrefix: string, options: RequestOptions = {}) => {
+  makeAPIPatchRequest = <TBody = any, THeaders = any>(
+    urlPrefix: string,
+    options: RequestOptions = {}
+  ) => {
     options.method = HttpRequestMethods.PATCH;
-    return this.makeAPIRequest(urlPrefix, options);
+    return this.makeAPIRequest<TBody, THeaders>(urlPrefix, options);
   };
 
   createUrl = (arg: string) => {
@@ -88,15 +118,15 @@ class NetworkService {
       .join('&');
   };
 
-  makeAPIRequest = (
+  makeAPIRequest = <TBody = any, THeaders = any>(
     partUrl: string,
     options: RequestOptions = {}
-  ): Promise<{ body: any; headers: any }> => {
+  ): Promise<ResponseInterface<TBody, THeaders>> => {
     return new Promise((resolve, reject) => {
-      let url = this.createUrl(partUrl);
+      const url = this.createUrl(partUrl);
 
       this.request(url, options)
-        .then(async (response: { json?: any; status?: any; headers?: any }) => {
+        .then(async (response: RequestResultInterface) => {
           if (!response) {
             return reject({
               message: HttpErrorMessages.INVALID_RESPONSE_DATA,
@@ -104,7 +134,9 @@ class NetworkService {
           }
 
           const { headers } = response;
-          let body: { status?: number } = {};
+          let body = {
+            status: 0,
+          } as ResponseBodyType<TBody>;
 
           const contentType = headers.get('content-type');
 
@@ -123,14 +155,23 @@ class NetworkService {
               });
             }
           } catch (e: any) {
-            reject({ message: e.message, res: { body, headers } });
+            reject({
+              message: e.message,
+              res: {
+                body,
+                headers,
+              },
+            });
           }
 
           if (response.status > 400) {
             return reject(body);
           }
 
-          return resolve({ body, headers });
+          return resolve({
+            body,
+            headers,
+          });
         })
         .catch((err: any) => reject(err));
     });

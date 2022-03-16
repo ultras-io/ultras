@@ -1,10 +1,10 @@
+import { CountriesViewModel, CountryViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
   ControllerListResultType,
   ControllerByIdResultType,
   ControllerInjectionResultType,
 } from 'types';
-import { CountryAttributes } from 'core/data/models/Country';
 
 interface CountriesFilterInterface {
   name?: string;
@@ -12,6 +12,6 @@ interface CountriesFilterInterface {
 }
 
 export type CountriesListParams = ControllerListParamsType<CountriesFilterInterface>;
-export type CountriesListResult = ControllerListResultType<CountryAttributes>;
-export type CountryByIdResult = ControllerByIdResultType<CountryAttributes>;
+export type CountriesListResult = ControllerListResultType<CountriesViewModel>;
+export type CountryByIdResult = ControllerByIdResultType<CountryViewModel>;
 export type CountriesInjectDataResult = ControllerInjectionResultType;

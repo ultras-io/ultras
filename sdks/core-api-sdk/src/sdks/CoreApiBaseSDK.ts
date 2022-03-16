@@ -1,8 +1,11 @@
 import NetworkService from '@ultras/services/NetworkService';
+import type { ResponseInterface } from '@ultras/services/NetworkService';
 import { Interceptor } from '../interceptors/types';
 import { AuthTokenInterceptor } from '../interceptors';
+import type { ApiResponseType, ListResponseMetaType } from './types';
 
 export type Mode = 'dev' | 'staging' | 'production';
+export { ApiResponseType, ListResponseMetaType, ResponseInterface };
 
 class CoreApiBaseSDK {
   protected api: NetworkService | undefined;
@@ -28,11 +31,15 @@ class CoreApiBaseSDK {
   }
 
   public ping() {
-    return this.api?.makeAPIGetRequest('/ping');
+    return this.api?.makeAPIGetRequest<{ message: string }>('/ping');
   }
 
   public getVersion() {
-    return this.api?.makeAPIGetRequest('/versions/current');
+    return this.api?.makeAPIGetRequest<{ message: string }>('/versions/current');
+  }
+
+  public getVersions() {
+    return this.api?.makeAPIGetRequest<{ [key in string]: string }>('/versions');
   }
 }
 
