@@ -1,3 +1,4 @@
+import { MatchViewModel, MatchesViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
   ControllerListResultType,
@@ -5,7 +6,6 @@ import {
   ControllerInjectionResultType,
   DbIdentifier,
 } from 'types';
-import { MatchAttributes } from 'core/data/models/Match';
 
 interface MatchesFilterInterface {
   dateFrom?: string;
@@ -18,6 +18,6 @@ interface MatchesFilterInterface {
 }
 
 export type MatchesListParams = ControllerListParamsType<MatchesFilterInterface>;
-export type MatchesListResult = ControllerListResultType<MatchAttributes>;
-export type MatchByIdResult = ControllerByIdResultType<MatchAttributes>;
+export type MatchesListResult = ControllerListResultType<MatchesViewModel>;
+export type MatchByIdResult = ControllerByIdResultType<MatchViewModel>;
 export type MatchesInjectDataResult = ControllerInjectionResultType;

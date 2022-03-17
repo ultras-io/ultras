@@ -1,4 +1,9 @@
-import { TeamSDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  ListResponseMetaType,
+  TeamSDK,
+  TeamsViewModel,
+} from '@ultras/core-api-sdk';
 
 const sdk = new TeamSDK('dev');
 
@@ -9,7 +14,7 @@ export const runTest = () => {
 
   return sdk
     .getTeams(params)
-    ?.then((teams: any) => {
+    ?.then((teams: ApiResponseType<TeamsViewModel, ListResponseMetaType>) => {
       console.log('TeamSDK.getTeams():', {
         params,
         result: teams,

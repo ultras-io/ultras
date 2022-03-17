@@ -1,3 +1,4 @@
+import { TeamViewModel, TeamsViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
   ControllerListResultType,
@@ -5,7 +6,6 @@ import {
   ControllerInjectionResultType,
   DbIdentifier,
 } from 'types';
-import { TeamAttributes } from 'core/data/models/Team';
 
 interface TeamsFilterInterface {
   name?: string;
@@ -15,6 +15,6 @@ interface TeamsFilterInterface {
 }
 
 export type TeamsListParams = ControllerListParamsType<TeamsFilterInterface>;
-export type TeamsListResult = ControllerListResultType<TeamAttributes>;
-export type TeamByIdResult = ControllerByIdResultType<TeamAttributes>;
+export type TeamsListResult = ControllerListResultType<TeamsViewModel>;
+export type TeamByIdResult = ControllerByIdResultType<TeamViewModel>;
 export type TeamsInjectDataResult = ControllerInjectionResultType;

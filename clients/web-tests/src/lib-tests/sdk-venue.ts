@@ -1,4 +1,9 @@
-import { VenueSDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  ListResponseMetaType,
+  VenueSDK,
+  VenuesViewModel,
+} from '@ultras/core-api-sdk';
 
 const sdk = new VenueSDK('dev');
 
@@ -10,7 +15,7 @@ export const runTest = () => {
 
   return sdk
     .getVenues(params)
-    ?.then((venues: any) => {
+    ?.then((venues: ApiResponseType<VenuesViewModel, ListResponseMetaType>) => {
       console.log('VenueSDK.getVenues():', {
         params,
         result: venues,

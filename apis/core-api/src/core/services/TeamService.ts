@@ -1,3 +1,4 @@
+import { TeamViewModel } from '@ultras/view-models';
 import { TeamTypesEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
@@ -5,9 +6,10 @@ import {
   ServiceByIdResultType,
   DbIdentifier,
 } from 'types';
+
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { TeamAttributes, TeamCreationAttributes } from 'core/data/models/Team';
+import { TeamCreationAttributes } from 'core/data/models/Team';
 import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
 
 import BaseService from './BaseService';
@@ -44,7 +46,7 @@ class TeamService extends BaseService {
 
   static async getAll(
     params: ServiceListParamsType<TeamsListParamsInterface>
-  ): ServiceListResultType<TeamAttributes> {
+  ): ServiceListResultType<TeamViewModel> {
     const query: any = this.queryInit();
 
     if (params.name) {
@@ -74,7 +76,7 @@ class TeamService extends BaseService {
     return this.findAndCountAll(db.Team, query, params);
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<TeamAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<TeamViewModel> {
     return this.findById(db.Team, id);
   }
 

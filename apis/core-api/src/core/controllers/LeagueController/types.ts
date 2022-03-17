@@ -1,3 +1,4 @@
+import { LeagueViewModel, LeaguesViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
   ControllerListResultType,
@@ -5,7 +6,6 @@ import {
   ControllerInjectionResultType,
   DbIdentifier,
 } from 'types';
-import { LeagueAttributes } from 'core/data/models/League';
 
 interface LeaguesFilterInterface {
   name?: string;
@@ -13,6 +13,6 @@ interface LeaguesFilterInterface {
 }
 
 export type LeaguesListParams = ControllerListParamsType<LeaguesFilterInterface>;
-export type LeaguesListResult = ControllerListResultType<LeagueAttributes>;
-export type LeagueByIdResult = ControllerByIdResultType<LeagueAttributes>;
+export type LeaguesListResult = ControllerListResultType<LeaguesViewModel>;
+export type LeagueByIdResult = ControllerByIdResultType<LeagueViewModel>;
 export type LeaguesInjectDataResult = ControllerInjectionResultType;

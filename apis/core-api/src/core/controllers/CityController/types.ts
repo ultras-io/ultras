@@ -1,3 +1,4 @@
+import { CityViewModel, CitiesViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
   ControllerListResultType,
@@ -5,7 +6,6 @@ import {
   ControllerInjectionResultType,
   DbIdentifier,
 } from 'types';
-import { CityAttributes } from 'core/data/models/City';
 
 interface CitiesFilterInterface {
   name?: string;
@@ -13,6 +13,6 @@ interface CitiesFilterInterface {
 }
 
 export type CitiesListParams = ControllerListParamsType<CitiesFilterInterface>;
-export type CitiesListResult = ControllerListResultType<CityAttributes>;
-export type CityByIdResult = ControllerByIdResultType<CityAttributes>;
+export type CitiesListResult = ControllerListResultType<CitiesViewModel>;
+export type CityByIdResult = ControllerByIdResultType<CityViewModel>;
 export type CitiesInjectDataResult = ControllerInjectionResultType;

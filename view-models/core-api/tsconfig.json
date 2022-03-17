@@ -15,7 +15,7 @@
     // "sourceMap": true,                     /* Generates corresponding '.map' file. */
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
     "outDir": "build" /* Redirect output structure to the directory. */,
-    "rootDir": "types" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "rootDir": "src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     // "removeComments": false,                /* Do not emit comments to output. */
     // "noEmit": true,                        /* Do not emit outputs. */
     // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
@@ -56,5 +56,5 @@
 
     "esModuleInterop": true
   },
-  "include": ["types/*.ts", "global.d.ts"]
+  "include": ["src/*.ts", "global.d.ts"]
 }

@@ -1,4 +1,9 @@
-import { CitySDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  CitiesViewModel,
+  CitySDK,
+  ListResponseMetaType,
+} from '@ultras/core-api-sdk';
 import { OrderEnum } from '@ultras/utils';
 
 const sdk = new CitySDK('dev');
@@ -14,7 +19,7 @@ export const runTest = () => {
 
   return sdk
     .getCities(params)
-    ?.then((cities: any) => {
+    ?.then((cities: ApiResponseType<CitiesViewModel, ListResponseMetaType>) => {
       console.log('CitySDK.getCities():', {
         params,
         result: cities,
