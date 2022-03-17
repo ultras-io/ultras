@@ -7,7 +7,7 @@ export const runTest = () => {
     cityId: 61,
   };
 
-  sdk
+  return sdk
     .getTeams(params)
     ?.then((teams: any) => {
       console.log('TeamSDK.getTeams():', {

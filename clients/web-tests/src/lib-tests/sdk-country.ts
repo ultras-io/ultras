@@ -1,13 +1,18 @@
-import { CountrySDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  CountriesViewModel,
+  CountrySDK,
+  ListResponseMetaType,
+} from '@ultras/core-api-sdk';
 
 const sdk = new CountrySDK('dev');
 
 export const runTest = () => {
   const params = {};
 
-  sdk
+  return sdk
     .getCountries(params)
-    ?.then((countries: any) => {
+    ?.then((countries: ApiResponseType<CountriesViewModel, ListResponseMetaType>) => {
       console.log('CountrySDK.getCountries():', {
         params,
         result: countries,

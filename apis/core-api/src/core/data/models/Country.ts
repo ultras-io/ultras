@@ -17,11 +17,11 @@ export interface CountryAttributes {
   name: string;
   code: string;
   flag: string;
-  telPrefix?: string;
+  telPrefix: string;
   dataRapidId?: number; // id of rapid api
 }
 
-export type CountryCreationAttributes = Optional<CountryAttributes, 'id'>;
+export type CountryCreationAttributes = Optional<CountryAttributes, 'id' | 'telPrefix'>;
 
 export class Country
   extends Model<CountryAttributes, CountryCreationAttributes>

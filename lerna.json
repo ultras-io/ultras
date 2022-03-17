@@ -2,9 +2,9 @@
   "packages": [
     "packages/*",
     "clients/*",
-    "bls/*",
     "apis/*",
-    "sdks/*"
+    "sdks/*",
+    "view-models/*"
   ],
   "version": "independent",
   "npmClient": "yarn",

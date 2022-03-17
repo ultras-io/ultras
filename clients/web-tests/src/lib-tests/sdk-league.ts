@@ -7,7 +7,7 @@ export const runTest = () => {
     countryId: 494,
   };
 
-  sdk
+  return sdk
     .getLeagues(params)
     ?.then((leagues: any) => {
       console.log('LeagueSDK.getLeagues():', {
