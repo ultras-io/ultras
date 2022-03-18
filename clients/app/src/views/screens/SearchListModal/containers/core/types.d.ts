@@ -12,10 +12,10 @@ interface IFailedRequestState {
 }
 
 export enum RequestStatuses {
-  INITIAL_UNSET = 'INITIAL_UNSET',
-  PENDING = 'PENDING',
-  FAILED = 'FAILED',
-  SUCCEED = 'SUCCEED',
+  UNSET,
+  PENDING,
+  FAILED,
+  SUCCEED,
 }
 
 export interface IListSearchStore<T> {
@@ -34,7 +34,7 @@ export interface ICountryControllerMethods {
   initialRequest: () => void;
   getRequestStatus: () => RequestStatuses;
   setRequestStatus: (status: RequestStatuses) => void;
-  resetState: () => void;
+  initState: () => void;
 }
 
 export interface ICountry {

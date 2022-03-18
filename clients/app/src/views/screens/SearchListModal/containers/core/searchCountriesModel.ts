@@ -1,12 +1,16 @@
 // @ts-ignore
 import create from 'zustand';
+import { CountrySDK } from '@ultras/core-api-sdk';
+
 import {
   GetState,
+  ICountry,
   ICountryControllerMethods,
   ICountryListState,
   RequestStatuses,
   SetState,
 } from './types';
+import { ListRequestParams } from '@ultras/utils';
 
 const defaultPaginationConfig = {
   limit: 50,
@@ -21,7 +25,7 @@ const initialListDataState: ICountryListState = {
   },
   request: {
     pagination: defaultPaginationConfig,
-    status: RequestStatuses.INITIAL_UNSET,
+    status: RequestStatuses.UNSET,
   },
 };
 
@@ -34,6 +38,8 @@ function generateControllerMethods(
   set: SetState,
   get: GetState
 ): ICountryControllerMethods {
+  const countrySdk = new CountrySDK(process.env.NODE_ENV);
+
   function setRequestStatus(status: RequestStatuses) {
     set((state: ICountryListState) => ({
       ...state,
@@ -48,14 +54,19 @@ function generateControllerMethods(
     return get().request.status;
   }
 
-  function resetState() {
+  function initState() {
     set(() => initialListDataState);
+  }
+
+  async function getList() {
+    const params: ListRequestParams = {};
+    const countries: ICountry[] = await countrySdk.getCountries();
   }
 
   function initialRequest() {}
 
   return {
-    resetState,
+    initState,
     initialRequest,
     setRequestStatus,
     getRequestStatus,
