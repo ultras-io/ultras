@@ -1,4 +1,9 @@
-import { MatchSDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  ListResponseMetaType,
+  MatchesViewModel,
+  MatchSDK,
+} from '@ultras/core-api-sdk';
 
 const sdk = new MatchSDK('dev');
 
@@ -9,7 +14,7 @@ export const runTest = () => {
 
   return sdk
     .getMatches(params)
-    ?.then((matches: any) => {
+    ?.then((matches: ApiResponseType<MatchesViewModel, ListResponseMetaType>) => {
       console.log('MatchSDK.getMatches():', {
         params,
         result: matches,

@@ -1,5 +1,6 @@
+import { UserViewModel } from '@ultras/view-models';
 import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
-import { UserAttributes, User } from 'core/data/models/User';
+import { User } from 'core/data/models/User';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
 import { ControllerResultType, DbIdentifier } from 'types';
 
@@ -63,7 +64,7 @@ export type UserRegistrationResult = ControllerResultType<
   {
     success: boolean;
     error?: UserErrorEnum;
-    user?: UserAttributes;
+    user?: UserViewModel;
   },
   {
     token: AuthTokenType;
@@ -79,7 +80,7 @@ export type UserLoginResult = ControllerResultType<
   {
     success: boolean;
     error?: UserErrorEnum;
-    user?: UserAttributes;
+    user?: UserViewModel;
   },
   {
     token: AuthTokenType;

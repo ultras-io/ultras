@@ -1,3 +1,4 @@
+import { CityViewModel } from '@ultras/view-models';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -7,7 +8,7 @@ import {
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { CityAttributes, CityCreationAttributes } from 'core/data/models/City';
+import { CityCreationAttributes } from 'core/data/models/City';
 import injectCities, { RapidApiCity } from 'core/data/inject-scripts/injectCities';
 import BaseService from './BaseService';
 
@@ -33,7 +34,7 @@ class CityService extends BaseService {
 
   static async getAll(
     params: ServiceListParamsType<CitiesListParamsInterface>
-  ): ServiceListResultType<CityAttributes> {
+  ): ServiceListResultType<CityViewModel> {
     const query: any = this.queryInit();
 
     if (params.name) {
@@ -51,7 +52,7 @@ class CityService extends BaseService {
     return this.findAndCountAll(db.City, query, params);
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<CityAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<CityViewModel> {
     return this.findById(db.City, id);
   }
 

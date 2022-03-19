@@ -1,12 +1,14 @@
+import { VenueViewModel } from '@ultras/view-models';
 import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
   DbIdentifier,
 } from 'types';
+
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { VenueAttributes, VenueCreationAttributes } from 'core/data/models/Venue';
+import { VenueCreationAttributes } from 'core/data/models/Venue';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
 
 import BaseService from './BaseService';
@@ -38,7 +40,7 @@ class VenueService extends BaseService {
 
   static async getAll(
     params: ServiceListParamsType<VenuesListParamsInterface>
-  ): ServiceListResultType<VenueAttributes> {
+  ): ServiceListResultType<VenueViewModel> {
     const query: any = this.queryInit();
 
     if (params.name) {
@@ -62,7 +64,7 @@ class VenueService extends BaseService {
     return this.findAndCountAll(db.Venue, query, params);
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<VenueAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<VenueViewModel> {
     return this.findById(db.Venue, id);
   }
 

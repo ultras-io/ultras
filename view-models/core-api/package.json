@@ -2,7 +2,8 @@
     "name": "@ultras/view-models",
     "version": "1.0.0",
     "description": "Core api sdk",
-    "types": "./index.d.ts",
+    "types": "./build/types/index.d.ts",
+    "main": "./build/index.js",
     "license": "ISC",
     "repository": {
       "type": "git",

@@ -1,4 +1,9 @@
-import { LeagueSDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  LeagueSDK,
+  LeaguesViewModel,
+  ListResponseMetaType,
+} from '@ultras/core-api-sdk';
 
 const sdk = new LeagueSDK('dev');
 
@@ -9,7 +14,7 @@ export const runTest = () => {
 
   return sdk
     .getLeagues(params)
-    ?.then((leagues: any) => {
+    ?.then((leagues: ApiResponseType<LeaguesViewModel, ListResponseMetaType>) => {
       console.log('LeagueSDK.getLeagues():', {
         params,
         result: leagues,

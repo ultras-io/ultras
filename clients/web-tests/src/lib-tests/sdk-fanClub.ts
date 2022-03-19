@@ -1,4 +1,9 @@
-import { FanClubSDK } from '@ultras/core-api-sdk';
+import {
+  ApiResponseType,
+  FanClubSDK,
+  FanClubsViewModel,
+  ListResponseMetaType,
+} from '@ultras/core-api-sdk';
 
 const sdk = new FanClubSDK('dev');
 
@@ -9,7 +14,7 @@ export const runTest = () => {
 
   return sdk
     .getFanClubs(params)
-    ?.then((fanClubs: any) => {
+    ?.then((fanClubs: ApiResponseType<FanClubsViewModel, ListResponseMetaType>) => {
       console.log('FanClubSDk.getFanClubs():', {
         params,
         result: fanClubs,

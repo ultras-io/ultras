@@ -1,12 +1,14 @@
+import { LeagueViewModel } from '@ultras/view-models';
 import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
   DbIdentifier,
 } from 'types';
+
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { LeagueAttributes, LeagueCreationAttributes } from 'core/data/models/League';
+import { LeagueCreationAttributes } from 'core/data/models/League';
 import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
 
 import BaseService from './BaseService';
@@ -33,7 +35,7 @@ class LeagueService extends BaseService {
 
   static async getAll(
     params: ServiceListParamsType<LeaguesListParamsInterface>
-  ): ServiceListResultType<LeagueAttributes> {
+  ): ServiceListResultType<LeagueViewModel> {
     const query: any = this.queryInit();
 
     if (params.name) {
@@ -51,7 +53,7 @@ class LeagueService extends BaseService {
     return this.findAndCountAll(db.League, query, params);
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<LeagueAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<LeagueViewModel> {
     return this.findById(db.League, id);
   }
 

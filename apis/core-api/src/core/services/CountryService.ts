@@ -1,4 +1,5 @@
 import { OrderEnum } from '@ultras/utils';
+import { CountryViewModel } from '@ultras/view-models';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -7,7 +8,7 @@ import {
 } from 'types';
 
 import db from 'core/data/models';
-import { CountryAttributes, CountryCreationAttributes } from 'core/data/models/Country';
+import { CountryCreationAttributes } from 'core/data/models/Country';
 import injectCountries, {
   RapidApiCountry,
 } from 'core/data/inject-scripts/injectCountries';
@@ -22,7 +23,7 @@ export interface CountriesListParamsInterface {
 class CountryService extends BaseService {
   static async getAll(
     params: ServiceListParamsType<CountriesListParamsInterface>
-  ): ServiceListResultType<CountryAttributes> {
+  ): ServiceListResultType<CountryViewModel> {
     const query: any = this.queryInit();
 
     if (params.name) {
@@ -40,7 +41,7 @@ class CountryService extends BaseService {
     return this.findAndCountAll(db.Country, query, params);
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<CountryAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<CountryViewModel> {
     return this.findById(db.Country, id);
   }
 

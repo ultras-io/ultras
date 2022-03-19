@@ -1,3 +1,4 @@
+import { VenueViewModel, VenuesViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
   ControllerListResultType,
@@ -5,7 +6,6 @@ import {
   ControllerInjectionResultType,
   DbIdentifier,
 } from 'types';
-import { VenueAttributes } from 'core/data/models/Venue';
 
 interface VenuesFilterInterface {
   name?: string;
@@ -14,6 +14,6 @@ interface VenuesFilterInterface {
 }
 
 export type VenuesListParams = ControllerListParamsType<VenuesFilterInterface>;
-export type VenuesListResult = ControllerListResultType<VenueAttributes>;
-export type VenueByIdResult = ControllerByIdResultType<VenueAttributes>;
+export type VenuesListResult = ControllerListResultType<VenuesViewModel>;
+export type VenueByIdResult = ControllerByIdResultType<VenueViewModel>;
 export type VenuesInjectDataResult = ControllerInjectionResultType;

@@ -1,3 +1,4 @@
+import { MatchViewModel } from '@ultras/view-models';
 import { parseMatchStatus, WinnerEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
@@ -7,7 +8,7 @@ import {
 } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { MatchAttributes, MatchCreationAttributes } from 'core/data/models/Match';
+import { MatchCreationAttributes } from 'core/data/models/Match';
 import injectMatches, { RapidApiMatch } from 'core/data/inject-scripts/injectMatches';
 
 import BaseService from './BaseService';
@@ -55,7 +56,7 @@ class MatchService extends BaseService {
 
   static async getAll(
     params: ServiceListParamsType<MatchesListParamsInterface>
-  ): ServiceListResultType<MatchAttributes> {
+  ): ServiceListResultType<MatchViewModel> {
     const query: any = this.queryInit();
 
     if (params.dateFrom && params.dateTo) {
@@ -106,7 +107,7 @@ class MatchService extends BaseService {
     return this.findAndCountAll(db.Match, query, params);
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<MatchAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<MatchViewModel> {
     return this.findById(db.Match, id);
   }
 
