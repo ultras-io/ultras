@@ -26,11 +26,12 @@ export interface FanClubAttributes {
   coverPhoto: string | null;
   isOfficial: boolean;
   privacy: FanClubPrivacyEnum;
+  membersCount: number;
 }
 
 export type FanClubCreationAttributes = Optional<
   FanClubAttributes,
-  'id' | 'description' | 'coverPhoto' | 'isOfficial'
+  'id' | 'description' | 'coverPhoto' | 'isOfficial' | 'membersCount'
 >;
 
 export class FanClub
@@ -49,6 +50,7 @@ export class FanClub
   public coverPhoto!: string | null;
   public isOfficial!: boolean;
   public privacy!: FanClubPrivacyEnum;
+  public membersCount!: number;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -171,6 +173,11 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
           values: [FanClubPrivacyEnum.public, FanClubPrivacyEnum.private],
         }),
         allowNull: false,
+      },
+      membersCount: {
+        type: DataTypes.INTEGER(),
+        allowNull: false,
+        defaultValue: 0,
       },
     },
     {
