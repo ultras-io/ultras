@@ -8,3 +8,5 @@ export * from './view-models/team';
 export * from './view-models/match';
 export * from './view-models/user';
 export * from './view-models/fanClub';
+export * from './view-models/fanClubMemberRole';
+export * from './view-models/fanClubMember';

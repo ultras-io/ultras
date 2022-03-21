@@ -1,8 +1,8 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
+import { FanClubMemberViewModel } from '@ultras/view-models';
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { FanClubMemberAttributes } from 'core/data/models/FanClubMember';
 import {
   DbIdentifier,
   ServiceByIdResultType,
@@ -70,6 +70,9 @@ class FanClubMemberService extends BaseService {
         {
           model: db.FanClub,
           as: resources.FAN_CLUB.ALIAS.SINGULAR,
+          attributes: {
+            exclude: ['cityId', 'countryId', 'teamId', 'ownerId'],
+          },
         },
         {
           model: db.User,
@@ -88,7 +91,7 @@ class FanClubMemberService extends BaseService {
     memberId,
     role,
     status,
-  }: CreateMemberInterface): Promise<null | FanClubMemberAttributes> {
+  }: CreateMemberInterface): Promise<null | FanClubMemberViewModel> {
     const existingMember = await db.FanClubMember.findOne({
       where: {
         fanClubId: fanClubId,
@@ -253,13 +256,13 @@ class FanClubMemberService extends BaseService {
     return result;
   }
 
-  static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubMemberAttributes> {
+  static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubMemberViewModel> {
     return this.findById(db.FanClubMember, id);
   }
 
   static async getAll(
     params: ServiceListParamsType<FanClubMembershipListParamsInterface>
-  ) {
+  ): ServiceListResultType<FanClubMemberViewModel> {
     // fan club id or memberId must be provided
     if (!params.fanClubId && !params.memberId) {
       return { rows: [], count: 0 };
