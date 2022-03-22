@@ -1,7 +1,7 @@
 import { FanClubMemberStatusEnum, FanClubMemberRoleEnum, OrderEnum } from '@ultras/utils';
+import { FanClubMemberViewModel } from '@ultras/view-models';
 import { DbIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
-import { FanClubMemberAttributes } from 'core/data/models/FanClubMember';
 import { FanClubMemberService, UserService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
@@ -43,7 +43,7 @@ class FanClubMembershipController extends BaseController {
 
     const invitationsCast = invitations as Array<InvitationsType>;
     const promises = invitationsCast.map((invitation: InvitationsType) => {
-      return new Promise<null | FanClubMemberAttributes>(async resolve => {
+      return new Promise<null | FanClubMemberViewModel>(async resolve => {
         let memberId: null | DbIdentifier = invitation.id || null;
 
         // if user id not provided we need to find user by their another identifier:
@@ -99,7 +99,7 @@ class FanClubMembershipController extends BaseController {
     const membershipsResult = await Promise.all(promises);
     const memberships = membershipsResult
       .filter(membership => !!membership)
-      .map(membership => membership as FanClubMemberAttributes);
+      .map(membership => membership as FanClubMemberViewModel);
 
     if (isBulkAction) {
       return {
@@ -201,14 +201,14 @@ class FanClubMembershipController extends BaseController {
 
     const membershipsUpdateResult = await Promise.all(promises);
     const memberships = membershipsUpdateResult
-      .map(membership => membership as [number, Array<FanClubMemberAttributes>])
+      .map(membership => membership as [number, Array<FanClubMemberViewModel>])
       .map(membershipInfo => {
         if (Array.isArray(membershipInfo[1]) && membershipInfo[1].length > 0) {
           return membershipInfo[1][0];
         }
         return null;
       })
-      .filter(membership => !!membership) as Array<FanClubMemberAttributes>;
+      .filter(membership => !!membership) as Array<FanClubMemberViewModel>;
 
     if (isBulkAction) {
       return {
@@ -323,7 +323,7 @@ class FanClubMembershipController extends BaseController {
     const membershipsResult = await Promise.all(promises);
     const memberships = membershipsResult
       .filter(membership => !!membership)
-      .map(membership => membership as FanClubMemberAttributes);
+      .map(membership => membership as FanClubMemberViewModel);
 
     if (isBulkAction) {
       return {

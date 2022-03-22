@@ -1,4 +1,5 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
+import { FanClubMemberViewModel } from '@ultras/view-models';
 import {
   ControllerResultType,
   ControllerListParamsType,
@@ -6,7 +7,6 @@ import {
   ControllerByIdResultType,
   DbIdentifier,
 } from 'types';
-import { FanClubMemberAttributes } from 'core/data/models/FanClubMember';
 
 interface FanClubFilterInterface {
   search?: string;
@@ -44,8 +44,8 @@ export type UpdatesType = {
 };
 
 export type FanClubMembershipInviteResult = ControllerResultType<{
-  membership?: FanClubMemberAttributes;
-  memberships?: Array<FanClubMemberAttributes>;
+  membership?: FanClubMemberViewModel;
+  memberships?: Array<FanClubMemberViewModel>;
 }>;
 
 export type FanClubMembershipUpdateParams = {
@@ -54,8 +54,8 @@ export type FanClubMembershipUpdateParams = {
 };
 
 export type FanClubMembershipUpdateResult = ControllerResultType<{
-  membership?: FanClubMemberAttributes;
-  memberships?: Array<FanClubMemberAttributes>;
+  membership?: FanClubMemberViewModel;
+  memberships?: Array<FanClubMemberViewModel>;
 }>;
 
 export type FanClubMembershipDeleteByIdParams = {
@@ -73,8 +73,8 @@ export type FanClubMembershipRequestParams = {
 };
 
 export type FanClubMembershipRequestResult = ControllerResultType<{
-  membership?: FanClubMemberAttributes;
-  memberships?: Array<FanClubMemberAttributes>;
+  membership?: FanClubMemberViewModel;
+  memberships?: Array<FanClubMemberViewModel>;
 }>;
 
 export type FanClubMembershipActionParams = {
@@ -101,14 +101,14 @@ export type FanClubMembershipByIdParams = {
   membershipId: DbIdentifier;
 };
 export type FanClubMembershipByIdResult =
-  ControllerByIdResultType<FanClubMemberAttributes>;
+  ControllerByIdResultType<FanClubMemberViewModel>;
 
 export type FanClubMembershipsListParams =
   ControllerListParamsType<FanClubMembershipsFilterInterface>;
 export type FanClubMembershipsListResult =
-  ControllerListResultType<FanClubMemberAttributes>;
+  ControllerListResultType<FanClubMemberViewModel>;
 
 export type FanClubMembershipsByMemberIdListParams =
   ControllerListParamsType<FanClubMembershipsByMemberIdInterface>;
 export type FanClubMembershipsByMemberIdListResult =
-  ControllerListResultType<FanClubMemberAttributes>;
+  ControllerListResultType<FanClubMemberViewModel>;
