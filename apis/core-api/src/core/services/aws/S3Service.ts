@@ -14,6 +14,9 @@ const s3 = new awsSdk.S3({
 });
 
 class S3Service extends BaseService {
+  /**
+   * Generate pre-signed url to upload file ot AWS S3 bucket.
+   */
   static async getSignedUrl(folderName: AwsS3FolderEnum, extension: string) {
     // build unique file name with provided extension
     const folder = AWS_S3_BUCKET_FOLDERS[folderName];

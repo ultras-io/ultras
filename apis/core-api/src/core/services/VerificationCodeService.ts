@@ -27,6 +27,15 @@ interface ValidateResultInterface {
 const expireAfterMs = 5 * 60 * 1000;
 
 class VerificationCodeService extends BaseService {
+  /**
+   * Build query than checks verification code and user specific field.
+   *
+   * User specific field can be one of:
+   * 1) email
+   * 2) phone
+   * 
+   * If user specific field not provided then NULL will be returned.
+   */
   private static buildQuery(
     { code, phone, email }: ValidateParamsInterface,
     checkExpirations: boolean
@@ -60,12 +69,18 @@ class VerificationCodeService extends BaseService {
     return query;
   }
 
+  /**
+   * Generate verification code.
+   */
   static async generate(length = 4): Promise<string> {
     return generateToken(length, {
       number: true,
     });
   }
 
+  /**
+   * Store generated verification code with user specific identifier.
+   */
   static async store({ code, provider, phone, email }: StoreInterface): Promise<void> {
     const expirationTimestamp = Date.now() + expireAfterMs;
 
@@ -78,6 +93,9 @@ class VerificationCodeService extends BaseService {
     });
   }
 
+  /**
+   * Cleanup verification codes table, remove expired tokens
+   */
   static async removeExpiredCodes(): Promise<void> {
     await db.VerificationCode.destroy({
       where: {
@@ -88,6 +106,9 @@ class VerificationCodeService extends BaseService {
     });
   }
 
+  /**
+   * Get verification code instance by code and user specific identifier.
+   */
   static async getVerificationCode({
     code,
     phone,
@@ -105,6 +126,9 @@ class VerificationCodeService extends BaseService {
     return verificationCode;
   }
 
+  /**
+   * Remove verification code by code and user specific identifier.
+   */
   static async removeVerificationCode({
     code,
     phone,

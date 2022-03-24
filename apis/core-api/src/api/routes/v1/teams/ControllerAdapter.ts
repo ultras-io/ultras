@@ -3,6 +3,10 @@ import TeamController from 'core/controllers/TeamController';
 import { Context } from 'types';
 
 class ControllerAdapter {
+  /**
+   * Inject teams from Rapid API.
+   * @TODO: move it into seeder.
+   */
   static async inject(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
 

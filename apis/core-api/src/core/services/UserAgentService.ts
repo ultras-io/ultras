@@ -19,6 +19,9 @@ class UserAgentService extends BaseService {
     return null != matches ? matches[1] : 'UNKNOWN';
   }
 
+  /**
+   * Detect browser name by user agent.
+   */
   static browser(userAgent: string): BrowserType {
     if (userAgent.indexOf('Opera') != -1 || userAgent.indexOf('OPR') != -1) {
       return 'Opera';
@@ -42,6 +45,9 @@ class UserAgentService extends BaseService {
     return 'UNKNOWN';
   }
 
+  /**
+   * Detect operation system name by user agent.
+   */
   static os(userAgent: string): OperationSystemType {
     const info: OperationSystemType = {
       name: 'UNKNOWN',
@@ -85,6 +91,10 @@ class UserAgentService extends BaseService {
     return info;
   }
 
+  /**
+   * Detect user device type by user agent.
+   * Possible types: "tablet", "desktop" and "mobile"
+   */
   static device(userAgent: string): DeviceType {
     const tabletPattern = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i;
     if (tabletPattern.test(userAgent)) {

@@ -32,6 +32,9 @@ class CityService extends BaseService {
     };
   }
 
+  /**
+   * Get cities by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<CitiesListParamsInterface>
   ): ServiceListResultType<CityViewModel> {
@@ -52,10 +55,16 @@ class CityService extends BaseService {
     return this.findAndCountAll(db.City, query, params);
   }
 
+  /**
+   * Get city by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<CityViewModel> {
     return this.findById(db.City, id);
   }
 
+  /**
+   * Inject data from Rapid API.
+   */
   static async inject(countryCode: string, countryId: DbIdentifier) {
     const {
       body: { data },

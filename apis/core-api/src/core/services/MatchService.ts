@@ -54,6 +54,9 @@ class MatchService extends BaseService {
     };
   }
 
+  /**
+   * Get matches by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<MatchesListParamsInterface>
   ): ServiceListResultType<MatchViewModel> {
@@ -107,10 +110,17 @@ class MatchService extends BaseService {
     return this.findAndCountAll(db.Match, query, params);
   }
 
+  /**
+   * Get match by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<MatchViewModel> {
     return this.findById(db.Match, id);
   }
 
+  /**
+   * Inject data from Rapid API.
+   * @important matches date is required.
+   */
   static async inject(date: string) {
     const {
       body: { response },

@@ -3,6 +3,25 @@ import CityController from 'core/controllers/CityController';
 import { Context } from 'types';
 
 class ControllerAdapter {
+  /**
+   * Inject cities from Rapid API.
+   * @TODO: move it into seeder.
+   */
+  static async inject(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+
+    /** CONTROLLERS */
+    const { data } = await CityController.inject();
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.created(response);
+  }
+
   static async getById(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { id } = ctx.request.params;
@@ -36,20 +55,6 @@ class ControllerAdapter {
     };
 
     return ctx.ok(response);
-  }
-  static async inject(ctx: Context): Promise<void> {
-    /** VALIDATIONS, PARAMETERS */
-
-    /** CONTROLLERS */
-    const { data } = await CityController.inject();
-
-    /** RESPONSE */
-    // @TODO make response types
-    const response = {
-      data,
-    };
-
-    return ctx.created(response);
   }
 }
 

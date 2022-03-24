@@ -3,6 +3,10 @@ import CountryController from 'core/controllers/CountryController';
 import { Context } from 'types';
 
 class ControllerAdapter {
+  /**
+   * Inject countries from Rapid API.
+   * @TODO: move it into seeder.
+   */
   static async inject(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
 
