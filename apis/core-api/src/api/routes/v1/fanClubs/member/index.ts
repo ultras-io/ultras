@@ -1,9 +1,7 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import Router from 'koa-router';
 import checkUserAuth from 'api/middlewares/check-user-auth';
-import checkFanClubExistence from 'api/middlewares/check-fan-club-existence';
-import checkFanClubRole from 'api/middlewares/check-fan-club-role';
-import checkFanClubStatus from 'api/middlewares/check-fan-club-status';
+import validateFanClubMembership from '../middlewares/validateFanClubMembership';
 import ControllerAdapter from './ControllerAdapter';
 
 // #region - with fan club id routes
@@ -13,25 +11,34 @@ const routerWithFanClubId = new Router({
   prefix: `/:${idKey}/memberships`,
 });
 
-const middlewaresWithFanClubId = [checkUserAuth(), checkFanClubExistence(idKey)];
-
 routerWithFanClubId.post(
   '/join',
-  ...middlewaresWithFanClubId,
+  checkUserAuth(),
+  validateFanClubMembership({}, idKey),
   ControllerAdapter.requestJoin
 );
 routerWithFanClubId.delete(
   '/:id/leave',
-  ...middlewaresWithFanClubId,
-  checkFanClubRole([FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member], idKey),
+  checkUserAuth(),
+  validateFanClubMembership(
+    {
+      roles: [FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member],
+    },
+    idKey
+  ),
   ControllerAdapter.leave
 );
 
 // add middleware that checks member roles and pending status
 const middlewaresWithFanClubIdAndChecks = [
-  ...middlewaresWithFanClubId,
-  checkFanClubRole([FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member], idKey),
-  checkFanClubStatus([FanClubMemberStatusEnum.pendingInvitation], idKey),
+  checkUserAuth(),
+  validateFanClubMembership(
+    {
+      roles: [FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member],
+      statuses: [FanClubMemberStatusEnum.pendingInvitation],
+    },
+    idKey
+  ),
 ];
 
 routerWithFanClubId.patch(
@@ -52,15 +59,8 @@ const routerWithoutFanClubId = new Router({
   prefix: '/memberships',
 });
 
-const middlewaresWithoutFanClubId = [checkUserAuth()];
-// routerWithoutFanClubId.use(...middlewaresWithoutFanClubId);
-
-routerWithoutFanClubId.post(
-  '/join',
-  ...middlewaresWithoutFanClubId,
-  ControllerAdapter.requestJoin
-);
-routerWithoutFanClubId.get('/', ...middlewaresWithoutFanClubId, ControllerAdapter.getAll);
+routerWithoutFanClubId.post('/join', checkUserAuth(), ControllerAdapter.requestJoin);
+routerWithoutFanClubId.get('/', checkUserAuth(), ControllerAdapter.getAll);
 // #endregion
 
 // build new router that requires authenticated user, then

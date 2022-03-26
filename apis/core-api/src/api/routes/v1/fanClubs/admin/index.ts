@@ -1,9 +1,7 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import Router from 'koa-router';
 import checkUserAuth from 'api/middlewares/check-user-auth';
-import checkFanClubExistence from 'api/middlewares/check-fan-club-existence';
-import checkFanClubRole from 'api/middlewares/check-fan-club-role';
-import checkFanClubStatus from 'api/middlewares/check-fan-club-status';
+import validateFanClubMembership from '../middlewares/validateFanClubMembership';
 import ControllerAdapter from './ControllerAdapter';
 
 const idKey = 'fanClubId';
@@ -13,9 +11,13 @@ const router = new Router({
 
 const middlewares = [
   checkUserAuth(),
-  checkFanClubExistence(idKey),
-  checkFanClubRole([FanClubMemberRoleEnum.owner, FanClubMemberRoleEnum.admin], idKey),
-  checkFanClubStatus([FanClubMemberStatusEnum.active], idKey),
+  validateFanClubMembership(
+    {
+      roles: [FanClubMemberRoleEnum.owner, FanClubMemberRoleEnum.admin],
+      statuses: [FanClubMemberStatusEnum.active],
+    },
+    idKey
+  ),
 ];
 
 // router.use(...middlewares);

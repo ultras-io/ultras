@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import checkUserAuth from 'api/middlewares/check-user-auth';
-import checkFanClubExistence from 'api/middlewares/check-fan-club-existence';
+import checkFanClubExistence from '../middlewares/checkFanClubExistence';
 import ControllerAdapter from './ControllerAdapter';
 
 const idKey = 'fanClubId';

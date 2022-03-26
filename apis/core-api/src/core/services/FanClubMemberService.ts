@@ -205,6 +205,19 @@ class FanClubMemberService extends BaseService {
     return roles.includes(role);
   }
 
+  // get membership by fan club id and member id
+  static async getOne(fanClubId: DbIdentifier, memberId: DbIdentifier) {
+    const fanClubMember = await db.FanClubMember.findOne({
+      where: {
+        fanClubId,
+        memberId,
+      },
+      ...this.includeRelations(),
+    });
+
+    return fanClubMember;
+  }
+
   /**
    * Check if user has provided status(es)
    */
