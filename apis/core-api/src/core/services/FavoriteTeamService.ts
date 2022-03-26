@@ -5,7 +5,10 @@ import { FavoriteTeamCreationAttributes } from 'core/data/models/FavoriteTeam';
 import BaseService from './BaseService';
 
 class FavoriteTeamService extends BaseService {
-  static async addToUserFavorites(
+  /**
+   * Add user new favorite team.
+   */
+  static async add(
     userId: DbIdentifier,
     teamsId: DbIdentifier | Array<DbIdentifier>
   ): Promise<void> {
@@ -23,6 +26,15 @@ class FavoriteTeamService extends BaseService {
     await db.FavoriteTeam.bulkCreate(data, {
       ignoreDuplicates: true,
     });
+  }
+  /**
+   * Remove user new favorite team.
+   */
+  static async remove(
+    userId: DbIdentifier,
+    teamsId: DbIdentifier | Array<DbIdentifier>
+  ): Promise<void> {
+    // TODO: write code ...
   }
 }
 

@@ -12,6 +12,9 @@ interface UserUniqueIdentifierInterface {
   id?: null | DbIdentifier;
 }
 class UserService extends BaseService {
+  /**
+   * Check username is taken.
+   */
   static async isUsernameTaken(username: string): ServiceResultType<boolean> {
     const user = await db.User.findOne({
       where: {
@@ -22,10 +25,16 @@ class UserService extends BaseService {
     return null != user;
   }
 
+  /**
+   * Check username is available.
+   */
   static async isUsernameAvailable(username: string): ServiceResultType<boolean> {
     return !this.isUsernameTaken(username);
   }
 
+  /**
+   * Check email is taken.
+   */
   static async isEmailTaken(email: string): ServiceResultType<boolean> {
     const user = await db.User.findOne({
       where: {
@@ -36,10 +45,16 @@ class UserService extends BaseService {
     return null != user;
   }
 
+  /**
+   * Check email is available.
+   */
   static async isEmailAvailable(email: string): ServiceResultType<boolean> {
     return !this.isEmailTaken(email);
   }
 
+  /**
+   * Check phone is taken.
+   */
   static async isPhoneTaken(phone: string): ServiceResultType<boolean> {
     const user = await db.User.findOne({
       where: {
@@ -50,10 +65,16 @@ class UserService extends BaseService {
     return null != user;
   }
 
+  /**
+   * Check phone is available.
+   */
   static async isPhoneAvailable(phone: string): ServiceResultType<boolean> {
     return !this.isPhoneTaken(phone);
   }
 
+  /**
+   * Create user.
+   */
   static async create({
     email,
     phone,
@@ -72,6 +93,15 @@ class UserService extends BaseService {
     return user;
   }
 
+  /**
+   * Find user by their identifier.
+   * 
+   * User specific identifier fields:
+   * 1) id
+   * 2) username
+   * 3) phone
+   * 4) email
+   */
   static async findByUniqueIdentifier(
     identifier: UserUniqueIdentifierInterface
   ): ServiceResultType<null | User> {
@@ -93,6 +123,9 @@ class UserService extends BaseService {
     return user;
   }
 
+  /**
+   * Create user from fan club invitation by phone number.
+   */
   static async createUserFromInvitationByPhone(
     phone: string
   ): ServiceResultType<null | User> {
@@ -100,6 +133,9 @@ class UserService extends BaseService {
     return null;
   }
 
+  /**
+   * Create user from fan club invitation by email address.
+   */
   static async createUserFromInvitationByEmail(
     email: string
   ): ServiceResultType<null | User> {

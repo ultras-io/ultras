@@ -87,6 +87,9 @@ class FanClubMemberService extends BaseService {
     };
   }
 
+  /**
+   * Add member to fan club.
+   */
   static async add({
     fanClubId,
     memberId,
@@ -128,6 +131,9 @@ class FanClubMemberService extends BaseService {
     return newMember;
   }
 
+  /**
+   * Remove member from fan club.
+   */
   static async remove({ fanClubId, membershipId, memberId }: RemoveMemberInterface) {
     const conditions: any = {
       fanClubId: fanClubId,
@@ -147,6 +153,9 @@ class FanClubMemberService extends BaseService {
     await FanClubService.updateMembersCount(fanClubId);
   }
 
+  /**
+   * Get role id by role name.
+   */
   static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<DbIdentifier | null> {
     const role = await db.FanClubMemberRole.findOne({
       where: { role: roleName },
@@ -159,7 +168,9 @@ class FanClubMemberService extends BaseService {
     return role.getDataValue('id') as DbIdentifier;
   }
 
-  // check if user has provided role(s)
+  /**
+   * Check if user has provided role(s)
+   */
   static async isHasRole(
     fanClubId: DbIdentifier,
     memberId: DbIdentifier,
@@ -194,7 +205,9 @@ class FanClubMemberService extends BaseService {
     return roles.includes(role);
   }
 
-  // check if user has provided status(es)
+  /**
+   * Check if user has provided status(es)
+   */
   static async isHasStatus(
     fanClubId: DbIdentifier,
     memberId: DbIdentifier,
@@ -220,7 +233,9 @@ class FanClubMemberService extends BaseService {
     return statuses.includes(status);
   }
 
-  // update member role and/or status on fan club
+  /**
+   * Update member role and/or status on fan club
+   */
   static async updateStatusAndRole({
     fanClubId,
     membershipId,
@@ -260,10 +275,16 @@ class FanClubMemberService extends BaseService {
     return result;
   }
 
+  /**
+   * Get fan club membership by id.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubMemberViewModel> {
     return this.findById(db.FanClubMember, id);
   }
 
+  /**
+   * Get fan club memberships by provided filters.
+   */
   static async getAll(
     params: ServiceListParamsType<FanClubMembershipListParamsInterface>
   ): ServiceListResultType<FanClubMemberViewModel> {

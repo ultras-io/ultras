@@ -2,6 +2,9 @@ import CoreMailerService from '@ultras/services/MailerService';
 import BaseService from './BaseService';
 
 class MailerService extends BaseService {
+  /**
+   * Send user register/login confirmation code to email.
+   */
   static async sendVerificationCode({ email, code }: any): Promise<boolean> {
     try {
       const result = await CoreMailerService.send({

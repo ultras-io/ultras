@@ -21,6 +21,9 @@ export interface CountriesListParamsInterface {
 }
 
 class CountryService extends BaseService {
+  /**
+   * Get countries by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<CountriesListParamsInterface>
   ): ServiceListResultType<CountryViewModel> {
@@ -41,10 +44,16 @@ class CountryService extends BaseService {
     return this.findAndCountAll(db.Country, query, params);
   }
 
+  /**
+   * Get country by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<CountryViewModel> {
     return this.findById(db.Country, id);
   }
 
+  /**
+   * Get country code/id list.
+   */
   static async getCodesAndIds() {
     const excludedCountryCodes = ['AW', 'XK', 'PS', 'GP', 'GI', 'FO', 'CW', 'BM'];
     const countries = await db.Country.findAll({
@@ -63,6 +72,9 @@ class CountryService extends BaseService {
     return countries;
   }
 
+  /**
+   * Inject data from Rapid API.
+   */
   static async inject() {
     const {
       body: { response },

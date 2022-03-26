@@ -2,6 +2,9 @@ import { Middleware, Next as KoaNext } from 'koa';
 import { Context } from 'types';
 import { UserAgentService } from 'core/services';
 
+/**
+ * Generate device fingerprint.
+ */
 const generateFingerprint = (ctx: Context): string => {
   // DON'T include request specific data
   const json = JSON.stringify({
@@ -14,6 +17,10 @@ const generateFingerprint = (ctx: Context): string => {
   return Buffer.from(json).toString('base64');
 };
 
+/**
+ * Append user agent parsed data to context and generate
+ * specific fingerprint ID for device.
+ */
 const appendDeviceData = (ctx: Context) => {
   const userAgent = ctx.headers['user-agent'];
 

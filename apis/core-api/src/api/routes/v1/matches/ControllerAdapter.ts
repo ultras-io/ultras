@@ -3,6 +3,10 @@ import MatchController from 'core/controllers/MatchController';
 import { Context } from 'types';
 
 class ControllerAdapter {
+  /**
+   * Inject matches from Rapid API.
+   * @TODO: move it into seeder.
+   */
   static async inject(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const date = '2022-01-15';

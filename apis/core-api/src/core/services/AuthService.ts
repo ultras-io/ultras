@@ -28,6 +28,9 @@ export interface DeviceInformationInterface {
 }
 
 class AuthService extends BaseService {
+  /**
+   * Generate auth token based on user id and requested device.
+   */
   static async generateAuthToken(
     dataToHash: DataToHashInterface,
     device: DeviceInformationInterface
@@ -53,6 +56,8 @@ class AuthService extends BaseService {
       },
     });
 
+    // create new session model if user login with device first time, otherwise
+    // we need to update previous token and expiration time.
     if (!model) {
       await db.UserSession.create({
         userId: dataToHash.userId,
@@ -79,10 +84,17 @@ class AuthService extends BaseService {
     };
   }
 
+  /**
+   * Verify provided auth token is valid.
+   */
   static verifyAccessToken(token: string): boolean {
     return null != this.decode(token);
   }
 
+  /**
+   * Decode provided auth token.
+   * In case of invalid auth token NULL will be returned.
+   */
   static decode<T = FinalDataToHashInterface>(
     token: string,
     ignoreExpiration = false
@@ -98,6 +110,9 @@ class AuthService extends BaseService {
     }
   }
 
+  /**
+   * Get user session by device and user id.
+   */
   static getUserSession(fingerprint: string, authToken: string) {
     return db.UserSession.findOne({
       where: {
@@ -107,6 +122,9 @@ class AuthService extends BaseService {
     });
   }
 
+  /**
+   * Update user session last access time.
+   */
   static async updateLastAccess(fingerprint: string, authToken: string) {
     return db.UserSession.update(
       {
@@ -122,6 +140,15 @@ class AuthService extends BaseService {
     );
   }
 
+  /**
+   * Remove user session from database (like logout action).
+   *
+   * User session are stored in database using paranoid (soft-delete) option,
+   * so real session will not be deleted from database, it just updates "deletedAt"
+   * field.
+   *
+   * To deleting model pass "forceDelete = TRUE" to remove from database.
+   */
   static async removeUserSession(
     fingerprint: string,
     authToken: string,

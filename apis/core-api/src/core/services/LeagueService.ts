@@ -33,6 +33,9 @@ class LeagueService extends BaseService {
     };
   }
 
+  /**
+   * Get leagues by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<LeaguesListParamsInterface>
   ): ServiceListResultType<LeagueViewModel> {
@@ -53,10 +56,16 @@ class LeagueService extends BaseService {
     return this.findAndCountAll(db.League, query, params);
   }
 
+  /**
+   * Get league by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<LeagueViewModel> {
     return this.findById(db.League, id);
   }
 
+  /**
+   * Inject data from Rapid API.
+   */
   static async inject(countryName: string, countryId: DbIdentifier) {
     const {
       body: { response },
