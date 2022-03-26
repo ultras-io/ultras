@@ -161,6 +161,22 @@ class FanClubService extends BaseService {
   static async exists(id: DbIdentifier): ServiceByIdResultType<boolean> {
     return this.checkExistsById(db.FanClub, id);
   }
+
+  static async updateMembersCount(id: DbIdentifier) {
+    const fanClub = await db.FanClub.findByPk(id);
+    if (!fanClub) {
+      return;
+    }
+
+    const membersCount = await db.FanClubMember.count({
+      where: {
+        fanClubId: id,
+      },
+    });
+
+    fanClub.setDataValue('membersCount', membersCount);
+    await fanClub.save();
+  }
 }
 
 export default FanClubService;

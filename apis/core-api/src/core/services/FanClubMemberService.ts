@@ -11,6 +11,7 @@ import {
 } from 'types';
 
 import BaseService from './BaseService';
+import FanClubService from './FanClubService';
 
 interface MembershipInterface {
   fanClubId: DbIdentifier;
@@ -123,6 +124,7 @@ class FanClubMemberService extends BaseService {
       status,
     });
 
+    await FanClubService.updateMembersCount(fanClubId);
     return newMember;
   }
 
@@ -141,6 +143,8 @@ class FanClubMemberService extends BaseService {
     await db.FanClubMember.destroy({
       where: conditions,
     });
+
+    await FanClubService.updateMembersCount(fanClubId);
   }
 
   static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<DbIdentifier | null> {

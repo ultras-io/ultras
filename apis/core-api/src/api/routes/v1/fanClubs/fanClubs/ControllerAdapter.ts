@@ -36,9 +36,9 @@ class ControllerAdapter {
     const { name, description, cityId, avatar, coverPhoto, privacy } = ctx.request.body;
 
     /** CONTROLLERS */
-    const { id } = ctx.request.params;
+    const { fanClubId } = ctx.request.params;
     const { data } = await FanClubController.update({
-      id,
+      id: fanClubId,
       name,
       description,
       cityId,
@@ -77,10 +77,10 @@ class ControllerAdapter {
 
   static async getById(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const { id } = ctx.request.params;
+    const { fanClubId } = ctx.request.params;
 
     /** CONTROLLERS */
-    const { data } = await FanClubController.getById(id);
+    const { data } = await FanClubController.getById(fanClubId);
 
     /** RESPONSE */
     // @TODO make response types
