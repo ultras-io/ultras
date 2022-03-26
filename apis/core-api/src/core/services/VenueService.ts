@@ -38,6 +38,9 @@ class VenueService extends BaseService {
     };
   }
 
+  /**
+   * Get venues by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<VenuesListParamsInterface>
   ): ServiceListResultType<VenueViewModel> {
@@ -64,10 +67,16 @@ class VenueService extends BaseService {
     return this.findAndCountAll(db.Venue, query, params);
   }
 
+  /**
+   * Get venue by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<VenueViewModel> {
     return this.findById(db.Venue, id);
   }
 
+  /**
+   * Inject data from Rapid API.
+   */
   static async inject(countryName: string, countryId: DbIdentifier) {
     const records: VenueCreationAttributes[] = [];
     const {

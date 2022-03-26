@@ -3,6 +3,10 @@ import VenueController from 'core/controllers/VenueController';
 import { Context } from 'types';
 
 class ControllerAdapter {
+  /**
+   * Inject venues from Rapid API.
+   * @TODO: move it into seeder.
+   */
   static async inject(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
 

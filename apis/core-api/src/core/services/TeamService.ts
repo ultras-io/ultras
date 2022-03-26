@@ -44,6 +44,9 @@ class TeamService extends BaseService {
     };
   }
 
+  /**
+   * Get teams by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<TeamsListParamsInterface>
   ): ServiceListResultType<TeamViewModel> {
@@ -76,10 +79,16 @@ class TeamService extends BaseService {
     return this.findAndCountAll(db.Team, query, params);
   }
 
+  /**
+   * Get team by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<TeamViewModel> {
     return this.findById(db.Team, id);
   }
 
+  /**
+   * Inject data from Rapid API.
+   */
   static async inject(countryName: string, countryId: DbIdentifier) {
     const records: Array<TeamCreationAttributes> = [];
     const {

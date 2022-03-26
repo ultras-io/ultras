@@ -176,7 +176,7 @@ class UserController extends BaseController {
 
     if (teamId) {
       const userId = user.getDataValue('id');
-      await FavoriteTeamService.addToUserFavorites(userId, teamId);
+      await FavoriteTeamService.add(userId, teamId);
     }
 
     await VerificationCodeService.removeVerificationCode({

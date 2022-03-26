@@ -24,6 +24,16 @@ abstract class BaseService {
     });
   }
 
+  /**
+   * Action will return:
+   * 1) rows corresponding condition and pagination.
+   * 2) count of rows corresponding condition.
+   *
+   * You can pass parameter "includeModelRelations = true" to
+   * get rows with declared relations.
+   *
+   * @important Child service must be implement "includeRelations" method.
+   */
   protected static async findAndCountAll<T>(
     model: any,
     query: any,
@@ -48,6 +58,11 @@ abstract class BaseService {
     return { rows, count };
   }
 
+  /**
+   * Get model instance from database with their relations.
+   *
+   * @important Child service must be implement "includeRelations" method.
+   */
   protected static async findById<T>(
     model: any,
     id: DbIdentifier
@@ -59,6 +74,9 @@ abstract class BaseService {
     return data;
   }
 
+  /**
+   * Check data exists with provider identifier.
+   */
   protected static async checkExistsById(model: any, id: DbIdentifier) {
     const count = await model.count({
       where: {

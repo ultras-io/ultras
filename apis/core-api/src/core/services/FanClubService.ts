@@ -51,6 +51,9 @@ class FanClubService extends BaseService {
     };
   }
 
+  /**
+   * Create fan club.
+   */
   static async create({
     name,
     description,
@@ -77,7 +80,11 @@ class FanClubService extends BaseService {
     return fanClub;
   }
 
-  // ownerId and teamId is not mutable
+  /**
+   * Update fan club.
+   *
+   * @important ownerId and teamId is not mutable
+   */
   static async update(
     id: DbIdentifier,
     {
@@ -122,6 +129,9 @@ class FanClubService extends BaseService {
     return fanClub;
   }
 
+  /**
+   * Get fan clubs by provided filter data and pagination.
+   */
   static async getAll(
     params: ServiceListParamsType<FanClubListParamsInterface>
   ): ServiceListResultType<FanClubAttributes> {
@@ -154,12 +164,34 @@ class FanClubService extends BaseService {
     return this.findAndCountAll(db.FanClub, query, params);
   }
 
+  /**
+   * Get fan club by their ID.
+   */
   static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubAttributes> {
     return this.findById(db.FanClub, id);
   }
 
+  /**
+   * Get check fan club exists.
+   */
   static async exists(id: DbIdentifier): ServiceByIdResultType<boolean> {
     return this.checkExistsById(db.FanClub, id);
+  }
+
+  static async updateMembersCount(id: DbIdentifier) {
+    const fanClub = await db.FanClub.findByPk(id);
+    if (!fanClub) {
+      return;
+    }
+
+    const membersCount = await db.FanClubMember.count({
+      where: {
+        fanClubId: id,
+      },
+    });
+
+    fanClub.setDataValue('membersCount', membersCount);
+    await fanClub.save();
   }
 }
 
