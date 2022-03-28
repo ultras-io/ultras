@@ -257,16 +257,16 @@ class FanClubMembershipController extends BaseController {
   static async getById({
     membershipId,
   }: FanClubMembershipByIdParams): FanClubMembershipByIdResult {
-    const fanClub = await FanClubMemberService.getById(membershipId);
+    const membership = await FanClubMemberService.getById(membershipId);
 
-    if (!fanClub) {
+    if (!membership) {
       throw new ResourceNotFoundError({
         message: 'Fan club and user membership not found.',
       });
     }
 
     return {
-      data: fanClub,
+      data: membership,
     };
   }
 
@@ -303,9 +303,9 @@ class FanClubMembershipController extends BaseController {
     fanClubId,
     memberId,
   }: FanClubMembershipRequestParams): FanClubMembershipRequestResult {
-    let isBulkAction = false;
+    let isBulkAction = true;
     if (!Array.isArray(fanClubId)) {
-      isBulkAction = true;
+      isBulkAction = false;
       fanClubId = [fanClubId];
     }
 

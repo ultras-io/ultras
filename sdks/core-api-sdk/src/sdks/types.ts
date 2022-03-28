@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { ListRequestParams } from '@ultras/utils';
 
 // NOTE: replace with string if UUIDv4 will be used as data identifier.
