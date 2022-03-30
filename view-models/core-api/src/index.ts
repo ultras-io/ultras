@@ -10,3 +10,4 @@ export * from './view-models/user';
 export * from './view-models/fanClub';
 export * from './view-models/fanClubMemberRole';
 export * from './view-models/fanClubMember';
+export * from './view-models/favoriteTeam';

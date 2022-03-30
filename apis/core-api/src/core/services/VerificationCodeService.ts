@@ -33,7 +33,7 @@ class VerificationCodeService extends BaseService {
    * User specific field can be one of:
    * 1) email
    * 2) phone
-   * 
+   *
    * If user specific field not provided then NULL will be returned.
    */
   private static buildQuery(

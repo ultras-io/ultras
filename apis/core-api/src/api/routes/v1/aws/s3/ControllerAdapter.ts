@@ -16,7 +16,7 @@ class ControllerAdapter {
       data,
     };
 
-    return ctx.created(response);
+    return ctx.ok(response);
   }
 }
 
