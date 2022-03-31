@@ -4,6 +4,7 @@ import { runTest as testSdkCountry } from './lib-tests/sdk-country';
 import { runTest as testSdkCity } from './lib-tests/sdk-city';
 import { runTest as testSdkVenue } from './lib-tests/sdk-venue';
 import { runTest as testSdkTeam } from './lib-tests/sdk-team';
+import { runTest as testSdkFavoriteTeam } from './lib-tests/sdk-favoriteTeam';
 import { runTest as testSdkLeague } from './lib-tests/sdk-league';
 import { runTest as testSdkMatch } from './lib-tests/sdk-match';
 import { runTest as testSdkFanClub } from './lib-tests/sdk-fanClub';
@@ -17,6 +18,7 @@ const tests = {
   testSdkCity,
   testSdkVenue,
   testSdkTeam,
+  testSdkFavoriteTeam,
   testSdkLeague,
   testSdkMatch,
   testSdkFanClub,

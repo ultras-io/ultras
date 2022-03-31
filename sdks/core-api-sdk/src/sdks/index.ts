@@ -10,6 +10,7 @@ export * from './CountrySDK';
 export * from './CitySDK';
 export * from './VenueSDK';
 export * from './TeamSDK';
+export * from './FavoriteTeamSDK';
 export * from './LeagueSDK';
 export * from './MatchSDK';
 export * from './UserSDK';

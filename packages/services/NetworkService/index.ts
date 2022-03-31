@@ -17,7 +17,7 @@ interface RequestResultInterface {
 }
 
 export type ResponseBodyType<TBody> = TBody & {
-  status: number;
+  status?: number;
 };
 
 export interface ResponseInterface<TBody = any, THeaders = any> {
