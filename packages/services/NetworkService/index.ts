@@ -227,8 +227,8 @@ class NetworkService {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       fetch(url, fetchOptions)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
+        .then((response: Response) => resolve(response))
+        .catch((error: Error) => reject(error));
     });
   };
 }
