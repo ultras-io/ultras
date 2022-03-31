@@ -95,7 +95,7 @@ class UserService extends BaseService {
 
   /**
    * Find user by their identifier.
-   * 
+   *
    * User specific identifier fields:
    * 1) id
    * 2) username

@@ -35,7 +35,7 @@ class ControllerAdapter {
       data,
     };
 
-    return ctx.created(response);
+    return ctx.ok(response);
   }
 
   static async getAll(ctx: Context): Promise<void> {

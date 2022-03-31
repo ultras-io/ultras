@@ -87,6 +87,12 @@ module.exports = (sequelize: Sequelize): typeof FavoriteTeam => {
       freezeTableName: true,
       paranoid: true,
       sequelize,
+      indexes: [
+        {
+          unique: true,
+          fields: ['userId', 'teamId'],
+        },
+      ],
     }
   );
 
