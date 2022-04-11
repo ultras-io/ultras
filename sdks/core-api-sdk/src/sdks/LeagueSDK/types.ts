@@ -1,6 +1,6 @@
 import { DbIdentifier } from '../types';
 
-type GetLeaguesFilter = {
+export type GetLeaguesFilter = {
   name?: string;
   countryId?: DbIdentifier;
 };
