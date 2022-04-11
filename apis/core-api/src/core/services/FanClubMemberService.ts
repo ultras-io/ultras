@@ -111,10 +111,18 @@ class FanClubMemberService extends BaseService {
       // restore fan club and user membership
       await existingMember.restore();
 
-      // update role/status, because maybe user now joined to fan club
+      // if is previous role is owner, then need to keep it
+      const ownerRoleId = await this.getRoleId(FanClubMemberRoleEnum.owner);
+      const previousRoleId = existingMember.getDataValue('roleId');
+
+      if (ownerRoleId != previousRoleId) {
+        existingMember.setDataValue('roleId', roleId);
+      }
+
+      // update status, because maybe user now joined to fan club
       // with another role/status
       existingMember.setDataValue('status', status);
-      existingMember.setDataValue('roleId', roleId);
+
       await existingMember.save();
 
       return existingMember;
@@ -127,7 +135,16 @@ class FanClubMemberService extends BaseService {
       status,
     });
 
-    await FanClubService.updateMembersCount(fanClubId);
+    // update members count if membership status is not a pending
+    const skipStatuses = [
+      FanClubMemberStatusEnum.pendingInvitation,
+      FanClubMemberStatusEnum.pendingRequest,
+    ];
+
+    if (!skipStatuses.includes(status)) {
+      await FanClubService.updateMembersCount(fanClubId);
+    }
+
     return newMember;
   }
 
@@ -284,6 +301,19 @@ class FanClubMemberService extends BaseService {
       where: query,
       returning: true,
     });
+
+    // update members count if user status was provided
+    // and it's not a pending
+    if (updateField.status) {
+      const skipStatuses = [
+        FanClubMemberStatusEnum.pendingInvitation,
+        FanClubMemberStatusEnum.pendingRequest,
+      ];
+
+      if (!skipStatuses.includes(updateField.status)) {
+        await FanClubService.updateMembersCount(fanClubId);
+      }
+    }
 
     return result;
   }

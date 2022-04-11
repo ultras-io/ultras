@@ -10,6 +10,7 @@ import {
 } from 'types';
 
 import BaseService from './BaseService';
+import { FanClubMemberStatusEnum } from '@ultras/utils';
 
 export interface FanClubListParamsInterface {
   name?: string;
@@ -178,15 +179,29 @@ class FanClubService extends BaseService {
     return this.checkExistsById(db.FanClub, id);
   }
 
+  /**
+   * Update fun club's members count.
+   *
+   * If members status is a pending then it will not be included
+   * in fan club as member.
+   */
   static async updateMembersCount(id: DbIdentifier) {
     const fanClub = await db.FanClub.findByPk(id);
     if (!fanClub) {
       return;
     }
 
+    const skipStatusList = [
+      FanClubMemberStatusEnum.pendingInvitation,
+      FanClubMemberStatusEnum.pendingInvitation,
+    ];
+
     const membersCount = await db.FanClubMember.count({
       where: {
         fanClubId: id,
+        status: {
+          [db.Sequelize.Op.notIn]: skipStatusList,
+        },
       },
     });
 
