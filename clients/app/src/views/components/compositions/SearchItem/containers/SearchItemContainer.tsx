@@ -75,7 +75,7 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({ searchItem, searchTex
   }
 
   const getData = React.useCallback(() => {
-    console.log(searchText);
+    // console.log(searchText);
     if (searchItem === 'all') {
       setData(
         shuffle([

@@ -1,9 +1,9 @@
 import React from 'react';
-
 import SearchListComponent from '../components/SearchListComponent';
 import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
 
 import { generateClubsList, generateTeamsList } from 'utils/helpers/dummy';
+
 
 const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,
@@ -22,7 +22,7 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     }
   }, [dataType]);
 
-  console.log(searchText);
+  // console.log(searchText);
 
   const initData = React.useCallback(() => {
     setData([]);
