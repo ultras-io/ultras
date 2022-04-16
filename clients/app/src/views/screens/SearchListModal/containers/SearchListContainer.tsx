@@ -1,9 +1,16 @@
 import React from 'react';
+import { TeamViewModel } from '@ultras/view-models';
 import SearchListComponent from '../components/SearchListComponent';
 import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
 
-import { generateClubsList, generateTeamsList } from 'utils/helpers/dummy';
+import footballClubsStore from 'core/stores/footballClubs';
+import nationalTeamsStore from 'core/stores/nationalTeams';
 
+const manipulateTeamItem = (item: TeamViewModel): SearchItem => ({
+  id: item.id.toString(),
+  name: item.name,
+  logo: item.logo,
+});
 
 const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,
@@ -11,32 +18,45 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
 }) => {
   const [data, setData] = React.useState<Array<SearchItem>>([]);
 
-  const fetchData = React.useMemo(() => {
+  const [fetchData, manipulateItem] = React.useMemo(() => {
     switch (dataType) {
       case dataTypeEnum.Country:
-        return generateTeamsList;
+        return [nationalTeamsStore.getAll, manipulateTeamItem];
       case dataTypeEnum.FootballClub:
-        return generateClubsList;
+        return [footballClubsStore.getAll, manipulateTeamItem];
       case dataTypeEnum.NationalTeam:
-        return generateTeamsList;
+        return [nationalTeamsStore.getAll, manipulateTeamItem];
     }
   }, [dataType]);
 
   // console.log(searchText);
 
-  const initData = React.useCallback(() => {
-    setData([]);
-    const newData = fetchData(50);
-    setData(newData);
-  }, [setData, fetchData]);
+  const manipulate = React.useCallback(
+    (list: Array<any>) => {
+      setData(list.map(item => manipulateItem(item)));
+    },
+    [setData, manipulateItem]
+  );
 
-  const getData = React.useCallback(() => {
-    const newData = fetchData(50);
-    setData([...data, ...newData]);
-  }, [setData, data, fetchData]);
+  const initData = React.useCallback(async () => {
+    // setData([]);
+    const newData = await fetchData();
+    if (newData.status === 'success') {
+      manipulate(newData.data!);
+    }
+  }, [manipulate, fetchData]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(initData, [searchText]);
+  const getData = React.useCallback(async () => {
+    const newData = await fetchData();
+    if (newData.status === 'success') {
+      manipulate(newData.data!);
+    }
+  }, [manipulate, fetchData]);
+
+  React.useEffect(() => {
+    initData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText]);
 
   return <SearchListComponent onEndReached={getData} data={data} />;
 };

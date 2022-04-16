@@ -1,3 +1,4 @@
+import { TeamTypesEnum } from '@ultras/utils';
 import { TeamViewModel, TeamsViewModel } from '@ultras/view-models';
 import {
   ControllerListParamsType,
@@ -12,6 +13,7 @@ interface TeamsFilterInterface {
   countryId?: DbIdentifier;
   cityId?: DbIdentifier;
   venueId?: DbIdentifier;
+  type?: TeamTypesEnum;
 }
 
 export type TeamsListParams = ControllerListParamsType<TeamsFilterInterface>;
