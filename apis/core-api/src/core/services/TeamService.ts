@@ -19,6 +19,7 @@ export interface TeamsListParamsInterface {
   countryId?: DbIdentifier;
   cityId?: DbIdentifier;
   venueId?: DbIdentifier;
+  type?: TeamTypesEnum;
 }
 
 class TeamService extends BaseService {
@@ -73,6 +74,12 @@ class TeamService extends BaseService {
     if (params.venueId) {
       this.queryAppend(query, 'venueId', {
         [db.Sequelize.Op.eq]: params.venueId,
+      });
+    }
+
+    if (params.type) {
+      this.queryAppend(query, 'type', {
+        [db.Sequelize.Op.eq]: params.type,
       });
     }
 

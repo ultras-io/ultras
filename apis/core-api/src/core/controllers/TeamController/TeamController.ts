@@ -23,6 +23,7 @@ class TeamController extends BaseController {
     countryId,
     cityId,
     venueId,
+    type,
   }: TeamsListParams): TeamsListResult {
     const { rows, count } = await TeamService.getAll({
       limit,
@@ -33,6 +34,7 @@ class TeamController extends BaseController {
       countryId,
       cityId,
       venueId,
+      type,
     });
 
     return {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ListRequestParams } from '@ultras/utils';
@@ -8,7 +9,7 @@ export type DbIdentifier = number;
 export type QueryParam<T> = T & ListRequestParams;
 export type DynamicQueryParam = Record<string, any>;
 
-export type ListResponseMetaType<T = any> = T & {
+export type ListResponseMetaType<T = {}> = T & {
   pagination: {
     limit: number;
     offset: number;
@@ -17,11 +18,12 @@ export type ListResponseMetaType<T = any> = T & {
 };
 
 interface PossibleMetaInterface {
-  access_token: string;
+  access_token?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export type ApiResponseBodyType<TBody = any, TMeta = any> = {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type ApiResponseBodyType<TBody = any, TMeta = {}> = {
   status: number;
   data: TBody;
   meta: TMeta & PossibleMetaInterface;
