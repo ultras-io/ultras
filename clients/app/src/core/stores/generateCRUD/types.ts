@@ -5,11 +5,16 @@ import {
 } from '@ultras/core-api-sdk';
 
 // #region state & global types
-type IfEquals<T, U, Y = unknown, N = never> = (<G>() => G extends T ? 1 : 2) extends <
-  G
->() => G extends U ? 1 : 2
-  ? Y
-  : N;
+type IfEquals<
+  TypeCheckFirst,
+  TypeCheckSecond,
+  TypeResultYes = unknown,
+  TypeResultNo = never
+> = (<G>() => G extends TypeCheckFirst ? 1 : 2) extends <T>() => T extends TypeCheckSecond
+  ? 1
+  : 2
+  ? TypeResultYes
+  : TypeResultNo;
 
 type GetListPromiseType<TData> =
   | undefined
@@ -41,7 +46,7 @@ export interface SingleStateDataInterface<TData> {
 // #endregion
 
 // #region extractor types
-export type TGroupedState<TData> = {
+export type GroupedStateType<TData> = {
   list: {
     list: ListStateDataInterface<TData>;
   };
@@ -50,7 +55,7 @@ export type TGroupedState<TData> = {
   };
 };
 
-export type TGroupedAction<TData> = {
+export type GroupedActionType<TData> = {
   list: {
     getAll(): Promise<ListStateDataInterface<TData>>;
   };
@@ -59,7 +64,7 @@ export type TGroupedAction<TData> = {
   };
 };
 
-export type TGroupedCallback<TData> = {
+export type GroupedInterceptorType<TData> = {
   list: {
     loadAll(limit: number, offset: number): GetListPromiseType<TData>;
   };
@@ -68,31 +73,31 @@ export type TGroupedCallback<TData> = {
   };
 };
 
-export type TExtractState<TData, TStateItem extends StateKeyType> = Pick<
-  TGroupedState<TData>,
+export type ExtractStateType<TData, TStateItem extends StateKeyType> = Pick<
+  GroupedStateType<TData>,
   TStateItem
 >[TStateItem];
 
-export type TExtractAction<TData, TStateItem extends StateKeyType> = Pick<
-  TGroupedAction<TData>,
+export type ExtractActionType<TData, TStateItem extends StateKeyType> = Pick<
+  GroupedActionType<TData>,
   TStateItem
 >[TStateItem];
 
-export type TExtractCallback<TData, TStateItem extends StateKeyType> = Pick<
-  TGroupedCallback<TData>,
+export type ExtractInterceptorType<TData, TStateItem extends StateKeyType> = Pick<
+  GroupedInterceptorType<TData>,
   TStateItem
 >[TStateItem];
 
-export type TExtractStateAndActions<
+export type ExtractStateAndActionType<
   TData,
   TStateItem extends StateKeyType
-> = TExtractState<TData, TStateItem> & TExtractAction<TData, TStateItem>;
+> = ExtractStateType<TData, TStateItem> & ExtractActionType<TData, TStateItem>;
 // #endregion
 
 // #region
 export type ParamsType<TData, TStateItem extends StateKeyType> = {
   limit?: number;
-} & TExtractCallback<TData, TStateItem> &
+} & ExtractInterceptorType<TData, TStateItem> &
   IfEquals<
     TStateItem,
     StateKeyType,
@@ -104,59 +109,12 @@ export type ParamsType<TData, TStateItem extends StateKeyType> = {
     }
   >;
 
-export type StateGetterCallType<TData, TKey extends StateKeyType> = () => TExtractState<
+export type StateGetterCallType<
   TData,
-  TKey
->;
+  TKey extends StateKeyType
+> = () => ExtractStateType<TData, TKey>;
 
 export type StateSetterCallType<TData, TKey extends StateKeyType> = (
-  args: TExtractState<TData, TKey>
+  args: ExtractStateType<TData, TKey>
 ) => void;
 // #endregion
-
-// export interface BaseStateDataInterface<TData> {
-//   list: ListStateDataInterface<TData>;
-//   single: SingleStateDataInterface<TData>;
-// }
-
-// export type StateKeyType<TData> = keyof BaseStateDataInterface<TData>;
-// export type StateKeyParamType<TData> = Record<StateKeyType<TData>, boolean>;
-// export type WithKeysDataType<TData, TStateItem extends StateKeyType<TData>> = {
-//   [key in TStateItem]: BaseStateDataInterface<TData>[key];
-// };
-// #endregion
-
-// // #region types
-// export interface BaseStateActionInterface<TData> {
-//   getAll(): Promise<ListStateDataInterface<TData>>;
-//   getById(id: DbIdentifier): Promise<SingleStateDataInterface<TData>>;
-// }
-
-// export type ActionKeyType<TData> = keyof BaseStateActionInterface<TData>;
-// export type ActionKeyParamType<TData> = Record<ActionKeyType<TData>, boolean>;
-// export type WithKeysActionType<TData, TActionItem extends ActionKeyType<TData>> = {
-//   [key in TActionItem]: BaseStateActionInterface<TData>[key];
-// };
-
-// // #endregion
-
-// // #region actions
-// export type BaseStoreInterface<
-//   TData,
-//   TStateItem extends StateKeyType<TData>,
-//   TActionItem extends ActionKeyType<TData>
-// > = WithKeysDataType<TData, TStateItem> & WithKeysActionType<TData, TActionItem>;
-// // #endregion
-
-// // #region callbacks
-// type GetListPromiseType<TData> =
-//   | undefined
-//   | Promise<ApiResponseType<Array<TData>, ListResponseMetaType>>;
-
-// type GetSinglePromiseType<TData> = undefined | Promise<ApiResponseType<TData>>;
-
-// export type StoreCallbackInterface<TData, TStateItem extends StateKeyType<TData>> = {
-//   limit?: number;
-//   keys?: Array<TStateItem>;
-// } & TExtractCallback<TData, TStateItem>;
-// // #endregion

@@ -8,10 +8,10 @@ import type {
   ParamsType,
   StateGetterCallType,
   StateSetterCallType,
-  TExtractAction,
-  TExtractState,
-  TExtractStateAndActions,
-  TExtractCallback,
+  ExtractActionType,
+  ExtractStateType,
+  ExtractStateAndActionType,
+  ExtractInterceptorType,
   ListStateDataInterface,
   SingleStateDataInterface,
 } from './types';
@@ -36,6 +36,10 @@ const fillStateKeys = (keys: Array<StateKeyType>): StateKeyParamType => {
   return includeKeys;
 };
 
+const createInterceptorError = (callSignature: string) => {
+  return new Error(`Interceptor '${callSignature}' returned empty result.`);
+};
+
 export const generateCRUD = <
   TData extends object,
   TKey extends StateKeyType = StateKeyType
@@ -46,12 +50,12 @@ export const generateCRUD = <
   const includeKeys = fillStateKeys(params.keys || []);
 
   // #region state
-  const buildInitialState = (): TExtractState<TData, TKey> => {
+  const buildInitialState = (): ExtractStateType<TData, TKey> => {
     // @ts-ignore
-    const state: TExtractState<TData, TKey> = {};
+    const state: ExtractStateType<TData, TKey> = {};
 
     if (includeKeys.list) {
-      (state as TExtractState<TData, 'list'>).list = {
+      (state as ExtractStateType<TData, 'list'>).list = {
         status: 'loading',
         error: null,
         data: null,
@@ -64,7 +68,7 @@ export const generateCRUD = <
     }
 
     if (includeKeys.single) {
-      (state as TExtractState<TData, 'single'>).single = {
+      (state as ExtractStateType<TData, 'single'>).single = {
         status: 'loading',
         error: null,
         data: null,
@@ -77,18 +81,18 @@ export const generateCRUD = <
 
   // #region actions
   const buildActions = (
-    setStateCall: SetState<TExtractStateAndActions<TData, TKey>>,
-    getStateCall: GetState<TExtractStateAndActions<TData, TKey>>
-  ): TExtractAction<TData, TKey> => {
+    setStateCall: SetState<ExtractStateAndActionType<TData, TKey>>,
+    getStateCall: GetState<ExtractStateAndActionType<TData, TKey>>
+  ): ExtractActionType<TData, TKey> => {
     // @ts-ignore
-    const actions: TExtractAction<TData, TKey> = {};
+    const actions: ExtractActionType<TData, TKey> = {};
 
     if (includeKeys.list) {
       const getState = getStateCall as unknown as StateGetterCallType<TData, 'list'>;
       const setState = setStateCall as unknown as StateSetterCallType<TData, 'list'>;
-      const callbacks = params as unknown as TExtractCallback<TData, 'list'>;
+      const interceptors = params as unknown as ExtractInterceptorType<TData, 'list'>;
 
-      (actions as TExtractAction<TData, 'list'>).getAll = async (): Promise<
+      (actions as ExtractActionType<TData, 'list'>).getAll = async (): Promise<
         ListStateDataInterface<TData>
       > => {
         const list = getState().list;
@@ -104,9 +108,11 @@ export const generateCRUD = <
         setState({ list });
 
         try {
-          const result = await callbacks.loadAll(itemsLimit, itemsCount);
+          const result = await interceptors.loadAll(itemsLimit, itemsCount);
           if (!result) {
-            throw new Error('SDK returned empty result.');
+            throw createInterceptorError(
+              `loadAll(limit: ${itemsLimit}, offset: ${itemsCount})`
+            );
           }
 
           list.data = (list.data || []).concat(result.body.data);
@@ -127,9 +133,9 @@ export const generateCRUD = <
     if (includeKeys.single) {
       const getState = getStateCall as unknown as StateGetterCallType<TData, 'single'>;
       const setState = setStateCall as unknown as StateSetterCallType<TData, 'single'>;
-      const callbacks = params as unknown as TExtractCallback<TData, 'single'>;
+      const interceptors = params as unknown as ExtractInterceptorType<TData, 'single'>;
 
-      (actions as TExtractAction<TData, 'single'>).getById = async (
+      (actions as ExtractActionType<TData, 'single'>).getById = async (
         id: DbIdentifier
       ): Promise<SingleStateDataInterface<TData>> => {
         const single = getState().single;
@@ -137,9 +143,9 @@ export const generateCRUD = <
         setState({ single });
 
         try {
-          const result = await callbacks.loadById(id);
+          const result = await interceptors.loadById(id);
           if (!result) {
-            throw new Error('SDK returned empty result.');
+            throw createInterceptorError(`loadById(id: ${id})`);
           }
 
           single.status = 'success';
@@ -158,7 +164,7 @@ export const generateCRUD = <
   };
   // #endregion
 
-  const storeVanilla = createVanilla<TExtractStateAndActions<TData, TKey>>(
+  const storeVanilla = createVanilla<ExtractStateAndActionType<TData, TKey>>(
     (set, get) => ({
       ...buildInitialState(),
       ...buildActions(set, get),
@@ -168,40 +174,42 @@ export const generateCRUD = <
   const storeReact = createReact(storeVanilla);
 
   const useSelector = (...keys: Array<TKey>) => {
-    const state = storeReact() as TExtractStateAndActions<TData, TKey>;
+    const state = storeReact() as ExtractStateAndActionType<TData, TKey>;
     if (!keys || keys.length === 0) {
       return state;
     }
 
     // @ts-ignore
-    return keys.reduce<Pick<TExtractState<TData, TKey>, typeof keys[number]>>(
+    return keys.reduce<Pick<ExtractStateType<TData, TKey>, typeof keys[number]>>(
       (acc, value: StateKeyType) => {
         // @ts-ignore
         acc[value] = state[value];
         return acc;
       },
       // @ts-ignore
-      {} as Pick<TExtractState<TData, TKey>, typeof keys[number]>
+      {} as Pick<ExtractStateType<TData, TKey>, typeof keys[number]>
     );
   };
 
   // #region actions
   const buildRootActions = () => {
     // @ts-ignore
-    const rootActions: TExtractAction<TData, TKey> = {};
+    const rootActions: ExtractActionType<TData, TKey> = {};
 
     if (includeKeys.list) {
-      (rootActions as TExtractAction<TData, 'list'>).getAll = () => {
+      (rootActions as ExtractActionType<TData, 'list'>).getAll = () => {
         return (
-          storeVanilla.getState() as unknown as TExtractAction<TData, 'list'>
+          storeVanilla.getState() as unknown as ExtractActionType<TData, 'list'>
         ).getAll();
       };
     }
 
     if (includeKeys.single) {
-      (rootActions as TExtractAction<TData, 'single'>).getById = (id: DbIdentifier) => {
+      (rootActions as ExtractActionType<TData, 'single'>).getById = (
+        id: DbIdentifier
+      ) => {
         return (
-          storeVanilla.getState() as unknown as TExtractAction<TData, 'single'>
+          storeVanilla.getState() as unknown as ExtractActionType<TData, 'single'>
         ).getById(id);
       };
     }
