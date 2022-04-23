@@ -60,7 +60,7 @@ export type GroupedActionType<TData> = {
     getAll(): Promise<ListStateDataInterface<TData>>;
   };
   single: {
-    getById(id: DbIdentifier): Promise<SingleStateDataInterface<TData>>;
+    getSingle(id: DbIdentifier): Promise<SingleStateDataInterface<TData>>;
   };
 };
 
@@ -69,7 +69,7 @@ export type GroupedInterceptorType<TData> = {
     loadAll(limit: number, offset: number): GetListPromiseType<TData>;
   };
   single: {
-    loadById(id: DbIdentifier): GetSinglePromiseType<TData>;
+    loadSingle(id: DbIdentifier): GetSinglePromiseType<TData>;
   };
 };
 

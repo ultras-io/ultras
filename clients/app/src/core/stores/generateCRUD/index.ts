@@ -36,10 +36,6 @@ const fillStateKeys = (keys: Array<StateKeyType>): StateKeyParamType => {
   return includeKeys;
 };
 
-const createInterceptorError = (callSignature: string) => {
-  return new Error(`Interceptor '${callSignature}' returned empty result.`);
-};
-
 export const generateCRUD = <
   TData extends object,
   TKey extends StateKeyType = StateKeyType
@@ -110,9 +106,7 @@ export const generateCRUD = <
         try {
           const result = await interceptors.loadAll(itemsLimit, itemsCount);
           if (!result) {
-            throw createInterceptorError(
-              `loadAll(limit: ${itemsLimit}, offset: ${itemsCount})`
-            );
+            throw new Error('"loadAll" returned empty result.');
           }
 
           list.data = (list.data || []).concat(result.body.data);
@@ -135,7 +129,7 @@ export const generateCRUD = <
       const setState = setStateCall as unknown as StateSetterCallType<TData, 'single'>;
       const interceptors = params as unknown as ExtractInterceptorType<TData, 'single'>;
 
-      (actions as ExtractActionType<TData, 'single'>).getById = async (
+      (actions as ExtractActionType<TData, 'single'>).getSingle = async (
         id: DbIdentifier
       ): Promise<SingleStateDataInterface<TData>> => {
         const single = getState().single;
@@ -143,9 +137,9 @@ export const generateCRUD = <
         setState({ single });
 
         try {
-          const result = await interceptors.loadById(id);
+          const result = await interceptors.loadSingle(id);
           if (!result) {
-            throw createInterceptorError(`loadById(id: ${id})`);
+            throw new Error('"loadSingle" returned empty result.');
           }
 
           single.status = 'success';
@@ -205,12 +199,12 @@ export const generateCRUD = <
     }
 
     if (includeKeys.single) {
-      (rootActions as ExtractActionType<TData, 'single'>).getById = (
+      (rootActions as ExtractActionType<TData, 'single'>).getSingle = (
         id: DbIdentifier
       ) => {
         return (
           storeVanilla.getState() as unknown as ExtractActionType<TData, 'single'>
-        ).getById(id);
+        ).getSingle(id);
       };
     }
 
