@@ -13,7 +13,7 @@ const nationalTeamStore = generateCRUD<TeamViewModel>({
     });
   },
 
-  loadById: (id: DbIdentifier) => {
+  loadSingle: (id: DbIdentifier) => {
     return sdk.getTeam(id);
   },
 });
