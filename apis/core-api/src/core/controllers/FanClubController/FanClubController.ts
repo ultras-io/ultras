@@ -54,9 +54,7 @@ class FanClubController extends BaseController {
     });
 
     return {
-      data: {
-        fanClub: fanClub,
-      },
+      data: fanClub,
     };
   }
 
@@ -95,9 +93,7 @@ class FanClubController extends BaseController {
     const fanClub = await FanClubService.update(id, update);
 
     return {
-      data: {
-        fanClub: fanClub,
-      },
+      data: fanClub,
     };
   }
 
