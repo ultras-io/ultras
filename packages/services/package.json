@@ -1,47 +1,55 @@
 {
-	"name": "@ultras/services",
-	"version": "1.0.0",
-	"description": "> TODO: description",
-	"author": "rubenaprikyan <rubenaprikyan@gmail.com>",
-	"homepage": "https://github.com/ultras-io/ultras#readme",
-	"license": "ISC",
-	"directories": {
-		"lib": "lib",
-		"test": "__tests__"
-	},
-	"files": [
-		"lib"
-	],
-	"publishConfig": {
-		"access": "public"
-	},
-	"exports": {
-		"./NetworkService": "./build/NetworkService/index.js",
-		"./SMSService": "./build/SMSService/index.js",
-		"./MailerService": "./build/MailerService/index.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ultras-io/ultras.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ultras-io/ultras/issues"
-	},
-	"dependencies": {
-		"@sendgrid/mail": "^7.6.0",
-		"isomorphic-fetch": "^3.0.0",
-		"twilio": "^3.73.0"
-	},
-	"devDependencies": {
-		"@types/node": "^17.0.10",
-		"@typescript-eslint/eslint-plugin": "^4.31.1",
-		"@typescript-eslint/parser": "^4.32.0",
-		"dotenv": "^14.2.0",
-		"eslint": "^7.32.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-prettier": "^4.0.0",
-		"mocha": "^9.1.4",
-		"prettier": "^2.5.1",
-		"typescript": "^4.4.4"
-	}
+  "name": "@ultras/services",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "rubenaprikyan <rubenaprikyan@gmail.com>",
+  "homepage": "https://github.com/ultras-io/ultras#readme",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    "./NetworkService": "./build/NetworkService/index.js",
+    "./SMSService": "./build/SMSService/index.js",
+    "./MailerService": "./build/MailerService/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultras-io/ultras.git"
+  },
+  "scripts": {
+    "test": "mocha '__tests__/*.test.js'",
+    "build": "rimraf ./build && tsc",
+    "prettier-format": "prettier --config .prettierrc '**/*.(ts|js)' --write",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix"
+  },
+  "bugs": {
+    "url": "https://github.com/ultras-io/ultras/issues"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
+    "@ultras/utils": "^1.0.0",
+    "isomorphic-fetch": "^3.0.0",
+    "twilio": "^3.73.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.32.0",
+    "dotenv": "^14.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "mocha": "^9.1.4",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.4"
+  }
 }

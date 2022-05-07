@@ -1,59 +1,72 @@
 {
-	"name": "@ultras/app",
-	"version": "0.0.1",
-	"private": true,
-	"dependencies": {
-		"@carimus/metro-symlinked-deps": "^1.1.0",
-		"@react-native-community/blur": "^3.6.0",
-		"@react-navigation/bottom-tabs": "^6.0.5",
-		"@react-navigation/material-top-tabs": "^6.0.2",
-		"@react-navigation/native": "^6.0.2",
-		"@react-navigation/native-stack": "^6.1.0",
-		"moment": "^2.29.1",
-		"react": "17.0.2",
-		"react-native": "0.65.1",
-		"react-native-geolocation-service": "^5.3.0-beta.3",
-		"react-native-i18n": "^2.0.15",
-		"react-native-pager-view": "^5.4.4",
-		"react-native-safe-area-context": "^3.3.2",
-		"react-native-screens": "^3.7.2",
-		"react-native-svg": "^12.1.1",
-		"react-native-tab-view": "^3.1.1",
-		"styled-components": "^5.3.3",
-		"zustand": "^3.7.2"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.12.9",
-		"@babel/runtime": "^7.17.9",
-		"@react-native-community/eslint-config": "^2.0.0",
-		"@types/jest": "^26.0.23",
-		"@types/react-native": "^0.64.5",
-		"@types/react-test-renderer": "^16.9.2",
-		"@types/styled-components": "^5.1.14",
-		"@types/styled-components-react-native": "^5.1.1",
-		"babel-jest": "^26.6.3",
-		"babel-plugin-module-resolver": "^4.1.0",
-		"eslint": "^7.14.0",
-		"jest": "^26.6.3",
-		"metro-react-native-babel-preset": "^0.66.0",
-		"module-alias": "^2.2.2",
-		"react-native-codegen": "^0.0.7",
-		"react-test-renderer": "17.0.2",
-		"typescript": "^4.4.4"
-	},
-	"resolutions": {
-		"@types/react": "^17",
-		"styled-components": "^5"
-	},
-	"jest": {
-		"preset": "react-native",
-		"moduleFileExtensions": [
-			"ts",
-			"tsx",
-			"js",
-			"jsx",
-			"json",
-			"node"
-		]
-	}
+  "name": "@ultras/app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.(ts|tsx|js|jsx)' --write",
+    "create-component": "ultras-cli create-component"
+  },
+  "dependencies": {
+    "@carimus/metro-symlinked-deps": "^1.1.0",
+    "@react-native-community/blur": "^3.6.0",
+    "@react-navigation/bottom-tabs": "^6.0.5",
+    "@react-navigation/material-top-tabs": "^6.0.2",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.1.0",
+    "@ultras/core-api-sdk": "1.0.0",
+    "@ultras/utils": "1.0.0",
+    "@ultras/view-models": "1.0.0",
+    "moment": "^2.29.1",
+    "react": "17.0.2",
+    "react-native": "0.65.1",
+    "react-native-geolocation-service": "^5.3.0-beta.3",
+    "react-native-i18n": "^2.0.15",
+    "react-native-pager-view": "^5.4.4",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.7.2",
+    "react-native-svg": "^12.1.1",
+    "react-native-tab-view": "^3.1.1",
+    "styled-components": "^5.3.3",
+    "zustand": "^3.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.17.9",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@types/jest": "^26.0.23",
+    "@types/react-native": "^0.64.5",
+    "@types/react-test-renderer": "^16.9.2",
+    "@types/styled-components": "^5.1.14",
+    "@types/styled-components-react-native": "^5.1.1",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "^7.14.0",
+    "jest": "^26.6.3",
+    "json5": "^2.2.1",
+    "metro-react-native-babel-preset": "^0.66.0",
+    "module-alias": "^2.2.2",
+    "react-native-codegen": "^0.0.7",
+    "react-test-renderer": "17.0.2",
+    "typescript": "^4.4.4"
+  },
+  "resolutions": {
+    "@types/react": "^17",
+    "styled-components": "^5"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
 }
