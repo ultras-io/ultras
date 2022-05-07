@@ -1,13 +1,12 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import React, { useEffect, useMemo, useRef } from 'react';
 import { TeamViewModel } from '@ultras/view-models';
 import SearchListComponent from '../components/SearchListComponent';
 import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
 
 import buildFootballClubsStore from 'core/stores/footballClubs';
 import buildNationalTeamsStore from 'core/stores/nationalTeams';
-
-const footballClubsStore = buildFootballClubsStore();
-const nationalTeamsStore = buildNationalTeamsStore();
 
 const manipulateTeamItem = (item: TeamViewModel): SearchItem => ({
   id: item.id.toString(),
@@ -19,20 +18,40 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,
   searchText,
 }) => {
+  const refTimer = useRef<NodeJS.Timeout>();
+
   const [data, setData] = React.useState<Array<SearchItem>>([]);
 
-  const [fetchData, manipulateItem] = React.useMemo(() => {
+  const { footballClubsStore, nationalTeamsStore } = useMemo(
+    () => ({
+      footballClubsStore: buildFootballClubsStore(),
+      nationalTeamsStore: buildNationalTeamsStore(),
+    }),
+    []
+  );
+
+  const { fetchData, updateFilter, manipulateItem } = useMemo(() => {
     switch (dataType) {
       case dataTypeEnum.Country:
-        return [nationalTeamsStore.getAll, manipulateTeamItem];
+        return {
+          fetchData: nationalTeamsStore.getAll,
+          updateFilter: nationalTeamsStore.updateFilter,
+          manipulateItem: manipulateTeamItem,
+        };
       case dataTypeEnum.FootballClub:
-        return [footballClubsStore.getAll, manipulateTeamItem];
+        return {
+          fetchData: footballClubsStore.getAll,
+          updateFilter: footballClubsStore.updateFilter,
+          manipulateItem: manipulateTeamItem,
+        };
       case dataTypeEnum.NationalTeam:
-        return [nationalTeamsStore.getAll, manipulateTeamItem];
+        return {
+          fetchData: nationalTeamsStore.getAll,
+          updateFilter: nationalTeamsStore.updateFilter,
+          manipulateItem: manipulateTeamItem,
+        };
     }
   }, [dataType]);
-
-  // console.log(searchText);
 
   const manipulate = React.useCallback(
     (list: Array<any>) => {
@@ -41,14 +60,6 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     [setData, manipulateItem]
   );
 
-  const initData = React.useCallback(async () => {
-    // setData([]);
-    const newData = await fetchData();
-    if (newData.status === 'success') {
-      manipulate(newData.data!);
-    }
-  }, [manipulate, fetchData]);
-
   const getData = React.useCallback(async () => {
     const newData = await fetchData();
     if (newData.status === 'success') {
@@ -56,9 +67,15 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     }
   }, [manipulate, fetchData]);
 
-  React.useEffect(() => {
-    initData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (refTimer.current) {
+      clearTimeout(refTimer.current);
+    }
+
+    refTimer.current = setTimeout(() => {
+      updateFilter({ name: searchText } as any);
+      getData();
+    }, 300);
   }, [searchText]);
 
   return <SearchListComponent onEndReached={getData} data={data} />;

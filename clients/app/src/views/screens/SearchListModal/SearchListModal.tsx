@@ -12,7 +12,7 @@ import Button, {
 import Box from 'views/components/base/Box';
 
 import Countries from './containers/Countries';
-import ListModalTabNavigation from './components/ListModalTabMavigation';
+import ListModalTabNavigation from './components/ListModalTabNavigation';
 
 import { ISearchListModalProps, keyEnum } from './types';
 import styles from './styles';
@@ -54,7 +54,7 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
       {dataKey === keyEnum.Code ? (
         <Countries searchText={searchText} />
       ) : (
-        <ListModalTabNavigation />
+        <ListModalTabNavigation searchText={searchText} />
       )}
     </Box>
   );

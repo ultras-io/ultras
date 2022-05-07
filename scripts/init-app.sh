@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")/.." || exit 1
-ROOT_DIR="$(realpath "$PWD")"
+
+if [[ "$(command -v realpath)" != "" ]]; then
+  ROOT_DIR="$(realpath "$PWD")"
+else
+  ROOT_DIR="$PWD"
+fi
 
 . "$(dirname "$0")/.helpers.sh"
 trap on_process_kill SIGINT

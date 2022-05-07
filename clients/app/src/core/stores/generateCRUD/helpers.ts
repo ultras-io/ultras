@@ -1,4 +1,10 @@
-import { AddStateFieldInterface, StateKeyType, StateKeyParamType } from './types';
+import { buildObjectHash } from '@ultras/utils';
+import {
+  StateFieldAddInterface,
+  StateKeyType,
+  StateKeyParamType,
+  FullFilterable,
+} from './types';
 
 export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
   const includeKeys: StateKeyParamType = {
@@ -21,11 +27,23 @@ export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
 
 export function createField<TFieldKey = string>(
   initialValue: TFieldKey | null = null
-): AddStateFieldInterface<TFieldKey> {
+): StateFieldAddInterface<TFieldKey> {
   return {
     isValid: false,
     valueOriginal: initialValue,
     valueToSave: initialValue,
     errors: [],
   };
+}
+
+export function buildFilterHash<T>(filter: null | FullFilterable<T>): string {
+  if (!filter) {
+    return '';
+  }
+
+  if (Object.keys(filter).length === 0) {
+    return '';
+  }
+
+  return buildObjectHash(filter);
 }
