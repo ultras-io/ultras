@@ -1,44 +1,36 @@
 {
-  "name": "@ultras/utils",
-  "version": "1.0.0",
-  "description": "Utilities for ultras applications",
-  "author": "rubenaprikyan <rubenaprikyan@gmail.com>",
-  "homepage": "https://github.com/ultras-io/ultras#readme",
-  "license": "ISC",
-  "main": "build/index.js",
-  "types": "build/types/index.d.ts",
-  "sideEffects": false,
-  "directories": {
-    "src": "src",
-    "test": "__tests__"
-  },
-  "files": [
-    "src/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ultras-io/ultras.git",
-    "directory": "packages/utils"
-  },
-  "scripts": {
-    "test": "mocha '__tests__/*.test.js'",
-    "build": "rimraf ./build && tsc",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.(ts|js)' --write",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix"
-  },
-  "bugs": {
-    "url": "https://github.com/ultras-io/ultras/issues"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.32.0",
-    "mocha": "^9.1.4",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1",
-    "typescript": "^4.4.4"
-  },
-  "dependencies": {}
+	"name": "@ultras/utils",
+	"version": "1.0.0",
+	"description": "Utilities for ultras applications",
+	"author": "rubenaprikyan <rubenaprikyan@gmail.com>",
+	"homepage": "https://github.com/ultras-io/ultras#readme",
+	"license": "ISC",
+	"main": "build/index.js",
+	"types": "build/types/index.d.ts",
+	"sideEffects": false,
+	"directories": {
+		"src": "src",
+		"test": "__tests__"
+	},
+	"files": [
+		"src/*"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ultras-io/ultras.git",
+		"directory": "packages/utils"
+	},
+	"bugs": {
+		"url": "https://github.com/ultras-io/ultras/issues"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.32.0",
+		"eslint": "^7.32.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"mocha": "^9.1.4",
+		"prettier": "^2.5.1",
+		"typescript": "^4.4.4"
+	}
 }

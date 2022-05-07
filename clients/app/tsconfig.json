@@ -43,20 +43,11 @@
       "views/*": [
         "src/views/*"
       ],
-      "config/*": [
-        "src/config/*"
-      ],
-      "core/*": [
-        "src/core/*"
-      ],
       "services/*": [
-        "src/core/services/*"
+        "src/services/*"
       ],
-      "navigation/*": [
-        "src/navigation/*"
-      ],
-      "store/*": [
-        "src/store/*"
+      "stores/*": [
+        "src/stores/*"
       ],
       "styles/*": [
         "src/styles/*"

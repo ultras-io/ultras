@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 import TeamsComponent from 'views/components/compositions/TeamsHorizontal/TeamsComponent';
 import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { commonScreens } from 'navigation/screens';
+import { commonScreens } from 'views/navigation/screens';
 
 import { ITeamsContainerProps } from './types';
 import styles from 'views/components/compositions/TeamsHorizontal/styles';

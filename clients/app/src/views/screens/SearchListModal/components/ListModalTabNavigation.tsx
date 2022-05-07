@@ -2,7 +2,7 @@ import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { withTheme } from 'styled-components/native';
 import { ThemeInterface } from 'styled-components';
-import { listModalTabScreens } from 'navigation/screens';
+import { listModalTabScreens } from 'views/navigation/screens';
 import { FilterProvider } from '../contexts/FilterContext';
 
 const Stack = createMaterialTopTabNavigator();

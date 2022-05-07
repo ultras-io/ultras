@@ -1,5 +1,5 @@
 import { ThemeInterface } from 'styled-components';
-import { NavigationScreen } from 'navigation/types';
+import { NavigationScreen } from 'views/navigation/types';
 
 export interface IHomeProps {}
 

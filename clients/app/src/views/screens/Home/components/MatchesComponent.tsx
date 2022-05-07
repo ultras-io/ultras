@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Platform } from 'react-native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { commonScreens } from 'navigation/screens';
+import { commonScreens } from 'views/navigation/screens';
 
 import MatchCard from 'views/components/compositions/MatchCard';
 
