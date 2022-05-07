@@ -2,6 +2,8 @@ import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
 import { GetCitiesFilter } from './types';
 
+export * from './types';
+
 export class CitySDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'cities');

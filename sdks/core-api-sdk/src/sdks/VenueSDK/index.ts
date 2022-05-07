@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
 import { GetVenuesFilter } from './types';
+export * from './types';
 
 export class VenueSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {

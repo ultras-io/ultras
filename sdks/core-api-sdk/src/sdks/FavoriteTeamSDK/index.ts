@@ -7,6 +7,7 @@ import {
   GetFavoriteTeamsResult,
   SingleCreateFavoriteTeamResult,
 } from './types';
+export * from './types';
 
 export class FavoriteTeamSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {

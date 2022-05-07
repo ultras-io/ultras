@@ -18,6 +18,8 @@ import {
   FanClubMembershipBulkRequestResponse,
 } from './types';
 
+export * from './types';
+
 export class FanClubMembershipSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'fan-clubs');

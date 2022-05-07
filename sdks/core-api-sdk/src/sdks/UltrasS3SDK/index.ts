@@ -6,6 +6,7 @@ import {
   UploadViaSignedUrlParamsInterface,
   UploadParamsInterface,
 } from './types';
+export * from './types';
 
 export class UltrasS3SDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {

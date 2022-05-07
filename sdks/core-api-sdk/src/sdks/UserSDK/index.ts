@@ -5,6 +5,7 @@ import {
   RegistrationInterface,
   LoginInterface,
 } from './types';
+export * from './types';
 
 export class UserSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
