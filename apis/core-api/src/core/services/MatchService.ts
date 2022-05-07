@@ -126,7 +126,9 @@ class MatchService extends BaseService {
       body: { response },
     } = await injectMatches(date);
 
-    const records: MatchCreationAttributes[] = [];
+    let records: MatchCreationAttributes[] = [];
+    let iteration = 0;
+
     for (const responseItem of response) {
       const item: RapidApiMatch = responseItem as RapidApiMatch;
 
@@ -139,6 +141,10 @@ class MatchService extends BaseService {
         attributes: ['dataRapidId', 'id'],
         limit: 2,
       });
+
+      if (teams.length != 2) {
+        continue;
+      }
 
       const venue = await db.Venue.findOne({
         where: {
@@ -195,9 +201,16 @@ class MatchService extends BaseService {
         elapsedTime: item.fixture.status.elapsed,
         dataRapidId: item.fixture.id,
       });
+
+      if (records.length != 0 && ++iteration % 20 == 0) {
+        await db.Match.bulkCreate(records);
+        records = [];
+      }
     }
 
-    await db.Match.bulkCreate(records);
+    if (records.length != 0) {
+      await db.Match.bulkCreate(records);
+    }
   }
 }
 

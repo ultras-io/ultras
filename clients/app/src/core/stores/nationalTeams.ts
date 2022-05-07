@@ -1,19 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { TeamViewModel, TeamSDK, DbIdentifier } from '@ultras/core-api-sdk';
+import {
+  TeamViewModel,
+  TeamSDK,
+  DbIdentifier,
+  GetTeamsFilter,
+} from '@ultras/core-api-sdk';
 import { TeamTypesEnum } from '@ultras/utils';
-import { generateCRUD, SchemeInterface } from './generateCRUD';
+import {
+  Filterable,
+  FullFilterable,
+  generateCRUD,
+  InitStoreParamsInterface,
+} from './generateCRUD';
+
+type OmittedFilterType = Omit<GetTeamsFilter, 'type'>;
+
+type ParamType = InitStoreParamsInterface<TeamViewModel>;
+type FilterType = Filterable<OmittedFilterType>;
 
 const sdk = new TeamSDK('dev');
 
-const buildNationalTeamStore = (scheme?: SchemeInterface) => {
-  return generateCRUD<TeamViewModel, 'list' | 'single'>({
+const buildNationalTeamStore = (params: Partial<ParamType> = {}) => {
+  return generateCRUD<TeamViewModel, FilterType, 'list' | 'single'>({
     keys: ['list', 'single'],
+    ...(params as ParamType),
 
-    loadAll: (limit: number, offset: number) => {
+    loadAll: (filter: FullFilterable<OmittedFilterType>) => {
       return sdk.getTeams({
-        limit,
-        offset,
+        ...filter,
         type: TeamTypesEnum.national,
       });
     },

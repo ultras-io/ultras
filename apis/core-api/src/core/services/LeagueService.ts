@@ -90,7 +90,9 @@ class LeagueService extends BaseService {
       });
     }
 
-    await db.League.bulkCreate(records);
+    await db.League.bulkCreate(records, {
+      ignoreDuplicates: true,
+    });
   }
 }
 

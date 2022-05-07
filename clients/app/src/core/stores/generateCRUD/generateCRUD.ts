@@ -2,7 +2,7 @@ import createVanilla from 'zustand/vanilla';
 import type { SetState, GetState } from 'zustand/vanilla';
 import createReact from 'zustand';
 import type { DbIdentifier } from '@ultras/core-api-sdk';
-import { createField, fillStateKeys } from './helpers';
+import { createField, fillStateKeys, buildFilterHash } from './helpers';
 import type {
   StateKeyType,
   ParamsType,
@@ -15,30 +15,35 @@ import type {
   ListStateDataInterface,
   SingleStateDataInterface,
   StateDataAddInterface,
+  BeforeSendInterface,
+  FullFilterable,
 } from './types';
 
 export const defaultLimit = 50;
 
 export const generateCRUD = <
   TData extends object,
+  TFilter,
   TKey extends StateKeyType = StateKeyType
 >(
-  params: ParamsType<TData, TKey>
+  params: ParamsType<TData, TKey, TFilter>
 ) => {
   // @ts-ignore
   const includeKeys = fillStateKeys(params.keys || []);
 
   // #region state
-  const buildInitialState = (): ExtractStateType<TData, TKey> => {
+  const buildInitialState = (): ExtractStateType<TData, TKey, TFilter> => {
     // @ts-ignore
     const state: ExtractStateType<TData, TKey> = {};
 
     // #region list
     if (includeKeys.list) {
-      (state as unknown as ExtractStateType<TData, 'list'>).list = {
+      (state as unknown as ExtractStateType<TData, 'list', TFilter>).list = {
         status: 'loading',
         error: null,
         data: null,
+        filter: null,
+        filterHash: null,
         pagination: {
           total: null,
           limit: 0,
@@ -50,7 +55,7 @@ export const generateCRUD = <
 
     // #region single
     if (includeKeys.single) {
-      (state as unknown as ExtractStateType<TData, 'single'>).single = {
+      (state as unknown as ExtractStateType<TData, 'single', TFilter>).single = {
         status: 'loading',
         error: null,
         data: null,
@@ -60,7 +65,11 @@ export const generateCRUD = <
 
     // #region add
     if (includeKeys.add) {
-      const scheme = (params as unknown as ExtractInterceptorType<TData, 'add'>).scheme;
+      const { scheme } = params as unknown as ExtractInterceptorType<
+        TData,
+        'add',
+        TFilter
+      >;
 
       const stateAddData: StateDataAddInterface = Object.keys(scheme).reduce(
         (acc, key) => {
@@ -70,7 +79,7 @@ export const generateCRUD = <
         {} as StateDataAddInterface
       );
 
-      (state as unknown as ExtractStateType<TData, 'add'>).add = {
+      (state as unknown as ExtractStateType<TData, 'add', TFilter>).add = {
         status: 'loading',
         error: null,
         data: stateAddData,
@@ -85,88 +94,147 @@ export const generateCRUD = <
 
   // #region actions
   const buildActions = (
-    setStateCall: SetState<ExtractStateAndActionType<TData, TKey>>,
-    getStateCall: GetState<ExtractStateAndActionType<TData, TKey>>
-  ): ExtractActionType<TData, TKey> => {
+    setStateCall: SetState<ExtractStateAndActionType<TData, TKey, TFilter>>,
+    getStateCall: GetState<ExtractStateAndActionType<TData, TKey, TFilter>>
+  ): ExtractActionType<TData, TKey, TFilter> => {
     // @ts-ignore
     const actions: ExtractActionType<TData, TKey> = {};
 
     // #region list
     if (includeKeys.list) {
-      const getState = getStateCall as unknown as StateGetterCallType<TData, 'list'>;
-      const setState = setStateCall as unknown as StateSetterCallType<TData, 'list'>;
-      const interceptors = params as unknown as ExtractInterceptorType<TData, 'list'>;
+      const getState = getStateCall as unknown as StateGetterCallType<
+        TData,
+        'list',
+        TFilter
+      >;
+      const setState = setStateCall as unknown as StateSetterCallType<
+        TData,
+        'list',
+        TFilter
+      >;
+      const interceptors = params as unknown as ExtractInterceptorType<
+        TData,
+        'list',
+        TFilter
+      >;
+
+      // add updateFilter method to action list, that partially updates filter values,
+      // after updating filter getAll method must be called to load data with new filter
+      //
+      // filterHash will be calculated in getAll step
+      (actions as unknown as ExtractActionType<TData, 'list', TFilter>).updateFilter = (
+        filter: Partial<TFilter>
+      ) => {
+        const list = getState().list;
+        list.filter = list.filter || {};
+
+        Object.keys(filter).forEach((filterKey: string) => {
+          const key = filterKey as keyof TFilter;
+          (list.filter as Partial<TFilter>)[key] = filter[key];
+        });
+      };
 
       // add getAll method to action list, that just calling loadAll interceptor method
       // and updates "list" state
-      (actions as unknown as ExtractActionType<TData, 'list'>).getAll = async (): Promise<
-        ListStateDataInterface<TData>
-      > => {
-        const list = getState().list;
+      (actions as unknown as ExtractActionType<TData, 'list', TFilter>).getAll =
+        async (): Promise<ListStateDataInterface<TData, TFilter>> => {
+          const list = getState().list;
 
-        const itemsLimit = params.limit || defaultLimit;
-        const itemsCount = list.data?.length || 0;
-
-        if (list.pagination.total === itemsCount) {
-          return list;
-        }
-
-        list.status = 'loading';
-        setState({ list });
-
-        try {
-          const result = await interceptors.loadAll(itemsLimit, itemsCount);
-          if (!result) {
-            throw new Error('"loadAll" returned empty result.');
+          // we need to reset previously loaded data if filter was changed
+          const filterHash = buildFilterHash(list.filter);
+          if (filterHash !== list.filterHash) {
+            list.filterHash = filterHash;
+            list.data = null;
+            list.pagination.limit = 0;
+            list.pagination.offset = 0;
+            list.pagination.total = null;
           }
 
-          list.data = (list.data || []).concat(result.body.data);
-          list.status = 'success';
-          list.pagination.total = result.body.meta.pagination.total;
-          list.pagination.offset = result.body.meta.pagination.offset;
-          list.pagination.limit = result.body.meta.pagination.limit;
-        } catch (e) {
-          list.status = 'error';
-          list.error = e as Error;
-        }
+          const itemsLimit = params.limit || defaultLimit;
+          const itemsCount = list.data?.length || 0;
 
-        setState({ list });
-        return list;
-      };
+          if (list.pagination.total === itemsCount) {
+            return list;
+          }
+
+          list.status = 'loading';
+          setState({ list });
+
+          try {
+            const filterData = {
+              ...(list.filter || {}),
+              limit: itemsLimit,
+              offset: itemsCount,
+            };
+
+            console.log('filterData', JSON.stringify(filterData, null, 2), filterHash);
+
+            const result = await interceptors.loadAll(
+              filterData as unknown as FullFilterable<Partial<TFilter>>
+            );
+
+            if (!result) {
+              throw new Error('"loadAll" returned empty result.');
+            }
+
+            list.data = (list.data || []).concat(result.body.data);
+            list.status = 'success';
+            list.pagination.total = result.body.meta.pagination.total;
+            list.pagination.offset = result.body.meta.pagination.offset;
+            list.pagination.limit = result.body.meta.pagination.limit;
+          } catch (e) {
+            list.status = 'error';
+            list.error = e as Error;
+          }
+
+          setState({ list });
+          return list;
+        };
     }
     // #endregion
 
     // #region single
     if (includeKeys.single) {
-      const getState = getStateCall as unknown as StateGetterCallType<TData, 'single'>;
-      const setState = setStateCall as unknown as StateSetterCallType<TData, 'single'>;
-      const interceptors = params as unknown as ExtractInterceptorType<TData, 'single'>;
+      const getState = getStateCall as unknown as StateGetterCallType<
+        TData,
+        'single',
+        TFilter
+      >;
+      const setState = setStateCall as unknown as StateSetterCallType<
+        TData,
+        'single',
+        TFilter
+      >;
+      const interceptors = params as unknown as ExtractInterceptorType<
+        TData,
+        'single',
+        TFilter
+      >;
 
       // add getSingle method to action list, that just calling loadSingle interceptor method
       // and updates "single" state
-      (actions as unknown as ExtractActionType<TData, 'single'>).getSingle = async (
-        id: DbIdentifier
-      ): Promise<SingleStateDataInterface<TData>> => {
-        const single = getState().single;
-        single.status = 'loading';
-        setState({ single });
+      (actions as unknown as ExtractActionType<TData, 'single', TFilter>).getSingle =
+        async (id: DbIdentifier): Promise<SingleStateDataInterface<TData>> => {
+          const single = getState().single;
+          single.status = 'loading';
+          setState({ single });
 
-        try {
-          const result = await interceptors.loadSingle(id);
-          if (!result) {
-            throw new Error('"loadSingle" returned empty result.');
+          try {
+            const result = await interceptors.loadSingle(id);
+            if (!result) {
+              throw new Error('"loadSingle" returned empty result.');
+            }
+
+            single.status = 'success';
+            single.data = result.body.data;
+          } catch (e) {
+            single.status = 'error';
+            single.error = e as Error;
           }
 
-          single.status = 'success';
-          single.data = result.body.data;
-        } catch (e) {
-          single.status = 'error';
-          single.error = e as Error;
-        }
-
-        setState({ single });
-        return single;
-      };
+          setState({ single });
+          return single;
+        };
     }
     // #endregion
 
@@ -174,17 +242,30 @@ export const generateCRUD = <
     if (includeKeys.add) {
       const { scheme, beforeSend } = params as unknown as ExtractInterceptorType<
         TData,
-        'add'
+        'add',
+        TFilter
       >;
 
-      const getState = getStateCall as unknown as StateGetterCallType<TData, 'add'>;
-      const setState = setStateCall as unknown as StateSetterCallType<TData, 'add'>;
-      const interceptors = params as unknown as ExtractInterceptorType<TData, 'add'>;
+      const getState = getStateCall as unknown as StateGetterCallType<
+        TData,
+        'add',
+        TFilter
+      >;
+      const setState = setStateCall as unknown as StateSetterCallType<
+        TData,
+        'add',
+        TFilter
+      >;
+      const interceptors = params as unknown as ExtractInterceptorType<
+        TData,
+        'add',
+        TFilter
+      >;
 
       // add setFieldValue method to action list, that setting value property
       // by provided key and value, and it will call validate interceptor method
       // to set "valid" boolean property of "add" state
-      (actions as unknown as ExtractActionType<TData, 'add'>).setFieldValue = <
+      (actions as unknown as ExtractActionType<TData, 'add', TFilter>).setFieldValue = <
         TFieldKey extends keyof TData
       >(
         fieldKey: TFieldKey,
@@ -241,7 +322,7 @@ export const generateCRUD = <
 
       // add create method to action list, that just calling create interceptor method
       // which sending data to api server
-      (actions as unknown as ExtractActionType<TData, 'add'>).create =
+      (actions as unknown as ExtractActionType<TData, 'add', TFilter>).create =
         async (): Promise<TData | null> => {
           const add = getState().add;
           if (!add.valid) {
@@ -267,7 +348,9 @@ export const generateCRUD = <
           // received result must be sent to backend, otherwise state values will
           // be used to send to backend.
           if (typeof beforeSend === 'function') {
-            result = await beforeSend(state);
+            const beforeSendCall = beforeSend as unknown as BeforeSendInterface<TData>;
+            result = await beforeSendCall(state);
+
             if (!result) {
               return null;
             }
@@ -306,7 +389,7 @@ export const generateCRUD = <
   };
   // #endregion
 
-  const storeVanilla = createVanilla<ExtractStateAndActionType<TData, TKey>>(
+  const storeVanilla = createVanilla<ExtractStateAndActionType<TData, TKey, TFilter>>(
     (set, get) => ({
       ...buildInitialState(),
       ...buildActions(set, get),
@@ -316,7 +399,7 @@ export const generateCRUD = <
   const storeReact = createReact(storeVanilla);
 
   const useSelector = <TPassedKeys extends TKey>(...keys: Array<TPassedKeys>) => {
-    const state = storeReact() as ExtractStateAndActionType<TData, TPassedKeys>;
+    const state = storeReact() as ExtractStateAndActionType<TData, TPassedKeys, TFilter>;
     if (!keys || keys.length === 0) {
       return state;
     }
@@ -325,54 +408,73 @@ export const generateCRUD = <
       // @ts-ignore
       acc[value] = state[value];
       return acc;
-    }, {} as ExtractStateAndActionType<TData, TPassedKeys>);
+    }, {} as ExtractStateAndActionType<TData, TPassedKeys, TFilter>);
   };
 
   // #region actions
-  const buildRootActions = (): ExtractActionType<TData, TKey> => {
+  const buildRootActions = (): ExtractActionType<TData, TKey, TFilter> => {
     // @ts-ignore
-    const rootActions: ExtractActionType<TData, TKey> = {};
+    const rootActions: ExtractActionType<TData, TKey, TFilter> = {};
 
     // #region list
     if (includeKeys.list) {
-      (rootActions as unknown as ExtractActionType<TData, 'list'>).getAll = () => {
-        return (
-          storeVanilla.getState() as unknown as ExtractActionType<TData, 'list'>
-        ).getAll();
-      };
+      (rootActions as unknown as ExtractActionType<TData, 'list', TFilter>).getAll =
+        () => {
+          return (
+            storeVanilla.getState() as unknown as ExtractActionType<
+              TData,
+              'list',
+              TFilter
+            >
+          ).getAll();
+        };
+
+      (rootActions as unknown as ExtractActionType<TData, 'list', TFilter>).updateFilter =
+        (filter: Partial<TFilter>) => {
+          return (
+            storeVanilla.getState() as unknown as ExtractActionType<
+              TData,
+              'list',
+              TFilter
+            >
+          ).updateFilter(filter);
+        };
     }
     // #endregion
 
     // #region single
     if (includeKeys.single) {
-      (rootActions as unknown as ExtractActionType<TData, 'single'>).getSingle = (
-        id: DbIdentifier
-      ) => {
-        return (
-          storeVanilla.getState() as unknown as ExtractActionType<TData, 'single'>
-        ).getSingle(id);
-      };
+      (rootActions as unknown as ExtractActionType<TData, 'single', TFilter>).getSingle =
+        (id: DbIdentifier) => {
+          return (
+            storeVanilla.getState() as unknown as ExtractActionType<
+              TData,
+              'single',
+              TFilter
+            >
+          ).getSingle(id);
+        };
     }
     // #endregion
 
     // #region add
     if (includeKeys.add) {
-      (rootActions as unknown as ExtractActionType<TData, 'add'>).setFieldValue = <
-        TFieldKey extends keyof TData
-      >(
-        fieldKey: TFieldKey,
-        fieldValue: TData[TFieldKey]
-      ) => {
-        return (
-          storeVanilla.getState() as unknown as ExtractActionType<TData, 'add'>
-        ).setFieldValue(fieldKey, fieldValue);
-      };
+      (rootActions as unknown as ExtractActionType<TData, 'add', TFilter>).setFieldValue =
+        <TFieldKey extends keyof TData>(
+          fieldKey: TFieldKey,
+          fieldValue: TData[TFieldKey]
+        ) => {
+          return (
+            storeVanilla.getState() as unknown as ExtractActionType<TData, 'add', TFilter>
+          ).setFieldValue(fieldKey, fieldValue);
+        };
 
-      (rootActions as unknown as ExtractActionType<TData, 'add'>).create = () => {
-        return (
-          storeVanilla.getState() as unknown as ExtractActionType<TData, 'add'>
-        ).create();
-      };
+      (rootActions as unknown as ExtractActionType<TData, 'add', TFilter>).create =
+        () => {
+          return (
+            storeVanilla.getState() as unknown as ExtractActionType<TData, 'add', TFilter>
+          ).create();
+        };
     }
     // #endregion
 

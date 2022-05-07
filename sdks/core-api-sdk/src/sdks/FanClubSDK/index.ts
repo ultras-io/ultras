@@ -10,6 +10,8 @@ import {
   CreateFanClubResponse,
 } from './types';
 
+export * from './types';
+
 export class FanClubSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'fan-clubs');

@@ -1,3 +1,4 @@
+import { ListRequestParams } from '@ultras/utils';
 import {
   ApiResponseType,
   DbIdentifier,
@@ -16,6 +17,17 @@ export interface SchemeFieldInterface<TFieldValue = string> {
 export interface SchemeInterface {
   [key: string]: SchemeFieldInterface;
 }
+export interface BeforeSendInterface<TData> {
+  (data: StateDataAddInterface): Partial<TData> | null;
+}
+
+export interface InitStoreParamsInterface<TData> {
+  scheme: SchemeInterface;
+  beforeSend: BeforeSendInterface<TData>;
+}
+
+export type FullFilterable<TFilter> = TFilter & ListRequestParams;
+export type Filterable<TFilter> = Omit<FullFilterable<TFilter>, 'limit' | 'offset'>;
 
 export interface StateFieldAddInterface<TFieldValue = string> {
   isValid: boolean;
@@ -29,23 +41,6 @@ export interface StateDataAddInterface {
 // #endregion
 
 // #region state & global types
-// type Subtract<A, C> = A extends C ? never : A;
-// type AllKeys<T> = T extends any ? keyof T : never;
-// type NonCommonKeys<T extends object> = Subtract<AllKeys<T>, CommonKeys<T>>;
-// type CommonKeys<T extends object> = keyof T;
-
-// type PickType<T, K extends AllKeys<T>> = T extends { [k in K]?: any } ? T[K] : undefined;
-
-// type PickTypeOf<T, K extends string | number | symbol> = K extends AllKeys<T>
-//   ? PickType<T, K>
-//   : never;
-
-// type MergeUnion<T extends object> = {
-//   [keys in CommonKeys<T>]: PickTypeOf<T, keys>;
-// } & {
-//   [keys in NonCommonKeys<T>]: PickTypeOf<T, keys>;
-// };
-
 type AllKeys<T> = T extends any ? keyof T : never;
 type PickType<T, K extends AllKeys<T>> = NonNullable<
   T extends { [key in K]: any } ? T[K] : null
@@ -83,10 +78,12 @@ export type StateKeyParamType = Record<StateKeyType, boolean>;
 
 export type StatusType = 'loading' | 'error' | 'success';
 
-export interface ListStateDataInterface<TData> {
+export interface ListStateDataInterface<TData, TFilter> {
   status: StatusType;
   error: null | Error;
   data: null | Array<TData>;
+  filter: null | Partial<Filterable<TFilter>>;
+  filterHash: null | string;
   pagination: {
     total: null | number;
     limit: number;
@@ -109,9 +106,9 @@ export interface AddStateDataInterface<TData> {
 // #endregion
 
 // #region extractor types
-export type GroupedStateType<TData> = {
+export type GroupedStateType<TData, TFilter> = {
   list: {
-    list: ListStateDataInterface<TData>;
+    list: ListStateDataInterface<TData, TFilter>;
   };
   single: {
     single: SingleStateDataInterface<TData>;
@@ -121,9 +118,10 @@ export type GroupedStateType<TData> = {
   };
 };
 
-export type GroupedActionType<TData> = {
+export type GroupedActionType<TData, TFilter> = {
   list: {
-    getAll(): Promise<ListStateDataInterface<TData>>;
+    getAll(): Promise<ListStateDataInterface<TData, TFilter>>;
+    updateFilter(filter: Partial<TFilter>): void;
   };
   single: {
     getSingle(id: DbIdentifier): Promise<SingleStateDataInterface<TData>>;
@@ -137,42 +135,50 @@ export type GroupedActionType<TData> = {
   };
 };
 
-export type GroupedInterceptorType<TData> = {
+export type GroupedInterceptorType<TData, TFilter> = {
   list: {
-    loadAll(limit: number, offset: number): GetListPromiseType<TData>;
+    loadAll(filter: FullFilterable<Partial<TFilter>>): GetListPromiseType<TData>;
   };
   single: {
     loadSingle(id: DbIdentifier): GetSinglePromiseType<TData>;
   };
   add: {
     scheme: SchemeInterface;
-    beforeSend?(data: StateDataAddInterface): Partial<TData> | null;
+    beforeSend: BeforeSendInterface<TData> | null;
     create(data: Partial<TData>): CreatePromiseType<TData>;
   };
 };
 
-export type ExtractStateType<TData, TStateItem extends StateKeyType> = MergeUnion<
-  GroupedStateType<TData>[TStateItem]
->;
+export type ExtractStateType<
+  TData,
+  TStateItem extends StateKeyType,
+  TFilter
+> = MergeUnion<GroupedStateType<TData, TFilter>[TStateItem]>;
 
-export type ExtractActionType<TData, TStateItem extends StateKeyType> = MergeUnion<
-  GroupedActionType<TData>[TStateItem]
->;
+export type ExtractActionType<
+  TData,
+  TStateItem extends StateKeyType,
+  TFilter
+> = MergeUnion<GroupedActionType<TData, TFilter>[TStateItem]>;
 
-export type ExtractInterceptorType<TData, TStateItem extends StateKeyType> = MergeUnion<
-  GroupedInterceptorType<TData>[TStateItem]
->;
+export type ExtractInterceptorType<
+  TData,
+  TStateItem extends StateKeyType,
+  TFilter
+> = MergeUnion<GroupedInterceptorType<TData, TFilter>[TStateItem]>;
 
 export type ExtractStateAndActionType<
   TData,
-  TStateItem extends StateKeyType
-> = ExtractStateType<TData, TStateItem> & ExtractActionType<TData, TStateItem>;
+  TStateItem extends StateKeyType,
+  TFilter
+> = ExtractStateType<TData, TStateItem, TFilter> &
+  ExtractActionType<TData, TStateItem, TFilter>;
 // #endregion
 
 // #region
-export type ParamsType<TData, TStateItem extends StateKeyType> = {
+export type ParamsType<TData, TStateItem extends StateKeyType, TFilter> = {
   limit?: number;
-} & ExtractInterceptorType<TData, TStateItem> &
+} & ExtractInterceptorType<TData, TStateItem, TFilter> &
   IfEquals<
     TStateItem,
     StateKeyType,
@@ -186,10 +192,11 @@ export type ParamsType<TData, TStateItem extends StateKeyType> = {
 
 export type StateGetterCallType<
   TData,
-  TKey extends StateKeyType
-> = () => ExtractStateType<TData, TKey>;
+  TKey extends StateKeyType,
+  TFilter
+> = () => ExtractStateType<TData, TKey, TFilter>;
 
-export type StateSetterCallType<TData, TKey extends StateKeyType> = (
-  args: ExtractStateType<TData, TKey>
+export type StateSetterCallType<TData, TKey extends StateKeyType, TFilter> = (
+  args: ExtractStateType<TData, TKey, TFilter>
 ) => void;
 // #endregion

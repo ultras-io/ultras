@@ -6,7 +6,7 @@ const router = new Router({
 });
 
 router.get('/', ControllerAdapter.getAll);
-router.post('/inject', ControllerAdapter.inject);
+router.post('/inject/:date', ControllerAdapter.inject);
 
 router.get('/:id', ControllerAdapter.getById);
 
