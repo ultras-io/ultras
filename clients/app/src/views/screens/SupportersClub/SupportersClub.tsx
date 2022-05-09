@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { commonScreens } from 'navigation/screens';
+import { commonScreens } from 'views/navigation/screens';
 
 import SupportersClubContainer from './containers/SupportersClubContainer';
 import Button, {

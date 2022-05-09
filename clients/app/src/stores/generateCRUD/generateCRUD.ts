@@ -167,8 +167,6 @@ export const generateCRUD = <
               offset: itemsCount,
             };
 
-            console.log('filterData', JSON.stringify(filterData, null, 2), filterHash);
-
             const result = await interceptors.loadAll(
               filterData as unknown as FullFilterable<Partial<TFilter>>
             );

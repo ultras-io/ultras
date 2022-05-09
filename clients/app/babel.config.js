@@ -1,3 +1,22 @@
+const json5 = require('json5');
+const fs = require('fs');
+const path = require('path');
+
+const tsconfigFilename = path.join(__dirname, 'tsconfig.json');
+const tsconfigContent = fs.readFileSync(tsconfigFilename, 'utf-8');
+const tsconfig = json5.parse(tsconfigContent);
+
+const pathBase = tsconfig.compilerOptions.baseUrl;
+const pathAliases = tsconfig.compilerOptions.paths;
+
+const aliases = Object.keys(pathAliases).reduce((acc, key) => {
+  const validKey = key.replace('/*', '');
+  const validValue = pathAliases[key][0].replace('/*', '');
+
+  acc[validKey] = path.join(pathBase, validValue);
+  return acc;
+}, {});
+
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
@@ -5,21 +24,27 @@ module.exports = {
       'module-resolver',
       {
         root: ['./src'],
-        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.d.ts', '.tsx', '.json'],
-        alias: {
-          assets: './src/assets',
-          views: './src/views',
-          config: './src/screens',
-          core: './src/core',
-          services: './src/core/services',
-          navigation: './src/navigation',
-          store: './src/store',
-          styles: './src/styles',
-          utils: './src/utils',
-          hooks: './src/utils/hooks',
-          i18n: './src/i18n',
-          themes: './src/themes',
-        },
+        extensions: [
+          '.ios.js',
+          '.ios.jsx',
+          '.android.js',
+          '.android.jsx',
+          '.native.js',
+          '.native.jsx',
+          '.js',
+          '.jsx',
+          '.ios.ts',
+          '.ios.tsx',
+          '.android.ts',
+          '.android.tsx',
+          '.native.ts',
+          '.native.tsx',
+          '.ts',
+          '.tsx',
+          '.d.ts',
+          '.json',
+        ],
+        alias: aliases,
       },
     ],
   ],

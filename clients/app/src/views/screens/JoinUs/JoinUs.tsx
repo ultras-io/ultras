@@ -4,11 +4,11 @@ import I18n from 'i18n/i18n';
 
 import scenario from './content';
 
-import LocationService from 'services/location/locationService';
+import LocationService from '../../../services/location/locationService';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { rootScreens } from 'navigation/screens';
+import { rootScreens } from 'views/navigation/screens';
 import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import WithAnimation from 'views/components/base/WithAnimation';

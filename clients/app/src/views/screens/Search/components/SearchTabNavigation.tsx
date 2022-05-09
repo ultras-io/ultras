@@ -3,8 +3,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { withTheme } from 'styled-components/native';
 import SearchItem from 'views/components/compositions/SearchItem';
 
-import searchTabScreens from 'navigation/screens/searchTabScreens';
-import { ISearchTabNavigationProps } from 'navigation/types';
+import searchTabScreens from 'views/navigation/screens/searchTabScreens';
+import { ISearchTabNavigationProps } from 'views/navigation/types';
 
 const Stack = createMaterialTopTabNavigator();
 const TAB_NAME = 'Search';

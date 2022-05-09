@@ -1,6 +1,6 @@
 import Geolocation from 'react-native-geolocation-service';
 import { Platform, Linking, Alert, PermissionsAndroid } from 'react-native';
-import appConfig from '../../../app.json';
+import appConfig from '../../app.json';
 
 //TODO locale texts
 

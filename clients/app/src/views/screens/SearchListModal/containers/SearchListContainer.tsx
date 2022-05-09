@@ -5,8 +5,8 @@ import { TeamViewModel } from '@ultras/view-models';
 import SearchListComponent from '../components/SearchListComponent';
 import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
 
-import buildFootballClubsStore from 'core/stores/footballClubs';
-import buildNationalTeamsStore from 'core/stores/nationalTeams';
+import buildFootballClubsStore from 'stores/footballClubs';
+import buildNationalTeamsStore from 'stores/nationalTeams';
 
 const manipulateTeamItem = (item: TeamViewModel): SearchItem => ({
   id: item.id.toString(),

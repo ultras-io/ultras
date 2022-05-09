@@ -11,7 +11,7 @@ import Button, {
 import { IconNamesEnum as Icons } from 'assets/icons';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { tabScreens } from 'navigation/screens';
+import { tabScreens } from 'views/navigation/screens';
 
 import { IMatchesContainerProps } from '../types';
 import styles from '../styles';

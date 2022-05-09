@@ -10,7 +10,7 @@ import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/Badge';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import ProfileContainer from './containers/ProfileContainer';
 import { IProfileProps } from './types';
-import { screenSettings } from 'navigation/screens';
+import { screenSettings } from 'views/navigation/screens';
 
 import styles from './styles';
 
