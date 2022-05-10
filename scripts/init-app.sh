@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")/.." || exit 1
+INIT_LOG="$PWD/app-init-script.log"
+
+function print_action_log() {
+  local MESSAGE="$1"
+
+  set_title "$MESSAGE ..."
+  print_log_section "$INIT_LOG" "$MESSAGE"
+  print_row_wait "$MESSAGE"
+}
+
+if [[ -f "$INIT_LOG" ]]; then
+  rm "$INIT_LOG" > /dev/null 2>&1
+fi
 
 if [[ "$(command -v realpath)" != "" ]]; then
   ROOT_DIR="$(realpath "$PWD")"
@@ -29,31 +42,27 @@ echo -e " \033[0;32m============================================================
 echo ""
 
 # remove all node_modules folders
-set_title "Cleaning old node modules ..."
-print_row_wait "Cleaning old node modules"
-find . -type d -name node_modules | xargs rm -rf > /dev/null 2>&1
+print_action_log "Cleaning old node modules"
+find . -type d -name node_modules | xargs rm -rf >> "$INIT_LOG" # > /dev/null 2>&1
 end_cmd_die $? "Couldn't delete node_modules folder(s)."
 
 # remove all build folders
-set_title "Cleaning old builds ..."
-print_row_wait "Cleaning old builds"
-find . -type d -name build | xargs rm -rf > /dev/null 2>&1
+print_action_log "Cleaning old builds"
+find . -type d -name build | xargs rm -rf >> "$INIT_LOG" # > /dev/null 2>&1
 end_cmd_die $? "Couldn't delete build folder(s)."
 
 # make linkage
 cd "$ROOT_DIR"
 if [[ ! -d "node_modules" ]]; then
-  set_title "Installing node modules via yarn ..."
-  print_row_wait "Installing node modules via yarn"
-  yarn install > /dev/null 2>&1
+  print_action_log "Installing node modules via yarn"
+  yarn install >> "$INIT_LOG" # > /dev/null 2>&1
   end_cmd_die $? "Couldn't install node modules."
 fi
 
 # make linkage
 cd "$ROOT_DIR"
-set_title "Linking all sub-packages ..."
-print_row_wait "Linking all sub-packages"
-yarn link-all > /dev/null 2>&1
+print_action_log "Linking all sub-packages"
+yarn link-all >> "$INIT_LOG" # > /dev/null 2>&1
 end_cmd_die $? "Couldn't make package linkage."
 
 # build packages (ORDER OF PACKAGES IMPORTANT !!!)
@@ -69,9 +78,7 @@ for ITEM_BUILD in ${ITEMS_BUILD[@]}; do
   PKG_NAME="$(cat package.json | grep '"name":' | sed 's/"name"://g' | sed 's/"//g' | sed 's/,//g' | xargs)"
 
   if [[ ! -d "build" ]] ; then
-    set_title "Building sub-package [$PKG_NAME] ..."
-    print_row_wait "Building sub-package [$PKG_NAME]"
-    yarn build > /dev/null 2>&1
+    print_action_log "Building sub-package [$PKG_NAME]"
     end_cmd_die $? "Couldn't build package $PKG_NAME."
   fi
 done
@@ -87,17 +94,15 @@ if [[ "Darwin" == "$(uname)" ]]; then
       exit
     else
       if [[ "" == "$(command -v pod)" ]]; then
-        set_title "Installing CocoaPods engine ..."
-        print_row_wait "Installing CocoaPods engine"
-        sudo gem install cocoapods > /dev/null 2>&1
+        print_action_log "Installing CocoaPods engine"
+        sudo gem install cocoapods >> "$INIT_LOG" # > /dev/null 2>&1
         end_cmd_die $? "Couldn't install CocoaPods."
       fi
 
       cd "$ROOT_DIR/clients/app/ios"
 
-      set_title "Installing CocoaPods packages ..."
-      print_row_wait "Installing CocoaPods packages"
-      pod install > /dev/null 2>&1
+      print_action_log "Installing CocoaPods packages"
+      pod install >> "$INIT_LOG" # > /dev/null 2>&1
       end_cmd_die $? "Couldn't install CocoaPods packages."
     fi
   fi
@@ -106,3 +111,7 @@ fi
 echo ""
 echo -e " \033[0;32m Yu-hu, initiation completed successfully 🎉 🎉 🎉 \033[0m"
 echo ""
+
+if [[ -f "$INIT_LOG" ]]; then
+  rm "$INIT_LOG" > /dev/null 2>&1
+fi
