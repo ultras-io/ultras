@@ -14,6 +14,10 @@ const aliases = Object.keys(pathAliases).reduce((acc, key) => {
   const validValue = pathAliases[key][0].replace('/*', '');
 
   acc[validKey] = path.join(pathBase, validValue);
+  if (!acc[validKey].startsWith('./')) {
+    acc[validKey] = './' + acc[validKey];
+  }
+
   return acc;
 }, {});
 
