@@ -79,6 +79,7 @@ for ITEM_BUILD in ${ITEMS_BUILD[@]}; do
 
   if [[ ! -d "build" ]] ; then
     print_action_log "Building sub-package [$PKG_NAME]"
+    yarn build >> "$INIT_LOG" # > /dev/null 2>&1
     end_cmd_die $? "Couldn't build package $PKG_NAME."
   fi
 done
