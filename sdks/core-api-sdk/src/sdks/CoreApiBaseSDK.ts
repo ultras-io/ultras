@@ -3,6 +3,7 @@ import type { ResponseInterface } from '@ultras/services/NetworkService';
 import { Interceptor } from '../interceptors/types';
 import { AuthTokenInterceptor } from '../interceptors';
 import type { ApiResponseType, ListResponseMetaType } from './types';
+import configs from '../configs';
 
 export type Mode = 'dev' | 'staging' | 'production';
 export { ApiResponseType, ListResponseMetaType, ResponseInterface };
@@ -17,13 +18,13 @@ class CoreApiBaseSDK {
 
     switch (mode) {
       case 'dev':
-        uri = `http://localhost:10001/v1/${baseUri}`;
+        uri = `${configs.coreApi.dev}/v1/${baseUri}`;
         break;
       case 'staging':
-        uri = `http://api.ultras.io/v1/${baseUri}`;
+        uri = `${configs.coreApi.staging}/v1/${baseUri}`;
         break;
       case 'production':
-        // not implemented yet
+        uri = `${configs.coreApi.prod}/v1/${baseUri}`;
         break;
     }
 
