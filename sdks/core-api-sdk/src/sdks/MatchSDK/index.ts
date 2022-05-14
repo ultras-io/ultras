@@ -1,7 +1,7 @@
 import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import { GetMatchesFilter } from './types';
 export * from './types';
 
@@ -30,7 +30,7 @@ export class MatchSDK extends CoreApiBaseSDK {
     });
   }
 
-  public getMatch(id: DbIdentifier) {
+  public getMatch(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

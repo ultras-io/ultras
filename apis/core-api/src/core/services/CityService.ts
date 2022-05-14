@@ -3,7 +3,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 import resources from 'core/data/lcp';
@@ -14,7 +14,7 @@ import BaseService from './BaseService';
 
 export interface CitiesListParamsInterface {
   name?: string;
-  countryId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
 }
 
 class CityService extends BaseService {
@@ -58,14 +58,14 @@ class CityService extends BaseService {
   /**
    * Get city by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<CityViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<CityViewModel> {
     return this.findById(db.City, id);
   }
 
   /**
    * Inject data from Rapid API.
    */
-  static async inject(countryCode: string, countryId: DbIdentifier) {
+  static async inject(countryCode: string, countryId: ResourceIdentifier) {
     const {
       body: { data },
     } = await injectCities(countryCode);

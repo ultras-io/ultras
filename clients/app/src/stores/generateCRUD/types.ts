@@ -1,7 +1,7 @@
 import { ListRequestParams } from '@ultras/utils';
 import {
   ApiResponseType,
-  DbIdentifier,
+  ResourceIdentifier,
   ListResponseMetaType,
 } from '@ultras/core-api-sdk';
 
@@ -124,7 +124,7 @@ export type GroupedActionType<TData, TFilter> = {
     updateFilter(filter: Partial<TFilter>): void;
   };
   single: {
-    getSingle(id: DbIdentifier): Promise<SingleStateDataInterface<TData>>;
+    getSingle(id: ResourceIdentifier): Promise<SingleStateDataInterface<TData>>;
   };
   add: {
     setFieldValue<TFieldKey extends keyof TData>(
@@ -140,7 +140,7 @@ export type GroupedInterceptorType<TData, TFilter> = {
     loadAll(filter: FullFilterable<Partial<TFilter>>): GetListPromiseType<TData>;
   };
   single: {
-    loadSingle(id: DbIdentifier): GetSinglePromiseType<TData>;
+    loadSingle(id: ResourceIdentifier): GetSinglePromiseType<TData>;
   };
   add: {
     scheme: SchemeInterface;

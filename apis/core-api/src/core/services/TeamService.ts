@@ -4,7 +4,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 import resources from 'core/data/lcp';
@@ -16,9 +16,9 @@ import BaseService from './BaseService';
 
 export interface TeamsListParamsInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
-  venueId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
+  venueId?: ResourceIdentifier;
   type?: TeamTypesEnum;
 }
 
@@ -89,14 +89,14 @@ class TeamService extends BaseService {
   /**
    * Get team by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<TeamViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<TeamViewModel> {
     return this.findById(db.Team, id);
   }
 
   /**
    * Inject data from Rapid API.
    */
-  static async inject(countryName: string, countryId: DbIdentifier) {
+  static async inject(countryName: string, countryId: ResourceIdentifier) {
     const records: Array<TeamCreationAttributes> = [];
     const {
       body: { response },

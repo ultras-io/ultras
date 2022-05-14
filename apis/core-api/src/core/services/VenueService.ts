@@ -3,7 +3,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 import resources from 'core/data/lcp';
@@ -15,8 +15,8 @@ import BaseService from './BaseService';
 
 export interface VenuesListParamsInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
 }
 
 class VenueService extends BaseService {
@@ -70,14 +70,14 @@ class VenueService extends BaseService {
   /**
    * Get venue by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<VenueViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<VenueViewModel> {
     return this.findById(db.Venue, id);
   }
 
   /**
    * Inject data from Rapid API.
    */
-  static async inject(countryName: string, countryId: DbIdentifier) {
+  static async inject(countryName: string, countryId: ResourceIdentifier) {
     const records: VenueCreationAttributes[] = [];
     const {
       body: { response },

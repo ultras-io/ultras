@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import type {
   GetCountriesFilter,
   GetCountriesResponse,
@@ -18,7 +18,7 @@ export class CountrySDK extends CoreApiBaseSDK {
     });
   }
 
-  public getCountry(id: DbIdentifier) {
+  public getCountry(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetCountryResponse>(id.toString());
   }
 }

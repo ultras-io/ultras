@@ -1,5 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -7,7 +7,7 @@ import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { Team } from './Team';
 
 export interface UserAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   phone: null | string;
   email: null | string;
   username: string;
@@ -25,7 +25,7 @@ export class User
   implements UserAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public phone!: null | string;
   public email!: null | string;
   public username!: string;

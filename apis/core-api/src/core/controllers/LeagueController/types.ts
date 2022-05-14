@@ -4,12 +4,12 @@ import {
   ControllerListResultType,
   ControllerByIdResultType,
   ControllerInjectionResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 interface LeaguesFilterInterface {
   name?: string;
-  countryId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
 }
 
 export type LeaguesListParams = ControllerListParamsType<LeaguesFilterInterface>;

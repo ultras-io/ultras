@@ -4,7 +4,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 import db from 'core/data/models';
@@ -47,7 +47,7 @@ class CountryService extends BaseService {
   /**
    * Get country by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<CountryViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<CountryViewModel> {
     return this.findById(db.Country, id);
   }
 
