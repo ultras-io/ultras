@@ -65,7 +65,7 @@ module.exports = (sequelize: Sequelize): typeof City => {
   City.init(
     {
       id: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },

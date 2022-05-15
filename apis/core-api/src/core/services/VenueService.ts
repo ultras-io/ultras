@@ -101,7 +101,10 @@ class VenueService extends BaseService {
       });
 
       if (!city) {
-        console.log(`>>> missing in DB[city]: ${item.city}`);
+        console.log(`>>> missing in DB[city]:`, {
+          venue: item.name,
+          city: item.city,
+        });
         continue;
       }
 
@@ -125,7 +128,9 @@ class VenueService extends BaseService {
     );
 
     const uniqueVenues = Object.values(uniqueVenuesGrouped);
-    await db.Venue.bulkCreate(uniqueVenues);
+    await db.Venue.bulkCreate(uniqueVenues, {
+      ignoreDuplicates: true,
+    });
   }
 }
 

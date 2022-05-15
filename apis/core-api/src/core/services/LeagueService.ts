@@ -68,7 +68,7 @@ class LeagueService extends BaseService {
    */
   static async inject(countryName: string, countryId: DbIdentifier) {
     const {
-      body: { response },
+      body: { response, errors },
     } = await injectLeagues(countryName);
 
     if (response.length === 0) {

@@ -203,13 +203,17 @@ class MatchService extends BaseService {
       });
 
       if (records.length != 0 && ++iteration % 20 == 0) {
-        await db.Match.bulkCreate(records);
+        await db.Match.bulkCreate(records, {
+          ignoreDuplicates: true,
+        });
         records = [];
       }
     }
 
     if (records.length != 0) {
-      await db.Match.bulkCreate(records);
+      await db.Match.bulkCreate(records, {
+        ignoreDuplicates: true,
+      });
     }
   }
 }

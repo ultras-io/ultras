@@ -68,7 +68,7 @@ module.exports = (sequelize: Sequelize): typeof FavoriteTeam => {
         onDelete: 'CASCADE',
       },
       teamId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: {

@@ -64,7 +64,7 @@ class TeamController extends BaseController {
    */
   static async inject(): TeamsInjectDataResult {
     try {
-      const countries = await CountryService.getCodesAndIds();
+      const countries = await CountryService.getCodesNamesAndIds();
 
       for (const country of countries) {
         await TeamService.inject(
