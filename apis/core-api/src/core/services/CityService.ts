@@ -85,7 +85,9 @@ class CityService extends BaseService {
     );
 
     const uniqueCities = Object.values(uniqueCitiesGrouped);
-    await db.City.bulkCreate(uniqueCities);
+    await db.City.bulkCreate(uniqueCities, {
+      ignoreDuplicates: true,
+    });
   }
 }
 

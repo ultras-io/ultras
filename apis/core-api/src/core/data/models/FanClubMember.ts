@@ -71,7 +71,7 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
   FanClubMember.init(
     {
       id: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -100,7 +100,7 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
         onDelete: 'CASCADE',
       },
       roleId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.SMALLINT,
         allowNull: false,
         references: {
           model: {

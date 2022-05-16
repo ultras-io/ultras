@@ -122,7 +122,10 @@ class TeamService extends BaseService {
       });
 
       if (!venue) {
-        console.log(`>>> missing in DB[venue]: ${item.venue.name}`);
+        console.log(`>>> missing in DB[venue]:`, {
+          venue: item.venue.name,
+          team: item.team.name,
+        });
         continue;
       }
 
@@ -147,7 +150,9 @@ class TeamService extends BaseService {
     );
 
     const uniqueTeams = Object.values(uniqueTeamsGrouped);
-    await db.Team.bulkCreate(uniqueTeams);
+    await db.Team.bulkCreate(uniqueTeams, {
+      ignoreDuplicates: true,
+    });
   }
 }
 

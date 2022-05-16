@@ -48,7 +48,7 @@ module.exports = (sequelize: Sequelize): typeof League => {
   League.init(
     {
       id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },

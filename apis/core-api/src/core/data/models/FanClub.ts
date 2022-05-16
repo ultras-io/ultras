@@ -120,7 +120,7 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         onDelete: 'CASCADE',
       },
       cityId: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: {
@@ -132,7 +132,7 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         onDelete: 'CASCADE',
       },
       teamId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: {

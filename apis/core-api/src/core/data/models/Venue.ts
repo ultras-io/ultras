@@ -61,7 +61,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
   Venue.init(
     {
       id: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -77,7 +77,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         type: DataTypes.INTEGER,
       },
       cityId: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.CITY.RELATION,

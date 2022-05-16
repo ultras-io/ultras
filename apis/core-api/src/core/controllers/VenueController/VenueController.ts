@@ -59,7 +59,7 @@ class VenueController extends BaseController {
    * NOTICE: used to development purposes
    */
   static async inject(): VenuesInjectDataResult {
-    const countries = await CountryService.getCodesAndIds();
+    const countries = await CountryService.getCodesNamesAndIds();
 
     try {
       for (const country of countries) {

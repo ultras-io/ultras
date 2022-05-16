@@ -195,6 +195,13 @@ class MatchService extends BaseService {
         continue;
       }
 
+      let matchWinner: WinnerEnum = WinnerEnum.draw;
+      if (item.teams.home.winner) {
+        matchWinner = WinnerEnum.home;
+      } else if (item.teams.away.winner) {
+        matchWinner = WinnerEnum.away;
+      }
+
       records.push({
         dateTime: item.fixture.date,
         teamHomeId: teamHome.getDataValue('id'),
@@ -202,7 +209,7 @@ class MatchService extends BaseService {
         venueId: venue.getDataValue('id'),
         leagueId: league.getDataValue('id'),
         status: parseMatchStatus(item.fixture.status.short),
-        winner: WinnerEnum.draw,
+        winner: matchWinner,
         goalsHome: item.goals.home,
         goalsAway: item.goals.away,
         elapsedTime: item.fixture.status.elapsed,
@@ -210,13 +217,17 @@ class MatchService extends BaseService {
       });
 
       if (records.length != 0 && ++iteration % 20 == 0) {
-        await db.Match.bulkCreate(records);
+        await db.Match.bulkCreate(records, {
+          ignoreDuplicates: true,
+        });
         records = [];
       }
     }
 
     if (records.length != 0) {
-      await db.Match.bulkCreate(records);
+      await db.Match.bulkCreate(records, {
+        ignoreDuplicates: true,
+      });
     }
   }
 }

@@ -101,7 +101,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         allowNull: false,
       },
       teamHomeId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -112,7 +112,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       teamAwayId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,
@@ -123,7 +123,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.VENUE.RELATION,
@@ -134,7 +134,7 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         onDelete: 'CASCADE',
       },
       leagueId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.LEAGUE.RELATION,

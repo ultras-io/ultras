@@ -57,7 +57,7 @@ class LeagueController extends BaseController {
    * NOTICE: used to development purposes
    */
   static async inject(): LeaguesInjectDataResult {
-    const countries = await CountryService.getCodesAndIds();
+    const countries = await CountryService.getCodesNamesAndIds();
 
     try {
       for (const country of countries) {
