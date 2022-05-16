@@ -12,6 +12,9 @@ import { MatchCreationAttributes } from 'core/data/models/Match';
 import injectMatches, { RapidApiMatch } from 'core/data/inject-scripts/injectMatches';
 
 import BaseService from './BaseService';
+import TeamService from './TeamService';
+import VenueService from './VenueService';
+import LeagueService from './LeagueService';
 
 export interface MatchesListParamsInterface {
   dateFrom?: string;
@@ -33,18 +36,22 @@ class MatchService extends BaseService {
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR + 'Home',
+          ...TeamService.getIncludeRelations(),
         },
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR + 'Away',
+          ...TeamService.getIncludeRelations(),
         },
         {
           model: db.Venue,
           as: resources.VENUE.ALIAS.SINGULAR,
+          ...VenueService.getIncludeRelations(),
         },
         {
           model: db.League,
           as: resources.LEAGUE.ALIAS.SINGULAR,
+          ...LeagueService.getIncludeRelations(),
         },
         {
           model: db.Score,
