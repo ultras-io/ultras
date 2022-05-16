@@ -1,13 +1,13 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { User } from './User';
 
 export interface UserSessionAttributes {
-  id: DbIdentifier;
-  userId: DbIdentifier;
+  id: ResourceIdentifier;
+  userId: ResourceIdentifier;
   fingerprint: string;
   ip: string;
   device: string;
@@ -27,8 +27,8 @@ export class UserSession
   implements UserSessionAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
-  public userId!: DbIdentifier;
+  public id!: ResourceIdentifier;
+  public userId!: ResourceIdentifier;
   public fingerprint!: string;
   public ip!: string;
   public device!: string;

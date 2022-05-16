@@ -1,12 +1,12 @@
 import { FanClubMemberRoleEnum } from '@ultras/utils';
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import { ULTRAS_CORE } from 'core/data/lcp/schemas';
 
 export interface FanClubMemberRoleAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   role: FanClubMemberRoleEnum;
   description: string | null;
 }
@@ -21,7 +21,7 @@ export class FanClubMemberRole
   implements FanClubMemberRoleAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public role!: FanClubMemberRoleEnum;
   public description!: string | null;
 

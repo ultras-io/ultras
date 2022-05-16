@@ -4,12 +4,12 @@ import {
   ControllerListParamsType,
   ControllerListResultType,
   ControllerResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 export type FavoriteTeamListParamsType = ControllerListParamsType<{
   search?: string;
-  userId: DbIdentifier;
+  userId: ResourceIdentifier;
 }>;
 
 export type FavoriteTeamListResultType = ControllerListResultType<FavoriteTeamViewModel>;
@@ -17,8 +17,8 @@ export type FavoriteTeamListResultType = ControllerListResultType<FavoriteTeamVi
 export type FavoriteTeamByIdResult = ControllerByIdResultType<FavoriteTeamViewModel>;
 
 export type AddFavoriteTeamBulkParamsType = {
-  userId: DbIdentifier;
-  teamId: DbIdentifier | Array<DbIdentifier>;
+  userId: ResourceIdentifier;
+  teamId: ResourceIdentifier | Array<ResourceIdentifier>;
 };
 
 export type AddFavoriteTeamBulkResultType = ControllerResultType<
@@ -26,7 +26,7 @@ export type AddFavoriteTeamBulkResultType = ControllerResultType<
 >;
 
 export type RemoveFavoriteTeamParamsType = {
-  userId: DbIdentifier;
-  favoriteTeamId?: DbIdentifier;
-  teamId?: DbIdentifier;
+  userId: ResourceIdentifier;
+  favoriteTeamId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
 };

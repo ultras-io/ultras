@@ -1,12 +1,12 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 import { NotifiedProviderEnum } from '@ultras/utils';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 
 export interface VerificationCodeAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   code: string;
   provider: NotifiedProviderEnum;
   phone: null | string;
@@ -24,7 +24,7 @@ export class VerificationCode
   implements VerificationCodeAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public code!: string;
   public provider!: NotifiedProviderEnum;
   public phone!: null | string;

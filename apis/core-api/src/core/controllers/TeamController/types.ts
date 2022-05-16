@@ -5,14 +5,14 @@ import {
   ControllerListResultType,
   ControllerByIdResultType,
   ControllerInjectionResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 interface TeamsFilterInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
-  venueId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
+  venueId?: ResourceIdentifier;
   type?: TeamTypesEnum;
 }
 

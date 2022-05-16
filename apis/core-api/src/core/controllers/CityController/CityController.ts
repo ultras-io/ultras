@@ -4,7 +4,7 @@ import { CityService, CountryService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import {
   CitiesListParams,
@@ -39,7 +39,7 @@ class CityController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): CityByIdResult {
+  static async getById(id: ResourceIdentifier): CityByIdResult {
     const city = await CityService.getById(id);
 
     if (!city) {

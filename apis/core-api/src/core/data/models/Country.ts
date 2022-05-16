@@ -6,14 +6,14 @@ import {
   HasManyGetAssociationsMixin,
   Association,
 } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { City } from 'core/data/models/City';
 
 export interface CountryAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   name: string;
   code: string;
   flag: string;
@@ -28,7 +28,7 @@ export class Country
   implements CountryAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public name!: string;
   public code!: string;
   public flag!: string;

@@ -1,5 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -8,9 +8,9 @@ import { User } from './User';
 import { Team } from './Team';
 
 export interface FavoriteTeamAttributes {
-  id: DbIdentifier;
-  userId: DbIdentifier;
-  teamId: DbIdentifier;
+  id: ResourceIdentifier;
+  userId: ResourceIdentifier;
+  teamId: ResourceIdentifier;
 }
 
 export type FavoriteTeamCreationAttributes = Optional<FavoriteTeamAttributes, 'id'>;
@@ -20,9 +20,9 @@ export class FavoriteTeam
   implements FavoriteTeamAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
-  public userId!: DbIdentifier;
-  public teamId!: DbIdentifier;
+  public id!: ResourceIdentifier;
+  public userId!: ResourceIdentifier;
+  public teamId!: ResourceIdentifier;
 
   // timestamps!
   public readonly createdAt!: Date;

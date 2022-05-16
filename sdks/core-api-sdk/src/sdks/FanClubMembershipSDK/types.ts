@@ -11,7 +11,7 @@ type MembershipInviteIdentifierType = {
   email?: string;
   phone?: string;
   username?: string;
-  id?: DbIdentifier;
+  id?: ResourceIdentifier;
 };
 
 export type FanClubMembershipInviteType = MembershipInviteIdentifierType & {
@@ -40,8 +40,8 @@ export type FanClubMembershipBulkRequestResponse = ApiResponseBodyType<{
 
 // #region update
 type MembershipUpdateIdentifierType = {
-  membershipId?: DbIdentifier;
-  memberId?: DbIdentifier;
+  membershipId?: ResourceIdentifier;
+  memberId?: ResourceIdentifier;
 };
 
 export type FanClubMembershipUpdateType = {
@@ -76,7 +76,7 @@ export type GetMembershipsResponse = ApiResponseBodyType<
 
 // #region remove
 export type RemoveMembershipBulkType = {
-  membershipIds?: Array<DbIdentifier>;
-  memberIds?: Array<DbIdentifier>;
+  membershipIds?: Array<ResourceIdentifier>;
+  memberIds?: Array<ResourceIdentifier>;
 };
 // #endregion

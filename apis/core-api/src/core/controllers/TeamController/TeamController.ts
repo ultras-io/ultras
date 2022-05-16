@@ -4,7 +4,7 @@ import { CountryService, TeamService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import {
   TeamsListParams,
@@ -45,7 +45,7 @@ class TeamController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): TeamByIdResult {
+  static async getById(id: ResourceIdentifier): TeamByIdResult {
     const team = await TeamService.getById(id);
 
     if (!team) {

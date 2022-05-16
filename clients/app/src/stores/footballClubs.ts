@@ -1,7 +1,7 @@
 import {
   TeamViewModel,
   TeamSDK,
-  DbIdentifier,
+  ResourceIdentifier,
   GetTeamsFilter,
 } from '@ultras/core-api-sdk';
 import { TeamTypesEnum } from '@ultras/utils';
@@ -31,7 +31,7 @@ const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
       });
     },
 
-    loadSingle: (id: DbIdentifier) => {
+    loadSingle: (id: ResourceIdentifier) => {
       return sdk.getTeam(id);
     },
   });

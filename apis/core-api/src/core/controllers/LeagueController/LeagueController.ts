@@ -4,7 +4,7 @@ import { LeagueService, CountryService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import {
   LeaguesListParams,
@@ -39,7 +39,7 @@ class LeagueController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): LeagueByIdResult {
+  static async getById(id: ResourceIdentifier): LeagueByIdResult {
     const league = await LeagueService.getById(id);
 
     if (!league) {

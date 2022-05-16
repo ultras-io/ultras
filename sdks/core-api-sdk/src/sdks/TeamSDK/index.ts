@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import { GetTeamResponse, GetTeamsFilter, GetTeamsResponse } from './types';
 export * from './types';
 
@@ -14,7 +14,7 @@ export class TeamSDK extends CoreApiBaseSDK {
     });
   }
 
-  public getTeam(id: DbIdentifier) {
+  public getTeam(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetTeamResponse>(id.toString());
   }
 }

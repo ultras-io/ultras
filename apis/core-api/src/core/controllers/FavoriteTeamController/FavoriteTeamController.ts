@@ -1,5 +1,5 @@
 import { OrderEnum } from '@ultras/utils';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
 import { FavoriteTeamService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
@@ -46,7 +46,7 @@ class FavoriteTeamController extends BaseController {
   /**
    * Get favorite team by pivot relation id.
    */
-  static async getById(id: DbIdentifier): FavoriteTeamByIdResult {
+  static async getById(id: ResourceIdentifier): FavoriteTeamByIdResult {
     const favoriteTeam = await FavoriteTeamService.getByIdentifier({
       favoriteTeamId: id,
     });

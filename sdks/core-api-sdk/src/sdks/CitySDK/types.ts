@@ -1,8 +1,8 @@
-import { DbIdentifier } from '../types';
+import { ResourceIdentifier } from '../types';
 
 export type GetCitiesFilter = {
   name?: string;
-  countryId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
 };
 
 type CountryView = {

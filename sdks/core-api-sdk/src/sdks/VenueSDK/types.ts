@@ -1,7 +1,7 @@
-import { DbIdentifier } from '../types';
+import { ResourceIdentifier } from '../types';
 
 export type GetVenuesFilter = {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
 };

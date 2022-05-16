@@ -3,7 +3,7 @@ import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/F
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import {
-  DbIdentifier,
+  ResourceIdentifier,
   ServiceByIdResultType,
   ServiceListParamsType,
   ServiceListResultType,
@@ -14,15 +14,15 @@ import { FanClubMemberStatusEnum } from '@ultras/utils';
 
 export interface FanClubListParamsInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
-  teamId?: DbIdentifier;
-  ownerId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
+  ownerId?: ResourceIdentifier;
 }
 
 export interface FanClubMembershipListParamsInterface {
   name: string;
-  fanClubId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
 }
 
 class FanClubService extends BaseService {
@@ -87,7 +87,7 @@ class FanClubService extends BaseService {
    * @important ownerId and teamId is not mutable
    */
   static async update(
-    id: DbIdentifier,
+    id: ResourceIdentifier,
     {
       name,
       description,
@@ -168,14 +168,14 @@ class FanClubService extends BaseService {
   /**
    * Get fan club by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubAttributes> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<FanClubAttributes> {
     return this.findById(db.FanClub, id);
   }
 
   /**
    * Get check fan club exists.
    */
-  static async exists(id: DbIdentifier): ServiceByIdResultType<boolean> {
+  static async exists(id: ResourceIdentifier): ServiceByIdResultType<boolean> {
     return this.checkExistsById(db.FanClub, id);
   }
 
@@ -185,7 +185,7 @@ class FanClubService extends BaseService {
    * If members status is a pending then it will not be included
    * in fan club as member.
    */
-  static async updateMembersCount(id: DbIdentifier) {
+  static async updateMembersCount(id: ResourceIdentifier) {
     const fanClub = await db.FanClub.findByPk(id);
     if (!fanClub) {
       return;
