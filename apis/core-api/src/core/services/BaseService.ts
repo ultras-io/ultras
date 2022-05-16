@@ -1,9 +1,25 @@
 import db from 'core/data/models';
+import { commonExcludeFields } from 'core/data/config/config';
 import { DbIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
 
 abstract class BaseService {
   protected static includeRelations(): any {
     return {};
+  }
+
+  public static getIncludeRelations() {
+    // get model relations
+    const relations = this.includeRelations();
+
+    // append global exclude attribute to child relations
+    relations.attributes = relations.attributes || {};
+    relations.attributes.exclude = [
+      ...(relations.attributes.exclude || []),
+      ...commonExcludeFields,
+    ];
+
+    // return mutated relations
+    return relations;
   }
 
   protected static queryInit(initialConditions: any = {}): any {

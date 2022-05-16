@@ -1,5 +1,13 @@
 import { dbConfig } from '../../../config';
 
+export const commonExcludeFields = [
+  'dataRapidId',
+  'createdAt',
+  'updatedAt',
+  'deletedAt',
+  // more filed to exclude globally ...
+];
+
 const configs = {
   username: dbConfig.username,
   password: dbConfig.password,
@@ -13,7 +21,7 @@ const configs = {
   define: {
     defaultScope: {
       attributes: {
-        exclude: ['dataRapidId', 'createdAt', 'updatedAt', 'deletedAt'],
+        exclude: commonExcludeFields,
       },
     },
   },
