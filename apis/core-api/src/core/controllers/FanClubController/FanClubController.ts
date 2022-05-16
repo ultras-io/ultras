@@ -4,7 +4,7 @@ import { CityService, FanClubMemberService, FanClubService } from 'core/services
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 import {
   FanClubCreateParams,
   FanClubCreateResult,
@@ -126,7 +126,7 @@ class FanClubController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): FanClubByIdResult {
+  static async getById(id: ResourceIdentifier): FanClubByIdResult {
     const fanClub = await FanClubService.getById(id);
 
     if (!fanClub) {

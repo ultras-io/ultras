@@ -1,11 +1,11 @@
 import { authConfig } from 'config';
-import { DbIdentifier, ServiceResultType } from 'types';
+import { ResourceIdentifier, ServiceResultType } from 'types';
 import jwt from 'jsonwebtoken';
 import db from 'core/data/models';
 import BaseService from './BaseService';
 
 interface DataToHashInterface {
-  userId: DbIdentifier;
+  userId: ResourceIdentifier;
   fingerprint: string;
 }
 

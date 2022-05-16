@@ -4,7 +4,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
@@ -16,11 +16,11 @@ import BaseService from './BaseService';
 export interface MatchesListParamsInterface {
   dateFrom?: string;
   dateTo?: string;
-  leagueId?: DbIdentifier;
-  venueId?: DbIdentifier;
-  teamId?: DbIdentifier;
-  teamHomeId?: DbIdentifier;
-  teamAwayId?: DbIdentifier;
+  leagueId?: ResourceIdentifier;
+  venueId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
+  teamHomeId?: ResourceIdentifier;
+  teamAwayId?: ResourceIdentifier;
 }
 
 class MatchService extends BaseService {
@@ -113,7 +113,7 @@ class MatchService extends BaseService {
   /**
    * Get match by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<MatchViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<MatchViewModel> {
     return this.findById(db.Match, id);
   }
 

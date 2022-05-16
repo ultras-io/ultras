@@ -6,7 +6,7 @@ import {
   DataTypes,
   HasOneGetAssociationMixin,
 } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -15,10 +15,10 @@ import { FanClub } from 'core/data/models/FanClub';
 import { FanClubMemberRole } from './FanClubMemberRole';
 
 export interface FanClubMemberAttributes {
-  id: DbIdentifier;
-  fanClubId: DbIdentifier;
-  memberId: DbIdentifier;
-  roleId: DbIdentifier;
+  id: ResourceIdentifier;
+  fanClubId: ResourceIdentifier;
+  memberId: ResourceIdentifier;
+  roleId: ResourceIdentifier;
   status: FanClubMemberStatusEnum;
 }
 
@@ -29,10 +29,10 @@ export class FanClubMember
   implements FanClubMemberAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
-  public fanClubId!: DbIdentifier;
-  public memberId!: DbIdentifier;
-  public roleId!: DbIdentifier;
+  public id!: ResourceIdentifier;
+  public fanClubId!: ResourceIdentifier;
+  public memberId!: ResourceIdentifier;
+  public roleId!: ResourceIdentifier;
   public status!: FanClubMemberStatusEnum;
 
   // timestamps!

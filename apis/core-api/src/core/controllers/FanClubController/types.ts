@@ -5,23 +5,23 @@ import {
   ControllerListResultType,
   ControllerByIdResultType,
   ControllerInjectionResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 import { FanClubAttributes } from 'core/data/models/FanClub';
 
 interface FanClubsFilterInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
-  teamId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
 }
 
 export type FanClubCreateParams = {
-  ownerId: DbIdentifier;
+  ownerId: ResourceIdentifier;
   name: string;
   description: string | null;
-  cityId: DbIdentifier;
-  teamId: DbIdentifier;
+  cityId: ResourceIdentifier;
+  teamId: ResourceIdentifier;
   avatar: string;
   coverPhoto: string | null;
   privacy: FanClubPrivacyEnum;
@@ -32,10 +32,10 @@ export type FanClubCreateResult = ControllerResultType<{
 }>;
 
 export type FanClubUpdateParams = {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   name?: string;
   description?: string | null;
-  cityId?: DbIdentifier;
+  cityId?: ResourceIdentifier;
   avatar?: string;
   coverPhoto?: string | null;
   privacy?: FanClubPrivacyEnum;

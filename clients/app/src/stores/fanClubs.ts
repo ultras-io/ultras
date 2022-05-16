@@ -20,7 +20,7 @@ const buildFanClubStore = (params: Partial<ParamType> = {}) => {
       return sdk.getFanClubs(filter);
     },
 
-    loadSingle: (id: DbIdentifier) => {
+    loadSingle: (id: ResourceIdentifier) => {
       return sdk.getFanClub(id);
     },
 

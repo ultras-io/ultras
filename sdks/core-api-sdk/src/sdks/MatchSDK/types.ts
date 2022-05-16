@@ -1,9 +1,9 @@
-import { DbIdentifier } from '../types';
+import { ResourceIdentifier } from '../types';
 
 export type GetMatchesFilter = {
   date?: string;
   dateFrom?: string;
   dateTo?: string;
-  teamId?: DbIdentifier;
-  leagueId?: DbIdentifier;
+  teamId?: ResourceIdentifier;
+  leagueId?: ResourceIdentifier;
 };

@@ -1,5 +1,5 @@
 import db from 'core/data/models';
-import { DbIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
+import { ResourceIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
 
 abstract class BaseService {
   protected static includeRelations(): any {
@@ -65,7 +65,7 @@ abstract class BaseService {
    */
   protected static async findById<T>(
     model: any,
-    id: DbIdentifier
+    id: ResourceIdentifier
   ): ServiceByIdResultType<T> {
     const data = await model.findByPk(id, {
       ...this.includeRelations(),
@@ -77,7 +77,7 @@ abstract class BaseService {
   /**
    * Check data exists with provider identifier.
    */
-  protected static async checkExistsById(model: any, id: DbIdentifier) {
+  protected static async checkExistsById(model: any, id: ResourceIdentifier) {
     const count = await model.count({
       where: {
         id: id,

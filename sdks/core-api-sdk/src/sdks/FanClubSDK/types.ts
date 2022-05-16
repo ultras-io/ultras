@@ -1,20 +1,20 @@
 import { FanClubPrivacyEnum } from '@ultras/utils';
 import { FanClubsViewModel, FanClubViewModel } from '@ultras/view-models';
 import { ApiResponseBodyType, ListResponseMetaType } from '../types';
-import { DbIdentifier } from '../types';
+import { ResourceIdentifier } from '../types';
 
 export type GetFanClubsFilter = {
   name?: string;
-  cityId?: DbIdentifier;
-  countryId?: DbIdentifier;
-  teamId?: DbIdentifier;
+  cityId?: ResourceIdentifier;
+  countryId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
 };
 
 export type FanClubCreateType = {
   name: string;
   description: string | null;
-  cityId: DbIdentifier;
-  teamId: DbIdentifier;
+  cityId: ResourceIdentifier;
+  teamId: ResourceIdentifier;
   avatar: string;
   coverPhoto: string | null;
   privacy: FanClubPrivacyEnum;

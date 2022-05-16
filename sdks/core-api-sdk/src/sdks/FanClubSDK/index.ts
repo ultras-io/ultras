@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import {
   GetFanClubsFilter,
   FanClubCreateType,
@@ -23,7 +23,7 @@ export class FanClubSDK extends CoreApiBaseSDK {
     });
   }
 
-  public getFanClub(id: DbIdentifier) {
+  public getFanClub(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetFanClubResponse>(id.toString());
   }
 
@@ -33,7 +33,7 @@ export class FanClubSDK extends CoreApiBaseSDK {
     });
   }
 
-  public update(id: DbIdentifier, params: FanClubUpdateType) {
+  public update(id: ResourceIdentifier, params: FanClubUpdateType) {
     return this.api?.makeAPIPostRequest<UpdateFanClubResponse>(id.toString(), {
       body: params,
     });

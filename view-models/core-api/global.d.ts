@@ -3,7 +3,7 @@
  *   - number -> big int
  *   - string -> uuid
  */
-declare type DbIdentifier = number;
+declare type ResourceIdentifier = number;
 
 /**
  * Declare same type as nullable.
@@ -17,5 +17,5 @@ declare type Nullable<T> = null | T;
  *   - updatedAt
  */
 declare type ViewModel<T> = T & {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
 };

@@ -4,7 +4,7 @@ import { FanClubMemberViewModel } from '@ultras/view-models';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import {
-  DbIdentifier,
+  ResourceIdentifier,
   ServiceByIdResultType,
   ServiceListParamsType,
   ServiceListResultType,
@@ -14,8 +14,8 @@ import BaseService from './BaseService';
 import FanClubService from './FanClubService';
 
 interface MembershipInterface {
-  fanClubId: DbIdentifier;
-  memberId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
+  memberId: ResourceIdentifier;
 }
 interface WithRoleInterface {
   role: FanClubMemberRoleEnum;
@@ -28,35 +28,35 @@ interface CreateMemberInterface
   extends Omit<MembershipInterface, 'memberId'>,
     WithRoleInterface,
     WithStatusInterface {
-  inviterId?: DbIdentifier;
-  memberId?: DbIdentifier;
+  inviterId?: ResourceIdentifier;
+  memberId?: ResourceIdentifier;
 }
 
 interface RemoveMemberInterface extends Omit<MembershipInterface, 'memberId'> {
-  memberId?: DbIdentifier;
-  membershipId?: DbIdentifier;
+  memberId?: ResourceIdentifier;
+  membershipId?: ResourceIdentifier;
 }
 
 export interface FanClubListParamsInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
-  teamId?: DbIdentifier;
-  ownerId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
+  ownerId?: ResourceIdentifier;
 }
 
 export interface FanClubMembershipListParamsInterface {
   search?: string;
-  roleId?: DbIdentifier;
+  roleId?: ResourceIdentifier;
   status?: FanClubMemberStatusEnum;
-  fanClubId?: DbIdentifier;
-  memberId?: DbIdentifier;
+  fanClubId?: ResourceIdentifier;
+  memberId?: ResourceIdentifier;
 }
 
 interface UpdateRoleStatusInterface {
-  fanClubId: DbIdentifier;
-  membershipId?: DbIdentifier;
-  memberId?: DbIdentifier;
+  fanClubId: ResourceIdentifier;
+  membershipId?: ResourceIdentifier;
+  memberId?: ResourceIdentifier;
   role?: FanClubMemberRoleEnum;
   status?: FanClubMemberStatusEnum;
 }
@@ -173,7 +173,7 @@ class FanClubMemberService extends BaseService {
   /**
    * Get role id by role name.
    */
-  static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<DbIdentifier | null> {
+  static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<ResourceIdentifier | null> {
     const role = await db.FanClubMemberRole.findOne({
       where: { role: roleName },
     });
@@ -182,15 +182,15 @@ class FanClubMemberService extends BaseService {
       return null;
     }
 
-    return role.getDataValue('id') as DbIdentifier;
+    return role.getDataValue('id') as ResourceIdentifier;
   }
 
   /**
    * Check if user has provided role(s)
    */
   static async isHasRole(
-    fanClubId: DbIdentifier,
-    memberId: DbIdentifier,
+    fanClubId: ResourceIdentifier,
+    memberId: ResourceIdentifier,
     roles: FanClubMemberRoleEnum | Array<FanClubMemberRoleEnum>
   ): Promise<boolean> {
     if (!Array.isArray(roles)) {
@@ -223,7 +223,7 @@ class FanClubMemberService extends BaseService {
   }
 
   // get membership by fan club id and member id
-  static async getOne(fanClubId: DbIdentifier, memberId: DbIdentifier) {
+  static async getOne(fanClubId: ResourceIdentifier, memberId: ResourceIdentifier) {
     const fanClubMember = await db.FanClubMember.findOne({
       where: {
         fanClubId,
@@ -239,8 +239,8 @@ class FanClubMemberService extends BaseService {
    * Check if user has provided status(es)
    */
   static async isHasStatus(
-    fanClubId: DbIdentifier,
-    memberId: DbIdentifier,
+    fanClubId: ResourceIdentifier,
+    memberId: ResourceIdentifier,
     statuses: FanClubMemberStatusEnum | Array<FanClubMemberStatusEnum>
   ): Promise<boolean> {
     if (!Array.isArray(statuses)) {
@@ -321,7 +321,7 @@ class FanClubMemberService extends BaseService {
   /**
    * Get fan club membership by id.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<FanClubMemberViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<FanClubMemberViewModel> {
     return this.findById(db.FanClubMember, id);
   }
 

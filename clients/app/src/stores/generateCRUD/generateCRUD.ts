@@ -1,7 +1,7 @@
 import createVanilla from 'zustand/vanilla';
 import type { SetState, GetState } from 'zustand/vanilla';
 import createReact from 'zustand';
-import type { DbIdentifier } from '@ultras/core-api-sdk';
+import type { ResourceIdentifier } from '@ultras/core-api-sdk';
 import { createField, fillStateKeys, buildFilterHash } from './helpers';
 import type {
   StateKeyType,
@@ -212,7 +212,7 @@ export const generateCRUD = <
       // add getSingle method to action list, that just calling loadSingle interceptor method
       // and updates "single" state
       (actions as unknown as ExtractActionType<TData, 'single', TFilter>).getSingle =
-        async (id: DbIdentifier): Promise<SingleStateDataInterface<TData>> => {
+        async (id: ResourceIdentifier): Promise<SingleStateDataInterface<TData>> => {
           const single = getState().single;
           single.status = 'loading';
           setState({ single });
@@ -443,7 +443,7 @@ export const generateCRUD = <
     // #region single
     if (includeKeys.single) {
       (rootActions as unknown as ExtractActionType<TData, 'single', TFilter>).getSingle =
-        (id: DbIdentifier) => {
+        (id: ResourceIdentifier) => {
           return (
             storeVanilla.getState() as unknown as ExtractActionType<
               TData,

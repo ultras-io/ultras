@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { DbIdentifier, DynamicQueryParam, QueryParam } from '../types';
+import { ResourceIdentifier, DynamicQueryParam, QueryParam } from '../types';
 import {
   BulkCreateFavoriteTeamResult,
   GetFavoriteTeamResult,
@@ -14,7 +14,7 @@ export class FavoriteTeamSDK extends CoreApiBaseSDK {
     super(mode, 'favorite-teams');
   }
 
-  public add(teamId: DbIdentifier) {
+  public add(teamId: ResourceIdentifier) {
     return this.api?.makeAPIPostRequest<SingleCreateFavoriteTeamResult>('', {
       body: {
         teamId: teamId,
@@ -22,7 +22,7 @@ export class FavoriteTeamSDK extends CoreApiBaseSDK {
     });
   }
 
-  public addBulk(teamIds: Array<DbIdentifier>) {
+  public addBulk(teamIds: Array<ResourceIdentifier>) {
     return this.api?.makeAPIPostRequest<BulkCreateFavoriteTeamResult>('', {
       body: {
         teamId: teamIds,
@@ -36,11 +36,11 @@ export class FavoriteTeamSDK extends CoreApiBaseSDK {
     });
   }
 
-  public getById(id: DbIdentifier) {
+  public getById(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetFavoriteTeamResult>(`/${id}`);
   }
 
-  public remove(id: DbIdentifier) {
+  public remove(id: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(`/${id}`);
   }
 }

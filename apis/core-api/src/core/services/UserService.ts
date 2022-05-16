@@ -1,4 +1,4 @@
-import { DbIdentifier, ServiceResultType } from 'types';
+import { ResourceIdentifier, ServiceResultType } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { User, UserCreationAttributes } from 'core/data/models/User';
@@ -9,7 +9,7 @@ interface UserUniqueIdentifierInterface {
   phone?: null | string;
   email?: null | string;
   username?: null | string;
-  id?: null | DbIdentifier;
+  id?: null | ResourceIdentifier;
 }
 class UserService extends BaseService {
   /**
