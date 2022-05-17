@@ -5,4 +5,11 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
+
+  big: {
+    fontSize: 19,
+  },
+  penalties: {
+    fontWeight: '400',
+  },
 });

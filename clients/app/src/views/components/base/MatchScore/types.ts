@@ -1,8 +1,9 @@
-import { MatchStateEnum } from 'views/components/compositions/MatchTime';
+import { MatchStatusesEnum } from '@ultras/utils';
 
 export interface IMatchScoreProps {
   score: number;
   penalties?: number;
-  matchState?: MatchStateEnum;
+  matchStatus?: MatchStatusesEnum;
+  size?: 'default' | 'big';
   invert?: boolean;
 }

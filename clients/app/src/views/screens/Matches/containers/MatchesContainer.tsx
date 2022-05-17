@@ -1,27 +1,22 @@
 import React from 'react';
 import { View } from 'react-native';
-
 import MatchesComponent from '../components/MatchesComponent';
-
+import buildMatchesStore from 'stores/matches';
 import { IMatchesContainerProps } from '../types';
 import styles from '../styles';
 
-import { generateMatches } from 'utils/helpers/dummy';
+const matchesStore = buildMatchesStore();
+matchesStore.getAll();
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
-  const [data, setData] = React.useState<Array<any>>([]);
-
-  const getData = React.useCallback(() => {
-    const matchesData = generateMatches(10);
-    setData([...data, ...matchesData]);
-  }, [setData, data]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(getData, []);
+  const result = matchesStore.useSelector('list');
 
   return (
     <View style={styles.container}>
-      <MatchesComponent data={data} onEndReached={getData} />
+      <MatchesComponent
+        data={result.list.data || []}
+        onEndReached={matchesStore.getAll}
+      />
     </View>
   );
 };

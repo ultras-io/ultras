@@ -8,7 +8,7 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     paddingTop: 5,
-    paddingBottom: 3,
+    paddingBottom: 4,
   },
   logoContainer: {
     width: 20,
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   dateTime: {
-    marginLeft: 3,
+    marginLeft: 4,
   },
   date: {
     fontSize: 9,

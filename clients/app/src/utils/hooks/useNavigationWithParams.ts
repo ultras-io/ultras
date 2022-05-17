@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const useNavigationWithParams = () => {
   const navigation = useNavigation<any>();
@@ -10,16 +10,16 @@ const useNavigationWithParams = () => {
 
   const pushTo = React.useCallback(
     (name: string, params?: any) => {
-      navigation.push(prefix + name, {tabName, ...params});
+      navigation.push(prefix + name, { tabName, ...params });
     },
-    [navigation, prefix, tabName],
+    [navigation, prefix, tabName]
   );
 
   const openModal = React.useCallback(
     (name: string, params?: any) => {
-      navigation.navigate(name, {...params});
+      navigation.navigate(name, { ...params });
     },
-    [navigation],
+    [navigation]
   );
 
   const goBack = React.useCallback(() => {
@@ -30,14 +30,14 @@ const useNavigationWithParams = () => {
     (tab: string) => {
       navigation.navigate(tab);
     },
-    [navigation],
+    [navigation]
   );
 
   const setOptions = React.useCallback(
     (options: any) => {
       navigation.setOptions(options);
     },
-    [navigation],
+    [navigation]
   );
 
   return {

@@ -1,26 +1,29 @@
 import React from 'react';
 import UltrasText from 'views/components/base/UltrasText';
-
-import { MatchStateEnum as MatchState } from 'views/components/compositions/MatchTime';
-
+import { MatchStatusesEnum } from '@ultras/utils';
 import { IMatchScoreProps } from './types';
 import styles from './styles';
 
 const MatchScore: React.FC<IMatchScoreProps> = ({
   score,
   penalties,
-  matchState,
+  matchStatus,
+  size = 'default',
   invert = false,
 }) => {
+  const color =
+    matchStatus === MatchStatusesEnum.finished
+      ? invert
+        ? 'textInvert'
+        : 'text'
+      : 'success';
+
   return (
-    <UltrasText
-      style={styles.score}
-      color={
-        matchState === MatchState.Finished ? (invert ? 'textInvert' : 'text') : 'success'
-      }
-    >
+    <UltrasText style={[styles.score, size === 'big' ? styles.big : null]} color={color}>
       {score}
-      {matchState === MatchState.Penalties && ' (' + penalties + ')'}
+      <UltrasText style={styles.penalties} color={color}>
+        {matchStatus === MatchStatusesEnum.penalties && ' (' + (penalties || 0) + ')'}
+      </UltrasText>
     </UltrasText>
   );
 };
