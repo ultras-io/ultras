@@ -1,5 +1,6 @@
 import { ThemeInterface } from 'styled-components';
 import { NavigationScreen } from 'views/navigation/types';
+import { MatchViewModel } from '@ultras/core-api-sdk';
 
 export interface IHomeProps {}
 
@@ -12,6 +13,6 @@ export type HomeNavigationScreens = {
 };
 
 export interface IMatchesComponentProps {
-  data: Array<any>; //@TODO
+  data: Array<MatchViewModel>;
   onEndReached: () => void;
 }

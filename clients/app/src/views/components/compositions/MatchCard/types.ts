@@ -1,5 +1,5 @@
 import { ThemeInterface } from 'styled-components';
-import { IMatchTimeProps } from '../MatchTime';
+import { MatchViewModel } from '@ultras/view-models';
 
 export type Score = {
   team1Score: number;
@@ -10,17 +10,12 @@ export type Score = {
 
 export interface IMatchCardProps {
   theme?: ThemeInterface;
-  id: string;
   onPress: () => void;
-  team1Name: string;
-  team2Name: string;
-  team1URI: string;
-  team2URI: string;
-  country?: string;
-  league: string;
-  score?: Score;
+  data: MatchViewModel;
   horizontal?: boolean;
 }
 
-export type MatchInfoProps = Omit<IMatchCardProps, 'onPress' | 'horizontal'> &
-  IMatchTimeProps & { venue: string };
+export interface IMatchInfoProps {
+  theme?: ThemeInterface;
+  data: MatchViewModel;
+}
