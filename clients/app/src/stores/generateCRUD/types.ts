@@ -11,7 +11,7 @@ export interface SchemeFieldInterface<TFieldValue = string> {
   processValue?(valueOriginal: TFieldValue | null): TFieldValue;
   validate?(
     valueOriginal: TFieldValue | null,
-    validToSave: TFieldValue | null
+    valueToSave: TFieldValue | null
   ): Array<string>;
 }
 export interface SchemeInterface {
