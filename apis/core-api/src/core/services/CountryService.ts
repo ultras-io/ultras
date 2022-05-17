@@ -4,7 +4,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 import db from 'core/data/models';
@@ -47,7 +47,7 @@ class CountryService extends BaseService {
   /**
    * Get country by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<CountryViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<CountryViewModel> {
     return this.findById(db.Country, id);
   }
 
@@ -73,6 +73,31 @@ class CountryService extends BaseService {
   }
 
   /**
+   * Get country code/name/id list.
+   */
+  static async getCodesNamesAndIds() {
+    const excludedCountryCodes = ['AW', 'XK', 'PS', 'GP', 'GI', 'FO', 'CW', 'BM'];
+    const countries = await db.Country.findAll({
+      where: {
+        code: {
+          [db.Sequelize.Op.or]: [
+            {
+              [db.Sequelize.Op.notIn]: excludedCountryCodes,
+            },
+            {
+              [db.Sequelize.Op.is]: null,
+            },
+          ],
+        },
+      },
+      attributes: ['name', 'code', 'id'],
+      order: [['name', OrderEnum.asc]],
+    });
+
+    return countries;
+  }
+
+  /**
    * Inject data from Rapid API.
    */
   static async inject() {
@@ -90,7 +115,9 @@ class CountryService extends BaseService {
       });
     });
 
-    await db.Country.bulkCreate(records);
+    await db.Country.bulkCreate(records, {
+      ignoreDuplicates: true,
+    });
   }
 }
 

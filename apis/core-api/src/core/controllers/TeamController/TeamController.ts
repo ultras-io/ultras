@@ -4,7 +4,7 @@ import { CountryService, TeamService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import {
   TeamsListParams,
@@ -23,6 +23,7 @@ class TeamController extends BaseController {
     countryId,
     cityId,
     venueId,
+    type,
   }: TeamsListParams): TeamsListResult {
     const { rows, count } = await TeamService.getAll({
       limit,
@@ -33,6 +34,7 @@ class TeamController extends BaseController {
       countryId,
       cityId,
       venueId,
+      type,
     });
 
     return {
@@ -43,7 +45,7 @@ class TeamController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): TeamByIdResult {
+  static async getById(id: ResourceIdentifier): TeamByIdResult {
     const team = await TeamService.getById(id);
 
     if (!team) {
@@ -62,7 +64,7 @@ class TeamController extends BaseController {
    */
   static async inject(): TeamsInjectDataResult {
     try {
-      const countries = await CountryService.getCodesAndIds();
+      const countries = await CountryService.getCodesNamesAndIds();
 
       for (const country of countries) {
         await TeamService.inject(

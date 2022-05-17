@@ -4,7 +4,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
@@ -12,15 +12,18 @@ import { MatchCreationAttributes } from 'core/data/models/Match';
 import injectMatches, { RapidApiMatch } from 'core/data/inject-scripts/injectMatches';
 
 import BaseService from './BaseService';
+import TeamService from './TeamService';
+import VenueService from './VenueService';
+import LeagueService from './LeagueService';
 
 export interface MatchesListParamsInterface {
   dateFrom?: string;
   dateTo?: string;
-  leagueId?: DbIdentifier;
-  venueId?: DbIdentifier;
-  teamId?: DbIdentifier;
-  teamHomeId?: DbIdentifier;
-  teamAwayId?: DbIdentifier;
+  leagueId?: ResourceIdentifier;
+  venueId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
+  teamHomeId?: ResourceIdentifier;
+  teamAwayId?: ResourceIdentifier;
 }
 
 class MatchService extends BaseService {
@@ -33,18 +36,22 @@ class MatchService extends BaseService {
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR + 'Home',
+          ...TeamService.getIncludeRelations(),
         },
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR + 'Away',
+          ...TeamService.getIncludeRelations(),
         },
         {
           model: db.Venue,
           as: resources.VENUE.ALIAS.SINGULAR,
+          ...VenueService.getIncludeRelations(),
         },
         {
           model: db.League,
           as: resources.LEAGUE.ALIAS.SINGULAR,
+          ...LeagueService.getIncludeRelations(),
         },
         {
           model: db.Score,
@@ -113,7 +120,7 @@ class MatchService extends BaseService {
   /**
    * Get match by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<MatchViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<MatchViewModel> {
     return this.findById(db.Match, id);
   }
 
@@ -126,7 +133,9 @@ class MatchService extends BaseService {
       body: { response },
     } = await injectMatches(date);
 
-    const records: MatchCreationAttributes[] = [];
+    let records: MatchCreationAttributes[] = [];
+    let iteration = 0;
+
     for (const responseItem of response) {
       const item: RapidApiMatch = responseItem as RapidApiMatch;
 
@@ -139,6 +148,10 @@ class MatchService extends BaseService {
         attributes: ['dataRapidId', 'id'],
         limit: 2,
       });
+
+      if (teams.length != 2) {
+        continue;
+      }
 
       const venue = await db.Venue.findOne({
         where: {
@@ -182,6 +195,13 @@ class MatchService extends BaseService {
         continue;
       }
 
+      let matchWinner: WinnerEnum = WinnerEnum.draw;
+      if (item.teams.home.winner) {
+        matchWinner = WinnerEnum.home;
+      } else if (item.teams.away.winner) {
+        matchWinner = WinnerEnum.away;
+      }
+
       records.push({
         dateTime: item.fixture.date,
         teamHomeId: teamHome.getDataValue('id'),
@@ -189,15 +209,26 @@ class MatchService extends BaseService {
         venueId: venue.getDataValue('id'),
         leagueId: league.getDataValue('id'),
         status: parseMatchStatus(item.fixture.status.short),
-        winner: WinnerEnum.draw,
+        winner: matchWinner,
         goalsHome: item.goals.home,
         goalsAway: item.goals.away,
         elapsedTime: item.fixture.status.elapsed,
         dataRapidId: item.fixture.id,
       });
+
+      if (records.length != 0 && ++iteration % 20 == 0) {
+        await db.Match.bulkCreate(records, {
+          ignoreDuplicates: true,
+        });
+        records = [];
+      }
     }
 
-    await db.Match.bulkCreate(records);
+    if (records.length != 0) {
+      await db.Match.bulkCreate(records, {
+        ignoreDuplicates: true,
+      });
+    }
   }
 }
 

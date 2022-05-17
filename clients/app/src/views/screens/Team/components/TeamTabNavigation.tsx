@@ -2,8 +2,8 @@ import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { withTheme } from 'styled-components/native';
 
-import { teamTabScreens } from 'navigation/screens';
-import { ITeamTabNavigationProps } from 'navigation/types';
+import { teamTabScreens } from 'views/navigation/screens';
+import { ITeamTabNavigationProps } from 'views/navigation/types';
 
 const Stack = createMaterialTopTabNavigator();
 

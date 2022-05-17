@@ -4,7 +4,7 @@ import { VenueService, CountryService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import {
   VenuesListParams,
@@ -41,7 +41,7 @@ class VenueController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): VenueByIdResult {
+  static async getById(id: ResourceIdentifier): VenueByIdResult {
     const venue = await VenueService.getById(id);
 
     if (!venue) {
@@ -59,7 +59,7 @@ class VenueController extends BaseController {
    * NOTICE: used to development purposes
    */
   static async inject(): VenuesInjectDataResult {
-    const countries = await CountryService.getCodesAndIds();
+    const countries = await CountryService.getCodesNamesAndIds();
 
     try {
       for (const country of countries) {

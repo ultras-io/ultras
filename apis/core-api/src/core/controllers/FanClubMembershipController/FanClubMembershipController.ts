@@ -1,6 +1,6 @@
 import { FanClubMemberStatusEnum, FanClubMemberRoleEnum, OrderEnum } from '@ultras/utils';
 import { FanClubMemberViewModel } from '@ultras/view-models';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
 import { FanClubMemberService, UserService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
@@ -44,7 +44,7 @@ class FanClubMembershipController extends BaseController {
     const invitationsCast = invitations as Array<InvitationsType>;
     const promises = invitationsCast.map((invitation: InvitationsType) => {
       return new Promise<null | FanClubMemberViewModel>(async resolve => {
-        let memberId: null | DbIdentifier = invitation.id || null;
+        let memberId: null | ResourceIdentifier = invitation.id || null;
 
         // if user id not provided we need to find user by their another identifier:
         // email, phone number, username

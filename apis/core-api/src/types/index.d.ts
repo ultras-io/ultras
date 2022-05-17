@@ -54,7 +54,7 @@ export type Exception = {
 };
 
 // NOTE: replace with string if UUIDv4 will be used as data identifier.
-export type DbIdentifier = number;
+export type ResourceIdentifier = number;
 
 export interface ControllerListActionResult<T> {
   data: T[];

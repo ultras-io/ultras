@@ -27,15 +27,42 @@ export type RapidApiCity = {
 const getCountryCities = async (countryCode: string) => {
   const network = new NetworkService(options.url);
 
-  return network.makeAPIGetRequest('cities', {
-    headers: options.headers,
-    query_params: {
-      countryIds: countryCode,
-      sort: '-population',
-      limit: 20,
-      offset: 0,
+  let list: Array<any> = [];
+
+  const limit = 100;
+  const load = (offset: number) => {
+    return network.makeAPIGetRequest('cities', {
+      headers: options.headers,
+      query_params: {
+        countryIds: countryCode,
+        sort: '-population',
+        limit: limit,
+        offset: offset,
+      },
+    });
+  };
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const result = await load(list.length);
+    list = [...list, ...result.body.data];
+
+    if (!result.body.links) {
+      break;
+    }
+
+    const nextPageLink = result.body.links.find((link: any) => link.rel === 'next');
+    const isLastPage = !nextPageLink;
+    if (isLastPage) {
+      break;
+    }
+  }
+
+  return {
+    body: {
+      data: list,
     },
-  });
+  };
 };
 
 export default getCountryCities;

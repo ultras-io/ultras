@@ -3,7 +3,7 @@ import {
   ServiceListParamsType,
   ServiceListResultType,
   ServiceByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 import resources from 'core/data/lcp';
@@ -15,7 +15,7 @@ import BaseService from './BaseService';
 
 export interface LeaguesListParamsInterface {
   name?: string;
-  countryId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
 }
 
 class LeagueService extends BaseService {
@@ -59,16 +59,16 @@ class LeagueService extends BaseService {
   /**
    * Get league by their ID.
    */
-  static async getById(id: DbIdentifier): ServiceByIdResultType<LeagueViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<LeagueViewModel> {
     return this.findById(db.League, id);
   }
 
   /**
    * Inject data from Rapid API.
    */
-  static async inject(countryName: string, countryId: DbIdentifier) {
+  static async inject(countryName: string, countryId: ResourceIdentifier) {
     const {
-      body: { response },
+      body: { response, errors },
     } = await injectLeagues(countryName);
 
     if (response.length === 0) {
@@ -90,7 +90,9 @@ class LeagueService extends BaseService {
       });
     }
 
-    await db.League.bulkCreate(records);
+    await db.League.bulkCreate(records, {
+      ignoreDuplicates: true,
+    });
   }
 }
 

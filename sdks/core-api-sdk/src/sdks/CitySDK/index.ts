@@ -1,6 +1,8 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import { GetCitiesFilter } from './types';
+
+export * from './types';
 
 export class CitySDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
@@ -13,7 +15,7 @@ export class CitySDK extends CoreApiBaseSDK {
     });
   }
 
-  public getCity(id: DbIdentifier) {
+  public getCity(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

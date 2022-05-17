@@ -12,8 +12,8 @@ import { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import { IconNamesEnum as Icons } from 'assets/icons';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { tabScreens, searchTabScreens } from 'navigation/screens';
-import { commonScreens } from 'navigation/screens';
+import { tabScreens, searchTabScreens } from 'views/navigation/screens';
+import { commonScreens } from 'views/navigation/screens';
 
 const TAB_NAME = 'Search';
 

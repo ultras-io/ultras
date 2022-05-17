@@ -4,13 +4,13 @@ import {
   ControllerListResultType,
   ControllerByIdResultType,
   ControllerInjectionResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 interface VenuesFilterInterface {
   name?: string;
-  countryId?: DbIdentifier;
-  cityId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
+  cityId?: ResourceIdentifier;
 }
 
 export type VenuesListParams = ControllerListParamsType<VenuesFilterInterface>;

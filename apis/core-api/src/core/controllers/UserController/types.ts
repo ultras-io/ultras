@@ -2,7 +2,7 @@ import { UserViewModel } from '@ultras/view-models';
 import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
 import { User } from 'core/data/models/User';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
-import { ControllerResultType, DbIdentifier } from 'types';
+import { ControllerResultType, ResourceIdentifier } from 'types';
 
 type WithPhoneOrEmail = {
   phone?: null | string;
@@ -57,7 +57,7 @@ export type UserRegistrationParams = WithPhoneOrEmail &
     username: string;
     avatar?: string;
     fullname?: string;
-    teamId?: DbIdentifier;
+    teamId?: ResourceIdentifier;
   };
 
 export type UserRegistrationResult = ControllerResultType<

@@ -1,9 +1,25 @@
 import db from 'core/data/models';
-import { DbIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
+import { commonExcludeFields } from 'core/data/config/config';
+import { ResourceIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
 
 abstract class BaseService {
   protected static includeRelations(): any {
     return {};
+  }
+
+  public static getIncludeRelations() {
+    // get model relations
+    const relations = this.includeRelations();
+
+    // append global exclude attribute to child relations
+    relations.attributes = relations.attributes || {};
+    relations.attributes.exclude = [
+      ...(relations.attributes.exclude || []),
+      ...commonExcludeFields,
+    ];
+
+    // return mutated relations
+    return relations;
   }
 
   protected static queryInit(initialConditions: any = {}): any {
@@ -65,7 +81,7 @@ abstract class BaseService {
    */
   protected static async findById<T>(
     model: any,
-    id: DbIdentifier
+    id: ResourceIdentifier
   ): ServiceByIdResultType<T> {
     const data = await model.findByPk(id, {
       ...this.includeRelations(),
@@ -77,7 +93,7 @@ abstract class BaseService {
   /**
    * Check data exists with provider identifier.
    */
-  protected static async checkExistsById(model: any, id: DbIdentifier) {
+  protected static async checkExistsById(model: any, id: ResourceIdentifier) {
     const count = await model.count({
       where: {
         id: id,

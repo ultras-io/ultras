@@ -5,40 +5,40 @@ import {
   ControllerListParamsType,
   ControllerListResultType,
   ControllerByIdResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 interface FanClubFilterInterface {
   search?: string;
-  roleId?: DbIdentifier;
+  roleId?: ResourceIdentifier;
   status?: FanClubMemberStatusEnum;
 }
 
 interface FanClubMembershipsFilterInterface extends FanClubFilterInterface {
-  fanClubId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
 }
 
 interface FanClubMembershipsByMemberIdInterface extends FanClubFilterInterface {
-  memberId: DbIdentifier;
+  memberId: ResourceIdentifier;
 }
 
 export type InvitationsType = {
   email?: string;
   phone?: string;
   username?: string;
-  id?: DbIdentifier;
+  id?: ResourceIdentifier;
   role: FanClubMemberRoleEnum;
 };
 
 export type FanClubMembershipInviteParams = {
-  fanClubId: DbIdentifier;
-  inviterId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
+  inviterId: ResourceIdentifier;
   invitations: InvitationsType | Array<InvitationsType>;
 };
 
 export type UpdatesType = {
-  memberId?: DbIdentifier;
-  membershipId?: DbIdentifier;
+  memberId?: ResourceIdentifier;
+  membershipId?: ResourceIdentifier;
   role?: FanClubMemberRoleEnum;
   status?: FanClubMemberStatusEnum;
 };
@@ -49,7 +49,7 @@ export type FanClubMembershipInviteResult = ControllerResultType<{
 }>;
 
 export type FanClubMembershipUpdateParams = {
-  fanClubId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
   updates: UpdatesType | Array<UpdatesType>;
 };
 
@@ -59,8 +59,8 @@ export type FanClubMembershipUpdateResult = ControllerResultType<{
 }>;
 
 export type FanClubMembershipDeleteByIdParams = {
-  fanClubId: DbIdentifier;
-  membershipId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
+  membershipId: ResourceIdentifier;
 };
 
 export type FanClubMembershipDeleteByIdResult = ControllerResultType<{
@@ -68,8 +68,8 @@ export type FanClubMembershipDeleteByIdResult = ControllerResultType<{
 }>;
 
 export type FanClubMembershipRequestParams = {
-  fanClubId: DbIdentifier | Array<DbIdentifier>;
-  memberId: DbIdentifier;
+  fanClubId: ResourceIdentifier | Array<ResourceIdentifier>;
+  memberId: ResourceIdentifier;
 };
 
 export type FanClubMembershipRequestResult = ControllerResultType<{
@@ -78,9 +78,9 @@ export type FanClubMembershipRequestResult = ControllerResultType<{
 }>;
 
 export type FanClubMembershipActionParams = {
-  fanClubId: DbIdentifier;
-  membershipId?: DbIdentifier | Array<DbIdentifier>;
-  memberId?: DbIdentifier | Array<DbIdentifier>;
+  fanClubId: ResourceIdentifier;
+  membershipId?: ResourceIdentifier | Array<ResourceIdentifier>;
+  memberId?: ResourceIdentifier | Array<ResourceIdentifier>;
 };
 
 export type FanClubMembershipActionResult = ControllerResultType<{
@@ -88,17 +88,17 @@ export type FanClubMembershipActionResult = ControllerResultType<{
 }>;
 
 export type FanClubAcceptOrRejectInvitationParams = {
-  fanClubId: DbIdentifier;
-  membershipId: DbIdentifier;
-  memberId?: DbIdentifier;
+  fanClubId: ResourceIdentifier;
+  membershipId: ResourceIdentifier;
+  memberId?: ResourceIdentifier;
 };
 export type FanClubAcceptOrRejectInvitationResult = ControllerResultType<{
   success: boolean;
 }>;
 
 export type FanClubMembershipByIdParams = {
-  fanClubId: DbIdentifier;
-  membershipId: DbIdentifier;
+  fanClubId: ResourceIdentifier;
+  membershipId: ResourceIdentifier;
 };
 export type FanClubMembershipByIdResult =
   ControllerByIdResultType<FanClubMemberViewModel>;

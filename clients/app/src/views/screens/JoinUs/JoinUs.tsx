@@ -4,11 +4,11 @@ import I18n from 'i18n/i18n';
 
 import scenario from './content';
 
-import LocationService from 'services/location/locationService';
+import LocationService from '../../../services/location/locationService';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { rootScreens } from 'navigation/screens';
+import { rootScreens } from 'views/navigation/screens';
 import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import WithAnimation from 'views/components/base/WithAnimation';
@@ -46,7 +46,7 @@ const getKeyboardOffset = (step: number): number => {
   return 0;
 };
 
-const JoinUs: React.FC<IJoinUsProps> = () => sa{
+const JoinUs: React.FC<IJoinUsProps> = () => {
   const [step, setStep] = React.useState<number>(1);
   const [phoneNumber, setPhoneNumber] = React.useState({ code: '', number: '' });
   const [isLocationEnabled, setIsLocationEnabled] = React.useState(false);

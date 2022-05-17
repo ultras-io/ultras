@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import {
   FanClubMembershipInviteType,
   FanClubMembershipInviteBulkType,
@@ -18,13 +18,15 @@ import {
   FanClubMembershipBulkRequestResponse,
 } from './types';
 
+export * from './types';
+
 export class FanClubMembershipSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'fan-clubs');
   }
 
   // #region actions by admin/owner
-  public invite(fanClubId: DbIdentifier, params: FanClubMembershipInviteType) {
+  public invite(fanClubId: ResourceIdentifier, params: FanClubMembershipInviteType) {
     return this.api?.makeAPIPostRequest<InvitationResponse>(
       `${fanClubId}/memberships/invite-member`,
       {
@@ -33,7 +35,7 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
     );
   }
 
-  public bulkInvite(fanClubId: DbIdentifier, params: FanClubMembershipInviteBulkType) {
+  public bulkInvite(fanClubId: ResourceIdentifier, params: FanClubMembershipInviteBulkType) {
     return this.api?.makeAPIPostRequest<BulkInvitationResponse>(
       `${fanClubId}/memberships/invite-member`,
       {
@@ -43,8 +45,8 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
   }
 
   public update(
-    fanClubId: DbIdentifier,
-    membershipId: DbIdentifier,
+    fanClubId: ResourceIdentifier,
+    membershipId: ResourceIdentifier,
     params: FanClubMembershipUpdateType
   ) {
     return this.api?.makeAPIPatchRequest<UpdateMembershipResponse>(
@@ -55,7 +57,7 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
     );
   }
 
-  public bulkUpdate(fanClubId: DbIdentifier, params: FanClubMembershipUpdateBulkType) {
+  public bulkUpdate(fanClubId: ResourceIdentifier, params: FanClubMembershipUpdateBulkType) {
     return this.api?.makeAPIPatchRequest<BulkUpdateMembershipResponse>(
       `${fanClubId}/memberships`,
       {
@@ -65,7 +67,7 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
   }
 
   public getAll(
-    fanClubId: DbIdentifier,
+    fanClubId: ResourceIdentifier,
     params: QueryParam<GetFanClubMembershipsFilter>
   ) {
     return this.api?.makeAPIGetRequest<GetMembershipsResponse>(
@@ -76,17 +78,17 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
     );
   }
 
-  public getById(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public getById(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetMembershipResponse>(
       `${fanClubId}/memberships/${membershipId}`
     );
   }
 
-  public remove(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public remove(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(`${fanClubId}/memberships/${membershipId}`);
   }
 
-  public removeBulk(fanClubId: DbIdentifier, params: RemoveMembershipBulkType) {
+  public removeBulk(fanClubId: ResourceIdentifier, params: RemoveMembershipBulkType) {
     const queryParams: any = {};
     if (params.membershipIds && Array.isArray(params.membershipIds)) {
       queryParams.ids = params.membershipIds.join(',');
@@ -100,13 +102,13 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
     });
   }
 
-  public acceptRequest(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public acceptRequest(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/accept-request`
     );
   }
 
-  public rejectRequest(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public rejectRequest(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/accept-request`
     );
@@ -114,7 +116,7 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
   // #endregion
 
   // #region admin/member actions
-  public leaveFanClub(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public leaveFanClub(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/leave`
     );
@@ -122,25 +124,25 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
   // #endregion
 
   // #region member actions
-  public acceptInvitation(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public acceptInvitation(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/accept-invitation`
     );
   }
 
-  public rejectInvitation(fanClubId: DbIdentifier, membershipId: DbIdentifier) {
+  public rejectInvitation(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/reject-invitation`
     );
   }
 
-  public requestJoin(fanClubId: DbIdentifier) {
+  public requestJoin(fanClubId: ResourceIdentifier) {
     return this.api?.makeAPIPostRequest<FanClubMembershipRequestResponse>(
       `${fanClubId}/memberships/join`
     );
   }
 
-  public requestBulkJoin(fanClubId: DbIdentifier) {
+  public requestBulkJoin(fanClubId: ResourceIdentifier) {
     return this.api?.makeAPIPostRequest<FanClubMembershipBulkRequestResponse>(
       `${fanClubId}/memberships/join`
     );

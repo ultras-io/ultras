@@ -1,5 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import { TeamTypesEnum } from '@ultras/utils';
 
@@ -11,11 +11,11 @@ import { City } from 'core/data/models/City';
 import { Venue } from 'core/data/models/Venue';
 
 export interface TeamAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   name: string;
-  cityId: DbIdentifier;
-  countryId: DbIdentifier;
-  venueId: DbIdentifier | null;
+  cityId: ResourceIdentifier;
+  countryId: ResourceIdentifier;
+  venueId: ResourceIdentifier | null;
   founded?: number;
   logo: string;
   type: TeamTypesEnum;
@@ -29,11 +29,11 @@ export class Team
   implements TeamAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public name!: string;
-  public cityId!: DbIdentifier;
-  public countryId!: DbIdentifier;
-  public venueId!: DbIdentifier | null;
+  public cityId!: ResourceIdentifier;
+  public countryId!: ResourceIdentifier;
+  public venueId!: ResourceIdentifier | null;
   public founded!: number;
   public logo!: string;
   public type!: TeamTypesEnum;
@@ -78,7 +78,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
   Team.init(
     {
       id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -87,7 +87,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         allowNull: false,
       },
       cityId: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.CITY.RELATION,
@@ -109,7 +109,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       venueId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: {
@@ -121,7 +121,7 @@ module.exports = (sequelize: Sequelize): typeof Team => {
         onDelete: 'CASCADE',
       },
       founded: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.SMALLINT,
         allowNull: true,
       },
       logo: {

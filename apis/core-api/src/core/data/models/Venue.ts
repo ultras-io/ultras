@@ -1,5 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -8,12 +8,12 @@ import { Country } from 'core/data/models/Country';
 import { City } from 'core/data/models/City';
 
 export interface VenueAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   name: string;
   address?: string;
   capacity: number;
-  cityId: DbIdentifier;
-  countryId: DbIdentifier;
+  cityId: ResourceIdentifier;
+  countryId: ResourceIdentifier;
   imageUri: string;
   dataRapidId: number;
 }
@@ -25,12 +25,12 @@ export class Venue
   implements VenueAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public name!: string;
   public address?: string;
   public capacity!: number;
-  public cityId!: DbIdentifier;
-  public countryId!: DbIdentifier;
+  public cityId!: ResourceIdentifier;
+  public countryId!: ResourceIdentifier;
   public imageUri!: string;
   public dataRapidId!: number;
 
@@ -61,7 +61,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
   Venue.init(
     {
       id: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -77,7 +77,7 @@ module.exports = (sequelize: Sequelize): typeof Venue => {
         type: DataTypes.INTEGER,
       },
       cityId: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         references: {
           model: {
             tableName: resources.CITY.RELATION,

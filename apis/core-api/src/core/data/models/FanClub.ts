@@ -6,7 +6,7 @@ import {
   DataTypes,
   HasOneGetAssociationMixin,
 } from 'sequelize';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
@@ -15,13 +15,13 @@ import { City } from 'core/data/models/City';
 import { Team } from 'core/data/models/Team';
 
 export interface FanClubAttributes {
-  id: DbIdentifier;
+  id: ResourceIdentifier;
   name: string;
   description: string | null;
-  countryId: DbIdentifier;
-  cityId: DbIdentifier;
-  teamId: DbIdentifier;
-  ownerId: DbIdentifier;
+  countryId: ResourceIdentifier;
+  cityId: ResourceIdentifier;
+  teamId: ResourceIdentifier;
+  ownerId: ResourceIdentifier;
   avatar: string;
   coverPhoto: string | null;
   isOfficial: boolean;
@@ -39,13 +39,13 @@ export class FanClub
   implements FanClubAttributes
 {
   // Note that the `null assertion` `!` is required in strict mode.
-  public id!: DbIdentifier;
+  public id!: ResourceIdentifier;
   public name!: string;
   public description!: string | null;
-  public countryId!: DbIdentifier;
-  public cityId!: DbIdentifier;
-  public teamId!: DbIdentifier;
-  public ownerId!: DbIdentifier;
+  public countryId!: ResourceIdentifier;
+  public cityId!: ResourceIdentifier;
+  public teamId!: ResourceIdentifier;
+  public ownerId!: ResourceIdentifier;
   public avatar!: string;
   public coverPhoto!: string | null;
   public isOfficial!: boolean;
@@ -120,7 +120,7 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         onDelete: 'CASCADE',
       },
       cityId: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: {
@@ -132,7 +132,7 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         onDelete: 'CASCADE',
       },
       teamId: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: {

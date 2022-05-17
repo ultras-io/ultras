@@ -1,34 +1,34 @@
 {
-    "name": "@ultras/view-models",
-    "version": "1.0.0",
-    "description": "Core api sdk",
-    "types": "./build/types/index.d.ts",
-    "main": "./build/index.js",
-    "license": "ISC",
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/ultras-io/ultras.git"
-    },
-    "scripts": {
-      "build": "rimraf ./build && tsc",
-      "prettier-format": "prettier --config .prettierrc 'src/**/*.(ts|js)' --write",
-      "lint": "eslint . --ext .ts",
-      "lint-fix": "eslint . --ext .ts --fix"
-    },
-    "dependencies": {
-      "@ultras/utils": "^1.0.0",
-      "yargs": "^17.2.1"
-    },
-    "devDependencies": {
-      "@typescript-eslint/eslint-plugin": "^4.31.1",
-      "@typescript-eslint/parser": "^4.32.0",
-      "eslint": "^7.32.0",
-      "eslint-config-prettier": "^8.3.0",
-      "eslint-plugin-prettier": "^4.0.0",
-      "prettier": "^2.5.1",
-      "typescript": "^4.4.4"
-    },
-    "bugs": {
-      "url": "https://github.com/ultras-io/ultras/issues"
-    }
+  "name": "@ultras/view-models",
+  "version": "1.0.0",
+  "description": "Core api sdk",
+  "types": "./build/types/index.d.ts",
+  "main": "./build/index.js",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultras-io/ultras.git"
+  },
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.(ts|js)' --write",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix"
+  },
+  "dependencies": {
+    "@ultras/utils": "^1.0.0",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.4"
+  },
+  "bugs": {
+    "url": "https://github.com/ultras-io/ultras/issues"
+  }
 }

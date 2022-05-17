@@ -4,12 +4,12 @@ import {
   ControllerListResultType,
   ControllerByIdResultType,
   ControllerInjectionResultType,
-  DbIdentifier,
+  ResourceIdentifier,
 } from 'types';
 
 interface CitiesFilterInterface {
   name?: string;
-  countryId?: DbIdentifier;
+  countryId?: ResourceIdentifier;
 }
 
 export type CitiesListParams = ControllerListParamsType<CitiesFilterInterface>;

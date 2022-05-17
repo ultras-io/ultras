@@ -9,7 +9,7 @@ class ControllerAdapter {
    */
   static async inject(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const date = '2022-01-15';
+    const { date } = ctx.request.params;
 
     /** CONTROLLERS */
     const { data } = await MatchController.inject(date);

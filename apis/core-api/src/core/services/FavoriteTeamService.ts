@@ -1,5 +1,5 @@
 import {
-  DbIdentifier,
+  ResourceIdentifier,
   ServiceByIdResultType,
   ServiceListParamsType,
   ServiceListResultType,
@@ -13,20 +13,20 @@ import BaseService from './BaseService';
 import { FavoriteTeamsViewModel, FavoriteTeamViewModel } from '@ultras/view-models';
 
 export interface FavoriteTeamListParamsInterface {
-  userId?: DbIdentifier;
-  teamId?: DbIdentifier;
+  userId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
   search?: string;
 }
 
 export interface ActionByIdentifierInterface {
-  userId?: DbIdentifier;
-  favoriteTeamId?: DbIdentifier;
-  teamId?: DbIdentifier;
+  userId?: ResourceIdentifier;
+  favoriteTeamId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
 }
 
 export interface AddSingleParamsInterface {
-  userId: DbIdentifier;
-  teamId: DbIdentifier | Array<DbIdentifier>;
+  userId: ResourceIdentifier;
+  teamId: ResourceIdentifier | Array<ResourceIdentifier>;
 }
 
 class FavoriteTeamService extends BaseService {
@@ -93,7 +93,7 @@ class FavoriteTeamService extends BaseService {
     }
 
     const data: Array<FavoriteTeamCreationAttributes> = teamId.map(
-      (teamId: DbIdentifier) => ({
+      (teamId: ResourceIdentifier) => ({
         userId,
         teamId,
         deletedAt: null,

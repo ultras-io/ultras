@@ -5,7 +5,7 @@ import { MatchService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import { DbIdentifier } from 'types';
+import { ResourceIdentifier } from 'types';
 
 import {
   MatchesListParams,
@@ -50,7 +50,7 @@ class MatchController extends BaseController {
     };
   }
 
-  static async getById(id: DbIdentifier): MatchByIdResult {
+  static async getById(id: ResourceIdentifier): MatchByIdResult {
     const match = await MatchService.getById(id);
 
     if (!match) {

@@ -4,7 +4,7 @@ import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
 import { NavigationContainer } from '@react-navigation/native';
-import RootNavigation from 'navigation/RootNavigation';
+import RootNavigation from 'views/navigation/RootNavigation';
 import { theme } from 'themes';
 
 const App = () => {

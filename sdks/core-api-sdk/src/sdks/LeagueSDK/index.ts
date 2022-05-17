@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, DbIdentifier } from '../types';
+import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
 import { GetLeaguesFilter } from './types';
+export * from './types';
 
 export class LeagueSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
@@ -13,7 +14,7 @@ export class LeagueSDK extends CoreApiBaseSDK {
     });
   }
 
-  public getLeague(id: DbIdentifier) {
+  public getLeague(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest(id.toString());
   }
 }

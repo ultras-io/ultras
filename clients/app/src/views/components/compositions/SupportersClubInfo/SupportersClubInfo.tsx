@@ -3,7 +3,7 @@ import { View, Pressable } from 'react-native';
 import I18n from 'i18n/i18n';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { commonScreens } from 'navigation/screens';
+import { commonScreens } from 'views/navigation/screens';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 
 import UltrasText from 'views/components/base/UltrasText';

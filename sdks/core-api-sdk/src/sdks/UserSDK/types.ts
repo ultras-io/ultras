@@ -1,4 +1,4 @@
-import { DbIdentifier } from '../types';
+import { ResourceIdentifier } from '../types';
 
 interface PhoneOrEmailInterface {
   phone?: string;
@@ -17,7 +17,7 @@ export interface RegistrationInterface extends PhoneOrEmailInterface, CodeInterf
   username: string;
   avatar?: string;
   fullname?: string;
-  teamId?: DbIdentifier;
+  teamId?: ResourceIdentifier;
 }
 
 export interface LoginInterface extends PhoneOrEmailInterface, CodeInterface {}
