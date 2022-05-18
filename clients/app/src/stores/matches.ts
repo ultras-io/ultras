@@ -1,7 +1,7 @@
 import {
   MatchViewModel,
   MatchSDK,
-  DbIdentifier,
+  ResourceIdentifier,
   GetMatchesFilter,
 } from '@ultras/core-api-sdk';
 import { OrderEnum } from '@ultras/utils';
@@ -38,7 +38,7 @@ const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
       });
     },
 
-    loadSingle: (id: DbIdentifier) => {
+    loadSingle: (id: ResourceIdentifier) => {
       return sdk.getMatch(id);
     },
   });
