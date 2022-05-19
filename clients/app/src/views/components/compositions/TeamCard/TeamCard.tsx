@@ -15,7 +15,7 @@ import styles from './styles';
 const TeamCard: React.FC<ITeamCardProps> = ({
   avatarUri,
   name,
-  supportersClubsCount,
+  fanClubsCount,
   country,
   city,
   onPress,
@@ -32,7 +32,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({
           </UltrasText>
           <View style={styles.line}>
             <UltrasText color="secondaryText" style={styles.text}>
-              {getReadableNumber(supportersClubsCount)} {I18n.t('supportersClubs')}
+              {getReadableNumber(fanClubsCount)} {I18n.t('fanClubs')}
             </UltrasText>
             {country && (
               <>

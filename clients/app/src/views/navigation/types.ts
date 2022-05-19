@@ -7,8 +7,8 @@ export type CommonScreens = Record<
   | 'event'
   | 'post'
   | 'team'
-  | 'supportersClub'
-  | 'supportersClubAbout'
+  | 'fanClub'
+  | 'fanClubAbout'
   | 'profile'
   | 'newEvent'
   | 'profileList',
@@ -18,8 +18,8 @@ export type CommonScreens = Record<
       | 'Event'
       | 'Post'
       | 'Team'
-      | 'SupportersClub'
-      | 'SupportersClubAbout'
+      | 'FanClub'
+      | 'FanClubAbout'
       | 'Profile'
       | 'NewEvent'
       | 'ProfileList';
@@ -81,10 +81,10 @@ export type ProfileNavigationScreens = {
 };
 
 export type SearchTabScreens = {
-  all: NavigationScreen;
+  // all: NavigationScreen;
   team: NavigationScreen;
-  supportersClubs: NavigationScreen;
-  ultras: NavigationScreen;
+  fanClubs: NavigationScreen;
+  // ultras: NavigationScreen;
 };
 
 export type ListModalTabScreens = {

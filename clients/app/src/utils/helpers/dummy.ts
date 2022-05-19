@@ -180,17 +180,6 @@ const nationalTeams = [
   'Montenegro',
 ];
 
-const supportersClubs = [
-  'Moscow Blues',
-  'VAK410',
-  'Curva Nord Milano',
-  'Boixos Nois',
-  'ULTRAS SUR',
-  'Chelsea Headhunters',
-  'Millwall Bushwackers',
-  'Juventus Official Fan Club Russia',
-  'First Armenian Front (FAF)',
-];
 
 const randomDate = (start: Date, end: Date): Date => {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -198,9 +187,7 @@ const randomDate = (start: Date, end: Date): Date => {
 export const generateTeamName = (): string => {
   return teams[parseInt(Math.random() * (78 - 1) + 1)];
 };
-export const generateSupportersClubName = (): string => {
-  return supportersClubs[parseInt(Math.random() * (9 - 1) + 1)];
-};
+
 const generateLeagueName = (): string => {
   return leagues[parseInt(Math.random() * (7 - 1) + 1)];
 };
@@ -262,7 +249,7 @@ const generateMatch1 = () => {
     leagueImageURI: generateLeagueURL(),
     matchState: MatcheTimeState.ExtraTime,
     startTime: randomDate(new Date(2021, 10, 10), new Date(2021, 11, 11)),
-    venue: generateSupportersClubName(),
+    venue: 'aa',
   };
 };
 const generateMatch2 = () => {
@@ -271,7 +258,7 @@ const generateMatch2 = () => {
     matchState: MatcheTimeState.Live,
     minute: Math.round(Math.random() * (97 - 1) + 1),
     score: generateScore(),
-    venue: generateSupportersClubName(),
+    venue: 'generatedtersClubName()',
   };
 };
 const generateMatch3 = () => {
@@ -279,7 +266,7 @@ const generateMatch3 = () => {
     ...generateMatch1(),
     matchState: MatcheTimeState.Finished,
     score: generateScore(),
-    venue: generateSupportersClubName(),
+    venue: 'generatedrtersClubName()',
   };
 };
 
@@ -336,7 +323,7 @@ export const generateEvent = () => {
     date: randomDate(new Date(2021, 7, 10), new Date(2022, 11, 11)),
     title: generateTeamName() + ' Celebrate all things in ' + generateNationalTeam(),
     creator: 'armando.broja',
-    supportersClub: generateSupportersClubName(),
+    supportersClub: 'generatefrfrupportersClubName()',
     location: 'Paulaner ' + generateCountry(),
     commentsCount: parseInt(Math.random() * (4466 - 1) + 16),
     goingCount: parseInt(Math.random() * (2466 - 1) + 1),
@@ -366,29 +353,14 @@ export const generatePost = () => {
     content:
       'The header hides and reveals based on the direction of the scroll and once the scrolling is stopped, the header conveniently snaps to the closest state i.e either half-hidden or fully revealed. This effect can be seen in apps like WhatsApp, Youtube, Telegram, etc. We’d be using React Native’s Animated API to build this so let’s get started!\n\nI made a starter template that would save us some time by focusing on the topic of animations in this article. So I recommend you to clone the repository and follow along :)',
     creator: 'armando.broja',
-    supportersClub: generateSupportersClubName(),
+    supportersClub: 'generatefortersClubName()',
     commentsCount: parseInt(Math.random() * (4466 - 1) + 16),
     likeCount: parseInt(Math.random() * (477466 - 1) + 146),
     isLiked: Math.random() > 0.5,
   };
 };
 
-const generateSupportersClub = (withUltrasCount = true) => {
-  return {
-    id: uuidv4(),
-    name: generateSupportersClubName(),
-    ultrasCount: withUltrasCount ? parseInt(Math.random() * 36566) : undefined,
-    avatarUri: sclubsAvatars[parseInt(Math.random() * (6 - 1))],
-  };
-};
 
-export const generateSupportersClubs = (count: number, withUltrasCount = true) => {
-  const data = [];
-  for (let i = 0; i < count; i++) {
-    data.push(generateSupportersClub(withUltrasCount));
-  }
-  return data;
-};
 
 export const generateProfile = () => {
   return {
@@ -397,7 +369,7 @@ export const generateProfile = () => {
     name: names[parseInt(Math.random() * (5 - 1))],
     username: usernames[parseInt(Math.random() * (5 - 1))],
     teams: generateClubsList(parseInt(Math.random() * 6) + 1),
-    supportersClubs: generateSupportersClubs(parseInt(Math.random() * 10), false),
+    supportersClubs: [],
   };
 };
 

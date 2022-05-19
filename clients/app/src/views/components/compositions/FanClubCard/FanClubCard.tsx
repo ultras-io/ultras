@@ -1,16 +1,12 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
 import I18n from 'i18n/i18n';
-
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import Divider from 'views/components/base/Divider';
-
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-
-import { ISupportersClubCardProps } from './types';
-
+import { IFanClubCardProps } from './types';
 import styles from './styles';
 
 const stylesDictionary = {
@@ -20,12 +16,9 @@ const stylesDictionary = {
   [AvatarSize.ExtraBig]: styles.extraBig,
 };
 
-const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
-  avatarUri,
-  avatarSize,
-  name,
-  ultrasCount,
-  city,
+const FanClubCard: React.FC<IFanClubCardProps> = ({
+  data,
+  avatarSize = AvatarSize.Big,
   direction = 'vertical',
   onPress,
 }) => {
@@ -34,21 +27,21 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
       {direction === 'vertical' ? (
         <BluredView style={styles.container}>
           <View style={styles.avatar}>
-            <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
+            <Avatar avatarUri={data.avatar} size={AvatarSize.Default} />
           </View>
           <View style={styles.info}>
             <UltrasText color="text" style={styles.name}>
-              {name}
+              {data.name}
             </UltrasText>
             <View style={styles.line}>
               <UltrasText color="text" style={styles.text}>
-                {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+                {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </UltrasText>
               <View style={styles.divider}>
                 <Divider />
               </View>
               <UltrasText color="text" style={styles.text}>
-                {city}
+                {data.city.name}
               </UltrasText>
             </View>
           </View>
@@ -56,14 +49,14 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
       ) : (
         <View style={[styles.containerH, stylesDictionary[avatarSize]]}>
           <View style={styles.avatarH}>
-            <Avatar avatarUri={avatarUri} size={avatarSize} />
+            <Avatar avatarUri={data.avatar} size={avatarSize} />
           </View>
           <UltrasText color="text" style={styles.nameH} numberOfLines={2}>
-            {name}
+            {data.name}
           </UltrasText>
-          {ultrasCount && (
+          {data.membersCount && (
             <UltrasText color="secondaryText" style={styles.ultrasCountH}>
-              {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+              {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
             </UltrasText>
           )}
         </View>
@@ -72,4 +65,4 @@ const SupportersClubCard: React.FC<ISupportersClubCardProps> = ({
   );
 };
 
-export default React.memo<ISupportersClubCardProps>(SupportersClubCard);
+export default React.memo<IFanClubCardProps>(FanClubCard);

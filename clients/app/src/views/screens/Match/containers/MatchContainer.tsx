@@ -7,8 +7,8 @@ import { IMatchContainerProps } from '../types';
 
 const MatchContainer: React.FC<IMatchContainerProps> = ({ data }) => {
   // React.useEffect(() => {
-  //   matchesStore.getSingle(id);
-  // }, []);
+  //   matchesStore.getSingle(data.id);
+  // }, [data.id]);
 
   // const result = matchesStore.useSelector('single');
 

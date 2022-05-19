@@ -1,42 +1,39 @@
 import React from 'react';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
-
-import SupportersClubContainer from './containers/SupportersClubContainer';
+import FanClubContainer from './containers/FanClubContainer';
 import Button, {
   AppearanceEnum as ButtonAppearance,
   SizeEnum as ButtonSize,
 } from 'views/components/base/Button';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import WithSafeArea from 'views/components/base/WithSafeArea';
+import { IFanClubProps } from './types';
 
-import { ISupportersClubProps } from './types';
-
-const SupportersClub: React.FC<ISupportersClubProps> = ({ route }) => {
-  const { id } = route.params;
+const FanClub: React.FC<IFanClubProps> = ({ route }) => {
+  const { data } = route.params;
   const { setOptions, pushTo } = useNavigationWithParams();
 
   React.useLayoutEffect(() => {
     setOptions({
       headerRight: () => (
         <Button
-          onPress={() => {
-            pushTo(commonScreens.supportersClubAbout.name);
-          }}
+          onPress={() =>
+            pushTo(commonScreens.fanClubAbout.name, { description: data.description })
+          }
           appearance={ButtonAppearance.Minimal}
           size={ButtonSize.ExtraBig}
           icon={Icons.Info}
         />
       ),
     });
-  }, [setOptions, pushTo]);
+  }, [setOptions, pushTo, data.description]);
 
   return (
     <WithSafeArea>
-      <SupportersClubContainer id={id} />
+      <FanClubContainer data={data} />
     </WithSafeArea>
   );
 };
 
-export default SupportersClub;
+export default FanClub;

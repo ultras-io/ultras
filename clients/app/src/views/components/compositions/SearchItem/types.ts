@@ -1,4 +1,5 @@
-export type SearchItem = 'all' | 'ultras' | 'events' | 'clubs' | 'teams';
+// export type SearchItem = 'all' | 'ultras' | 'events' | 'clubs' | 'teams';
+export type SearchItem = 'fanClubs' | 'teams';
 
 export interface ISearchItemProps {
   searchItem: SearchItem;

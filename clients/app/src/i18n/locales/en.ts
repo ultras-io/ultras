@@ -82,9 +82,9 @@ export default {
   matchesFinished: 'Full Time',
   matchesPenalties: 'Pen.',
 
-  // supporters clubs
-  supportersClubs: 'Clubs',
-  supportersClubJoin: 'Join the Club',
+  // fan clubs
+  fanClubs: 'Fan Clubs',
+  fanClubJoin: 'Join the Club',
 
   //teams
   team: 'Team',

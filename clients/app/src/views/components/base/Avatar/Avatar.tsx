@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Image } from 'react-native';
 import Box from 'views/components/base/Box';
 
-import defaultAvatar from 'assets/icons/avatar.jpeg';
+import defaultAvatar from 'assets/icons/avatar.png';
 
 import { IAvatarProps, SizeEnum } from './types';
 import styles from './styles';
