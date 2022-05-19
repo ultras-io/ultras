@@ -21,9 +21,10 @@ export interface BeforeSendInterface<TData> {
   (data: StateDataAddInterface): Partial<TData> | null;
 }
 
-export interface InitStoreParamsInterface<TData> {
+export interface InitStoreParamsInterface<TData, TImmutableFilter = {}> {
   scheme: SchemeInterface;
   beforeSend: BeforeSendInterface<TData>;
+  immutableFilter: TImmutableFilter;
 }
 
 export type FullFilterable<TFilter> = TFilter & ListRequestParams;
@@ -176,8 +177,14 @@ export type ExtractStateAndActionType<
 // #endregion
 
 // #region
-export type ParamsType<TData, TStateItem extends StateKeyType, TFilter> = {
+export type ParamsType<
+  TData,
+  TStateItem extends StateKeyType,
+  TFilter,
+  TImmutableFilter = {}
+> = {
   limit?: number;
+  immutableFilter?: TImmutableFilter;
 } & ExtractInterceptorType<TData, TStateItem, TFilter> &
   IfEquals<
     TStateItem,

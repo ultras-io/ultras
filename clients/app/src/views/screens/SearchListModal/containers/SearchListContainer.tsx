@@ -5,8 +5,8 @@ import { TeamViewModel } from '@ultras/view-models';
 import SearchListComponent from '../components/SearchListComponent';
 import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
 
-import buildFootballClubsStore from 'stores/footballClubs';
-import buildNationalTeamsStore from 'stores/nationalTeams';
+import buildTeamsStore from 'stores/teams';
+import { TeamTypesEnum } from '@ultras/utils';
 
 const manipulateTeamItem = (item: TeamViewModel): SearchItem => ({
   id: item.id.toString(),
@@ -24,8 +24,12 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
 
   const { footballClubsStore, nationalTeamsStore } = useMemo(
     () => ({
-      footballClubsStore: buildFootballClubsStore(),
-      nationalTeamsStore: buildNationalTeamsStore(),
+      footballClubsStore: buildTeamsStore({
+        immutableFilter: { type: TeamTypesEnum.club },
+      }),
+      nationalTeamsStore: buildTeamsStore({
+        immutableFilter: { type: TeamTypesEnum.national },
+      }),
     }),
     []
   );

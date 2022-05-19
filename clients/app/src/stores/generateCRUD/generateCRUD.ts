@@ -24,9 +24,10 @@ export const defaultLimit = 50;
 export const generateCRUD = <
   TData extends object,
   TFilter,
-  TKey extends StateKeyType = StateKeyType
+  TKey extends StateKeyType = StateKeyType,
+  TImmutableFilter = {}
 >(
-  params: ParamsType<TData, TKey, TFilter>
+  params: ParamsType<TData, TKey, TFilter, TImmutableFilter>
 ) => {
   // @ts-ignore
   const includeKeys = fillStateKeys(params.keys || []);
@@ -163,9 +164,12 @@ export const generateCRUD = <
           try {
             const filterData = {
               ...(list.filter || {}),
+              ...(params.immutableFilter || {}),
               limit: itemsLimit,
               offset: itemsCount,
             };
+
+            console.log(JSON.stringify(filterData, null, 2));
 
             const result = await interceptors.loadAll(
               filterData as unknown as FullFilterable<Partial<TFilter>>
