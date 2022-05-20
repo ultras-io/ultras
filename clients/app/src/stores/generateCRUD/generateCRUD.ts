@@ -388,7 +388,10 @@ export const generateCRUD = <
   // #endregion
 
   const storeVanilla = createVanilla<ExtractStateAndActionType<TData, TKey, TFilter>>(
-    (set, get) => ({
+    (
+      set: SetState<ExtractStateAndActionType<TData, TKey, TFilter>>,
+      get: GetState<ExtractStateAndActionType<TData, TKey, TFilter>>
+    ) => ({
       ...buildInitialState(),
       ...buildActions(set, get),
     })
