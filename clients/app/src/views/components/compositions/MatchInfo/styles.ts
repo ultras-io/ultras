@@ -39,22 +39,27 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   leagueVenueText: {
+    maxWidth: 130,
     fontSize: 10,
     textAlign: 'center',
   },
   date: {
     fontSize: 13,
     marginTop: 12,
-    marginBottom: 4,
+  },
+  time: {
+    fontSize: 19,
+    fontWeight: '600',
+    marginBottom: 2,
   },
   score: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 19,
-    fontWeight: '600',
-    letterSpacing: -0.24,
+    marginTop: 10,
     marginBottom: 4,
+  },
+  scoreDivider: {
+    fontSize: 19,
   },
   button: {
     marginVertical: 10,

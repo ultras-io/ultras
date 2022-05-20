@@ -60,6 +60,9 @@ export default StyleSheet.create({
     fontSize: 15,
     letterSpacing: -0.24,
   },
+  winner: {
+    fontWeight: '800',
+  },
   actionBox: {
     position: 'absolute',
     display: 'flex',

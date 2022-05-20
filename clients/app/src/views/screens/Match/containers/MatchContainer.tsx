@@ -1,15 +1,16 @@
 import React from 'react';
-
 import MatchComponent from '../components/MatchComponent';
-
-import { generateMatch } from 'utils/helpers/dummy';
-
+// import buildMatchesStore from 'stores/matches';
 import { IMatchContainerProps } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const MatchContainer: React.FC<IMatchContainerProps> = ({ id }) => {
-  // get club's data by id
-  const data = generateMatch();
+// const matchesStore = buildMatchesStore();
+
+const MatchContainer: React.FC<IMatchContainerProps> = ({ data }) => {
+  // React.useEffect(() => {
+  //   matchesStore.getSingle(id);
+  // }, []);
+
+  // const result = matchesStore.useSelector('single');
 
   return <MatchComponent data={data} />;
 };

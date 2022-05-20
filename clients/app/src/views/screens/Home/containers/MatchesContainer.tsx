@@ -13,14 +13,16 @@ import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { tabScreens } from 'views/navigation/screens';
 
+import buildMatchesStore from 'stores/matches';
+
 import { IMatchesContainerProps } from '../types';
 import styles from '../styles';
 
-import { generateMatches } from 'utils/helpers/dummy';
+const matchesStore = buildMatchesStore();
+matchesStore.getAll();
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
-  // get data
-  const data = generateMatches(5);
+  const result = matchesStore.useSelector('list');
 
   const { changeTab } = useNavigationWithParams();
 
@@ -43,7 +45,7 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
           color="text"
         />
       </View>
-      <MatchesComponent data={data} onEndReached={() => {}} />
+      <MatchesComponent data={result.list.data || []} onEndReached={() => {}} />
     </View>
   );
 };

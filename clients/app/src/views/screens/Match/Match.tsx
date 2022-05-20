@@ -1,16 +1,13 @@
 import React from 'react';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { commonScreens } from 'navigation/screens';
-
 import MatchContainer from './containers/MatchContainer';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import Like from 'views/components/base/Like';
-
 import { IMatchProps } from './types';
 
 const Match: React.FC<IMatchProps> = ({ route }) => {
-  const { id } = route.params;
+  const { data } = route.params;
   const { setOptions } = useNavigationWithParams();
 
   React.useLayoutEffect(() => {
@@ -21,7 +18,7 @@ const Match: React.FC<IMatchProps> = ({ route }) => {
 
   return (
     <WithSafeArea>
-      <MatchContainer id={id} />
+      <MatchContainer data={data} />
     </WithSafeArea>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pressable, View, Image } from 'react-native';
-
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import MatchTime from '../MatchTime';
@@ -8,27 +7,15 @@ import MatchScore from 'views/components/base/MatchScore';
 import BluredView from 'views/components/base/BluredView';
 import Divider from 'views/components/base/Divider';
 import Like from 'views/components/base/Like';
-import CommentsCount from 'views/components/base/CommentsCount';
-
-import { IMatchTimeProps } from '../MatchTime';
+// import CommentsCount from 'views/components/base/CommentsCount';
+import { isMatchGoing } from 'utils/helpers/matchTime';
+import { WinnerEnum, MatchStatusesEnum } from '@ultras/utils';
 import { IMatchCardProps } from './types';
 import styles from './styles';
 
-const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
-  onPress,
-  team1Name,
-  team2Name,
-  team1URI,
-  team2URI,
-  country,
-  league,
-  score,
-  matchState,
-  leagueImageURI,
-  startTime,
-  minute,
-  horizontal = false,
-}) => {
+const WORLD_AS_COUNTRY_ID = 162;
+
+const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = false }) => {
   const Container = horizontal ? Box : BluredView;
 
   return (
@@ -38,13 +25,13 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
         bgColor={'secondaryText'}
       >
         <View style={styles.league}>
-          {country && (
+          {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
             <>
               <UltrasText
                 style={styles.leagueText}
                 color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
               >
-                {country}
+                {data.league.country.name}
               </UltrasText>
               <View style={styles.divider}>
                 <Divider bgColor={horizontal ? 'secondaryTextInvert' : 'secondaryText'} />
@@ -55,68 +42,64 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
             style={styles.leagueText}
             color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
           >
-            {league}
+            {data.league.name}
           </UltrasText>
         </View>
         <View style={styles.logoAndTime}>
           <Box style={styles.logoContainer} bgColor={'text'}>
-            <Image source={{ uri: team1URI }} style={styles.logo} />
+            <Image source={{ uri: data.teamHome.logo }} style={styles.logo} />
           </Box>
           <Box style={[styles.logoContainer, styles.logoContainer2]} bgColor={'text'}>
-            <Image source={{ uri: team2URI }} style={styles.logo} />
+            <Image source={{ uri: data.teamAway.logo }} style={styles.logo} />
           </Box>
           <MatchTime
-            leagueImageURI={leagueImageURI}
-            matchState={matchState}
-            startTime={startTime}
-            minute={minute}
+            matchStatus={data.status}
+            dateTime={data.dateTime}
+            elapsedTime={data.elapsedTime}
+            leagueLogoURI={data.league.logo}
             invert={horizontal}
           />
         </View>
         <View style={styles.teamAndScore}>
           <UltrasText
-            style={styles.team}
+            style={[styles.team, data.winner === WinnerEnum.home ? styles.winner : null]}
             color={horizontal ? 'textInvert' : 'secondaryText'}
             numberOfLines={1}
           >
-            {team1Name}
+            {data.teamHome.name}
           </UltrasText>
-          {score && (
+          {(isMatchGoing(data.status) || data.status === MatchStatusesEnum.finished) && (
             <MatchScore
-              score={score.team1Score || 0}
-              penalties={score.team1Penalties || 0}
-              matchState={matchState}
+              score={data.goalsHome || 0}
+              // penalties={score.team1Penalties || 0}
+              matchStatus={data.status}
               invert={horizontal}
             />
           )}
         </View>
         <View style={styles.teamAndScore}>
           <UltrasText
-            style={styles.team}
+            style={[styles.team, data.winner === WinnerEnum.away ? styles.winner : null]}
             color={horizontal ? 'textInvert' : 'secondaryText'}
             numberOfLines={1}
           >
-            {team2Name}
+            {data.teamAway.name}
           </UltrasText>
-          {score && (
+          {(isMatchGoing(data.status) || data.status === MatchStatusesEnum.finished) && (
             <MatchScore
-              score={score.team2Score || 0}
-              penalties={score.team2Penalties || 0}
-              matchState={matchState}
+              score={data.goalsAway || 0}
+              // penalties={score.team1Penalties || 0}
+              matchStatus={data.status}
               invert={horizontal}
             />
           )}
         </View>
         {!horizontal && (
           <View style={styles.actionBox}>
-            <Like
-              isLiked={Math.round(Math.random() * (4000 - 1)) > 2000}
-              onPress={() => {}}
-              count={Math.round(Math.random() * (4000 - 1) + 1)}
-            />
-            <View style={styles.comments}>
-              <CommentsCount count={345} />
-            </View>
+            <Like isLiked={false} onPress={() => {}} count={0} />
+            {/* <View style={styles.comments}>
+              <CommentsCount count={0} />
+            </View> */}
           </View>
         )}
       </Container>
@@ -124,4 +107,4 @@ const MatchCard: React.FC<IMatchCardProps & IMatchTimeProps> = ({
   );
 };
 
-export default React.memo<IMatchCardProps & IMatchTimeProps>(MatchCard);
+export default React.memo<IMatchCardProps>(MatchCard);

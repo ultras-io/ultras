@@ -15,8 +15,8 @@ interface IRootNavigationProps {
 const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated] = useState<boolean>(
-    // true
-    false
+    true
+    // false
   );
 
   if (!isLoading) {

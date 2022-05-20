@@ -1,15 +1,9 @@
-export enum MatchStateEnum {
-  NotStarted,
-  Live,
-  ExtraTime,
-  Penalties,
-  Finished,
-}
+import { MatchStatusesEnum } from '@ultras/utils';
 
 export interface IMatchTimeProps {
-  matchState?: MatchStateEnum;
-  leagueImageURI: string;
-  startTime?: Date;
-  minute?: number;
+  matchStatus: MatchStatusesEnum;
+  leagueLogoURI: string;
+  dateTime: string;
+  elapsedTime?: number;
   invert?: boolean;
 }

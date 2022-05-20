@@ -20,7 +20,8 @@ else
   ROOT_DIR="$PWD"
 fi
 
-. "$(dirname "$0")/.helpers.sh"
+source "$(dirname "$0")/.helpers.sh"
+
 trap on_process_kill SIGINT
 
 # check yarn installed
