@@ -1,4 +1,4 @@
-package com.app;
+package io.ultras.ultras;
 
 import com.facebook.react.ReactActivity;
 
