@@ -1,88 +1,48 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
-import React, { useEffect, useMemo, useRef } from 'react';
-import { TeamViewModel } from '@ultras/view-models';
-import SearchListComponent from '../components/SearchListComponent';
-import { ISearchListContainerProps, SearchItem, dataTypeEnum } from '../types';
-
-import buildTeamsStore from 'stores/teams';
+import React from 'react';
 import { TeamTypesEnum } from '@ultras/utils';
+import SearchListComponent from '../components/SearchListComponent';
+import { ISearchListContainerProps, dataTypeEnum } from '../types';
+import buildTeamsStore from 'stores/teams';
 
-const manipulateTeamItem = (item: TeamViewModel): SearchItem => ({
-  id: item.id.toString(),
-  name: item.name,
-  logo: item.logo,
+const footballClubsStore = buildTeamsStore({
+  immutableFilter: {
+    type: TeamTypesEnum.club,
+  },
+});
+
+const nationalTeamsStore = buildTeamsStore({
+  immutableFilter: {
+    type: TeamTypesEnum.national,
+  },
 });
 
 const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,
   searchText,
 }) => {
-  const refTimer = useRef<NodeJS.Timeout>();
-
-  const [data, setData] = React.useState<Array<SearchItem>>([]);
-
-  const { footballClubsStore, nationalTeamsStore } = useMemo(
-    () => ({
-      footballClubsStore: buildTeamsStore({
-        immutableFilter: { type: TeamTypesEnum.club },
-      }),
-      nationalTeamsStore: buildTeamsStore({
-        immutableFilter: { type: TeamTypesEnum.national },
-      }),
-    }),
-    []
-  );
-
-  const { fetchData, updateFilter, manipulateItem } = useMemo(() => {
+  const store = React.useMemo(() => {
     switch (dataType) {
       case dataTypeEnum.Country:
-        return {
-          fetchData: nationalTeamsStore.getAll,
-          updateFilter: nationalTeamsStore.updateFilter,
-          manipulateItem: manipulateTeamItem,
-        };
+        return nationalTeamsStore;
       case dataTypeEnum.FootballClub:
-        return {
-          fetchData: footballClubsStore.getAll,
-          updateFilter: footballClubsStore.updateFilter,
-          manipulateItem: manipulateTeamItem,
-        };
+        return footballClubsStore;
       case dataTypeEnum.NationalTeam:
-        return {
-          fetchData: nationalTeamsStore.getAll,
-          updateFilter: nationalTeamsStore.updateFilter,
-          manipulateItem: manipulateTeamItem,
-        };
+        return nationalTeamsStore;
     }
   }, [dataType]);
 
-  const manipulate = React.useCallback(
-    (list: Array<any>) => {
-      setData(list.map(item => manipulateItem(item)));
-    },
-    [setData, manipulateItem]
+  const result = store.useSelector('list');
+
+  const updateData = React.useCallback(() => {
+    store.updateFilter({ name: searchText });
+    store.getAll();
+  }, [store, searchText]);
+
+  React.useEffect(updateData, [updateData, searchText]);
+
+  return (
+    <SearchListComponent onEndReached={store.getAll} data={result.list.data || []} />
   );
-
-  const getData = React.useCallback(async () => {
-    const newData = await fetchData();
-    if (newData.status === 'success') {
-      manipulate(newData.data!);
-    }
-  }, [manipulate, fetchData]);
-
-  useEffect(() => {
-    if (refTimer.current) {
-      clearTimeout(refTimer.current);
-    }
-
-    refTimer.current = setTimeout(() => {
-      updateFilter({ name: searchText } as any);
-      getData();
-    }, 300);
-  }, [searchText]);
-
-  return <SearchListComponent onEndReached={getData} data={data} />;
 };
 
 export default React.memo<ISearchListContainerProps>(SearchListContainer);
