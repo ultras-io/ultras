@@ -4,8 +4,8 @@ import { FlatList } from 'react-native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 
-import ProfileCard from 'views/components/compositions/ProfileCard';
-import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
+// import ProfileCard from 'views/components/compositions/ProfileCard';
+import FanClubCard from 'views/components/compositions/FanClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
 
 import { ISearchItemComponentProps } from '../types';
@@ -18,70 +18,69 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
 }) => {
   const { pushTo } = useNavigationWithParams();
 
-  const renderUltras = React.useCallback(
+  // const renderUltras = React.useCallback(
+  //   ({ item }) => (
+  //     <ProfileCard
+  //       onPress={() => pushTo(commonScreens.profile.name, { id: item.id })}
+  //       name={item.name}
+  //       username={item.username}
+  //       avatarUri={item.avatarUri}
+  //     />
+  //   ),
+  //   [pushTo]
+  // );
+
+  const renderFanClub = React.useCallback(
     ({ item }) => (
-      <ProfileCard
-        onPress={() => pushTo(commonScreens.profile.name, { id: item.id })}
-        name={item.name}
-        username={item.username}
-        avatarUri={item.avatarUri}
+      <FanClubCard
+        onPress={() => pushTo(commonScreens.fanClub.name, { data: item })}
+        data={item}
       />
     ),
     [pushTo]
   );
-  const renderClub = React.useCallback(
-    ({ item }) => (
-      <SupportersClubCard
-        onPress={() => pushTo(commonScreens.supportersClub.name, { id: item.id })}
-        name={item.name}
-        ultrasCount={item.ultrasCount}
-        avatarUri={item.uri}
-        city={'Yerevan'}
-      />
-    ),
-    [pushTo]
-  );
+
   const renderTeam = React.useCallback(
     ({ item }) => (
       <TeamCard
         onPress={() => pushTo(commonScreens.team.name, { id: item.id })}
         name={item.name}
-        supportersClubsCount={item.supportersClubsCount}
+        // FanClubsCount={100}
         avatarUri={item.logo}
-        city={item.city}
-        country={item.country}
+        city={item.city.name}
+        country={item.country.name}
       />
     ),
     [pushTo]
   );
 
-  const renderAll = React.useCallback(
-    ({ item }) => {
-      switch (item.type) {
-        case 'ultras':
-          return renderUltras({ item });
+  // const renderAll = React.useCallback(
+  //   ({ item }) => {
+  //     switch (item.type) {
+  //       case 'ultras':
+  //         return renderUltras({ item });
 
-        case 'clubs':
-          return renderClub({ item });
-        case 'teams':
-          return renderTeam({ item });
-      }
-    },
-    [renderClub, renderTeam, renderUltras]
-  );
+  //       case 'clubs':
+  //         return renderFanClub({ item });
+  //       case 'teams':
+  //         return renderTeam({ item });
+  //     }
+  //   },
+  //   [renderFanClub, renderTeam, renderUltras]
+  // );
 
   const renderItem = React.useMemo(() => {
     switch (searchItem) {
-      case 'all':
-        return renderAll;
-      case 'ultras':
-        return renderUltras;
-      case 'clubs':
-        return renderClub;
+      // case 'all':
+      //   return renderAll;
+      // case 'ultras':
+      //   return renderUltras;
+      case 'fanClubs':
+        return renderFanClub;
       case 'teams':
         return renderTeam;
     }
-  }, [searchItem, renderAll, renderUltras, renderClub, renderTeam]);
+  }, [searchItem, renderFanClub, renderTeam]);
 
   return (
     <FlatList

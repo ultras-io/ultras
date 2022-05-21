@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WithSafeArea from 'views/components/base/WithSafeArea';
-import SupportersClubsContainer from 'views/containers/SupportersClubsHorizontal/SupportersClubsContainer';
+import FanClubsContainer from 'views/containers/FanClubsHorizontal/FanClubsContainer';
 import MatchesContainer from 'views/screens/Home/containers/MatchesContainer';
 
 import { IHomeProps } from './types';
@@ -9,7 +9,7 @@ import { IHomeProps } from './types';
 const Home: React.FC<IHomeProps> = () => {
   return (
     <WithSafeArea>
-      <SupportersClubsContainer />
+      <FanClubsContainer />
       <MatchesContainer />
     </WithSafeArea>
   );

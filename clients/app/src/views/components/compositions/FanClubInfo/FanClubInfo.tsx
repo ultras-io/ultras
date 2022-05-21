@@ -1,11 +1,9 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
 import I18n from 'i18n/i18n';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
@@ -16,49 +14,42 @@ import Button, {
 } from 'views/components/base/Button';
 import { IconNamesEnum as Icons } from 'assets/icons';
 
-import { ISupportersClubInfoProps } from './types';
+import { IFanClubInfoProps } from './types';
 import styles from './styles';
 
-const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
-  avatarUri,
-  name,
-  ultrasCount,
-  city,
-  team,
-  myStatus, // eslint-disable-line @typescript-eslint/no-unused-vars
-}) => {
+const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.avatar}>
-          <Avatar avatarUri={avatarUri} size={AvatarSize.ExtraBig} />
+          <Avatar avatarUri={data.avatar} size={AvatarSize.ExtraBig} />
         </View>
         <View style={styles.info}>
           <UltrasText color="tertiary" style={styles.name}>
-            {name}
+            {data.name}
           </UltrasText>
           <View style={styles.line}>
             <Pressable
               onPress={() =>
-                pushTo(commonScreens.profileList, { title: I18n.t('ultras') })
+                pushTo(commonScreens.profileList.name, { title: I18n.t('ultras') })
               }
             >
               <UltrasText color="secondaryText" style={styles.text}>
-                {getReadableNumber(ultrasCount)} {I18n.t('ultras')}
+                {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </UltrasText>
             </Pressable>
             <View style={styles.divider}>
               <Divider />
             </View>
             <UltrasText color="secondaryText" style={styles.text}>
-              {city}
+              {data.city.name}
             </UltrasText>
           </View>
           <Button
-            title={team.name}
-            onPress={() => pushTo(commonScreens.team, { id: team.id })}
+            title={data.team.name}
+            onPress={() => pushTo(commonScreens.team.name, { id: data.team.id })}
             boxSize={ButtonBoxSize.Contain}
             appearance={ButtonAppearance.Minimal}
             color="secondaryText"
@@ -67,7 +58,7 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
           />
           <View style={styles.joinButton}>
             <Button
-              title={I18n.t('supportersClubJoin')}
+              title={I18n.t('fanClubJoin')}
               onPress={() => {}}
               color="textInvert"
               bgColor="bgColorInvert"
@@ -84,4 +75,4 @@ const SupportersClubInfo: React.FC<ISupportersClubInfoProps> = ({
   );
 };
 
-export default React.memo<ISupportersClubInfoProps>(SupportersClubInfo);
+export default React.memo<IFanClubInfoProps>(FanClubInfo);

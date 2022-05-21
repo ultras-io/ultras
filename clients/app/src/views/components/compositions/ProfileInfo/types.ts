@@ -6,5 +6,5 @@ export interface IProfileInfoProps {
   name: string;
   username: string;
   teams: Array<any>;
-  supportersClubs: Array<any>;
+  fanClubs: Array<any>;
 }

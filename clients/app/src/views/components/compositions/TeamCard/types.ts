@@ -4,7 +4,7 @@ export interface ITeamCardProps {
   theme?: ThemeInterface;
   avatarUri: string;
   name: string;
-  supportersClubsCount: number;
+  fanClubsCount: number;
   country?: string;
   city?: string;
   onPress: () => void;

@@ -1,30 +1,29 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-
-import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
-
-import { ISupportersClubsComponentProps } from 'views/containers/SupportersClubsHorizontal';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import { commonScreens } from 'views/navigation/screens';
+import FanClubCard from 'views/components/compositions/FanClubCard';
+import { IFanClubsComponentProps } from 'views/containers/FanClubsHorizontal';
 import styles from './styles';
 
-const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
+const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
   data,
   avatarSize,
   withBounce,
-  onPress,
   onEndReached,
 }) => {
+  const { pushTo } = useNavigationWithParams();
+
   const renderColumn = React.useCallback(
     ({ item }) => (
-      <SupportersClubCard
-        onPress={() => onPress(item.id)}
-        name={item.name}
-        ultrasCount={item.ultrasCount}
-        avatarUri={item.avatarUri}
+      <FanClubCard
+        onPress={() => pushTo(commonScreens.fanClub.name, { data: item })}
+        data={item}
         avatarSize={avatarSize}
         direction="horizontal"
       />
     ),
-    [onPress, avatarSize]
+    [pushTo, avatarSize]
   );
 
   return (
@@ -42,4 +41,4 @@ const SupportersClubsComponent: React.FC<ISupportersClubsComponentProps> = ({
   );
 };
 
-export default SupportersClubsComponent;
+export default FanClubsComponent;
