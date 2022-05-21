@@ -6,7 +6,7 @@ import Events from 'views/screens/Events';
 import Matches from 'views/screens/Matches';
 import Settings from 'views/screens/Settings';
 import Notifications from 'views/screens/Notifications';
-import commonScreens from './test';
+import commonScreens from './commonScreens';
 
 import I18n from 'i18n/i18n';
 import UltrasText from 'views/components/base/UltrasText';

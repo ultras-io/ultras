@@ -24,9 +24,7 @@ export type CommonScreens = Record<
       | 'NewEvent'
       | 'ProfileList';
     component: React.FC<any>;
-    headerTitle?: React.FunctionComponent<any>;
-    isModal?: boolean;
-    headerShown?: boolean;
+    options?: ScreenOptions; // @TODO should we use NativeStackScreenProps ?
   }
 >;
 
