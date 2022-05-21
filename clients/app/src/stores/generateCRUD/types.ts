@@ -5,7 +5,6 @@ import {
   ListResponseMetaType,
 } from '@ultras/core-api-sdk';
 
-// #region Add/Update field interfaces
 export interface SchemeFieldInterface<TFieldValue = string> {
   initialValue?: TFieldValue | null;
   processValue?(valueOriginal: TFieldValue | null): TFieldValue;
@@ -39,9 +38,7 @@ export interface StateFieldAddInterface<TFieldValue = string> {
 export interface StateDataAddInterface {
   [key: string]: StateFieldAddInterface;
 }
-// #endregion
 
-// #region state & global types
 type AllKeys<T> = T extends any ? keyof T : never;
 type PickType<T, K extends AllKeys<T>> = NonNullable<
   T extends { [key in K]: any } ? T[K] : null
@@ -104,9 +101,7 @@ export interface AddStateDataInterface<TData> {
   data: null | StateDataAddInterface;
   valid: boolean;
 }
-// #endregion
 
-// #region extractor types
 export type GroupedStateType<TData, TFilter> = {
   list: {
     list: ListStateDataInterface<TData, TFilter>;
@@ -174,9 +169,7 @@ export type ExtractStateAndActionType<
   TFilter
 > = ExtractStateType<TData, TStateItem, TFilter> &
   ExtractActionType<TData, TStateItem, TFilter>;
-// #endregion
 
-// #region
 export type ParamsType<
   TData,
   TStateItem extends StateKeyType,
@@ -206,4 +199,3 @@ export type StateGetterCallType<
 export type StateSetterCallType<TData, TKey extends StateKeyType, TFilter> = (
   args: ExtractStateType<TData, TKey, TFilter>
 ) => void;
-// #endregion
