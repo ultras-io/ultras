@@ -27,7 +27,7 @@ import PhoneInput from 'views/components/compositions/PhoneInput';
 
 import PostCard from 'views/components/compositions/PostCard';
 import EventCard from 'views/components/compositions/EventCard';
-import SupportersClubCard from 'views/components/compositions/SupportersClubCard';
+import FanClubCard from 'views/components/compositions/FanClubCard';
 import TeamCard from 'views/components/compositions/TeamCard';
 import ProfileCard from 'views/components/compositions/ProfileCard';
 
@@ -144,7 +144,7 @@ const UIKit: React.FC = () => {
           title={'Watching Euro 2020 Final Together'}
           location={'Paulaner Beerhouse'}
           creator={'kirilbelsky'}
-          supportersClub={'Absolute Chelsea'}
+          FanClub={'Absolute Chelsea'}
           commentsCount={37}
           goingCount={124}
           isGoing={false}
@@ -166,7 +166,7 @@ const UIKit: React.FC = () => {
           title={
             "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
           }
-          supportersClub={'Absolute Chelsea'}
+          FanClub={'Absolute Chelsea'}
           commentsCount={37}
           isFollowing={false}
         />
@@ -175,24 +175,24 @@ const UIKit: React.FC = () => {
           title={
             'Chelsea squad revealed for Malmo Champions League tie as Christian Pulisic suffers fresh setback'
           }
-          supportersClub={'Moscow Blues'}
+          FanClub={'Moscow Blues'}
           commentsCount={337}
           isFollowing={true}
         />
-        <UltrasText style={styles.subTitle}>Supporters Club Card</UltrasText>
-        <SupportersClubCard
+        <UltrasText style={styles.subTitle}>Fan Club Card</UltrasText>
+        <FanClubCard
           name="Juventus Official Fan Club Russia"
           ultrasCount={48920}
           city="Moscow"
           avatarUri={rlUri}
         />
-        <SupportersClubCard
+        <FanClubCard
           name="Chelsea Pulse"
           ultrasCount={122389}
           city="London"
           avatarUri={romanoUri}
         />
-        <SupportersClubCard
+        <FanClubCard
           name="Juventus Սեվ Սպիտակ Բանակ"
           ultrasCount={2389}
           city="Yerevan"
@@ -200,7 +200,7 @@ const UIKit: React.FC = () => {
         />
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
-            <SupportersClubCard
+            <FanClubCard
               name="Juventus Official Fan Club Russia"
               ultrasCount={48920}
               city="Moscow"
@@ -209,7 +209,7 @@ const UIKit: React.FC = () => {
             />
           </View>
           <View style={styles.rowItem}>
-            <SupportersClubCard
+            <FanClubCard
               name="Chelsea Pulse"
               ultrasCount={122389}
               city="London"
@@ -217,7 +217,7 @@ const UIKit: React.FC = () => {
               direction="horizontal"
             />
           </View>
-          <SupportersClubCard
+          <FanClubCard
             name="Juventus Official Club Russia Official Fan Club Juventus Official Fan Russia"
             ultrasCount={48920}
             city="Moscow"
@@ -228,19 +228,19 @@ const UIKit: React.FC = () => {
         <UltrasText style={styles.subTitle}>Team Card</UltrasText>
         <TeamCard
           name="AS Rome"
-          supportersClubsCount={47}
+          FanClubsCount={47}
           city="Rome"
           country="Italy"
           avatarUri={romanoUri}
         />
         <TeamCard
           name="Chelsea FC"
-          supportersClubsCount={129}
+          FanClubsCount={129}
           city="London"
           country="England"
           avatarUri={rlUri}
         />
-        <TeamCard name="Italy" supportersClubsCount={900} avatarUri={avatarUri} />
+        <TeamCard name="Italy" FanClubsCount={900} avatarUri={avatarUri} />
         <UltrasText style={styles.subTitle}>Ultras Card</UltrasText>
 
         <ProfileCard

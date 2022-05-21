@@ -5,8 +5,8 @@ import Match from 'views/screens/Match';
 import Event from 'views/screens/Event';
 import Post from 'views/screens/Post';
 import Team from 'views/screens/Team';
-import SupportersClub from 'views/screens/SupportersClub';
-import SupportersClubAbout from 'views/screens/SupportersClubAbout';
+import FanClub from 'views/screens/FanClub';
+import FanClubAbout from 'views/screens/FanClubAbout';
 import Profile from 'views/screens/Profile';
 import NewEvent from 'views/screens/NewEvent';
 import ProfileList from 'views/screens/ProfileList';
@@ -34,9 +34,9 @@ const SCREENS: CommonScreens = {
     name: 'Team',
     component: Team,
   },
-  supportersClub: {
-    name: 'SupportersClub',
-    component: SupportersClub,
+  FanClub: {
+    name: 'FanClub',
+    component: FanClub,
   },
   profile: {
     name: 'Profile',
@@ -57,9 +57,9 @@ const SCREENS: CommonScreens = {
     isModal: true,
     headerShown: false,
   },
-  supportersClubAbout: {
-    name: 'SupportersClubAbout',
-    component: SupportersClubAbout,
+  FanClubAbout: {
+    name: 'FanClubAbout',
+    component: FanClubAbout,
     isModal: true,
     headerShown: true,
   },

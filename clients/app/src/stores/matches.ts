@@ -20,7 +20,7 @@ type FilterType = Filterable<GetMatchesFilter>;
 
 const sdk = new MatchSDK('dev');
 
-const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
+const buildMatchesStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<MatchViewModel, FilterType, 'list' | 'single'>({
     keys: ['list', 'single'],
     ...(params as ParamType),
@@ -44,4 +44,4 @@ const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
   });
 };
 
-export default buildFootballClubStore;
+export default buildMatchesStore;

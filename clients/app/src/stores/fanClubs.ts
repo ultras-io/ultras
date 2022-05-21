@@ -1,9 +1,15 @@
-import { FanClubViewModel, FanClubSDK, GetFanClubsFilter } from '@ultras/core-api-sdk';
 import {
-  generateCRUD,
+  FanClubViewModel,
+  FanClubSDK,
+  DbIdentifier,
+  GetFanClubsFilter,
+} from '@ultras/core-api-sdk';
+
+import {
   Filterable,
-  InitStoreParamsInterface,
   FullFilterable,
+  generateCRUD,
+  InitStoreParamsInterface,
 } from './generateCRUD';
 
 type ParamType = InitStoreParamsInterface<FanClubViewModel>;
@@ -11,23 +17,27 @@ type FilterType = Filterable<GetFanClubsFilter>;
 
 const sdk = new FanClubSDK('dev');
 
-const buildFanClubStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<FanClubViewModel, FilterType, 'list' | 'single' | 'add'>({
-    keys: ['list', 'single', 'add'],
+const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
+  // return generateCRUD<FanClubViewModel, FilterType, 'list' | 'single' | 'add'>({
+  return generateCRUD<FanClubViewModel, FilterType, 'list' | 'single'>({
+    // keys: ['list', 'single', 'add'],
+    keys: ['list', 'single'],
     ...(params as ParamType),
 
     loadAll: (filter: FullFilterable<GetFanClubsFilter>) => {
-      return sdk.getFanClubs(filter);
+      return sdk.getFanClubs({
+        ...filter,
+      });
     },
 
-    loadSingle: (id: ResourceIdentifier) => {
+    loadSingle: (id: DbIdentifier) => {
       return sdk.getFanClub(id);
     },
 
-    create: (data: Partial<FanClubViewModel>) => {
-      return sdk.create({});
-    },
+    // create: (data: Partial<FanClubViewModel>) => {
+    //   return sdk.create(data);
+    // },
   });
 };
 
-export default buildFanClubStore;
+export default buildFanClubsStore;

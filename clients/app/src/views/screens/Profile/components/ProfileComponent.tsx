@@ -11,7 +11,7 @@ const ProfileComponent: React.FC<IProfileComponentProps> = ({ data }) => {
       name={data.name}
       username={data.username}
       teams={data.teams}
-      supportersClubs={data.supportersClubs}
+      fanClubs={data.fanClubs}
     />
   );
 };

@@ -7,26 +7,26 @@ import type { SearchTabScreens } from '../types';
 export const TAB_NAME = 'Search';
 
 const SCREENS: SearchTabScreens = {
-  all: {
-    name: 'All',
-    tabName: I18n.t('all'),
-    component: SearchItem,
-  },
+  // all: {
+  //   name: 'All',
+  //   tabName: I18n.t('all'),
+  //   component: SearchItem,
+  // },
   team: {
     name: 'Teams',
     tabName: I18n.t('teams'),
     component: SearchItem,
   },
-  supportersClubs: {
-    name: 'SupportersClubs',
-    tabName: I18n.t('supportersClubs'),
+  fanClubs: {
+    name: 'FanClubs',
+    tabName: I18n.t('fanClubs'),
     component: SearchItem,
   },
-  ultras: {
-    name: 'Ultras',
-    tabName: I18n.t('ultras'),
-    component: SearchItem,
-  },
+  // ultras: {
+  //   name: 'Ultras',
+  //   tabName: I18n.t('ultras'),
+  //   component: SearchItem,
+  // },
 };
 
 export default SCREENS;

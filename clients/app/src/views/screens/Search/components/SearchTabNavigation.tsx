@@ -15,7 +15,7 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
 }) => {
   return (
     <Stack.Navigator
-      initialRouteName={`${TAB_NAME}:${searchTabScreens.all.name}`}
+      initialRouteName={`${TAB_NAME}:${searchTabScreens.fanClubs.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
         tabBarStyle: { backgroundColor: 'transparent' },
@@ -26,26 +26,28 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
         },
       }}
     >
-      <Stack.Screen
+      {/* <Stack.Screen
         name={`${TAB_NAME}:${searchTabScreens.all.name}`}
         options={{ tabBarLabel: searchTabScreens.all.tabName }}
         initialParams={{ tabName: TAB_NAME }}
       >
         {props => <SearchItem {...props} searchItem={'all'} searchText={searchText} />}
-      </Stack.Screen>
-      <Stack.Screen
+      </Stack.Screen> */}
+      {/* <Stack.Screen
         name={`${TAB_NAME}:${searchTabScreens.ultras.name}`}
         options={{ tabBarLabel: searchTabScreens.ultras.tabName }}
         initialParams={{ tabName: TAB_NAME }}
       >
         {props => <SearchItem {...props} searchItem={'ultras'} searchText={searchText} />}
-      </Stack.Screen>
+      </Stack.Screen> */}
       <Stack.Screen
-        name={`${TAB_NAME}:${searchTabScreens.supportersClubs.name}`}
-        options={{ tabBarLabel: searchTabScreens.supportersClubs.tabName }}
+        name={`${TAB_NAME}:${searchTabScreens.fanClubs.name}`}
+        options={{ tabBarLabel: searchTabScreens.fanClubs.tabName }}
         initialParams={{ tabName: TAB_NAME }}
       >
-        {props => <SearchItem {...props} searchItem={'clubs'} searchText={searchText} />}
+        {props => (
+          <SearchItem {...props} searchItem={'fanClubs'} searchText={searchText} />
+        )}
       </Stack.Screen>
       <Stack.Screen
         name={`${TAB_NAME}:${searchTabScreens.team.name}`}

@@ -19,6 +19,7 @@ const Search: React.FC<ISearchProps> = () => {
     },
     [setSearchText]
   );
+
   return (
     <WithSafeArea>
       <View style={styles.searchRow}>

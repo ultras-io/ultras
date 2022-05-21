@@ -22,7 +22,7 @@ const TeamsContainer: React.FC<ITeamsContainerProps> = ({ data, withBounce = tru
       </View>
       <TeamsComponent
         data={data}
-        onPress={id => pushTo(commonScreens.team, { id })}
+        onPress={id => pushTo(commonScreens.team.name, { id })}
         withBounce={withBounce}
       />
     </View>

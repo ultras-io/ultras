@@ -1,9 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { withTheme } from 'styled-components/native';
-
 import { ThemeInterface } from 'styled-components';
-
 import tabScreens from './screens/tabScreens';
 
 const Tab = createBottomTabNavigator();
