@@ -273,7 +273,7 @@ PODS:
     - React
   - react-native-geolocation-service (5.3.0-beta.4):
     - React
-  - react-native-pager-view (5.4.17):
+  - react-native-pager-view (5.4.22):
     - React-Core
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -534,7 +534,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-geolocation-service: c0efb872258ed9240f1003a70fca9e9757e5c785
-  react-native-pager-view: 90de13b1dbf368a4d486f532d72e5f54d479a986
+  react-native-pager-view: c0ff94cb1e670bcba387bdf575515c58dfa85f04
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa

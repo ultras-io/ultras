@@ -15,8 +15,8 @@ interface IRootNavigationProps {
 const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated] = useState<boolean>(
-    true
-    // false
+    // true
+    false
   );
 
   if (!isLoading) {
@@ -27,7 +27,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = ({ theme }) => {
   return (
     <Stack.Navigator
       // initialRouteName={rootScreens.intro.name}
-      initialRouteName={rootScreens.joinUs.name}
+      initialRouteName={rootScreens.uikit.name}
       screenOptions={{
         headerStyle: { backgroundColor: theme?.colors.bgColor },
         headerShown: false,
