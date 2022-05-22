@@ -24,19 +24,18 @@ export const defaultLimit = 50;
 export const generateCRUD = <
   TData extends object,
   TFilter,
-  TKey extends StateKeyType = StateKeyType
+  TKey extends StateKeyType = StateKeyType,
+  TImmutableFilter = {}
 >(
-  params: ParamsType<TData, TKey, TFilter>
+  params: ParamsType<TData, TKey, TFilter, TImmutableFilter>
 ) => {
   // @ts-ignore
   const includeKeys = fillStateKeys(params.keys || []);
 
-  // #region state
   const buildInitialState = (): ExtractStateType<TData, TKey, TFilter> => {
     // @ts-ignore
     const state: ExtractStateType<TData, TKey> = {};
 
-    // #region list
     if (includeKeys.list) {
       (state as unknown as ExtractStateType<TData, 'list', TFilter>).list = {
         status: 'loading',
@@ -51,9 +50,7 @@ export const generateCRUD = <
         },
       };
     }
-    // #endregion
 
-    // #region single
     if (includeKeys.single) {
       (state as unknown as ExtractStateType<TData, 'single', TFilter>).single = {
         status: 'loading',
@@ -61,9 +58,7 @@ export const generateCRUD = <
         data: null,
       };
     }
-    //#endregion
 
-    // #region add
     if (includeKeys.add) {
       const { scheme } = params as unknown as ExtractInterceptorType<
         TData,
@@ -86,13 +81,10 @@ export const generateCRUD = <
         valid: false,
       };
     }
-    // #endregion
 
     return state;
   };
-  // #endregion
 
-  // #region actions
   const buildActions = (
     setStateCall: SetState<ExtractStateAndActionType<TData, TKey, TFilter>>,
     getStateCall: GetState<ExtractStateAndActionType<TData, TKey, TFilter>>
@@ -100,7 +92,6 @@ export const generateCRUD = <
     // @ts-ignore
     const actions: ExtractActionType<TData, TKey> = {};
 
-    // #region list
     if (includeKeys.list) {
       const getState = getStateCall as unknown as StateGetterCallType<
         TData,
@@ -163,6 +154,7 @@ export const generateCRUD = <
           try {
             const filterData = {
               ...(list.filter || {}),
+              ...(params.immutableFilter || {}),
               limit: itemsLimit,
               offset: itemsCount,
             };
@@ -189,9 +181,7 @@ export const generateCRUD = <
           return list;
         };
     }
-    // #endregion
 
-    // #region single
     if (includeKeys.single) {
       const getState = getStateCall as unknown as StateGetterCallType<
         TData,
@@ -234,9 +224,7 @@ export const generateCRUD = <
           return single;
         };
     }
-    // #endregion
 
-    // #region add
     if (includeKeys.add) {
       const { scheme, beforeSend } = params as unknown as ExtractInterceptorType<
         TData,
@@ -381,11 +369,9 @@ export const generateCRUD = <
           }
         };
     }
-    // #endregion
 
     return actions;
   };
-  // #endregion
 
   const storeVanilla = createVanilla<ExtractStateAndActionType<TData, TKey, TFilter>>(
     (set, get) => ({
@@ -409,12 +395,10 @@ export const generateCRUD = <
     }, {} as ExtractStateAndActionType<TData, TPassedKeys, TFilter>);
   };
 
-  // #region actions
   const buildRootActions = (): ExtractActionType<TData, TKey, TFilter> => {
     // @ts-ignore
     const rootActions: ExtractActionType<TData, TKey, TFilter> = {};
 
-    // #region list
     if (includeKeys.list) {
       (rootActions as unknown as ExtractActionType<TData, 'list', TFilter>).getAll =
         () => {
@@ -438,9 +422,7 @@ export const generateCRUD = <
           ).updateFilter(filter);
         };
     }
-    // #endregion
 
-    // #region single
     if (includeKeys.single) {
       (rootActions as unknown as ExtractActionType<TData, 'single', TFilter>).getSingle =
         (id: ResourceIdentifier) => {
@@ -453,9 +435,7 @@ export const generateCRUD = <
           ).getSingle(id);
         };
     }
-    // #endregion
 
-    // #region add
     if (includeKeys.add) {
       (rootActions as unknown as ExtractActionType<TData, 'add', TFilter>).setFieldValue =
         <TFieldKey extends keyof TData>(
@@ -474,11 +454,9 @@ export const generateCRUD = <
           ).create();
         };
     }
-    // #endregion
 
     return rootActions;
   };
-  // #endregion
 
   return {
     useStore: storeReact,

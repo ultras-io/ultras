@@ -1,11 +1,20 @@
 import React from 'react';
+import { TeamTypesEnum } from '@ultras/utils';
 import SearchListComponent from '../components/SearchListComponent';
 import { ISearchListContainerProps, dataTypeEnum } from '../types';
-import buildFootballClubsStore from 'stores/footballClubs';
-import buildNationalTeamsStore from 'stores/nationalTeams';
+import buildTeamsStore from 'stores/teams';
 
-const footballClubsStore = buildFootballClubsStore();
-const nationalTeamsStore = buildNationalTeamsStore();
+const footballClubsStore = buildTeamsStore({
+  immutableFilter: {
+    type: TeamTypesEnum.club,
+  },
+});
+
+const nationalTeamsStore = buildTeamsStore({
+  immutableFilter: {
+    type: TeamTypesEnum.national,
+  },
+});
 
 const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,

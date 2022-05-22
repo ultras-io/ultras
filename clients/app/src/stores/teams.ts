@@ -14,20 +14,23 @@ import {
 
 type OmittedFilterType = Omit<GetTeamsFilter, 'type'>;
 
-type ParamType = InitStoreParamsInterface<TeamViewModel>;
+type ImmutableFilter = {
+  type: TeamTypesEnum;
+};
+
+type ParamType = InitStoreParamsInterface<TeamViewModel, ImmutableFilter>;
 type FilterType = Filterable<OmittedFilterType>;
 
 const sdk = new TeamSDK('dev');
 
 const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<TeamViewModel, FilterType, 'list' | 'single'>({
+  return generateCRUD<TeamViewModel, FilterType, 'list' | 'single', ImmutableFilter>({
     keys: ['list', 'single'],
     ...(params as ParamType),
 
     loadAll: (filter: FullFilterable<OmittedFilterType>) => {
       return sdk.getTeams({
         ...filter,
-        type: TeamTypesEnum.club,
       });
     },
 
