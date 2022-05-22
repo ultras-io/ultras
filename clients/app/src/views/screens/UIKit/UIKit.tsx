@@ -375,26 +375,11 @@ const UIKit: React.FC = () => {
         />
 
         <UltrasText style={styles.subTitle}>Match Card</UltrasText>
-        <MatchCard
-          data={generateMatch(MatchStatusesEnum.finished)}
-          matchState={MatchStatusesEnum.finished}
-          onPress={() => {}}
-        />
-        <MatchCard
-          data={generateMatch(MatchStatusesEnum.penalties)}
-          matchState={MatchStatusesEnum.penalties}
-          onPress={() => {}}
-        />
-        <MatchCard
-          data={generateMatch(MatchStatusesEnum.live)}
-          matchState={MatchStatusesEnum.live}
-          onPress={() => {}}
-        />
-        <MatchCard
-          matchState={MatchStatusesEnum.canceled}
-          data={generateMatch(MatchStatusesEnum.canceled)}
-          onPress={() => {}}
-        />
+        <MatchCard data={generateMatch(MatchStatusesEnum.finished)} onPress={() => {}} />
+        <MatchCard data={generateMatch(MatchStatusesEnum.penalties)} onPress={() => {}} />
+        <MatchCard data={generateMatch(MatchStatusesEnum.live)} onPress={() => {}} />
+        <MatchCard data={generateMatch(MatchStatusesEnum.canceled)} onPress={() => {}} />
+
         <UltrasText style={styles.subTitle}>Match Time</UltrasText>
         <View style={styles.rowContainer}>
           <View style={styles.rowItem}>
