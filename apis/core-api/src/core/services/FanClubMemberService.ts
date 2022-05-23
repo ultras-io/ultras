@@ -71,9 +71,7 @@ class FanClubMemberService extends BaseService {
         {
           model: db.FanClub,
           as: resources.FAN_CLUB.ALIAS.SINGULAR,
-          attributes: {
-            exclude: ['cityId', 'countryId', 'teamId', 'ownerId'],
-          },
+          ...FanClubService.getIncludeRelations(),
         },
         {
           model: db.User,

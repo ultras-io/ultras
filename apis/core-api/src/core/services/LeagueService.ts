@@ -12,6 +12,7 @@ import { LeagueCreationAttributes } from 'core/data/models/League';
 import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
 
 import BaseService from './BaseService';
+import CountryService from './CountryService';
 
 export interface LeaguesListParamsInterface {
   name?: string;
@@ -28,6 +29,7 @@ class LeagueService extends BaseService {
         {
           model: db.Country,
           as: resources.COUNTRY.ALIAS.SINGULAR,
+          ...CountryService.getIncludeRelations(),
         },
       ],
     };

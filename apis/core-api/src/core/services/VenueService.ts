@@ -12,6 +12,8 @@ import { VenueCreationAttributes } from 'core/data/models/Venue';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
 
 import BaseService from './BaseService';
+import CountryService from './CountryService';
+import CityService from './CityService';
 
 export interface VenuesListParamsInterface {
   name?: string;
@@ -29,10 +31,12 @@ class VenueService extends BaseService {
         {
           model: db.Country,
           as: resources.COUNTRY.ALIAS.SINGULAR,
+          ...CountryService.getIncludeRelations(),
         },
         {
           model: db.City,
           as: resources.CITY.ALIAS.SINGULAR,
+          ...CityService.getIncludeRelations(),
         },
       ],
     };

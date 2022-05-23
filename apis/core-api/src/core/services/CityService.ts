@@ -11,6 +11,7 @@ import db from 'core/data/models';
 import { CityCreationAttributes } from 'core/data/models/City';
 import injectCities, { RapidApiCity } from 'core/data/inject-scripts/injectCities';
 import BaseService from './BaseService';
+import CountryService from './CountryService';
 
 export interface CitiesListParamsInterface {
   name?: string;
@@ -27,6 +28,7 @@ class CityService extends BaseService {
         {
           model: db.Country,
           as: resources.COUNTRY.ALIAS.SINGULAR,
+          ...CountryService.getIncludeRelations(),
         },
       ],
     };
