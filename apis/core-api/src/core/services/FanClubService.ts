@@ -11,6 +11,9 @@ import {
 
 import BaseService from './BaseService';
 import { FanClubMemberStatusEnum } from '@ultras/utils';
+import CityService from './CityService';
+import CountryService from './CountryService';
+import TeamService from './TeamService';
 
 export interface FanClubListParamsInterface {
   name?: string;
@@ -35,14 +38,17 @@ class FanClubService extends BaseService {
         {
           model: db.City,
           as: resources.CITY.ALIAS.SINGULAR,
+          ...CityService.getIncludeRelations(),
         },
         {
           model: db.Country,
           as: resources.COUNTRY.ALIAS.SINGULAR,
+          ...CountryService.getIncludeRelations(),
         },
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR,
+          ...TeamService.getIncludeRelations(),
         },
         {
           model: db.User,

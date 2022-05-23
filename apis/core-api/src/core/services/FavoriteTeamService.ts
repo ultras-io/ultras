@@ -11,6 +11,7 @@ import { FavoriteTeamCreationAttributes } from 'core/data/models/FavoriteTeam';
 
 import BaseService from './BaseService';
 import { FavoriteTeamsViewModel, FavoriteTeamViewModel } from '@ultras/view-models';
+import TeamService from './TeamService';
 
 export interface FavoriteTeamListParamsInterface {
   userId?: ResourceIdentifier;
@@ -39,6 +40,7 @@ class FavoriteTeamService extends BaseService {
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR,
+          ...TeamService.getIncludeRelations(),
         },
         {
           model: db.User,

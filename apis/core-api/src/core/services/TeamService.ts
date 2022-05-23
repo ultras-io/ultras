@@ -13,6 +13,9 @@ import { TeamCreationAttributes } from 'core/data/models/Team';
 import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
 
 import BaseService from './BaseService';
+import CountryService from './CountryService';
+import CityService from './CityService';
+import VenueService from './VenueService';
 
 export interface TeamsListParamsInterface {
   name?: string;
@@ -32,14 +35,17 @@ class TeamService extends BaseService {
         {
           model: db.Country,
           as: resources.COUNTRY.ALIAS.SINGULAR,
+          ...CountryService.getIncludeRelations(),
         },
         {
           model: db.City,
           as: resources.CITY.ALIAS.SINGULAR,
+          ...CityService.getIncludeRelations(),
         },
         {
           model: db.Venue,
           as: resources.VENUE.ALIAS.SINGULAR,
+          ...VenueService.getIncludeRelations(),
         },
       ],
     };
