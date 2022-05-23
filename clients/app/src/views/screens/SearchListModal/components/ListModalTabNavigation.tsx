@@ -5,7 +5,7 @@ import { ThemeInterface } from 'styled-components';
 import { listModalTabScreens } from 'views/navigation/screens';
 import { FilterProvider } from '../contexts/FilterContext';
 
-const Stack = createMaterialTopTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 interface IListModalTabProps {
   theme?: ThemeInterface;
@@ -17,7 +17,7 @@ const TAB_NAME = 'ListModal';
 const ListModalTabNavigation: React.FC<IListModalTabProps> = ({ theme, searchText }) => {
   return (
     <FilterProvider filter={{ searchText }}>
-      <Stack.Navigator
+      <TopTab.Navigator
         initialRouteName={`${TAB_NAME}:${listModalTabScreens.footballClubs.name}`}
         screenOptions={{
           tabBarLabelStyle: { textTransform: 'none' },
@@ -29,19 +29,19 @@ const ListModalTabNavigation: React.FC<IListModalTabProps> = ({ theme, searchTex
           },
         }}
       >
-        <Stack.Screen
+        <TopTab.Screen
           name={`${TAB_NAME}:${listModalTabScreens.footballClubs.name}`}
           options={{ tabBarLabel: listModalTabScreens.footballClubs.name }}
           component={listModalTabScreens.footballClubs.component}
           initialParams={{ tabName: TAB_NAME, searchText: searchText }}
         />
-        <Stack.Screen
+        <TopTab.Screen
           name={`${TAB_NAME}:${listModalTabScreens.nationalTeams.name}`}
           options={{ tabBarLabel: listModalTabScreens.nationalTeams.name }}
           component={listModalTabScreens.nationalTeams.component}
           initialParams={{ tabName: TAB_NAME, searchText: searchText }}
         />
-      </Stack.Navigator>
+      </TopTab.Navigator>
     </FilterProvider>
   );
 };

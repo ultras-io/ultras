@@ -49,7 +49,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           </View>
           <Button
             title={data.team.name}
-            onPress={() => pushTo(commonScreens.team.name, { id: data.team.id })}
+            onPress={() => pushTo(commonScreens.team.name, { data: data.team })}
             boxSize={ButtonBoxSize.Contain}
             appearance={ButtonAppearance.Minimal}
             color="secondaryText"

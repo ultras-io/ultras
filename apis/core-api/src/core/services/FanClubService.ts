@@ -180,7 +180,7 @@ class FanClubService extends BaseService {
   }
 
   /**
-   * Update fun club's members count.
+   * Update fan club's members count.
    *
    * If members status is a pending then it will not be included
    * in fan club as member.

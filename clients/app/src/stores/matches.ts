@@ -27,14 +27,9 @@ const buildMatchesStore = (params: Partial<ParamType> = {}) => {
 
     loadAll: (filter: FullFilterable<GetMatchesFilter>) => {
       return sdk.getMatches({
-        ...filter,
-        // dateFrom: '2022-04-05',
-        // dateTo: '2022-05-30',
-        // leagueId: 254,
-        // teamId: 2124,
         orderAttr: 'dateTime',
         order: OrderEnum.desc,
-        // limit: 3,
+        ...filter,
       });
     },
 
