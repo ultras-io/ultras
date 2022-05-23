@@ -7,8 +7,8 @@ export type CommonScreens = Record<
   | 'event'
   | 'post'
   | 'team'
-  | 'supportersClub'
-  | 'supportersClubAbout'
+  | 'fanClub'
+  | 'fanClubAbout'
   | 'profile'
   | 'newEvent'
   | 'profileList',
@@ -18,15 +18,13 @@ export type CommonScreens = Record<
       | 'Event'
       | 'Post'
       | 'Team'
-      | 'SupportersClub'
-      | 'SupportersClubAbout'
+      | 'FanClub'
+      | 'FanClubAbout'
       | 'Profile'
       | 'NewEvent'
       | 'ProfileList';
     component: React.FC<any>;
-    headerTitle?: React.FunctionComponent<any>;
-    isModal?: boolean;
-    headerShown?: boolean;
+    options?: ScreenOptions; // @TODO should we use NativeStackScreenProps ?
   }
 >;
 
@@ -81,10 +79,10 @@ export type ProfileNavigationScreens = {
 };
 
 export type SearchTabScreens = {
-  all: NavigationScreen;
+  // all: NavigationScreen;
   team: NavigationScreen;
-  supportersClubs: NavigationScreen;
-  ultras: NavigationScreen;
+  fanClubs: NavigationScreen;
+  // ultras: NavigationScreen;
 };
 
 export type ListModalTabScreens = {

@@ -22,7 +22,7 @@ function print_time_diff() {
   if [[ "$(command -v printf)" == "" ]]; then
     echo -e " $RUNTIME $TYPE"
   else
-    printf "%10s\n" "$RUNTIME $TYPE"
+    printf "%8s\n" "$RUNTIME $TYPE"
   fi
 }
 
@@ -39,7 +39,7 @@ function pad_dots() {
   local MESSAGE="$1"
 
   local LENGTH_MSG=${#MESSAGE}
-  local LENGTH_DOT=$(( 60 - $LENGTH_MSG ))
+  local LENGTH_DOT=$(( 64 - $LENGTH_MSG ))
   
   for INDEX in `seq $LENGTH_DOT`; do
     echo -en "."

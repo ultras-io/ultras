@@ -1,8 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import I18n from 'i18n/i18n';
-
-import SupportersClubsComponent from 'views/components/compositions/SupportersClubsHorizontal/SupportersClubsComponent';
+import FanClubsComponent from 'views/components/compositions/FanClubsHorizontal/FanClubsComponent';
 import UltrasText from 'views/components/base/UltrasText';
 import Button, {
   BoxSizeEnum as ButtonBoxSize,
@@ -10,33 +9,29 @@ import Button, {
 } from 'views/components/base/Button';
 import { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import { IconNamesEnum as Icons } from 'assets/icons';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { tabScreens, searchTabScreens } from 'views/navigation/screens';
-import { commonScreens } from 'views/navigation/screens';
+import buildFanClubsStore from 'stores/fanClubs';
+import { IFanClubsContainerProps } from './types';
+import styles from 'views/components/compositions/FanClubsHorizontal/styles';
 
 const TAB_NAME = 'Search';
 
-import { ISupportersClubsContainerProps } from './types';
-import styles from 'views/components/compositions/SupportersClubsHorizontal/styles';
+const fanClubsStore = buildFanClubsStore();
+fanClubsStore.getAll();
 
-import { generateSupportersClubs } from 'utils/helpers/dummy';
-
-const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> = ({
+const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   showHeaderButton = true,
-  avatarSize = AvatarSize.Big,
-  data,
   withBounce = true,
 }) => {
-  // get data
-  data = data ? data : generateSupportersClubs(10);
+  const result = fanClubsStore.useSelector('list');
 
-  const { changeTab, pushTo } = useNavigationWithParams();
+  const { changeTab } = useNavigationWithParams();
 
-  const navigateToSupportersClubs = React.useCallback(() => {
+  const navigateToFanClubs = React.useCallback(() => {
     changeTab(tabScreens.search.name); // navigate to Search in TabNavigation
     setTimeout(() => {
-      changeTab(`${TAB_NAME}:${searchTabScreens.supportersClubs.name}`); // navigate to clubs in TopTabNavigation
+      changeTab(`${TAB_NAME}:${searchTabScreens.fanClubs.name}`); // navigate to clubs in TopTabNavigation
     });
   }, [changeTab]);
 
@@ -44,12 +39,12 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> = ({
     <View>
       <View style={styles.header}>
         <UltrasText style={styles.title} color={'tertiary'}>
-          {I18n.t('supportersClubs')}
+          {I18n.t('fanClubs')}
         </UltrasText>
         {showHeaderButton && (
           <Button
             title={I18n.t('discover')}
-            onPress={navigateToSupportersClubs}
+            onPress={navigateToFanClubs}
             appearance={ButtonAppearance.Minimal}
             boxSize={ButtonBoxSize.Contain}
             color="text"
@@ -57,15 +52,14 @@ const SupportersClubsContainer: React.FC<ISupportersClubsContainerProps> = ({
           />
         )}
       </View>
-      <SupportersClubsComponent
-        data={data}
-        onPress={id => pushTo(commonScreens.supportersClub.name, { id })}
-        onEndReached={() => {}}
-        avatarSize={avatarSize}
+      <FanClubsComponent
+        data={result.list.data || []}
+        onEndReached={fanClubsStore.getAll}
+        avatarSize={AvatarSize.Big}
         withBounce={withBounce}
       />
     </View>
   );
 };
 
-export default SupportersClubsContainer;
+export default FanClubsContainer;

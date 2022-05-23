@@ -5,7 +5,7 @@ import UltrasText from 'views/components/base/UltrasText';
 import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 
 import TeamsContainer from 'views/containers/TeamsHorizontal/TeamsContainer';
-import SupportersClubsContainer from 'views/containers/SupportersClubsHorizontal/SupportersClubsContainer';
+import FanClubsContainer from 'views/containers/FanClubsHorizontal/FanClubsContainer';
 
 import { IProfileInfoProps } from './types';
 import styles from './styles';
@@ -15,7 +15,7 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({
   name,
   username,
   teams,
-  supportersClubs,
+  fanClubs,
 }) => {
   return (
     <>
@@ -33,13 +33,8 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({
         </View>
       </View>
       {teams.length > 0 && <TeamsContainer data={teams} withBounce={false} />}
-      {supportersClubs.length > 0 && (
-        <SupportersClubsContainer
-          data={supportersClubs}
-          showHeaderButton={false}
-          withBounce={false}
-          avatarSize={AvatarSize.Default}
-        />
+      {fanClubs.length > 0 && (
+        <FanClubsContainer showHeaderButton={false} withBounce={false} />
       )}
     </>
   );
