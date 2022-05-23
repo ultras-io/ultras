@@ -8,7 +8,16 @@ import styles from '../styles';
 const matchesStore = buildMatchesStore();
 matchesStore.getAll();
 
-const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
+const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
+  const teamId = route?.params?.teamId ?? null;
+
+  React.useEffect(() => {
+    if (teamId) {
+      matchesStore.updateFilter({ teamId });
+      matchesStore.getAll();
+    }
+  }, [teamId]);
+
   const result = matchesStore.useSelector('list');
 
   return (

@@ -11,6 +11,7 @@ import {
   generateCRUD,
   InitStoreParamsInterface,
 } from './generateCRUD';
+import { OrderEnum } from '@ultras/utils';
 
 type OmittedFilterType = Omit<GetTeamsFilter, 'type'>;
 
@@ -30,6 +31,8 @@ const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
 
     loadAll: (filter: FullFilterable<OmittedFilterType>) => {
       return sdk.getTeams({
+        orderAttr: 'id',
+        order: OrderEnum.asc,
         ...filter,
       });
     },

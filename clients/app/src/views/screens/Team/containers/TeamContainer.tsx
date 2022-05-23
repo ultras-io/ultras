@@ -1,26 +1,16 @@
 import React from 'react';
-
 import TeamComponent from '../components/TeamComponent';
-
-import {
-  generateTeamName,
-  generateCountry,
-  generateTeamURL,
-  // generateFlagURL,
-} from 'utils/helpers/dummy';
-
+// import buildTeamsStore from 'stores/teams';
 import { ITeamContainerProps } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const TeamContainer: React.FC<ITeamContainerProps> = ({ id }) => {
-  // get teams's data by id
-  const data = {
-    avatarUri: generateTeamURL(),
-    name: generateTeamName(),
-    country: generateCountry(),
-    city: generateCountry(),
-    inMyTeams: false,
-  };
+// const teamsStore = buildTeamsStore();
+
+const TeamContainer: React.FC<ITeamContainerProps> = ({ data }) => {
+  // React.useEffect(() => {
+  //   teamsStore.getSingle(data.id);
+  // }, [data.id]);
+
+  // const result = teamsStore.useSelector('single');
 
   return <TeamComponent data={data} />;
 };

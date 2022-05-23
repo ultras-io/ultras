@@ -1,56 +1,49 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
 import I18n from 'i18n/i18n';
-
+import { getReadableNumber } from 'utils/helpers/readableNumber';
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar from 'views/components/base/Avatar';
 import Divider from 'views/components/base/Divider';
-
-import { getReadableNumber } from 'utils/helpers/readableNumber';
-
+import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamCardProps } from './types';
 import styles from './styles';
 
-const TeamCard: React.FC<ITeamCardProps> = ({
-  avatarUri,
-  name,
-  fanClubsCount,
-  country,
-  city,
-  onPress,
-}) => {
+const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
+  const fanClubsCount = Math.floor(Math.random() * 3);
+
   return (
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
         <View style={styles.avatar}>
-          <Avatar avatarUri={avatarUri} isTeam />
+          <Avatar avatarUri={data.logo} isTeam />
         </View>
         <View style={styles.info}>
           <UltrasText color="text" style={styles.name}>
-            {name}
+            {data.name}
           </UltrasText>
           <View style={styles.line}>
             <UltrasText color="secondaryText" style={styles.text}>
-              {getReadableNumber(fanClubsCount)} {I18n.t('fanClubs')}
+              {fanClubsCount === 0 && I18n.t('noFanClubs')}
+              {fanClubsCount === 1 &&
+                getReadableNumber(fanClubsCount) + ' ' + I18n.t('fanClub')}
+              {fanClubsCount > 1 &&
+                getReadableNumber(fanClubsCount) + ' ' + I18n.t('fanClubs')}
             </UltrasText>
-            {country && (
+            {data.type === TeamTypesEnum.club && (
               <>
                 <View style={styles.divider}>
                   <Divider />
                 </View>
                 <UltrasText style={styles.text} color="secondaryText">
-                  {country}
+                  {data.country.name}
                 </UltrasText>
-              </>
-            )}
-            {city && (
-              <>
                 <View style={styles.divider}>
                   <Divider />
                 </View>
                 <UltrasText style={styles.text} color="secondaryText">
-                  {city}
+                  {data.city.name}
                 </UltrasText>
               </>
             )}

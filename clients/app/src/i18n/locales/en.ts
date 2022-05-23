@@ -83,7 +83,9 @@ export default {
   matchesPenalties: 'Pen.',
 
   // fan clubs
+  fanClub: 'Fan Club',
   fanClubs: 'Fan Clubs',
+  noFanClubs: 'No Fan Clubs',
   fanClubJoin: 'Join the Club',
 
   //teams

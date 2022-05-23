@@ -24,12 +24,12 @@ export type CommonScreens = Record<
       | 'NewEvent'
       | 'ProfileList';
     component: React.FC<any>;
-    options?: ScreenOptions; // @TODO should we use NativeStackScreenProps ?
+    options?: ScreenOptions;
   }
 >;
 
 interface ScreenOptions extends ScreenProps {
-  headerTitle?: React.FunctionComponent<any>;
+  headerTitle?: string | React.FunctionComponent<any>;
   tabBarIcon?: React.FunctionComponent<any>;
   isModal?: boolean;
   headerShown?: boolean;
@@ -80,7 +80,7 @@ export type ProfileNavigationScreens = {
 
 export type SearchTabScreens = {
   // all: NavigationScreen;
-  team: NavigationScreen;
+  teams: NavigationScreen;
   fanClubs: NavigationScreen;
   // ultras: NavigationScreen;
 };
@@ -107,6 +107,7 @@ export type ScreenNavigationConfig = Record<
 export interface ITeamTabNavigationProps {
   theme?: ThemeInterface;
   tabName: string;
+  id: number;
 }
 
 export interface ISearchTabNavigationProps {

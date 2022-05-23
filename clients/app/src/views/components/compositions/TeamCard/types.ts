@@ -1,11 +1,8 @@
 import { ThemeInterface } from 'styled-components';
+import { TeamViewModel } from '@ultras/core-api-sdk';
 
 export interface ITeamCardProps {
   theme?: ThemeInterface;
-  avatarUri: string;
-  name: string;
-  fanClubsCount: number;
-  country?: string;
-  city?: string;
+  data: TeamViewModel;
   onPress: () => void;
 }

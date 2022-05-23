@@ -1,10 +1,7 @@
 import { ThemeInterface } from 'styled-components';
+import { TeamViewModel } from '@ultras/core-api-sdk';
 
 export interface ITeamInfoProps {
   theme?: ThemeInterface;
-  avatarUri: string;
-  name: string;
-  country?: string;
-  city?: string;
-  inMyTeams: boolean;
+  data: TeamViewModel;
 }

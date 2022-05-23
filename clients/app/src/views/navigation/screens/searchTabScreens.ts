@@ -1,18 +1,11 @@
 import I18n from 'i18n/i18n';
-
 import SearchItem from 'views/components/compositions/SearchItem';
-
 import type { SearchTabScreens } from '../types';
 
 export const TAB_NAME = 'Search';
 
 const SCREENS: SearchTabScreens = {
-  // all: {
-  //   name: 'All',
-  //   tabName: I18n.t('all'),
-  //   component: SearchItem,
-  // },
-  team: {
+  teams: {
     name: 'Teams',
     tabName: I18n.t('teams'),
     component: SearchItem,

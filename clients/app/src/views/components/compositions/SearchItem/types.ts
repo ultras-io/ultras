@@ -1,5 +1,5 @@
-// export type SearchItem = 'all' | 'ultras' | 'events' | 'clubs' | 'teams';
-export type SearchItem = 'fanClubs' | 'teams';
+import { TeamViewModel, FanClubViewModel } from '@ultras/core-api-sdk';
+export type SearchItem = 'teams' | 'fanClubs';
 
 export interface ISearchItemProps {
   searchItem: SearchItem;
@@ -7,7 +7,7 @@ export interface ISearchItemProps {
 }
 
 export interface ISearchItemComponentProps {
-  data: Array<any>; //@TODO
+  data: Array<TeamViewModel | FanClubViewModel>;
   searchItem: SearchItem;
   onEndReached?: () => void;
 }

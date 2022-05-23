@@ -29,7 +29,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
       <View style={styles.container}>
         <View style={styles.team}>
           <Avatar
-            onPress={() => pushTo(commonScreens.team.name, { id: data.teamHome.id })}
+            onPress={() => pushTo(commonScreens.team.name, { data: data.teamHome })}
             avatarUri={data.teamHome.logo}
             size={AvatarSize.Big}
             isTeam
@@ -85,7 +85,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
         </View>
         <View style={styles.team}>
           <Avatar
-            onPress={() => pushTo(commonScreens.team.name, { id: data.teamAway.id })} // team2Id
+            onPress={() => pushTo(commonScreens.team.name, { data: data.teamAway })}
             avatarUri={data.teamAway.logo}
             size={AvatarSize.Big}
             isTeam

@@ -1,7 +1,7 @@
 import {
   FanClubViewModel,
   FanClubSDK,
-  DbIdentifier,
+  ResourceIdentifier,
   GetFanClubsFilter,
 } from '@ultras/core-api-sdk';
 
@@ -30,7 +30,7 @@ const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
       });
     },
 
-    loadSingle: (id: DbIdentifier) => {
+    loadSingle: (id: ResourceIdentifier) => {
       return sdk.getFanClub(id);
     },
 

@@ -1,13 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
+import { TeamViewModel } from '@ultras/core-api-sdk';
 
 export interface ITeamProps {
-  route: RouteProp<{ params: { tabName: string; id: string } }, 'params'>;
+  route: RouteProp<{ params: { tabName: string; data: TeamViewModel } }, 'params'>;
 }
 
 export interface ITeamContainerProps {
-  id: string;
+  data: TeamViewModel;
 }
 
 export interface ITeamComponentProps {
-  data: any;
+  data: TeamViewModel;
 }
