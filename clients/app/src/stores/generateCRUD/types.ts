@@ -52,17 +52,6 @@ type MergeUnion<T extends object> = {
   [keys in AllKeys<T>]: PickTypeOf<T, keys>;
 };
 
-type IfEquals<
-  TypeCheckFirst,
-  TypeCheckSecond,
-  TypeResultYes = unknown,
-  TypeResultNo = never
-> = (<G>() => G extends TypeCheckFirst ? 1 : 2) extends <T>() => T extends TypeCheckSecond
-  ? 1
-  : 2
-  ? TypeResultYes
-  : TypeResultNo;
-
 type GetListPromiseType<TData> =
   | undefined
   | Promise<ApiResponseType<Array<TData>, ListResponseMetaType>>;
@@ -175,20 +164,11 @@ export type ParamsType<
   TStateItem extends StateKeyType,
   TFilter,
   TImmutableFilter = {}
-> = {
+> = ExtractInterceptorType<TData, TStateItem, TFilter> & {
   limit?: number;
   immutableFilter?: TImmutableFilter;
-} & ExtractInterceptorType<TData, TStateItem, TFilter> &
-  IfEquals<
-    TStateItem,
-    StateKeyType,
-    {
-      keys?: Array<StateKeyType>;
-    },
-    {
-      keys: Array<TStateItem>;
-    }
-  >;
+  keys?: Array<StateKeyType>;
+};
 
 export type StateGetterCallType<
   TData,

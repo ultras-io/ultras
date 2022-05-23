@@ -1,5 +1,5 @@
 import { ThemeInterface } from 'styled-components';
-import { ColorKey } from 'themes/styled';
+import { ColorKey } from 'themes/types';
 import { IconNamesEnum } from 'assets/icons';
 
 export enum SizeEnum {
