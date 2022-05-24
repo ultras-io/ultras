@@ -14,8 +14,8 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated] = useState<boolean>(
-    // true
-    false
+    true
+    // false
   );
 
   if (!isLoading) {

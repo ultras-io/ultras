@@ -16,7 +16,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 20,
     marginBottom: 4,
     letterSpacing: -0.24,

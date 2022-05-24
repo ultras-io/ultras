@@ -7,7 +7,8 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
   },
   title: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 32,
     marginLeft: 16,
     marginTop: 10,

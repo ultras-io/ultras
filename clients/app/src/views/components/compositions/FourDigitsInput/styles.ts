@@ -24,7 +24,8 @@ export default StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.5,
     fontSize: 30,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     textAlign: 'center',
   },
 });

@@ -14,7 +14,8 @@ export default StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 17,
     marginBottom: 4,
     letterSpacing: -0.24,
