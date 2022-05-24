@@ -14,28 +14,33 @@ export default StyleSheet.create({
   },
 
   headerTitle: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 32,
+    lineHeight: 32,
     flex: 1,
   },
 
   headerLogo: {
     marginLeft: 10,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Montserrat',
+    fontWeight: '600',
     fontSize: 25,
     flex: 1,
     letterSpacing: -0.24,
   },
 
   screenTitle: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 17,
     flex: 1,
     paddingRight: 120,
   },
 
   screenTitleLeft: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 17,
     flex: 1,
     paddingRight: 120,

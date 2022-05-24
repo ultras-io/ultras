@@ -21,7 +21,8 @@ export default StyleSheet.create({
     marginRight: 15,
   },
   username: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Montserrat',
+    fontWeight: '600',
     fontSize: 14,
     marginBottom: 4,
   },

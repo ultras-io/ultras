@@ -17,7 +17,8 @@ export default StyleSheet.create({
   },
 
   title: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Montserrat',
+    fontWeight: '600',
     fontSize: 20,
     lineHeight: 24,
     letterSpacing: -0.24,

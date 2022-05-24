@@ -9,6 +9,7 @@
   "version": "independent",
   "npmClient": "yarn",
   "npmClientArgs": [
-    "--no-lockfile"
+    "--no-lockfile",
+    "--network-timeout 100000"
   ]
 }
