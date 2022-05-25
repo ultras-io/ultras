@@ -13,7 +13,7 @@ import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
 import { IconNamesEnum as Icons } from 'assets/icons';
-
+import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
 import styles from './styles';
 
@@ -33,7 +33,10 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           <View style={styles.line}>
             <Pressable
               onPress={() =>
-                pushTo(commonScreens.profileList.name, { title: I18n.t('ultras') })
+                pushTo(commonScreens.profileList.name, {
+                  id: data.id,
+                  type: ProfileListTypeEnum.fanClubMembers,
+                })
               }
             >
               <UltrasText color="secondaryText" style={styles.text}>

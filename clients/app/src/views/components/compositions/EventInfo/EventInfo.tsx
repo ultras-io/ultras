@@ -2,10 +2,8 @@ import React from 'react';
 import { View, Image, Pressable } from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
-
 import UltrasText from 'views/components/base/UltrasText';
 import Button, {
   SizeEnum as ButtonSize,
@@ -17,11 +15,10 @@ import { IconNamesEnum as Icons } from 'assets/icons';
 import Like from 'views/components/base/Like';
 import Box from 'views/components/base/Box';
 import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
+import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { EventInfoProps } from '../EventCard';
-
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { upperCaseFirstLetter } from 'utils/helpers/string';
-
 import styles from './styles';
 
 const EventInfo: React.FC<EventInfoProps> = ({
@@ -85,7 +82,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
           {supportersClub && (
             <Pressable
               onPress={
-                () => pushTo(commonScreens.supportersClub.name, { id: 67 }) // supporterClubsId
+                () => pushTo(commonScreens.fanClub.name, { id: 67 }) // supporterClubsId
               }
             >
               <UltrasText style={styles.creator} color="secondary">
@@ -98,7 +95,10 @@ const EventInfo: React.FC<EventInfoProps> = ({
         <View style={styles.stats}>
           <Pressable
             onPress={() =>
-              pushTo(commonScreens.profileList.name, { title: I18n.t('going') })
+              pushTo(commonScreens.profileList.name, {
+                id: 2,
+                type: ProfileListTypeEnum.eventMemebers,
+              })
             }
           >
             <UltrasText style={styles.going} color="tertiaryText">
@@ -110,7 +110,10 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </View>
           <Pressable
             onPress={() =>
-              pushTo(commonScreens.profileList.name, { title: I18n.t('likes') })
+              pushTo(commonScreens.profileList.name, {
+                id: 1,
+                type: ProfileListTypeEnum.eventLikes,
+              })
             }
           >
             <UltrasText style={styles.going} color="tertiaryText">

@@ -12,7 +12,6 @@ const AppContainer: React.FC = () => {
   return (
     <>
       <StatusBar backgroundColor={theme.colors.bgColor} barStyle={statusBarStyle} />
-
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>

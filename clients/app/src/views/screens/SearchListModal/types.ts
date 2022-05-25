@@ -1,27 +1,15 @@
 import { RouteProp } from '@react-navigation/native';
 import { ThemeInterface } from 'styled-components';
-
-export enum keyEnum {
-  Code,
-  Team,
-}
+import { CountryViewModel, TeamViewModel } from '@ultras/core-api-sdk';
 
 export enum dataTypeEnum {
   Country,
-  NationalTeam,
-  FootballClub,
+  Team,
 }
-
-export type SearchItem = {
-  id: string;
-  name: string;
-  logo?: string;
-  code?: string;
-};
 
 export interface ISearchListModalProps {
   theme?: ThemeInterface;
-  route: RouteProp<{ params: { dataKey: keyEnum } }, 'params'>;
+  route: RouteProp<{ params: { dataKey: dataTypeEnum } }, 'params'>;
 }
 
 export interface ISearchListContainerProps {
@@ -32,6 +20,7 @@ export interface ISearchListContainerProps {
 
 export interface ISearchListComponentProps {
   theme?: ThemeInterface;
-  data: Array<SearchItem>;
+  dataType: dataTypeEnum;
+  data: Array<CountryViewModel> | Array<TeamViewModel>;
   onEndReached: () => void;
 }

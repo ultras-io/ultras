@@ -85,6 +85,7 @@ export default {
   // fan clubs
   fanClub: 'Fan Club',
   fanClubs: 'Fan Clubs',
+  fans: 'Fans',
   noFanClubs: 'No Fan Clubs',
   fanClubJoin: 'Join the Club',
 

@@ -24,10 +24,9 @@ export const defaultLimit = 50;
 export const generateCRUD = <
   TData extends object,
   TFilter,
-  TKey extends StateKeyType = StateKeyType,
-  TImmutableFilter = {}
+  TKey extends StateKeyType = StateKeyType
 >(
-  params: ParamsType<TData, TKey, TFilter, TImmutableFilter>
+  params: ParamsType<TData, TKey, TFilter>
 ) => {
   // @ts-ignore
   const includeKeys = fillStateKeys(params.keys || []);
@@ -154,7 +153,6 @@ export const generateCRUD = <
           try {
             const filterData = {
               ...(list.filter || {}),
-              ...(params.immutableFilter || {}),
               limit: itemsLimit,
               offset: itemsCount,
             };
