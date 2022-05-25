@@ -60,6 +60,8 @@ execute_action "find . -type d -name build | xargs rm -rf" \
 # make linkage
 cd "$ROOT_DIR"
 if [[ ! -d "node_modules" ]]; then
+  assert_network_connected
+
   execute_action "yarn install" \
     "Installing node modules via yarn" \
     "Couldn't install node modules."
@@ -67,6 +69,7 @@ fi
 
 # make linkage
 cd "$ROOT_DIR"
+assert_network_connected
 execute_action "yarn link-all" \
   "Linking all sub-packages" \
   "Couldn't make package linkage."
@@ -101,6 +104,7 @@ if [[ "Darwin" == "$(uname)" ]]; then
       exit
     else
       if [[ "" == "$(command -v pod)" ]]; then
+        assert_network_connected
         execute_action "sudo gem install cocoapods" \
           "Installing CocoaPods engine" \
           "Couldn't install CocoaPods."
@@ -108,6 +112,7 @@ if [[ "Darwin" == "$(uname)" ]]; then
 
       cd "$ROOT_DIR/clients/app/ios"
 
+      assert_network_connected
       execute_action "pod install" \
         "Installing CocoaPods packages" \
         "Couldn't install CocoaPods packages."

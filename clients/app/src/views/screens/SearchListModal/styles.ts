@@ -9,8 +9,10 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Montserrat',
+    fontWeight: 'bold',
     fontSize: 32,
+    lineHeight: 32,
     paddingLeft: 16,
   },
   searchRow: {
