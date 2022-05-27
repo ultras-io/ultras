@@ -4,7 +4,6 @@ import {
   ResourceIdentifier,
   GetTeamsFilter,
 } from '@ultras/core-api-sdk';
-import { TeamTypesEnum } from '@ultras/utils';
 import {
   Filterable,
   FullFilterable,
@@ -13,23 +12,17 @@ import {
 } from './generateCRUD';
 import { OrderEnum } from '@ultras/utils';
 
-type OmittedFilterType = Omit<GetTeamsFilter, 'type'>;
-
-type ImmutableFilter = {
-  type: TeamTypesEnum;
-};
-
-type ParamType = InitStoreParamsInterface<TeamViewModel, ImmutableFilter>;
-type FilterType = Filterable<OmittedFilterType>;
+type ParamType = InitStoreParamsInterface<TeamViewModel>;
+type FilterType = Filterable<GetTeamsFilter>;
 
 const sdk = new TeamSDK('dev');
 
-const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<TeamViewModel, FilterType, 'list' | 'single', ImmutableFilter>({
+const buildTeamsStore = (params: Partial<ParamType> = {}) => {
+  return generateCRUD<TeamViewModel, FilterType, 'list' | 'single'>({
     keys: ['list', 'single'],
     ...(params as ParamType),
 
-    loadAll: (filter: FullFilterable<OmittedFilterType>) => {
+    loadAll: (filter: FullFilterable<FilterType>) => {
       return sdk.getTeams({
         orderAttr: 'id',
         order: OrderEnum.asc,
@@ -43,4 +36,4 @@ const buildFootballClubStore = (params: Partial<ParamType> = {}) => {
   });
 };
 
-export default buildFootballClubStore;
+export default buildTeamsStore;

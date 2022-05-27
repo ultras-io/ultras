@@ -14,6 +14,7 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
 }) => {
   return (
     <TopTab.Navigator
+      lazy
       initialRouteName={`${TAB_NAME}:${searchTabScreens.teams.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },

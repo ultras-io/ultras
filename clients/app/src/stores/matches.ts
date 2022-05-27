@@ -13,8 +13,6 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-// type OmittedFilterType = Omit<GetMatchesFilter>;
-
 type ParamType = InitStoreParamsInterface<MatchViewModel>;
 type FilterType = Filterable<GetMatchesFilter>;
 

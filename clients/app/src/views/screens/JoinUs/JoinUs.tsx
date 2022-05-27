@@ -9,7 +9,7 @@ import WithSafeArea from 'views/components/base/WithSafeArea';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { rootScreens } from 'views/navigation/screens';
-import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
+import { dataTypeEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import WithAnimation from 'views/components/base/WithAnimation';
 import UltrasText from 'views/components/base/UltrasText';

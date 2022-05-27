@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { rootScreens } from 'views/navigation/screens';
-import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
+import { dataTypeEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
@@ -90,7 +90,7 @@ const Input: React.FC<IInputProps> = ({
   );
 
   const openSelectModal = useCallback(() => {
-    openModal(rootScreens.searchListModal.name, { dataKey: SearchListKey.Code });
+    openModal(rootScreens.searchListModal.name, { dataKey: SearchListKey.Country });
   }, [openModal]);
 
   React.useEffect(() => {

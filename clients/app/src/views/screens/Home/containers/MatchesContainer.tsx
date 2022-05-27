@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import I18n from 'i18n/i18n';
-
 import MatchesComponent from '../components/MatchesComponent';
 import UltrasText from 'views/components/base/UltrasText';
 import Button, {
@@ -9,12 +8,9 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
 import { IconNamesEnum as Icons } from 'assets/icons';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { tabScreens } from 'views/navigation/screens';
-
 import buildMatchesStore from 'stores/matches';
-
 import { IMatchesContainerProps } from '../types';
 import styles from '../styles';
 

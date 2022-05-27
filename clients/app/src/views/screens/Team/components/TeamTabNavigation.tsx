@@ -10,6 +10,7 @@ const TAB_NAME = 'TeamTabs';
 const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ theme, tabName, id }) => {
   return (
     <TopTab.Navigator
+      lazy
       initialRouteName={`${TAB_NAME}:${teamTabScreens.matches.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
