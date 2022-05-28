@@ -29,7 +29,7 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
   const name = dataKey === dataTypeEnum.Country ? I18n.t('country') : I18n.t('team');
 
   return (
-    <Box bgColor={'bgColor'} style={styles.container}>
+    <Box bgColor="screenBackground" style={styles.container}>
       <View style={styles.closeButton}>
         <Button
           appearance={ButtonAppearance.Minimal}

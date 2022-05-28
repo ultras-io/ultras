@@ -16,7 +16,7 @@ const TeamsContainer: React.FC<ITeamsContainerProps> = ({ data, withBounce = tru
   return (
     <View>
       <View style={styles.header}>
-        <UltrasText style={styles.title} color={'tertiary'}>
+        <UltrasText style={styles.title} color="primary">
           {I18n.t('teams')}
         </UltrasText>
       </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import Box from 'views/components/base/Box';
 import MatchesComponent from '../components/MatchesComponent';
 import buildMatchesStore from 'stores/matches';
 import { IMatchesContainerProps } from '../types';
@@ -21,12 +21,12 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
   const result = matchesStore.useSelector('list');
 
   return (
-    <View style={styles.container}>
+    <Box style={styles.container} bgColor="screenBackground">
       <MatchesComponent
         data={result.list.data || []}
         onEndReached={matchesStore.getAll}
       />
-    </View>
+    </Box>
   );
 };
 

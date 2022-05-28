@@ -5,7 +5,7 @@ import { ISearchItemProps } from './types';
 
 const SearchItem: React.FC<ISearchItemProps> = ({ searchItem, searchText }) => {
   return (
-    <Box bgColor="bgColor">
+    <Box bgColor="screenBackground">
       <SearchItemContainer searchItem={searchItem} searchText={searchText} />
     </Box>
   );

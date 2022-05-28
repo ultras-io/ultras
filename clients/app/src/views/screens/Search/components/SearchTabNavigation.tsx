@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { withTheme } from 'styled-components/native';
+import { useTheme } from 'themes';
 import SearchItem from 'views/components/compositions/SearchItem';
 import searchTabScreens from 'views/navigation/screens/searchTabScreens';
 import { ISearchTabNavigationProps } from 'views/navigation/types';
@@ -8,21 +8,19 @@ import { ISearchTabNavigationProps } from 'views/navigation/types';
 const TopTab = createMaterialTopTabNavigator();
 const TAB_NAME = 'Search';
 
-const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
-  theme,
-  searchText,
-}) => {
+const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({ searchText }) => {
+  const { colors } = useTheme();
+
   return (
     <TopTab.Navigator
-      lazy
       initialRouteName={`${TAB_NAME}:${searchTabScreens.teams.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
         tabBarStyle: { backgroundColor: 'transparent' },
-        tabBarInactiveTintColor: theme?.colors.tertiaryText,
-        tabBarActiveTintColor: theme?.colors.secondary,
+        tabBarInactiveTintColor: colors.tabInactive,
+        tabBarActiveTintColor: colors.tabActive,
         tabBarIndicatorStyle: {
-          backgroundColor: theme?.colors.secondary,
+          backgroundColor: colors.tabActive,
         },
       }}
     >
@@ -53,4 +51,4 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({
   );
 };
 
-export default React.memo<ISearchTabNavigationProps>(withTheme(SearchTabNavigation));
+export default React.memo<ISearchTabNavigationProps>(SearchTabNavigation);

@@ -3,6 +3,6 @@ import { ThemeInterface } from 'styled-components';
 
 export interface IBluredViewProps {
   theme?: ThemeInterface;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }

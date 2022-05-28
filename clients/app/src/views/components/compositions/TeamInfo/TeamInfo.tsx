@@ -12,7 +12,7 @@ import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamInfoProps } from './types';
 import styles from './styles';
 
-const TeamInfo: React.FC<ITeamInfoProps> = ({ data }) => {
+const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
   return (
     <>
       <View style={styles.container}>
@@ -20,28 +20,28 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data }) => {
           <Avatar avatarUri={data.logo} size={AvatarSize.ExtraBig} isTeam />
         </View>
         <View style={styles.info}>
-          <UltrasText color="tertiary" style={styles.name}>
+          <UltrasText color="sectionTitle" style={styles.name}>
             {data.name}
           </UltrasText>
-          <UltrasText color="tertiaryText">
+          <UltrasText color="textSecondary">
             {data.type === TeamTypesEnum.club
               ? data.city.name + ', ' + data.country.name
               : I18n.t('nationalTeam')}
           </UltrasText>
           <View style={styles.joinButton}>
             <Button
-              title={I18n.t('teamAdd')}
+              title={isFavorite ? I18n.t('teamInFavorites') : I18n.t('teamAdd')}
               onPress={() => {}}
-              color="textInvert"
-              bgColor="bgColorInvert"
-              icon={Icons.Team}
+              color={isFavorite ? 'white' : 'textPrimaryInvert'}
+              bgColor={isFavorite ? 'success' : 'screenBackgroundInvert'}
+              icon={Icons.Hearth}
               iconPosition={ButtonIconPosition.Left}
             />
           </View>
         </View>
       </View>
 
-      <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
+      <Divider type={DividerType.Horizontal} bgColor="divider" />
     </>
   );
 };

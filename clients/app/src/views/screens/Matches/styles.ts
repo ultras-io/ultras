@@ -5,9 +5,9 @@ export default StyleSheet.create({
     width: '100%',
   },
   matchList: {
-    paddingHorizontal: 15,
+    height: '100%',
   },
   flatList: {
-    paddingTop: 15,
+    padding: 15,
   },
 });

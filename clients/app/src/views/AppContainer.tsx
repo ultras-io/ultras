@@ -1,21 +1,34 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React, { useEffect, useMemo } from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import RootNavigation from 'views/navigation/RootNavigation';
 import { useTheme } from 'themes';
 
 const AppContainer: React.FC = () => {
-  const theme = useTheme();
-  const statusBarStyle = !theme.isDarkMode ? 'dark-content' : 'light-content';
+  const { colors, setColorMode } = useTheme();
+
+  const navigationTheme = useMemo(
+    () => ({
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        background: colors.screenBackground,
+      },
+    }),
+    [colors]
+  );
+
+  useEffect(() => {
+    // @TODO: set initial color mode from storage
+    setColorMode('dark');
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <>
-      <StatusBar backgroundColor={theme.colors.bgColor} barStyle={statusBarStyle} />
-      <NavigationContainer>
-        <RootNavigation />
-      </NavigationContainer>
-    </>
+    <NavigationContainer theme={navigationTheme}>
+      <RootNavigation />
+    </NavigationContainer>
   );
 };
 

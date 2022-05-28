@@ -22,7 +22,7 @@ const FanClubComponent: React.FC<IFanClubComponentProps> = ({ data }) => {
   //       headerTitle: () => (
   //         <UltrasText
   //           style={[gStyles.screenTitle, { opacity: alpha }]}
-  //           color={'tertiary'}
+  //           color="primary"
   //           numberOfLines={1}
   //         >
   //           {data.name}

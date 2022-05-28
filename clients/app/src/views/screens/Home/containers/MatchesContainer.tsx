@@ -29,7 +29,7 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
   return (
     <View>
       <View style={styles.header}>
-        <UltrasText style={styles.title} color={'tertiary'}>
+        <UltrasText style={styles.title} color="sectionTitle">
           {I18n.t('upcomingMatches')}
         </UltrasText>
         <Button
@@ -38,7 +38,7 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
           icon={Icons.ArrowRightRound}
           onPress={navigateToMatches}
           title={I18n.t('viewAll')}
-          color="text"
+          color="sectionDetails"
         />
       </View>
       <MatchesComponent data={result.list.data || []} onEndReached={() => {}} />

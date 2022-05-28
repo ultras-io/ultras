@@ -1,17 +1,18 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { withTheme } from 'styled-components/native';
-import { ThemeInterface } from 'styled-components';
+import { useTheme } from 'themes';
 import mainScreens from 'views/navigation/screens/mainScreens';
+
 const Stack = createNativeStackNavigator();
 
-interface IHomeNavigationProps {
-  theme?: ThemeInterface;
-}
+interface IHomeNavigationProps {}
 
 const TAB_NAME = mainScreens.home.tabName;
 
-const HomeNavigation: React.FC<IHomeNavigationProps> = ({ theme }) => {
+const HomeNavigation: React.FC<IHomeNavigationProps> = () => {
+  const { colors } = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={`${TAB_NAME}:${mainScreens.home.initialScreenName}`}
@@ -19,8 +20,15 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({ theme }) => {
         // @TODO move to navigation screens object
         headerShadowVisible: false,
         headerBackTitleVisible: false,
-        headerStyle: { backgroundColor: theme?.colors.bgColor },
-        headerTintColor: theme?.colors.secondary,
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
+        headerTintColor: colors.headerNavigationButton,
       }}
     >
       {mainScreens.home.screens.map(item => {
@@ -38,4 +46,4 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = ({ theme }) => {
   );
 };
 
-export default React.memo<IHomeNavigationProps>(withTheme(HomeNavigation));
+export default React.memo<IHomeNavigationProps>(HomeNavigation);

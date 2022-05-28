@@ -22,7 +22,7 @@ export default {
   footballClubs: 'Football Clubs',
   likes: 'likes',
 
-  going: 'going',
+  going: 'Going',
   join: 'Join',
   joined: 'Joined',
   canChangeClub: 'You can change or add other favorite football club later.',
@@ -95,6 +95,7 @@ export default {
   nationalTeam: 'Natioanl Team',
   nationalTeams: 'Natioanl Teams',
   teamAdd: 'Add to My Teams',
+  teamInFavorites: 'In My Teams',
 
   //profile
   settings: 'Settings',

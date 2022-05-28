@@ -10,6 +10,8 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
   },
   image: {
+    borderTopRightRadius: 13,
+    borderTopLeftRadius: 13,
     width: '100%',
     height: 196,
     resizeMode: 'cover',

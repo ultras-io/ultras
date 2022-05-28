@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import FanClubContainer from './containers/FanClubContainer';
@@ -11,6 +12,8 @@ import WithSafeArea from 'views/components/base/WithSafeArea';
 import { IFanClubProps } from './types';
 
 const FanClub: React.FC<IFanClubProps> = ({ route }) => {
+  const { isDarkMode } = useTheme();
+
   const { data } = route.params;
   const { setOptions, pushTo } = useNavigationWithParams();
 
@@ -23,11 +26,12 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
           }
           appearance={ButtonAppearance.Minimal}
           size={ButtonSize.ExtraBig}
-          icon={Icons.Info}
+          icon={isDarkMode ? Icons.InfoDark : Icons.InfoLight}
+          color="headerButton"
         />
       ),
     });
-  }, [setOptions, pushTo, data.description]);
+  }, [setOptions, pushTo, data.description, isDarkMode]);
 
   return (
     <WithSafeArea>

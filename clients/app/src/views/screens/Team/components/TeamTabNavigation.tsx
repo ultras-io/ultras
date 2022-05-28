@@ -1,24 +1,25 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { withTheme } from 'styled-components/native';
+import { useTheme } from 'themes';
 import { teamTabScreens } from 'views/navigation/screens';
 import { ITeamTabNavigationProps } from 'views/navigation/types';
 
 const TopTab = createMaterialTopTabNavigator();
 const TAB_NAME = 'TeamTabs';
 
-const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ theme, tabName, id }) => {
+const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ tabName, id }) => {
+  const { colors } = useTheme();
+
   return (
     <TopTab.Navigator
-      lazy
       initialRouteName={`${TAB_NAME}:${teamTabScreens.matches.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
         tabBarStyle: { backgroundColor: 'transparent' },
-        tabBarInactiveTintColor: theme?.colors.tertiaryText,
-        tabBarActiveTintColor: theme?.colors.secondary,
+        tabBarInactiveTintColor: colors.tabInactive,
+        tabBarActiveTintColor: colors.tabActive,
         tabBarIndicatorStyle: {
-          backgroundColor: 'theme?.colors.secondary',
+          backgroundColor: colors.tabActive,
         },
       }}
     >
@@ -38,4 +39,4 @@ const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ theme, tabName, 
   );
 };
 
-export default React.memo<ITeamTabNavigationProps>(withTheme(TeamTabNavigation));
+export default React.memo<ITeamTabNavigationProps>(TeamTabNavigation);

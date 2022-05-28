@@ -1,29 +1,43 @@
-export type ColorKey =
-  | 'bgColor'
-  | 'bgColorInvert'
-  | 'bgColorLight'
-  | 'bgColorLightSecondary'
-  | 'opacityBgColor'
-  | 'opacityBgColorInvert'
+export type ColorCommonKey =
   | 'transparent'
+  | 'white'
+  | 'black'
+  | 'lightGray'
+  | 'darkGray'
+  | 'gray'
   | 'success'
   | 'danger'
-  | 'dark'
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'quaternary'
-  | 'primaryInactive'
-  | 'androidBlurColor'
-  | 'text'
-  | 'secondaryText'
-  | 'tertiaryText'
-  | 'quaternaryText'
-  | 'textInvert'
-  | 'secondaryTextInvert'
-  | 'tertiaryTextInvert'
-  | 'quaternaryTextInvert';
+  | 'cardSilverBackground'
+  | 'navigationTabInactive'
+  | 'navigationTabActive'
+  | 'navigationTabBackground';
 
-export type ColorType = {
-  [key in ColorKey]: string;
-};
+export type ColorThemeKey =
+  | 'screenBackground'
+  | 'screenBackgroundInvert'
+  | 'headerBackground'
+  | 'headerTitle'
+  | 'headerNavigationButton'
+  | 'headerButton'
+  | 'textPrimary'
+  | 'textPrimaryInvert'
+  | 'textSecondary'
+  | 'textActive'
+  | 'sectionTitle'
+  | 'sectionDetails'
+  | 'cardBackground'
+  | 'inputBackground'
+  | 'inputForeground'
+  | 'inputForegroundOpacity'
+  | 'tabInactive'
+  | 'tabActive'
+  | 'likeButtonInactive'
+  | 'likeButtonActive'
+  | 'divider'
+  | 'infoBadge';
+
+export type ColorKey = ColorCommonKey | ColorThemeKey;
+
+export type ColorGroup<T extends string> = Record<T, string>;
+
+export type ColorType = ColorGroup<ColorKey>;

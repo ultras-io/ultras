@@ -14,11 +14,12 @@ const Like: React.FC<ILikeProps> = ({ isLiked = false, count = 0, onPress }) => 
     <Pressable onPress={onPress} style={styles.container}>
       <Icon
         name={isLiked ? Icons.Liked : Icons.Like}
-        color={isLiked ? 'primary' : undefined}
+        color={isLiked ? 'likeButtonActive' : 'likeButtonInactive'}
         size={24}
       />
+
       {count > 0 && (
-        <UltrasText style={styles.count} color="text">
+        <UltrasText style={styles.count} color="textPrimary">
           {getReadableNumber(count)}
         </UltrasText>
       )}

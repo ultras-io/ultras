@@ -1,25 +1,32 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { withTheme } from 'styled-components/native';
-import { ThemeInterface } from 'styled-components';
+import { useTheme } from 'themes';
 import mainScreens from 'views/navigation/screens/mainScreens';
 
 const Stack = createNativeStackNavigator();
 
-interface ISearchNavigationProps {
-  theme?: ThemeInterface;
-}
+interface ISearchNavigationProps {}
 
 const TAB_NAME = mainScreens.search.tabName;
 
-const SearchNavigation = ({ theme }: ISearchNavigationProps) => {
+const SearchNavigation: React.FC<ISearchNavigationProps> = ({}) => {
+  const { colors } = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={`${TAB_NAME}:${mainScreens.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
-        headerStyle: { backgroundColor: theme?.colors.bgColor },
-        headerTintColor: theme?.colors.secondary,
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
+        headerTintColor: colors.headerNavigationButton,
         headerBackTitleVisible: false,
       }}
     >
@@ -38,4 +45,4 @@ const SearchNavigation = ({ theme }: ISearchNavigationProps) => {
   );
 };
 
-export default React.memo<ISearchNavigationProps>(withTheme(SearchNavigation));
+export default React.memo<ISearchNavigationProps>(SearchNavigation);

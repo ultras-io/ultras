@@ -1,26 +1,33 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { withTheme } from 'styled-components/native';
-import { ThemeInterface } from 'styled-components';
+import { useTheme } from 'themes';
 import mainScreens from 'views/navigation/screens/mainScreens';
 
 const Stack = createNativeStackNavigator();
 
-interface IMatchesNavigationProps {
-  theme?: ThemeInterface;
-}
+interface IMatchesNavigationProps {}
 
 const TAB_NAME = mainScreens.matches.tabName;
 
-const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({ theme }) => {
+const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({}) => {
+  const { colors } = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={`${TAB_NAME}:${mainScreens.matches.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
-        headerStyle: { backgroundColor: theme?.colors.bgColor },
-        headerTintColor: theme?.colors.secondary,
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
+        headerTintColor: colors.headerNavigationButton,
       }}
     >
       {mainScreens.matches.screens.map(item => {
@@ -38,4 +45,4 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({ theme }) => {
   );
 };
 
-export default React.memo<IMatchesNavigationProps>(withTheme(MatchesNavigation));
+export default React.memo<IMatchesNavigationProps>(MatchesNavigation);

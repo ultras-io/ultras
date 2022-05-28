@@ -1,26 +1,33 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { withTheme } from 'styled-components/native';
-import { ThemeInterface } from 'styled-components';
+import { useTheme } from 'themes';
 import mainScreens from 'views/navigation/screens/mainScreens';
 import COMMON_SCREENS from 'views/navigation/screens/commonScreens';
 
 const Stack = createNativeStackNavigator();
 
-interface IProfileNavigationProps {
-  theme?: ThemeInterface;
-}
+interface IProfileNavigationProps {}
 const TAB_NAME = mainScreens.profile.tabName;
 
-const ProfileNavigation: React.FC<IProfileNavigationProps> = ({ theme }) => {
+const ProfileNavigation: React.FC<IProfileNavigationProps> = ({}) => {
+  const { colors } = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName={`${TAB_NAME}:${COMMON_SCREENS.profile.name}`}
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
-        headerStyle: { backgroundColor: theme?.colors.bgColor },
-        headerTintColor: theme?.colors.secondary,
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
+        headerTintColor: colors.headerNavigationButton,
       }}
     >
       {mainScreens.profile.screens.map(item => {
@@ -38,4 +45,4 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({ theme }) => {
   );
 };
 
-export default React.memo<IProfileNavigationProps>(withTheme(ProfileNavigation));
+export default React.memo<IProfileNavigationProps>(ProfileNavigation);

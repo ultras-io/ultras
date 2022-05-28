@@ -34,15 +34,19 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
             size={AvatarSize.Big}
             isTeam
           />
-          <UltrasText style={styles.teamName} color="text" numberOfLines={2}>
+          <UltrasText style={styles.teamName} color="textPrimary" numberOfLines={2}>
             {data.teamHome.name}
           </UltrasText>
         </View>
         <View style={styles.info}>
-          <Box bgColor="secondaryText" style={styles.leagueLogoContainer}>
+          <Box bgColor="white" style={styles.leagueLogoContainer}>
             <Image source={{ uri: data.league.logo }} style={styles.leagueLogo} />
           </Box>
-          <UltrasText color="text" style={styles.leagueVenueText} numberOfLines={1}>
+          <UltrasText
+            color="textPrimary"
+            style={styles.leagueVenueText}
+            numberOfLines={1}
+          >
             {data.league.name}
           </UltrasText>
           {/* @TODO - show game minute for live matches */}
@@ -54,7 +58,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
                 matchStatus={data.status}
                 size={'big'}
               />
-              <UltrasText color="text" style={styles.scoreDivider}>
+              <UltrasText color="textPrimary" style={styles.scoreDivider}>
                 {' '}
                 -{' '}
               </UltrasText>
@@ -67,16 +71,16 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
             </View>
           ) : (
             <>
-              <UltrasText color="tertiaryText" style={styles.date}>
+              <UltrasText color="textSecondary" style={styles.date}>
                 {formattedDate}
               </UltrasText>
-              <UltrasText color="secondaryText" style={styles.time}>
+              <UltrasText color="textPrimary" style={styles.time}>
                 {formattedTime}
               </UltrasText>
             </>
           )}
           <UltrasText
-            color="tertiaryText"
+            color="textSecondary"
             style={styles.leagueVenueText}
             numberOfLines={2}
           >
@@ -90,7 +94,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
             size={AvatarSize.Big}
             isTeam
           />
-          <UltrasText style={styles.teamName} color="text" numberOfLines={2}>
+          <UltrasText style={styles.teamName} color="textPrimary" numberOfLines={2}>
             {data.teamAway.name}
           </UltrasText>
         </View>
@@ -100,15 +104,15 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
         <Button
           title={I18n.t('eventsCreate')}
           onPress={() => pushTo(commonScreens.newEvent.name)}
-          color="textInvert"
-          bgColor="bgColorInvert"
+          color="textPrimaryInvert"
+          bgColor="screenBackgroundInvert"
           icon={Icons.Add}
           iconPosition={ButtonIconPosition.Left}
         />
       </View>
 
       <View style={styles.divider}>
-        <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
+        <Divider type={DividerType.Horizontal} bgColor="divider" />
       </View>
     </>
   );

@@ -1,5 +1,4 @@
 import React, { ComponentType } from 'react';
-import { ThemeInterface } from 'styled-components';
 import { ScreenProps } from 'react-native-screens';
 
 export type CommonScreens = Record<
@@ -100,12 +99,10 @@ export type ScreenNavigationConfig = Record<
 >;
 
 export interface ITeamTabNavigationProps {
-  theme?: ThemeInterface;
   tabName: string;
   id: number;
 }
 
 export interface ISearchTabNavigationProps {
   searchText: string;
-  theme?: ThemeInterface;
 }

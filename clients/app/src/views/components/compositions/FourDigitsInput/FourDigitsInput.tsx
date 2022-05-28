@@ -114,8 +114,8 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ theme, onFill }) => 
               onChange={Platform.OS === 'android' ? onChangeAndroid(i) : undefined}
               keyboardType={'numeric'}
               autoCorrect={false}
-              placeholderTextColor={theme?.colors.bgColor}
-              selectionColor={theme?.colors.bgColor}
+              placeholderTextColor={theme?.colors.background}
+              selectionColor={theme?.colors.background}
               autoCapitalize="none"
               caretHidden={true}
             />

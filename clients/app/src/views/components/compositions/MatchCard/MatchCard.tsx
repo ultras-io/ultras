@@ -17,39 +17,39 @@ const WORLD_AS_COUNTRY_ID = 162;
 
 const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = false }) => {
   const Container = horizontal ? Box : BluredView;
+  const innerCardColor = horizontal ? 'white' : 'cardBackground';
+  const textColor = horizontal ? 'black' : 'textPrimary';
 
   return (
     <Pressable onPress={onPress}>
       <Container
         style={horizontal ? styles.containerH : styles.container}
-        bgColor={'secondaryText'}
+        bgColor="cardSilverBackground"
       >
         <View style={styles.league}>
           {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
             <>
-              <UltrasText
-                style={styles.leagueText}
-                color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
-              >
+              <UltrasText style={styles.leagueText} color={textColor}>
                 {data.league.country.name}
               </UltrasText>
               <View style={styles.divider}>
-                <Divider bgColor={horizontal ? 'secondaryTextInvert' : 'secondaryText'} />
+                <Divider bgColor={textColor} />
               </View>
             </>
           )}
-          <UltrasText
-            style={styles.leagueText}
-            color={horizontal ? 'secondaryTextInvert' : 'secondaryText'}
-          >
+          <UltrasText style={styles.leagueText} color={textColor}>
             {data.league.name}
           </UltrasText>
         </View>
+
         <View style={styles.logoAndTime}>
-          <Box style={styles.logoContainer} bgColor={'text'}>
+          <Box style={styles.logoContainer} bgColor={innerCardColor}>
             <Image source={{ uri: data.teamHome.logo }} style={styles.logo} />
           </Box>
-          <Box style={[styles.logoContainer, styles.logoContainer2]} bgColor={'text'}>
+          <Box
+            style={[styles.logoContainer, styles.logoContainer2]}
+            bgColor={innerCardColor}
+          >
             <Image source={{ uri: data.teamAway.logo }} style={styles.logo} />
           </Box>
           <MatchTime
@@ -63,7 +63,7 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
         <View style={styles.teamAndScore}>
           <UltrasText
             style={[styles.team, data.winner === WinnerEnum.home ? styles.winner : null]}
-            color={horizontal ? 'textInvert' : 'secondaryText'}
+            color={textColor}
             numberOfLines={1}
           >
             {data.teamHome.name}
@@ -77,10 +77,11 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
             />
           )}
         </View>
+
         <View style={styles.teamAndScore}>
           <UltrasText
             style={[styles.team, data.winner === WinnerEnum.away ? styles.winner : null]}
-            color={horizontal ? 'textInvert' : 'secondaryText'}
+            color={textColor}
             numberOfLines={1}
           >
             {data.teamAway.name}

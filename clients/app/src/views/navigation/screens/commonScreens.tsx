@@ -61,7 +61,7 @@ const SCREENS: CommonScreens = {
     options: {
       ...defaultOptions,
       headerTitle: () => (
-        <UltrasText style={styles.headerLogo} color="primary">
+        <UltrasText style={styles.headerLogo} color="headerTitle">
           ultras
         </UltrasText>
       ),

@@ -41,12 +41,12 @@ const EventInfo: React.FC<EventInfoProps> = ({
       {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
 
       <View style={styles.container}>
-        <UltrasText style={styles.date} color="secondaryText">
+        <UltrasText style={styles.date} color="textSecondary">
           {date < new Date()
             ? moment(date).fromNow()
             : moment(date).format('MMM DD, hh:mm')}
         </UltrasText>
-        <UltrasText style={styles.title} color="tertiary">
+        <UltrasText style={styles.title} color="textPrimary">
           {title}
         </UltrasText>
 
@@ -56,16 +56,16 @@ const EventInfo: React.FC<EventInfoProps> = ({
             onPress={
               () => pushTo(commonScreens.match.name, { id: 67 }) // matchId
             }
-            color="textInvert"
-            bgColor="opacityBgColorInvert"
+            color="textPrimaryInvert"
+            bgColor="infoBadge"
             size={ButtonSize.Small}
             boxSize={ButtonBoxSize.Contain}
           />
         </View>
 
         {location && (
-          <UltrasText style={styles.location} color="secondaryText">
-            <Icon name={Icons.Map} size={12} color="secondaryText" /> {location}
+          <UltrasText style={styles.location} color="textPrimary">
+            <Icon name={Icons.Map} size={12} color="textPrimary" /> {location}
           </UltrasText>
         )}
         <View style={styles.creatorContainer}>
@@ -74,7 +74,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
               () => pushTo(commonScreens.profile.name, { id: 67 }) // profileid
             }
           >
-            <UltrasText style={styles.creator} color="text">
+            <UltrasText style={styles.creator} color="textSecondary">
               {I18n.t('eventsBy')} {creator}
               {supportersClub && ', '}
             </UltrasText>
@@ -85,7 +85,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
                 () => pushTo(commonScreens.fanClub.name, { id: 67 }) // supporterClubsId
               }
             >
-              <UltrasText style={styles.creator} color="secondary">
+              <UltrasText style={styles.creator} color="textActive">
                 {supportersClub}
               </UltrasText>
             </Pressable>
@@ -101,7 +101,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
               })
             }
           >
-            <UltrasText style={styles.going} color="tertiaryText">
+            <UltrasText style={styles.going} color="textSecondary">
               {getReadableNumber(goingCount)} {I18n.t('going')}
             </UltrasText>
           </Pressable>
@@ -116,7 +116,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
               })
             }
           >
-            <UltrasText style={styles.going} color="tertiaryText">
+            <UltrasText style={styles.going} color="textSecondary">
               {getReadableNumber(likeCount)} {I18n.t('likes')}
             </UltrasText>
           </Pressable>
@@ -129,19 +129,22 @@ const EventInfo: React.FC<EventInfoProps> = ({
               onPress={() => {}}
               boxSize={ButtonBoxSize.Cover}
               size={ButtonSize.Big}
-              color="text"
+              color="white"
               bgColor="success"
-              icon={Icons.Check}
+              icon={isGoing ? Icons.Check : undefined}
               iconPosition={ButtonIconPosition.Right}
             />
           </View>
-          <Box style={styles.likeButton} borderColor="quaternaryText">
+          <Box
+            style={styles.likeButton}
+            borderColor={isLiked ? 'likeButtonActive' : 'likeButtonInactive'}
+          >
             <Like isLiked={isLiked} onPress={() => {}} />
           </Box>
         </View>
       </View>
       <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
+        <Divider type={DividerType.Horizontal} bgColor={'white'} />
       </View>
     </>
   );
