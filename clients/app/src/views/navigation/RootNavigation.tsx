@@ -53,6 +53,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
                 backgroundColor: colors.transparent,
               },
             }),
+
           }}
         >
           {isAuthenticated ? (
