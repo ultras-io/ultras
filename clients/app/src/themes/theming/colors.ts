@@ -11,6 +11,7 @@ const commonColors: ColorGroup<ColorCommonKey> = {
   gray: '#777777',
   success: '#47c471',
   danger: '#e54d00',
+  cardSilverBackground: 'rgba(255, 255, 255, 0.85)',
   navigationTabInactive: 'rgba(255, 255, 255, 0.7)',
   navigationTabActive: '#ab9760',
   navigationTabBackground: '#272829',
@@ -19,39 +20,67 @@ const commonColors: ColorGroup<ColorCommonKey> = {
 // color list for light mode only
 const lightColors: ColorGroup<ColorThemeKey> = {
   screenBackground: '#ebedf0',
+  screenBackgroundInvert: '#000000',
 
   headerBackground: '#ffffff',
   headerTitle: '#ab9760',
   headerNavigationButton: '#ab9760',
-  headerButton: '#ab9760',
+  headerButton: '#000000',
 
   textPrimary: '#272829',
-  textSecondary: 'rgba(39, 40, 41, 0.5)',
+  textPrimaryInvert: '#ffffff',
+  textSecondary: '#898b8c',
+  textActive: '#ab9760',
 
   sectionTitle: '#ab9760',
   sectionDetails: 'rgba(39, 40, 41, 0.7)',
 
-  cardSilverBackground: 'rgba(255, 255, 255, 0.85)',
   cardBackground: '#ffffff',
+
+  inputBackground: '#f2f2f2',
+  inputForeground: '#a5a5ac',
+  inputForegroundOpacity: '#a5a5ac',
+
+  tabInactive: '#272829',
+  tabActive: '#ab9760',
+
+  likeButtonInactive: '#939394',
+  likeButtonActive: '#ab9760',
+  divider: '#c2c2c2',
+  infoBadge: 'rgba(0, 0, 0, 0.8)',
 };
 
 // color list for dark mode only
 const darkColors: ColorGroup<ColorThemeKey> = {
   screenBackground: '#272829',
+  screenBackgroundInvert: '#ffffff',
 
   headerBackground: '#272829',
   headerTitle: '#ab9760',
-  headerNavigationButton: '#F8CF5A',
+  headerNavigationButton: '#f8cf5a',
   headerButton: '#ffffff',
 
   textPrimary: '#ffffff',
-  textSecondary: 'rgba(39, 40, 41, 0.5)',
+  textPrimaryInvert: '#272829',
+  textSecondary: '#939394',
+  textActive: '#f8cf5a',
 
   sectionTitle: '#ede4cc',
   sectionDetails: '#ffffff',
 
-  cardSilverBackground: 'rgba(255, 255, 255, 0.85)',
-  cardBackground: '#272829',
+  cardBackground: '#3d3d3e',
+
+  inputBackground: '#3d3d3e',
+  inputForeground: '#a5a5ac',
+  inputForegroundOpacity: '#a5a5ac',
+
+  tabInactive: 'rgba(255, 255, 255, 0.7)',
+  tabActive: '#f8cf5a',
+
+  likeButtonInactive: '#ffffff',
+  likeButtonActive: '#f8cf5a',
+  divider: '#414243',
+  infoBadge: 'rgba(255, 255, 255, 0.8)',
 };
 
 // merge and export colors

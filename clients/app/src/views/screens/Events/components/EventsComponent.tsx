@@ -40,6 +40,7 @@ const EventsComponent: React.FC<IEventsComponentProps> = ({ data, onEndReached }
       ref={ref}
       keyExtractor={item => item.id.toString()}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.flatList}
       style={styles.eventList}
       renderItem={renderRow}
       data={data}

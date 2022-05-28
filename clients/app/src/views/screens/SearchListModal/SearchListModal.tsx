@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import I18n from 'i18n/i18n';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import UltrasText from 'views/components/base/UltrasText';
 import Input from 'views/components/base/Input';
@@ -10,11 +9,8 @@ import Button, {
   BoxSizeEnum as ButtonBoxSize,
 } from 'views/components/base/Button';
 import Box from 'views/components/base/Box';
-
-import Countries from './containers/Countries';
-import ListModalTabNavigation from './components/ListModalTabNavigation';
-
-import { ISearchListModalProps, keyEnum } from './types';
+import SearchListContainer from './containers/SearchListContainer';
+import { ISearchListModalProps, dataTypeEnum } from './types';
 import styles from './styles';
 
 const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
@@ -30,7 +26,7 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
     [setSearchText]
   );
 
-  const name = dataKey === keyEnum.Code ? I18n.t('country') : I18n.t('team');
+  const name = dataKey === dataTypeEnum.Country ? I18n.t('country') : I18n.t('team');
 
   return (
     <Box bgColor="screenBackground" style={styles.container}>
@@ -51,11 +47,7 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
           <Input name={I18n.t('searchFor') + ' ' + name} onChange={onChange} />
         </View>
       </View>
-      {dataKey === keyEnum.Code ? (
-        <Countries searchText={searchText} />
-      ) : (
-        <ListModalTabNavigation searchText={searchText} />
-      )}
+      <SearchListContainer dataType={dataKey} searchText={searchText} />
     </Box>
   );
 };

@@ -1,49 +1,59 @@
 import React from 'react';
-import { View, Image, FlatList, ListRenderItem } from 'react-native';
+import { View, Image, FlatList } from 'react-native';
 import I18n from 'i18n/i18n';
-
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
-
-import { ISearchListComponentProps, SearchItem } from '../types';
+import { ISearchListComponentProps, dataTypeEnum } from '../types';
 import styles from '../styles';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   data,
+  dataType,
   onEndReached,
 }) => {
   // const flatListRef = React.useRef<FlatList<any>>();
 
-  const renderRow: ListRenderItem<SearchItem> = ({ item }) => (
-    <Box
-      bgColor={'opacityBgColor'}
-      style={[
-        styles.row,
-        item === data[0] && styles.firstRow,
-        item === data[data.length - 1] && styles.lastRow,
-      ]}
-    >
+  const renderRow = React.useCallback(
+    ({ item }) => (
       <Box
-        borderColor={'opacityBgColor'}
+        bgColor={'opacityBgColor'}
         style={[
-          styles.borderedRow,
-          item === data[data.length - 1] && styles.lastBorderedRow,
+          styles.row,
+          item === data[0] && styles.firstRow,
+          item === data[data.length - 1] && styles.lastRow,
         ]}
       >
-        <View style={styles.rowContainer}>
-          {item.logo && <Image source={{ uri: item.logo }} style={styles.logo} />}
-          <UltrasText style={styles.text} color="text">
-            {item.name}
-          </UltrasText>
-          {item.code && (
-            <UltrasText style={styles.text} color="tertiaryText">
-              {' '}
-              {item.code}
-            </UltrasText>
-          )}
-        </View>
+        <Box
+          borderColor={'opacityBgColor'}
+          style={[
+            styles.borderedRow,
+            item === data[data.length - 1] && styles.lastBorderedRow,
+          ]}
+        >
+          <View style={styles.rowContainer}>
+            {dataType === dataTypeEnum.Team ? (
+              <>
+                <Image source={{ uri: item.logo }} style={styles.logo} />
+                <UltrasText style={styles.text} color="text">
+                  {item.name}
+                </UltrasText>
+              </>
+            ) : (
+              <>
+                <UltrasText style={styles.text} color="text">
+                  {item.name}
+                </UltrasText>
+                <UltrasText style={styles.text} color="tertiaryText">
+                  {' '}
+                  {item.telPrefix}
+                </UltrasText>
+              </>
+            )}
+          </View>
+        </Box>
       </Box>
-    </Box>
+    ),
+    [data, dataType]
   );
 
   // React.useEffect(() => {

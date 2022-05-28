@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'themes';
 import mainScreens from 'views/navigation/screens/mainScreens';
@@ -19,9 +20,14 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = () => {
         // @TODO move to navigation screens object
         headerShadowVisible: false,
         headerBackTitleVisible: false,
-        headerStyle: {
-          backgroundColor: colors.headerBackground,
-        },
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
         headerTintColor: colors.headerNavigationButton,
       }}
     >

@@ -1,7 +1,12 @@
+import React from 'react';
 import I18n from 'i18n/i18n';
 
-import MatchesContainer from 'views/screens/Matches/containers/MatchesContainer';
-import EventsContainer from 'views/screens/Events/containers/EventsContainer';
+const MatchesContainer = React.lazy(
+  () => import('views/screens/Matches/containers/MatchesContainer')
+);
+const EventsContainer = React.lazy(
+  () => import('views/screens/Events/containers/EventsContainer')
+);
 
 import type { TeamTabScreens } from '../types';
 

@@ -17,10 +17,10 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({ searchText }
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
         tabBarStyle: { backgroundColor: 'transparent' },
-        tabBarInactiveTintColor: colors.primary,
-        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.tabInactive,
+        tabBarActiveTintColor: colors.tabActive,
         tabBarIndicatorStyle: {
-          backgroundColor: colors.primary,
+          backgroundColor: colors.tabActive,
         },
       }}
     >

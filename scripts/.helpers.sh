@@ -119,7 +119,12 @@ function set_title() {
 }
 
 function assert_network_connected() {
-  ping -q -t1 -c1 "google.com" &>/dev/null
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    ping -q -t1 -c1 "google.com" &>/dev/null
+  else
+    ping -q -c1 "google.com" &>/dev/null
+  fi
+
   if [[ $? != 0 ]]; then
     echo ""
     echo -e " \033[0;31m You don't have an internet connection.\033[0m"

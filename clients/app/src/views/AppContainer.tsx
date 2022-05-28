@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigation from 'views/navigation/RootNavigation';
 import { useTheme } from 'themes';
 
 const AppContainer: React.FC = () => {
-  const { colors, isDarkMode, setColorMode } = useTheme();
+  const { isDarkMode, setColorMode } = useTheme();
 
   // useEffect(() => {
   //   // @TODO: set initial color mode from storage
@@ -28,16 +27,9 @@ const AppContainer: React.FC = () => {
   }, [isDarkMode]);
 
   return (
-    <>
-      <StatusBar
-        barStyle={!isDarkMode ? 'dark-content' : 'light-content'}
-        backgroundColor={colors.headerBackground}
-      />
-
-      <NavigationContainer>
-        <RootNavigation />
-      </NavigationContainer>
-    </>
+    <NavigationContainer>
+      <RootNavigation />
+    </NavigationContainer>
   );
 };
 

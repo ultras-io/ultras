@@ -20,11 +20,11 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
           <Avatar avatarUri={data.logo} isTeam />
         </View>
         <View style={styles.info}>
-          <UltrasText color="text" style={styles.name}>
+          <UltrasText color="textPrimary" style={styles.name}>
             {data.name}
           </UltrasText>
           <View style={styles.line}>
-            <UltrasText color="secondaryText" style={styles.text}>
+            <UltrasText color="textSecondary" style={styles.text}>
               {fanClubsCount === 0 && I18n.t('noFanClubs')}
               {fanClubsCount === 1 &&
                 getReadableNumber(fanClubsCount) + ' ' + I18n.t('fanClub')}
@@ -34,15 +34,15 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
             {data.type === TeamTypesEnum.club && (
               <>
                 <View style={styles.divider}>
-                  <Divider />
+                  <Divider bgColor="textSecondary" />
                 </View>
-                <UltrasText style={styles.text} color="secondaryText">
+                <UltrasText style={styles.text} color="textSecondary">
                   {data.country.name}
                 </UltrasText>
                 <View style={styles.divider}>
-                  <Divider />
+                  <Divider bgColor="textSecondary" />
                 </View>
-                <UltrasText style={styles.text} color="secondaryText">
+                <UltrasText style={styles.text} color="textSecondary">
                   {data.city.name}
                 </UltrasText>
               </>

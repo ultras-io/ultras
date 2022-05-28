@@ -4,16 +4,13 @@ import buildFanClubsStore from 'stores/fanClubs';
 import buildTeamsStore from 'stores/teams';
 import { ISearchItemProps } from '../types';
 
-const fanClubsStore = buildFanClubsStore();
-const teamsStore = buildTeamsStore();
-
 const SearchItemContainer: React.FC<ISearchItemProps> = ({ searchItem, searchText }) => {
   const store = React.useMemo(() => {
     switch (searchItem) {
       case 'teams':
-        return teamsStore;
+        return buildTeamsStore();
       case 'fanClubs':
-        return fanClubsStore;
+        return buildFanClubsStore();
     }
   }, [searchItem]);
 

@@ -1,5 +1,4 @@
 import React, { ComponentType } from 'react';
-import { ThemeInterface } from 'styled-components';
 import { ScreenProps } from 'react-native-screens';
 
 export type CommonScreens = Record<
@@ -85,11 +84,6 @@ export type SearchTabScreens = {
   // ultras: NavigationScreen;
 };
 
-export type ListModalTabScreens = {
-  footballClubs: NavigationScreen;
-  nationalTeams: NavigationScreen;
-};
-
 export type TeamTabScreens = {
   matches: NavigationScreen;
   events: NavigationScreen;
@@ -105,7 +99,6 @@ export type ScreenNavigationConfig = Record<
 >;
 
 export interface ITeamTabNavigationProps {
-  theme?: ThemeInterface;
   tabName: string;
   id: number;
 }

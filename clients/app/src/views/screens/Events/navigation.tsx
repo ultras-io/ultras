@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'themes';
@@ -19,9 +20,14 @@ const EventsNavigation: React.FC<IEventsNavigationProps> = ({}) => {
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
-        headerStyle: {
-          backgroundColor: colors.headerBackground,
-        },
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
         headerTintColor: colors.headerNavigationButton,
       }}
     >

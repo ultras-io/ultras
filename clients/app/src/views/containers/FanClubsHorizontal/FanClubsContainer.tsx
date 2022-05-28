@@ -38,7 +38,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   return (
     <View>
       <View style={styles.header}>
-        <UltrasText style={styles.title} color="headerTitle">
+        <UltrasText style={styles.title} color="sectionTitle">
           {I18n.t('fanClubs')}
         </UltrasText>
         {showHeaderButton && (

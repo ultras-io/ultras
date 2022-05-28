@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 export interface IMatchesProps {}
 export interface IMatchesContainerProps {
   theme?: ThemeInterface;
-  route: RouteProp<{ params: { tabName: string; teamId: number } }, 'params'>;
+  route?: RouteProp<{ params: { tabName: string; teamId: number } }, 'params'>;
 }
 export interface IMatchesComponentProps {
   data: Array<MatchViewModel>;

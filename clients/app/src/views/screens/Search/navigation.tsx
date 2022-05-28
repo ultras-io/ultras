@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'themes';
 import mainScreens from 'views/navigation/screens/mainScreens';
@@ -17,9 +18,14 @@ const SearchNavigation: React.FC<ISearchNavigationProps> = ({}) => {
       initialRouteName={`${TAB_NAME}:${mainScreens.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
-        headerStyle: {
-          backgroundColor: colors.headerBackground,
-        },
+        headerStyle: Platform.select({
+          android: {
+            backgroundColor: colors.headerBackground,
+          },
+          ios: {
+            backgroundColor: colors.transparent,
+          },
+        }),
         headerTintColor: colors.headerNavigationButton,
         headerBackTitleVisible: false,
       }}

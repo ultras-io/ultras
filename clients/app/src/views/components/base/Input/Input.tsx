@@ -7,7 +7,7 @@ import { useTheme } from 'themes';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { rootScreens } from 'views/navigation/screens';
-import { keyEnum as SearchListKey } from 'views/screens/SearchListModal';
+import { dataTypeEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
@@ -41,9 +41,9 @@ const Input: React.FC<IInputProps> = ({
     () => ({
       ...styles.input,
       ...(withBorder ? styles.inputBorder : {}),
-      borderColor: colors.inputBg,
-      backgroundColor: colors.inputBg,
-      color: colors.text,
+      borderColor: colors.inputBackground,
+      backgroundColor: colors.inputBackground,
+      color: colors.inputForeground,
     }),
     [colors, withBorder]
   );
@@ -92,7 +92,7 @@ const Input: React.FC<IInputProps> = ({
   );
 
   const openSelectModal = useCallback(() => {
-    openModal(rootScreens.searchListModal.name, { dataKey: SearchListKey.Code });
+    openModal(rootScreens.searchListModal.name, { dataKey: SearchListKey.Country });
   }, [openModal]);
 
   React.useEffect(() => {
@@ -105,8 +105,12 @@ const Input: React.FC<IInputProps> = ({
     <View style={styles.container}>
       {_isSelect ? (
         <Pressable onPress={openSelectModal}>
-          <Box style={styles.select} bgColor={'inputBg'} borderColor={'inputBg'}>
-            <UltrasText color={_value ? 'text' : 'secondaryText'}>
+          <Box
+            style={styles.select}
+            borderColor="inputBackground"
+            bgColor="inputBackground"
+          >
+            <UltrasText color={_value ? 'inputForegroundOpacity' : 'inputForeground'}>
               {_value ? _value : name}
             </UltrasText>
             <View style={styles.icon}>
@@ -125,13 +129,14 @@ const Input: React.FC<IInputProps> = ({
           placeholder={name}
           keyboardType={keyboardTypes[type]}
           autoCorrect={false}
-          placeholderTextColor={colors.secondaryText}
-          selectionColor={colors.secondaryText}
+          placeholderTextColor={colors.inputForeground}
+          selectionColor={colors.inputForeground}
           autoCapitalize="none"
           clearButtonMode={'always'}
-          color={colors.inputBg}
+          borderRadius={10}
+          color={colors.inputBackground}
           _focus={{
-            color: colors.inputBg,
+            color: colors.inputBackground,
           }}
         />
       )}

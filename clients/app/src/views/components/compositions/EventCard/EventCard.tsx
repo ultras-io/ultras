@@ -39,23 +39,23 @@ const EventCard: React.FC<IEventCardProps> = ({
       <BluredView style={styles.container}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <View style={styles.innerContainer}>
-          <UltrasText style={styles.date} color="text">
+          <UltrasText style={styles.date} color="textSecondary">
             {date < new Date()
               ? moment(date).fromNow()
               : moment(date).format('MMM DD, hh:mm')}
           </UltrasText>
-          <UltrasText style={styles.title} color="text">
+          <UltrasText style={styles.title} color="textPrimary">
             {title}
           </UltrasText>
-          <UltrasText style={styles.smallText} color="tertiaryText">
+          <UltrasText style={styles.smallText} color="textSecondary">
             {getReadableNumber(goingCount)} {I18n.t('going')}
           </UltrasText>
           {location && (
-            <UltrasText style={styles.location} color="secondaryText">
+            <UltrasText style={styles.location} color="textSecondary">
               {location}
             </UltrasText>
           )}
-          <UltrasText style={styles.smallText} color="text">
+          <UltrasText style={styles.smallText} color="textPrimary">
             {I18n.t('eventsEventBy')} {creator}
             {supportersClub && ', ' + supportersClub}
           </UltrasText>
@@ -71,9 +71,9 @@ const EventCard: React.FC<IEventCardProps> = ({
               onPress={() => {}}
               boxSize={ButtonBoxSize.Contain}
               size={ButtonSize.Default}
-              color="text"
-              bgColor="primary"
-              icon={IconNamesEnum.Hearth}
+              color={isGoing ? 'white' : 'textPrimary'}
+              bgColor={isGoing ? 'success' : 'screenBackground'}
+              icon={isGoing ? IconNamesEnum.Check : undefined}
               iconPosition={ButtonIconPosition.Right}
             />
             <View style={styles.arrow}>

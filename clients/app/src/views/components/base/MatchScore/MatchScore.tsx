@@ -3,6 +3,7 @@ import UltrasText from 'views/components/base/UltrasText';
 import { MatchStatusesEnum } from '@ultras/utils';
 import { IMatchScoreProps } from './types';
 import styles from './styles';
+import { ColorKey } from 'themes/types';
 
 const MatchScore: React.FC<IMatchScoreProps> = ({
   score,
@@ -11,11 +12,11 @@ const MatchScore: React.FC<IMatchScoreProps> = ({
   size = 'default',
   invert = false,
 }) => {
-  const color =
+  const color: ColorKey =
     matchStatus === MatchStatusesEnum.finished
       ? invert
-        ? 'textInvert'
-        : 'text'
+        ? 'textSecondary'
+        : 'textPrimary'
       : 'success';
 
   return (

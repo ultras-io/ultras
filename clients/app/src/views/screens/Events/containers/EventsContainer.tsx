@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-
+import Box from 'views/components/base/Box';
 import EventsComponent from '../components/EventsComponent';
 
 import { IEventsContainerProps } from '../types';
@@ -20,9 +19,9 @@ const EventsContainer: React.FC<IEventsContainerProps> = () => {
   React.useEffect(getData, []);
 
   return (
-    <View style={styles.container}>
+    <Box style={styles.container} bgColor="screenBackground">
       <EventsComponent data={data} onEndReached={getData} />
-    </View>
+    </Box>
   );
 };
 
