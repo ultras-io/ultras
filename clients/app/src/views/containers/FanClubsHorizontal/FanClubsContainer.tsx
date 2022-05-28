@@ -38,7 +38,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   return (
     <View>
       <View style={styles.header}>
-        <UltrasText style={styles.title} color={'tertiary'}>
+        <UltrasText style={styles.title} color="headerTitle">
           {I18n.t('fanClubs')}
         </UltrasText>
         {showHeaderButton && (
@@ -47,7 +47,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
             onPress={navigateToFanClubs}
             appearance={ButtonAppearance.Minimal}
             boxSize={ButtonBoxSize.Contain}
-            color="text"
+            color="sectionDetails"
             icon={Icons.ArrowRightRound}
           />
         )}

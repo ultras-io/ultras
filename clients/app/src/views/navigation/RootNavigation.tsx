@@ -30,7 +30,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
       screenOptions={{
         headerShown: false,
         headerStyle: {
-          backgroundColor: colors.bgColor,
+          backgroundColor: colors.headerBackground,
         },
       }}
     >

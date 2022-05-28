@@ -17,8 +17,9 @@ const Like: React.FC<ILikeProps> = ({ isLiked = false, count = 0, onPress }) => 
         color={isLiked ? 'primary' : undefined}
         size={24}
       />
+
       {count > 0 && (
-        <UltrasText style={styles.count} color="text">
+        <UltrasText style={styles.count} color="primary">
           {getReadableNumber(count)}
         </UltrasText>
       )}

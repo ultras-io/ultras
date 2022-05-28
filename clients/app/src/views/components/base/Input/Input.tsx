@@ -1,7 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { Pressable, View } from 'react-native';
-import { withTheme } from 'styled-components/native';
-import styled from 'styled-components/native';
+import { Input as NativeBaseInput } from 'native-base';
+import { useTheme } from 'themes';
+// import { withTheme } from 'styled-components/native';
+// import styled from 'styled-components/native';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { rootScreens } from 'views/navigation/screens';
@@ -23,20 +25,7 @@ const keyboardTypes: KeyboardTypes = {
   [TypeEnum.Select]: 'default',
 };
 
-const StyledInput = styled.TextInput<IInputProps>`
-  background-color: ${({ theme }) => {
-    return theme.colors.opacityBgColor;
-  }};
-  border-color: ${({ theme }) => {
-    return theme.colors.opacityBgColor;
-  }};
-  color: ${({ theme }) => {
-    return theme.colors.text;
-  }};
-`;
-
 const Input: React.FC<IInputProps> = ({
-  theme,
   name,
   value,
   type = TypeEnum.Text,
@@ -46,6 +35,19 @@ const Input: React.FC<IInputProps> = ({
   onChange,
   onType,
 }) => {
+  const { colors } = useTheme();
+
+  const inputStyle = useMemo(
+    () => ({
+      ...styles.input,
+      ...(withBorder ? styles.inputBorder : {}),
+      borderColor: colors.inputBg,
+      backgroundColor: colors.inputBg,
+      color: colors.text,
+    }),
+    [colors, withBorder]
+  );
+
   const { openModal } = useNavigationWithParams();
 
   const _isSelect = type === TypeEnum.Select;
@@ -103,11 +105,7 @@ const Input: React.FC<IInputProps> = ({
     <View style={styles.container}>
       {_isSelect ? (
         <Pressable onPress={openSelectModal}>
-          <Box
-            style={styles.select}
-            bgColor={'opacityBgColor'}
-            borderColor={'opacityBgColor'}
-          >
+          <Box style={styles.select} bgColor={'inputBg'} borderColor={'inputBg'}>
             <UltrasText color={_value ? 'text' : 'secondaryText'}>
               {_value ? _value : name}
             </UltrasText>
@@ -117,8 +115,9 @@ const Input: React.FC<IInputProps> = ({
           </Box>
         </Pressable>
       ) : (
-        <StyledInput
-          style={[styles.input, withBorder && styles.inputBorder]}
+        <NativeBaseInput
+          borderWidth={withBorder ? undefined : 0}
+          style={inputStyle}
           onChangeText={_onChangeText}
           onEndEditing={_onEndEditing}
           value={_value}
@@ -126,14 +125,18 @@ const Input: React.FC<IInputProps> = ({
           placeholder={name}
           keyboardType={keyboardTypes[type]}
           autoCorrect={false}
-          placeholderTextColor={theme?.colors.secondaryText}
-          selectionColor={theme?.colors.secondaryText}
+          placeholderTextColor={colors.secondaryText}
+          selectionColor={colors.secondaryText}
           autoCapitalize="none"
           clearButtonMode={'always'}
+          color={colors.inputBg}
+          _focus={{
+            color: colors.inputBg,
+          }}
         />
       )}
     </View>
   );
 };
 
-export default React.memo<IInputProps>(withTheme(Input));
+export default React.memo<IInputProps>(Input);

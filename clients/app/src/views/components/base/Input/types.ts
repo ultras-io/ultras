@@ -29,7 +29,6 @@ export type KeyboardTypes = {
 };
 
 export interface IInputProps {
-  theme?: ThemeInterface;
   name?: string;
   value?: string;
   type?: TypeEnum;

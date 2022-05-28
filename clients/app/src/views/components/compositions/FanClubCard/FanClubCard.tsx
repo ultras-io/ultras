@@ -30,17 +30,17 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
             <Avatar avatarUri={data.avatar} size={AvatarSize.Default} />
           </View>
           <View style={styles.info}>
-            <UltrasText color="text" style={styles.name}>
+            <UltrasText color="textPrimary" style={styles.name}>
               {data.name}
             </UltrasText>
             <View style={styles.line}>
-              <UltrasText color="text" style={styles.text}>
+              <UltrasText color="textPrimary" style={styles.text}>
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </UltrasText>
               <View style={styles.divider}>
                 <Divider />
               </View>
-              <UltrasText color="text" style={styles.text}>
+              <UltrasText color="textSecondary" style={styles.text}>
                 {data.city.name}
               </UltrasText>
             </View>
@@ -51,11 +51,11 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
           <View style={styles.avatarH}>
             <Avatar avatarUri={data.avatar} size={avatarSize} />
           </View>
-          <UltrasText color="text" style={styles.nameH} numberOfLines={2}>
+          <UltrasText color="textPrimary" style={styles.nameH} numberOfLines={2}>
             {data.name}
           </UltrasText>
           {data.membersCount && (
-            <UltrasText color="secondaryText" style={styles.ultrasCountH}>
+            <UltrasText color="textSecondary" style={styles.ultrasCountH}>
               {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
             </UltrasText>
           )}

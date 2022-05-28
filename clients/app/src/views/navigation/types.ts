@@ -112,5 +112,4 @@ export interface ITeamTabNavigationProps {
 
 export interface ISearchTabNavigationProps {
   searchText: string;
-  theme?: ThemeInterface;
 }

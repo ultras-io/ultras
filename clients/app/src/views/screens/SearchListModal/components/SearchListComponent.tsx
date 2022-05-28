@@ -51,7 +51,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   // }, [data]);
 
   return (
-    <Box bgColor={'bgColor'} style={styles.flexList}>
+    <Box bgColor="background" style={styles.flexList}>
       <FlatList
         // ref={flatListRef}
         ListFooterComponent={

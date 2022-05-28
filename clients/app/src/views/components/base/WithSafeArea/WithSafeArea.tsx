@@ -1,24 +1,30 @@
 import React from 'react';
 import { SafeAreaView, View } from 'react-native';
-import { withTheme } from 'styled-components/native';
+import { useTheme } from 'themes';
 
 import styles from './styles';
 import { IWithSafeAreaProps } from './types';
 
 const WithSafeArea: React.FC<IWithSafeAreaProps> = ({
-  theme,
   children,
   disableSafeArea = false,
 }) => {
-  return disableSafeArea ? (
-    <View style={[styles.container, { backgroundColor: theme?.colors.bgColor }]}>
+  const { colors } = useTheme();
+
+  const ViewComponent = disableSafeArea ? View : SafeAreaView;
+
+  return (
+    <ViewComponent
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.screenBackground,
+        },
+      ]}
+    >
       {children}
-    </View>
-  ) : (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme?.colors.bgColor }]}>
-      {children}
-    </SafeAreaView>
+    </ViewComponent>
   );
 };
 
-export default React.memo<IWithSafeAreaProps>(withTheme(WithSafeArea));
+export default React.memo<IWithSafeAreaProps>(WithSafeArea);

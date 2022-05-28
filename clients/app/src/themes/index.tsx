@@ -29,12 +29,15 @@ const useTheme = () => {
   const customColors: ColorType = useColorModeValue(colors.light, colors.dark);
   const nativeBaseTheme = useNativeBaseTheme();
 
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode, setColorMode } = useColorMode();
 
   return {
     colors: customColors,
+    lightColors: colors.light,
+    darkColors: colors.dark,
     theming: nativeBaseTheme,
-    toggle: toggleColorMode,
+    toggleColorMode: toggleColorMode,
+    setColorMode: setColorMode,
     isDarkMode: colorMode === 'dark',
   };
 };

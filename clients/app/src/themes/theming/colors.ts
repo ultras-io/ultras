@@ -1,57 +1,68 @@
-import { ColorType } from '../types';
+import { ColorType, ColorCommonKey, ColorThemeKey, ColorGroup } from '../types';
 
-export const dark: ColorType = {
-  bgColor: '#272829',
-  bgColorInvert: '#EAEAEA',
-  bgColorLight: '#FFFFFF',
-  bgColorLightSecondary: 'rgba(255, 255, 255, 0.92)',
-  opacityBgColor: 'rgba(255, 255, 255, 0.1)',
-  opacityBgColorInvert: 'rgba(255, 255, 255, 0.85)',
+// common colors list, that doesn't depends from
+// theme color mode
+const commonColors: ColorGroup<ColorCommonKey> = {
   transparent: 'transparent',
-  success: '#47C471',
-  danger: '#E54D00',
-  dark: '#000',
-  primary: '#AB9760',
-  secondary: '#F8CF5A',
-  tertiary: '#EDE4CC',
-  quaternary: '#007AFF',
-  primaryInactive: 'rgba(171, 151, 96, 0.2)',
-  androidBlurColor: 'rgba(61,62,63,.6)',
-  text: '#FFFFFF',
-  secondaryText: 'rgba(255, 255, 255, 0.8)',
-  tertiaryText: 'rgba(255, 255, 255, 0.6)',
-  quaternaryText: 'rgba(255, 255, 255, 0.4)',
-  textInvert: 'rgba(0, 0, 0, 0.9)',
-  secondaryTextInvert: 'rgba(0, 0, 0, 0.7)',
-  tertiaryTextInvert: 'rgba(0, 0, 0, 0.5)',
-  quaternaryTextInvert: 'rgba(0, 0, 0, 0.3)',
+  white: '#ffffff',
+  black: '#000000',
+  lightGray: 'rgba(0, 0, 0, 0.15)',
+  darkGray: 'rgba(0, 0, 0, 0.45)',
+  gray: '#777777',
+  success: '#47c471',
+  danger: '#e54d00',
+  navigationTabInactive: 'rgba(255, 255, 255, 0.7)',
+  navigationTabActive: '#ab9760',
+  navigationTabBackground: '#272829',
+};
+
+// color list for light mode only
+const lightColors: ColorGroup<ColorThemeKey> = {
+  screenBackground: '#ebedf0',
+
+  headerBackground: '#ffffff',
+  headerTitle: '#ab9760',
+  headerNavigationButton: '#ab9760',
+  headerButton: '#ab9760',
+
+  textPrimary: '#272829',
+  textSecondary: 'rgba(39, 40, 41, 0.5)',
+
+  sectionTitle: '#ab9760',
+  sectionDetails: 'rgba(39, 40, 41, 0.7)',
+
+  cardSilverBackground: 'rgba(255, 255, 255, 0.85)',
+  cardBackground: '#ffffff',
+};
+
+// color list for dark mode only
+const darkColors: ColorGroup<ColorThemeKey> = {
+  screenBackground: '#272829',
+
+  headerBackground: '#272829',
+  headerTitle: '#ab9760',
+  headerNavigationButton: '#F8CF5A',
+  headerButton: '#ffffff',
+
+  textPrimary: '#ffffff',
+  textSecondary: 'rgba(39, 40, 41, 0.5)',
+
+  sectionTitle: '#ede4cc',
+  sectionDetails: '#ffffff',
+
+  cardSilverBackground: 'rgba(255, 255, 255, 0.85)',
+  cardBackground: '#272829',
+};
+
+// merge and export colors
+export const dark: ColorType = {
+  ...darkColors,
+  ...commonColors,
 };
 
 export const light: ColorType = {
-  bgColor: '#272829',
-  bgColorInvert: '#EAEAEA',
-  bgColorLight: '#FFFFFF',
-  bgColorLightSecondary: 'rgba(255, 255, 255, 0.92)',
-  opacityBgColor: 'rgba(255, 255, 255, 0.1)',
-  opacityBgColorInvert: 'rgba(255, 255, 255, 0.85)',
-  transparent: 'transparent',
-  success: '#47C471',
-  danger: '#E54D00',
-  dark: '#000',
-  primary: '#AB9760',
-  secondary: '#F8CF5A',
-  tertiary: '#EDE4CC',
-  quaternary: '#007AFF',
-  primaryInactive: 'rgba(171, 151, 96, 0.2)',
-  text: '#FFFFFF',
-  androidBlurColor: '#3D3E3F',
-  secondaryText: 'rgba(255, 255, 255, 0.8)',
-  tertiaryText: 'rgba(255, 255, 255, 0.6)',
-  quaternaryText: 'rgba(255, 255, 255, 0.4)',
-  textInvert: 'rgba(0, 0, 0, 0.8)',
-  secondaryTextInvert: 'rgba(0, 0, 0, 0.6)',
-  tertiaryTextInvert: 'rgba(0, 0, 0, 0.4)',
-  quaternaryTextInvert: 'rgba(0, 0, 0, 0.3)',
+  ...lightColors,
+  ...commonColors,
 };
 
 export default {
