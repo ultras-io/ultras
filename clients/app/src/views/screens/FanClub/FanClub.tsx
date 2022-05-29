@@ -27,7 +27,7 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
           appearance={ButtonAppearance.Minimal}
           size={ButtonSize.ExtraBig}
           icon={isDarkMode ? Icons.InfoDark : Icons.InfoLight}
-          color="headerButton"
+          color="iconNavigation"
         />
       ),
     });

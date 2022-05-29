@@ -94,7 +94,7 @@ const scenario: Array<ScenarStep> = [
               <Button
                 appearance={ButtonAppearance.UnderLined}
                 size={ButtonSize.Small}
-                color="quaternary"
+                color="buttonSecondary"
                 isDisabled={!canChange}
                 title={I18n.t('changeNumber')}
                 onPress={changeNumber}

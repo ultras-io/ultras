@@ -30,7 +30,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
             size={ButtonSize.ExtraBig}
             icon={Icons.Settings}
           />
-          <WithBadge number={1} size={BadgeSize.Small} bgColor="danger">
+          <WithBadge number={1} size={BadgeSize.Small} bgColor="iconNotification">
             <Button
               onPress={() => {
                 pushTo(screenSettings.notifications);

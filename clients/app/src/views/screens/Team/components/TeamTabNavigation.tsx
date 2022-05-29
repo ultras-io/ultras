@@ -16,10 +16,10 @@ const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ tabName, id }) =
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
         tabBarStyle: { backgroundColor: 'transparent' },
-        tabBarInactiveTintColor: colors.tabInactive,
-        tabBarActiveTintColor: colors.tabActive,
+        tabBarInactiveTintColor: colors.textSecondary,
+        tabBarActiveTintColor: colors.textAction,
         tabBarIndicatorStyle: {
-          backgroundColor: colors.tabActive,
+          backgroundColor: colors.textAction,
         },
       }}
     >

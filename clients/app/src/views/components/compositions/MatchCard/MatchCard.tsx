@@ -17,14 +17,13 @@ const WORLD_AS_COUNTRY_ID = 162;
 
 const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = false }) => {
   const Container = horizontal ? Box : BluredView;
-  const innerCardColor = horizontal ? 'white' : 'cardBackground';
-  const textColor = horizontal ? 'black' : 'textPrimary';
+  const textColor = horizontal ? 'textPrimaryInvert' : 'textPrimary';
 
   return (
     <Pressable onPress={onPress}>
       <Container
         style={horizontal ? styles.containerH : styles.container}
-        bgColor="cardSilverBackground"
+        bgColor="backgroundCardInvert"
       >
         <View style={styles.league}>
           {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
@@ -43,12 +42,12 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
         </View>
 
         <View style={styles.logoAndTime}>
-          <Box style={styles.logoContainer} bgColor={innerCardColor}>
+          <Box style={styles.logoContainer} bgColor={'backgroundLogo'}>
             <Image source={{ uri: data.teamHome.logo }} style={styles.logo} />
           </Box>
           <Box
             style={[styles.logoContainer, styles.logoContainer2]}
-            bgColor={innerCardColor}
+            bgColor={'backgroundLogo'}
           >
             <Image source={{ uri: data.teamAway.logo }} style={styles.logo} />
           </Box>

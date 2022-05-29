@@ -21,7 +21,7 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
   const result = matchesStore.useSelector('list');
 
   return (
-    <Box style={styles.container} bgColor="screenBackground">
+    <Box style={styles.container} bgColor="backgroundMain">
       <MatchesComponent
         data={result.list.data || []}
         onEndReached={matchesStore.getAll}

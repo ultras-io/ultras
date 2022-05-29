@@ -71,8 +71,8 @@ const EventCard: React.FC<IEventCardProps> = ({
               onPress={() => {}}
               boxSize={ButtonBoxSize.Contain}
               size={ButtonSize.Default}
-              color={isGoing ? 'white' : 'textPrimary'}
-              bgColor={isGoing ? 'success' : 'screenBackground'}
+              color={isGoing ? 'textPrimaryInvert' : 'textPrimary'}
+              bgColor={isGoing ? 'buttonActionInvert' : 'buttonAction'}
               icon={isGoing ? IconNamesEnum.Check : undefined}
               iconPosition={ButtonIconPosition.Right}
             />

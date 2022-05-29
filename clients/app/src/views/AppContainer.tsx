@@ -12,7 +12,7 @@ const AppContainer: React.FC = () => {
       ...DefaultTheme,
       colors: {
         ...DefaultTheme.colors,
-        background: colors.screenBackground,
+        background: colors.backgroundMain,
       },
     }),
     [colors]

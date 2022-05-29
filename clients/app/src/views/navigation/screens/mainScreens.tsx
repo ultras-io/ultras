@@ -37,7 +37,7 @@ const SCREENS: ScreenNavigationConfig = {
           headerShown: true,
           headerBackVisible: false,
           headerTitle: () => (
-            <UltrasText style={styles.headerLogo} color="headerTitle">
+            <UltrasText style={styles.headerLogo} color="textHeader">
               ultras
             </UltrasText>
           ),
@@ -71,7 +71,7 @@ const SCREENS: ScreenNavigationConfig = {
           headerShown: true,
           headerBackVisible: false,
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="headerTitle">
+            <UltrasText style={styles.screenTitleLeft} color="textHeader">
               {I18n.t('matches')}
             </UltrasText>
           ),
@@ -91,7 +91,7 @@ const SCREENS: ScreenNavigationConfig = {
           headerShown: true,
           headerBackVisible: false,
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="headerTitle">
+            <UltrasText style={styles.screenTitleLeft} color="textHeader">
               {I18n.t('events')}
             </UltrasText>
           ),
@@ -109,7 +109,7 @@ const SCREENS: ScreenNavigationConfig = {
         component: Settings,
         options: {
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="headerTitle">
+            <UltrasText style={styles.screenTitleLeft} color="textHeader">
               {I18n.t('settings')}
             </UltrasText>
           ),
@@ -120,7 +120,7 @@ const SCREENS: ScreenNavigationConfig = {
         component: Notifications,
         options: {
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="headerTitle">
+            <UltrasText style={styles.screenTitleLeft} color="textHeader">
               {I18n.t('notifications')}
             </UltrasText>
           ),

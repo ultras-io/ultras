@@ -15,7 +15,7 @@ const ProfileListContainer: React.FC<IProfileListContainerProps> = ({ title }) =
   React.useEffect(() => {
     setOptions({
       headerTitle: () => (
-        <UltrasText style={gStyles.screenTitle} color={'tertiary'} numberOfLines={1}>
+        <UltrasText style={gStyles.screenTitle} color={'textHeader'} numberOfLines={1}>
           {title}
         </UltrasText>
       ),

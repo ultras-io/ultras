@@ -21,13 +21,13 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({}) => {
         headerBackTitleVisible: false,
         headerStyle: Platform.select({
           android: {
-            backgroundColor: colors.headerBackground,
+            backgroundColor: colors.backgroundMain,
           },
           ios: {
             backgroundColor: colors.transparent,
           },
         }),
-        headerTintColor: colors.headerNavigationButton,
+        headerTintColor: colors.iconNavigation,
       }}
     >
       {mainScreens.profile.screens.map(item => {

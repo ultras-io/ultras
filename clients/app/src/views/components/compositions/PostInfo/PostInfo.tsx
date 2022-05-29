@@ -34,15 +34,15 @@ const PostInfo: React.FC<PostInfoProps> = ({
       {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
 
       <View style={styles.container}>
-        <UltrasText style={styles.date} color="secondaryText">
+        <UltrasText style={styles.date} color="textSecondary">
           {date < new Date()
             ? moment(date).fromNow()
             : moment(date).format('MMM DD, hh:mm')}
         </UltrasText>
-        <UltrasText style={styles.title} color="tertiary">
+        <UltrasText style={styles.title} color="textTertiary">
           {title}
         </UltrasText>
-        <UltrasText style={styles.content} color="secondaryText">
+        <UltrasText style={styles.content} color="textSecondary">
           {content}
         </UltrasText>
         <View style={styles.creatorContainer}>
@@ -51,7 +51,7 @@ const PostInfo: React.FC<PostInfoProps> = ({
               () => pushTo(commonScreens.profile, { id: 67 }) // profileId
             }
           >
-            <UltrasText style={styles.creator} color="text">
+            <UltrasText style={styles.creator} color="textPrimary">
               {I18n.t('eventsBy')} {creator}
               {supportersClub && ', '}
             </UltrasText>
@@ -62,7 +62,7 @@ const PostInfo: React.FC<PostInfoProps> = ({
                 () => pushTo(commonScreens.supportersClub, { id: 67 }) // supporterClubsId
               }
             >
-              <UltrasText style={styles.creator} color="secondary">
+              <UltrasText style={styles.creator} color="textSecondary">
                 {supportersClub}
               </UltrasText>
             </Pressable>
@@ -72,14 +72,14 @@ const PostInfo: React.FC<PostInfoProps> = ({
           <View style={styles.like}>
             <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
           </View>
-          <Icon name={Icons.CommentsCount} color="secondaryText" size={20} />
-          <UltrasText style={styles.commentsText} color="text">
+          <Icon name={Icons.CommentsCount} color="textSecondary" size={20} />
+          <UltrasText style={styles.commentsText} color="textPrimary">
             {getReadableNumber(commentsCount)}
           </UltrasText>
         </View>
       </View>
       <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor={'quaternaryText'} />
+        <Divider type={DividerType.Horizontal} bgColor={'backgroundDivider'} />
       </View>
     </>
   );

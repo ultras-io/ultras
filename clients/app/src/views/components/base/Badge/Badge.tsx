@@ -24,7 +24,7 @@ const getStyles = (size: SizeEnum) => {
 const Badge: React.FC<IBadgeProps> = ({
   number,
   size = SizeEnum.Default,
-  color = 'text',
+  color = 'textPrimary',
   bgColor,
 }) => {
   const { bagdeStyles, numberStyles } = getStyles(size);

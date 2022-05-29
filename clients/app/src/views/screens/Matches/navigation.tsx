@@ -21,13 +21,13 @@ const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({}) => {
         headerBackTitleVisible: false,
         headerStyle: Platform.select({
           android: {
-            backgroundColor: colors.headerBackground,
+            backgroundColor: colors.backgroundMain,
           },
           ios: {
             backgroundColor: colors.transparent,
           },
         }),
-        headerTintColor: colors.headerNavigationButton,
+        headerTintColor: colors.iconNavigation,
       }}
     >
       {mainScreens.matches.screens.map(item => {

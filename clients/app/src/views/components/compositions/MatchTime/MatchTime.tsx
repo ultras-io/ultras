@@ -18,13 +18,13 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
     return formatDateAndTime(dateTime, matchStatus, elapsedTime);
   }, [dateTime, matchStatus, elapsedTime]);
 
-  const textColor = invert ? 'black' : 'textPrimary';
+  const textColor = invert ? 'textPrimaryInvert' : 'textPrimary';
 
   return (
     <View style={styles.container}>
-      <Divider type={DividerType.Horizontal} bgColor="lightGray" />
+      <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
       <View style={styles.logoWithTime}>
-        <Box bgColor={textColor} style={styles.logoContainer}>
+        <Box bgColor="backgroundLogo" style={styles.logoContainer}>
           <Image source={{ uri: leagueLogoURI }} style={styles.logo} />
         </Box>
         <View style={styles.dateTime}>
@@ -36,7 +36,7 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
           </UltrasText>
         </View>
       </View>
-      <Divider type={DividerType.Horizontal} bgColor="lightGray" />
+      <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
     </View>
   );
 };

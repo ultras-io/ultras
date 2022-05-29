@@ -22,13 +22,13 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = () => {
         headerBackTitleVisible: false,
         headerStyle: Platform.select({
           android: {
-            backgroundColor: colors.headerBackground,
+            backgroundColor: colors.backgroundMain,
           },
           ios: {
             backgroundColor: colors.transparent,
           },
         }),
-        headerTintColor: colors.headerNavigationButton,
+        headerTintColor: colors.iconNavigation,
       }}
     >
       {mainScreens.home.screens.map(item => {

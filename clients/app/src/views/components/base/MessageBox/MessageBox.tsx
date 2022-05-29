@@ -8,7 +8,9 @@ import styles from './styles';
 const MessageBox: React.FC<IMessageBoxProps> = ({ children, side = SideEnum.Left }) => {
   return (
     <Box
-      bgColor={side === SideEnum.Left ? 'text' : 'quaternary'}
+      bgColor={
+        side === SideEnum.Left ? 'backgroundMessageReceived' : 'backgroundMessageSent'
+      }
       style={[styles.container, side === SideEnum.Right ? styles.right : styles.left]}
     >
       {children}

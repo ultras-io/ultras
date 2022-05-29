@@ -12,15 +12,7 @@ const BluredView: React.FC<IBluredViewProps> = ({ children, style }) => {
 
   if (Platform.OS === 'android') {
     return (
-      <Box bgColor="cardBackground" style={[style, styles.whiteShadowed]}>
-        {children}
-      </Box>
-    );
-  }
-
-  if (!isDarkMode) {
-    return (
-      <Box bgColor="white" style={[style, styles.whiteShadowed]}>
+      <Box bgColor="backgroundCard" style={[style, styles.whiteShadowed]}>
         {children}
       </Box>
     );

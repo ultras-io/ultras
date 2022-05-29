@@ -16,7 +16,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   const renderRow = React.useCallback(
     ({ item }) => (
       <Box
-        bgColor={'opacityBgColor'}
+        bgColor={'backgroundInput'}
         style={[
           styles.row,
           item === data[0] && styles.firstRow,
@@ -24,7 +24,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         ]}
       >
         <Box
-          borderColor={'opacityBgColor'}
+          borderColor={'backgroundInput'}
           style={[
             styles.borderedRow,
             item === data[data.length - 1] && styles.lastBorderedRow,
@@ -34,16 +34,16 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
             {dataType === dataTypeEnum.Team ? (
               <>
                 <Image source={{ uri: item.logo }} style={styles.logo} />
-                <UltrasText style={styles.text} color="text">
+                <UltrasText style={styles.text} color="textPrimary">
                   {item.name}
                 </UltrasText>
               </>
             ) : (
               <>
-                <UltrasText style={styles.text} color="text">
+                <UltrasText style={styles.text} color="textPrimary">
                   {item.name}
                 </UltrasText>
-                <UltrasText style={styles.text} color="tertiaryText">
+                <UltrasText style={styles.text} color="textTertiary">
                   {' '}
                   {item.telPrefix}
                 </UltrasText>
@@ -61,11 +61,11 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   // }, [data]);
 
   return (
-    <Box bgColor="background" style={styles.flexList}>
+    <Box bgColor="backgroundMain" style={styles.flexList}>
       <FlatList
         // ref={flatListRef}
         ListFooterComponent={
-          <UltrasText color="secondaryText" style={styles.footerText}>
+          <UltrasText color="textSecondary" style={styles.footerText}>
             {I18n.t('canChangeClub')}
           </UltrasText>
         }

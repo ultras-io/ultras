@@ -106,8 +106,7 @@ const UIKit: React.FC = () => {
           appearance={ButtonAppearance.Outline}
           boxSize={ButtonBoxSize.Contain}
           size={ButtonSize.Default}
-          color="text"
-          bgColor="primary"
+          color="textPrimary"
           icon={IconNamesEnum.Hearth}
           iconPosition={ButtonIconPosition.Left}
         />
