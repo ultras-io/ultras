@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import { ImageBackground } from 'react-native';
-
-import UltrasText from 'views/components/base/UltrasText';
-
+import { Text } from 'native-base';
 import { ISplashProps } from './types';
-import styles from './styles';
 import gStyles from 'styles/styles';
-
 import bg from 'assets/images/bg.png';
 
 const Splash: React.FC<ISplashProps> = ({ setIsLoading }) => {
@@ -18,9 +14,15 @@ const Splash: React.FC<ISplashProps> = ({ setIsLoading }) => {
 
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
-      <UltrasText style={styles.logo} color="textPrimary">
+      <Text
+        variant="primary"
+        fontWeight="600"
+        fontSize="8xl"
+        marginBottom={210}
+        fontFamily={'MontserratAlternates'}
+      >
         ultras
-      </UltrasText>
+      </Text>
     </ImageBackground>
   );
 };

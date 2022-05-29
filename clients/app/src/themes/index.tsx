@@ -11,6 +11,7 @@ import configs from './theming/configs';
 import theme from './theming/theme';
 import colors from './theming/colors';
 
+// @TODO styles component will be removed
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 declare module 'styled-components' {
   export interface ThemeInterface {

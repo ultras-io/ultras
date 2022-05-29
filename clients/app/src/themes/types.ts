@@ -1,23 +1,10 @@
-// export type ColorCommonKey =
-//   | 'transparent'
-//   | 'white'
-//   | 'black'
-//   | 'lightGray'
-//   | 'darkGray'
-//   | 'gray'
-//   | 'success'
-//   | 'danger'
-//   | 'cardSilverBackground'
-//   | 'navigationTabInactive'
-//   | 'navigationTabActive'
-//   | 'navigationTabBackground';
-
 export type ColorKey =
   | 'transparent'
   | 'iconPrimary'
   | 'iconSecondary'
   | 'iconNavigation'
   | 'iconNotification'
+  | 'iconUpdatesCount'
   | 'iconVerified'
   | 'backgroundMain'
   | 'backgroundCard'
@@ -50,8 +37,6 @@ export type ColorKey =
   | 'textQuinaryInvert'
   | 'textSenaryInvert'
   | 'textSeptenaryInvert';
-
-// export type ColorKey = ColorCommonKey | ColorThemeKey;
 
 export type ColorGroup<T extends string> = Record<T, string>;
 

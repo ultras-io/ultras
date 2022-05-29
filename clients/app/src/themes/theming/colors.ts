@@ -8,6 +8,7 @@ const dark: ColorType = {
   iconSecondary: 'rgba(255, 255, 255, 0.8)',
   iconNavigation: '#AB9760',
   iconNotification: '#E54D00',
+  iconUpdatesCount: '#000',
   iconVerified: '#47C471',
 
   backgroundMain: '#272829',
