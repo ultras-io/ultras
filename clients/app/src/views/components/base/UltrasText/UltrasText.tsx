@@ -43,7 +43,7 @@ const UltrasText: React.FC<IUltrasTextProps> = ({
 
     finalFontFamily = finalFontFamily || '';
     finalFontWeight = finalFontWeight || theming.fontWeights.normal.toString();
-    finalFontSize = finalFontSize || theming.fontSizes.md;
+    finalFontSize = finalFontSize || theming.fontSizes['2xl'];
 
     finalTextStyle = {
       ...finalTextStyle,
