@@ -1,8 +1,9 @@
-import { extendTheme, Theme as NativeBaseThemeInterface } from 'native-base';
+import { extendTheme } from 'native-base';
 import optionsFontConfig from './options/fontConfigs';
 import optionsFontSizes from './options/fontSizes';
+import optionsSpaces from './options/spaces';
 
-const theme = extendTheme<Partial<NativeBaseThemeInterface>>({
+const theme = extendTheme({
   config: {
     initialColorMode: 'dark',
     useSystemColorMode: false,
@@ -10,6 +11,7 @@ const theme = extendTheme<Partial<NativeBaseThemeInterface>>({
 
   fontConfig: optionsFontConfig,
   fontSizes: optionsFontSizes,
+  space: optionsSpaces,
 });
 
 export default theme;
