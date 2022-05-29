@@ -39,7 +39,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
           </UltrasText>
         </View>
         <View style={styles.info}>
-          <Box bgColor="white" style={styles.leagueLogoContainer}>
+          <Box bgColor="backgroundLogo" style={styles.leagueLogoContainer}>
             <Image source={{ uri: data.league.logo }} style={styles.leagueLogo} />
           </Box>
           <UltrasText
@@ -105,14 +105,14 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
           title={I18n.t('eventsCreate')}
           onPress={() => pushTo(commonScreens.newEvent.name)}
           color="textPrimaryInvert"
-          bgColor="screenBackgroundInvert"
+          bgColor="buttonAction"
           icon={Icons.Add}
           iconPosition={ButtonIconPosition.Left}
         />
       </View>
 
       <View style={styles.divider}>
-        <Divider type={DividerType.Horizontal} bgColor="divider" />
+        <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
       </View>
     </>
   );

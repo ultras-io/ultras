@@ -18,7 +18,7 @@ const Splash: React.FC<ISplashProps> = ({ setIsLoading }) => {
 
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
-      <UltrasText style={styles.logo} color="white">
+      <UltrasText style={styles.logo} color="textPrimary">
         ultras
       </UltrasText>
     </ImageBackground>

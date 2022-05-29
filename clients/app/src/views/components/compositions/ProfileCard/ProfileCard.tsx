@@ -27,10 +27,10 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
           <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
         </View>
         <View style={styles.info}>
-          <UltrasText color="text" style={styles.username} numberOfLines={1}>
+          <UltrasText color="textPrimary" style={styles.username} numberOfLines={1}>
             {username}
           </UltrasText>
-          <UltrasText color="text" style={styles.name} numberOfLines={1}>
+          <UltrasText color="textPrimary" style={styles.name} numberOfLines={1}>
             {name}
           </UltrasText>
         </View>

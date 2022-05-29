@@ -22,14 +22,14 @@ const FanClubAbout: React.FC<IFanClubAboutProps> = ({ route }) => {
           appearance={ButtonAppearance.Minimal}
           boxSize={ButtonBoxSize.Contain}
           title={I18n.t('close')}
-          color={'secondary'}
+          color={'buttonSecondary'}
           onPress={goBack}
         />
       </View>
-      <UltrasText color="text" style={styles.title}>
+      <UltrasText color="textPrimary" style={styles.title}>
         About
       </UltrasText>
-      <UltrasText color="secondaryText" style={styles.text}>
+      <UltrasText color="textSecondary" style={styles.text}>
         {description}
       </UltrasText>
     </WithSafeArea>

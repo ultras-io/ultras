@@ -3,7 +3,7 @@ import Box from 'views/components/base/Box';
 import styles from './styles';
 
 const Loader = () => {
-  return <Box style={styles.container} bgColor="screenBackground" />;
+  return <Box style={styles.container} bgColor="backgroundMain" />;
 };
 
 export default Loader;

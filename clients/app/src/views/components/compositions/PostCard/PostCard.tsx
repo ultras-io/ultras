@@ -29,19 +29,19 @@ const PostCard: React.FC<IPostCardProps> = ({
   return (
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
-        <UltrasText style={styles.date} color="text">
+        <UltrasText style={styles.date} color="textPrimary">
           {moment(date).fromNow()}
         </UltrasText>
-        <UltrasText style={styles.title} color="text">
+        <UltrasText style={styles.title} color="textPrimary">
           {title}
         </UltrasText>
         <View style={styles.creatorContainer}>
-          <UltrasText style={styles.creator} color="text">
+          <UltrasText style={styles.creator} color="textPrimary">
             {I18n.t('eventsBy')} {creator}
             {supportersClub && ', '}
           </UltrasText>
           {supportersClub && (
-            <UltrasText style={styles.creator} color="secondary">
+            <UltrasText style={styles.creator} color="textSecondary">
               {supportersClub}
             </UltrasText>
           )}

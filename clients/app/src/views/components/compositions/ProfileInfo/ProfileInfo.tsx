@@ -24,10 +24,10 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({
           <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
         </View>
         <View style={styles.info}>
-          <UltrasText color="tertiary" style={styles.name}>
+          <UltrasText color="textTertiary" style={styles.name}>
             {name}
           </UltrasText>
-          <UltrasText color="tertiaryText" style={styles.username} numberOfLines={1}>
+          <UltrasText color="textTertiary" style={styles.username} numberOfLines={1}>
             {username}
           </UltrasText>
         </View>

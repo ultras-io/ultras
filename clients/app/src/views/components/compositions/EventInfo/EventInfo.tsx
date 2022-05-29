@@ -57,7 +57,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
               () => pushTo(commonScreens.match.name, { id: 67 }) // matchId
             }
             color="textPrimaryInvert"
-            bgColor="infoBadge"
+            bgColor="backgroundCardInvert"
             size={ButtonSize.Small}
             boxSize={ButtonBoxSize.Contain}
           />
@@ -85,7 +85,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
                 () => pushTo(commonScreens.fanClub.name, { id: 67 }) // supporterClubsId
               }
             >
-              <UltrasText style={styles.creator} color="textActive">
+              <UltrasText style={styles.creator} color="textAction">
                 {supportersClub}
               </UltrasText>
             </Pressable>
@@ -129,22 +129,22 @@ const EventInfo: React.FC<EventInfoProps> = ({
               onPress={() => {}}
               boxSize={ButtonBoxSize.Cover}
               size={ButtonSize.Big}
-              color="white"
-              bgColor="success"
+              color="textPrimary"
+              bgColor="buttonAction"
               icon={isGoing ? Icons.Check : undefined}
               iconPosition={ButtonIconPosition.Right}
             />
           </View>
           <Box
             style={styles.likeButton}
-            borderColor={isLiked ? 'likeButtonActive' : 'likeButtonInactive'}
+            borderColor={isLiked ? 'buttonAction' : 'buttonActionInvert'}
           >
             <Like isLiked={isLiked} onPress={() => {}} />
           </Box>
         </View>
       </View>
       <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor={'white'} />
+        <Divider type={DividerType.Horizontal} bgColor={'backgroundDivider'} />
       </View>
     </>
   );

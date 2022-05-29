@@ -29,17 +29,17 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
   const name = dataKey === dataTypeEnum.Country ? I18n.t('country') : I18n.t('team');
 
   return (
-    <Box bgColor="screenBackground" style={styles.container}>
+    <Box bgColor="backgroundMain" style={styles.container}>
       <View style={styles.closeButton}>
         <Button
           appearance={ButtonAppearance.Minimal}
           boxSize={ButtonBoxSize.Contain}
           title={I18n.t('close')}
-          color={'secondary'}
+          color={'buttonSecondary'}
           onPress={goBack}
         />
       </View>
-      <UltrasText style={styles.title} color="text">
+      <UltrasText style={styles.title} color="textPrimary">
         {I18n.t('select')} {name}
       </UltrasText>
       <View style={styles.searchRow}>

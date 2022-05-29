@@ -60,15 +60,15 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({ passStep }) 
       <FourDigitsInput onFill={onFill} />
       <View style={styles.textAndButton}>
         {isFilledWrong && (
-          <UltrasText style={styles.text} color={'tertiaryText'}>
-            <Icon key="icon" name={Icons.Warning} size={12} color="secondary" />{' '}
+          <UltrasText style={styles.text} color={'textTertiary'}>
+            <Icon key="icon" name={Icons.Warning} size={12} color="iconNotification" />{' '}
             {I18n.t('joinUsWrongCode')}
           </UltrasText>
         )}
         <Button
           appearance={ButtonAppearance.UnderLined}
           size={ButtonSize.Small}
-          color="quaternary"
+          color="textQuaternary"
           isDisabled={waitingTime > 0}
           title={
             waitingTime > 0

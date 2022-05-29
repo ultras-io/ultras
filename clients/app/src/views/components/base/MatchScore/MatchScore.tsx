@@ -17,7 +17,7 @@ const MatchScore: React.FC<IMatchScoreProps> = ({
       ? invert
         ? 'textSecondary'
         : 'textPrimary'
-      : 'success';
+      : 'textAction';
 
   return (
     <UltrasText style={[styles.score, size === 'big' ? styles.big : null]} color={color}>

@@ -24,7 +24,7 @@ const SCREENS: RootNavigationScreens = {
       headerBackVisible: false,
       headerShadowVisible: false,
       headerTitle: () => (
-        <UltrasText style={styles.headerTitle} color="textPrimary">
+        <UltrasText style={styles.headerTitle} color="textHeader">
           {I18n.t('joinUs')}
         </UltrasText>
       ),

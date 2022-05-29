@@ -19,7 +19,7 @@ const EventsContainer: React.FC<IEventsContainerProps> = () => {
   React.useEffect(getData, []);
 
   return (
-    <Box style={styles.container} bgColor="screenBackground">
+    <Box style={styles.container} bgColor="backgroundMain">
       <EventsComponent data={data} onEndReached={getData} />
     </Box>
   );

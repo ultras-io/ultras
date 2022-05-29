@@ -34,13 +34,13 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
             {data.type === TeamTypesEnum.club && (
               <>
                 <View style={styles.divider}>
-                  <Divider bgColor="textSecondary" />
+                  <Divider bgColor="backgroundDivider" />
                 </View>
                 <UltrasText style={styles.text} color="textSecondary">
                   {data.country.name}
                 </UltrasText>
                 <View style={styles.divider}>
-                  <Divider bgColor="textSecondary" />
+                  <Divider bgColor="backgroundDivider" />
                 </View>
                 <UltrasText style={styles.text} color="textSecondary">
                   {data.city.name}

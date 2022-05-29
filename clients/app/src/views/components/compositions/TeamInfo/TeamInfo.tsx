@@ -20,7 +20,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
           <Avatar avatarUri={data.logo} size={AvatarSize.ExtraBig} isTeam />
         </View>
         <View style={styles.info}>
-          <UltrasText color="sectionTitle" style={styles.name}>
+          <UltrasText color="textSectionHeader" style={styles.name}>
             {data.name}
           </UltrasText>
           <UltrasText color="textSecondary">
@@ -32,8 +32,8 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
             <Button
               title={isFavorite ? I18n.t('teamInFavorites') : I18n.t('teamAdd')}
               onPress={() => {}}
-              color={isFavorite ? 'white' : 'textPrimaryInvert'}
-              bgColor={isFavorite ? 'success' : 'screenBackgroundInvert'}
+              color={isFavorite ? 'textPrimary' : 'textPrimaryInvert'}
+              bgColor={isFavorite ? 'buttonAction' : 'buttonActionInvert'}
               icon={Icons.Hearth}
               iconPosition={ButtonIconPosition.Left}
             />
@@ -41,7 +41,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
         </View>
       </View>
 
-      <Divider type={DividerType.Horizontal} bgColor="divider" />
+      <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
     </>
   );
 };

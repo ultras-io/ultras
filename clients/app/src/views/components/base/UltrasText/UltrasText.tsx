@@ -56,7 +56,7 @@ const UltrasText: React.FC<IUltrasTextProps> = ({
   return (
     <Text
       style={textStyle}
-      color={color ? colors[color] : colors.textInvert}
+      color={color ? colors[color] : colors.textPrimaryInvert}
       adjustsFontSizeToFit={true}
       allowFontScaling={true}
       numberOfLines={numberOfLines}

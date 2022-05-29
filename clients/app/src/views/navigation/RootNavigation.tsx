@@ -36,10 +36,10 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
     <React.Suspense fallback={<Loader />}>
       <StatusBar
         barStyle={!isDarkMode ? 'dark-content' : 'light-content'}
-        backgroundColor={colors.headerBackground}
+        backgroundColor={colors.backgroundMain}
       />
 
-      <Box bgColor="screenBackground" style={styles.app}>
+      <Box bgColor="backgroundMain" style={styles.app}>
         <Stack.Navigator
           // initialRouteName={rootScreens.intro.name}
           initialRouteName={rootScreens.joinUs.name}
@@ -47,13 +47,12 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
             headerShown: false,
             headerStyle: Platform.select({
               android: {
-                backgroundColor: colors.headerBackground,
+                backgroundColor: colors.backgroundMain,
               },
               ios: {
                 backgroundColor: colors.transparent,
               },
             }),
-
           }}
         >
           {isAuthenticated ? (

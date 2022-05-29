@@ -135,7 +135,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
             // isDisabled={true}
             onPress={onPress}
             size={ButtonSize.Big}
-            bgColor="primary"
+            bgColor="buttonPrimary"
           />
         </View>
       );
@@ -192,7 +192,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
   const getMessageSubText = React.useCallback(
     item =>
       !isLocationEnabled && item.action.type === ActionTypeEnum.AllowLocation ? (
-        <UltrasText style={styles.actionSubText} color="text">
+        <UltrasText style={styles.actionSubText} color="textPrimary">
           {I18n.t('joinUsLocationNotEnabledText')}
         </UltrasText>
       ) : null,
@@ -203,7 +203,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
     item => (
       <>
         <MessageBox side={MessageSide.Right}>
-          <UltrasText style={styles.actionText} color="text">
+          <UltrasText style={styles.actionText} color="textPrimary">
             <Icon key="icon" name={getMessageIcon(item)} size={12} />{' '}
             {getMessageText(item)}
           </UltrasText>
@@ -237,7 +237,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
               <Button
                 appearance={ButtonAppearance.UnderLined}
                 size={ButtonSize.Small}
-                color="quaternary"
+                color="buttonPrimary"
                 title={I18n.t('changeNumber')}
                 onPress={changeNumber}
               />

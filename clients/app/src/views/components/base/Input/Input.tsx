@@ -41,9 +41,9 @@ const Input: React.FC<IInputProps> = ({
     () => ({
       ...styles.input,
       ...(withBorder ? styles.inputBorder : {}),
-      borderColor: colors.inputBackground,
-      backgroundColor: colors.inputBackground,
-      color: colors.inputForeground,
+      borderColor: colors.backgroundInput,
+      backgroundColor: colors.backgroundInput,
+      color: colors.textQuinary,
     }),
     [colors, withBorder]
   );
@@ -107,10 +107,10 @@ const Input: React.FC<IInputProps> = ({
         <Pressable onPress={openSelectModal}>
           <Box
             style={styles.select}
-            borderColor="inputBackground"
-            bgColor="inputBackground"
+            borderColor="backgroundInput"
+            bgColor="backgroundInput"
           >
-            <UltrasText color={_value ? 'inputForegroundOpacity' : 'inputForeground'}>
+            <UltrasText color={_value ? 'textSenary' : 'textQuinary'}>
               {_value ? _value : name}
             </UltrasText>
             <View style={styles.icon}>
@@ -129,14 +129,14 @@ const Input: React.FC<IInputProps> = ({
           placeholder={name}
           keyboardType={keyboardTypes[type]}
           autoCorrect={false}
-          placeholderTextColor={colors.inputForeground}
-          selectionColor={colors.inputForeground}
+          placeholderTextColor={colors.textSenary}
+          selectionColor={colors.textQuinary}
           autoCapitalize="none"
           clearButtonMode={'always'}
           borderRadius={10}
-          color={colors.inputBackground}
+          color={colors.textPrimary}
           _focus={{
-            color: colors.inputBackground,
+            backgroundColor: colors.backgroundInput,
           }}
         />
       )}

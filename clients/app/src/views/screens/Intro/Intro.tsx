@@ -22,10 +22,10 @@ const Intro: React.FC<IIntroProps> = () => {
 
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
-      <UltrasText style={styles.logo} color="text">
+      <UltrasText style={styles.logo} color="textPrimary">
         ultras
       </UltrasText>
-      <UltrasText style={styles.text} color={'secondaryText'}>
+      <UltrasText style={styles.text} color={'textSecondary'}>
         {I18n.t('splashText')}
       </UltrasText>
       <View style={styles.buttons}>
@@ -33,7 +33,7 @@ const Intro: React.FC<IIntroProps> = () => {
           title={I18n.t('introLetMeIn')}
           onPress={() => pushTo(rootScreens.joinUs.name)}
           size={ButtonSize.Big}
-          bgColor={'primary'}
+          bgColor={'buttonPrimary'}
         />
         <Button
           title={I18n.t('privacy')}

@@ -29,13 +29,13 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         </View>
         <View style={styles.info}>
           <View style={styles.nameContainer}>
-            <UltrasText color="sectionTitle" style={styles.name}>
+            <UltrasText color="textSectionHeader" style={styles.name}>
               {data.name}
             </UltrasText>
 
             {data.isOfficial && (
               <View style={styles.badge}>
-                <Icon name={Icons.Badge} color="success" size={20} />
+                <Icon name={Icons.Badge} color="iconVerified" size={20} />
               </View>
             )}
           </View>
@@ -74,7 +74,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
               title={I18n.t('fanClubJoin')}
               onPress={() => {}}
               color="textPrimaryInvert"
-              bgColor="screenBackgroundInvert"
+              bgColor="buttonAction"
               icon={Icons.ArrowRightSquare}
               iconPosition={ButtonIconPosition.Left}
             />
@@ -82,7 +82,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         </View>
       </View>
       <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor="divider" />
+        <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
       </View>
     </>
   );

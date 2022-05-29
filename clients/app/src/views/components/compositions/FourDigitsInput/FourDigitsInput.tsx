@@ -16,10 +16,10 @@ const StyledInput = styled.TextInput<{
   theme: ThemeInterface;
 }>`
   background-color: ${({ theme }) => {
-    return theme.colors.text;
+    return theme.colors.textPrimary;
   }};
   border-color: ${({ theme, isActive }) => {
-    return isActive ? theme.colors.quaternary : theme.colors.textInvert;
+    return isActive ? theme.colors.textQuaternary : theme.colors.textQuaternaryInvert;
   }};
 `;
 
@@ -97,7 +97,7 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ theme, onFill }) => 
   );
 
   return (
-    <Box style={styles.container} bgColor={'text'}>
+    <Box style={styles.container} bgColor={'textPrimary'}>
       <UltrasText style={styles.text}>4-digit confirmation code</UltrasText>
       <View style={styles.inputs}>
         {refs.map((ref, i) => (
@@ -114,8 +114,8 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ theme, onFill }) => 
               onChange={Platform.OS === 'android' ? onChangeAndroid(i) : undefined}
               keyboardType={'numeric'}
               autoCorrect={false}
-              placeholderTextColor={theme?.colors.background}
-              selectionColor={theme?.colors.background}
+              placeholderTextColor={theme?.colors.backgroundMain}
+              selectionColor={theme?.colors.backgroundMain}
               autoCapitalize="none"
               caretHidden={true}
             />

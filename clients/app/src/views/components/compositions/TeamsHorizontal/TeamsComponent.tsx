@@ -18,7 +18,7 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({
         <View style={styles.avatar}>
           <Avatar avatarUri={item.logo} isTeam />
         </View>
-        <UltrasText color="text" style={styles.name}>
+        <UltrasText color="textPrimary" style={styles.name}>
           {item.name}
         </UltrasText>
       </Pressable>

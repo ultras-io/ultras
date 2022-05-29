@@ -14,7 +14,7 @@ const Like: React.FC<ILikeProps> = ({ isLiked = false, count = 0, onPress }) => 
     <Pressable onPress={onPress} style={styles.container}>
       <Icon
         name={isLiked ? Icons.Liked : Icons.Like}
-        color={isLiked ? 'likeButtonActive' : 'likeButtonInactive'}
+        color={isLiked ? 'buttonAction' : 'buttonActionInvert'}
         size={24}
       />
 

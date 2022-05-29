@@ -17,7 +17,7 @@ const SCREENS: TabNavigationScreens = {
         <Icon
           name={Icons.Home}
           size={24}
-          color={focused ? 'navigationTabActive' : 'navigationTabInactive'}
+          color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
     },
@@ -30,7 +30,7 @@ const SCREENS: TabNavigationScreens = {
         <Icon
           name={Icons.Search}
           size={24}
-          color={focused ? 'navigationTabActive' : 'navigationTabInactive'}
+          color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
     },
@@ -43,7 +43,7 @@ const SCREENS: TabNavigationScreens = {
         <Icon
           name={Icons.Match}
           size={24}
-          color={focused ? 'navigationTabActive' : 'navigationTabInactive'}
+          color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
     },
@@ -56,7 +56,7 @@ const SCREENS: TabNavigationScreens = {
         <Icon
           name={Icons.Event}
           size={24}
-          color={focused ? 'navigationTabActive' : 'navigationTabInactive'}
+          color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
     },
