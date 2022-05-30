@@ -6,7 +6,7 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
   SizeEnum as ButtonSize,
 } from 'views/components/base/Button';
-import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/Badge';
+import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/WithBadge';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import ProfileContainer from './containers/ProfileContainer';
 import { IProfileProps } from './types';
