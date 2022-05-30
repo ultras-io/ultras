@@ -1,73 +1,71 @@
 import React from 'react';
-import { View, Pressable } from 'react-native';
-import { Divider, Center } from 'native-base';
+import { Center, Avatar, Text, VStack, HStack, Pressable } from 'native-base';
+import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
-import { useTheme } from 'themes';
 import BluredView from 'views/components/base/BluredView';
-import UltrasText from 'views/components/base/UltrasText';
-import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IFanClubCardProps } from './types';
 import styles from './styles';
 
-const stylesDictionary = {
-  [AvatarSize.Small]: styles.small,
-  [AvatarSize.Default]: styles.default,
-  [AvatarSize.Big]: styles.big,
-  [AvatarSize.ExtraBig]: styles.extraBig,
-};
+// @TODO will be removed when backend will provide working URIs
+const avatarURI =
+  'https://sun9-west.userapi.com/sun9-45/s/v1/ig2/9PudeHuKhNxah9LmPaWaitRu21WykeBA57r78KFmgXmtPDSYuVIxFxrLSGRH1uH6gLJviz702FjNa1YmmrYwMh9q.jpg?size=1080x1080&quality=95&type=album';
 
 const FanClubCard: React.FC<IFanClubCardProps> = ({
   data,
-  avatarSize = AvatarSize.Big,
   direction = 'vertical',
   onPress,
 }) => {
-  const { colors } = useTheme();
-
   return (
     <Pressable onPress={onPress}>
       {direction === 'vertical' ? (
         <BluredView style={styles.container}>
-          <View style={styles.avatar}>
-            <Avatar avatarUri={data.avatar} size={AvatarSize.Default} />
-          </View>
-          <View style={styles.info}>
-            <UltrasText color="textPrimary" style={styles.name}>
+          <Avatar source={{ uri: avatarURI }} mr={15} />
+          <VStack flex="1" justifyContent={'center'}>
+            <Text
+              variant={'sectionHeader'}
+              fontFamily={'Montserrat'}
+              fontWeight={'700'}
+              fontSize={'2xl'}
+              lineHeight={'sm'}
+              numberOfLines={3}
+            >
               {data.name}
-            </UltrasText>
-            <View style={styles.line}>
-              <UltrasText color="textPrimary" style={styles.text}>
+            </Text>
+            <HStack>
+              <Text variant={'quinary'} fontSize={'lg'}>
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
-              </UltrasText>
-              <Center>
-                <Divider
-                  orientation="vertical"
-                  mx={2}
-                  height={2}
-                  bg={colors.backgroundDividerTransparent}
-                />
-              </Center>
-              <UltrasText color="textSecondary" style={styles.text}>
+              </Text>
+              <VerticalDivider />
+              <Text variant={'quinary'} fontSize={'lg'}>
                 {data.city.name}
-              </UltrasText>
-            </View>
-          </View>
+              </Text>
+            </HStack>
+          </VStack>
         </BluredView>
       ) : (
-        <View style={[styles.containerH, stylesDictionary[avatarSize]]}>
-          <View style={styles.avatarH}>
-            <Avatar avatarUri={data.avatar} size={avatarSize} />
-          </View>
-          <UltrasText color="textPrimary" style={styles.nameH} numberOfLines={2}>
+        <Center paddingX={2} width={100}>
+          <Avatar source={{ uri: avatarURI }} size={'av-lg'} mb={2} />
+          <Text
+            variant={'primary'}
+            fontSize={'sm'}
+            fontWeight={'500'}
+            textAlign={'center'}
+            numberOfLines={2}
+          >
             {data.name}
-          </UltrasText>
+          </Text>
           {data.membersCount && (
-            <UltrasText color="textSecondary" style={styles.ultrasCountH}>
+            <Text
+              variant={'senary'}
+              fontSize={'sm'}
+              fontWeight={'500'}
+              textAlign={'center'}
+            >
               {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
-            </UltrasText>
+            </Text>
           )}
-        </View>
+        </Center>
       )}
     </Pressable>
   );

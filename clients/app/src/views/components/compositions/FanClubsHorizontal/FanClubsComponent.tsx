@@ -8,7 +8,6 @@ import styles from './styles';
 
 const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
   data,
-  avatarSize,
   withBounce,
   onEndReached,
 }) => {
@@ -19,11 +18,10 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
       <FanClubCard
         onPress={() => pushTo(commonScreens.fanClub.name, { data: item })}
         data={item}
-        avatarSize={avatarSize}
         direction="horizontal"
       />
     ),
-    [pushTo, avatarSize]
+    [pushTo]
   );
 
   return (

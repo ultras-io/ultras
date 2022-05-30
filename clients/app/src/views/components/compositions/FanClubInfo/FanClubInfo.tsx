@@ -1,23 +1,13 @@
 import React from 'react';
-import { View, Pressable } from 'react-native';
-import { Divider, Center } from 'native-base';
+import { Divider, Avatar, Pressable, Text, HStack, VStack } from 'native-base';
+import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
-import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import UltrasText from 'views/components/base/UltrasText';
-import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
-import Button, {
-  AppearanceEnum as ButtonAppearance,
-  BoxSizeEnum as ButtonBoxSize,
-  IconPositionEnum as ButtonIconPosition,
-} from 'views/components/base/Button';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
-import styles from './styles';
 
 const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
@@ -25,24 +15,27 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.avatar}>
-          <Avatar avatarUri={data.avatar} size={AvatarSize.ExtraBig} />
-        </View>
-        <View style={styles.info}>
-          <View style={styles.nameContainer}>
-            <UltrasText color="textSectionHeader" style={styles.name}>
-              {data.name}
-            </UltrasText>
-
-            {data.isOfficial && (
-              <View style={styles.badge}>
-                <Icon name={Icons.Badge} color="iconVerified" size={20} />
-              </View>
-            )}
-          </View>
-
-          <View style={styles.line}>
+      <HStack px={5} py={5}>
+        <Avatar
+          size="av-xl"
+          mr={5}
+          bg={colors.iconUpdatesCount}
+          source={{ uri: data.avatar }}
+        />
+        <VStack flex={'1'}>
+          <Text
+            variant={'sectionHeader'}
+            fontFamily={'Montserrat'}
+            fontWeight={'600'}
+            fontSize={'4xl'}
+            lineHeight={'sm'}
+            numberOfLines={3}
+            letterSpacing={'-0.24px'}
+            mb={1}
+          >
+            {data.name}
+          </Text>
+          <HStack>
             <Pressable
               onPress={() =>
                 pushTo(commonScreens.profileList.name, {
@@ -51,32 +44,26 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
                 })
               }
             >
-              <UltrasText color="textSecondary" style={styles.text}>
+              <Text variant={'quinary'} fontSize={'lg'}>
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
-              </UltrasText>
+              </Text>
             </Pressable>
-            <Center>
-              <Divider
-                orientation="vertical"
-                mx={2}
-                height={2}
-                bg={colors.backgroundDividerTransparent}
-              />
-            </Center>
-            <UltrasText color="textSecondary" style={styles.text}>
+            <VerticalDivider />
+            <Text variant={'quinary'} fontSize={'lg'}>
               {data.city.name}
-            </UltrasText>
-          </View>
-          <Button
-            title={data.team.name}
-            onPress={() => pushTo(commonScreens.team.name, { data: data.team })}
-            boxSize={ButtonBoxSize.Contain}
-            appearance={ButtonAppearance.Minimal}
-            color="textSecondary"
-            icon={Icons.Team}
-            iconPosition={ButtonIconPosition.Left}
-          />
-          <View style={styles.joinButton}>
+            </Text>
+          </HStack>
+
+          <Pressable onPress={() => pushTo(commonScreens.team.name, { data: data.team })}>
+            <HStack>
+              {/* <Icon /> */}
+              <Text variant={'quinary'} fontSize={'xl'} fontWeight={'700'}>
+                {data.team.name}
+              </Text>
+            </HStack>
+          </Pressable>
+
+          {/* <View >
             <Button
               title={I18n.t('fanClubJoin')}
               onPress={() => {}}
@@ -85,9 +72,9 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
               icon={Icons.ArrowRightSquare}
               iconPosition={ButtonIconPosition.Left}
             />
-          </View>
-        </View>
-      </View>
+          </View> */}
+        </VStack>
+      </HStack>
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} />
     </>
   );

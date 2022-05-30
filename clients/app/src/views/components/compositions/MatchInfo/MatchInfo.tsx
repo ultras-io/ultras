@@ -1,20 +1,13 @@
 import React from 'react';
-import { View, Image } from 'react-native';
-import { Divider } from 'native-base';
-import I18n from 'i18n/i18n';
+import { Divider, Image, Text, HStack, VStack } from 'native-base';
 import { useTheme } from 'themes';
+import TeamInfo from './TeamInfo';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import MatchScore from 'views/components/base/MatchScore';
 import { formatDateAndTime, isMatchGoing } from 'utils/helpers/matchTime';
 import { MatchStatusesEnum } from '@ultras/utils';
 import Box from 'views/components/base/Box';
-import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
-import UltrasText from 'views/components/base/UltrasText';
-import Button, {
-  IconPositionEnum as ButtonIconPosition,
-} from 'views/components/base/Button';
-import { IconNamesEnum as Icons } from 'assets/icons';
 import { IMatchInfoProps } from '../MatchCard/types';
 import styles from './styles';
 
@@ -28,81 +21,81 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.team}>
-          <Avatar
-            onPress={() => pushTo(commonScreens.team.name, { data: data.teamHome })}
-            avatarUri={data.teamHome.logo}
-            size={AvatarSize.Big}
-            isTeam
-          />
-          <UltrasText style={styles.teamName} color="textPrimary" numberOfLines={2}>
-            {data.teamHome.name}
-          </UltrasText>
-        </View>
-        <View style={styles.info}>
+      <HStack mx={15} my={15}>
+        <TeamInfo
+          onPress={() => pushTo(commonScreens.team.name, { data: data.teamHome })}
+          name={data.teamHome.name}
+          logo={data.teamHome.logo}
+        />
+        <VStack flex={5} alignItems={'center'}>
           <Box bgColor="backgroundLogo" style={styles.leagueLogoContainer}>
             <Image source={{ uri: data.league.logo }} style={styles.leagueLogo} />
           </Box>
-          <UltrasText
-            color="textPrimary"
-            style={styles.leagueVenueText}
+
+          <Text
+            variant={'primary'}
+            textAlign={'center'}
+            fontSize={'xs'}
+            maxW={130}
             numberOfLines={1}
           >
             {data.league.name}
-          </UltrasText>
+          </Text>
+
           {/* @TODO - show game minute for live matches */}
           {isMatchGoing(data.status) || data.status === MatchStatusesEnum.finished ? (
-            <View style={styles.score}>
+            <HStack mt={'2.5'} mb={'1'}>
               <MatchScore
                 score={data.goalsHome || 0}
                 // penalties={score.team1Penalties || 0}
                 matchStatus={data.status}
                 size={'big'}
               />
-              <UltrasText color="textPrimary" style={styles.scoreDivider}>
+              <Text variant={'primary'} fontSize={'5xl'} lineHeight={'xs'}>
                 {' '}
                 -{' '}
-              </UltrasText>
+              </Text>
               <MatchScore
                 score={data.goalsAway || 0}
                 // penalties={score.team1Penalties || 0}
                 matchStatus={data.status}
                 size={'big'}
               />
-            </View>
+            </HStack>
           ) : (
-            <>
-              <UltrasText color="textSecondary" style={styles.date}>
+            <VStack mt={'4'}>
+              <Text variant={'quinary'} fontSize={'lg'} lineHeight={'xs'}>
                 {formattedDate}
-              </UltrasText>
-              <UltrasText color="textPrimary" style={styles.time}>
+              </Text>
+              <Text
+                variant={'primary'}
+                fontSize={'5xl'}
+                lineHeight={'xs'}
+                fontWeight={'600'}
+              >
                 {formattedTime}
-              </UltrasText>
-            </>
+              </Text>
+            </VStack>
           )}
-          <UltrasText
-            color="textSecondary"
-            style={styles.leagueVenueText}
+
+          <Text
+            variant={'quinary'}
+            textAlign={'center'}
+            fontSize={'xs'}
+            maxW={130}
             numberOfLines={2}
           >
             {data.venue.name}
-          </UltrasText>
-        </View>
-        <View style={styles.team}>
-          <Avatar
-            onPress={() => pushTo(commonScreens.team.name, { data: data.teamAway })}
-            avatarUri={data.teamAway.logo}
-            size={AvatarSize.Big}
-            isTeam
-          />
-          <UltrasText style={styles.teamName} color="textPrimary" numberOfLines={2}>
-            {data.teamAway.name}
-          </UltrasText>
-        </View>
-      </View>
+          </Text>
+        </VStack>
+        <TeamInfo
+          onPress={() => pushTo(commonScreens.team.name, { data: data.teamAway })}
+          name={data.teamAway.name}
+          logo={data.teamAway.logo}
+        />
+      </HStack>
 
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <Button
           title={I18n.t('eventsCreate')}
           onPress={() => pushTo(commonScreens.newEvent.name)}
@@ -111,9 +104,9 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
           icon={Icons.Add}
           iconPosition={ButtonIconPosition.Left}
         />
-      </View>
+      </View> */}
 
-      <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={'4xl'} />
+      <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={15} />
     </>
   );
 };

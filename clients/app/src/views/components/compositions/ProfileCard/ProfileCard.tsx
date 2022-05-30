@@ -3,7 +3,6 @@ import { View, Pressable } from 'react-native';
 
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 
 import { IProfileCardProps } from './types';
 
@@ -24,7 +23,7 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
         style={appearence === 'minimal' ? styles.containerMinimal : styles.container}
       >
         <View style={styles.avatar}>
-          <Avatar avatarUri={avatarUri} size={AvatarSize.Default} />
+          {/* <Avatar avatarUri={avatarUri} size={AvatarSize.Default} /> */}
         </View>
         <View style={styles.info}>
           <UltrasText color="textPrimary" style={styles.username} numberOfLines={1}>

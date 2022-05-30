@@ -45,14 +45,9 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
           initialRouteName={rootScreens.joinUs.name}
           screenOptions={{
             headerShown: false,
-            headerStyle: Platform.select({
-              android: {
-                backgroundColor: colors.backgroundMain,
-              },
-              ios: {
-                backgroundColor: colors.transparent,
-              },
-            }),
+            headerStyle: {
+              backgroundColor: colors.backgroundMain,
+            },
           }}
         >
           {isAuthenticated ? (

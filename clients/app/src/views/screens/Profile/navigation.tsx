@@ -19,14 +19,9 @@ const ProfileNavigation: React.FC<IProfileNavigationProps> = ({}) => {
       screenOptions={{
         headerShadowVisible: false,
         headerBackTitleVisible: false,
-        headerStyle: Platform.select({
-          android: {
-            backgroundColor: colors.backgroundMain,
-          },
-          ios: {
-            backgroundColor: colors.transparent,
-          },
-        }),
+        headerStyle: {
+          backgroundColor: colors.backgroundMain,
+        },
         headerTintColor: colors.iconNavigation,
       }}
     >

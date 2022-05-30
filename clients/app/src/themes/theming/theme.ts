@@ -1,7 +1,7 @@
 import { extendTheme } from 'native-base';
-import optionsFontConfig from './options/fontConfigs';
-import optionsFontSizes from './options/fontSizes';
-import optionsSpaces from './options/spaces';
+import fontConfig from './options/fontConfigs';
+import fontSizes from './options/fontSizes';
+import sizes from './options/sizes';
 import * as components from './components';
 
 const theme = extendTheme({
@@ -9,13 +9,13 @@ const theme = extendTheme({
     initialColorMode: 'dark',
     useSystemColorMode: false,
   },
-  fontConfig: optionsFontConfig,
-  fontSizes: optionsFontSizes,
+  fontConfig,
+  fontSizes,
   fonts: {
     Montserrat: 'Montserrat',
     MontserratAlternates: 'MontserratAlternates',
   },
-  space: optionsSpaces,
+  sizes,
   components,
 });
 
