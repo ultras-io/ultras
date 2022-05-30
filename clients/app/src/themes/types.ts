@@ -16,6 +16,7 @@ export type ColorKey =
   | 'backgroundMessageWarning'
   | 'backgroundLogo'
   | 'backgroundDivider'
+  | 'backgroundDividerTransparent'
   | 'buttonPrimary'
   | 'buttonSecondary'
   | 'buttonAction'

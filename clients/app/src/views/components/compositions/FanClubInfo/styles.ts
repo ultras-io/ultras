@@ -35,15 +35,9 @@ export default StyleSheet.create({
     fontSize: 13,
     lineHeight: 16,
   },
-  divider: {
-    marginHorizontal: 6,
-    justifyContent: 'center',
-  },
+
   joinButton: {
     width: '80%',
     marginTop: 5,
-  },
-  dividerH: {
-    marginBottom: 10,
   },
 });

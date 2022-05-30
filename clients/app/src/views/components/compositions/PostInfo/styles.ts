@@ -61,13 +61,4 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginTop: 3,
   },
-  divider: {
-    paddingHorizontal: 6,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: 20,
-  },
-  dividerH: {
-    marginVertical: 5,
-  },
 });

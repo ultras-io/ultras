@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
+import { Divider, Center } from 'native-base';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -8,7 +10,6 @@ import { commonScreens } from 'views/navigation/screens';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
-import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 import Button, {
   AppearanceEnum as ButtonAppearance,
   BoxSizeEnum as ButtonBoxSize,
@@ -20,6 +21,7 @@ import styles from './styles';
 
 const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
+  const { colors } = useTheme();
 
   return (
     <>
@@ -53,9 +55,14 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </UltrasText>
             </Pressable>
-            <View style={styles.divider}>
-              <Divider />
-            </View>
+            <Center>
+              <Divider
+                orientation="vertical"
+                mx={2}
+                height={2}
+                bg={colors.backgroundDividerTransparent}
+              />
+            </Center>
             <UltrasText color="textSecondary" style={styles.text}>
               {data.city.name}
             </UltrasText>
@@ -81,9 +88,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           </View>
         </View>
       </View>
-      <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
-      </View>
+      <Divider bg={colors.backgroundDividerTransparent} thickness={1} />
     </>
   );
 };

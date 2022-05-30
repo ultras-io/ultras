@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Image } from 'react-native';
+import { Divider } from 'native-base';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import MatchScore from 'views/components/base/MatchScore';
@@ -13,12 +15,12 @@ import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
 import { IconNamesEnum as Icons } from 'assets/icons';
-import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 import { IMatchInfoProps } from '../MatchCard/types';
 import styles from './styles';
 
 const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
+  const { colors } = useTheme();
 
   const { date: formattedDate, time: formattedTime } = React.useMemo(() => {
     return formatDateAndTime(data.dateTime, data.status, data.elapsedTime);
@@ -111,9 +113,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
         />
       </View>
 
-      <View style={styles.divider}>
-        <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
-      </View>
+      <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={'4xl'} />
     </>
   );
 };

@@ -19,9 +19,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  divider: {
-    marginHorizontal: 5,
-  },
+
   leagueText: {
     fontSize: 11,
     lineHeight: 13,

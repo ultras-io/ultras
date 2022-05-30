@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Image, Pressable } from 'react-native';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
+import { Center, Divider } from 'native-base';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import UltrasText from 'views/components/base/UltrasText';
@@ -14,7 +16,6 @@ import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import Like from 'views/components/base/Like';
 import Box from 'views/components/base/Box';
-import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { EventInfoProps } from '../EventCard';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
@@ -35,6 +36,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
   isLiked,
 }) => {
   const { pushTo } = useNavigationWithParams();
+  const { colors } = useTheme();
 
   return (
     <>
@@ -105,9 +107,14 @@ const EventInfo: React.FC<EventInfoProps> = ({
               {getReadableNumber(goingCount)} {I18n.t('going')}
             </UltrasText>
           </Pressable>
-          <View style={styles.divider}>
-            <Divider type={DividerType.Vertical} />
-          </View>
+          <Center>
+            <Divider
+              bg={colors.backgroundDividerTransparent}
+              orientation="vertical"
+              mx={2}
+              height={2}
+            />
+          </Center>
           <Pressable
             onPress={() =>
               pushTo(commonScreens.profileList.name, {
@@ -143,9 +150,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </Box>
         </View>
       </View>
-      <View style={styles.dividerH}>
-        <Divider type={DividerType.Horizontal} bgColor={'backgroundDivider'} />
-      </View>
+      <Divider bg={colors.backgroundDividerTransparent} thickness={1} />
     </>
   );
 };

@@ -58,12 +58,6 @@ export default StyleSheet.create({
     letterSpacing: -0.24,
   },
 
-  divider: {
-    paddingHorizontal: 6,
-    paddingTop: 2,
-    height: 18,
-  },
-
   actionBox: {
     marginTop: 15,
     display: 'flex',
@@ -80,9 +74,5 @@ export default StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  dividerH: {
-    marginVertical: 5,
   },
 });

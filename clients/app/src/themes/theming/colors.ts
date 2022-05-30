@@ -20,7 +20,8 @@ const dark: ColorType = {
   backgroundMessageReceived: 'rgba(255, 255, 255, 0.85)',
   backgroundMessageWarning: '#917935',
   backgroundLogo: 'rgb(255, 255, 255)',
-  backgroundDivider: 'rgb(255, 255, 255, .2)',
+  backgroundDivider: 'rgba(255, 255, 255,1)',
+  backgroundDividerTransparent: 'rgba(255, 255, 255, .2)',
 
   buttonPrimary: '#AB9760',
   buttonSecondary: 'rgba(0, 0, 0, 0.3)',
