@@ -1,17 +1,19 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
+import { Divider, Center } from 'native-base';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar from 'views/components/base/Avatar';
-import Divider from 'views/components/base/Divider';
 import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamCardProps } from './types';
 import styles from './styles';
 
 const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
   const fanClubsCount = Math.floor(Math.random() * 3);
+  const { colors } = useTheme();
 
   return (
     <Pressable onPress={onPress}>
@@ -33,15 +35,25 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
             </UltrasText>
             {data.type === TeamTypesEnum.club && (
               <>
-                <View style={styles.divider}>
-                  <Divider bgColor="backgroundDivider" />
-                </View>
+                <Center>
+                  <Divider
+                    orientation="vertical"
+                    mx={2}
+                    height={2}
+                    bg={colors.backgroundDividerTransparent}
+                  />
+                </Center>
                 <UltrasText style={styles.text} color="textSecondary">
                   {data.country.name}
                 </UltrasText>
-                <View style={styles.divider}>
-                  <Divider bgColor="backgroundDivider" />
-                </View>
+                <Center>
+                  <Divider
+                    orientation="vertical"
+                    mx={2}
+                    height={2}
+                    bg={colors.backgroundDividerTransparent}
+                  />
+                </Center>
                 <UltrasText style={styles.text} color="textSecondary">
                   {data.city.name}
                 </UltrasText>

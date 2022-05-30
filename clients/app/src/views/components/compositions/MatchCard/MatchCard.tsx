@@ -1,11 +1,12 @@
 import React from 'react';
 import { Pressable, View, Image } from 'react-native';
+import { Center, Divider } from 'native-base';
+import { useTheme } from 'themes';
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
 import MatchTime from '../MatchTime';
 import MatchScore from 'views/components/base/MatchScore';
 import BluredView from 'views/components/base/BluredView';
-import Divider from 'views/components/base/Divider';
 import Like from 'views/components/base/Like';
 // import CommentsCount from 'views/components/base/CommentsCount';
 import { isMatchGoing } from 'utils/helpers/matchTime';
@@ -19,6 +20,8 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
   const Container = horizontal ? Box : BluredView;
   const textColor = horizontal ? 'textPrimaryInvert' : 'textPrimary';
 
+  const { colors } = useTheme();
+
   return (
     <Pressable onPress={onPress}>
       <Container
@@ -31,9 +34,14 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
               <UltrasText style={styles.leagueText} color={textColor}>
                 {data.league.country.name}
               </UltrasText>
-              <View style={styles.divider}>
-                <Divider bgColor={textColor} />
-              </View>
+              <Center>
+                <Divider
+                  orientation="vertical"
+                  mx={2}
+                  height={2}
+                  bg={colors[textColor]}
+                />
+              </Center>
             </>
           )}
           <UltrasText style={styles.leagueText} color={textColor}>

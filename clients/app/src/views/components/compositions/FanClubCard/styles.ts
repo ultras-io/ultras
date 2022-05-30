@@ -31,10 +31,6 @@ export default StyleSheet.create({
   text: {
     fontSize: 13,
   },
-  divider: {
-    marginHorizontal: 6,
-    justifyContent: 'center',
-  },
 
   // horizontal
   containerH: {

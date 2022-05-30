@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Image } from 'react-native';
+import { Divider, Text } from 'native-base';
 import { formatDateAndTime } from 'utils/helpers/matchTime';
 import Box from 'views/components/base/Box';
-import UltrasText from 'views/components/base/UltrasText';
-import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 import { IMatchTimeProps } from './types';
 import styles from './styles';
 
@@ -18,25 +17,25 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
     return formatDateAndTime(dateTime, matchStatus, elapsedTime);
   }, [dateTime, matchStatus, elapsedTime]);
 
-  const textColor = invert ? 'textPrimaryInvert' : 'textPrimary';
+  const variant = invert ? 'primaryInvert' : 'primary';
 
   return (
     <View style={styles.container}>
-      <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
+      <Divider />
       <View style={styles.logoWithTime}>
         <Box bgColor="backgroundLogo" style={styles.logoContainer}>
           <Image source={{ uri: leagueLogoURI }} style={styles.logo} />
         </Box>
         <View style={styles.dateTime}>
-          <UltrasText style={styles.date} color={textColor}>
+          <Text variant={variant} fontSize={'2xs'} lineHeight={'2xs'}>
             {formattedDate}
-          </UltrasText>
-          <UltrasText style={styles.time} color={textColor}>
+          </Text>
+          <Text variant={variant} fontSize={'sm'} lineHeight={'xs'} fontWeight={'600'}>
             {formattedTime}
-          </UltrasText>
+          </Text>
         </View>
       </View>
-      <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
+      <Divider />
     </View>
   );
 };

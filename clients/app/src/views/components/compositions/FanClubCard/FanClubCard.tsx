@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
+import { Divider, Center } from 'native-base';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
-import Divider from 'views/components/base/Divider';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IFanClubCardProps } from './types';
 import styles from './styles';
@@ -22,6 +23,8 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
   direction = 'vertical',
   onPress,
 }) => {
+  const { colors } = useTheme();
+
   return (
     <Pressable onPress={onPress}>
       {direction === 'vertical' ? (
@@ -37,9 +40,14 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
               <UltrasText color="textPrimary" style={styles.text}>
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </UltrasText>
-              <View style={styles.divider}>
-                <Divider />
-              </View>
+              <Center>
+                <Divider
+                  orientation="vertical"
+                  mx={2}
+                  height={2}
+                  bg={colors.backgroundDividerTransparent}
+                />
+              </Center>
               <UltrasText color="textSecondary" style={styles.text}>
                 {data.city.name}
               </UltrasText>

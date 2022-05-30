@@ -66,7 +66,4 @@ export default StyleSheet.create({
     alignSelf: 'center',
     width: '50%',
   },
-  divider: {
-    marginVertical: 15,
-  },
 });

@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
+import { Divider } from 'native-base';
 import UltrasText from 'views/components/base/UltrasText';
 import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
-import Divider, { TypeEnum as DividerType } from 'views/components/base/Divider';
 import Button, {
   IconPositionEnum as ButtonIconPosition,
 } from 'views/components/base/Button';
@@ -13,6 +14,8 @@ import { ITeamInfoProps } from './types';
 import styles from './styles';
 
 const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
+  const { colors } = useTheme();
+
   return (
     <>
       <View style={styles.container}>
@@ -41,7 +44,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
         </View>
       </View>
 
-      <Divider type={DividerType.Horizontal} bgColor="backgroundDivider" />
+      <Divider bg={colors.backgroundDividerTransparent} thickness={1} />
     </>
   );
 };
