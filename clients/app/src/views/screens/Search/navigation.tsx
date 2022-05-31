@@ -18,14 +18,9 @@ const SearchNavigation: React.FC<ISearchNavigationProps> = ({}) => {
       initialRouteName={`${TAB_NAME}:${mainScreens.initialScreenName}`}
       screenOptions={{
         headerShadowVisible: false,
-        headerStyle: Platform.select({
-          android: {
-            backgroundColor: colors.backgroundMain,
-          },
-          ios: {
-            backgroundColor: colors.transparent,
-          },
-        }),
+        headerStyle: {
+          backgroundColor: colors.backgroundMain,
+        },
         headerTintColor: colors.iconNavigation,
         headerBackTitleVisible: false,
       }}

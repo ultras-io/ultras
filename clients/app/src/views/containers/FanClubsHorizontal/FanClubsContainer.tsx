@@ -7,7 +7,6 @@ import Button, {
   BoxSizeEnum as ButtonBoxSize,
   AppearanceEnum as ButtonAppearance,
 } from 'views/components/base/Button';
-import { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { tabScreens, searchTabScreens } from 'views/navigation/screens';
@@ -55,7 +54,6 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
       <FanClubsComponent
         data={result.list.data || []}
         onEndReached={fanClubsStore.getAll}
-        avatarSize={AvatarSize.Big}
         withBounce={withBounce}
       />
     </View>

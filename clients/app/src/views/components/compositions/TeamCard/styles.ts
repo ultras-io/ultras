@@ -10,9 +10,6 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  avatar: {
-    marginRight: 15,
-  },
   name: {
     fontFamily: 'Montserrat',
     fontWeight: '600',

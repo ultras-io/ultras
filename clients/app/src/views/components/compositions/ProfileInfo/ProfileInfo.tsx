@@ -1,12 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
-
 import TeamsContainer from 'views/containers/TeamsHorizontal/TeamsContainer';
 import FanClubsContainer from 'views/containers/FanClubsHorizontal/FanClubsContainer';
-
 import { IProfileInfoProps } from './types';
 import styles from './styles';
 
@@ -21,7 +17,7 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({
     <>
       <View style={styles.container}>
         <View style={styles.avatar}>
-          <Avatar avatarUri={avatarUri} size={AvatarSize.Big} />
+          {/* <Avatar avatarUri={avatarUri} size={AvatarSize.Big} /> */}
         </View>
         <View style={styles.info}>
           <UltrasText color="textTertiary" style={styles.name}>

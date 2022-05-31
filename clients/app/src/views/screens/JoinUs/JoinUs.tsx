@@ -13,7 +13,7 @@ import { dataTypeEnum as SearchListKey } from 'views/screens/SearchListModal';
 
 import WithAnimation from 'views/components/base/WithAnimation';
 import UltrasText from 'views/components/base/UltrasText';
-import Avatar, { SizeEnum as AvatarSize } from 'views/components/base/Avatar';
+import { Avatar } from 'native-base';
 import MessageBox, { SideEnum as MessageSide } from 'views/components/base/MessageBox';
 import Button, {
   SizeEnum as ButtonSize,
@@ -219,7 +219,8 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
     (index: number) =>
       index === 0 ? (
         <View style={styles.avatar}>
-          <Avatar size={AvatarSize.Small} />
+          {/* @TODO change this when refactor Join us */}
+          <Avatar bg={'#000'} size={'sm'} />
         </View>
       ) : null,
     []
