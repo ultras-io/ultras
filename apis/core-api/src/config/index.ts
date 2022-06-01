@@ -15,7 +15,7 @@ const dbConfig = {
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
   port: intConf(process.env.DB_PORT || 5432),
-  logging: Boolean(intConf(process.env.DB_LOGGING || 1)) || false,
+  logging: Boolean(intConf(process.env.DB_LOGGING || 0)) || false,
 };
 
 const serverConfig = {
