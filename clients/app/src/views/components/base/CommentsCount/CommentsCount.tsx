@@ -13,7 +13,7 @@ import styles from './styles';
 const CommentsCount: React.FC<ICommentsCountProps> = ({ count }) => {
   return (
     <View style={styles.container}>
-      <Icon key="icon" name={Icons.Comments} size={'ic-md'} color="iconSecondary" />
+      <Icon key="icon" name={Icons.Comments} color="iconSecondary" />
 
       <View style={styles.commentsView}>
         <UltrasText style={styles.comments} numberOfLines={1} color="textPrimaryInvert">
