@@ -125,6 +125,30 @@ const resources = {
       PLURAL: 'fanClubMemberRoles',
     },
   },
+  POST: {
+    RELATION: 'Post',
+    MODEL: 'Post',
+    ALIAS: {
+      SINGULAR: 'post',
+      PLURAL: 'posts',
+    },
+  },
+  TOPIC: {
+    RELATION: 'Topic',
+    MODEL: 'Topic',
+    ALIAS: {
+      SINGULAR: 'topic',
+      PLURAL: 'topics',
+    },
+  },
+  EVENT: {
+    RELATION: 'Event',
+    MODEL: 'Event',
+    ALIAS: {
+      SINGULAR: 'event',
+      PLURAL: 'events',
+    },
+  },
 };
 
 export interface IDBSet {

@@ -13,9 +13,12 @@ const configs = {
   password: dbConfig.password,
   database: dbConfig.database,
   host: dbConfig.host,
+  logging: dbConfig.logging,
   dialect: 'postgres',
   dialectOptions: {
     useUTC: true,
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
   },
   timezone: '+00:00',
   define: {
