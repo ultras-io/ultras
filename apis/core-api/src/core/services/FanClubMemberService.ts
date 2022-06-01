@@ -171,9 +171,7 @@ class FanClubMemberService extends BaseService {
   /**
    * Get role id by role name.
    */
-  static async getRoleId(
-    roleName: FanClubMemberRoleEnum
-  ): Promise<ResourceIdentifier | null> {
+  static async getRoleId(roleName: FanClubMemberRoleEnum): Promise<ResourceIdentifier | null> {
     const role = await db.FanClubMemberRole.findOne({
       where: { role: roleName },
     });
@@ -321,9 +319,7 @@ class FanClubMemberService extends BaseService {
   /**
    * Get fan club membership by id.
    */
-  static async getById(
-    id: ResourceIdentifier
-  ): ServiceByIdResultType<FanClubMemberViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<FanClubMemberViewModel> {
     return this.findById(db.FanClubMember, id);
   }
 

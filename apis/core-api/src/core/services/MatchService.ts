@@ -76,30 +76,40 @@ class MatchService extends BaseService {
     }
 
     if (params.leagueId) {
-      this.queryArrayOrSingle(query, 'leagueId', params.leagueId);
+      this.queryAppend(query, 'leagueId', {
+        [db.Sequelize.Op.eq]: params.leagueId,
+      });
     }
 
     if (params.venueId) {
-      this.queryArrayOrSingle(query, 'venueId', params.venueId);
+      this.queryAppend(query, 'venueId', {
+        [db.Sequelize.Op.eq]: params.venueId,
+      });
     }
 
     if (params.teamHomeId) {
-      this.queryArrayOrSingle(query, 'teamHomeId', params.teamHomeId);
+      this.queryAppend(query, 'teamHomeId', {
+        [db.Sequelize.Op.eq]: params.teamHomeId,
+      });
     }
 
     if (params.teamAwayId) {
-      this.queryArrayOrSingle(query, 'teamAwayId', params.teamAwayId);
+      this.queryAppend(query, 'teamAwayId', {
+        [db.Sequelize.Op.eq]: params.teamAwayId,
+      });
     }
 
     if (params.teamId) {
-      const condition = this.getConditionArrayOrSingle(params.teamId);
-
       this.queryAppend(query, db.Sequelize.Op.or, [
         {
-          teamHomeId: condition,
+          teamHomeId: {
+            [db.Sequelize.Op.eq]: params.teamId,
+          },
         },
         {
-          teamAwayId: condition,
+          teamAwayId: {
+            [db.Sequelize.Op.eq]: params.teamId,
+          },
         },
       ]);
     }

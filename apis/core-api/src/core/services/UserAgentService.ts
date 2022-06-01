@@ -15,7 +15,7 @@ export type DeviceType = 'tablet' | 'mobile' | 'desktop';
 
 class UserAgentService extends BaseService {
   private static getByPattern(userAgent: string, pattern: RegExp): MaybeUnknown<string> {
-    const matches = userAgent.match(pattern);
+    const matches = userAgent.match(/ios (\d+)/i);
     return null != matches ? matches[1] : 'UNKNOWN';
   }
 

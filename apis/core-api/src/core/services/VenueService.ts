@@ -57,11 +57,15 @@ class VenueService extends BaseService {
     }
 
     if (params.countryId) {
-      this.queryArrayOrSingle(query, 'countryId', params.countryId);
+      this.queryAppend(query, 'countryId', {
+        [db.Sequelize.Op.eq]: params.countryId,
+      });
     }
 
     if (params.cityId) {
-      this.queryArrayOrSingle(query, 'cityId', params.cityId);
+      this.queryAppend(query, 'cityId', {
+        [db.Sequelize.Op.eq]: params.cityId,
+      });
     }
 
     return this.findAndCountAll(db.Venue, query, params);

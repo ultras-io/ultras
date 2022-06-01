@@ -36,7 +36,9 @@ class CountryService extends BaseService {
     }
 
     if (params.code) {
-      this.queryArrayOrSingle(query, 'code', params.code);
+      this.queryAppend(query, 'code', {
+        [db.Sequelize.Op.eq]: params.code,
+      });
     }
 
     return this.findAndCountAll(db.Country, query, params);
