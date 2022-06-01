@@ -1,18 +1,12 @@
 import React from 'react';
-import { ScrollView, SafeAreaView } from 'react-native';
-import { Text, Badge } from 'native-base';
-
-import Button, {
-  AppearanceEnum as ButtonAppearance,
-  SizeEnum as ButtonSize,
-} from 'views/components/base/Button';
-import WithBadge from 'views/components/base/WithBadge';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Text, Button, ScrollView, Box, VStack } from 'native-base';
 
 const Section = ({ title, children }: any) => {
   return (
     <>
-      <Text variant={'header'}>{title}</Text>
+      <Text variant={'header'} fontSize="3xl" m={4}>
+        {title}
+      </Text>
       {children}
     </>
   );
@@ -20,24 +14,79 @@ const Section = ({ title, children }: any) => {
 
 const UIKit = () => {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Section title={'Badge'}>
-          <Badge variant={'notification'}>1</Badge>
-          <Badge variant={'updates'}>300</Badge>
-
-          <WithBadge variant={'notification'} number={2}>
-            <Button
-              onPress={() => {}}
-              appearance={ButtonAppearance.Minimal}
-              size={ButtonSize.ExtraBig}
-              icon={Icons.Notifications}
-            />
-          </WithBadge>
+    <Box safeArea>
+      <ScrollView h="100%">
+        <Section title={'Empty'}>
+          <VStack space="2">
+            <Button marginX={'10'} variant={'empty'}>
+              Empty
+            </Button>
+            <Button marginX={'10'} variant={'empty'} isLoading>
+              Link
+            </Button>
+            <Button marginX={'10'} variant={'empty'} disabled>
+              Disabled
+            </Button>
+          </VStack>
         </Section>
-        <Text variant={'primary'}>primary 123</Text>
+
+        <Section title={'Primary'}>
+          <VStack space="2">
+            <Button marginX={'10'} variant={'primary'}>
+              Let me in!
+            </Button>
+            <Button marginX={'10'} variant={'primary'} isLoading>
+              Let me in!
+            </Button>
+            <Button marginX={'10'} variant={'primary'} disabled>
+              Disabled
+            </Button>
+          </VStack>
+        </Section>
+
+        <Section title={'Secondary'}>
+          <VStack space="2">
+            <Button marginX={'10'} variant={'secondary'}>
+              Response
+            </Button>
+            <Button marginX={'10'} variant={'secondary'} isLoading>
+              Response
+            </Button>
+            <Button marginX={'10'} variant={'secondary'} disabled>
+              Disabled
+            </Button>
+          </VStack>
+        </Section>
+
+        <Section title={'Action'}>
+          <VStack space="2">
+            <Button marginX={'10'} variant={'action'}>
+              Response
+            </Button>
+            <Button marginX={'10'} variant={'action'} isLoading>
+              Response
+            </Button>
+            <Button marginX={'10'} variant={'action'} disabled>
+              Disabled
+            </Button>
+          </VStack>
+        </Section>
+
+        <Section title={'Action Invert'}>
+          <VStack space="2">
+            <Button marginX={'10'} variant={'actionInvert'}>
+              Response
+            </Button>
+            <Button marginX={'10'} variant={'actionInvert'} isLoading>
+              Response
+            </Button>
+            <Button marginX={'10'} variant={'actionInvert'} disabled>
+              Disabled
+            </Button>
+          </VStack>
+        </Section>
       </ScrollView>
-    </SafeAreaView>
+    </Box>
   );
 };
 
