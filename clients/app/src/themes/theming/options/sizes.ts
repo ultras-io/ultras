@@ -23,4 +23,8 @@ export default {
   'av-lg': 72,
   'av-xl': 110,
   'av-2xl': 136,
+  //icon
+  'ic-xs': 12,
+  'ic-sm': 20,
+  'ic-md': 24,
 };

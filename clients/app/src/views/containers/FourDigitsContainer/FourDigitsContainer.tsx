@@ -61,7 +61,12 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({ passStep }) 
       <View style={styles.textAndButton}>
         {isFilledWrong && (
           <UltrasText style={styles.text} color={'textTertiary'}>
-            <Icon key="icon" name={Icons.Warning} size={12} color="iconNotification" />{' '}
+            <Icon
+              key="icon"
+              name={Icons.Warning}
+              size={'ic-xs'}
+              color="iconNotification"
+            />{' '}
             {I18n.t('joinUsWrongCode')}
           </UltrasText>
         )}
