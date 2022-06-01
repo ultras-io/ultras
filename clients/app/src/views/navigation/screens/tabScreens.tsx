@@ -14,11 +14,7 @@ const SCREENS: TabNavigationScreens = {
     component: HomeNavigation,
     options: {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
-        <Icon
-          name={Icons.Home}
-          size={24}
-          color={focused ? 'iconNavigation' : 'iconSecondary'}
-        />
+        <Icon name={Icons.Home} color={focused ? 'iconNavigation' : 'iconSecondary'} />
       ),
     },
   },
@@ -27,11 +23,7 @@ const SCREENS: TabNavigationScreens = {
     component: SearchNavigation,
     options: {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
-        <Icon
-          name={Icons.Search}
-          size={24}
-          color={focused ? 'iconNavigation' : 'iconSecondary'}
-        />
+        <Icon name={Icons.Search} color={focused ? 'iconNavigation' : 'iconSecondary'} />
       ),
     },
   },
@@ -40,11 +32,7 @@ const SCREENS: TabNavigationScreens = {
     component: MatchesNavigation,
     options: {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
-        <Icon
-          name={Icons.Match}
-          size={24}
-          color={focused ? 'iconNavigation' : 'iconSecondary'}
-        />
+        <Icon name={Icons.Match} color={focused ? 'iconNavigation' : 'iconSecondary'} />
       ),
     },
   },
@@ -53,11 +41,7 @@ const SCREENS: TabNavigationScreens = {
     component: EventsNavigation,
     options: {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
-        <Icon
-          name={Icons.Event}
-          size={24}
-          color={focused ? 'iconNavigation' : 'iconSecondary'}
-        />
+        <Icon name={Icons.Event} color={focused ? 'iconNavigation' : 'iconSecondary'} />
       ),
     },
   },

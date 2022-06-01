@@ -204,7 +204,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
       <>
         <MessageBox side={MessageSide.Right}>
           <UltrasText style={styles.actionText} color="textPrimary">
-            <Icon key="icon" name={getMessageIcon(item)} size={12} />{' '}
+            <Icon key="icon" name={getMessageIcon(item)} size={'ic-xs'} />{' '}
             {getMessageText(item)}
           </UltrasText>
           {getMessageButton(item)}

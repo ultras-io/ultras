@@ -96,7 +96,8 @@ const Button: React.FC<IButtonProps> = ({
     ) : null,
     icon !== undefined ? (
       <View key="icon" style={styles.icon}>
-        <Icon name={icon} size={getIconSize(size)} color={color} />
+        {/* // @TODO chnage on Button refactoring */}
+        {/* <Icon name={icon} size={getIconSize(size)} color={color} /> */}
       </View>
     ) : null,
   ];

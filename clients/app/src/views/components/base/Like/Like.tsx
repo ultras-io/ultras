@@ -15,7 +15,6 @@ const Like: React.FC<ILikeProps> = ({ isLiked = false, count = 0, onPress }) => 
       <Icon
         name={isLiked ? Icons.Liked : Icons.Like}
         color={isLiked ? 'buttonAction' : 'buttonActionInvert'}
-        size={24}
       />
 
       {count > 0 && (

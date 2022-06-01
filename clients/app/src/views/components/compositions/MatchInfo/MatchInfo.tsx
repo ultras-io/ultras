@@ -29,7 +29,11 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
         />
         <VStack flex={5} alignItems={'center'}>
           <Box bgColor="backgroundLogo" style={styles.leagueLogoContainer}>
-            <Image source={{ uri: data.league.logo }} style={styles.leagueLogo} />
+            <Image
+              source={{ uri: data.league.logo }}
+              style={styles.leagueLogo}
+              resizeMode={'contain'}
+            />
           </Box>
 
           <Text
