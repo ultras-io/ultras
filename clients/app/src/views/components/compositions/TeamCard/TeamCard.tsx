@@ -6,7 +6,6 @@ import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import BluredView from 'views/components/base/BluredView';
-import UltrasText from 'views/components/base/UltrasText';
 import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamCardProps } from './types';
 import styles from './styles';
@@ -19,7 +18,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
         <Circle size={'av-md'} bg={colors.backgroundLogo} mr={15}>
-          <Image source={{ uri: data.logo }} size={'av-xs'} />
+          <Image source={{ uri: data.logo }} size={'av-xs'} resizeMode={'contain'} />
         </Circle>
 
         <View style={styles.info}>

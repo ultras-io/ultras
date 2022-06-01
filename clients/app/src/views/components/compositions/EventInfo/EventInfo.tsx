@@ -68,7 +68,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
 
         {location && (
           <UltrasText style={styles.location} color="textPrimary">
-            <Icon name={Icons.Map} size={12} color="textPrimary" /> {location}
+            <Icon name={Icons.Map} size={'ic-xs'} color="textPrimary" /> {location}
           </UltrasText>
         )}
         <View style={styles.creatorContainer}>

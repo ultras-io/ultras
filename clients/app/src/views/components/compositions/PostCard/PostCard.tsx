@@ -54,7 +54,7 @@ const PostCard: React.FC<IPostCardProps> = ({
             <CommentsCount count={commentsCount} />
           </View>
           <View style={styles.arrow}>
-            <Icon key="icon" name={IconNamesEnum.ArrowRight} size={12} />
+            <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-xs'} />
           </View>
         </View>
       </BluredView>

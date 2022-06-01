@@ -14,7 +14,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data, isFavorite = false }) => {
     <>
       <View style={styles.container}>
         <Circle size={'av-xl'} bg={colors.backgroundLogo} mr={'5'}>
-          <Image source={{ uri: data.logo }} size={'av-lg'} />
+          <Image source={{ uri: data.logo }} size={'av-lg'} resizeMode={'contain'} />
         </Circle>
 
         <View style={styles.info}>

@@ -41,7 +41,11 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
 
         <View style={styles.logoAndTime}>
           <Box style={styles.logoContainer} bgColor={'backgroundLogo'}>
-            <Image source={{ uri: data.teamHome.logo }} style={styles.logo} />
+            <Image
+              source={{ uri: data.teamHome.logo }}
+              style={styles.logo}
+              resizeMode={'contain'}
+            />
           </Box>
           <Box
             style={[styles.logoContainer, styles.logoContainer2]}

@@ -77,7 +77,7 @@ const EventCard: React.FC<IEventCardProps> = ({
               iconPosition={ButtonIconPosition.Right}
             />
             <View style={styles.arrow}>
-              <Icon key="icon" name={IconNamesEnum.ArrowRight} size={12} />
+              <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-xs'} />
             </View>
           </View>
         </View>

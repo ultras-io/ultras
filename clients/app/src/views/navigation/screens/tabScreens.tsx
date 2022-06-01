@@ -16,7 +16,7 @@ const SCREENS: TabNavigationScreens = {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
         <Icon
           name={Icons.Home}
-          size={24}
+          size={'ic-md'}
           color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
@@ -29,7 +29,7 @@ const SCREENS: TabNavigationScreens = {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
         <Icon
           name={Icons.Search}
-          size={24}
+          size={'ic-md'}
           color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
@@ -42,7 +42,7 @@ const SCREENS: TabNavigationScreens = {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
         <Icon
           name={Icons.Match}
-          size={24}
+          size={'ic-md'}
           color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),
@@ -55,7 +55,7 @@ const SCREENS: TabNavigationScreens = {
       tabBarIcon: ({ focused }: { focused: boolean }) => (
         <Icon
           name={Icons.Event}
-          size={24}
+          size={'ic-md'}
           color={focused ? 'iconNavigation' : 'iconSecondary'}
         />
       ),

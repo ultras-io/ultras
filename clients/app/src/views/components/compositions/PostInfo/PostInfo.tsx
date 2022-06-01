@@ -72,7 +72,7 @@ const PostInfo: React.FC<PostInfoProps> = ({
           <View style={styles.like}>
             <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
           </View>
-          <Icon name={Icons.CommentsCount} color="textSecondary" size={20} />
+          <Icon name={Icons.CommentsCount} color="textSecondary" size={'ic-sm'} />
           <UltrasText style={styles.commentsText} color="textPrimary">
             {getReadableNumber(commentsCount)}
           </UltrasText>

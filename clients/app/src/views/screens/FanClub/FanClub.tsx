@@ -7,7 +7,6 @@ import Button, {
   AppearanceEnum as ButtonAppearance,
   SizeEnum as ButtonSize,
 } from 'views/components/base/Button';
-import { IconNamesEnum as Icons } from 'assets/icons';
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import { IFanClubProps } from './types';
 
@@ -26,8 +25,9 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
           }
           appearance={ButtonAppearance.Minimal}
           size={ButtonSize.ExtraBig}
-          icon={isDarkMode ? Icons.InfoDark : Icons.InfoLight}
           color="iconNavigation"
+          // @TODO chnage on Button refactoring
+          title="i"
         />
       ),
     });
