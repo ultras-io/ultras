@@ -66,21 +66,15 @@ class TeamService extends BaseService {
     }
 
     if (params.countryId) {
-      this.queryAppend(query, 'countryId', {
-        [db.Sequelize.Op.eq]: params.countryId,
-      });
+      this.queryArrayOrSingle(query, 'countryId', params.countryId);
     }
 
     if (params.cityId) {
-      this.queryAppend(query, 'cityId', {
-        [db.Sequelize.Op.eq]: params.cityId,
-      });
+      this.queryArrayOrSingle(query, 'cityId', params.cityId);
     }
 
     if (params.venueId) {
-      this.queryAppend(query, 'venueId', {
-        [db.Sequelize.Op.eq]: params.venueId,
-      });
+      this.queryArrayOrSingle(query, 'venueId', params.venueId);
     }
 
     if (params.type) {

@@ -151,21 +151,15 @@ class FanClubService extends BaseService {
     }
 
     if (params.countryId) {
-      this.queryAppend(query, 'countryId', {
-        [db.Sequelize.Op.eq]: params.countryId,
-      });
+      this.queryArrayOrSingle(query, 'countryId', params.countryId);
     }
 
     if (params.cityId) {
-      this.queryAppend(query, 'cityId', {
-        [db.Sequelize.Op.eq]: params.cityId,
-      });
+      this.queryArrayOrSingle(query, 'cityId', params.cityId);
     }
 
     if (params.teamId) {
-      this.queryAppend(query, 'teamId', {
-        [db.Sequelize.Op.eq]: params.teamId,
-      });
+      this.queryArrayOrSingle(query, 'teamId', params.teamId);
     }
 
     return this.findAndCountAll(db.FanClub, query, params);
