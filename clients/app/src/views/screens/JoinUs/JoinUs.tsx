@@ -15,11 +15,6 @@ import WithAnimation from 'views/components/base/WithAnimation';
 import UltrasText from 'views/components/base/UltrasText';
 import { Avatar } from 'native-base';
 import MessageBox, { SideEnum as MessageSide } from 'views/components/base/MessageBox';
-import Button, {
-  SizeEnum as ButtonSize,
-  BoxSizeEnum as ButtonBoxSizeEnum,
-  AppearanceEnum as ButtonAppearance,
-} from 'views/components/base/Button';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import PhoneInput from 'views/components/compositions/PhoneInput';
@@ -130,13 +125,13 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
 
       return (
         <View style={styles.action}>
-          <Button
+          {/* <Button
             title={item.action.title}
             // isDisabled={true}
             onPress={onPress}
             size={ButtonSize.Big}
             bgColor="buttonPrimary"
-          />
+          /> */}
         </View>
       );
     },
@@ -177,13 +172,13 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
     item =>
       item.action.type === ActionTypeEnum.Team ? (
         <View style={styles.messageActionRight}>
-          <Button
+          {/* <Button
             onPress={openTeamModal}
             title={I18n.t('tapToChange')}
             appearance={ButtonAppearance.UnderLined}
             boxSize={ButtonBoxSizeEnum.Contain}
             size={ButtonSize.Small}
-          />
+          /> */}
         </View>
       ) : null,
     [openTeamModal]
@@ -204,7 +199,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
       <>
         <MessageBox side={MessageSide.Right}>
           <UltrasText style={styles.actionText} color="textPrimary">
-            <Icon key="icon" name={getMessageIcon(item)} size={'ic-xs'} />{' '}
+            <Icon key="icon" name={getMessageIcon(item)} size={'ic-2xs'} />{' '}
             {getMessageText(item)}
           </UltrasText>
           {getMessageButton(item)}
@@ -235,13 +230,13 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           </UltrasText>
           {step < NUMBER_STEP + 2 && (
             <View style={styles.messageActionLeft}>
-              <Button
+              {/* <Button
                 appearance={ButtonAppearance.UnderLined}
                 size={ButtonSize.Small}
                 color="buttonPrimary"
                 title={I18n.t('changeNumber')}
                 onPress={changeNumber}
-              />
+              /> */}
             </View>
           )}
         </>

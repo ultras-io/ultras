@@ -1,17 +1,10 @@
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
-
+import { Button } from 'native-base';
 import I18n from 'i18n/i18n';
-
 import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import rootScreens from 'views/navigation/screens/rootScreens';
-
-import Button, {
-  SizeEnum as ButtonSize,
-  AppearanceEnum as ButtonAppearance,
-} from 'views/components/base/Button';
-
 import bg from 'assets/images/bg.png';
 import { IIntroProps } from './types';
 import styles from './styles';
@@ -29,18 +22,12 @@ const Intro: React.FC<IIntroProps> = () => {
         {I18n.t('splashText')}
       </UltrasText>
       <View style={styles.buttons}>
-        <Button
-          title={I18n.t('introLetMeIn')}
-          onPress={() => pushTo(rootScreens.joinUs.name)}
-          size={ButtonSize.Big}
-          bgColor={'buttonPrimary'}
-        />
-        <Button
-          title={I18n.t('privacy')}
-          onPress={() => pushTo(rootScreens.uikit.name)}
-          size={ButtonSize.Default}
-          appearance={ButtonAppearance.Minimal}
-        />
+        <Button onPress={() => pushTo(rootScreens.joinUs.name)} variant={'primary'}>
+          {I18n.t('introLetMeIn')}
+        </Button>
+        <Button onPress={() => pushTo(rootScreens.uikit.name)} variant={'empty'}>
+          {I18n.t('privacy')}
+        </Button>
       </View>
     </ImageBackground>
   );

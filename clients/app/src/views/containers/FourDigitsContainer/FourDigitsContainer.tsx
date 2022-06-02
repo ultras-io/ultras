@@ -6,10 +6,6 @@ import FourDigitsInput from 'views/components/compositions/FourDigitsInput';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
-import Button, {
-  SizeEnum as ButtonSize,
-  AppearanceEnum as ButtonAppearance,
-} from 'views/components/base/Button';
 
 import { IFourDigitsContainerProps } from './types';
 import styles from './styles';
@@ -64,13 +60,13 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({ passStep }) 
             <Icon
               key="icon"
               name={Icons.Warning}
-              size={'ic-xs'}
+              size={'ic-2xs'}
               color="iconNotification"
             />{' '}
             {I18n.t('joinUsWrongCode')}
           </UltrasText>
         )}
-        <Button
+        {/* <Button
           appearance={ButtonAppearance.UnderLined}
           size={ButtonSize.Small}
           color="textQuaternary"
@@ -81,7 +77,7 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({ passStep }) 
               : I18n.t('joinUsSendAgainText')
           }
           onPress={onPress}
-        />
+        /> */}
       </View>
     </View>
   );

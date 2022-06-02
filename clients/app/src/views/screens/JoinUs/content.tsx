@@ -3,10 +3,6 @@ import I18n from 'i18n/i18n';
 
 import UltrasText from 'views/components/base/UltrasText';
 import { DirectionENum as AnimationDirection } from 'views/components/base/WithAnimation';
-import Button, {
-  SizeEnum as ButtonSize,
-  AppearanceEnum as ButtonAppearance,
-} from 'views/components/base/Button';
 import { ScenarStep, ActionTypeEnum, MessageTypeEnum } from './types';
 import styles from './styles';
 
@@ -90,7 +86,7 @@ const scenario: Array<ScenarStep> = [
           <>
             <UltrasText>{I18n.t('joinUsEnterCode')}</UltrasText>
             <UltrasText style={styles.textBold}>{number}</UltrasText>
-            {canChange && (
+            {/* {canChange && (
               <Button
                 appearance={ButtonAppearance.UnderLined}
                 size={ButtonSize.Small}
@@ -99,7 +95,7 @@ const scenario: Array<ScenarStep> = [
                 title={I18n.t('changeNumber')}
                 onPress={changeNumber}
               />
-            )}
+            )} */}
           </>
         ),
         //direction: AnimationDirection.Left2Right,

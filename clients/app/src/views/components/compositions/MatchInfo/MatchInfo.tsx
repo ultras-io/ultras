@@ -1,6 +1,9 @@
 import React from 'react';
-import { Divider, Image, Text, HStack, VStack } from 'native-base';
+import { Divider, Button, Image, Text, HStack, VStack } from 'native-base';
 import { useTheme } from 'themes';
+import I18n from 'i18n/i18n';
+import Icon from 'views/components/base/Icon';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import TeamInfo from './TeamInfo';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
@@ -33,6 +36,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
               source={{ uri: data.league.logo }}
               style={styles.leagueLogo}
               resizeMode={'contain'}
+              alt={data.league.name}
             />
           </Box>
 
@@ -99,16 +103,16 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
         />
       </HStack>
 
-      {/* <View style={styles.button}>
-        <Button
-          title={I18n.t('eventsCreate')}
-          onPress={() => pushTo(commonScreens.newEvent.name)}
-          color="textPrimaryInvert"
-          bgColor="buttonAction"
-          icon={Icons.Add}
-          iconPosition={ButtonIconPosition.Left}
-        />
-      </View> */}
+      <Button
+        onPress={() => pushTo(commonScreens.newEvent.name)}
+        leftIcon={<Icon name={Icons.Add} color={'iconPrimaryInvert'} size={'ic-xs'} />}
+        variant={'action'}
+        mt={'3'}
+        paddingX={'8'}
+        alignSelf={'center'}
+      >
+        {I18n.t('eventsCreate')}
+      </Button>
 
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={15} />
     </>

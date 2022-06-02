@@ -1,10 +1,10 @@
 export type ColorKey =
   | 'transparent'
   | 'iconPrimary'
+  | 'iconPrimaryInvert'
   | 'iconSecondary'
   | 'iconNavigation'
   | 'iconNotification'
-  | 'iconUpdatesCount'
   | 'iconVerified'
   | 'backgroundMain'
   | 'backgroundCard'

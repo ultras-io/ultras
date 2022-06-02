@@ -114,7 +114,7 @@ const Input: React.FC<IInputProps> = ({
               {_value ? _value : name}
             </UltrasText>
             <View style={styles.icon}>
-              <Icon name={Icons.ArrowDown} size={'ic-xs'} />
+              <Icon name={Icons.ArrowDown} size={'ic-2xs'} />
             </View>
           </Box>
         </Pressable>

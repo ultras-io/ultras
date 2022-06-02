@@ -5,10 +5,10 @@ const dark: ColorType = {
   transparent: 'transparent',
 
   iconPrimary: 'rgba(255, 255, 255, 1)',
+  iconPrimaryInvert: 'rgba(0, 0, 0, 1)',
   iconSecondary: 'rgba(255, 255, 255, 0.8)',
   iconNavigation: '#AB9760',
   iconNotification: '#E54D00',
-  iconUpdatesCount: '#000',
   iconVerified: '#47C471',
 
   backgroundMain: '#272829',
