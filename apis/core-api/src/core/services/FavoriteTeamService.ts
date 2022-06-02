@@ -200,7 +200,6 @@ class FavoriteTeamService extends BaseService {
     params: ActionByIdentifierInterface
   ): ServiceByIdResultType<FavoriteTeamViewModel> {
     const condition = this.buildActionCondition(params);
-    console.log({ params, condition });
     if (!condition) {
       return null;
     }
