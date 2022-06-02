@@ -13,9 +13,9 @@ export default {
   'sp-6xl': 20,
   'sp-7xl': 25,
   'sp-8xl': 35,
-  //divider
+  // divider
   'dv-sm': 8,
-  //avatar
+  // avatar
   'av-2xs': 24,
   'av-xs': 40,
   'av-sm': 48,
