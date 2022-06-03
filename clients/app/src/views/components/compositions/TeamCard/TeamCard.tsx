@@ -18,7 +18,12 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
     <Pressable onPress={onPress}>
       <BluredView style={styles.container}>
         <Circle size={'av-md'} bg={colors.backgroundLogo} mr={15}>
-          <Image source={{ uri: data.logo }} size={'av-xs'} resizeMode={'contain'} />
+          <Image
+            source={{ uri: data.logo }}
+            size={'av-xs'}
+            resizeMode={'contain'}
+            alt={data.name}
+          />
         </Circle>
 
         <View style={styles.info}>

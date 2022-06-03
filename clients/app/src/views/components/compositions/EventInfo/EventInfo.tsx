@@ -8,11 +8,6 @@ import VerticalDivider from 'views/components/base/VerticalDivider';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import UltrasText from 'views/components/base/UltrasText';
-import Button, {
-  SizeEnum as ButtonSize,
-  BoxSizeEnum as ButtonBoxSize,
-  IconPositionEnum as ButtonIconPosition,
-} from 'views/components/base/Button';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import Like from 'views/components/base/Like';
@@ -20,7 +15,7 @@ import Box from 'views/components/base/Box';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { EventInfoProps } from '../EventCard';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import { upperCaseFirstLetter } from 'utils/helpers/string';
+// import { upperCaseFirstLetter } from 'utils/helpers/string';
 import styles from './styles';
 
 const EventInfo: React.FC<EventInfoProps> = ({
@@ -54,7 +49,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
         </UltrasText>
 
         <View style={styles.match}>
-          <Button
+          {/* <Button
             title={'Chelsea - Manchester United'}
             onPress={
               () => pushTo(commonScreens.match.name, { id: 67 }) // matchId
@@ -63,12 +58,12 @@ const EventInfo: React.FC<EventInfoProps> = ({
             bgColor="backgroundCardInvert"
             size={ButtonSize.Small}
             boxSize={ButtonBoxSize.Contain}
-          />
+          /> */}
         </View>
 
         {location && (
           <UltrasText style={styles.location} color="textPrimary">
-            <Icon name={Icons.Map} size={'ic-xs'} color="textPrimary" /> {location}
+            <Icon name={Icons.Map} size={'ic-2xs'} color="textPrimary" /> {location}
           </UltrasText>
         )}
         <View style={styles.creatorContainer}>
@@ -125,7 +120,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
 
         <View style={styles.actionBox}>
           <View style={styles.goingButton}>
-            <Button
+            {/* <Button
               title={isGoing ? upperCaseFirstLetter(I18n.t('going')) : I18n.t('join')}
               onPress={() => {}}
               boxSize={ButtonBoxSize.Cover}
@@ -134,7 +129,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
               bgColor="buttonAction"
               icon={isGoing ? Icons.Check : undefined}
               iconPosition={ButtonIconPosition.Right}
-            />
+            /> */}
           </View>
           <Box
             style={styles.likeButton}

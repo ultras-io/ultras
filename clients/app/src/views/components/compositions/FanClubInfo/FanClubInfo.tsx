@@ -1,5 +1,7 @@
 import React from 'react';
-import { Divider, Avatar, Pressable, Text, HStack, VStack } from 'native-base';
+import { Divider, Avatar, Button, Pressable, Text, HStack, VStack } from 'native-base';
+import Icon from 'views/components/base/Icon';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
@@ -13,13 +15,15 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
 
+  const isJoined = false;
+
   return (
     <>
       <HStack px={5} py={5}>
         <Avatar
           size="av-xl"
           mr={5}
-          bg={colors.iconUpdatesCount}
+          bg={colors.iconPrimaryInvert}
           source={{ uri: data.avatar }}
         />
         <VStack flex={'1'}>
@@ -63,16 +67,21 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
             </HStack>
           </Pressable>
 
-          {/* <View >
-            <Button
-              title={I18n.t('fanClubJoin')}
-              onPress={() => {}}
-              color="textPrimaryInvert"
-              bgColor="buttonAction"
-              icon={Icons.ArrowRightSquare}
-              iconPosition={ButtonIconPosition.Left}
-            />
-          </View> */}
+          <Button
+            onPress={() => {}}
+            leftIcon={
+              <Icon
+                name={isJoined ? Icons.Check : Icons.ArrowForward}
+                color={isJoined ? 'iconPrimary' : 'iconPrimaryInvert'}
+                size={'ic-xs'}
+              />
+            }
+            variant={isJoined ? 'actionInvert' : 'action'}
+            mt={'3'}
+            mr={'4'}
+          >
+            {I18n.t(isJoined ? 'joined' : 'fanClubJoin')}
+          </Button>
         </VStack>
       </HStack>
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} />

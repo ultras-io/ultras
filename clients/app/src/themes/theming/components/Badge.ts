@@ -13,7 +13,7 @@ export default {
     }),
     updates: ({ colorMode }: ComponentParams) => ({
       _text: { fontSize: 'lg' },
-      bg: colors[colorMode].iconUpdatesCount,
+      bg: colors[colorMode].iconPrimaryInvert,
     }),
   },
 };

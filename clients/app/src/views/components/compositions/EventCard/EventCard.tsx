@@ -7,11 +7,6 @@ import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 
-import Button, {
-  SizeEnum as ButtonSize,
-  BoxSizeEnum as ButtonBoxSize,
-  IconPositionEnum as ButtonIconPosition,
-} from 'views/components/base/Button';
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
 import { IconNamesEnum } from 'assets/icons';
@@ -66,7 +61,7 @@ const EventCard: React.FC<IEventCardProps> = ({
             <View style={styles.comments}>
               <CommentsCount count={commentsCount} />
             </View>
-            <Button
+            {/* <Button
               title={isGoing ? I18n.t('going') : I18n.t('join')}
               onPress={() => {}}
               boxSize={ButtonBoxSize.Contain}
@@ -75,9 +70,9 @@ const EventCard: React.FC<IEventCardProps> = ({
               bgColor={isGoing ? 'buttonActionInvert' : 'buttonAction'}
               icon={isGoing ? IconNamesEnum.Check : undefined}
               iconPosition={ButtonIconPosition.Right}
-            />
+            /> */}
             <View style={styles.arrow}>
-              <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-xs'} />
+              <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-2xs'} />
             </View>
           </View>
         </View>

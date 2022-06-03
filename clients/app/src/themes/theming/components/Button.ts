@@ -86,9 +86,9 @@ export default {
 
     empty: ({ colorMode, disabled = false }: ComponentParams) => {
       return {
+        h: 30,
         _text: {
           fontSize: 'xl',
-          h: 30,
           color: disabled
             ? colors[colorMode].textSeptenary
             : colors[colorMode].textPrimary,
