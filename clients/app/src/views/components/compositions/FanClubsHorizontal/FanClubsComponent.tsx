@@ -1,10 +1,9 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList } from 'native-base';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import FanClubCard from 'views/components/compositions/FanClubCard';
 import { IFanClubsComponentProps } from 'views/containers/FanClubsHorizontal';
-import styles from './styles';
 
 const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
   data,
@@ -26,7 +25,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
 
   return (
     <FlatList
-      contentContainerStyle={styles.flatList}
+      paddingX={'3'}
       keyExtractor={item => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       renderItem={renderColumn}

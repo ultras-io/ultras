@@ -26,18 +26,11 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data }) => {
         </Circle>
 
         <View style={styles.info}>
-          <Text
-            variant={'sectionHeader'}
-            fontSize={'4xl'}
-            fontFamily={'Montserrat'}
-            fontWeight={'600'}
-            letterSpacing={'-0.24px'}
-            numberOfLines={2}
-          >
+          <Text variant={'sectionTitle'} numberOfLines={2}>
             {data.name}
           </Text>
 
-          <Text variant={'quinary'} fontSize={'lg'}>
+          <Text variant={'info'}>
             {data.type === TeamTypesEnum.club
               ? data.city.name + ', ' + data.country.name
               : I18n.t('nationalTeam')}

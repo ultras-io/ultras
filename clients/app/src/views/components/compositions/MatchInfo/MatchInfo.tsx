@@ -40,13 +40,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
             />
           </Box>
 
-          <Text
-            variant={'primary'}
-            textAlign={'center'}
-            fontSize={'xs'}
-            maxW={130}
-            numberOfLines={1}
-          >
+          <Text variant={'matchLeague'} textAlign={'center'} maxW={130} numberOfLines={1}>
             {data.league.name}
           </Text>
 
@@ -59,7 +53,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
                 matchStatus={data.status}
                 size={'big'}
               />
-              <Text variant={'primary'} fontSize={'5xl'} lineHeight={'xs'}>
+              <Text variant={'matchTime'} lineHeight={'xs'}>
                 {' '}
                 -{' '}
               </Text>
@@ -71,28 +65,17 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
               />
             </HStack>
           ) : (
-            <VStack mt={'4'}>
-              <Text variant={'quinary'} fontSize={'lg'} lineHeight={'xs'}>
+            <VStack mt={'4'} alignItems={'center'}>
+              <Text variant={'matchDate'} lineHeight={'xs'}>
                 {formattedDate}
               </Text>
-              <Text
-                variant={'primary'}
-                fontSize={'5xl'}
-                lineHeight={'xs'}
-                fontWeight={'600'}
-              >
+              <Text variant={'matchTime'} lineHeight={'xs'}>
                 {formattedTime}
               </Text>
             </VStack>
           )}
 
-          <Text
-            variant={'quinary'}
-            textAlign={'center'}
-            fontSize={'xs'}
-            maxW={130}
-            numberOfLines={2}
-          >
+          <Text variant={'matchVenue'} textAlign={'center'} maxW={130} numberOfLines={2}>
             {data.venue.name}
           </Text>
         </VStack>

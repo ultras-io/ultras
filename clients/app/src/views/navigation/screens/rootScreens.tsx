@@ -1,8 +1,7 @@
 import React from 'react';
+import { Text } from 'native-base';
 import TabNavigation from '../TabNavigation';
 import I18n from 'i18n/i18n';
-import UltrasText from 'views/components/base/UltrasText';
-import styles from 'styles/styles';
 import type { RootNavigationScreens } from '../types';
 
 const Intro = React.lazy(() => import('views/screens/Intro'));
@@ -24,9 +23,9 @@ const SCREENS: RootNavigationScreens = {
       headerBackVisible: false,
       headerShadowVisible: false,
       headerTitle: () => (
-        <UltrasText style={styles.headerTitle} color="textHeader">
+        <Text variant={'title'} flex={1}>
           {I18n.t('joinUs')}
-        </UltrasText>
+        </Text>
       ),
     },
   },

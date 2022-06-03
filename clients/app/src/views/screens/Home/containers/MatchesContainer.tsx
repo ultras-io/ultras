@@ -1,16 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button } from 'native-base';
+import { VStack, HStack, Button, Text } from 'native-base';
 import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import MatchesComponent from '../components/MatchesComponent';
-import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { tabScreens } from 'views/navigation/screens';
 import buildMatchesStore from 'stores/matches';
 import { IMatchesContainerProps } from '../types';
-import styles from '../styles';
 
 const matchesStore = buildMatchesStore();
 matchesStore.getAll();
@@ -25,11 +22,15 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
   }, [changeTab]);
 
   return (
-    <View>
-      <View style={styles.header}>
-        <UltrasText style={styles.title} color="textSectionHeader">
-          {I18n.t('upcomingMatches')}
-        </UltrasText>
+    <VStack>
+      <HStack
+        justifyContent={'space-between'}
+        alignItems={'center'}
+        ml={'5'}
+        mr={'2'}
+        marginY={'3'}
+      >
+        <Text variant={'searchTitle'}>{I18n.t('upcomingMatches')}</Text>
         <Button
           onPress={navigateToMatches}
           rightIcon={
@@ -39,9 +40,9 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
         >
           {I18n.t('viewAll')}
         </Button>
-      </View>
+      </HStack>
       <MatchesComponent data={result.list.data || []} onEndReached={() => {}} />
-    </View>
+    </VStack>
   );
 };
 

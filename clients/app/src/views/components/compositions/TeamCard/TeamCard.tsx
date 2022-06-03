@@ -27,19 +27,12 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
         </Circle>
 
         <View style={styles.info}>
-          <Text
-            variant={'sectionHeader'}
-            fontFamily={'Montserrat'}
-            fontWeight={'700'}
-            fontSize={'2xl'}
-            lineHeight={'sm'}
-            numberOfLines={3}
-          >
+          <Text variant={'searchTitle'} lineHeight={'sm'} numberOfLines={3}>
             {data.name}
           </Text>
 
           <HStack>
-            <Text variant={'quinary'} fontSize={'lg'}>
+            <Text variant={'info'}>
               {fanClubsCount === 0 && I18n.t('noFanClubs')}
               {fanClubsCount === 1 &&
                 getReadableNumber(fanClubsCount) + ' ' + I18n.t('fanClub')}
@@ -50,13 +43,9 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
             {data.type === TeamTypesEnum.club && (
               <>
                 <VerticalDivider />
-                <Text variant={'quinary'} fontSize={'lg'}>
-                  {data.country.name}
-                </Text>
+                <Text variant={'info'}>{data.country.name}</Text>
                 <VerticalDivider />
-                <Text variant={'quinary'} fontSize={'lg'}>
-                  {data.city.name}
-                </Text>
+                <Text variant={'info'}>{data.city.name}</Text>
               </>
             )}
           </HStack>

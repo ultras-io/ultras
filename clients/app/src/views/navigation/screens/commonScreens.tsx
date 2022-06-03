@@ -1,7 +1,6 @@
 import React from 'react';
-import UltrasText from 'views/components/base/UltrasText';
+import { Text } from 'native-base';
 import type { CommonScreens } from '../types';
-import styles from 'styles/styles';
 
 const Match = React.lazy(() => import('views/screens/Match'));
 const Event = React.lazy(() => import('views/screens/Event'));
@@ -61,9 +60,9 @@ const SCREENS: CommonScreens = {
     options: {
       ...defaultOptions,
       headerTitle: () => (
-        <UltrasText style={styles.headerLogo} color="textHeader">
+        <Text variant={'logoSmall'} flex={1}>
           ultras
-        </UltrasText>
+        </Text>
       ),
     },
   },

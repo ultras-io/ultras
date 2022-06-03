@@ -14,13 +14,7 @@ const Splash: React.FC<ISplashProps> = ({ setIsLoading }) => {
 
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
-      <Text
-        variant="primary"
-        fontWeight="600"
-        fontSize="8xl"
-        marginBottom={210}
-        fontFamily={'MontserratAlternates'}
-      >
+      <Text variant="logo" marginBottom={210}>
         ultras
       </Text>
     </ImageBackground>
