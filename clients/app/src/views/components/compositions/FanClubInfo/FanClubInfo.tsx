@@ -27,16 +27,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           source={{ uri: data.avatar }}
         />
         <VStack flex={'1'}>
-          <Text
-            variant={'sectionHeader'}
-            fontFamily={'Montserrat'}
-            fontWeight={'600'}
-            fontSize={'4xl'}
-            lineHeight={'sm'}
-            numberOfLines={3}
-            letterSpacing={'-0.24px'}
-            mb={1}
-          >
+          <Text variant={'sectionTitle'} lineHeight={'sm'} numberOfLines={3} mb={1}>
             {data.name}
           </Text>
           <HStack>
@@ -48,22 +39,18 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
                 })
               }
             >
-              <Text variant={'quinary'} fontSize={'lg'}>
+              <Text variant={'info'}>
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </Text>
             </Pressable>
             <VerticalDivider />
-            <Text variant={'quinary'} fontSize={'lg'}>
-              {data.city.name}
-            </Text>
+            <Text variant={'info'}>{data.city.name}</Text>
           </HStack>
 
           <Pressable onPress={() => pushTo(commonScreens.team.name, { data: data.team })}>
-            <HStack>
-              {/* <Icon /> */}
-              <Text variant={'quinary'} fontSize={'xl'} fontWeight={'700'}>
-                {data.team.name}
-              </Text>
+            <HStack alignItems={'center'} space={'1'}>
+              <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
+              <Text variant={'info'}>{data.team.name}</Text>
             </HStack>
           </Pressable>
 

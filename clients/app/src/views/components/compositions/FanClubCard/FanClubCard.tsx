@@ -22,46 +22,26 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
         <BluredView style={styles.container}>
           <Avatar source={{ uri: avatarURI }} mr={15} />
           <VStack flex="1" justifyContent={'center'}>
-            <Text
-              variant={'sectionHeader'}
-              fontFamily={'Montserrat'}
-              fontWeight={'700'}
-              fontSize={'2xl'}
-              lineHeight={'sm'}
-              numberOfLines={3}
-            >
+            <Text variant={'searchTitle'} lineHeight={'sm'} numberOfLines={3}>
               {data.name}
             </Text>
             <HStack>
-              <Text variant={'quinary'} fontSize={'lg'}>
+              <Text variant={'info'}>
                 {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
               </Text>
               <VerticalDivider />
-              <Text variant={'quinary'} fontSize={'lg'}>
-                {data.city.name}
-              </Text>
+              <Text variant={'info'}>{data.city.name}</Text>
             </HStack>
           </VStack>
         </BluredView>
       ) : (
         <Center paddingX={2} width={100}>
           <Avatar source={{ uri: avatarURI }} size={'av-lg'} mb={2} />
-          <Text
-            variant={'primary'}
-            fontSize={'sm'}
-            fontWeight={'500'}
-            textAlign={'center'}
-            numberOfLines={2}
-          >
+          <Text variant={'smallTitle'} textAlign={'center'} numberOfLines={2}>
             {data.name}
           </Text>
           {data.membersCount && (
-            <Text
-              variant={'senary'}
-              fontSize={'sm'}
-              fontWeight={'500'}
-              textAlign={'center'}
-            >
+            <Text variant={'smallDescription'} textAlign={'center'}>
               {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
             </Text>
           )}

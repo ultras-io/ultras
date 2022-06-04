@@ -17,7 +17,7 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
     return formatDateAndTime(dateTime, matchStatus, elapsedTime);
   }, [dateTime, matchStatus, elapsedTime]);
 
-  const variant = invert ? 'primaryInvert' : 'primary';
+  const variantSuffix = invert ? 'Invert' : '';
 
   return (
     <View style={styles.container}>
@@ -27,10 +27,10 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
           <Image source={{ uri: leagueLogoURI }} style={styles.logo} />
         </Box>
         <View style={styles.dateTime}>
-          <Text variant={variant} fontSize={'2xs'} lineHeight={'2xs'}>
+          <Text variant={'matchDate' + variantSuffix} fontSize={'2xs'} lineHeight={'2xs'}>
             {formattedDate}
           </Text>
-          <Text variant={variant} fontSize={'sm'} lineHeight={'xs'} fontWeight={'600'}>
+          <Text variant={'matchTeam' + variantSuffix} fontSize={'sm'} lineHeight={'xs'}>
             {formattedTime}
           </Text>
         </View>

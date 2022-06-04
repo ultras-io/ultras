@@ -1,9 +1,8 @@
 import React from 'react';
+import { Text } from 'native-base';
 import commonScreens from './commonScreens';
 import I18n from 'i18n/i18n';
-import UltrasText from 'views/components/base/UltrasText';
 import { ScreenNavigationConfig } from '../types';
-import styles from 'styles/styles';
 
 const Home = React.lazy(() => import('views/screens/Home'));
 const Search = React.lazy(() => import('views/screens/Search'));
@@ -37,9 +36,9 @@ const SCREENS: ScreenNavigationConfig = {
           headerShown: true,
           headerBackVisible: false,
           headerTitle: () => (
-            <UltrasText style={styles.headerLogo} color="textHeader">
+            <Text variant={'logoSmall'} flex={1}>
               ultras
-            </UltrasText>
+            </Text>
           ),
         },
       },
@@ -71,9 +70,9 @@ const SCREENS: ScreenNavigationConfig = {
           headerShown: true,
           headerBackVisible: false,
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="textHeader">
+            <Text variant={'sectionTitle'} flex={1} ml={'3'}>
               {I18n.t('matches')}
-            </UltrasText>
+            </Text>
           ),
         },
       },
@@ -91,9 +90,9 @@ const SCREENS: ScreenNavigationConfig = {
           headerShown: true,
           headerBackVisible: false,
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="textHeader">
+            <Text variant={'sectionTitle'} flex={1} ml={'3'}>
               {I18n.t('events')}
-            </UltrasText>
+            </Text>
           ),
         },
       },
@@ -109,9 +108,9 @@ const SCREENS: ScreenNavigationConfig = {
         component: Settings,
         options: {
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="textHeader">
+            <Text variant={'sectionTitle'} flex={1} ml={'3'}>
               {I18n.t('settings')}
-            </UltrasText>
+            </Text>
           ),
         },
       },
@@ -120,9 +119,9 @@ const SCREENS: ScreenNavigationConfig = {
         component: Notifications,
         options: {
           headerTitle: () => (
-            <UltrasText style={styles.screenTitleLeft} color="textHeader">
+            <Text variant={'sectionTitle'} flex={1} ml={'3'}>
               {I18n.t('notifications')}
-            </UltrasText>
+            </Text>
           ),
         },
       },

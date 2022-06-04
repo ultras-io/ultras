@@ -14,14 +14,11 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ onPress, logo, name }) => {
         </Circle>
       </Pressable>
       <Text
-        variant={'primary'}
-        fontWeight={'600'}
-        fontSize={'2xl'}
+        variant={'matchTeam'}
+        textAlign={'center'}
         lineHeight={'sm'}
         numberOfLines={2}
-        letterSpacing={'-0.24'}
         mt={'2.5'}
-        textAlign={'center'}
       >
         {name}
       </Text>

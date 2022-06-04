@@ -5,7 +5,6 @@ import { commonScreens } from 'views/navigation/screens';
 import MatchCard from 'views/components/compositions/MatchCard';
 import { MatchViewModel } from '@ultras/core-api-sdk';
 import { IMatchesComponentProps } from '../types';
-import styles from '../styles';
 
 const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached }) => {
   const flatListRef: React.MutableRefObject<FlatList<MatchViewModel> | undefined> =
@@ -48,7 +47,6 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
       ref={flatListRef}
       onScrollBeginDrag={Platform.OS === 'ios' ? onScrollBeginDrag : undefined}
       onScrollEndDrag={Platform.OS === 'ios' ? onScrollEndDrag : undefined}
-      contentContainerStyle={styles.flatList}
       keyExtractor={item => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       renderItem={renderRow}
