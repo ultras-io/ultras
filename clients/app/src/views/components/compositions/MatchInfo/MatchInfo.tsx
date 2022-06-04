@@ -91,7 +91,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
         leftIcon={<Icon name={Icons.Add} color={'iconPrimaryInvert'} size={'ic-xs'} />}
         variant={'action'}
         mt={'3'}
-        paddingX={'8'}
+        px={'8'}
         alignSelf={'center'}
       >
         {I18n.t('eventsCreate')}

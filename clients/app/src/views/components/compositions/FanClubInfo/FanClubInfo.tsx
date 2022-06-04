@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Avatar, Button, Pressable, Text, HStack, VStack } from 'native-base';
+import { Avatar, Button, Pressable, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import VerticalDivider from 'views/components/base/VerticalDivider';
@@ -18,61 +18,58 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const isJoined = false;
 
   return (
-    <>
-      <HStack px={5} py={5}>
-        <Avatar
-          size="av-xl"
-          mr={5}
-          bg={colors.iconPrimaryInvert}
-          source={{ uri: data.avatar }}
-        />
-        <VStack flex={'1'}>
-          <Text variant={'sectionTitle'} lineHeight={'sm'} numberOfLines={3} mb={1}>
-            {data.name}
-          </Text>
-          <HStack>
-            <Pressable
-              onPress={() =>
-                pushTo(commonScreens.profileList.name, {
-                  id: data.id,
-                  type: ProfileListTypeEnum.fanClubMembers,
-                })
-              }
-            >
-              <Text variant={'info'}>
-                {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
-              </Text>
-            </Pressable>
-            <VerticalDivider />
-            <Text variant={'info'}>{data.city.name}</Text>
-          </HStack>
-
-          <Pressable onPress={() => pushTo(commonScreens.team.name, { data: data.team })}>
-            <HStack alignItems={'center'} space={'1'}>
-              <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
-              <Text variant={'info'}>{data.team.name}</Text>
-            </HStack>
-          </Pressable>
-
-          <Button
-            onPress={() => {}}
-            leftIcon={
-              <Icon
-                name={isJoined ? Icons.Check : Icons.ArrowForward}
-                color={isJoined ? 'iconPrimary' : 'iconPrimaryInvert'}
-                size={'ic-xs'}
-              />
+    <HStack px={5} py={5}>
+      <Avatar
+        size="av-xl"
+        mr={5}
+        bg={colors.iconPrimaryInvert}
+        source={{ uri: data.avatar }}
+      />
+      <VStack flex={'1'}>
+        <Text variant={'sectionTitle'} lineHeight={'sm'} numberOfLines={3} mb={1}>
+          {data.name}
+        </Text>
+        <HStack>
+          <Pressable
+            onPress={() =>
+              pushTo(commonScreens.profileList.name, {
+                id: data.id,
+                type: ProfileListTypeEnum.fanClubMembers,
+              })
             }
-            variant={isJoined ? 'actionInvert' : 'action'}
-            mt={'3'}
-            mr={'4'}
           >
-            {I18n.t(isJoined ? 'joined' : 'fanClubJoin')}
-          </Button>
-        </VStack>
-      </HStack>
-      <Divider bg={colors.backgroundDividerTransparent} thickness={1} />
-    </>
+            <Text variant={'info'}>
+              {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
+            </Text>
+          </Pressable>
+          <VerticalDivider />
+          <Text variant={'info'}>{data.city.name}</Text>
+        </HStack>
+
+        <Pressable onPress={() => pushTo(commonScreens.team.name, { data: data.team })}>
+          <HStack alignItems={'center'} space={'1'}>
+            <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
+            <Text variant={'info'}>{data.team.name}</Text>
+          </HStack>
+        </Pressable>
+
+        <Button
+          onPress={() => {}}
+          leftIcon={
+            <Icon
+              name={isJoined ? Icons.Check : Icons.ArrowForward}
+              color={isJoined ? 'iconPrimary' : 'iconPrimaryInvert'}
+              size={'ic-xs'}
+            />
+          }
+          variant={isJoined ? 'actionInvert' : 'action'}
+          mt={'3'}
+          mr={'4'}
+        >
+          {I18n.t(isJoined ? 'joined' : 'fanClubJoin')}
+        </Button>
+      </VStack>
+    </HStack>
   );
 };
 

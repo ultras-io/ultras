@@ -1,17 +1,16 @@
 import React from 'react';
-// import { FlatList, View } from 'react-native';
+import { Divider } from 'native-base';
+import { useTheme } from 'themes';
 // import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { commonScreens } from 'views/navigation/screens';
 import FanClubInfo from 'views/components/compositions/FanClubInfo';
-// import EventCard from 'views/components/compositions/EventCard';
-// import PostCard from 'views/components/compositions/PostCard';
-// import UltrasText from 'views/components/base/UltrasText';
 import { IFanClubComponentProps } from '../types';
 // import styles from '../styles';
 // import gStyles from 'styles/styles';
 
 const FanClubComponent: React.FC<IFanClubComponentProps> = ({ data }) => {
   // const { setOptions, pushTo } = useNavigationWithParams();
+  const { colors } = useTheme();
 
   // const onScroll = React.useCallback(
   //   ({ nativeEvent }) => {
@@ -33,45 +32,12 @@ const FanClubComponent: React.FC<IFanClubComponentProps> = ({ data }) => {
   //   [data.name, setOptions]
   // );
 
-  // const renderColumn = React.useCallback(
-  //   ({ item }) => (
-  //     <View style={styles.flatListItem}>
-  //       {item.type === 'event' ? (
-  //         <EventCard
-  //           onPress={() => pushTo(commonScreens.event.name, { id: 23 })} //eventId
-  //           imageUri={
-  //             'https://i2-prod.football.london/incoming/article19846274.ece/ALTERNATES/s1200/0_GettyImages-1302327332.jpg'
-  //           }
-  //           date={new Date(2021, 10, 4)}
-  //           title={
-  //             'Celebrate all things Chelsea FC, the reigning Champions of Europe, at the Annual Lunch 2021.'
-  //           }
-  //           creator={'s.bridge'}
-  //           commentsCount={2560}
-  //           likeCount={130}
-  //           goingCount={120900}
-  //           isGoing={true}
-  //           isLiked={true}
-  //         />
-  //       ) : (
-  //         <PostCard
-  //           onPress={() => pushTo(commonScreens.post.name, { id: 23 })} //postId
-  //           date={new Date(2021, 9, 9)}
-  //           title={
-  //             "Romelu Lukaku's transfer to Chelsea from Inter Milan has been finalised"
-  //           }
-  //           creator={'abu.hagob'}
-  //           commentsCount={37}
-  //           isLiked={false}
-  //           likeCount={345}
-  //         />
-  //       )}
-  //     </View>
-  //   ),
-  //   [pushTo]
-  // );
-
-  return <FanClubInfo data={data} />;
+  return (
+    <>
+      <FanClubInfo data={data} />
+      <Divider bg={colors.backgroundDividerTransparent} thickness={1} />
+    </>
+  );
 
   // return (
   //   <FlatList
