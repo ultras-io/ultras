@@ -9,7 +9,7 @@ export default () => {
     <Center>
       <Divider
         orientation="vertical"
-        mx={2}
+        mx={'2'}
         height={'dv-sm'}
         bg={colors.backgroundDividerTransparent}
       />
