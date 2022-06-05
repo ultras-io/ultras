@@ -13,6 +13,11 @@ import styles from 'views/components/compositions/TeamsHorizontal/styles';
 const TeamsContainer: React.FC<ITeamsContainerProps> = ({ data, withBounce = true }) => {
   const { pushTo } = useNavigationWithParams();
 
+  const openTeam = React.useCallback(
+    () => pushTo(commonScreens.team.name, { data: data }),
+    [data, pushTo]
+  );
+
   return (
     <View>
       <View style={styles.header}>
@@ -20,11 +25,7 @@ const TeamsContainer: React.FC<ITeamsContainerProps> = ({ data, withBounce = tru
           {I18n.t('teams')}
         </UltrasText>
       </View>
-      <TeamsComponent
-        data={data}
-        onPress={() => pushTo(commonScreens.team.name, { data: data })}
-        withBounce={withBounce}
-      />
+      <TeamsComponent data={data} onPress={openTeam} withBounce={withBounce} />
     </View>
   );
 };

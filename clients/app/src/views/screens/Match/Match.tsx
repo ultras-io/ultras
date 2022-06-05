@@ -2,7 +2,6 @@ import React from 'react';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { commonScreens } from 'navigation/screens';
 import MatchContainer from './containers/MatchContainer';
-import WithSafeArea from 'views/components/base/WithSafeArea';
 import Like from 'views/components/base/Like';
 import { IMatchProps } from './types';
 
@@ -16,11 +15,7 @@ const Match: React.FC<IMatchProps> = ({ route }) => {
     });
   }, [setOptions]);
 
-  return (
-    <WithSafeArea>
-      <MatchContainer data={data} />
-    </WithSafeArea>
-  );
+  return <MatchContainer data={data} />;
 };
 
 export default Match;

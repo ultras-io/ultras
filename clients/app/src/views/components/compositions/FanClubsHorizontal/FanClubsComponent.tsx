@@ -25,7 +25,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
 
   return (
     <FlatList
-      paddingX={'3'}
+      px={'3'}
       keyExtractor={item => item.id.toString()}
       showsHorizontalScrollIndicator={false}
       renderItem={renderColumn}

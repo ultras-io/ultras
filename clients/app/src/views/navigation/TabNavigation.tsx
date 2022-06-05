@@ -21,6 +21,7 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({}) => {
         },
         tabBarActiveTintColor: colors.textHeader,
         tabBarInactiveTintColor: colors.textTertiary,
+        tabBarShowLabel: false,
       }}
     >
       <Tab.Screen
@@ -51,7 +52,7 @@ const TabNavigation: React.FC<ITabNavigationProps> = ({}) => {
         name={tabScreens.profile.name}
         component={tabScreens.profile.component}
         initialParams={{ tabName: tabScreens.profile.name }}
-        options={{ tabBarBadge: '' }}
+        options={tabScreens.profile.options}
       />
     </Tab.Navigator>
   );

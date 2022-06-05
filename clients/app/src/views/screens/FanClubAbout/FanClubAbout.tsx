@@ -1,13 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button } from 'native-base';
+import { ScrollView, Button, Text } from 'native-base';
 import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import WithSafeArea from 'views/components/base/WithSafeArea';
-import UltrasText from 'views/components/base/UltrasText';
 import { IFanClubAboutProps } from './types';
-import styles from './styles';
 
 const FanClubAbout: React.FC<IFanClubAboutProps> = ({ route }) => {
   const { description } = route.params;
@@ -15,24 +11,28 @@ const FanClubAbout: React.FC<IFanClubAboutProps> = ({ route }) => {
   const { goBack } = useNavigationWithParams();
 
   return (
-    <WithSafeArea>
-      <View style={styles.closeButton}>
-        <Button
-          onPress={goBack}
-          variant={'empty'}
-          alignSelf="flex-start"
-          _text={{ color: colors.textAction }}
-        >
-          {I18n.t('close')}
-        </Button>
-      </View>
-      <UltrasText color="textPrimary" style={styles.title}>
-        About
-      </UltrasText>
-      <UltrasText color="textSecondary" style={styles.text}>
-        {description}
-      </UltrasText>
-    </WithSafeArea>
+    <>
+      <Button
+        onPress={goBack}
+        variant={'empty'}
+        alignSelf="flex-start"
+        _text={{ color: colors.textAction }}
+        mt={'5'}
+        mb={'2.5'}
+        px={'2.5'}
+      >
+        {I18n.t('close')}
+      </Button>
+
+      <ScrollView px={'5'}>
+        <Text variant={'title'} mb={'2'}>
+          {I18n.t('about')}
+        </Text>
+        <Text variant={'standart'} mb={'10'}>
+          {description}
+        </Text>
+      </ScrollView>
+    </>
   );
 };
 

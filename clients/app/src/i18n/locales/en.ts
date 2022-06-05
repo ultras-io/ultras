@@ -21,13 +21,13 @@ export default {
   country: 'Country',
   footballClubs: 'Football Clubs',
   likes: 'likes',
-
   going: 'Going',
   join: 'Join',
   joined: 'Joined',
   canChangeClub: 'You can change or add other favorite football club later.',
   all: 'All',
   search: 'Search',
+  about: 'About',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',

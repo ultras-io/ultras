@@ -46,8 +46,14 @@ const SCREENS: TabNavigationScreens = {
     },
   },
   profile: {
-    name: 'Profile',
+    name: 'Me',
     component: ProfileNavigation,
+    options: {
+      tabBarIcon: ({ focused }: { focused: boolean }) => (
+        <Icon name={Icons.Shirt} color={focused ? 'iconNavigation' : 'iconSecondary'} />
+      ),
+      // tabBarBadge: '1',
+    },
   },
 };
 

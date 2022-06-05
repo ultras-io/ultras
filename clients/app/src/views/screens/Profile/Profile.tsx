@@ -1,6 +1,5 @@
 import React from 'react';
 // import { View } from 'react-native';
-import WithSafeArea from 'views/components/base/WithSafeArea';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/WithBadge';
 // import { IconNamesEnum as Icons } from 'assets/icons';
@@ -41,11 +40,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
     });
   }, [setOptions, pushTo]);
 
-  return (
-    <WithSafeArea>
-      <ProfileContainer id={id} />
-    </WithSafeArea>
-  );
+  return <ProfileContainer id={id} />;
 };
 
 export default Profile;

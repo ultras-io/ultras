@@ -30,6 +30,7 @@ export type CommonScreens = Record<
 interface ScreenOptions extends ScreenProps {
   headerTitle?: string | React.FunctionComponent<any>;
   tabBarIcon?: React.FunctionComponent<any>;
+  tabBarBadge?: string;
   isModal?: boolean;
   headerShown?: boolean;
   headerBackVisible?: boolean;

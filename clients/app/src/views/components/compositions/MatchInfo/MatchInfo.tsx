@@ -16,13 +16,22 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
     return formatDateAndTime(data.dateTime, data.status, data.elapsedTime);
   }, [data.dateTime, data.status, data.elapsedTime]);
 
+  const openTeam = React.useCallback(
+    (team: 'home' | 'away') => () =>
+      pushTo(commonScreens.team.name, {
+        data: team === 'home' ? data.teamHome : data.teamAway,
+      }),
+    [pushTo, data.teamHome, data.teamAway]
+  );
+
   return (
     <HStack mx={15} my={15}>
       <TeamInfo
-        onPress={() => pushTo(commonScreens.team.name, { data: data.teamHome })}
+        onPress={openTeam('home')}
         name={data.teamHome.name}
         logo={data.teamHome.logo}
       />
+
       <VStack flex={5} alignItems={'center'}>
         <Center bg={colors.backgroundLogo} size={'6'} borderRadius={'3'} mb={'1.5'}>
           <Image
@@ -57,8 +66,9 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
           {data.venue.name}
         </Text>
       </VStack>
+
       <TeamInfo
-        onPress={() => pushTo(commonScreens.team.name, { data: data.teamAway })}
+        onPress={openTeam('away')}
         name={data.teamAway.name}
         logo={data.teamAway.logo}
       />

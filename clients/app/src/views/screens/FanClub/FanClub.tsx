@@ -1,14 +1,10 @@
 import React from 'react';
-import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { commonScreens } from 'views/navigation/screens';
 import FanClubContainer from './containers/FanClubContainer';
-import WithSafeArea from 'views/components/base/WithSafeArea';
 import { IFanClubProps } from './types';
 
 const FanClub: React.FC<IFanClubProps> = ({ route }) => {
-  const { isDarkMode } = useTheme();
-
   const { data } = route.params;
   const { setOptions, pushTo } = useNavigationWithParams();
 
@@ -28,13 +24,9 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
       //   />
       // ),
     });
-  }, [setOptions, pushTo, data.description, isDarkMode]);
+  }, [setOptions, pushTo, data.description]);
 
-  return (
-    <WithSafeArea>
-      <FanClubContainer data={data} />
-    </WithSafeArea>
-  );
+  return <FanClubContainer data={data} />;
 };
 
 export default FanClub;
