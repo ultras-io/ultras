@@ -92,7 +92,7 @@ class MatchService extends BaseService {
     }
 
     if (params.teamId) {
-      const condition = this.getConditionArrayOrSingle(params.teamId);
+      const condition = this.getCondition(params.teamId);
 
       this.queryAppend(query, db.Sequelize.Op.or, [
         {

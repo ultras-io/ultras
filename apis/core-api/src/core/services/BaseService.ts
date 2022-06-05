@@ -46,7 +46,7 @@ abstract class BaseService {
     value: any,
     separator = ','
   ) {
-    const condition = this.getConditionArrayOrSingle(value, separator);
+    const condition = this.getCondition(value, separator);
     if (!condition) {
       return;
     }
@@ -54,7 +54,7 @@ abstract class BaseService {
     return this.queryAppend(query, fieldName, condition);
   }
 
-  protected static getConditionArrayOrSingle(value: any, separator = ',') {
+  protected static getCondition(value: any, separator = ',') {
     if (!value) {
       return null;
     }
