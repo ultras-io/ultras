@@ -1,10 +1,8 @@
 import React from 'react';
-import { View, Image } from 'react-native';
-import { Divider, Text } from 'native-base';
+import { HStack, VStack, Box, Center, Image, Divider, Text } from 'native-base';
+import { useTheme } from 'themes';
 import { formatDateAndTime } from 'utils/helpers/matchTime';
-import Box from 'views/components/base/Box';
 import { IMatchTimeProps } from './types';
-import styles from './styles';
 
 const MatchTime: React.FC<IMatchTimeProps> = ({
   matchStatus,
@@ -17,26 +15,32 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
     return formatDateAndTime(dateTime, matchStatus, elapsedTime);
   }, [dateTime, matchStatus, elapsedTime]);
 
+  const { colors } = useTheme();
   const variantSuffix = invert ? 'Invert' : '';
 
   return (
-    <View style={styles.container}>
+    <Box w={'16'}>
       <Divider />
-      <View style={styles.logoWithTime}>
-        <Box bgColor="backgroundLogo" style={styles.logoContainer}>
-          <Image source={{ uri: leagueLogoURI }} style={styles.logo} />
-        </Box>
-        <View style={styles.dateTime}>
+      <HStack paddingY={'1'}>
+        <Center bg={colors.backgroundLogo} size={'5'} p={'0.5'} borderRadius={'3'}>
+          <Image
+            source={{ uri: leagueLogoURI }}
+            alt={leagueLogoURI}
+            size={'4'}
+            resizeMode={'contain'}
+          />
+        </Center>
+        <VStack ml={'1'}>
           <Text variant={'matchDate' + variantSuffix} fontSize={'2xs'} lineHeight={'2xs'}>
             {formattedDate}
           </Text>
           <Text variant={'matchTeam' + variantSuffix} fontSize={'sm'} lineHeight={'xs'}>
             {formattedTime}
           </Text>
-        </View>
-      </View>
+        </VStack>
+      </HStack>
       <Divider />
-    </View>
+    </Box>
   );
 };
 

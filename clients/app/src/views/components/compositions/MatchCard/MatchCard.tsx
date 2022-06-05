@@ -1,23 +1,21 @@
 import React from 'react';
-import { Pressable, View, Image } from 'react-native';
+import { Pressable, Text, HStack, Center, Image } from 'native-base';
+import { useTheme } from 'themes';
 import VerticalDivider from 'views/components/base/VerticalDivider';
 import Box from 'views/components/base/Box';
-import UltrasText from 'views/components/base/UltrasText';
 import MatchTime from '../MatchTime';
-import MatchScore from 'views/components/base/MatchScore';
 import BluredView from 'views/components/base/BluredView';
-import Like from 'views/components/base/Like';
-// import CommentsCount from 'views/components/base/CommentsCount';
 import { isMatchGoing } from 'utils/helpers/matchTime';
-import { WinnerEnum, MatchStatusesEnum } from '@ultras/utils';
+import { MatchStatusesEnum } from '@ultras/utils';
 import { IMatchCardProps } from './types';
 import styles from './styles';
 
 const WORLD_AS_COUNTRY_ID = 162;
 
 const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = false }) => {
+  const { colors } = useTheme();
   const Container = horizontal ? Box : BluredView;
-  const textColor = horizontal ? 'textPrimaryInvert' : 'textPrimary';
+  const variantSuffix = horizontal ? 'Invert' : '';
 
   return (
     <Pressable onPress={onPress}>
@@ -25,34 +23,37 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
         style={horizontal ? styles.containerH : styles.container}
         bgColor="backgroundCardInvert"
       >
-        <View style={styles.league}>
+        <HStack>
           {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
             <>
-              <UltrasText style={styles.leagueText} color={textColor}>
+              <Text variant={'matchLeague' + variantSuffix} fontSize={'sm'}>
                 {data.league.country.name}
-              </UltrasText>
+              </Text>
               <VerticalDivider />
             </>
           )}
-          <UltrasText style={styles.leagueText} color={textColor}>
+          <Text variant={'matchLeague' + variantSuffix} fontSize={'sm'}>
             {data.league.name}
-          </UltrasText>
-        </View>
+          </Text>
+        </HStack>
 
-        <View style={styles.logoAndTime}>
-          <Box style={styles.logoContainer} bgColor={'backgroundLogo'}>
+        <HStack mt={'1.5'} mb={'2'}>
+          <Center size={'30'} bg={colors.backgroundLogo} mr={'0.5'}>
             <Image
               source={{ uri: data.teamHome.logo }}
-              style={styles.logo}
+              alt={data.teamHome.name}
+              size={'5'}
               resizeMode={'contain'}
             />
-          </Box>
-          <Box
-            style={[styles.logoContainer, styles.logoContainer2]}
-            bgColor={'backgroundLogo'}
-          >
-            <Image source={{ uri: data.teamAway.logo }} style={styles.logo} />
-          </Box>
+          </Center>
+          <Center size={'30'} bg={colors.backgroundLogo} mr={'1.5'}>
+            <Image
+              source={{ uri: data.teamAway.logo }}
+              alt={data.teamAway.name}
+              size={'5'}
+              resizeMode={'contain'}
+            />
+          </Center>
           <MatchTime
             matchStatus={data.status}
             dateTime={data.dateTime}
@@ -60,50 +61,32 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
             leagueLogoURI={data.league.logo}
             invert={horizontal}
           />
-        </View>
-        <View style={styles.teamAndScore}>
-          <UltrasText
-            style={[styles.team, data.winner === WinnerEnum.home ? styles.winner : null]}
-            color={textColor}
-            numberOfLines={1}
-          >
-            {data.teamHome.name}
-          </UltrasText>
-          {(isMatchGoing(data.status) || data.status === MatchStatusesEnum.finished) && (
-            <MatchScore
-              score={data.goalsHome || 0}
-              // penalties={score.team1Penalties || 0}
-              matchStatus={data.status}
-              invert={horizontal}
-            />
-          )}
-        </View>
+        </HStack>
 
-        <View style={styles.teamAndScore}>
-          <UltrasText
-            style={[styles.team, data.winner === WinnerEnum.away ? styles.winner : null]}
-            color={textColor}
-            numberOfLines={1}
-          >
-            {data.teamAway.name}
-          </UltrasText>
+        <HStack mt={'1'} justifyContent={'space-between'}>
+          <Text variant={'matchTeam' + variantSuffix} numberOfLines={1}>
+            {data.teamHome.name}
+          </Text>
           {(isMatchGoing(data.status) || data.status === MatchStatusesEnum.finished) && (
-            <MatchScore
-              score={data.goalsAway || 0}
-              // penalties={score.team1Penalties || 0}
-              matchStatus={data.status}
-              invert={horizontal}
-            />
+            <Text variant={'matchTeam' + variantSuffix}>{data.goalsHome}</Text>
           )}
-        </View>
-        {!horizontal && (
-          <View style={styles.actionBox}>
+        </HStack>
+
+        <HStack mt={'1'} justifyContent={'space-between'}>
+          <Text variant={'matchTeam' + variantSuffix} numberOfLines={1}>
+            {data.teamAway.name}
+          </Text>
+          {(isMatchGoing(data.status) || data.status === MatchStatusesEnum.finished) && (
+            <Text variant={'matchTeam' + variantSuffix}>{data.goalsAway}</Text>
+          )}
+        </HStack>
+
+        {/* {!horizontal && (
             <Like isLiked={false} onPress={() => {}} count={0} />
-            {/* <View style={styles.comments}>
+             <View style={styles.comments}>
               <CommentsCount count={0} />
-            </View> */}
-          </View>
-        )}
+            </View> 
+        )} */}
       </Container>
     </Pressable>
   );
