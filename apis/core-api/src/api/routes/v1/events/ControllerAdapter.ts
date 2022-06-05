@@ -13,13 +13,13 @@ class ControllerAdapter {
     /** CONTROLLERS */
     const { data } = await EventController.create({
       authorId: userId,
-      matchId: matchId,
-      fanClubId: fanClubId,
-      title: title,
-      content: content,
-      privacy: privacy,
+      matchId,
+      fanClubId,
+      title,
+      content,
+      privacy,
       dateTime: new Date(dateTime),
-      locationName: locationName,
+      locationName,
     });
 
     /** RESPONSE */
