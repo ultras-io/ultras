@@ -2,7 +2,6 @@ import React from 'react';
 import { Pressable, Text, HStack, Center, Image } from 'native-base';
 import { useTheme } from 'themes';
 import VerticalDivider from 'views/components/base/VerticalDivider';
-import Box from 'views/components/base/Box';
 import MatchTime from '../MatchTime';
 import BluredView from 'views/components/base/BluredView';
 import { isMatchGoing } from 'utils/helpers/matchTime';
@@ -14,14 +13,13 @@ const WORLD_AS_COUNTRY_ID = 162;
 
 const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = false }) => {
   const { colors } = useTheme();
-  const Container = horizontal ? Box : BluredView;
   const variantSuffix = horizontal ? 'Invert' : '';
 
   return (
     <Pressable onPress={onPress}>
-      <Container
+      <BluredView
         style={horizontal ? styles.containerH : styles.container}
-        bgColor="backgroundCardInvert"
+        isDark={!horizontal}
       >
         <HStack>
           {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
@@ -87,7 +85,7 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
               <CommentsCount count={0} />
             </View> 
         )} */}
-      </Container>
+      </BluredView>
     </Pressable>
   );
 };

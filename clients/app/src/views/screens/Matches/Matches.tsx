@@ -1,15 +1,13 @@
 import React from 'react';
-
-import WithSafeArea from 'views/components/base/WithSafeArea';
 import MatchesContainer from './containers/MatchesContainer';
-
+import { WithBg } from 'views/components/base/Bg';
 import { IMatchesProps } from './types';
 
 const Matches: React.FC<IMatchesProps> = () => {
   return (
-    <WithSafeArea>
+    <WithBg isBig>
       <MatchesContainer />
-    </WithSafeArea>
+    </WithBg>
   );
 };
 

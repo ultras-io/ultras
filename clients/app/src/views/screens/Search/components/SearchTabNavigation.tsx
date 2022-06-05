@@ -23,6 +23,9 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({ searchText }
           backgroundColor: colors.textAction,
         },
       }}
+      sceneContainerStyle={{
+        backgroundColor: colors.transparent,
+      }}
     >
       <TopTab.Screen
         name={`${TAB_NAME}:${searchTabScreens.teams.name}`}

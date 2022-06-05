@@ -7,7 +7,7 @@ const Tab = createBottomTabNavigator();
 
 interface ITabNavigationProps {}
 
-const TabNavigation: React.FC<ITabNavigationProps> = ({}) => {
+const TabNavigation: React.FC<ITabNavigationProps> = () => {
   const { colors } = useTheme();
 
   return (

@@ -1,9 +1,10 @@
 import React from 'react';
-import Box from 'views/components/base/Box';
-import styles from './styles';
+import { Box } from 'native-base';
+import { useTheme } from 'themes';
 
 const Loader = () => {
-  return <Box style={styles.container} bgColor="backgroundMain" />;
+  const { colors } = useTheme();
+  return <Box flex={1} bgColor={colors.backgroundMain} />;
 };
 
 export default Loader;

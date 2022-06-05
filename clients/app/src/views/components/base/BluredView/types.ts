@@ -5,4 +5,5 @@ export interface IBluredViewProps {
   theme?: ThemeInterface;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  isDark?: boolean;
 }

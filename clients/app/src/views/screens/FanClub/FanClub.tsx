@@ -2,6 +2,7 @@ import React from 'react';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { commonScreens } from 'views/navigation/screens';
 import FanClubContainer from './containers/FanClubContainer';
+import { WithBg } from 'views/components/base/Bg';
 import { IFanClubProps } from './types';
 
 const FanClub: React.FC<IFanClubProps> = ({ route }) => {
@@ -26,7 +27,11 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
     });
   }, [setOptions, pushTo, data.description]);
 
-  return <FanClubContainer data={data} />;
+  return (
+    <WithBg>
+      <FanClubContainer data={data} />
+    </WithBg>
+  );
 };
 
 export default FanClub;

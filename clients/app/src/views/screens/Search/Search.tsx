@@ -4,6 +4,7 @@ import I18n from 'i18n/i18n';
 
 import WithSafeArea from 'views/components/base/WithSafeArea';
 import Input from 'views/components/base/Input';
+import { WithBg } from 'views/components/base/Bg';
 
 import SearchTabNavigation from './components/SearchTabNavigation';
 
@@ -22,10 +23,12 @@ const Search: React.FC<ISearchProps> = () => {
 
   return (
     <WithSafeArea>
-      <View style={styles.searchRow}>
-        <Input name={I18n.t('search')} onChange={onChange} />
-      </View>
-      <SearchTabNavigation searchText={searchText} />
+      <WithBg isBig>
+        <View style={styles.searchRow}>
+          <Input name={I18n.t('search')} onChange={onChange} />
+        </View>
+        <SearchTabNavigation searchText={searchText} />
+      </WithBg>
     </WithSafeArea>
   );
 };

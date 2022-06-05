@@ -1,15 +1,10 @@
 import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
-import { useTheme } from 'themes';
-
 import Box from 'views/components/base/Box';
-
 import { IBluredViewProps } from './types';
 
-const BluredView: React.FC<IBluredViewProps> = ({ children, style }) => {
-  const { isDarkMode } = useTheme();
-
+const BluredView: React.FC<IBluredViewProps> = ({ children, style, isDark = true }) => {
   if (Platform.OS === 'android') {
     return (
       <Box bgColor="backgroundCard" style={[style, styles.whiteShadowed]}>
@@ -19,7 +14,7 @@ const BluredView: React.FC<IBluredViewProps> = ({ children, style }) => {
   }
 
   return (
-    <BlurView blurType={isDarkMode ? 'dark' : 'light'} blurAmount={30} style={style}>
+    <BlurView blurType={isDark ? 'ultraThinMaterialDark' : 'xlight'} style={style}>
       {children}
     </BlurView>
   );
@@ -34,7 +29,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.15,
     shadowRadius: 7,
-
     elevation: 4,
   },
 });
