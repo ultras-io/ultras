@@ -40,6 +40,41 @@ abstract class BaseService {
     });
   }
 
+  protected static queryArrayOrSingle(
+    query: any,
+    fieldName: string,
+    value: any,
+    separator = ','
+  ) {
+    const condition = this.getCondition(value, separator);
+    if (!condition) {
+      return;
+    }
+
+    return this.queryAppend(query, fieldName, condition);
+  }
+
+  protected static getCondition(value: any, separator = ',') {
+    if (!value) {
+      return null;
+    }
+
+    const list = Array.isArray(value) ? value : value.split(separator);
+    if (!list.length) {
+      return null;
+    }
+
+    if (list.length > 1) {
+      return {
+        [db.Sequelize.Op.in]: list,
+      };
+    }
+
+    return {
+      [db.Sequelize.Op.eq]: list[0],
+    };
+  }
+
   /**
    * Action will return:
    * 1) rows corresponding condition and pagination.

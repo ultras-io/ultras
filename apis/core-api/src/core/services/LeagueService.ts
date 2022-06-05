@@ -50,9 +50,7 @@ class LeagueService extends BaseService {
     }
 
     if (params.countryId) {
-      this.queryAppend(query, 'countryId', {
-        [db.Sequelize.Op.eq]: params.countryId,
-      });
+      this.queryArrayOrSingle(query, 'countryId', params.countryId);
     }
 
     return this.findAndCountAll(db.League, query, params);
