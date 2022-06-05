@@ -17,6 +17,20 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
 
   const isJoined = false;
 
+  const openMembersList = React.useCallback(
+    () =>
+      pushTo(commonScreens.profileList.name, {
+        id: data.id,
+        type: ProfileListTypeEnum.fanClubMembers,
+      }),
+    [data.id, pushTo]
+  );
+
+  const openTeam = React.useCallback(
+    () => pushTo(commonScreens.team.name, { data: data.team }),
+    [data.team, pushTo]
+  );
+
   return (
     <HStack px={5} py={5}>
       <Avatar
@@ -30,14 +44,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           {data.name}
         </Text>
         <HStack>
-          <Pressable
-            onPress={() =>
-              pushTo(commonScreens.profileList.name, {
-                id: data.id,
-                type: ProfileListTypeEnum.fanClubMembers,
-              })
-            }
-          >
+          <Pressable onPress={openMembersList}>
             <Text variant={'info'}>
               {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
             </Text>
@@ -46,7 +53,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           <Text variant={'info'}>{data.city.name}</Text>
         </HStack>
 
-        <Pressable onPress={() => pushTo(commonScreens.team.name, { data: data.team })}>
+        <Pressable onPress={openTeam}>
           <HStack alignItems={'center'} space={'1'}>
             <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
             <Text variant={'info'}>{data.team.name}</Text>
