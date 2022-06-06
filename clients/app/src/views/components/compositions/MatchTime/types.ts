@@ -5,5 +5,5 @@ export interface IMatchTimeProps {
   leagueLogoURI: string;
   dateTime: string;
   elapsedTime?: number;
-  invert?: boolean;
+  inverted?: boolean;
 }

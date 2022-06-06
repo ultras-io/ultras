@@ -1,10 +1,8 @@
 import React from 'react';
-import { StatusBar, Platform } from 'react-native';
+import { StatusBar } from 'react-native';
+import { Box } from 'native-base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'themes';
-import styles from './styles';
-
-import Box from 'views/components/base/Box';
 import SplashScreen from 'views/screens/Splash';
 import Loader from 'views/screens/Loader';
 import { rootScreens } from './screens';
@@ -39,7 +37,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
         backgroundColor={colors.backgroundMain}
       />
 
-      <Box bgColor="backgroundMain" style={styles.app}>
+      <Box flex={1}>
         <Stack.Navigator
           // initialRouteName={rootScreens.intro.name}
           initialRouteName={rootScreens.joinUs.name}

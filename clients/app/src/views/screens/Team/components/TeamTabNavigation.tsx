@@ -15,12 +15,15 @@ const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ tabName, id }) =
       initialRouteName={`${TAB_NAME}:${teamTabScreens.matches.name}`}
       screenOptions={{
         tabBarLabelStyle: { textTransform: 'none' },
-        tabBarStyle: { backgroundColor: 'transparent' },
+        tabBarStyle: { backgroundColor: colors.transparent },
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarActiveTintColor: colors.textAction,
         tabBarIndicatorStyle: {
           backgroundColor: colors.textAction,
         },
+      }}
+      sceneContainerStyle={{
+        backgroundColor: colors.transparent,
       }}
     >
       <TopTab.Screen
