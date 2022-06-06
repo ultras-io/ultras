@@ -22,6 +22,7 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({ searchText }
         tabBarIndicatorStyle: {
           backgroundColor: colors.textAction,
         },
+        lazy: true,
       }}
       sceneContainerStyle={{
         backgroundColor: colors.transparent,
@@ -43,13 +44,6 @@ const SearchTabNavigation: React.FC<ISearchTabNavigationProps> = ({ searchText }
           <SearchItem {...props} searchItem={'fanClubs'} searchText={searchText} />
         )}
       </TopTab.Screen>
-      {/* <TopTab.Screen
-        name={`${TAB_NAME}:${searchTabScreens.ultras.name}`}
-        options={{ tabBarLabel: searchTabScreens.ultras.tabName }}
-        initialParams={{ tabName: TAB_NAME }}
-      >
-        {props => <SearchItem {...props} searchItem={'ultras'} searchText={searchText} />}
-      </TopTab.Screen> */}
     </TopTab.Navigator>
   );
 };

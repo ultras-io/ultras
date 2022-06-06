@@ -27,7 +27,7 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, inverted = false 
               <Text variant={'matchLeague' + variantSuffix} fontSize={'sm'}>
                 {data.league.country.name}
               </Text>
-              <VerticalDivider />
+              <VerticalDivider key={'divider'} />
             </>
           )}
           <Text variant={'matchLeague' + variantSuffix} fontSize={'sm'}>

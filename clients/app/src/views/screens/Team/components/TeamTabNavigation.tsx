@@ -21,6 +21,7 @@ const TeamTabNavigation: React.FC<ITeamTabNavigationProps> = ({ tabName, id }) =
         tabBarIndicatorStyle: {
           backgroundColor: colors.textAction,
         },
+        lazy: true,
       }}
       sceneContainerStyle={{
         backgroundColor: colors.transparent,

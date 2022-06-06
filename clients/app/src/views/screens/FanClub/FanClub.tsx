@@ -1,6 +1,9 @@
 import React from 'react';
+import { Pressable } from 'native-base';
+import Icon from 'views/components/base/Icon';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-// import { commonScreens } from 'views/navigation/screens';
+import { commonScreens } from 'views/navigation/screens';
 import FanClubContainer from './containers/FanClubContainer';
 import { WithBg } from 'views/components/base/Bg';
 import { IFanClubProps } from './types';
@@ -11,19 +14,15 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
 
   React.useLayoutEffect(() => {
     setOptions({
-      // @TODO change to IconButton
-      // headerRight: () => (
-      //   <Button
-      //     onPress={() =>
-      //       pushTo(commonScreens.fanClubAbout.name, { description: data.description })
-      //     }
-      //     appearance={ButtonAppearance.Minimal}
-      //     size={ButtonSize.ExtraBig}
-      //     color="iconNavigation"
-      //     // @TODO chnage on Button refactoring
-      //     title="i"
-      //   />
-      // ),
+      headerRight: () => (
+        <Pressable
+          onPress={() =>
+            pushTo(commonScreens.fanClubAbout.name, { description: data.description })
+          }
+        >
+          <Icon name={Icons.InfoDark} color={'iconPrimary'} size={'ic-md'} />
+        </Pressable>
+      ),
     });
   }, [setOptions, pushTo, data.description]);
 

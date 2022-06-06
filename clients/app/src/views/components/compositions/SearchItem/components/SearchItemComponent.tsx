@@ -62,7 +62,7 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
 export const SearchItemLoader: React.FC = () => (
   <Box paddingX={4}>
     {[0, 1, 2, 3, 4, 5].map(k => (
-      <Skeleton key={k} h={90} mt={2.5} rounded={'xl'} />
+      <Skeleton key={'SearchItemComponent' + k} h={90} mt={2.5} rounded={'xl'} />
     ))}
   </Box>
 );

@@ -14,5 +14,4 @@ export type HomeNavigationScreens = {
 
 export interface IMatchesComponentProps {
   data: Array<MatchViewModel>;
-  onEndReached: () => void;
 }

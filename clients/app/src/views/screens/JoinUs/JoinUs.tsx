@@ -5,7 +5,6 @@ import I18n from 'i18n/i18n';
 import scenario from './content';
 
 import LocationService from '../../../services/location/locationService';
-import WithSafeArea from 'views/components/base/WithSafeArea';
 
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { rootScreens } from 'views/navigation/screens';
@@ -109,7 +108,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
   const renderUserNameInput = React.useCallback(
     () => (
       <View style={styles.rightMessage}>
-        <Input withBorder type={InputType.Text} name="Username" />
+        {/* <Input withBorder type={InputType.Text} name="Username" /> */}
       </View>
     ),
     []
@@ -308,27 +307,25 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
   }, [step]);
 
   return (
-    <WithSafeArea>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={
-          Platform.OS === 'ios' ? getKeyboardOffset(step) : undefined
-        }
-      >
-        <FlatList
-          ref={flatListRef}
-          data={data}
-          renderItem={renderStep}
-          inverted
-          keyExtractor={item => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          maintainVisibleContentPosition={{
-            minIndexForVisible: 0,
-          }}
-        />
-      </KeyboardAvoidingView>
-    </WithSafeArea>
+    // <WithSafeArea>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? getKeyboardOffset(step) : undefined}
+    >
+      <FlatList
+        ref={flatListRef}
+        data={data}
+        renderItem={renderStep}
+        inverted
+        keyExtractor={item => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        maintainVisibleContentPosition={{
+          minIndexForVisible: 0,
+        }}
+      />
+    </KeyboardAvoidingView>
+    // </WithSafeArea>
   );
 };
 

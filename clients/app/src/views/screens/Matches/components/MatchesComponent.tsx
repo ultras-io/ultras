@@ -44,7 +44,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
 export const MatchesLoader: React.FC = () => (
   <Box paddingX={4}>
     {[0, 1, 2, 3, 4, 5].map(k => (
-      <Skeleton key={k} h={141} mt={15} rounded={'xl'} />
+      <Skeleton key={'MatchesComponent' + k} h={141} mt={15} rounded={'xl'} />
     ))}
   </Box>
 );
