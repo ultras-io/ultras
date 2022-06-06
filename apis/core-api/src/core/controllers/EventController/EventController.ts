@@ -1,7 +1,7 @@
 import { OrderEnum } from '@ultras/utils';
 import { ResourceIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
-import { EventService } from 'core/services';
+import { EventService, LocationService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 
@@ -61,6 +61,12 @@ class EventController extends BaseController {
    * Add new team(s) to user's favorite list.
    */
   static async create(params: EventCreateParams): EventCreateResult {
+    const location = await LocationService.createOrGet({
+      name: params.locationName,
+      lat: params.locationLat,
+      lng: params.locationLng,
+    });
+
     const event = await EventService.create({
       authorId: params.authorId,
       matchId: params.matchId,
@@ -69,6 +75,7 @@ class EventController extends BaseController {
       content: params.content,
       privacy: params.privacy,
       dateTime: params.dateTime,
+      locationId: location.getDataValue('id'),
     });
 
     return {
