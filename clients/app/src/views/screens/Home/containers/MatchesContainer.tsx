@@ -10,7 +10,7 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
   const result = matchesStore.useSelector('list');
 
   // @TODO handle error status
-  if (result.list.status === 'loading') return <MatchesLoader />;
+  if (!result.list.data && result.list.status === 'loading') return <MatchesLoader />;
 
   return <MatchesComponent data={result.list.data || []} />;
 };

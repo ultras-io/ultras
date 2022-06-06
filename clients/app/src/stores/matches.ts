@@ -28,7 +28,7 @@ const buildMatchesStore = (params: Partial<ParamType> = {}) => {
         ...filter,
         orderAttr: 'dateTime',
         order: OrderEnum.desc,
-        // limit: 3,
+        limit: 10,
         teamId: 2124,
       });
     },

@@ -53,7 +53,7 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       renderItem={renderItem}
       data={data}
       onEndReached={onEndReached}
-      onEndReachedThreshold={0.7}
+      onEndReachedThreshold={0.5}
       keyboardDismissMode={'on-drag'}
     />
   );
@@ -67,4 +67,4 @@ export const SearchItemLoader: React.FC = () => (
   </Box>
 );
 
-export default SearchItemComponent;
+export default React.memo(SearchItemComponent);

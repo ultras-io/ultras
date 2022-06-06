@@ -100,4 +100,4 @@ export const FanClubsLoader: React.FC = () => (
   </VStack>
 );
 
-export default FanClubsComponent;
+export default React.memo(FanClubsComponent);
