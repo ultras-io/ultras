@@ -17,14 +17,14 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     }
   }, [dataType]);
 
-  const result = store.useSelector('list');
-
   const updateData = React.useCallback(() => {
     store.updateFilter({ name: searchText });
     store.getAll();
   }, [store, searchText]);
 
   React.useEffect(updateData, [updateData, searchText]);
+
+  const result = store.useSelector('list');
 
   return (
     <SearchListComponent

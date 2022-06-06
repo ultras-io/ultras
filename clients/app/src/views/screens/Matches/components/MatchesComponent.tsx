@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import { ListRenderItem } from 'react-native';
+import { FlatList, Skeleton, Box } from 'native-base';
 import { useScrollToTop } from '@react-navigation/native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
@@ -39,5 +40,13 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
     />
   );
 };
+
+export const MatchesLoader: React.FC = () => (
+  <Box paddingX={4}>
+    {[0, 1, 2, 3, 4, 5].map(k => (
+      <Skeleton key={k} h={141} mt={15} rounded={'xl'} />
+    ))}
+  </Box>
+);
 
 export default MatchesComponent;

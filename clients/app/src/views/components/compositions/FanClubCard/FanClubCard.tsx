@@ -35,9 +35,10 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
           </VStack>
         </BluredView>
       ) : (
-        <Center px={'2'} width={100}>
+        <Center px={'2'} w={100}>
           <Avatar source={{ uri: avatarURI }} size={'av-lg'} mb={2} />
-          <Text variant={'smallTitle'} textAlign={'center'} numberOfLines={2}>
+          <Text variant={'smallTitle'} textAlign={'center'} numberOfLines={1}>
+            {/* @TODO change to shortName */}
             {data.name}
           </Text>
           {data.membersCount && (

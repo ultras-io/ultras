@@ -1,5 +1,5 @@
 import React from 'react';
-import MatchesComponent from '../components/MatchesComponent';
+import MatchesComponent, { MatchesLoader } from '../components/MatchesComponent';
 import buildMatchesStore from 'stores/matches';
 import { IMatchesContainerProps } from '../types';
 
@@ -17,6 +17,9 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
   }, [teamId]);
 
   const result = matchesStore.useSelector('list');
+
+  // @TODO handle error status
+  if (result.list.status === 'loading') return <MatchesLoader />;
 
   return (
     <MatchesComponent data={result.list.data || []} onEndReached={matchesStore.getAll} />

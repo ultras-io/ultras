@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Box, Skeleton } from 'native-base';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import TeamCard from 'views/components/compositions/TeamCard';
@@ -58,5 +58,13 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
     />
   );
 };
+
+export const SearchItemLoader: React.FC = () => (
+  <Box paddingX={4}>
+    {[0, 1, 2, 3, 4, 5].map(k => (
+      <Skeleton key={k} h={90} mt={2.5} rounded={'xl'} />
+    ))}
+  </Box>
+);
 
 export default SearchItemComponent;

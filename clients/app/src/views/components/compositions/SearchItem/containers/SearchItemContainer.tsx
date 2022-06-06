@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchItemComponent from '../components/SearchItemComponent';
+import SearchItemComponent, { SearchItemLoader } from '../components/SearchItemComponent';
 import buildFanClubsStore from 'stores/fanClubs';
 import buildTeamsStore from 'stores/teams';
 import { ISearchItemProps } from '../types';
@@ -14,14 +14,17 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({ searchItem, searchTex
     }
   }, [searchItem]);
 
-  const result = store.useSelector('list');
-
   const updateData = React.useCallback(() => {
     store.updateFilter({ name: searchText });
     store.getAll();
   }, [store, searchText]);
 
   React.useEffect(updateData, [updateData, searchText]);
+
+  const result = store.useSelector('list');
+
+  // @TODO handle error status
+  if (result.list.status === 'loading') return <SearchItemLoader />;
 
   return (
     <SearchItemComponent
