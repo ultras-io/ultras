@@ -17,7 +17,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
       <MatchCard
         onPress={() => pushTo(commonScreens.match.name, { data: item })}
         data={item}
-        horizontal
+        inverted
       />
     ),
     [pushTo]

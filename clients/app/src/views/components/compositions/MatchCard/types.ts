@@ -10,7 +10,7 @@ export type Score = {
 export interface IMatchCardProps {
   onPress: () => void;
   data: MatchViewModel;
-  horizontal?: boolean;
+  inverted?: boolean;
 }
 
 export interface IMatchInfoProps {

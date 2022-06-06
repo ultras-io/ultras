@@ -5,7 +5,7 @@ import { IMatchesProps } from './types';
 
 const Matches: React.FC<IMatchesProps> = () => {
   return (
-    <WithBg isBig>
+    <WithBg size={'lg'}>
       <MatchesContainer />
     </WithBg>
   );

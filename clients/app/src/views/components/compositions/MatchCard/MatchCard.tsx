@@ -11,15 +11,15 @@ import styles from './styles';
 
 const WORLD_AS_COUNTRY_ID = 162;
 
-const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = false }) => {
+const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, inverted = false }) => {
   const { colors } = useTheme();
-  const variantSuffix = horizontal ? 'Invert' : '';
+  const variantSuffix = inverted ? 'Invert' : '';
 
   return (
     <Pressable onPress={onPress}>
       <BluredView
-        style={horizontal ? styles.containerH : styles.container}
-        isDark={!horizontal}
+        style={inverted ? styles.containerH : styles.container}
+        isDark={!inverted}
       >
         <HStack>
           {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
@@ -57,7 +57,7 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, horizontal = fals
             dateTime={data.dateTime}
             elapsedTime={data.elapsedTime}
             leagueLogoURI={data.league.logo}
-            invert={horizontal}
+            inverted={inverted}
           />
         </HStack>
 

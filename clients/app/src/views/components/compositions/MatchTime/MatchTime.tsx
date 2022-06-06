@@ -9,14 +9,14 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
   leagueLogoURI,
   dateTime,
   elapsedTime,
-  invert = false,
+  inverted = false,
 }) => {
   const { date: formattedDate, time: formattedTime } = React.useMemo(() => {
     return formatDateAndTime(dateTime, matchStatus, elapsedTime);
   }, [dateTime, matchStatus, elapsedTime]);
 
   const { colors } = useTheme();
-  const variantSuffix = invert ? 'Invert' : '';
+  const variantSuffix = inverted ? 'Invert' : '';
 
   return (
     <Box w={'16'}>

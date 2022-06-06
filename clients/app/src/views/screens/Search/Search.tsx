@@ -23,7 +23,7 @@ const Search: React.FC<ISearchProps> = () => {
 
   return (
     <WithSafeArea>
-      <WithBg isBig>
+      <WithBg size={'lg'}>
         <View style={styles.searchRow}>
           <Input name={I18n.t('search')} onChange={onChange} />
         </View>

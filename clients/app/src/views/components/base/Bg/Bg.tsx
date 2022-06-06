@@ -3,16 +3,16 @@ import { Box } from 'native-base';
 import { useTheme } from 'themes';
 import { IBgProps, IWithBgProps } from './types';
 
-export const WithBg: React.FC<IWithBgProps> = ({ children, isBig = false }) => {
+export const WithBg: React.FC<IWithBgProps> = ({ children, size = 'md' }) => {
   return (
     <Box h={'full'} overflow={'hidden'}>
-      <Bg isBig={isBig} />
+      <Bg size={size} />
       {children}
     </Box>
   );
 };
 
-const Bg: React.FC<IBgProps> = ({ isBig = false }) => {
+const Bg: React.FC<IBgProps> = ({ size }) => {
   const { colors } = useTheme();
 
   return (
@@ -61,7 +61,7 @@ const Bg: React.FC<IBgProps> = ({ isBig = false }) => {
         <Box bg={colors.textAction} opacity={0.5} h={'31'} ml={'88'} mt={'-6'} />
         <Box bg={colors.textPrimary} h={'4'} ml={'237'} mt={'4'} />
       </Box>
-      {isBig && (
+      {size === 'lg' && (
         <Box
           w={'full'}
           position={'absolute'}

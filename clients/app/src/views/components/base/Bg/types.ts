@@ -1,8 +1,10 @@
+type Size = 'md' | 'lg';
+
 export interface IWithBgProps {
   children: React.ReactNode;
-  isBig?: boolean;
+  size?: Size;
 }
 
 export interface IBgProps {
-  isBig?: boolean;
+  size?: Size;
 }
