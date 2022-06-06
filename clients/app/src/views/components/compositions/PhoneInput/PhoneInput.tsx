@@ -20,14 +20,14 @@ const PhoneInput: React.FC<IPhoneInputProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.code}>
-        <Input name={codePlaceholder || 'Code'} type={InputType.Select} value={code} />
+        {/* <Input name={codePlaceholder || 'Code'} type={InputType.Select} value={code} /> */}
       </View>
       <View style={styles.number}>
-        <Input
+        {/* <Input
           name={numberPlaceholder || 'Number'}
           type={InputType.Number}
           value={number}
-        />
+        /> */}
       </View>
     </View>
   );

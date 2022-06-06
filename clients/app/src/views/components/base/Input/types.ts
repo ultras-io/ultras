@@ -1,40 +1,6 @@
-import { KeyboardType } from 'react-native';
-import { ThemeInterface } from 'styled-components';
+import { InterfaceInputProps } from 'native-base/lib/typescript/components/primitives/Input/types';
 
-export enum TypeEnum {
-  Text,
-  Number,
-  Email,
-  Phone,
-  Select,
-}
-
-export enum StateEnum {
-  Default,
-  Disabled,
-  Error,
-}
-
-export type InputValue = {
-  isValid: boolean;
-  value: string;
-};
-
-export type KeyboardTypes = {
-  [TypeEnum.Text]: KeyboardType;
-  [TypeEnum.Email]: KeyboardType;
-  [TypeEnum.Number]: KeyboardType;
-  [TypeEnum.Phone]: KeyboardType;
-  [TypeEnum.Select]: KeyboardType;
-};
-
-export interface IInputProps {
-  name?: string;
-  value?: string;
-  type?: TypeEnum;
-  state?: StateEnum;
-  withBorder?: boolean;
-  validation?: (value: string) => boolean;
-  onChange?: (value: InputValue) => void;
-  onType?: (value: string) => void;
+export interface IInputProps extends Omit<InterfaceInputProps, 'onChange'> {
+  onChange: (text: string) => void;
+  debounce?: boolean;
 }

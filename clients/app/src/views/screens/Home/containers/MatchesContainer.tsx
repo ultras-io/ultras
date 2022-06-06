@@ -12,7 +12,7 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
   // @TODO handle error status
   if (result.list.status === 'loading') return <MatchesLoader />;
 
-  return <MatchesComponent data={result.list.data || []} onEndReached={() => {}} />;
+  return <MatchesComponent data={result.list.data || []} />;
 };
 
 export default MatchesContainer;

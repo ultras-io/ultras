@@ -42,10 +42,14 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
 
             {data.type === TeamTypesEnum.club && (
               <>
-                <VerticalDivider />
-                <Text variant={'info'}>{data.country.name}</Text>
-                <VerticalDivider />
-                <Text variant={'info'}>{data.city.name}</Text>
+                <VerticalDivider key={'divider1'} />
+                <Text variant={'info'} key={'country'}>
+                  {data.country.name}
+                </Text>
+                <VerticalDivider key={'divider2'} />
+                <Text variant={'info'} key={'city'}>
+                  {data.city.name}
+                </Text>
               </>
             )}
           </HStack>

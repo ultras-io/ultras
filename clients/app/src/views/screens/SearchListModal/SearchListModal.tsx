@@ -6,6 +6,8 @@ import I18n from 'i18n/i18n';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import UltrasText from 'views/components/base/UltrasText';
 import Input from 'views/components/base/Input';
+import Icon from 'views/components/base/Icon';
+import { IconNamesEnum as Icons } from 'assets/icons';
 import Box from 'views/components/base/Box';
 import SearchListContainer from './containers/SearchListContainer';
 import { ISearchListModalProps, dataTypeEnum } from './types';
@@ -17,13 +19,6 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
   const { dataKey } = route.params;
 
   const [searchText, setSearchText] = React.useState<string>('');
-
-  const onChange = React.useCallback(
-    text => {
-      setSearchText(text.value);
-    },
-    [setSearchText]
-  );
 
   const name = dataKey === dataTypeEnum.Country ? I18n.t('country') : I18n.t('team');
 
@@ -44,7 +39,14 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
       </UltrasText>
       <View style={styles.searchRow}>
         <View style={styles.searchInput}>
-          <Input name={I18n.t('searchFor') + ' ' + name} onChange={onChange} />
+          <Input
+            variant="search"
+            placeholder={I18n.t('searchFor')}
+            InputLeftElement={
+              <Icon name={Icons.SearchText} color={'textQuinary'} size={'ic-xs'} ml={2} />
+            }
+            onChange={setSearchText}
+          />
         </View>
       </View>
       <SearchListContainer dataType={dataKey} searchText={searchText} />

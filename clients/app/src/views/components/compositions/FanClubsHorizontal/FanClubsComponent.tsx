@@ -90,7 +90,7 @@ export const FanClubsLoader: React.FC = () => (
     </HStack>
     <HStack>
       {[0, 1, 2, 3].map(k => (
-        <VStack key={k} h={115} ml={5} alignItems={'center'}>
+        <VStack key={'FanClubsComponent' + k} h={115} ml={5} alignItems={'center'}>
           <Skeleton w={74} h={74} rounded={'full'} />
           <Skeleton.Text lines={1} w={20} mt={3} />
           <Skeleton.Text lines={1} w={71} mt={1} />

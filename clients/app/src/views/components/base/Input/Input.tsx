@@ -1,147 +1,33 @@
-import React, { useMemo, useState, useCallback } from 'react';
-import { Pressable, View } from 'react-native';
-import { Input as NativeBaseInput } from 'native-base';
-import { useTheme } from 'themes';
-// import { withTheme } from 'styled-components/native';
-// import styled from 'styled-components/native';
+import React from 'react';
+import { Input as RNInput } from 'native-base';
+import { IInputProps } from './types';
 
-import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { rootScreens } from 'views/navigation/screens';
-import { dataTypeEnum as SearchListKey } from 'views/screens/SearchListModal';
+const Input: React.FC<IInputProps> = ({ onChange, debounce = true, ...props }) => {
+  const [value, setValue] = React.useState('');
+  const timerRef = React.useRef<ReturnType<typeof setTimeout>>();
 
-import Box from 'views/components/base/Box';
-import UltrasText from 'views/components/base/UltrasText';
-import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
-
-import { IInputProps, TypeEnum, StateEnum, KeyboardTypes } from './types';
-import styles from './styles';
-
-const keyboardTypes: KeyboardTypes = {
-  [TypeEnum.Text]: 'default',
-  [TypeEnum.Email]: 'email-address',
-  [TypeEnum.Number]: 'numeric',
-  [TypeEnum.Phone]: 'phone-pad',
-  [TypeEnum.Select]: 'default',
-};
-
-const Input: React.FC<IInputProps> = ({
-  name,
-  value,
-  type = TypeEnum.Text,
-  state = StateEnum.Default, // eslint-disable-line @typescript-eslint/no-unused-vars
-  withBorder = false,
-  validation, // eslint-disable-line @typescript-eslint/no-unused-vars
-  onChange,
-  onType,
-}) => {
-  const { colors } = useTheme();
-
-  const inputStyle = useMemo(
-    () => ({
-      ...styles.input,
-      ...(withBorder ? styles.inputBorder : {}),
-      borderColor: colors.backgroundInput,
-      backgroundColor: colors.backgroundInput,
-      color: colors.textQuinary,
-    }),
-    [colors, withBorder]
-  );
-
-  const { openModal } = useNavigationWithParams();
-
-  const _isSelect = type === TypeEnum.Select;
-  const [_value, _setValue] = useState(value);
-
-  const timerRef = React.useRef();
-
-  const _resetTimer = React.useCallback(() => {
+  const resetTimer = React.useCallback(() => {
     clearTimeout(timerRef.current);
   }, [timerRef]);
 
-  const _runTimeoutUpdate = React.useCallback(
-    value => {
-      _resetTimer();
-      timerRef.current = setTimeout(() => onChange && onChange(value), 600);
-    },
-    [onChange, _resetTimer]
-  );
-
-  const _onChangeText = useCallback(
+  const runTimeoutUpdate = React.useCallback(
     text => {
-      _setValue(text);
-      onType && onType(text);
-      _runTimeoutUpdate({
-        isValid: true,
-        value: text,
-      });
+      resetTimer();
+      timerRef.current = setTimeout(() => onChange && onChange(text), 600);
     },
-    [_setValue, onType, _runTimeoutUpdate]
+    [onChange, resetTimer]
   );
 
-  const _onEndEditing = useCallback(
-    e => {
-      _resetTimer();
-      onChange &&
-        onChange({
-          isValid: true,
-          value: e.nativeEvent.text,
-        });
+  const onChangeText = React.useCallback(
+    text => {
+      setValue(text);
+      if (debounce) runTimeoutUpdate(text);
+      else onChange && onChange(text);
     },
-    [onChange, _resetTimer]
+    [debounce, runTimeoutUpdate, onChange]
   );
 
-  const openSelectModal = useCallback(() => {
-    openModal(rootScreens.searchListModal.name, { dataKey: SearchListKey.Country });
-  }, [openModal]);
-
-  React.useEffect(() => {
-    return () => {
-      _resetTimer();
-    };
-  }, [_resetTimer]);
-
-  return (
-    <View style={styles.container}>
-      {_isSelect ? (
-        <Pressable onPress={openSelectModal}>
-          <Box
-            style={styles.select}
-            borderColor="backgroundInput"
-            bgColor="backgroundInput"
-          >
-            <UltrasText color={_value ? 'textSenary' : 'textQuinary'}>
-              {_value ? _value : name}
-            </UltrasText>
-            <View style={styles.icon}>
-              <Icon name={Icons.ArrowDown} size={'ic-2xs'} />
-            </View>
-          </Box>
-        </Pressable>
-      ) : (
-        <NativeBaseInput
-          borderWidth={withBorder ? undefined : 0}
-          style={inputStyle}
-          onChangeText={_onChangeText}
-          onEndEditing={_onEndEditing}
-          value={_value}
-          defaultValue={value}
-          placeholder={name}
-          keyboardType={keyboardTypes[type]}
-          autoCorrect={false}
-          placeholderTextColor={colors.textSenary}
-          selectionColor={colors.textQuinary}
-          autoCapitalize="none"
-          clearButtonMode={'always'}
-          borderRadius={10}
-          color={colors.textPrimary}
-          _focus={{
-            backgroundColor: colors.backgroundInput,
-          }}
-        />
-      )}
-    </View>
-  );
+  return <RNInput {...props} onChangeText={onChangeText} value={value} />;
 };
 
-export default React.memo<IInputProps>(Input);
+export default React.memo(Input);
