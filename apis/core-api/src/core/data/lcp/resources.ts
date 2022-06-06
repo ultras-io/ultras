@@ -149,6 +149,14 @@ const resources = {
       PLURAL: 'events',
     },
   },
+  LOCATION: {
+    RELATION: 'Location',
+    MODEL: 'Location',
+    ALIAS: {
+      SINGULAR: 'location',
+      PLURAL: 'locations',
+    },
+  },
 };
 
 export interface IDBSet {

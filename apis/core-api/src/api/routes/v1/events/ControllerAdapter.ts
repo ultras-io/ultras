@@ -5,8 +5,17 @@ import { Context } from 'types';
 class ControllerAdapter {
   static async create(ctx: Context) {
     /** VALIDATIONS, PARAMETERS */
-    const { matchId, fanClubId, title, content, privacy, dateTime, locationName } =
-      ctx.request.body;
+    const {
+      matchId,
+      fanClubId,
+      title,
+      content,
+      privacy,
+      dateTime,
+      locationName,
+      locationLat,
+      locationLng,
+    } = ctx.request.body;
 
     const { userId } = ctx.user;
 
@@ -20,6 +29,8 @@ class ControllerAdapter {
       privacy,
       dateTime: new Date(dateTime),
       locationName,
+      locationLat,
+      locationLng,
     });
 
     /** RESPONSE */

@@ -11,9 +11,6 @@ export interface EventAttributes {
   postId: ResourceIdentifier;
   dateTime: Date;
   privacy: EventPrivacyEnum;
-  locationName: string;
-  locationLat: Nullable<number>;
-  locationLng: Nullable<number>;
 }
 
 export type EventCreationAttributes = Optional<EventAttributes, 'id'>;
@@ -27,9 +24,6 @@ export class Event
   public postId!: ResourceIdentifier;
   public dateTime!: Date;
   public privacy!: EventPrivacyEnum;
-  public locationName!: string;
-  public locationLat!: Nullable<number>;
-  public locationLng!: Nullable<number>;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -57,7 +51,7 @@ module.exports = (sequelize: Sequelize): typeof Event => {
       },
       postId: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: {
             tableName: resources.POST.RELATION,
@@ -76,18 +70,6 @@ module.exports = (sequelize: Sequelize): typeof Event => {
           values: [EventPrivacyEnum.public, EventPrivacyEnum.private],
         }),
         allowNull: false,
-      },
-      locationName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      locationLat: {
-        type: DataTypes.DOUBLE,
-        allowNull: true,
-      },
-      locationLng: {
-        type: DataTypes.DOUBLE,
-        allowNull: true,
       },
     },
     {

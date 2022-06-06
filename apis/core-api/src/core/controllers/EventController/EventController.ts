@@ -69,7 +69,6 @@ class EventController extends BaseController {
       content: params.content,
       privacy: params.privacy,
       dateTime: params.dateTime,
-      locationName: params.locationName,
     });
 
     return {

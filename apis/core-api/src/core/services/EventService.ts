@@ -37,7 +37,6 @@ export interface CreateParamsInterface {
   matchId?: ResourceIdentifier;
   privacy: EventPrivacyEnum;
   dateTime: Date;
-  locationName: string;
 }
 
 class EventService extends BaseService {
@@ -57,7 +56,7 @@ class EventService extends BaseService {
   }
 
   /**
-   * Add user new favorite team.
+   * Create event instance.
    */
   static async create({
     authorId,
@@ -66,7 +65,6 @@ class EventService extends BaseService {
     fanClubId,
     matchId,
     dateTime,
-    locationName,
     privacy,
   }: CreateParamsInterface): Promise<EventViewModel> {
     const postData: PostCreationAttributes = {
@@ -84,20 +82,17 @@ class EventService extends BaseService {
 
     const eventData: EventCreationAttributes = {
       postId: post.getDataValue('id'),
-      dateTime: dateTime,
-      privacy: privacy,
-      locationName: locationName,
-      locationLat: null,
-      locationLng: null,
+      dateTime,
+      privacy,
     };
 
-    const events = await db.Event.create(eventData);
+    const event = await db.Event.create(eventData);
 
-    return events;
+    return event;
   }
 
   /**
-   * Get all favorite teams by user id.
+   * Get all events.
    */
   static async getAll(
     params: ServiceListParamsType<EventListParamsInterface>
@@ -150,7 +145,7 @@ class EventService extends BaseService {
   }
 
   /**
-   * Get favorite team by pivot table id.
+   * Get event by id.
    */
   static async getById(id: ResourceIdentifier): ServiceByIdResultType<EventViewModel> {
     const event = await db.Event.findOne({

@@ -25,6 +25,8 @@ export type EventCreateParams = {
   privacy: EventPrivacyEnum;
   dateTime: Date;
   locationName: string;
+  locationLat?: Nullable<number>;
+  locationLng?: Nullable<number>;
 };
 
 export type EventCreateResult = ControllerResultType<EventViewModel>;
