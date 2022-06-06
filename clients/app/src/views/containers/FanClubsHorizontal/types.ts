@@ -9,6 +9,7 @@ export interface IFanClubsContainerProps {
 
 export interface IFanClubsComponentProps {
   data: Array<FanClubViewModel>;
+  showHeaderButton: boolean;
   withBounce: boolean;
   onEndReached: () => void;
 }
