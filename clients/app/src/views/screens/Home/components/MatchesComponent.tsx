@@ -105,4 +105,4 @@ export const MatchesLoader: React.FC = () => (
   </VStack>
 );
 
-export default MatchesComponent;
+export default React.memo(MatchesComponent);

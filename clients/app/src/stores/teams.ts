@@ -24,9 +24,10 @@ const buildTeamsStore = (params: Partial<ParamType> = {}) => {
 
     loadAll: (filter: FullFilterable<FilterType>) => {
       return sdk.getTeams({
+        ...filter,
+        limit: 10,
         orderAttr: 'id',
         order: OrderEnum.asc,
-        ...filter,
       });
     },
 

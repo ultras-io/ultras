@@ -11,7 +11,7 @@ import { ITeamCardProps } from './types';
 import styles from './styles';
 
 const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
-  const fanClubsCount = Math.floor(Math.random() * 3);
+  const fanClubsCount = 0;
   const { colors } = useTheme();
 
   return (
@@ -47,7 +47,13 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
                   {data.country.name}
                 </Text>
                 <VerticalDivider key={'divider2'} />
-                <Text variant={'info'} key={'city'}>
+                <Text
+                  variant={'info'}
+                  key={'city'}
+                  ellipsizeMode={'middle'}
+                  flex={1}
+                  numberOfLines={1}
+                >
                   {data.city.name}
                 </Text>
               </>

@@ -15,7 +15,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   const result = fanClubsStore.useSelector('list');
 
   // @TODO handle error status
-  if (result.list.status === 'loading') return <FanClubsLoader />;
+  if (!result.list.data && result.list.status === 'loading') return <FanClubsLoader />;
 
   return (
     <FanClubsComponent

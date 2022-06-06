@@ -35,7 +35,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
       renderItem={renderRow}
       data={data}
       onEndReached={onEndReached}
-      onEndReachedThreshold={0.7}
+      onEndReachedThreshold={0.5}
       // stickyHeaderIndices={[0]}
     />
   );
@@ -49,4 +49,4 @@ export const MatchesLoader: React.FC = () => (
   </Box>
 );
 
-export default MatchesComponent;
+export default React.memo(MatchesComponent);

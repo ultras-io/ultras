@@ -24,7 +24,7 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({ searchItem, searchTex
   const result = store.useSelector('list');
 
   // @TODO handle error status
-  if (result.list.status === 'loading') return <SearchItemLoader />;
+  if (!result.list.data && result.list.status === 'loading') return <SearchItemLoader />;
 
   return (
     <SearchItemComponent
