@@ -5,11 +5,9 @@ import mainScreens from 'views/navigation/screens/mainScreens';
 
 const Stack = createNativeStackNavigator();
 
-interface IHomeNavigationProps {}
-
 const TAB_NAME = mainScreens.home.tabName;
 
-const HomeNavigation: React.FC<IHomeNavigationProps> = () => {
+const HomeNavigation: React.FC = () => {
   const { colors } = useTheme();
 
   return (
@@ -40,4 +38,4 @@ const HomeNavigation: React.FC<IHomeNavigationProps> = () => {
   );
 };
 
-export default React.memo<IHomeNavigationProps>(HomeNavigation);
+export default React.memo(HomeNavigation);

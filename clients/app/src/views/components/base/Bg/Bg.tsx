@@ -1,16 +1,7 @@
 import React from 'react';
 import { Box } from 'native-base';
 import { useTheme } from 'themes';
-import { IBgProps, IWithBgProps } from './types';
-
-export const WithBg: React.FC<IWithBgProps> = ({ children, size = 'md' }) => {
-  return (
-    <Box h={'full'} overflow={'hidden'}>
-      <Bg size={size} />
-      {children}
-    </Box>
-  );
-};
+import { IBgProps } from './types';
 
 const Bg: React.FC<IBgProps> = ({ size }) => {
   const { colors } = useTheme();
@@ -76,3 +67,5 @@ const Bg: React.FC<IBgProps> = ({ size }) => {
     </>
   );
 };
+
+export default React.memo<IBgProps>(Bg);

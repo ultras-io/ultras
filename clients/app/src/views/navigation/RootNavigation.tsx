@@ -4,7 +4,6 @@ import { Box } from 'native-base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'themes';
 import SplashScreen from 'views/screens/Splash';
-import Loader from 'views/screens/Loader';
 import { rootScreens } from './screens';
 
 const Stack = createNativeStackNavigator();
@@ -31,7 +30,7 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
   // console.log(JSON.stringify(rootScreens, null, 2));
 
   return (
-    <React.Suspense fallback={<Loader />}>
+    <>
       <StatusBar
         barStyle={!isDarkMode ? 'dark-content' : 'light-content'}
         backgroundColor={colors.backgroundMain}
@@ -51,33 +50,33 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
           {isAuthenticated ? (
             <Stack.Screen
               name={rootScreens.tabNavigation.name}
-              component={rootScreens.tabNavigation.component}
+              component={rootScreens.tabNavigation.component!}
             />
           ) : (
             <Stack.Group>
               <Stack.Screen
                 name={rootScreens.intro.name}
-                component={rootScreens.intro.component}
+                component={rootScreens.intro.component!}
               />
               <Stack.Screen
                 name={rootScreens.uikit.name}
-                component={rootScreens.uikit.component}
+                component={rootScreens.uikit.component!}
               />
               <Stack.Screen
                 name={rootScreens.joinUs.name}
-                component={rootScreens.joinUs.component}
+                component={rootScreens.joinUs.component!}
                 options={rootScreens.joinUs.options}
               />
             </Stack.Group>
           )}
           <Stack.Screen
             name={rootScreens.searchListModal.name}
-            component={rootScreens.searchListModal.component}
+            component={rootScreens.searchListModal.component!}
             options={rootScreens.searchListModal.options}
           />
         </Stack.Navigator>
       </Box>
-    </React.Suspense>
+    </>
   );
 };
 

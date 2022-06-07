@@ -1,14 +1,16 @@
 import React from 'react';
-import PostContainer from './containers/PostContainer';
+import Container from 'views/components/base/Container';
 import { IPostProps } from './types';
+// import PostContainer from './containers/PostContainer';
+const PostContainer = React.lazy(() => import('./containers/PostContainer'));
 
 const Post: React.FC<IPostProps> = ({ route }) => {
   const { id } = route.params;
 
   return (
-    // <WithSafeArea>
-    <PostContainer id={id} />
-    // </WithSafeArea>
+    <Container withSuspense>
+      <PostContainer id={id} />
+    </Container>
   );
 };
 

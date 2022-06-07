@@ -1,8 +1,4 @@
 import React from 'react';
-import { withTheme } from 'styled-components/native';
-import styled from 'styled-components/native';
-import { ThemeInterface } from 'styled-components';
-
 import { View, Platform } from 'react-native';
 
 import Box from 'views/components/base/Box';
@@ -11,19 +7,7 @@ import UltrasText from 'views/components/base/UltrasText';
 import { IFourDigitsInputProps } from './types';
 import styles from './styles';
 
-const StyledInput = styled.TextInput<{
-  isActive: boolean;
-  theme: ThemeInterface;
-}>`
-  background-color: ${({ theme }) => {
-    return theme.colors.textPrimary;
-  }};
-  border-color: ${({ theme, isActive }) => {
-    return isActive ? theme.colors.textQuaternary : theme.colors.textQuaternaryInvert;
-  }};
-`;
-
-const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ theme, onFill }) => {
+const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ onFill }) => {
   const [code, setCode] = React.useState('    ');
   const [activeInput, setActiveInput] = React.useState(-1);
 
@@ -126,4 +110,4 @@ const FourDigitsInput: React.FC<IFourDigitsInputProps> = ({ theme, onFill }) => 
   );
 };
 
-export default React.memo<IFourDigitsInputProps>(withTheme(FourDigitsInput));
+export default React.memo<IFourDigitsInputProps>(FourDigitsInput);

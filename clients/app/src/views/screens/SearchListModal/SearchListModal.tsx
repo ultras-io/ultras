@@ -9,9 +9,11 @@ import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import Box from 'views/components/base/Box';
-import SearchListContainer from './containers/SearchListContainer';
 import { ISearchListModalProps, dataTypeEnum } from './types';
+import Container from 'views/components/base/Container';
 import styles from './styles';
+
+const SearchListContainer = React.lazy(() => import('./containers/SearchListContainer'));
 
 const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
   const { goBack } = useNavigationWithParams();
@@ -23,34 +25,41 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
   const name = dataKey === dataTypeEnum.Country ? I18n.t('country') : I18n.t('team');
 
   return (
-    <Box bgColor="backgroundMain" style={styles.container}>
-      <View style={styles.closeButton}>
-        <Button
-          onPress={goBack}
-          variant={'empty'}
-          alignSelf="flex-start"
-          _text={{ color: colors.textAction }}
-        >
-          {I18n.t('close')}
-        </Button>
-      </View>
-      <UltrasText style={styles.title} color="textPrimary">
-        {I18n.t('select')} {name}
-      </UltrasText>
-      <View style={styles.searchRow}>
-        <View style={styles.searchInput}>
-          <Input
-            variant="search"
-            placeholder={I18n.t('searchFor')}
-            InputLeftElement={
-              <Icon name={Icons.SearchText} color={'textQuinary'} size={'ic-xs'} ml={2} />
-            }
-            onChange={setSearchText}
-          />
+    <Container withSuspense>
+      <Box bgColor="backgroundMain" style={styles.container}>
+        <View style={styles.closeButton}>
+          <Button
+            onPress={goBack}
+            variant={'empty'}
+            alignSelf="flex-start"
+            _text={{ color: colors.textAction }}
+          >
+            {I18n.t('close')}
+          </Button>
         </View>
-      </View>
-      <SearchListContainer dataType={dataKey} searchText={searchText} />
-    </Box>
+        <UltrasText style={styles.title} color="textPrimary">
+          {I18n.t('select')} {name}
+        </UltrasText>
+        <View style={styles.searchRow}>
+          <View style={styles.searchInput}>
+            <Input
+              variant="search"
+              placeholder={I18n.t('searchFor')}
+              InputLeftElement={
+                <Icon
+                  name={Icons.SearchText}
+                  color={'textQuinary'}
+                  size={'ic-xs'}
+                  ml={2}
+                />
+              }
+              onChange={setSearchText}
+            />
+          </View>
+        </View>
+        <SearchListContainer dataType={dataKey} searchText={searchText} />
+      </Box>
+    </Container>
   );
 };
 

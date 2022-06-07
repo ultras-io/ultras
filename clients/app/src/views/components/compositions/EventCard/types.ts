@@ -1,7 +1,4 @@
-import { ThemeInterface } from 'styled-components';
-
 export interface IEventCardProps {
-  theme?: ThemeInterface;
   imageUri?: string;
   date: Date;
   title: string;

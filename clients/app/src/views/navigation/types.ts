@@ -41,7 +41,7 @@ interface ScreenOptions extends ScreenProps {
 export type NavigationScreen = {
   name: string;
   tabName?: string;
-  component: ComponentType<any>;
+  component?: ComponentType<any>;
   options?: ScreenOptions;
 };
 

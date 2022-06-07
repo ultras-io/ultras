@@ -2,15 +2,15 @@ import React from 'react';
 import { Text } from 'native-base';
 import type { CommonScreens } from '../types';
 
-const Match = React.lazy(() => import('views/screens/Match'));
-const Event = React.lazy(() => import('views/screens/Event'));
-const Post = React.lazy(() => import('views/screens/Post'));
-const Team = React.lazy(() => import('views/screens/Team'));
-const FanClub = React.lazy(() => import('views/screens/FanClub'));
-const FanClubAbout = React.lazy(() => import('views/screens/FanClubAbout'));
-const Profile = React.lazy(() => import('views/screens/Profile'));
-const NewEvent = React.lazy(() => import('views/screens/NewEvent'));
-const ProfileList = React.lazy(() => import('views/screens/ProfileList'));
+import Match from 'views/screens/Match';
+import Event from 'views/screens/Event';
+import Post from 'views/screens/Post';
+import Team from 'views/screens/Team';
+import FanClub from 'views/screens/FanClub';
+import FanClubAbout from 'views/screens/FanClubAbout';
+import Profile from 'views/screens/Profile';
+import NewEvent from 'views/screens/NewEvent';
+import ProfileList from 'views/screens/ProfileList';
 
 const defaultOptions = {
   headerTitle: '',
