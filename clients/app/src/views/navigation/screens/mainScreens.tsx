@@ -4,12 +4,12 @@ import commonScreens from './commonScreens';
 import I18n from 'i18n/i18n';
 import { ScreenNavigationConfig } from '../types';
 
-const Home = React.lazy(() => import('views/screens/Home'));
-const Search = React.lazy(() => import('views/screens/Search'));
-const Events = React.lazy(() => import('views/screens/Events'));
-const Matches = React.lazy(() => import('views/screens/Matches'));
-const Settings = React.lazy(() => import('views/screens/Settings'));
-const Notifications = React.lazy(() => import('views/screens/Notifications'));
+import Home from 'views/screens/Home';
+import Search from 'views/screens/Search';
+import Events from 'views/screens/Events';
+import Matches from 'views/screens/Matches';
+import Settings from 'views/screens/Settings';
+import Notifications from 'views/screens/Notifications';
 
 // @TODO complete list, change all names using in pushTo
 const screenSettings = {

@@ -1,13 +1,14 @@
 import React from 'react';
-import MatchesContainer from './containers/MatchesContainer';
-import { WithBg } from 'views/components/base/Bg';
+import Container from 'views/components/base/Container';
 import { IMatchesProps } from './types';
+
+const MatchesContainer = React.lazy(() => import('./containers/MatchesContainer'));
 
 const Matches: React.FC<IMatchesProps> = () => {
   return (
-    <WithBg size={'lg'}>
+    <Container withSuspense withBg bgSize={'lg'}>
       <MatchesContainer />
-    </WithBg>
+    </Container>
   );
 };
 

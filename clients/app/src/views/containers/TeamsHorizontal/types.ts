@@ -1,7 +1,4 @@
-import { ThemeInterface } from 'styled-components';
-
 export interface ITeamsContainerProps {
-  theme?: ThemeInterface;
   data: Array<any>; //@TODO
   withBounce?: boolean;
 }

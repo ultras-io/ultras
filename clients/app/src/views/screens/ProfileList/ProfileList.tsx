@@ -1,9 +1,13 @@
 import React from 'react';
-import ProfileListContainer from './containers/ProfileListContainer';
 import buildFanClubMembersStore from 'stores/fanClubMembers';
 import I18n from 'i18n/i18n';
+import Container from 'views/components/base/Container';
 import { ProfileListTypeEnum } from './';
 import { IProfileListProps } from './types';
+
+const ProfileListContainer = React.lazy(
+  () => import('./containers/ProfileListContainer')
+);
 
 const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
   const { id, type } = route.params;
@@ -28,9 +32,9 @@ const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
   // console.log(result);
 
   return (
-    // <WithSafeArea>
-    <ProfileListContainer title={title} />
-    // </WithSafeArea>
+    <Container withSuspense>
+      <ProfileListContainer title={title} />
+    </Container>
   );
 };
 

@@ -1,12 +1,13 @@
 import React from 'react';
-import EventsContainer from './containers/EventsContainer';
-import { IEventsProps } from './types';
+import Container from 'views/components/base/Container';
+// import EventsContainer from './containers/EventsContainer';
+const EventsContainer = React.lazy(() => import('./containers/EventsContainer'));
 
-const Events: React.FC<IEventsProps> = () => {
+const Events: React.FC = () => {
   return (
-    // <WithSafeArea>
-    <EventsContainer />
-    // </WithSafeArea>
+    <Container withSuspense>
+      <EventsContainer />
+    </Container>
   );
 };
 

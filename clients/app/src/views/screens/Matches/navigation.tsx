@@ -9,7 +9,7 @@ interface IMatchesNavigationProps {}
 
 const TAB_NAME = mainScreens.matches.tabName;
 
-const MatchesNavigation: React.FC<IMatchesNavigationProps> = ({}) => {
+const MatchesNavigation: React.FC<IMatchesNavigationProps> = () => {
   const { colors } = useTheme();
 
   return (

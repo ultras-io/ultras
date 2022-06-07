@@ -3,11 +3,12 @@ import React from 'react';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/WithBadge';
 // import { IconNamesEnum as Icons } from 'assets/icons';
-import ProfileContainer from './containers/ProfileContainer';
+import Container from 'views/components/base/Container';
 import { IProfileProps } from './types';
 // import { screenSettings } from 'views/navigation/screens';
-
 // import styles from './styles';
+
+const ProfileContainer = React.lazy(() => import('./containers/ProfileContainer'));
 
 const Profile: React.FC<IProfileProps> = ({ route }) => {
   const { id } = route.params;
@@ -40,7 +41,11 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
     });
   }, [setOptions, pushTo]);
 
-  return <ProfileContainer id={id} />;
+  return (
+    <Container withSuspense>
+      <ProfileContainer id={id} />
+    </Container>
+  );
 };
 
 export default Profile;

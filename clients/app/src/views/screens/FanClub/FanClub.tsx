@@ -4,9 +4,10 @@ import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
-import FanClubContainer from './containers/FanClubContainer';
-import { WithBg } from 'views/components/base/Bg';
+import Container from 'views/components/base/Container';
 import { IFanClubProps } from './types';
+
+const FanClubContainer = React.lazy(() => import('./containers/FanClubContainer'));
 
 const FanClub: React.FC<IFanClubProps> = ({ route }) => {
   const { data } = route.params;
@@ -27,9 +28,9 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
   }, [setOptions, pushTo, data.description]);
 
   return (
-    <WithBg>
+    <Container withSuspense withBg>
       <FanClubContainer data={data} />
-    </WithBg>
+    </Container>
   );
 };
 
