@@ -4,6 +4,7 @@ import { Button } from 'native-base';
 import I18n from 'i18n/i18n';
 import UltrasText from 'views/components/base/UltrasText';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 import rootScreens from 'views/navigation/screens/rootScreens';
 import bg from 'assets/images/bg.png';
 import { IIntroProps } from './types';
@@ -22,10 +23,16 @@ const Intro: React.FC<IIntroProps> = () => {
         {I18n.t('splashText')}
       </UltrasText>
       <View style={styles.buttons}>
-        <Button onPress={() => pushTo(rootScreens.joinUs.name)} variant={'primary'}>
+        <Button
+          onPress={prevertMulticalls(() => pushTo(rootScreens.joinUs.name))}
+          variant={'primary'}
+        >
           {I18n.t('introLetMeIn')}
         </Button>
-        <Button onPress={() => pushTo(rootScreens.uikit.name)} variant={'empty'}>
+        <Button
+          onPress={prevertMulticalls(() => pushTo(rootScreens.uikit.name))}
+          variant={'empty'}
+        >
           {I18n.t('privacy')}
         </Button>
       </View>

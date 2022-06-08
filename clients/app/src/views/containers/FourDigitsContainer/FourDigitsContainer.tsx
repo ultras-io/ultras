@@ -66,18 +66,6 @@ const FourDigitsContainer: React.FC<IFourDigitsContainerProps> = ({ passStep }) 
             {I18n.t('joinUsWrongCode')}
           </UltrasText>
         )}
-        {/* <Button
-          appearance={ButtonAppearance.UnderLined}
-          size={ButtonSize.Small}
-          color="textQuaternary"
-          isDisabled={waitingTime > 0}
-          title={
-            waitingTime > 0
-              ? I18n.t('joinUsTextWillArive', { waitingTime })
-              : I18n.t('joinUsSendAgainText')
-          }
-          onPress={onPress}
-        /> */}
       </View>
     </View>
   );

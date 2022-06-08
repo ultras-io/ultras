@@ -36,12 +36,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data }) => {
               : I18n.t('nationalTeam')}
           </Text>
 
-          <Button
-            onPress={() => {}}
-            variant={isFavorite ? 'actionInvert' : 'action'}
-            mt={'3'}
-            mr={'4'}
-          >
+          <Button variant={isFavorite ? 'actionInvert' : 'action'} mt={'3'} mr={'4'}>
             {I18n.t(isFavorite ? 'teamInFavorites' : 'teamAdd')}
           </Button>
         </View>

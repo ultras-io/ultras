@@ -11,7 +11,7 @@ import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
 import { IconNamesEnum } from 'assets/icons';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 import { IEventCardProps } from './types';
 import styles from './styles';
 
@@ -30,7 +30,7 @@ const EventCard: React.FC<IEventCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={prevertMulticalls(() => onPress())}>
       <BluredView style={styles.container}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <View style={styles.innerContainer}>
@@ -61,16 +61,6 @@ const EventCard: React.FC<IEventCardProps> = ({
             <View style={styles.comments}>
               <CommentsCount count={commentsCount} />
             </View>
-            {/* <Button
-              title={isGoing ? I18n.t('going') : I18n.t('join')}
-              onPress={() => {}}
-              boxSize={ButtonBoxSize.Contain}
-              size={ButtonSize.Default}
-              color={isGoing ? 'textPrimaryInvert' : 'textPrimary'}
-              bgColor={isGoing ? 'buttonActionInvert' : 'buttonAction'}
-              icon={isGoing ? IconNamesEnum.Check : undefined}
-              iconPosition={ButtonIconPosition.Right}
-            /> */}
             <View style={styles.arrow}>
               <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-2xs'} />
             </View>

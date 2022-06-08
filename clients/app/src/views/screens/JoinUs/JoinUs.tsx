@@ -122,17 +122,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
         onPress = () => requestLocation();
       if (item.action.type === ActionTypeEnum.Phone) onPress = () => checkPhone();
 
-      return (
-        <View style={styles.action}>
-          {/* <Button
-            title={item.action.title}
-            // isDisabled={true}
-            onPress={onPress}
-            size={ButtonSize.Big}
-            bgColor="buttonPrimary"
-          /> */}
-        </View>
-      );
+      return <View style={styles.action} />;
     },
     [setStep, step, openTeamModal, requestLocation, checkPhone]
   );
@@ -227,17 +217,7 @@ const JoinUs: React.FC<IJoinUsProps> = () => {
           <UltrasText style={styles.textBold}>
             {phoneNumber.code + phoneNumber.number}
           </UltrasText>
-          {step < NUMBER_STEP + 2 && (
-            <View style={styles.messageActionLeft}>
-              {/* <Button
-                appearance={ButtonAppearance.UnderLined}
-                size={ButtonSize.Small}
-                color="buttonPrimary"
-                title={I18n.t('changeNumber')}
-                onPress={changeNumber}
-              /> */}
-            </View>
-          )}
+          {step < NUMBER_STEP + 2 && <View style={styles.messageActionLeft} />}
         </>
       ) : null,
     [changeNumber, phoneNumber, step]
