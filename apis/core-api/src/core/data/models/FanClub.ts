@@ -104,7 +104,7 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         allowNull: false,
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       countryId: {
