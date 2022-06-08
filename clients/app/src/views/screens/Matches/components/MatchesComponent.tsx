@@ -5,9 +5,10 @@ import { useScrollToTop } from '@react-navigation/native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import MatchCard from 'views/components/compositions/MatchCard';
+import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { MatchViewModel } from '@ultras/core-api-sdk';
 import { IMatchesComponentProps } from '../types';
-import styles from '../styles';
+import gStyles from 'styles/styles';
 
 const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached }) => {
   const { pushTo } = useNavigationWithParams();
@@ -29,14 +30,15 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
     <FlatList
       ref={ref}
       keyExtractor={item => item.id.toString()}
-      contentContainerStyle={styles.flatList}
       showsVerticalScrollIndicator={false}
-      style={styles.matchList}
       renderItem={renderRow}
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
-      // stickyHeaderIndices={[0]}
+      ListFooterComponent={data.length ? <Loader /> : null}
+      ListEmptyComponent={<NoResults />}
+      contentContainerStyle={gStyles.contentContainerStyle}
+      ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />
   );
 };
