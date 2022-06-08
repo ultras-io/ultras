@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
+import { OrderEnum } from '@ultras/utils';
 
 import config from '../config/config.js';
 
@@ -16,6 +17,16 @@ const sequelize = new Sequelize.Sequelize(
   config.password,
   config as Sequelize.Options
 );
+
+sequelize.addHook('beforeFind', function (options) {
+  if (options && options.order) {
+    if (!Array.isArray(options.order)) {
+      options.order = [options.order];
+    }
+
+    options.order.push(['id', OrderEnum.asc]);
+  }
+});
 
 const extension = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 
