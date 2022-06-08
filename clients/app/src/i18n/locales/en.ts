@@ -28,6 +28,7 @@ export default {
   all: 'All',
   search: 'Search',
   about: 'About',
+  noResults: 'No Results',
 
   // splash
   splashText: 'Explore. Join. Meet. \nCheer on together.',

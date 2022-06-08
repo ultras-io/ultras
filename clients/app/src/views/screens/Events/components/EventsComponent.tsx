@@ -1,12 +1,10 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
-
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
-
 import EventCard from 'views/components/compositions/EventCard';
-
+import { NoResults } from 'views/components/base/ListComponents';
 import { IEventsComponentProps } from '../types';
 import styles from '../styles';
 
@@ -46,6 +44,7 @@ const EventsComponent: React.FC<IEventsComponentProps> = ({ data, onEndReached }
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.7}
+      ListEmptyComponent={<NoResults />}
     />
   );
 };

@@ -3,6 +3,7 @@ import { View, Image, FlatList } from 'react-native';
 import I18n from 'i18n/i18n';
 import Box from 'views/components/base/Box';
 import UltrasText from 'views/components/base/UltrasText';
+import { NoResults } from 'views/components/base/ListComponents';
 import { ISearchListComponentProps, dataTypeEnum } from '../types';
 import styles from '../styles';
 
@@ -76,6 +77,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.7}
+        ListEmptyComponent={<NoResults />}
       />
     </Box>
   );

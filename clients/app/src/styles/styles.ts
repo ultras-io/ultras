@@ -12,4 +12,15 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+
+  // list footer under bottom of screen
+  contentContainerStyle: {
+    padding: 15,
+    paddingBottom: 0,
+    flexGrow: 1,
+  },
+  listFooterComponentStyle: {
+    flex: 1,
+    position: 'relative',
+  },
 });

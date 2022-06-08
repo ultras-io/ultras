@@ -4,9 +4,9 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import TeamCard from 'views/components/compositions/TeamCard';
 import FanClubCard from 'views/components/compositions/FanClubCard';
-// import ProfileCard from 'views/components/compositions/ProfileCard';
+import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { ISearchItemComponentProps } from '../types';
-import styles from '../styles';
+import gStyles from 'styles/styles';
 
 const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   data,
@@ -46,8 +46,6 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
 
   return (
     <FlatList
-      style={styles.flatContainer}
-      contentContainerStyle={styles.flatList}
       keyExtractor={item => item.id.toString()}
       showsVerticalScrollIndicator={false}
       renderItem={renderItem}
@@ -55,6 +53,10 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
       keyboardDismissMode={'on-drag'}
+      ListFooterComponent={data.length ? <Loader /> : null}
+      ListEmptyComponent={<NoResults />}
+      contentContainerStyle={gStyles.contentContainerStyle}
+      ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />
   );
 };
