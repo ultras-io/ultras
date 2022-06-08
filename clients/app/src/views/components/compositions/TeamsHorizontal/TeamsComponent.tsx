@@ -1,9 +1,7 @@
 import React from 'react';
 import { FlatList, Pressable, View } from 'react-native';
-
 import UltrasText from 'views/components/base/UltrasText';
-// import Avatar from 'views/components/base/Avatar';
-
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 import { ITeamsComponentProps } from 'views/containers/TeamsHorizontal';
 import styles from './styles';
 
@@ -14,7 +12,10 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({
 }) => {
   const renderColumn = React.useCallback(
     ({ item }) => (
-      <Pressable onPress={() => onPress(item.id)} style={styles.container}>
+      <Pressable
+        onPress={prevertMulticalls(() => onPress(item.id))}
+        style={styles.container}
+      >
         <View style={styles.avatar}>{/* <Avatar avatarUri={item.logo} isTeam /> */}</View>
         <UltrasText color="textPrimary" style={styles.name}>
           {item.name}

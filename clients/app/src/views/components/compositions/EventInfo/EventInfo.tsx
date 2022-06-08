@@ -15,6 +15,7 @@ import Box from 'views/components/base/Box';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { EventInfoProps } from '../EventCard';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 // import { upperCaseFirstLetter } from 'utils/helpers/string';
 import styles from './styles';
 
@@ -48,18 +49,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
           {title}
         </UltrasText>
 
-        <View style={styles.match}>
-          {/* <Button
-            title={'Chelsea - Manchester United'}
-            onPress={
-              () => pushTo(commonScreens.match.name, { id: 67 }) // matchId
-            }
-            color="textPrimaryInvert"
-            bgColor="backgroundCardInvert"
-            size={ButtonSize.Small}
-            boxSize={ButtonBoxSize.Contain}
-          /> */}
-        </View>
+        <View style={styles.match} />
 
         {location && (
           <UltrasText style={styles.location} color="textPrimary">
@@ -68,9 +58,9 @@ const EventInfo: React.FC<EventInfoProps> = ({
         )}
         <View style={styles.creatorContainer}>
           <Pressable
-            onPress={
-              () => pushTo(commonScreens.profile.name, { id: 67 }) // profileid
-            }
+            onPress={prevertMulticalls(() =>
+              pushTo(commonScreens.profile.name, { id: 67 })
+            )}
           >
             <UltrasText style={styles.creator} color="textSecondary">
               {I18n.t('eventsBy')} {creator}
@@ -79,9 +69,9 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </Pressable>
           {supportersClub && (
             <Pressable
-              onPress={
-                () => pushTo(commonScreens.fanClub.name, { id: 67 }) // supporterClubsId
-              }
+              onPress={prevertMulticalls(() =>
+                pushTo(commonScreens.fanClub.name, { id: 67 })
+              )}
             >
               <UltrasText style={styles.creator} color="textAction">
                 {supportersClub}
@@ -92,12 +82,12 @@ const EventInfo: React.FC<EventInfoProps> = ({
 
         <View style={styles.stats}>
           <Pressable
-            onPress={() =>
+            onPress={prevertMulticalls(() =>
               pushTo(commonScreens.profileList.name, {
                 id: 2,
                 type: ProfileListTypeEnum.eventMemebers,
               })
-            }
+            )}
           >
             <UltrasText style={styles.going} color="textSecondary">
               {getReadableNumber(goingCount)} {I18n.t('going')}
@@ -105,12 +95,12 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </Pressable>
           <VerticalDivider />
           <Pressable
-            onPress={() =>
+            onPress={prevertMulticalls(() =>
               pushTo(commonScreens.profileList.name, {
-                id: 1,
+                id: 2,
                 type: ProfileListTypeEnum.eventLikes,
               })
-            }
+            )}
           >
             <UltrasText style={styles.going} color="textSecondary">
               {getReadableNumber(likeCount)} {I18n.t('likes')}
@@ -119,24 +109,11 @@ const EventInfo: React.FC<EventInfoProps> = ({
         </View>
 
         <View style={styles.actionBox}>
-          <View style={styles.goingButton}>
-            {/* <Button
-              title={isGoing ? upperCaseFirstLetter(I18n.t('going')) : I18n.t('join')}
-              onPress={() => {}}
-              boxSize={ButtonBoxSize.Cover}
-              size={ButtonSize.Big}
-              color="textPrimary"
-              bgColor="buttonAction"
-              icon={isGoing ? Icons.Check : undefined}
-              iconPosition={ButtonIconPosition.Right}
-            /> */}
-          </View>
+          <View style={styles.goingButton} />
           <Box
             style={styles.likeButton}
             borderColor={isLiked ? 'buttonAction' : 'buttonActionInvert'}
-          >
-            <Like isLiked={isLiked} onPress={() => {}} />
-          </Box>
+          />
         </View>
       </View>
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Circle, Image, Pressable, Text, VStack } from 'native-base';
 import { useTheme } from 'themes';
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 import { ITeamInfoProps } from '../MatchCard/types';
 
 const TeamInfo: React.FC<ITeamInfoProps> = ({ onPress, logo, name }) => {
@@ -8,7 +9,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ onPress, logo, name }) => {
 
   return (
     <VStack pt={'1'} alignItems={'center'} flex={4}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={prevertMulticalls(() => onPress())}>
         <Circle size={'av-lg'} bg={colors.backgroundLogo}>
           <Image source={{ uri: logo }} size={'av-sm'} alt={name} />
         </Circle>

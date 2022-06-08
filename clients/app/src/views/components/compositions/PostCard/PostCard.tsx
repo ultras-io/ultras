@@ -6,11 +6,10 @@ import I18n from 'i18n/i18n';
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
-
 import { IconNamesEnum } from 'assets/icons';
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 
 import { IPostCardProps } from './types';
 import styles from './styles';
@@ -27,7 +26,7 @@ const PostCard: React.FC<IPostCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={prevertMulticalls(() => onPress())}>
       <BluredView style={styles.container}>
         <UltrasText style={styles.date} color="textPrimary">
           {moment(date).fromNow()}
@@ -48,9 +47,6 @@ const PostCard: React.FC<IPostCardProps> = ({
         </View>
         <View style={styles.bottomButtons}>
           <View style={styles.likeAndComment}>
-            <View style={styles.like}>
-              <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
-            </View>
             <CommentsCount count={commentsCount} />
           </View>
           <View style={styles.arrow}>

@@ -4,6 +4,7 @@ import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
 import BluredView from 'views/components/base/BluredView';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
+import prevertMulticalls from 'utils/helpers/prevertMulticalls';
 import { IFanClubCardProps } from './types';
 import styles from './styles';
 
@@ -17,7 +18,7 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={prevertMulticalls(() => onPress())}>
       {direction === 'vertical' ? (
         <BluredView style={styles.container}>
           <Avatar source={{ uri: avatarURI }} mr={15} />

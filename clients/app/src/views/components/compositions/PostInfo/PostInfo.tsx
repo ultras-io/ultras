@@ -46,22 +46,14 @@ const PostInfo: React.FC<PostInfoProps> = ({
           {content}
         </UltrasText>
         <View style={styles.creatorContainer}>
-          <Pressable
-            onPress={
-              () => pushTo(commonScreens.profile, { id: 67 }) // profileId
-            }
-          >
+          <Pressable>
             <UltrasText style={styles.creator} color="textPrimary">
               {I18n.t('eventsBy')} {creator}
               {supportersClub && ', '}
             </UltrasText>
           </Pressable>
           {supportersClub && (
-            <Pressable
-              onPress={
-                () => pushTo(commonScreens.supportersClub, { id: 67 }) // supporterClubsId
-              }
-            >
+            <Pressable>
               <UltrasText style={styles.creator} color="textSecondary">
                 {supportersClub}
               </UltrasText>
@@ -69,9 +61,6 @@ const PostInfo: React.FC<PostInfoProps> = ({
           )}
         </View>
         <View style={styles.actions}>
-          <View style={styles.like}>
-            <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
-          </View>
           <Icon name={Icons.CommentsCount} color="textSecondary" size={'ic-sm'} />
           <UltrasText style={styles.commentsText} color="textPrimary">
             {getReadableNumber(commentsCount)}
