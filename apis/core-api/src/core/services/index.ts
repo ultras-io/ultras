@@ -14,3 +14,4 @@ export { default as UserAgentService } from './UserAgentService';
 export { default as FanClubService } from './FanClubService';
 export { default as FanClubMemberService } from './FanClubMemberService';
 export { default as EventService } from './EventService';
+export { default as LocationService } from './LocationService';

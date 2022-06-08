@@ -13,3 +13,4 @@ export * from './view-models/fanClubMember';
 export * from './view-models/favoriteTeam';
 export * from './view-models/post';
 export * from './view-models/event';
+export * from './view-models/location';

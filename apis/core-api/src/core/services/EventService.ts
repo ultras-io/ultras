@@ -13,6 +13,7 @@ import db from 'core/data/models';
 import { EventCreationAttributes } from 'core/data/models/Event';
 
 import BaseService from './BaseService';
+import LocationService from './LocationService';
 import PostService from './PostService';
 import { PostCreationAttributes } from 'core/data/models/Post';
 
@@ -37,6 +38,7 @@ export interface CreateParamsInterface {
   matchId?: ResourceIdentifier;
   privacy: EventPrivacyEnum;
   dateTime: Date;
+  locationId: ResourceIdentifier;
 }
 
 class EventService extends BaseService {
@@ -50,6 +52,11 @@ class EventService extends BaseService {
           model: db.Post,
           as: resources.POST.ALIAS.SINGULAR,
           ...PostService.getIncludeRelations(),
+        },
+        {
+          model: db.Location,
+          as: resources.LOCATION.ALIAS.SINGULAR,
+          ...LocationService.getIncludeRelations(),
         },
       ],
     };
@@ -66,6 +73,7 @@ class EventService extends BaseService {
     matchId,
     dateTime,
     privacy,
+    locationId,
   }: CreateParamsInterface): Promise<EventViewModel> {
     const postData: PostCreationAttributes = {
       type: PostTypeEnum.event,
@@ -84,6 +92,7 @@ class EventService extends BaseService {
       postId: post.getDataValue('id'),
       dateTime,
       privacy,
+      locationId,
     };
 
     const event = await db.Event.create(eventData);
