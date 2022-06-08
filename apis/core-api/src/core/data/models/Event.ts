@@ -5,15 +5,14 @@ import { ResourceIdentifier } from 'types';
 import resources from 'core/data/lcp';
 import schemas, { ULTRAS_CORE } from 'core/data/lcp/schemas';
 import { Post } from 'core/data/models/Post';
+import { Location } from 'core/data/models/Location';
 
 export interface EventAttributes {
   id: ResourceIdentifier;
   postId: ResourceIdentifier;
+  locationId: ResourceIdentifier;
   dateTime: Date;
   privacy: EventPrivacyEnum;
-  locationName: string;
-  locationLat: Nullable<number>;
-  locationLng: Nullable<number>;
 }
 
 export type EventCreationAttributes = Optional<EventAttributes, 'id'>;
@@ -25,11 +24,9 @@ export class Event
   // Note that the `null assertion` `!` is required in strict mode.
   public id!: ResourceIdentifier;
   public postId!: ResourceIdentifier;
+  public locationId!: ResourceIdentifier;
   public dateTime!: Date;
   public privacy!: EventPrivacyEnum;
-  public locationName!: string;
-  public locationLat!: Nullable<number>;
-  public locationLng!: Nullable<number>;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -37,12 +34,18 @@ export class Event
 
   // associated properties
   public readonly post?: Post;
+  public readonly location?: Location;
 
   // associations
   static associate(models: any) {
     Event.belongsTo(models.Post, {
       as: resources.POST.ALIAS.SINGULAR,
       foreignKey: 'postId',
+    });
+
+    Event.belongsTo(models.Location, {
+      as: resources.LOCATION.ALIAS.SINGULAR,
+      foreignKey: 'locationId',
     });
   }
 }
@@ -57,10 +60,22 @@ module.exports = (sequelize: Sequelize): typeof Event => {
       },
       postId: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: {
             tableName: resources.POST.RELATION,
+            schema: schemas.ULTRAS_CORE,
+          },
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+      },
+      locationId: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        references: {
+          model: {
+            tableName: resources.LOCATION.RELATION,
             schema: schemas.ULTRAS_CORE,
           },
           key: 'id',
@@ -76,18 +91,6 @@ module.exports = (sequelize: Sequelize): typeof Event => {
           values: [EventPrivacyEnum.public, EventPrivacyEnum.private],
         }),
         allowNull: false,
-      },
-      locationName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      locationLat: {
-        type: DataTypes.DOUBLE,
-        allowNull: true,
-      },
-      locationLng: {
-        type: DataTypes.DOUBLE,
-        allowNull: true,
       },
     },
     {
