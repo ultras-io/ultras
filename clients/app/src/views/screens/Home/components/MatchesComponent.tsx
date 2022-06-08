@@ -59,7 +59,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data }) => {
         mr={'2'}
         marginY={'3'}
       >
-        <Text variant={'searchTitle'}>{I18n.t('upcomingMatches')}</Text>
+        <Text variant={'searchTitle'}>{I18n.t('matches')}</Text>
         <Button
           onPress={navigateToMatches}
           rightIcon={
@@ -80,22 +80,27 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data }) => {
         renderItem={renderItem}
         data={data}
         horizontal={true}
+        inverted
       />
     </VStack>
   );
 };
 
 export const MatchesLoader: React.FC = () => (
-  <VStack>
+  <VStack
+    style={{
+      transform: [{ scaleX: -1 }],
+    }}
+  >
     <HStack
       justifyContent={'space-between'}
       alignItems={'center'}
-      ml={'5'}
-      mr={'2'}
+      ml={'2'}
+      mr={'5'}
       marginY={'3'}
     >
-      <Skeleton.Text lines={1} w={40} my={2} />
       <Skeleton.Text lines={1} w={20} my={2} />
+      <Skeleton.Text lines={1} w={40} my={2} />
     </HStack>
     <HStack>
       {[0, 1].map(k => (

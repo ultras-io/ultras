@@ -10,7 +10,6 @@ import {
   generateCRUD,
   InitStoreParamsInterface,
 } from './generateCRUD';
-import { OrderEnum } from '@ultras/utils';
 
 type ParamType = InitStoreParamsInterface<TeamViewModel>;
 type FilterType = Filterable<GetTeamsFilter>;
@@ -25,9 +24,6 @@ const buildTeamsStore = (params: Partial<ParamType> = {}) => {
     loadAll: (filter: FullFilterable<FilterType>) => {
       return sdk.getTeams({
         ...filter,
-        limit: 10,
-        orderAttr: 'id',
-        order: OrderEnum.asc,
       });
     },
 
