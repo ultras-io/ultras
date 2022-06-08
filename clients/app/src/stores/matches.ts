@@ -4,7 +4,6 @@ import {
   ResourceIdentifier,
   GetMatchesFilter,
 } from '@ultras/core-api-sdk';
-import { OrderEnum } from '@ultras/utils';
 
 import {
   Filterable,
@@ -26,10 +25,10 @@ const buildMatchesStore = (params: Partial<ParamType> = {}) => {
     loadAll: (filter: FullFilterable<GetMatchesFilter>) => {
       return sdk.getMatches({
         ...filter,
-        orderAttr: 'dateTime',
-        order: OrderEnum.desc,
-        limit: 10,
-        teamId: 2124,
+        // orderAttr: 'dateTime',
+        // order: OrderEnum.desc,
+        // limit: 10,
+        // teamId: 2124,
       });
     },
 

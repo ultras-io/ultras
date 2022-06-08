@@ -8,7 +8,7 @@ export default StyleSheet.create({
     borderRadius: 13,
   },
   containerH: {
-    marginLeft: 15,
+    marginRight: 15,
     paddingVertical: 13,
     paddingHorizontal: 15,
     borderRadius: 13,
