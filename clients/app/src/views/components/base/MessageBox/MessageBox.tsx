@@ -1,17 +1,29 @@
 import React from 'react';
+import { Box } from 'native-base';
+import { useTheme } from 'themes';
+import { IMessageBoxProps } from './types';
 
-import Box from 'views/components/base/Box';
-
-import { IMessageBoxProps, SideEnum } from './types';
-import styles from './styles';
-
-const MessageBox: React.FC<IMessageBoxProps> = ({ children, side = SideEnum.Left }) => {
+const MessageBox: React.FC<IMessageBoxProps> = ({ children, side = 'left' }) => {
+  const { colors } = useTheme();
   return (
     <Box
-      bgColor={
-        side === SideEnum.Left ? 'backgroundMessageReceived' : 'backgroundMessageSent'
+      bg={
+        side === 'left' ? colors.backgroundMessageReceived : colors.backgroundMessageSent
       }
-      style={[styles.container, side === SideEnum.Right ? styles.right : styles.left]}
+      _text={{
+        color: side === 'left' ? colors.textTertiaryInvert : colors.textPrimary,
+        fontSize: '4xl',
+        letterSpacing: '-0.408',
+      }}
+      marginX={'5'}
+      marginY={'2'}
+      paddingY={'2.5'}
+      paddingX={'3'}
+      maxW={'80%'}
+      alignSelf={side === 'left' ? 'flex-start' : 'flex-end'}
+      borderRadius={'xl'}
+      borderBottomLeftRadius={side === 'left' ? 0 : 'xl'}
+      borderBottomRightRadius={side === 'left' ? 'xl' : 0}
     >
       {children}
     </Box>
