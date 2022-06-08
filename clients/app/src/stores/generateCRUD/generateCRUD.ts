@@ -19,7 +19,7 @@ import type {
   FullFilterable,
 } from './types';
 
-export const defaultLimit = 50;
+export const defaultLimit = 10;
 
 export const generateCRUD = <
   TData extends object,
@@ -152,8 +152,15 @@ export const generateCRUD = <
 
           try {
             const filterData = {
-              ...(list.filter || {}),
+              // the limit attribute can be overriden by updateFilter(),
+              // that's why limit is above spread operator.
               limit: itemsLimit,
+
+              // spreading provided filter.
+              ...(list.filter || {}),
+
+              // but offset is calculated internally, that's why offset
+              // is below spread operator.
               offset: itemsCount,
             };
 

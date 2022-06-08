@@ -26,7 +26,7 @@ export interface InitStoreParamsInterface<TData> {
 }
 
 export type FullFilterable<TFilter> = TFilter & ListRequestParams;
-export type Filterable<TFilter> = Omit<FullFilterable<TFilter>, 'limit' | 'offset'>;
+export type Filterable<TFilter> = Omit<FullFilterable<TFilter>, 'offset'>;
 
 export interface StateFieldAddInterface<TFieldValue = string> {
   isValid: boolean;
