@@ -1,57 +1,135 @@
+import I18n from 'i18n/i18n';
 import { Answer } from '../types';
 
-const answers: Answer[][] = [
-  [
-    {
-      text: 'Flow 1',
-      textProps: {
-        fontWeight: 700,
-      },
+const answers: Answer[] = [
+  {
+    type: 'button',
+    pre: {
+      text: I18n.t('okLetsStart'),
     },
-    {
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    post: {
+      confirmed: [
+        {
+          text: I18n.t('okLetsStart'),
+        },
+      ],
+      denied: [],
     },
-    {
-      text: '\nLet’s begin',
-      textProps: {
-        fontWeight: 700,
-      },
+  },
+  {
+    type: 'selectTeam',
+    pre: {
+      text: I18n.t('joinUsSelectTeam'),
     },
-  ],
-  [
-    {
-      text: 'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
+    post: {
+      confirmed: [
+        {
+          text: (team: string) => team,
+        },
+        {
+          pressable: true,
+          text: I18n.t('tapToChange'),
+          textProps: {
+            variant: 'smallTitle',
+            underline: true,
+            textAlign: 'right',
+          },
+        },
+      ],
+      denied: [],
     },
-  ],
-  [
-    {
-      text: 'Please enter 4-digit code sent to',
+  },
+  {
+    type: 'button',
+    pre: {
+      text: I18n.t('joinUsLetMeEnter'),
     },
-    {
-      text: (phoneNumber: string) => phoneNumber,
-      textProps: {
-        fontWeight: 700,
-        fontSize: '6xl',
-      },
+    post: {
+      confirmed: [
+        {
+          text: I18n.t('joinUsLetMeEnter'),
+        },
+      ],
+      denied: [],
     },
-    {
-      jumpToStep: 2,
-      text: 'Change Number',
-      textProps: {
-        variant: 'link',
-      },
+  },
+  {
+    type: 'phoneNumber',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: (phoneNumber: string) => phoneNumber,
+        },
+      ],
+      denied: [],
     },
-  ],
-  [
-    {
-      text: 'Almost done',
+  },
+  {
+    type: '4digits',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: (code: string) => code,
+        },
+      ],
+      denied: [],
     },
-  ],
-  [
-    {
-      text: 'What’s your full name?',
+  },
+  {
+    type: 'username',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: (username: string) => username,
+        },
+      ],
+      denied: [],
     },
-  ],
+  },
+  {
+    type: 'notification',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: I18n.t('joinUsNotificationAllowed'),
+        },
+      ],
+      denied: [
+        {
+          text: I18n.t('joinUsNotificationNotAllowed'),
+          description: I18n.t('joinUsNotificationNotAllowedText'),
+        },
+      ],
+    },
+  },
+  {
+    type: 'location',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: I18n.t('joinUsLocationEnabled'),
+        },
+      ],
+      denied: [
+        {
+          text: I18n.t('joinUsLocationNotEnabled'),
+          description: I18n.t('joinUsLocationNotEnabledText'),
+        },
+      ],
+    },
+  },
+  {
+    type: 'success',
+    pre: {
+      text: I18n.t('gotIt'),
+    },
+    post: { confirmed: [], denied: [] },
+  },
 ];
 
 export default answers;

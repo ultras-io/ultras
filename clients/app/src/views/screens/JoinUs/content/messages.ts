@@ -1,56 +1,108 @@
+import I18n from 'i18n/i18n';
 import { Message } from '../types';
 
-const messages: Message[][] = [
+const messages: Message[][][] = [
   [
-    {
-      text: 'Flow 1',
-      textProps: {
-        fontWeight: 700,
+    [
+      {
+        text: I18n.t('hi'),
+        textProps: {
+          fontWeight: 700,
+        },
       },
-    },
-    {
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    },
-    {
-      text: '\nLet’s begin',
-      textProps: {
-        fontWeight: 700,
+      {
+        text: I18n.t('joinUsGreeting'),
       },
-    },
+      {
+        text: I18n.t('letsStart'),
+        textProps: {
+          fontWeight: 700,
+        },
+      },
+    ],
+  ],
+
+  [
+    [
+      {
+        text: I18n.t('joinUsPickTeam'),
+      },
+    ],
   ],
   [
-    {
-      text: 'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
-    },
-  ],
-  [
-    {
-      text: 'Please enter 4-digit code sent to',
-    },
-    {
-      text: (phoneNumber: string) => phoneNumber,
-      textProps: {
-        fontWeight: 700,
-        fontSize: '6xl',
+    [
+      {
+        text: I18n.t('joinUsEnterPhone'),
       },
-    },
-    {
-      jumpToStep: 2,
-      text: 'Change Number',
-      textProps: {
-        variant: 'link',
+    ],
+  ],
+  [],
+  [
+    [
+      {
+        text: I18n.t('joinUsEnterCode'),
       },
-    },
+      {
+        text: (phoneNumber: string) => phoneNumber,
+        textProps: {
+          fontWeight: 700,
+          fontSize: '6xl',
+        },
+      },
+      {
+        jumpToStep: 3,
+        text: I18n.t('changeNumber'),
+        textProps: {
+          variant: 'link',
+        },
+      },
+    ],
   ],
   [
-    {
-      text: 'Almost done',
-    },
+    [
+      {
+        text: I18n.t('almostDone'),
+      },
+    ],
+    [
+      {
+        text: I18n.t('joinUsPickUsername'),
+      },
+    ],
   ],
   [
-    {
-      text: 'What’s your full name?',
-    },
+    [
+      {
+        text: I18n.t('joinUsWellDoneLast'),
+      },
+      {
+        text: I18n.t('joinUsWantNotify'),
+      },
+    ],
+    [
+      {
+        text: I18n.t('joinUsNotificationsLocation'),
+      },
+    ],
+  ],
+  [
+    [
+      {
+        text: I18n.t('joinUsAndLocation'),
+      },
+    ],
+  ],
+  [
+    [
+      {
+        text: I18n.t('joinUsCongrats'),
+      },
+    ],
+    [
+      {
+        text: I18n.t('joinUsCongratsText'),
+      },
+    ],
   ],
 ];
 

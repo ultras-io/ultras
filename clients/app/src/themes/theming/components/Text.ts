@@ -54,7 +54,7 @@ export default {
         fontSize: '4xl',
         style: {
           color: colors[colorMode].textTertiaryInvert,
-          letterSpacing: -0.408,
+          // letterSpacing: -0.408,
         },
       };
     },
@@ -72,7 +72,8 @@ export default {
         fontSize: '4xl',
         style: {
           color: colors[colorMode].textPrimary,
-          letterSpacing: -0.408,
+          // letterSpacing: -0.408,
+          textAlign: 'right',
         },
       };
     },
