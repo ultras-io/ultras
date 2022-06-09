@@ -1,16 +1,23 @@
-import { OrderEnum } from '@ultras/utils';
+import { EventPrivacyEnum, OrderEnum } from '@ultras/utils';
 import { ResourceIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
-import { EventService, LocationService } from 'core/services';
+import { EventService, LocationService, PostService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 
-import { EventByIdResult, EventsListParams, EventsListResult } from './types';
-import { EventCreateParams, EventCreateResult } from '.';
+import {
+  EventByIdResult,
+  EventsListParams,
+  EventsListResult,
+  EventCreateParams,
+  EventCreateResult,
+  EventUpdateParams,
+  EventUpdateResult,
+} from './types';
 
 class EventController extends BaseController {
   /**
-   * Get all favorite teams.
+   * Get all events.
    */
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
@@ -42,7 +49,7 @@ class EventController extends BaseController {
   }
 
   /**
-   * Get favorite team by pivot relation id.
+   * Get event by id.
    */
   static async getById(id: ResourceIdentifier): EventByIdResult {
     const event = await EventService.getById(id);
@@ -58,7 +65,7 @@ class EventController extends BaseController {
   }
 
   /**
-   * Add new team(s) to user's favorite list.
+   * Add new event.
    */
   static async create(params: EventCreateParams): EventCreateResult {
     const location = await LocationService.createOrGet({
@@ -67,19 +74,54 @@ class EventController extends BaseController {
       lng: params.locationLng,
     });
 
-    const event = await EventService.create({
+    const post = await PostService.create({
       authorId: params.authorId,
       matchId: params.matchId,
       fanClubId: params.fanClubId,
       title: params.title,
       content: params.content,
-      privacy: params.privacy,
-      dateTime: params.dateTime,
+    });
+
+    const event = await EventService.create({
       locationId: location.getDataValue('id'),
+      postId: post.getDataValue('id'),
+      privacy: !params.fanClubId ? EventPrivacyEnum.public : params.privacy,
+      dateTime: params.dateTime,
     });
 
     return {
       data: event,
+    };
+  }
+
+  /**
+   * Add new event.
+   */
+  static async update(params: EventUpdateParams): EventUpdateResult {
+    const location = await LocationService.createOrGet({
+      name: params.locationName,
+      lat: params.locationLat,
+      lng: params.locationLng,
+    });
+
+    const event = await EventService.getById(params.id);
+    const postId = event.getDataValue('post').getDataValue('id');
+
+    await PostService.update(postId, {
+      title: params.title,
+      content: params.content,
+    });
+
+    const fanClubId = event.getDataValue('post').getDataValue('fanClubId');
+
+    const eventUpdate = await EventService.update(params.id, {
+      locationId: location.getDataValue('id'),
+      privacy: !fanClubId ? EventPrivacyEnum.public : params.privacy,
+      dateTime: params.dateTime,
+    });
+
+    return {
+      data: eventUpdate,
     };
   }
 }

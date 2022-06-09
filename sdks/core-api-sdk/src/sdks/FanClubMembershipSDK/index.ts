@@ -35,7 +35,10 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
     );
   }
 
-  public bulkInvite(fanClubId: ResourceIdentifier, params: FanClubMembershipInviteBulkType) {
+  public bulkInvite(
+    fanClubId: ResourceIdentifier,
+    params: FanClubMembershipInviteBulkType
+  ) {
     return this.api?.makeAPIPostRequest<BulkInvitationResponse>(
       `${fanClubId}/memberships/invite-member`,
       {
@@ -57,7 +60,10 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
     );
   }
 
-  public bulkUpdate(fanClubId: ResourceIdentifier, params: FanClubMembershipUpdateBulkType) {
+  public bulkUpdate(
+    fanClubId: ResourceIdentifier,
+    params: FanClubMembershipUpdateBulkType
+  ) {
     return this.api?.makeAPIPatchRequest<BulkUpdateMembershipResponse>(
       `${fanClubId}/memberships`,
       {
@@ -124,13 +130,19 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
   // #endregion
 
   // #region member actions
-  public acceptInvitation(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
+  public acceptInvitation(
+    fanClubId: ResourceIdentifier,
+    membershipId: ResourceIdentifier
+  ) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/accept-invitation`
     );
   }
 
-  public rejectInvitation(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
+  public rejectInvitation(
+    fanClubId: ResourceIdentifier,
+    membershipId: ResourceIdentifier
+  ) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
       `${fanClubId}/memberships/${membershipId}/reject-invitation`
     );

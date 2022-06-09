@@ -31,11 +31,13 @@ export interface ActionByIdentifierInterface {
 }
 
 export interface CreateParamsInterface {
-  authorId: ResourceIdentifier;
-  title: string;
-  content: string;
-  fanClubId?: ResourceIdentifier;
-  matchId?: ResourceIdentifier;
+  privacy: EventPrivacyEnum;
+  dateTime: Date;
+  locationId: ResourceIdentifier;
+  postId: ResourceIdentifier;
+}
+
+export interface UpdateParamsInterface {
   privacy: EventPrivacyEnum;
   dateTime: Date;
   locationId: ResourceIdentifier;
@@ -66,36 +68,41 @@ class EventService extends BaseService {
    * Create event instance.
    */
   static async create({
-    authorId,
-    title,
-    content,
-    fanClubId,
-    matchId,
     dateTime,
     privacy,
+    postId,
     locationId,
   }: CreateParamsInterface): Promise<EventViewModel> {
-    const postData: PostCreationAttributes = {
-      type: PostTypeEnum.event,
-      authorId: authorId,
-      matchId: matchId || null,
-      fanClubId: fanClubId || null,
-      title: title,
-      content: content,
-      likesCount: 0,
-      commentsCount: 0,
-    };
-
-    const post = await db.Post.create(postData);
-
     const eventData: EventCreationAttributes = {
-      postId: post.getDataValue('id'),
+      postId: postId,
       dateTime,
       privacy,
       locationId,
     };
 
     const event = await db.Event.create(eventData);
+
+    return event;
+  }
+
+  /**
+   * Update event.
+   */
+  static async update(
+    eventId: ResourceIdentifier,
+    { dateTime, privacy, locationId }: UpdateParamsInterface
+  ): Promise<EventViewModel> {
+    const event = await db.Event.findOne({
+      where: {
+        id: eventId,
+      },
+    });
+
+    await event.update({
+      dateTime,
+      privacy,
+      locationId,
+    });
 
     return event;
   }
@@ -156,7 +163,7 @@ class EventService extends BaseService {
   /**
    * Get event by id.
    */
-  static async getById(id: ResourceIdentifier): ServiceByIdResultType<EventViewModel> {
+  static async getById(id: ResourceIdentifier) {
     const event = await db.Event.findOne({
       where: {
         id: id,
