@@ -3,6 +3,7 @@ import type { SetState, GetState } from 'zustand/vanilla';
 import createReact from 'zustand';
 import type { ResourceIdentifier } from '@ultras/core-api-sdk';
 import { createField, fillStateKeys, buildFilterHash } from './helpers';
+import withQueue from './withQueue';
 import type {
   StateKeyType,
   ParamsType,
@@ -128,62 +129,66 @@ export const generateCRUD = <
       // and updates "list" state
       (actions as unknown as ExtractActionType<TData, 'list', TFilter>).getAll =
         async (): Promise<ListStateDataInterface<TData, TFilter>> => {
-          const list = getState().list;
+          return withQueue(async (): Promise<ListStateDataInterface<TData, TFilter>> => {
+            const list = getState().list;
 
-          // we need to reset previously loaded data if filter was changed
-          const filterHash = buildFilterHash(list.filter);
-          if (filterHash !== list.filterHash) {
-            list.filterHash = filterHash;
-            list.data = null;
-            list.pagination.limit = 0;
-            list.pagination.offset = 0;
-            list.pagination.total = null;
-          }
-
-          const itemsLimit = params.limit || defaultLimit;
-          const itemsCount = list.data?.length || 0;
-
-          if (list.pagination.total === itemsCount) {
-            return list;
-          }
-
-          list.status = 'loading';
-          setState({ list });
-
-          try {
-            const filterData = {
-              // the limit attribute can be overriden by updateFilter(),
-              // that's why limit is above spread operator.
-              limit: itemsLimit,
-
-              // spreading provided filter.
-              ...(list.filter || {}),
-
-              // but offset is calculated internally, that's why offset
-              // is below spread operator.
-              offset: itemsCount,
-            };
-
-            const result = await interceptors.loadAll(
-              filterData as unknown as FullFilterable<Partial<TFilter>>
-            );
-
-            if (!result) {
-              throw new Error('"loadAll" returned empty result.');
+            // we need to reset previously loaded data if filter was changed
+            const filterHash = buildFilterHash(list.filter);
+            if (filterHash !== list.filterHash) {
+              list.filterHash = filterHash;
+              list.data = null;
+              list.pagination.limit = 0;
+              list.pagination.offset = 0;
+              list.pagination.total = null;
             }
 
-            list.data = (list.data || []).concat(result.body.data);
-            list.status = 'success';
-            list.pagination.total = result.body.meta.pagination.total;
-            list.pagination.offset = result.body.meta.pagination.offset;
-            list.pagination.limit = result.body.meta.pagination.limit;
-          } catch (e) {
-            list.status = 'error';
-            list.error = e as Error;
-          }
+            const itemsLimit = params.limit || defaultLimit;
+            const itemsCount = list.data?.length || 0;
 
-          setState({ list });
-          return list;
+            if (list.pagination.total === itemsCount) {
+              return list;
+            }
+
+            list.status = 'loading';
+            setState({ list });
+
+            try {
+              const filterData = {
+                // the limit attribute can be overriden by updateFilter(),
+                // that's why limit is above spread operator.
+                limit: itemsLimit,
+
+                // spreading provided filter.
+                ...(list.filter || {}),
+
+                // but offset is calculated internally, that's why offset
+                // is below spread operator.
+                offset: itemsCount,
+              };
+
+              console.log('filterData', filterData);
+
+              const result = await interceptors.loadAll(
+                filterData as unknown as FullFilterable<Partial<TFilter>>
+              );
+
+              if (!result) {
+                throw new Error('"loadAll" returned empty result.');
+              }
+
+              list.data = (list.data || []).concat(result.body.data);
+              list.status = 'success';
+              list.pagination.total = result.body.meta.pagination.total;
+              list.pagination.offset = result.body.meta.pagination.offset;
+              list.pagination.limit = result.body.meta.pagination.limit;
+            } catch (e) {
+              list.status = 'error';
+              list.error = e as Error;
+            }
+
+            setState({ list });
+            return list;
+          });
         };
     }
 
