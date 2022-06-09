@@ -102,7 +102,12 @@ class NetworkService {
     return Object.keys(queryParams)
       .reduce((accumulator: Array<string>, key: string) => {
         const item = queryParams[key];
-        if (item === null || item === undefined) return accumulator;
+
+        // empty string or null must be sent to server with no value
+        // only undefined value must be ignored.
+        if (typeof item === 'undefined') {
+          return accumulator;
+        }
 
         if (Array.isArray(item)) {
           for (let index = 0; index < item.length; index++) {

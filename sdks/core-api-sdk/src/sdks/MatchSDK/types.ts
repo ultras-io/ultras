@@ -1,9 +1,9 @@
-import { ResourceIdentifier } from '../types';
+import { MultiResourceIdentifier } from '../types';
 
 export type GetMatchesFilter = {
   date?: string;
   dateFrom?: string;
   dateTo?: string;
-  teamId?: ResourceIdentifier;
-  leagueId?: ResourceIdentifier;
+  teamId?: MultiResourceIdentifier;
+  leagueId?: MultiResourceIdentifier;
 };

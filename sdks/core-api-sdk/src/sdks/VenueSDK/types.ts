@@ -1,7 +1,7 @@
-import { ResourceIdentifier } from '../types';
+import { MultiResourceIdentifier } from '../types';
 
 export type GetVenuesFilter = {
   name?: string;
-  countryId?: ResourceIdentifier;
-  cityId?: ResourceIdentifier;
+  countryId?: MultiResourceIdentifier;
+  cityId?: MultiResourceIdentifier;
 };

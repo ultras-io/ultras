@@ -10,9 +10,9 @@ const sdk = new CitySDK('dev');
 
 export const runTest = () => {
   const params = {
-    countryId: 6,
-    limit: 4,
-    offset: 4,
+    countryId: [6, 3],
+    // limit: 4,
+    // offset: 4,
     order: OrderEnum.desc,
     orderAttr: 'id',
   };

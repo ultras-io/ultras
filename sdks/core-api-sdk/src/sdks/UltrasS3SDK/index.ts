@@ -18,7 +18,7 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
    */
   public getSignedUrl(params: SigningUrlParamsInterface) {
     return this.api?.makeAPIGetRequest('signed-url', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

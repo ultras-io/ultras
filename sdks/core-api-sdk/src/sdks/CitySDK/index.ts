@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
+import { QueryParam, ResourceIdentifier } from '../types';
 import { GetCitiesFilter } from './types';
 
 export * from './types';
@@ -11,7 +11,7 @@ export class CitySDK extends CoreApiBaseSDK {
 
   public getCities(params: QueryParam<GetCitiesFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

@@ -1,6 +1,6 @@
-import { ResourceIdentifier } from '../types';
+import { MultiResourceIdentifier } from '../types';
 
 export type GetLeaguesFilter = {
   name?: string;
-  countryId?: ResourceIdentifier;
+  countryId?: MultiResourceIdentifier;
 };

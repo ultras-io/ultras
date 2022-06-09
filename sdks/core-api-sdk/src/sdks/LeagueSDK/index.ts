@@ -10,7 +10,7 @@ export class LeagueSDK extends CoreApiBaseSDK {
 
   public getLeagues(params: QueryParam<GetLeaguesFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

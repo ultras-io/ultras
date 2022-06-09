@@ -1,11 +1,15 @@
 import { TeamsViewModel, TeamViewModel } from '@ultras/view-models';
 import { TeamTypesEnum } from '@ultras/utils';
-import { ApiResponseBodyType, ResourceIdentifier, ListResponseMetaType } from '../types';
+import {
+  ApiResponseBodyType,
+  MultiResourceIdentifier,
+  ListResponseMetaType,
+} from '../types';
 
 export type GetTeamsFilter = {
   name?: string;
-  countryId?: ResourceIdentifier;
-  cityId?: ResourceIdentifier;
+  countryId?: MultiResourceIdentifier;
+  cityId?: MultiResourceIdentifier;
   type?: TeamTypesEnum;
 };
 

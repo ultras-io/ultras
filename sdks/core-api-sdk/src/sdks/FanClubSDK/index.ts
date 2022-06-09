@@ -19,7 +19,7 @@ export class FanClubSDK extends CoreApiBaseSDK {
 
   public getFanClubs(params: QueryParam<GetFanClubsFilter> = {}) {
     return this.api?.makeAPIGetRequest<GetFanClubsResponse>('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

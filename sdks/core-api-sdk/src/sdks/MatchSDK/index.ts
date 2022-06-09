@@ -26,7 +26,7 @@ export class MatchSDK extends CoreApiBaseSDK {
     }
 
     return this.api?.makeAPIGetRequest('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

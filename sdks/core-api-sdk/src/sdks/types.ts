@@ -33,3 +33,5 @@ export type ApiResponseType<TBody = any, TMeta = any, THead = any> = {
   headers: THead;
   body: ApiResponseBodyType<TBody, TMeta>;
 };
+
+export type MultiResourceIdentifier = ResourceIdentifier | Array<ResourceIdentifier>;
