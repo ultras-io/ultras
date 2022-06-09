@@ -258,5 +258,15 @@ export default {
         },
       };
     },
+    link: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: '2xl',
+        underline: true,
+        style: {
+          color: colors[colorMode].textLink,
+          letterSpacing: -0.408,
+        },
+      };
+    },
   },
 };

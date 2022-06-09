@@ -1,47 +1,15 @@
-import { DirectionENum } from 'views/components/base/WithAnimation';
-
-export enum ActionTypeEnum {
-  Button,
-  Team,
-  Phone,
-  PhoneConfirm,
-  UserName,
-  AllowNotifications,
-  AllowLocation,
-  StartApp,
-}
-
-export enum MessageTypeEnum {
-  Default,
-  Phone,
-  Location,
-}
-
-export type AnimationProp = {
-  direction?: DirectionENum;
-  delay?: number;
-};
+import { InterfaceTextProps } from 'native-base/lib/typescript/components/primitives/Text/types';
 
 export type Message = {
-  type: MessageTypeEnum;
-  messageId: number;
-  message?: React.ReactNode;
-  messageRenderer?: (
-    value: string,
-    changeNumber: () => void,
-    canChange: boolean
-  ) => React.ReactNode;
+  text: string | ((phoneNumber: string) => string);
+  textProps?: InterfaceTextProps;
+  jumpToStep?: number;
 };
 
-export type Action = {
-  type: ActionTypeEnum;
-  title?: string;
-};
+export type Answer = {};
 
-export type ScenarStep = {
-  id: number;
-  messages: Array<Message & AnimationProp>;
-  action: Action & AnimationProp;
+export type ChatRow = {
+  id: string;
+  type: 'message' | 'answer';
+  data: Message | Answer;
 };
-
-export interface IJoinUsProps {}

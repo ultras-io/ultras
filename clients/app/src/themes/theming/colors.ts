@@ -39,6 +39,7 @@ const dark: ColorType = {
   textHeader: '#AB9760',
   textSectionHeader: '#EDE4CC',
   textAction: '#F8CF5A',
+  textLink: '#06c',
   textPrimary: 'rgba(255, 255, 255, 1)',
   textSecondary: 'rgba(255, 255, 255, 0.9)',
   textTertiary: 'rgba(255, 255, 255, 0.8)',

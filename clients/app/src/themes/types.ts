@@ -32,6 +32,7 @@ export type ColorKey =
   | 'textHeader'
   | 'textSectionHeader'
   | 'textAction'
+  | 'textLink'
   | 'textPrimary'
   | 'textSecondary'
   | 'textTertiary'
