@@ -10,7 +10,7 @@ export class VenueSDK extends CoreApiBaseSDK {
 
   public getVenues(params: QueryParam<GetVenuesFilter> = {}) {
     return this.api?.makeAPIGetRequest('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

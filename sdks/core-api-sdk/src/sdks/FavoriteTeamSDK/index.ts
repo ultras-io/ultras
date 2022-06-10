@@ -32,7 +32,7 @@ export class FavoriteTeamSDK extends CoreApiBaseSDK {
 
   public getFavoriteTeams(params: QueryParam<GetFavoriteTeamsFilter>) {
     return this.api?.makeAPIGetRequest<GetFavoriteTeamsResult>('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

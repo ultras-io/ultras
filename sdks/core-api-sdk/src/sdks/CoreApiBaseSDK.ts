@@ -4,6 +4,7 @@ import { Interceptor } from '../interceptors/types';
 import { AuthTokenInterceptor } from '../interceptors';
 import type { ApiResponseType, ListResponseMetaType } from './types';
 import configs from '../configs';
+import { DynamicQueryParam, QueryParam } from './types';
 
 export type Mode = 'dev' | 'staging' | 'production';
 export { ApiResponseType, ListResponseMetaType, ResponseInterface };
@@ -41,6 +42,24 @@ class CoreApiBaseSDK {
 
   public getVersions() {
     return this.api?.makeAPIGetRequest<{ [key in string]: string }>('/versions');
+  }
+
+  protected buildQueryParam(params: QueryParam<any>): DynamicQueryParam {
+    const queryParams: DynamicQueryParam = {};
+
+    for (const key in params) {
+      // when provided key is ends with "Id" and is MultiResourceIdentifier type,
+      // then we need to join it with comma with one key.
+      //
+      // otherwise it must be sent with multiple key-value way.
+      if (/^.+Id$/.test(key) && Array.isArray(params[key])) {
+        queryParams[key] = params[key].join(',');
+      } else {
+        queryParams[key] = params[key];
+      }
+    }
+
+    return queryParams;
   }
 }
 

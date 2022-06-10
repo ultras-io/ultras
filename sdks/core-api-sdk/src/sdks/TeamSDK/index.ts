@@ -10,7 +10,7 @@ export class TeamSDK extends CoreApiBaseSDK {
 
   public getTeams(params: QueryParam<GetTeamsFilter> = {}) {
     return this.api?.makeAPIGetRequest<GetTeamsResponse>('', {
-      query_params: params as DynamicQueryParam,
+      query_params: this.buildQueryParam(params),
     });
   }
 

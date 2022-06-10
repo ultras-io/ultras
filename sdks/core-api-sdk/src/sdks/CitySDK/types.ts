@@ -1,12 +1,12 @@
-import { ResourceIdentifier } from '../types';
+import { MultiResourceIdentifier } from '../types';
 
 export type GetCitiesFilter = {
   name?: string;
-  countryId?: ResourceIdentifier;
+  countryId?: MultiResourceIdentifier;
 };
 
 type CountryView = {
-  id: number;
+  id: ResourceIdentifier;
   name: string;
   code?: string;
 };
