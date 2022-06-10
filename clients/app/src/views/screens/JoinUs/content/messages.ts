@@ -34,6 +34,17 @@ const messages: Message[][][] = [
       {
         text: I18n.t('joinUsEnterPhone'),
       },
+      {
+        pressable: true,
+        change: true,
+        jumpToStep: 3,
+        availableBefore: 5,
+        text: (emailOrPhoneKey: string) =>
+          I18n.t('joinUsEnterEmailPhone', { x: I18n.t(emailOrPhoneKey) }),
+        textProps: {
+          variant: 'link',
+        },
+      },
     ],
   ],
   [],
@@ -43,15 +54,18 @@ const messages: Message[][][] = [
         text: I18n.t('joinUsEnterCode'),
       },
       {
-        text: (phoneNumber: string) => phoneNumber,
+        text: (emailOrPhone: string) => emailOrPhone,
         textProps: {
           fontWeight: 700,
           fontSize: '6xl',
         },
       },
       {
+        pressable: true,
         jumpToStep: 3,
-        text: I18n.t('changeNumber'),
+        availableBefore: 5,
+        text: (emailOrPhoneValue: string) =>
+          I18n.t('changeEmailPhone', { x: I18n.t(emailOrPhoneValue) }),
         textProps: {
           variant: 'link',
         },

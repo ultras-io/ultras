@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, ListRenderItem } from 'react-native';
 import { Box, FlatList } from 'native-base';
 import { useRoute } from '@react-navigation/native';
@@ -28,36 +28,19 @@ const mergeData = (step: number): ChatRow[] => {
 };
 
 const JoinUs: React.FC = () => {
+  const flatListRef = React.useRef({ scrollToEnd: () => {} });
   const route = useRoute();
   const { openModal } = useNavigationWithParams();
-  const [step, nextStep, jumpToStep] = useStep(1);
-  const [teamSelected, setTeamSelected] = useState(false);
-  const flatListRef = React.useRef({ scrollToEnd: () => {} });
-
-  const [userInfo, setUserInfo] = React.useState({
-    phoneNumber: '+37499233353',
-    team: {
-      id: '',
-      name: '',
-    },
-    code: '4 0 0 3',
-    username: '__hayk',
-    notificationsAllowed: false,
-    locationEnabled: false,
-  });
+  const [
+    { step, nextStep, jumpToStep },
+    { userState },
+    { selectTeam },
+    { isEmail, emailPhoneKey, emailPhoneKeyInvert, emailPhoneValue, swicthOther },
+  ] = useStep(1);
 
   React.useLayoutEffect(() => {
     setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
   }, [step]);
-
-  const selectTeam = React.useCallback(
-    team => {
-      setUserInfo(state => ({ ...state, team }));
-      if (!teamSelected) nextStep();
-      setTeamSelected(true);
-    },
-    [nextStep, teamSelected]
-  );
 
   React.useEffect(() => {
     route.params?.team && selectTeam(route.params?.team);
@@ -80,31 +63,31 @@ const JoinUs: React.FC = () => {
       };
 
       if (item.data.type === 'selectTeam') {
-        options.text = userInfo.team.name;
+        options.text = userState.team?.name!;
         options.onPress = openTeamsModal;
-      } else if (item.data.type === 'phoneNumber') {
-        options.text = userInfo.phoneNumber;
+      } else if (item.data.type === 'emailOrphone') {
+        options.text = emailPhoneValue!;
       } else if (item.data.type === '4digits') {
-        options.text = userInfo.code;
+        options.text = userState.code!;
       } else if (item.data.type === 'username') {
-        options.text = userInfo.username;
-      } else if (item.data.type === 'notification' && !userInfo.notificationsAllowed) {
+        options.text = userState.username!;
+      } else if (item.data.type === 'notification' && !userState.notificationsAllowed) {
         options.messages = item.data.post.denied!;
         options.confirmed = false;
-      } else if (item.data.type === 'location' && !userInfo.locationEnabled) {
+      } else if (item.data.type === 'location' && !userState.locationEnabled) {
         options.messages = item.data.post.denied!;
         options.confirmed = false;
       }
       return options;
     },
     [
+      emailPhoneValue,
       openTeamsModal,
-      userInfo.code,
-      userInfo.locationEnabled,
-      userInfo.notificationsAllowed,
-      userInfo.phoneNumber,
-      userInfo.team.name,
-      userInfo.username,
+      userState.code,
+      userState.locationEnabled,
+      userState.notificationsAllowed,
+      userState.team?.name,
+      userState.username,
     ]
   );
 
@@ -115,10 +98,12 @@ const JoinUs: React.FC = () => {
           return <JoinUsButton onPress={nextStep} text={item.data.pre.text} />;
         case 'selectTeam':
           return <JoinUsButton onPress={openTeamsModal} text={item.data.pre.text} />;
+        case 'emailOrphone':
+          return <Box>{isEmail ? 'email' : 'phone number'}</Box>;
       }
       return null;
     },
-    [nextStep, openTeamsModal]
+    [nextStep, openTeamsModal, isEmail]
   );
 
   const renderStep: ListRenderItem<ChatRow> = React.useCallback(
@@ -128,8 +113,12 @@ const JoinUs: React.FC = () => {
           <WithAnimation delay={animation_delay}>
             <LeftMessage
               item={item}
+              step={step}
               jumpToStep={jumpToStep}
-              text={userInfo.phoneNumber}
+              change={swicthOther}
+              emailPhoneKey={emailPhoneKey}
+              emailPhoneKeyInvert={emailPhoneKeyInvert}
+              emailPhoneValue={emailPhoneValue}
             />
           </WithAnimation>
         );
@@ -157,7 +146,16 @@ const JoinUs: React.FC = () => {
 
       return null;
     },
-    [step, jumpToStep, userInfo.phoneNumber, renderRightComponent, getRightMessageOptions]
+    [
+      emailPhoneKey,
+      emailPhoneKeyInvert,
+      emailPhoneValue,
+      getRightMessageOptions,
+      jumpToStep,
+      renderRightComponent,
+      step,
+      swicthOther,
+    ]
   );
 
   return (

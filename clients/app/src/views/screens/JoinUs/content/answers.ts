@@ -54,12 +54,12 @@ const answers: Answer[] = [
     },
   },
   {
-    type: 'phoneNumber',
+    type: 'emailOrphone',
     pre: {},
     post: {
       confirmed: [
         {
-          text: (phoneNumber: string) => phoneNumber,
+          text: (emailOrPhoneValue: string) => emailOrPhoneValue,
         },
       ],
       denied: [],

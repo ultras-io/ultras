@@ -4,12 +4,15 @@ export type Message = {
   text: string | ((phoneNumber: string) => string);
   textProps?: InterfaceTextProps;
   jumpToStep?: number;
+  availableBefore?: number;
+  pressable?: boolean;
+  change?: boolean;
 };
 
 type AnswerType =
   | 'button'
   | 'selectTeam'
-  | 'phoneNumber'
+  | 'emailOrphone'
   | '4digits'
   | 'username'
   | 'notification'
@@ -55,8 +58,12 @@ export type ChatRow = ChatRowMessage | ChatRowAnswer | ChatRowEmpty;
 
 export interface ILeftMessageProps {
   item: ChatRowMessage;
+  step: number;
   jumpToStep: (st: number) => void;
-  text: string;
+  change: () => void;
+  emailPhoneKey: string;
+  emailPhoneKeyInvert: string;
+  emailPhoneValue?: string;
 }
 export interface IRightMessageProps {
   messages: AnswerPost[];
@@ -69,3 +76,51 @@ export interface IJoinUsButtonProps {
   onPress?: () => void;
   text?: string;
 }
+
+export type UseStepType = [
+  {
+    step: number;
+    nextStep: () => void;
+    jumpToStep: (st: number) => void;
+  },
+  {
+    userState: UserStateType;
+    updateUser: (key: UserStateKeyType, value: UserStateValueType) => void;
+  },
+  {
+    selectTeam: (team: TeamType) => void;
+  },
+  {
+    isEmail: boolean;
+    emailPhoneKey: string;
+    emailPhoneKeyInvert: string;
+    emailPhoneValue?: string;
+    swicthOther: () => void;
+  }
+];
+
+export type UserStateKeyType =
+  | 'phoneNumber'
+  | 'email'
+  | 'team'
+  | 'code'
+  | 'username'
+  | 'notificationsAllowed'
+  | 'locationEnabled';
+
+export type UserStateValueType = TeamType | string | boolean | undefined;
+
+export type UserStateType = {
+  phoneNumber?: string;
+  email?: string;
+  team?: TeamType;
+  code?: string;
+  username?: string;
+  notificationsAllowed: boolean;
+  locationEnabled: boolean;
+};
+
+export type TeamType = {
+  id: string;
+  name: string;
+};

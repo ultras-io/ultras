@@ -5,7 +5,9 @@ export default {
   letsStart: "Let's Strat.",
   okLetsStart: "Ok, Let's start",
   confirmNumber: 'Confirm Number',
-  changeNumber: 'Change Number',
+  changeEmailPhone: 'Change {{x}}',
+  email: 'Email',
+  phone: 'Phone Number',
   tapToChange: 'Tap to Change',
   almostDone: 'Almost done',
   confirm: 'Confirm',
@@ -44,10 +46,11 @@ export default {
   joinUsSelectTeam: 'Select Team',
   joinUsEnterPhone:
     'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
+  joinUsEnterEmailPhone: 'Sign up with {{x}}',
   joinUsLetMeEnter: 'Ok, Let me enter',
   joinUsGetConfirmationCode:
     'You will get a confirmation code and will need to enter it on next screen. By signing up you agree to our Terms and Privacy Policy.',
-  joinUsEnterCode: "Please enter 4-digit code we've sent by text to\n",
+  joinUsEnterCode: "Please enter 4-digit code we've sent to",
   joinUsPickUsername: 'Pick a username for your acount',
   joinUsWellDoneLast: 'Well done, and the last one.',
   joinUsWantNotify:
