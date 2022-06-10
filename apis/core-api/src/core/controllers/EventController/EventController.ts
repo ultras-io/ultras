@@ -147,7 +147,6 @@ class EventController extends BaseController {
     const authorId = event.getDataValue('post').getDataValue('author').getDataValue('id');
     const postId = event.getDataValue('post').getDataValue('id');
     
-    console.log({ myId: params.authorId, postAuthId: authorId });
     if (authorId !== params.authorId) {
       throw new AccessDeniedError({
         message: 'Not owned.',
