@@ -64,3 +64,8 @@ export interface IRightMessageProps {
   text: string;
   confirmed: boolean;
 }
+
+export interface IJoinUsButtonProps {
+  onPress?: () => void;
+  text?: string;
+}

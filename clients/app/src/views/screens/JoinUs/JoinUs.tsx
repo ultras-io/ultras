@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, ListRenderItem } from 'react-native';
-import { Box, FlatList, Button } from 'native-base';
+import { Box, FlatList } from 'native-base';
+import { useRoute } from '@react-navigation/native';
 import useStep from './useStep';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import { rootScreens } from 'views/navigation/screens';
 import WithAnimation, {
   DirectionENum as AnimationDirection,
 } from 'views/components/base/WithAnimation';
 import LeftMessage from './components/LeftMessage';
 import RightMessage from './components/RightMessage';
+import JoinUsButton from './components/JoinUsButton';
 import messages from './content/messages';
 import answers from './content/answers';
 import type { ChatRow, ChatRowAnswer } from './types';
@@ -16,46 +20,55 @@ const animation_delay = 150;
 const mergeData = (step: number): ChatRow[] => {
   const data: ChatRow[] = [];
   messages.slice(0, step).forEach((messagesList, i) => {
-    data.push({
-      type: 'message',
-      key: 'message' + i,
-      data: messagesList,
-    });
-    data.push({
-      type: 'answer',
-      key: 'answer' + i,
-      data: { id: i, ...answers[i] },
-    });
+    data.push({ type: 'message', key: 'message' + i, data: messagesList });
+    data.push({ type: 'answer', key: 'answer' + i, data: { id: i, ...answers[i] } });
   });
-  data.push({
-    key: 'empty',
-    type: 'empty',
-  });
+  data.push({ key: 'empty', type: 'empty' });
   return data;
 };
 
 const JoinUs: React.FC = () => {
+  const route = useRoute();
+  const { openModal } = useNavigationWithParams();
   const [step, nextStep, jumpToStep] = useStep(1);
+  const [teamSelected, setTeamSelected] = useState(false);
   const flatListRef = React.useRef({ scrollToEnd: () => {} });
 
-  const userInfo = {
+  const [userInfo, setUserInfo] = React.useState({
     phoneNumber: '+37499233353',
     team: {
-      name: 'Chelsea FC',
+      id: '',
+      name: '',
     },
     code: '4 0 0 3',
     username: '__hayk',
     notificationsAllowed: false,
     locationEnabled: false,
-  };
+  });
 
   React.useLayoutEffect(() => {
     setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
   }, [step]);
 
-  const openTeamModal = React.useCallback(() => {
-    // console.log('OpenModal');
-  }, []);
+  const selectTeam = React.useCallback(
+    team => {
+      setUserInfo(state => ({ ...state, team }));
+      if (!teamSelected) nextStep();
+      setTeamSelected(true);
+    },
+    [nextStep, teamSelected]
+  );
+
+  React.useEffect(() => {
+    route.params?.team && selectTeam(route.params?.team);
+  }, [route.params?.team]);
+
+  const openTeamsModal = React.useCallback(() => {
+    openModal(rootScreens.searchListModal.name, {
+      dataKey: 'team',
+      parentScreenName: route.name,
+    });
+  }, [openModal, route.name]);
 
   const getRightMessageOptions = React.useCallback(
     (item: ChatRowAnswer) => {
@@ -68,7 +81,7 @@ const JoinUs: React.FC = () => {
 
       if (item.data.type === 'selectTeam') {
         options.text = userInfo.team.name;
-        options.onPress = openTeamModal;
+        options.onPress = openTeamsModal;
       } else if (item.data.type === 'phoneNumber') {
         options.text = userInfo.phoneNumber;
       } else if (item.data.type === '4digits') {
@@ -85,7 +98,7 @@ const JoinUs: React.FC = () => {
       return options;
     },
     [
-      openTeamModal,
+      openTeamsModal,
       userInfo.code,
       userInfo.locationEnabled,
       userInfo.notificationsAllowed,
@@ -99,17 +112,13 @@ const JoinUs: React.FC = () => {
     (item: ChatRowAnswer) => {
       switch (item.data.type) {
         case 'button':
-          return (
-            <Box w={'70%'} alignSelf="flex-end" mr={5} my={2}>
-              <Button onPress={nextStep} variant={'primary'}>
-                {item.data.pre.text}
-              </Button>
-            </Box>
-          );
+          return <JoinUsButton onPress={nextStep} text={item.data.pre.text} />;
+        case 'selectTeam':
+          return <JoinUsButton onPress={openTeamsModal} text={item.data.pre.text} />;
       }
       return null;
     },
-    [nextStep]
+    [nextStep, openTeamsModal]
   );
 
   const renderStep: ListRenderItem<ChatRow> = React.useCallback(

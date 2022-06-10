@@ -1,64 +1,63 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button } from 'native-base';
-import { useTheme } from 'themes';
+import { Button, Text } from 'native-base';
 import I18n from 'i18n/i18n';
+import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import UltrasText from 'views/components/base/UltrasText';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
-import Box from 'views/components/base/Box';
-import { ISearchListModalProps, dataTypeEnum } from './types';
 import Container from 'views/components/base/Container';
-import styles from './styles';
+import { ISearchListModalProps } from './types';
 
 const SearchListContainer = React.lazy(() => import('./containers/SearchListContainer'));
 
 const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
-  const { goBack } = useNavigationWithParams();
+  const { goBack, goBackWithParams } = useNavigationWithParams();
   const { colors } = useTheme();
-  const { dataKey } = route.params;
+  const { dataKey, parentScreenName } = route.params;
+
+  const onSelect = React.useCallback(
+    ({ id, name }) => {
+      goBackWithParams(parentScreenName, { team: { id, name } });
+    },
+    [goBackWithParams, parentScreenName]
+  );
 
   const [searchText, setSearchText] = React.useState<string>('');
 
-  const name = dataKey === dataTypeEnum.Country ? I18n.t('country') : I18n.t('team');
-
   return (
     <Container withSuspense>
-      <Box bgColor="backgroundMain" style={styles.container}>
-        <View style={styles.closeButton}>
-          <Button
-            onPress={goBack}
-            variant={'empty'}
-            alignSelf="flex-start"
-            _text={{ color: colors.textAction }}
-          >
-            {I18n.t('close')}
-          </Button>
-        </View>
-        <UltrasText style={styles.title} color="textPrimary">
-          {I18n.t('select')} {name}
-        </UltrasText>
-        <View style={styles.searchRow}>
-          <View style={styles.searchInput}>
-            <Input
-              variant="search"
-              placeholder={I18n.t('searchFor')}
-              InputLeftElement={
-                <Icon
-                  name={Icons.SearchText}
-                  color={'textQuinary'}
-                  size={'ic-xs'}
-                  ml={2}
-                />
-              }
-              onChange={setSearchText}
-            />
-          </View>
-        </View>
-        <SearchListContainer dataType={dataKey} searchText={searchText} />
-      </Box>
+      <Button
+        onPress={goBack}
+        variant={'empty'}
+        alignSelf="flex-start"
+        _text={{ color: colors.textAction }}
+        mt={'5'}
+        mb={'2.5'}
+        px={'2.5'}
+      >
+        {I18n.t('close')}
+      </Button>
+
+      <Text variant={'title'} mb={'2'} px="5">
+        {I18n.t('select')} {I18n.t(dataKey === 'team' ? 'team' : 'country')}
+      </Text>
+
+      <Input
+        mx={4}
+        variant="search"
+        placeholder={I18n.t('search')}
+        InputLeftElement={
+          <Icon name={Icons.SearchText} color={'textQuinary'} size={'ic-xs'} ml={2} />
+        }
+        onChange={setSearchText}
+      />
+
+      <SearchListContainer
+        dataType={dataKey}
+        searchText={searchText}
+        onSelect={onSelect}
+      />
     </Container>
   );
 };

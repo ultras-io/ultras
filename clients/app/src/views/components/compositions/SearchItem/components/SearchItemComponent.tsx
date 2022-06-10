@@ -69,4 +69,4 @@ export const SearchItemLoader: React.FC = () => (
   </Box>
 );
 
-export default React.memo(SearchItemComponent);
+export default React.memo<ISearchItemComponentProps>(SearchItemComponent);

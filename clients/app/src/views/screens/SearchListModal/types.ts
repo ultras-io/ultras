@@ -1,23 +1,29 @@
 import { RouteProp } from '@react-navigation/native';
-
 import { CountryViewModel, TeamViewModel } from '@ultras/core-api-sdk';
 
-export enum dataTypeEnum {
-  Country,
-  Team,
-}
+type datsKeyType = 'team' | 'country';
 
 export interface ISearchListModalProps {
-  route: RouteProp<{ params: { dataKey: dataTypeEnum } }, 'params'>;
+  route: RouteProp<
+    { params: { dataKey: datsKeyType; parentScreenName: string } },
+    'params'
+  >;
 }
 
 export interface ISearchListContainerProps {
-  dataType: dataTypeEnum;
+  dataType: datsKeyType;
   searchText: string;
+  onSelect: (params: onSelectParams) => void;
 }
 
 export interface ISearchListComponentProps {
-  dataType: dataTypeEnum;
+  dataType: datsKeyType;
   data: Array<CountryViewModel> | Array<TeamViewModel>;
   onEndReached: () => void;
+  onSelect: (params: onSelectParams) => void;
 }
+
+type onSelectParams = {
+  id: string;
+  name: string;
+};
