@@ -46,12 +46,17 @@ export type ChatRowAnswer = {
   data: Answer & { id: number };
 };
 
-export type ChatRow = ChatRowMessage | ChatRowAnswer;
+export type ChatRowEmpty = {
+  key: string;
+  type: 'empty';
+};
+
+export type ChatRow = ChatRowMessage | ChatRowAnswer | ChatRowEmpty;
 
 export interface ILeftMessageProps {
   item: ChatRowMessage;
   jumpToStep: (st: number) => void;
-  phoneNumber: string;
+  text: string;
 }
 export interface IRightMessageProps {
   messages: AnswerPost[];

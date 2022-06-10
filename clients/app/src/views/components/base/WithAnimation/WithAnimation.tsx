@@ -5,7 +5,7 @@ import { IWithAnimationProps, DirectionENum } from './types';
 
 const WithAnimation: React.FC<IWithAnimationProps> = ({
   children,
-  direction = DirectionENum.Down2Up,
+  direction = DirectionENum.Left2Right,
   duration = 300,
   delay = 0,
 }) => {

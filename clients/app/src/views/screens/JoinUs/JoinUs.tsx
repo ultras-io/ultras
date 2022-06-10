@@ -1,12 +1,17 @@
 import React from 'react';
 import { StyleSheet, ListRenderItem } from 'react-native';
-import { Box, FlatList } from 'native-base';
+import { Box, FlatList, Button } from 'native-base';
 import useStep from './useStep';
+import WithAnimation, {
+  DirectionENum as AnimationDirection,
+} from 'views/components/base/WithAnimation';
 import LeftMessage from './components/LeftMessage';
 import RightMessage from './components/RightMessage';
 import messages from './content/messages';
 import answers from './content/answers';
 import type { ChatRow, ChatRowAnswer } from './types';
+
+const animation_delay = 150;
 
 const mergeData = (step: number): ChatRow[] => {
   const data: ChatRow[] = [];
@@ -22,11 +27,16 @@ const mergeData = (step: number): ChatRow[] => {
       data: { id: i, ...answers[i] },
     });
   });
+  data.push({
+    key: 'empty',
+    type: 'empty',
+  });
   return data;
 };
 
 const JoinUs: React.FC = () => {
-  const [step, nextStep, jumpToStep] = useStep(9);
+  const [step, nextStep, jumpToStep] = useStep(1);
+  const flatListRef = React.useRef({ scrollToEnd: () => {} });
 
   const userInfo = {
     phoneNumber: '+37499233353',
@@ -38,6 +48,10 @@ const JoinUs: React.FC = () => {
     notificationsAllowed: false,
     locationEnabled: false,
   };
+
+  React.useLayoutEffect(() => {
+    setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
+  }, [step]);
 
   const openTeamModal = React.useCallback(() => {
     // console.log('OpenModal');
@@ -68,7 +82,6 @@ const JoinUs: React.FC = () => {
         options.messages = item.data.post.denied!;
         options.confirmed = false;
       }
-
       return options;
     },
     [
@@ -82,40 +95,66 @@ const JoinUs: React.FC = () => {
     ]
   );
 
-  const renderAnswer = React.useCallback(
+  const renderRightComponent = React.useCallback(
     (item: ChatRowAnswer) => {
-      if (step === item.data.id + 1) {
-        // current step
-        // console.log(item.data.pre);
-        return null;
-      } else {
-        return <RightMessage {...getRightMessageOptions(item)} />;
+      switch (item.data.type) {
+        case 'button':
+          return (
+            <Box w={'70%'} alignSelf="flex-end" mr={5} my={2}>
+              <Button onPress={nextStep} variant={'primary'}>
+                {item.data.pre.text}
+              </Button>
+            </Box>
+          );
       }
+      return null;
     },
-    [step, getRightMessageOptions]
+    [nextStep]
   );
 
   const renderStep: ListRenderItem<ChatRow> = React.useCallback(
     ({ item }) => {
       if (item.type === 'message') {
         return (
-          <LeftMessage
-            item={item}
-            jumpToStep={jumpToStep}
-            phoneNumber={userInfo.phoneNumber}
-          />
+          <WithAnimation delay={animation_delay}>
+            <LeftMessage
+              item={item}
+              jumpToStep={jumpToStep}
+              text={userInfo.phoneNumber}
+            />
+          </WithAnimation>
         );
       } else if (item.type === 'answer') {
-        return renderAnswer(item);
+        if (step === item.data.id + 1) {
+          return (
+            <WithAnimation
+              direction={AnimationDirection.Right2Left}
+              delay={2 * animation_delay}
+              key={'currentStep'}
+            >
+              {renderRightComponent(item)}
+            </WithAnimation>
+          );
+        } else {
+          return (
+            <WithAnimation direction={AnimationDirection.Right2Left} key={'passedStep'}>
+              <RightMessage {...getRightMessageOptions(item)} />
+            </WithAnimation>
+          );
+        }
+      } else if (item.type === 'empty') {
+        return <Box h={'4'} />;
       }
+
       return null;
     },
-    [jumpToStep, userInfo.phoneNumber, renderAnswer]
+    [step, jumpToStep, userInfo.phoneNumber, renderRightComponent, getRightMessageOptions]
   );
 
   return (
     <Box safeAreaBottom h={'full'}>
       <FlatList
+        ref={flatListRef}
         data={mergeData(step)}
         renderItem={renderStep}
         keyExtractor={item => item.key}

@@ -3,7 +3,7 @@ import { Pressable, Text } from 'native-base';
 import MessageBox from 'views/components/base/MessageBox';
 import type { Message, ILeftMessageProps } from '../types';
 
-const LeftMessage: React.FC<ILeftMessageProps> = ({ item, jumpToStep, phoneNumber }) => {
+const LeftMessage: React.FC<ILeftMessageProps> = ({ item, jumpToStep, text }) => {
   return (
     <>
       {item.data.map((messagesList: Message[], i) => (
@@ -11,9 +11,7 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({ item, jumpToStep, phoneNumbe
           {messagesList.map((message: Message, j) => {
             const content = (
               <Text key={item.key + j} variant={'message'} {...message.textProps}>
-                {typeof message.text === 'function'
-                  ? message.text(phoneNumber)
-                  : message.text}
+                {typeof message.text === 'function' ? message.text(text) : message.text}
               </Text>
             );
             return message.jumpToStep ? (
