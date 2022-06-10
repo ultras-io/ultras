@@ -2,7 +2,7 @@ import { EventPrivacyEnum, OrderEnum } from '@ultras/utils';
 import { ResourceIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
 import { EventService, LocationService, PostService } from 'core/services';
-import { ResourceNotFoundError } from 'modules/exceptions';
+import { AccessDeniedError, ResourceNotFoundError } from 'modules/exceptions';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 
 import {
@@ -11,6 +11,7 @@ import {
   EventsListResult,
   EventCreateParams,
   EventCreateResult,
+  EventDeleteParams,
   EventUpdateParams,
   EventUpdateResult,
 } from './types';
@@ -105,6 +106,12 @@ class EventController extends BaseController {
     });
 
     const event = await EventService.getById(params.id);
+    if (!event) {
+      throw new ResourceNotFoundError({
+        message: 'Event not found.',
+      });
+    }
+
     const postId = event.getDataValue('post').getDataValue('id');
 
     await PostService.update(postId, {
@@ -123,6 +130,33 @@ class EventController extends BaseController {
     return {
       data: eventUpdate,
     };
+  }
+
+  /**
+   * Delete event.
+   */
+  static async delete(params: EventDeleteParams) {
+    const event = await EventService.getById(params.id);
+
+    if (!event) {
+      throw new ResourceNotFoundError({
+        message: 'Event not found.',
+      });
+    }
+
+    const authorId = event.getDataValue('post').getDataValue('author').getDataValue('id');
+    const postId = event.getDataValue('post').getDataValue('id');
+    
+    console.log({ myId: params.authorId, postAuthId: authorId });
+    if (authorId !== params.authorId) {
+      throw new AccessDeniedError({
+        message: 'Not owned.',
+      });
+    }
+
+    await PostService.delete(postId);
+
+    await EventService.delete(params.id);
   }
 }
 

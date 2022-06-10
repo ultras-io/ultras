@@ -173,6 +173,15 @@ class EventService extends BaseService {
 
     return event;
   }
+
+  /**
+   * Delete event.
+   */
+  static async delete(id: ResourceIdentifier) {
+    await db.Event.destroy({
+      where: { id },
+    });
+  }
 }
 
 export default EventService;

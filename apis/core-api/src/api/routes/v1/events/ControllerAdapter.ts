@@ -104,6 +104,21 @@ class ControllerAdapter {
 
     return ctx.ok(response);
   }
+
+  static async delete(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { id } = ctx.request.params;
+
+    const { userId } = ctx.user;
+
+    /** CONTROLLERS */
+    await EventController.delete({
+      id,
+      authorId: userId,
+    });
+
+    return ctx.noContent();
+  }
 }
 
 export default ControllerAdapter;

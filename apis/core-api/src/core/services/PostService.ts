@@ -91,6 +91,15 @@ class PostService extends BaseService {
 
     return post;
   }
+
+  /**
+   * Delete post.
+   */
+  static async delete(id: ResourceIdentifier) {
+    await db.Post.destroy({
+      where: { id },
+    });
+  }
 }
 
 export default PostService;

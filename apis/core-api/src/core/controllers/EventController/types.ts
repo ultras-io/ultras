@@ -40,6 +40,11 @@ export type EventUpdateParams = {
   locationLng?: Nullable<number>;
 };
 
+export type EventDeleteParams = {
+  id: ResourceIdentifier;
+  authorId: string;
+};
+
 export type EventCreateResult = ControllerResultType<EventViewModel>;
 export type EventUpdateResult = ControllerResultType<EventViewModel>;
 

@@ -10,6 +10,6 @@ router.post('/', checkUserAuth(), ControllerAdapter.create);
 router.get('/', ControllerAdapter.getAll);
 router.get('/:id', ControllerAdapter.getById);
 router.put('/:id', checkUserAuth(), ControllerAdapter.update);
-// router.delete('/:id', checkUserAuth(), ControllerAdapter.delete);
+router.delete('/:id', checkUserAuth(), ControllerAdapter.delete);
 
 export default router;
