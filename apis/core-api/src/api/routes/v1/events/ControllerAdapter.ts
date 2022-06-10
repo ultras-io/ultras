@@ -42,6 +42,34 @@ class ControllerAdapter {
     return ctx.created(response);
   }
 
+  static async update(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { title, content, privacy, dateTime, locationName, locationLat, locationLng } =
+      ctx.request.body;
+
+    const { id } = ctx.request.params;
+
+    /** CONTROLLERS */
+    const { data } = await EventController.update({
+      id,
+      title,
+      content,
+      privacy,
+      dateTime: new Date(dateTime),
+      locationName,
+      locationLat,
+      locationLng,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
+
   static async getById(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { id } = ctx.request.params;
