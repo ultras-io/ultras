@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 
@@ -90,6 +91,16 @@ class PostService extends BaseService {
     });
 
     return post;
+  }
+
+  /**
+   * Delete post.
+   */
+  static delete(id: ResourceIdentifier, transaction?: Transaction) {
+    return db.Post.destroy({
+      where: { id },
+      transaction,
+    });
   }
 }
 

@@ -1,6 +1,9 @@
+import { Transaction } from 'sequelize';
 import db from 'core/data/models';
 import { commonExcludeFields } from 'core/data/config/config';
 import { ResourceIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
+
+export type WithTransactionCallback = (transaction: Transaction) => any;
 
 abstract class BaseService {
   protected static includeRelations(): any {
@@ -137,6 +140,22 @@ abstract class BaseService {
     });
 
     return count == 1;
+  }
+
+  /**
+   * Execute database actions with transaction.
+   */
+  public static async withTransaction(callback: WithTransactionCallback) {
+    const transaction = await db.sequelize.transaction();
+
+    try {
+      const result = await callback(transaction);
+      await transaction.commit();
+
+      return result;
+    } catch (e) {
+      await transaction.rollback();
+    }
   }
 }
 

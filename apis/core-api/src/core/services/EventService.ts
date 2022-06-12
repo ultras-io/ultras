@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import {
   ResourceIdentifier,
   ServiceByIdResultType,
@@ -172,6 +173,16 @@ class EventService extends BaseService {
     });
 
     return event;
+  }
+
+  /**
+   * Delete event.
+   */
+  static delete(id: ResourceIdentifier, transaction?: Transaction) {
+    return db.Event.destroy({
+      where: { id },
+      transaction,
+    });
   }
 }
 
