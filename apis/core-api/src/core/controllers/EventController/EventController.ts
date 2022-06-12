@@ -146,16 +146,17 @@ class EventController extends BaseController {
 
     const authorId = event.getDataValue('post').getDataValue('author').getDataValue('id');
     const postId = event.getDataValue('post').getDataValue('id');
-    
+
     if (authorId !== params.authorId) {
       throw new AccessDeniedError({
         message: 'Not owned.',
       });
     }
 
-    await PostService.delete(postId);
-
-    await EventService.delete(params.id);
+    this.withTransaction(async transaction => {
+      await PostService.delete(postId, transaction);
+      await EventService.delete(params.id, transaction);
+    });
   }
 }
 

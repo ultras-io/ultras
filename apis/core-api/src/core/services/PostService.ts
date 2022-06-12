@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 
@@ -95,9 +96,10 @@ class PostService extends BaseService {
   /**
    * Delete post.
    */
-  static async delete(id: ResourceIdentifier) {
-    await db.Post.destroy({
+  static delete(id: ResourceIdentifier, transaction?: Transaction) {
+    return db.Post.destroy({
       where: { id },
+      transaction,
     });
   }
 }

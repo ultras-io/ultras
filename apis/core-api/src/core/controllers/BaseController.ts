@@ -1,3 +1,4 @@
+import BaseService, { WithTransactionCallback } from 'core/services/BaseService';
 import { SomethingWentWrong } from 'modules/exceptions';
 
 abstract class BaseController {
@@ -18,6 +19,10 @@ abstract class BaseController {
 
   protected static sendFailureStatus() {
     return this.sendSuccessStatus(false);
+  }
+
+  protected static withTransaction(callback: WithTransactionCallback) {
+    return BaseService.withTransaction(callback);
   }
 }
 
