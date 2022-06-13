@@ -20,5 +20,16 @@ export default {
         },
       };
     },
+    email: ({ colorMode }: ComponentParams) => {
+      return {
+        h: 50,
+        bg: colors[colorMode].backgroundInputInvert,
+        style: {
+          color: colors[colorMode].textPrimaryInvert,
+          fontSize: 20,
+          fontWeight: '600',
+        },
+      };
+    },
   },
 };

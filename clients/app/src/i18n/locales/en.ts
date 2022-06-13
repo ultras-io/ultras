@@ -4,11 +4,13 @@ export default {
   hi: 'Hi!',
   letsStart: "Let's Strat.",
   okLetsStart: "Ok, Let's start",
-  confirmNumber: 'Confirm Number',
-  changeNumber: 'Change Number',
+  changeEmailPhone: 'Change {{x}}',
+  confirm: 'Confirm',
+  enter: 'Enter',
+  email: 'Email',
+  phone: 'Phone Number',
   tapToChange: 'Tap to Change',
   almostDone: 'Almost done',
-  confirm: 'Confirm',
   close: 'Close',
   select: 'Select',
   searchFor: 'Search for',
@@ -44,10 +46,13 @@ export default {
   joinUsSelectTeam: 'Select Team',
   joinUsEnterPhone:
     'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
+  joinUsEnterEmailPhone: 'Sign up with {{x}}',
   joinUsLetMeEnter: 'Ok, Let me enter',
+  joinUsEnterValidEmailPhone: 'Please enter valid',
   joinUsGetConfirmationCode:
-    'You will get a confirmation code and will need to enter it on next screen. By signing up you agree to our Terms and Privacy Policy. @TODO URL - We never share this...',
-  joinUsEnterCode: "Please enter 4-digit code we've sent by text to\n",
+    'You will get a confirmation code and will need to enter it on next screen. By signing up you agree to our ',
+  joinUsPrivacyPolicy: 'Terms and Privacy Policy.',
+  joinUsEnterCode: "Please enter 4-digit code we've sent to",
   joinUsPickUsername: 'Pick a username for your acount',
   joinUsWellDoneLast: 'Well done, and the last one.',
   joinUsWantNotify:
@@ -55,14 +60,18 @@ export default {
   joinUsNotificationsLocation:
     'For this to happen, we will ask you to Turn on Notifications and Enable Locations Services on next 2 steps. First - notifications.',
   joinUsAndLocation: '...and Location Services',
+  joinUsNotificationAllowed: 'Notifications Allowed',
+  joinUsNotificationNotAllowed: 'No notifications allowed',
+  joinUsNotificationNotAllowedText:
+    'No notifications access was granted. Unfortunately, you will miss notifications. But no worries, you can always enable notifications from App Settings Page or your system Settings',
   joinUsLocationEnabled: 'Location Access Enabled',
   joinUsLocationNotEnabled: 'Location Access Not Enabled',
   joinUsLocationNotEnabledText:
-    'No Location access was granted.\nWe won’t be able to send best recomendations near you.\nBut no worries, you can always enable location access from App Settings Page or your system Settings  ',
-
+    'No Location access was granted.\nWe won’t be able to send best recomendations near you.\nBut no worries, you can always enable location access from App Settings Page or your system Settings',
   joinUsCongrats: 'Congrats, Lorem ipsum dolor sit amet,',
   joinUsCongratsText:
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  joinUsWrongFormt: 'Please enter the correct code',
   joinUsWrongCode: 'Please enter the correct code',
   joinUsTextWillArive: 'Text should arrive within {{waitingTime}}s',
   joinUsSendAgainText: "Didn't get a text? Send text again.",

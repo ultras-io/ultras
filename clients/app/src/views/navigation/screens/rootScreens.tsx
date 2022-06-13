@@ -7,7 +7,7 @@ import type { RootNavigationScreens } from '../types';
 import Intro from 'views/screens/Intro';
 import JoinUs from 'views/screens/JoinUs';
 import SearchListModal from 'views/screens/SearchListModal';
-import UIKit from 'views/screens/UIKit';
+import PrivacyPolicy from 'views/screens/PrivacyPolicy';
 
 const SCREENS: RootNavigationScreens = {
   intro: {
@@ -23,7 +23,7 @@ const SCREENS: RootNavigationScreens = {
       headerBackVisible: false,
       headerShadowVisible: false,
       headerTitle: () => (
-        <Text variant={'title'} flex={1}>
+        <Text variant={'title'} flex={1} ml={'4'}>
           {I18n.t('joinUs')}
         </Text>
       ),
@@ -36,9 +36,12 @@ const SCREENS: RootNavigationScreens = {
       presentation: 'modal',
     },
   },
-  uikit: {
-    name: 'UIKit',
-    component: UIKit,
+  privacy: {
+    name: 'Privacy Policy',
+    component: PrivacyPolicy,
+    options: {
+      presentation: 'modal',
+    },
   },
   tabNavigation: {
     name: 'TabNavigation',

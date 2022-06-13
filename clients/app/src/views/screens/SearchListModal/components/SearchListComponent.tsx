@@ -1,86 +1,90 @@
 import React from 'react';
-import { View, Image, FlatList } from 'react-native';
+import {
+  FlatList,
+  Image,
+  Text,
+  HStack,
+  VStack,
+  Box,
+  Skeleton,
+  Pressable,
+} from 'native-base';
+import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
-import Box from 'views/components/base/Box';
-import UltrasText from 'views/components/base/UltrasText';
-import { NoResults } from 'views/components/base/ListComponents';
-import { ISearchListComponentProps, dataTypeEnum } from '../types';
-import styles from '../styles';
+import { NoResults, Loader } from 'views/components/base/ListComponents';
+import { ISearchListComponentProps } from '../types';
+import gStyles from 'styles/styles';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   data,
   dataType,
   onEndReached,
+  onSelect,
 }) => {
-  // const flatListRef = React.useRef<FlatList<any>>();
+  const { colors } = useTheme();
 
-  const renderRow = React.useCallback(
-    ({ item }) => (
-      <Box
-        bgColor={'backgroundInput'}
-        style={[
-          styles.row,
-          item === data[0] && styles.firstRow,
-          item === data[data.length - 1] && styles.lastRow,
-        ]}
+  const renderItem = React.useCallback(
+    ({ item, index }) => (
+      <Pressable
+        onPress={() =>
+          onSelect({
+            id: item.id,
+            name: dataType === 'country' ? item.code : item.name,
+            dataType,
+          })
+        }
+        bg={colors.backgroundCard}
       >
-        <Box
-          borderColor={'backgroundInput'}
-          style={[
-            styles.borderedRow,
-            item === data[data.length - 1] && styles.lastBorderedRow,
-          ]}
+        <HStack
+          ml={'4'}
+          py={'3'}
+          space={'1.5'}
+          alignItems={'center'}
+          borderTopWidth={index === 0 ? 0 : 0.5}
+          borderTopColor={colors.backgroundMessageSent}
         >
-          <View style={styles.rowContainer}>
-            {dataType === dataTypeEnum.Team ? (
-              <>
-                <Image source={{ uri: item.logo }} style={styles.logo} />
-                <UltrasText style={styles.text} color="textPrimary">
-                  {item.name}
-                </UltrasText>
-              </>
-            ) : (
-              <>
-                <UltrasText style={styles.text} color="textPrimary">
-                  {item.name}
-                </UltrasText>
-                <UltrasText style={styles.text} color="textTertiary">
-                  {' '}
-                  {item.telPrefix}
-                </UltrasText>
-              </>
-            )}
-          </View>
-        </Box>
-      </Box>
+          <Image
+            source={{ uri: dataType === 'country' ? item.flag : item.logo }}
+            alt={item.name}
+            size={'6'}
+            resizeMode={'contain'}
+          />
+          <Text variant={'matchTeam'}>{item.name}</Text>
+          {dataType === 'country' && <Text variant={'matchDate'}>{item.code}</Text>}
+        </HStack>
+      </Pressable>
     ),
-    [data, dataType]
+    [colors.backgroundCard, colors.backgroundMessageSent, dataType, onSelect]
   );
-
-  // React.useEffect(() => {
-  //   data.length && flatListRef?.current?.scrollToIndex({index: 0});
-  // }, [data]);
 
   return (
-    <Box bgColor="backgroundMain" style={styles.flexList}>
+    <VStack flex={1} mt={'3'}>
       <FlatList
-        // ref={flatListRef}
-        ListFooterComponent={
-          <UltrasText color="textSecondary" style={styles.footerText}>
-            {I18n.t('canChangeClub')}
-          </UltrasText>
-        }
-        ListHeaderComponent={<View style={styles.headerSpace} />}
         data={data}
+        renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
-        renderItem={renderRow}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.7}
+        onEndReachedThreshold={0.5}
+        keyboardDismissMode={'on-drag'}
+        ListFooterComponent={data.length ? <Loader /> : null}
         ListEmptyComponent={<NoResults />}
+        contentContainerStyle={gStyles.contentContainerStyle}
+        ListFooterComponentStyle={gStyles.listFooterComponentStyle}
       />
-    </Box>
+      <Text variant={'smallText'} px={'6'} mt={'3'} mb={'5'}>
+        {I18n.t('canChangeClub')}
+      </Text>
+    </VStack>
   );
 };
+
+export const SearchListLoader: React.FC = () => (
+  <Box mt={'6'} px={'4'}>
+    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => (
+      <Skeleton key={'SearchItemComponent' + k} h={46} mt={'px'} />
+    ))}
+  </Box>
+);
 
 export default React.memo<ISearchListComponentProps>(SearchListComponent);

@@ -1,24 +1,25 @@
 import React from 'react';
-import SearchListComponent from '../components/SearchListComponent';
-import { ISearchListContainerProps, dataTypeEnum } from '../types';
+import SearchListComponent, { SearchListLoader } from '../components/SearchListComponent';
+import { ISearchListContainerProps } from '../types';
 import buildCountriesStore from 'stores/countries';
 import buildTeamsStore from 'stores/teams';
 
 const SearchListContainer: React.FC<ISearchListContainerProps> = ({
   dataType,
   searchText,
+  onSelect,
 }) => {
   const store = React.useMemo(() => {
     switch (dataType) {
-      case dataTypeEnum.Country:
+      case 'country':
         return buildCountriesStore();
-      case dataTypeEnum.Team:
+      case 'team':
         return buildTeamsStore();
     }
   }, [dataType]);
 
   const updateData = React.useCallback(() => {
-    store.updateFilter({ name: searchText });
+    store.updateFilter({ name: searchText, limit: 40 });
     store.getAll();
   }, [store, searchText]);
 
@@ -26,13 +27,19 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
 
   const result = store.useSelector('list');
 
+  // console.log(!result.list.data && result.list.status === 'loading');
+
+  // @TODO handle error status
+  if (!result.list.data && result.list.status === 'loading') return <SearchListLoader />;
+
   return (
     <SearchListComponent
       dataType={dataType}
       data={result.list.data || []}
       onEndReached={store.getAll}
+      onSelect={onSelect}
     />
   );
 };
 
-export default React.memo<ISearchListContainerProps>(SearchListContainer);
+export default SearchListContainer;

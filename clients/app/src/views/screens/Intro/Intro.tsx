@@ -30,7 +30,7 @@ const Intro: React.FC<IIntroProps> = () => {
           {I18n.t('introLetMeIn')}
         </Button>
         <Button
-          onPress={prevertMulticalls(() => pushTo(rootScreens.uikit.name))}
+          onPress={prevertMulticalls(() => pushTo(rootScreens.privacy.name))}
           variant={'empty'}
         >
           {I18n.t('privacy')}

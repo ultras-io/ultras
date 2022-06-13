@@ -26,6 +26,17 @@ const useNavigationWithParams = () => {
     navigation.goBack();
   }, [navigation]);
 
+  const goBackWithParams = React.useCallback(
+    (name: string, params?: any) => {
+      navigation.navigate({
+        name: prefix + name,
+        params: { tabName, ...params },
+        merge: true,
+      });
+    },
+    [navigation, prefix, tabName]
+  );
+
   const changeTab = React.useCallback(
     (tab: string) => {
       navigation.navigate(tab);
@@ -44,6 +55,7 @@ const useNavigationWithParams = () => {
     pushTo,
     openModal,
     goBack,
+    goBackWithParams,
     changeTab,
     setOptions,
   };
