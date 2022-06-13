@@ -4,7 +4,7 @@ import {
   UserStateType,
   UserStateKeyType,
   UserStateValueType,
-  TeamType,
+  SelectType,
 } from './types';
 
 const emailOrPhoneI18Keys = ['email', 'phone'];
@@ -32,6 +32,10 @@ const useStep = (initialStep: number): UseStepType => {
       id: '2323',
       name: 'Chelsea',
     },
+    countryCode: {
+      id: '23',
+      name: '+374',
+    },
     code: '4 0 0 3',
     username: '__hayk',
     notificationsAllowed: false,
@@ -52,8 +56,8 @@ const useStep = (initialStep: number): UseStepType => {
   const [isTeamAlreasySelected, setIsTeamAlreasySelected] = React.useState(false);
 
   const selectTeam = React.useCallback(
-    (team: TeamType) => {
-      updateUser('team', team);
+    (team: SelectType) => {
+      updateUser('team', { id: team.id, name: team.name });
 
       if (!isTeamAlreasySelected) {
         nextStep();
@@ -65,6 +69,17 @@ const useStep = (initialStep: number): UseStepType => {
 
   // email | phone
   const [emailOrPhoneIndex, setEmailOrPhoneIndex] = React.useState(0);
+  const selectCountryCode = React.useCallback(
+    (code: SelectType) => {
+      updateUser('countryCode', { id: code.id, name: code.name });
+
+      if (!isTeamAlreasySelected) {
+        nextStep();
+      }
+      setIsTeamAlreasySelected(true);
+    },
+    [isTeamAlreasySelected, nextStep, updateUser]
+  );
 
   return [
     {
@@ -78,11 +93,12 @@ const useStep = (initialStep: number): UseStepType => {
     },
     {
       selectTeam,
+      selectCountryCode,
     },
     {
       isEmail: emailOrPhoneIndex === 0,
-      emailPhoneKey: emailOrPhoneI18Keys[1 - emailOrPhoneIndex],
-      emailPhoneKeyInvert: emailOrPhoneI18Keys[emailOrPhoneIndex],
+      emailPhoneKey: emailOrPhoneI18Keys[emailOrPhoneIndex],
+      emailPhoneKeyInvert: emailOrPhoneI18Keys[1 - emailOrPhoneIndex],
       emailPhoneValue: emailOrPhoneIndex === 0 ? userState.email : userState.phoneNumber,
       swicthOther: () => setEmailOrPhoneIndex(index => 1 - index),
     },

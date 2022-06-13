@@ -26,7 +26,13 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   const renderItem = React.useCallback(
     ({ item, index }) => (
       <Pressable
-        onPress={() => onSelect({ id: item.id, name: item.name })}
+        onPress={() =>
+          onSelect({
+            id: item.id,
+            name: dataType === 'country' ? item.code : item.name,
+            dataType,
+          })
+        }
         bg={colors.backgroundCard}
       >
         <HStack

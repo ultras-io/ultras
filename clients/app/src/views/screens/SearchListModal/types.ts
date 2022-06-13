@@ -1,23 +1,23 @@
 import { RouteProp } from '@react-navigation/native';
 import { CountryViewModel, TeamViewModel } from '@ultras/core-api-sdk';
 
-type datsKeyType = 'team' | 'country';
+export type dataKeyType = 'team' | 'country';
 
 export interface ISearchListModalProps {
   route: RouteProp<
-    { params: { dataKey: datsKeyType; parentScreenName: string } },
+    { params: { dataKey: dataKeyType; parentScreenName: string } },
     'params'
   >;
 }
 
 export interface ISearchListContainerProps {
-  dataType: datsKeyType;
+  dataType: dataKeyType;
   searchText: string;
   onSelect: (params: onSelectParams) => void;
 }
 
 export interface ISearchListComponentProps {
-  dataType: datsKeyType;
+  dataType: dataKeyType;
   data: Array<CountryViewModel> | Array<TeamViewModel>;
   onEndReached: () => void;
   onSelect: (params: onSelectParams) => void;
@@ -26,4 +26,5 @@ export interface ISearchListComponentProps {
 type onSelectParams = {
   id: string;
   name: string;
+  dataType: dataKeyType;
 };

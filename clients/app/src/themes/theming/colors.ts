@@ -16,6 +16,7 @@ const dark: ColorType = {
   backgroundCard: 'rgba(255, 255, 255, 0.1)',
   backgroundCardInvert: 'rgba(255, 255, 255, 0.85)',
   backgroundInput: 'rgba(255, 255, 255, 0.1)',
+  backgroundInputInvert: 'rgba(255, 255, 255,1)',
   backgroundMessageSent: 'rgba(255, 255, 255, 0.2)',
   backgroundMessageReceived: 'rgba(255, 255, 255, 0.85)',
   backgroundMessageWarning: '#917935',

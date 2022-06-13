@@ -17,8 +17,8 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
   const { dataKey, parentScreenName } = route.params;
 
   const onSelect = React.useCallback(
-    ({ id, name }) => {
-      goBackWithParams(parentScreenName, { team: { id, name } });
+    ({ id, name, dataType }) => {
+      goBackWithParams(parentScreenName, { selected: { id, name, dataType } });
     },
     [goBackWithParams, parentScreenName]
   );

@@ -38,8 +38,8 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
 
       <Box flex={1}>
         <Stack.Navigator
-          // initialRouteName={rootScreens.intro.name}
-          initialRouteName={rootScreens.joinUs.name}
+          initialRouteName={rootScreens.intro.name}
+          // initialRouteName={rootScreens.joinUs.name}
           screenOptions={{
             headerShown: false,
             headerStyle: {
@@ -59,8 +59,9 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
                 component={rootScreens.intro.component!}
               />
               <Stack.Screen
-                name={rootScreens.uikit.name}
-                component={rootScreens.uikit.component!}
+                name={rootScreens.privacy.name}
+                component={rootScreens.privacy.component}
+                options={rootScreens.privacy.options}
               />
               <Stack.Screen
                 name={rootScreens.joinUs.name}

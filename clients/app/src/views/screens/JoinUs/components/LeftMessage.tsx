@@ -19,9 +19,9 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({
       }
       if (message.pressable) {
         if (message.change) {
-          return message.text(emailPhoneKey); // [Sign Up with Phone Number]
+          return message.text(emailPhoneKeyInvert); // [Sign Up with Phone Number]
         }
-        return message.text(emailPhoneKeyInvert); // [Change Email]
+        return message.text(emailPhoneKey); // [Change Email]
       }
       return message.text(emailPhoneValue); // [example@gmail.com]
     },

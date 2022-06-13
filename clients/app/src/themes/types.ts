@@ -11,6 +11,7 @@ export type ColorKey =
   | 'backgroundCardInvert'
   | 'backgroundTabBar'
   | 'backgroundInput'
+  | 'backgroundInputInvert'
   | 'backgroundMessageSent'
   | 'backgroundMessageReceived'
   | 'backgroundMessageWarning'

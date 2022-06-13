@@ -49,7 +49,7 @@ export type RootNavigationScreens = {
   intro: NavigationScreen;
   joinUs: NavigationScreen;
   searchListModal: NavigationScreen;
-  uikit: NavigationScreen;
+  privacy: NavigationScreen;
   tabNavigation: NavigationScreen;
 };
 

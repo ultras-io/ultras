@@ -1,4 +1,11 @@
 import { InterfaceTextProps } from 'native-base/lib/typescript/components/primitives/Text/types';
+import { dataKeyType } from 'views/screens/SearchListModal/types';
+
+export interface IJounUsComponentProps {
+  data: ChatRow[];
+  stepProps: UseStepType;
+  confirmIdentity: (isEmail: boolean, value: string) => void;
+}
 
 export type Message = {
   text: string | ((phoneNumber: string) => string);
@@ -77,6 +84,14 @@ export interface IJoinUsButtonProps {
   text?: string;
 }
 
+export interface IEmailOrPhoneProps {
+  onPress: (isEmail: boolean, value: string) => void;
+  onModalOpen: () => void;
+  isEmail: boolean;
+  emailPhoneKey: string;
+  code: string;
+}
+
 export type UseStepType = [
   {
     step: number;
@@ -88,7 +103,8 @@ export type UseStepType = [
     updateUser: (key: UserStateKeyType, value: UserStateValueType) => void;
   },
   {
-    selectTeam: (team: TeamType) => void;
+    selectTeam: (team: SelectType) => void;
+    selectCountryCode: (code: SelectType) => void;
   },
   {
     isEmail: boolean;
@@ -103,6 +119,7 @@ export type UserStateKeyType =
   | 'phoneNumber'
   | 'email'
   | 'team'
+  | 'countryCode'
   | 'code'
   | 'username'
   | 'notificationsAllowed'
@@ -114,6 +131,7 @@ export type UserStateType = {
   phoneNumber?: string;
   email?: string;
   team?: TeamType;
+  countryCode?: TeamType;
   code?: string;
   username?: string;
   notificationsAllowed: boolean;
@@ -123,4 +141,8 @@ export type UserStateType = {
 export type TeamType = {
   id: string;
   name: string;
+};
+
+export type SelectType = TeamType & {
+  dataType: dataKeyType;
 };
