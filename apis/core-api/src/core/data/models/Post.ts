@@ -84,7 +84,7 @@ module.exports = (sequelize: Sequelize): typeof Post => {
   Post.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
       },

@@ -102,6 +102,20 @@ class PostService extends BaseService {
       transaction,
     });
   }
+
+  /**
+   * Get post by id.
+   */
+  static async getById(id: ResourceIdentifier, withIncludes = true) {
+    const event = await db.Post.findOne({
+      where: {
+        id: id,
+      },
+      ...(withIncludes ? this.includeRelations() : {}),
+    });
+
+    return event;
+  }
 }
 
 export default PostService;

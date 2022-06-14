@@ -164,12 +164,12 @@ class EventService extends BaseService {
   /**
    * Get event by id.
    */
-  static async getById(id: ResourceIdentifier) {
+  static async getById(id: ResourceIdentifier, withIncludes = true) {
     const event = await db.Event.findOne({
       where: {
         id: id,
       },
-      ...this.includeRelations(),
+      ...(withIncludes ? this.includeRelations() : {}),
     });
 
     return event;

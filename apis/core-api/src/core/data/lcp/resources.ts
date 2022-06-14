@@ -133,6 +133,14 @@ const resources = {
       PLURAL: 'posts',
     },
   },
+  POST_MEMBER: {
+    RELATION: 'PostMember',
+    MODEL: 'PostMember',
+    ALIAS: {
+      SINGULAR: 'postMember',
+      PLURAL: 'postMembers',
+    },
+  },
   TOPIC: {
     RELATION: 'Topic',
     MODEL: 'Topic',
