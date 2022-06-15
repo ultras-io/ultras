@@ -67,6 +67,16 @@ export default {
         },
       };
     },
+    smallTextAction: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: 'md',
+        underline: true,
+        style: {
+          color: colors[colorMode].textAction,
+          letterSpacing: 0.12,
+        },
+      };
+    },
     messageInvert: ({ colorMode }: ComponentParams) => {
       return {
         fontSize: '4xl',

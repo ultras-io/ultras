@@ -23,7 +23,7 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     store.getAll();
   }, [store, searchText]);
 
-  React.useEffect(updateData, [updateData, searchText]);
+  React.useLayoutEffect(updateData, [updateData, searchText]);
 
   const result = store.useSelector('list');
 

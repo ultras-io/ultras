@@ -12,26 +12,26 @@ import LeftMessage from './LeftMessage';
 import RightMessage from './RightMessage';
 import JoinUsButton from './JoinUsButton';
 import EmailOrPhone from './EmailOrPhone';
-import type { IJounUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
+import FourDigits from './FourDigits/FourDigits';
+import type { IState } from 'stores/registration';
+import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
+import { dataKeyType } from 'views/screens/SearchListModal/types';
 
 const animation_delay = 150;
 
-const JoinUsComponent: React.FC<IJounUsComponentProps> = ({
-  data,
-  stepProps,
-  confirmIdentity,
-}) => {
+const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) => {
   const flatListRef = React.useRef({ scrollToEnd: () => {} });
   const route = useRoute();
   const isKeyboardOpen = useKeyboard();
   const { openModal } = useNavigationWithParams();
+  const [isTeamSelected, setIsTeamSelected] = React.useState(false);
 
-  const [
-    { step, nextStep, jumpToStep },
-    { userState },
-    { selectTeam, selectCountryCode },
-    { isEmail, emailPhoneKey, emailPhoneKeyInvert, emailPhoneValue, swicthOther },
-  ] = stepProps;
+  const step = useStore((state: IState) => state.step);
+  const selectedTeamName = useStore((state: IState) => state.user.team.name);
+  const emailOrPhone = useStore((state: IState) => state.user.joinVia.value);
+
+  const nextStep = useStore((state: IState) => state.nextStep);
+  const setSelected = useStore((state: IState) => state.setSelected);
 
   React.useLayoutEffect(() => {
     setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
@@ -43,13 +43,16 @@ const JoinUsComponent: React.FC<IJounUsComponentProps> = ({
 
   React.useEffect(() => {
     if (route.params?.selected) {
-      if (route.params?.selected.dataType === 'team') selectTeam(route.params?.selected);
-      else selectCountryCode(route.params?.selected);
+      setSelected(route.params?.selected);
+      if (route.params?.selected.dataType === 'team' && !isTeamSelected) {
+        setIsTeamSelected(true);
+        nextStep();
+      }
     }
   }, [route.params?.selected]);
 
   const openListModal = React.useCallback(
-    (dataKey: 'team' | 'country') => () => {
+    (dataKey: dataKeyType) => () => {
       openModal(rootScreens.searchListModal.name, {
         dataKey,
         parentScreenName: route.name,
@@ -68,32 +71,25 @@ const JoinUsComponent: React.FC<IJounUsComponentProps> = ({
       };
 
       if (item.data.type === 'selectTeam') {
-        options.text = userState.team?.name!;
+        options.text = selectedTeamName;
         options.onPress = openListModal('team');
       } else if (item.data.type === 'emailOrphone') {
-        options.text = emailPhoneValue!;
-      } else if (item.data.type === '4digits') {
-        options.text = userState.code!;
-      } else if (item.data.type === 'username') {
-        options.text = userState.username!;
-      } else if (item.data.type === 'notification' && !userState.notificationsAllowed) {
-        options.messages = item.data.post.denied!;
-        options.confirmed = false;
-      } else if (item.data.type === 'location' && !userState.locationEnabled) {
-        options.messages = item.data.post.denied!;
-        options.confirmed = false;
+        options.text = emailOrPhone;
       }
+      // else if (item.data.type === '4digits') {
+      //   options.text = userState.code!;
+      // } else if (item.data.type === 'username') {
+      //   options.text = userState.username!;
+      // } else if (item.data.type === 'notification' && !userState.notificationsAllowed) {
+      //   options.messages = item.data.post.denied!;
+      //   options.confirmed = false;
+      // } else if (item.data.type === 'location' && !userState.locationEnabled) {
+      //   options.messages = item.data.post.denied!;
+      //   options.confirmed = false;
+      // }
       return options;
     },
-    [
-      emailPhoneValue,
-      openListModal,
-      userState.code,
-      userState.locationEnabled,
-      userState.notificationsAllowed,
-      userState.team?.name,
-      userState.username,
-    ]
+    [openListModal, selectedTeamName, emailOrPhone]
   );
 
   const renderRightComponent = React.useCallback(
@@ -107,25 +103,14 @@ const JoinUsComponent: React.FC<IJounUsComponentProps> = ({
           );
         case 'emailOrphone':
           return (
-            <EmailOrPhone
-              onPress={confirmIdentity}
-              onModalOpen={openListModal('country')}
-              code={userState.countryCode?.name!}
-              isEmail={isEmail}
-              emailPhoneKey={emailPhoneKey}
-            />
+            <EmailOrPhone useStore={useStore} onModalOpen={openListModal('country')} />
           );
+        case '4digits':
+          return <FourDigits useStore={useStore} />;
       }
       return null;
     },
-    [
-      nextStep,
-      openListModal,
-      confirmIdentity,
-      userState.countryCode?.name,
-      isEmail,
-      emailPhoneKey,
-    ]
+    [nextStep, openListModal, useStore]
   );
 
   const renderStep: ListRenderItem<ChatRow> = React.useCallback(
@@ -133,15 +118,7 @@ const JoinUsComponent: React.FC<IJounUsComponentProps> = ({
       if (item.type === 'message') {
         return (
           <WithAnimation delay={animation_delay}>
-            <LeftMessage
-              item={item}
-              step={step}
-              jumpToStep={jumpToStep}
-              change={swicthOther}
-              emailPhoneKey={emailPhoneKey}
-              emailPhoneKeyInvert={emailPhoneKeyInvert}
-              emailPhoneValue={emailPhoneValue}
-            />
+            <LeftMessage item={item} useStore={useStore} />
           </WithAnimation>
         );
       } else if (item.type === 'answer') {
@@ -163,21 +140,12 @@ const JoinUsComponent: React.FC<IJounUsComponentProps> = ({
           );
         }
       } else if (item.type === 'empty') {
-        return <Box h={'50'} />;
+        return <Box h={'60'} />;
       }
 
       return null;
     },
-    [
-      emailPhoneKey,
-      emailPhoneKeyInvert,
-      emailPhoneValue,
-      getRightMessageOptions,
-      jumpToStep,
-      renderRightComponent,
-      step,
-      swicthOther,
-    ]
+    [getRightMessageOptions, renderRightComponent, step, useStore]
   );
 
   return (

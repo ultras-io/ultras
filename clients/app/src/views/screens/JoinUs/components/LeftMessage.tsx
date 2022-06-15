@@ -1,17 +1,17 @@
 import React, { useCallback } from 'react';
 import { Pressable, Text } from 'native-base';
 import MessageBox from 'views/components/base/MessageBox';
+import type { IState } from 'stores/registration';
 import type { Message, ILeftMessageProps } from '../types';
 
-const LeftMessage: React.FC<ILeftMessageProps> = ({
-  item,
-  step,
-  jumpToStep,
-  change,
-  emailPhoneKey,
-  emailPhoneKeyInvert,
-  emailPhoneValue,
-}) => {
+const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
+  const step = useStore((state: IState) => state.step);
+  const joinViaKey = useStore((state: IState) => state.user.joinVia.key);
+  const joinViaKeyInvert = useStore((state: IState) => state.user.joinVia.keyInvert);
+  const joinViaValue = useStore((state: IState) => state.user.joinVia.value);
+  const jumpToStep = useStore((state: IState) => state.jumpToStep);
+  const swicthJoinMethod = useStore((state: IState) => state.swicthJoinMethod);
+
   const renderText = useCallback(
     message => {
       if (typeof message.text === 'string') {
@@ -19,13 +19,13 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({
       }
       if (message.pressable) {
         if (message.change) {
-          return message.text(emailPhoneKeyInvert); // [Sign Up with Phone Number]
+          return message.text(joinViaKeyInvert); // [Sign Up with Phone Number]
         }
-        return message.text(emailPhoneKey); // [Change Email]
+        return message.text(joinViaKey); // [Change Email]
       }
-      return message.text(emailPhoneValue); // [example@gmail.com]
+      return message.text(joinViaValue); // [example@gmail.com]
     },
-    [emailPhoneKey, emailPhoneKeyInvert, emailPhoneValue]
+    [joinViaKey, joinViaKeyInvert, joinViaValue]
   );
 
   return (
@@ -49,7 +49,7 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({
                 onPress={
                   message.change
                     ? () => {
-                        change();
+                        swicthJoinMethod();
                         jumpToStep(message.jumpToStep!);
                       }
                     : () => jumpToStep(message.jumpToStep!)

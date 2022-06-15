@@ -17,20 +17,28 @@ import rootScreens from 'views/navigation/screens/rootScreens';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
+import type { IState } from 'stores/registration';
 import type { IEmailOrPhoneProps } from '../types';
 
-const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({
-  onPress,
-  onModalOpen,
-  code,
-  isEmail,
-  emailPhoneKey,
-}) => {
+const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) => {
+  const isEmail = useStore((state: IState) => state.user.joinVia.isEmail);
+  const key = useStore((state: IState) => state.user.joinVia.key);
+  const countryCode = useStore((state: IState) => state.user.country.name);
+  const status = useStore((state: IState) => state.status);
+  const confirmIdentity = useStore((state: IState) => state.confirmIdentity);
+  const nextStep = useStore((state: IState) => state.nextStep);
+
   const [isValid, setIsValid] = React.useState(true);
   const [value, setValue] = React.useState('');
 
   const { colors } = useTheme();
   const { openModal } = useNavigationWithParams();
+
+  React.useLayoutEffect(() => {
+    if (status === 'success') {
+      nextStep();
+    }
+  }, [status, nextStep]);
 
   const onChange = React.useCallback(
     text => {
@@ -50,9 +58,10 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({
       onChange={onChange}
       variant="email"
       debounce={false}
-      placeholder={I18n.t('enter') + ' ' + I18n.t(emailPhoneKey)}
+      placeholder={I18n.t('enter') + ' ' + I18n.t(key)}
       keyboardType={isEmail ? 'email-address' : 'number-pad'}
       returnKeyType="done"
+      onlyNumbers={!isEmail}
     />
   );
 
@@ -64,7 +73,7 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({
         <InputGroup>
           <Pressable onPress={onModalOpen}>
             <InputLeftAddon
-              children={code}
+              children={countryCode}
               flex={1}
               bg={colors.backgroundInputInvert}
               borderColor={colors.backgroundInputInvert}
@@ -80,7 +89,7 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({
       <Pressable onPress={prevertMulticalls(() => openModal(rootScreens.privacy.name))}>
         <Text variant={'smallText'} p={'2'} pr={'4'} textAlign={'right'}>
           {I18n.t('joinUsGetConfirmationCode')}
-          <Text variant={'smallText'} underline color={colors.textAction}>
+          <Text variant={'smallTextAction'} underline color={colors.textAction}>
             {I18n.t('joinUsPrivacyPolicy')}
           </Text>
         </Text>
@@ -96,18 +105,19 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({
         >
           <Icon name={Icons.Warning} color={'textAction'} size={'ic-2xs'} />
           <Text variant={'smallText'} textAlign={'right'}>
-            {I18n.t('joinUsEnterValidEmailPhone') + ' ' + I18n.t(emailPhoneKey)}
+            {I18n.t('joinUsEnterValidEmailPhone') + ' ' + I18n.t(key)}
           </Text>
         </HStack>
       )}
 
       <Button
-        onPress={() => onPress(isEmail, isEmail ? value : code + value)}
+        onPress={() => confirmIdentity(value)}
         variant={'primary'}
         mt={'2'}
-        disabled={!isValid}
+        disabled={!isValid || value === ''}
+        isLoading={status === 'loading'}
       >
-        {I18n.t('confirm') + ' ' + I18n.t(emailPhoneKey)}
+        {I18n.t('confirm') + ' ' + I18n.t(key)}
       </Button>
     </Box>
   );

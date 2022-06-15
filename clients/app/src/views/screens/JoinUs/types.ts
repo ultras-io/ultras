@@ -1,10 +1,8 @@
 import { InterfaceTextProps } from 'native-base/lib/typescript/components/primitives/Text/types';
-import { dataKeyType } from 'views/screens/SearchListModal/types';
 
-export interface IJounUsComponentProps {
+export interface IJoinUsComponentProps {
   data: ChatRow[];
-  stepProps: UseStepType;
-  confirmIdentity: (isEmail: boolean, value: string) => void;
+  useStore: any;
 }
 
 export type Message = {
@@ -65,12 +63,7 @@ export type ChatRow = ChatRowMessage | ChatRowAnswer | ChatRowEmpty;
 
 export interface ILeftMessageProps {
   item: ChatRowMessage;
-  step: number;
-  jumpToStep: (st: number) => void;
-  change: () => void;
-  emailPhoneKey: string;
-  emailPhoneKeyInvert: string;
-  emailPhoneValue?: string;
+  useStore: any;
 }
 export interface IRightMessageProps {
   messages: AnswerPost[];
@@ -85,64 +78,14 @@ export interface IJoinUsButtonProps {
 }
 
 export interface IEmailOrPhoneProps {
-  onPress: (isEmail: boolean, value: string) => void;
+  useStore: any;
   onModalOpen: () => void;
-  isEmail: boolean;
-  emailPhoneKey: string;
-  code: string;
 }
 
-export type UseStepType = [
-  {
-    step: number;
-    nextStep: () => void;
-    jumpToStep: (st: number) => void;
-  },
-  {
-    userState: UserStateType;
-    updateUser: (key: UserStateKeyType, value: UserStateValueType) => void;
-  },
-  {
-    selectTeam: (team: SelectType) => void;
-    selectCountryCode: (code: SelectType) => void;
-  },
-  {
-    isEmail: boolean;
-    emailPhoneKey: string;
-    emailPhoneKeyInvert: string;
-    emailPhoneValue?: string;
-    swicthOther: () => void;
-  }
-];
+export interface IFourDigitsProps {
+  useStore: any;
+}
 
-export type UserStateKeyType =
-  | 'phoneNumber'
-  | 'email'
-  | 'team'
-  | 'countryCode'
-  | 'code'
-  | 'username'
-  | 'notificationsAllowed'
-  | 'locationEnabled';
-
-export type UserStateValueType = TeamType | string | boolean | undefined;
-
-export type UserStateType = {
-  phoneNumber?: string;
-  email?: string;
-  team?: TeamType;
-  countryCode?: TeamType;
-  code?: string;
-  username?: string;
-  notificationsAllowed: boolean;
-  locationEnabled: boolean;
-};
-
-export type TeamType = {
-  id: string;
-  name: string;
-};
-
-export type SelectType = TeamType & {
-  dataType: dataKeyType;
-};
+export interface IFourDigitsMessageProps {
+  useStore: any;
+}
