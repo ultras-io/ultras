@@ -1,4 +1,4 @@
-import { EventPrivacyEnum, OrderEnum } from '@ultras/utils';
+import { EventPrivacyEnum, OrderEnum, PostTypeEnum } from '@ultras/utils';
 import { ResourceIdentifier } from 'types';
 import BaseController from 'core/controllers/BaseController';
 import { EventService, LocationService, PostService } from 'core/services';
@@ -81,6 +81,7 @@ class EventController extends BaseController {
       fanClubId: params.fanClubId,
       title: params.title,
       content: params.content,
+      type: PostTypeEnum.event,
     });
 
     const event = await EventService.create({

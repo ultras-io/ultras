@@ -13,6 +13,7 @@ export { default as FavoriteTeamService } from './FavoriteTeamService';
 export { default as UserAgentService } from './UserAgentService';
 export { default as FanClubService } from './FanClubService';
 export { default as FanClubMemberService } from './FanClubMemberService';
-export { default as EventService } from './EventService';
 export { default as PostService } from './PostService';
+export { default as EventService } from './EventService';
+export { default as RoomService } from './RoomService';
 export { default as LocationService } from './LocationService';

@@ -149,6 +149,14 @@ const resources = {
       PLURAL: 'events',
     },
   },
+  ROOM: {
+    RELATION: 'Room',
+    MODEL: 'Room',
+    ALIAS: {
+      SINGULAR: 'room',
+      PLURAL: 'rooms',
+    },
+  },
   LOCATION: {
     RELATION: 'Location',
     MODEL: 'Location',
