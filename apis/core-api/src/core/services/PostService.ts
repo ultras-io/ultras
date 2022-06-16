@@ -27,7 +27,7 @@ class PostService extends BaseService {
   protected static includeRelations() {
     return {
       attributes: {
-        exclude: ['fanClubId', 'matchId', 'authorId'],
+        // exclude: ['fanClubId', 'matchId', 'authorId'],
       },
       include: [
         {
