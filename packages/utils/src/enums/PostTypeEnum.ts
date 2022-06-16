@@ -1,8 +1,8 @@
 enum PostTypeEnum {
   /**
-   * Post type is topic
+   * Post type is room
    */
-  topic = 'topic',
+  room = 'room',
 
   /**
    * Post type is event

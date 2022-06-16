@@ -90,7 +90,7 @@ module.exports = (sequelize: Sequelize): typeof Post => {
       },
       type: {
         type: DataTypes.ENUM({
-          values: [PostTypeEnum.event, PostTypeEnum.topic],
+          values: [PostTypeEnum.event, PostTypeEnum.room],
         }),
         allowNull: false,
       },

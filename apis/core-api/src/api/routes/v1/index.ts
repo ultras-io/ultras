@@ -10,6 +10,7 @@ import users from './users';
 import fanClubs from './fanClubs';
 import favoriteTeams from './favoriteTeams';
 import events from './events';
+import rooms from './rooms';
 import aws from './aws';
 
 const router = new Router({
@@ -26,6 +27,7 @@ router.use(users.routes());
 router.use(fanClubs.routes());
 router.use(favoriteTeams.routes());
 router.use(events.routes());
+router.use(rooms.routes());
 router.use(aws.routes());
 
 export default router;

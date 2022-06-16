@@ -15,6 +15,7 @@ export interface CreateParamsInterface {
   content: string;
   fanClubId?: ResourceIdentifier;
   matchId?: ResourceIdentifier;
+  type: PostTypeEnum;
 }
 
 export interface UpdateParamsInterface {
@@ -50,25 +51,22 @@ class PostService extends BaseService {
   /**
    * Create post instance.
    */
-  static async create({
-    authorId,
-    title,
-    content,
-    fanClubId,
-    matchId,
-  }: CreateParamsInterface) {
+  static async create(
+    { authorId, title, content, fanClubId, matchId, type }: CreateParamsInterface,
+    transaction?: Transaction
+  ) {
     const postData: PostCreationAttributes = {
-      type: PostTypeEnum.event,
-      authorId: authorId,
+      type,
+      authorId,
       matchId: matchId || null,
       fanClubId: fanClubId || null,
-      title: title,
-      content: content,
+      title,
+      content,
       likesCount: 0,
       commentsCount: 0,
     };
 
-    const post = await db.Post.create(postData);
+    const post = await db.Post.create(postData, { transaction });
     return post;
   }
 
