@@ -1,5 +1,5 @@
 import React from 'react';
-import useStep from '../useStep';
+import initStore, { IState } from 'stores/registration';
 import JoinUsComponent from '../components/JoinUsComponent';
 import messages from '../content/messages';
 import answers from '../content/answers';
@@ -16,20 +16,10 @@ const mergeData = (step: number): ChatRow[] => {
 };
 
 const JoinUsContainer: React.FC = () => {
-  const stepProps = useStep(1);
-  const [{ step }] = stepProps;
+  const useRegistrationStore = initStore();
+  const step = useRegistrationStore((state: IState) => state.step);
 
-  const confirmIdentity = React.useCallback((isEmail, value) => {
-    console.log(isEmail, value);
-  }, []);
-
-  return (
-    <JoinUsComponent
-      data={mergeData(step)}
-      stepProps={stepProps}
-      confirmIdentity={confirmIdentity}
-    />
-  );
+  return <JoinUsComponent data={mergeData(step)} useStore={useRegistrationStore} />;
 };
 
 export default JoinUsContainer;

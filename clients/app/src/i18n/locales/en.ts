@@ -53,6 +53,10 @@ export default {
     'You will get a confirmation code and will need to enter it on next screen. By signing up you agree to our ',
   joinUsPrivacyPolicy: 'Terms and Privacy Policy.',
   joinUsEnterCode: "Please enter 4-digit code we've sent to",
+  joinUsFourDigitsCode: '4-digit confirmation code',
+  joinUsFourDigitsCodeNotRecieved: "If you haven't received code",
+  joinUsFourDigitsWrongCode: 'Wrong code, please check it or',
+  joinUsFourDigitsRequestAgain: 'request it again',
   joinUsPickUsername: 'Pick a username for your acount',
   joinUsWellDoneLast: 'Well done, and the last one.',
   joinUsWantNotify:
@@ -71,10 +75,6 @@ export default {
   joinUsCongrats: 'Congrats, Lorem ipsum dolor sit amet,',
   joinUsCongratsText:
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  joinUsWrongFormt: 'Please enter the correct code',
-  joinUsWrongCode: 'Please enter the correct code',
-  joinUsTextWillArive: 'Text should arrive within {{waitingTime}}s',
-  joinUsSendAgainText: "Didn't get a text? Send text again.",
 
   // posts
 

@@ -21,6 +21,7 @@
     "@ultras/core-api-sdk": "1.0.0",
     "@ultras/utils": "1.0.0",
     "@ultras/view-models": "1.0.0",
+    "immer": "^9.0.15",
     "moment": "^2.29.1",
     "native-base": "^3.4.5",
     "react": "17.0.2",
