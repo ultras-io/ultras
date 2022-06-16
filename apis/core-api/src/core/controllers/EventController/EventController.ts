@@ -54,11 +54,6 @@ class EventController extends BaseController {
    */
   static async getById(id: ResourceIdentifier): EventByIdResult {
     const event = await EventService.getById(id);
-    if (!event) {
-      throw new ResourceNotFoundError({
-        message: 'Event not found.',
-      });
-    }
 
     return {
       data: event,
@@ -106,12 +101,6 @@ class EventController extends BaseController {
     });
 
     const event = await EventService.getById(params.id);
-    if (!event) {
-      throw new ResourceNotFoundError({
-        message: 'Event not found.',
-      });
-    }
-
     const postId = event.getDataValue('post').getDataValue('id');
 
     await PostService.update(postId, {
@@ -137,12 +126,6 @@ class EventController extends BaseController {
    */
   static async delete(params: EventDeleteParams) {
     const event = await EventService.getById(params.id);
-
-    if (!event) {
-      throw new ResourceNotFoundError({
-        message: 'Event not found.',
-      });
-    }
 
     const authorId = event.getDataValue('post').getDataValue('author').getDataValue('id');
     const postId = event.getDataValue('post').getDataValue('id');
