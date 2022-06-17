@@ -75,7 +75,8 @@ class PostService extends BaseService {
    */
   static async update(
     postId: ResourceIdentifier,
-    { title, content }: UpdateParamsInterface
+    { title, content }: UpdateParamsInterface,
+    transaction?: Transaction
   ) {
     const post = await db.Post.findOne({
       where: {
@@ -83,10 +84,13 @@ class PostService extends BaseService {
       },
     });
 
-    await post.update({
-      title,
-      content,
-    });
+    await post.update(
+      {
+        title,
+        content,
+      },
+      { transaction }
+    );
 
     return post;
   }

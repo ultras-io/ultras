@@ -154,6 +154,7 @@ abstract class BaseService {
 
       return result;
     } catch (e) {
+      console.error('Transaction error:', e);
       await transaction.rollback();
     }
   }

@@ -166,42 +166,56 @@ class UserController extends BaseController {
       }
     }
 
-    const user = await UserService.create({
-      email,
-      phone,
-      avatar,
-      username,
-      fullname,
-    });
+    const { user, token } = await this.withTransaction(async transaction => {
+      const user = await UserService.create(
+        {
+          email,
+          phone,
+          avatar,
+          username,
+          fullname,
+        },
+        transaction
+      );
 
-    if (teamId) {
-      const userId = user.getDataValue('id');
-      await FavoriteTeamService.add({
-        userId,
-        teamId,
-      });
-    }
-
-    await VerificationCodeService.removeVerificationCode({
-      phone,
-      email,
-      code,
-    });
-
-    const token = await AuthService.generateAuthToken(
-      {
-        userId: user.getDataValue('id'),
-        fingerprint,
-      },
-      {
-        ip,
-        device,
-        osName,
-        osVersion,
-        browser,
-        userAgent,
+      if (teamId) {
+        const userId = user.getDataValue('id');
+        await FavoriteTeamService.add(
+          {
+            userId,
+            teamId,
+          },
+          transaction
+        );
       }
-    );
+
+      await VerificationCodeService.removeVerificationCode(
+        {
+          phone,
+          email,
+          code,
+        },
+        transaction
+      );
+
+      const token = await AuthService.generateAuthToken(
+        {
+          userId: user.getDataValue('id'),
+          fingerprint,
+        },
+        {
+          ip,
+          device,
+          osName,
+          osVersion,
+          browser,
+          userAgent,
+        },
+        transaction
+      );
+
+      return { user, token };
+    });
 
     return {
       token: token,
@@ -279,26 +293,34 @@ class UserController extends BaseController {
       });
     }
 
-    await VerificationCodeService.removeVerificationCode({
-      phone,
-      email,
-      code,
-    });
+    const token = await this.withTransaction(async transaction => {
+      await VerificationCodeService.removeVerificationCode(
+        {
+          phone,
+          email,
+          code,
+        },
+        transaction
+      );
 
-    const token = await AuthService.generateAuthToken(
-      {
-        userId: user.getDataValue('id'),
-        fingerprint,
-      },
-      {
-        ip,
-        device,
-        osName,
-        osVersion,
-        browser,
-        userAgent,
-      }
-    );
+      const token = await AuthService.generateAuthToken(
+        {
+          userId: user.getDataValue('id'),
+          fingerprint,
+        },
+        {
+          ip,
+          device,
+          osName,
+          osVersion,
+          browser,
+          userAgent,
+        },
+        transaction
+      );
+
+      return token;
+    });
 
     return {
       token: token,

@@ -68,12 +68,10 @@ class EventService extends BaseService {
   /**
    * Create event instance.
    */
-  static async create({
-    dateTime,
-    privacy,
-    postId,
-    locationId,
-  }: CreateParamsInterface): Promise<EventViewModel> {
+  static async create(
+    { dateTime, privacy, postId, locationId }: CreateParamsInterface,
+    transaction?: Transaction
+  ): Promise<EventViewModel> {
     const eventData: EventCreationAttributes = {
       postId: postId,
       dateTime,
@@ -81,7 +79,7 @@ class EventService extends BaseService {
       locationId,
     };
 
-    const event = await db.Event.create(eventData);
+    const event = await db.Event.create(eventData, { transaction });
 
     return event;
   }
@@ -91,7 +89,8 @@ class EventService extends BaseService {
    */
   static async update(
     eventId: ResourceIdentifier,
-    { dateTime, privacy, locationId }: UpdateParamsInterface
+    { dateTime, privacy, locationId }: UpdateParamsInterface,
+    transaction?: Transaction
   ): Promise<EventViewModel> {
     const event = await db.Event.findOne({
       where: {
@@ -99,11 +98,14 @@ class EventService extends BaseService {
       },
     });
 
-    await event.update({
-      dateTime,
-      privacy,
-      locationId,
-    });
+    await event.update(
+      {
+        dateTime,
+        privacy,
+        locationId,
+      },
+      { transaction }
+    );
 
     return event;
   }
@@ -179,10 +181,12 @@ class EventService extends BaseService {
    * Delete event.
    */
   static delete(id: ResourceIdentifier, transaction?: Transaction) {
-    return db.Event.destroy({
-      where: { id },
-      transaction,
-    });
+    return db.Event.destroy(
+      {
+        where: { id },
+      },
+      { transaction }
+    );
   }
 }
 

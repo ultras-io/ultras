@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import { FanClubMemberViewModel } from '@ultras/view-models';
 
@@ -88,12 +89,10 @@ class FanClubMemberService extends BaseService {
   /**
    * Add member to fan club.
    */
-  static async add({
-    fanClubId,
-    memberId,
-    role,
-    status,
-  }: CreateMemberInterface): Promise<null | FanClubMemberViewModel> {
+  static async add(
+    { fanClubId, memberId, role, status }: CreateMemberInterface,
+    transaction?: Transaction
+  ): Promise<null | FanClubMemberViewModel> {
     const existingMember = await db.FanClubMember.findOne({
       where: {
         fanClubId: fanClubId,
@@ -107,7 +106,7 @@ class FanClubMemberService extends BaseService {
     // we need to restore deleted row if user was previously a member of a fan club
     if (existingMember) {
       // restore fan club and user membership
-      await existingMember.restore();
+      await existingMember.restore({ transaction });
 
       // if is previous role is owner, then need to keep it
       const ownerRoleId = await this.getRoleId(FanClubMemberRoleEnum.owner);
@@ -121,17 +120,20 @@ class FanClubMemberService extends BaseService {
       // with another role/status
       existingMember.setDataValue('status', status);
 
-      await existingMember.save();
+      await existingMember.save({ transaction });
 
       return existingMember;
     }
 
-    const newMember = db.FanClubMember.create({
-      fanClubId,
-      memberId,
-      roleId,
-      status,
-    });
+    const newMember = db.FanClubMember.create(
+      {
+        fanClubId,
+        memberId,
+        roleId,
+        status,
+      },
+      { transaction }
+    );
 
     // update members count if membership status is not a pending
     const skipStatuses = [
@@ -140,7 +142,7 @@ class FanClubMemberService extends BaseService {
     ];
 
     if (!skipStatuses.includes(status)) {
-      await FanClubService.updateMembersCount(fanClubId);
+      await FanClubService.updateMembersCount(fanClubId, transaction);
     }
 
     return newMember;

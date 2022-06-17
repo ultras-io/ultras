@@ -33,24 +33,34 @@ class FanClubController extends BaseController {
       });
     }
 
-    const countryId = city.getDataValue('country').getDataValue('id');
-    const fanClub = await FanClubService.create({
-      name,
-      description,
-      cityId,
-      countryId,
-      teamId,
-      ownerId,
-      avatar,
-      coverPhoto,
-      privacy,
-    });
+    const fanClub = await this.withTransaction(async transaction => {
+      const countryId = city.getDataValue('country').getDataValue('id');
+      const fanClub = await FanClubService.create(
+        {
+          name,
+          description,
+          cityId,
+          countryId,
+          teamId,
+          ownerId,
+          avatar,
+          coverPhoto,
+          privacy,
+        },
+        transaction
+      );
 
-    await FanClubMemberService.add({
-      fanClubId: fanClub.getDataValue('id'),
-      memberId: ownerId,
-      role: FanClubMemberRoleEnum.owner,
-      status: FanClubMemberStatusEnum.active,
+      await FanClubMemberService.add(
+        {
+          fanClubId: fanClub.getDataValue('id'),
+          memberId: ownerId,
+          role: FanClubMemberRoleEnum.owner,
+          status: FanClubMemberStatusEnum.active,
+        },
+        transaction
+      );
+
+      return fanClub;
     });
 
     return {

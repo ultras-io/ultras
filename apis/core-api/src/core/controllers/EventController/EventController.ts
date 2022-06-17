@@ -64,26 +64,36 @@ class EventController extends BaseController {
    * Add new event.
    */
   static async create(params: EventCreateParams): EventCreateResult {
-    const location = await LocationService.createOrGet({
-      name: params.locationName,
-      lat: params.locationLat,
-      lng: params.locationLng,
-    });
+    const event = await this.withTransaction(async transaction => {
+      const location = await LocationService.createOrGet({
+        name: params.locationName,
+        lat: params.locationLat,
+        lng: params.locationLng,
+      });
 
-    const post = await PostService.create({
-      authorId: params.authorId,
-      matchId: params.matchId,
-      fanClubId: params.fanClubId,
-      title: params.title,
-      content: params.content,
-      type: PostTypeEnum.event,
-    });
+      const post = await PostService.create(
+        {
+          authorId: params.authorId,
+          matchId: params.matchId,
+          fanClubId: params.fanClubId,
+          title: params.title,
+          content: params.content,
+          type: PostTypeEnum.event,
+        },
+        transaction
+      );
 
-    const event = await EventService.create({
-      locationId: location.getDataValue('id'),
-      postId: post.getDataValue('id'),
-      privacy: !params.fanClubId ? EventPrivacyEnum.public : params.privacy,
-      dateTime: params.dateTime,
+      const event = await EventService.create(
+        {
+          locationId: location.getDataValue('id'),
+          postId: post.getDataValue('id'),
+          privacy: !params.fanClubId ? EventPrivacyEnum.public : params.privacy,
+          dateTime: params.dateTime,
+        },
+        transaction
+      );
+
+      return event;
     });
 
     return {
@@ -95,26 +105,38 @@ class EventController extends BaseController {
    * Add new event.
    */
   static async update(params: EventUpdateParams): EventUpdateResult {
-    const location = await LocationService.createOrGet({
-      name: params.locationName,
-      lat: params.locationLat,
-      lng: params.locationLng,
-    });
+    const eventUpdate = await this.withTransaction(async transaction => {
+      const location = await LocationService.createOrGet({
+        name: params.locationName,
+        lat: params.locationLat,
+        lng: params.locationLng,
+      });
 
-    const event = await EventService.getById(params.id);
-    const postId = event.getDataValue('post').getDataValue('id');
+      const event = await EventService.getById(params.id);
+      const postId = event.getDataValue('post').getDataValue('id');
 
-    await PostService.update(postId, {
-      title: params.title,
-      content: params.content,
-    });
+      await PostService.update(
+        postId,
+        {
+          title: params.title,
+          content: params.content,
+        },
+        transaction
+      );
 
-    const fanClubId = event.getDataValue('post').getDataValue('fanClubId');
+      const fanClubId = event.getDataValue('post').getDataValue('fanClubId');
 
-    const eventUpdate = await EventService.update(params.id, {
-      locationId: location.getDataValue('id'),
-      privacy: !fanClubId ? EventPrivacyEnum.public : params.privacy,
-      dateTime: params.dateTime,
+      const eventUpdate = await EventService.update(
+        params.id,
+        {
+          locationId: location.getDataValue('id'),
+          privacy: !fanClubId ? EventPrivacyEnum.public : params.privacy,
+          dateTime: params.dateTime,
+        },
+        transaction
+      );
+
+      return eventUpdate;
     });
 
     return {

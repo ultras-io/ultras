@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import { ResourceIdentifier, ServiceResultType } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
@@ -75,20 +76,20 @@ class UserService extends BaseService {
   /**
    * Create user.
    */
-  static async create({
-    email,
-    phone,
-    avatar,
-    username,
-    fullname,
-  }: UserCreationAttributes) {
-    const user = await db.User.create({
-      email,
-      phone,
-      avatar,
-      username,
-      fullname,
-    });
+  static async create(
+    { email, phone, avatar, username, fullname }: UserCreationAttributes,
+    transaction?: Transaction
+  ) {
+    const user = await db.User.create(
+      {
+        email,
+        phone,
+        avatar,
+        username,
+        fullname,
+      },
+      { transaction }
+    );
 
     return user;
   }

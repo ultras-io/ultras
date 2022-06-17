@@ -1,3 +1,5 @@
+import { Transaction } from 'sequelize';
+
 import { generateToken, NotifiedProviderEnum } from '@ultras/utils';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
@@ -81,29 +83,38 @@ class VerificationCodeService extends BaseService {
   /**
    * Store generated verification code with user specific identifier.
    */
-  static async store({ code, provider, phone, email }: StoreInterface): Promise<void> {
+  static async store(
+    { code, provider, phone, email }: StoreInterface,
+    transaction?: Transaction
+  ): Promise<void> {
     const expirationTimestamp = Date.now() + expireAfterMs;
 
-    await db.VerificationCode.create({
-      code,
-      provider,
-      phone,
-      email,
-      expirationTimestamp,
-    });
+    await db.VerificationCode.create(
+      {
+        code,
+        provider,
+        phone,
+        email,
+        expirationTimestamp,
+      },
+      { transaction }
+    );
   }
 
   /**
    * Cleanup verification codes table, remove expired tokens
    */
-  static async removeExpiredCodes(): Promise<void> {
-    await db.VerificationCode.destroy({
-      where: {
-        expirationTimestamp: {
-          [db.Sequelize.Op.lte]: Date.now(),
+  static async removeExpiredCodes(transaction?: Transaction): Promise<void> {
+    await db.VerificationCode.destroy(
+      {
+        where: {
+          expirationTimestamp: {
+            [db.Sequelize.Op.lte]: Date.now(),
+          },
         },
       },
-    });
+      { transaction }
+    );
   }
 
   /**
@@ -129,16 +140,18 @@ class VerificationCodeService extends BaseService {
   /**
    * Remove verification code by code and user specific identifier.
    */
-  static async removeVerificationCode({
-    code,
-    phone,
-    email,
-  }: ValidateParamsInterface): Promise<void> {
+  static async removeVerificationCode(
+    { code, phone, email }: ValidateParamsInterface,
+    transaction?: Transaction
+  ): Promise<void> {
     const query: any = this.buildQuery({ code, phone, email }, false);
 
-    await db.VerificationCode.destroy({
-      where: query,
-    });
+    await db.VerificationCode.destroy(
+      {
+        where: query,
+      },
+      { transaction }
+    );
   }
 }
 
