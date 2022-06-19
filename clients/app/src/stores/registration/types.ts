@@ -20,12 +20,15 @@ type JoinVia = {
 
 export interface IProps {
   status: StatusType;
+  statusNext: StatusType;
   step: number;
   user: {
     team: ListItemType;
     country: ListItemType;
     joinVia: JoinVia;
     eixsts: boolean;
+    isCodeValid: boolean;
+    isUserNameValid: boolean;
     code: string;
     username: string;
     notificationsAllowed: boolean;
@@ -39,6 +42,9 @@ export interface IMethods {
   setSelected: (data: ListItemSelectType) => void;
   swicthJoinMethod: () => void;
   confirmIdentity: (value?: string) => void;
+  verifyCode: (value: string) => void;
+  checkUsername: (value: string) => void;
+  register: () => void;
 }
 
 export interface IState extends IProps, IMethods {}
