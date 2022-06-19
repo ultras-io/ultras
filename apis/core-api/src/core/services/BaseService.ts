@@ -2,7 +2,7 @@ import { Transaction } from 'sequelize';
 import db from 'core/data/models';
 import { commonExcludeFields } from 'core/data/config/config';
 import { ResourceIdentifier, ServiceByIdResultType, ServiceListParamsType } from 'types';
-import { SequelizeError } from 'modules/exceptions';
+import { TransactionException } from 'modules/exceptions';
 
 export type WithTransactionCallback = (transaction: Transaction) => any;
 
@@ -157,10 +157,7 @@ abstract class BaseService {
     } catch (e) {
       await transaction.rollback();
 
-      throw new SequelizeError({
-        message: 'Transaction error.',
-        previous: e,
-      });
+      throw TransactionException.copyFrom(e as Error);
     }
   }
 }
