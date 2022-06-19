@@ -1,21 +1,51 @@
 import React from 'react';
-import { VStack, HStack, Center, Box, Text, Input, Pressable } from 'native-base';
+import { Keyboard } from 'react-native';
+import {
+  VStack,
+  HStack,
+  Center,
+  Box,
+  Text,
+  Input,
+  Pressable,
+  Skeleton,
+} from 'native-base';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import FourDigitsMessage from './FourDigitsMessage';
-//import type { IState } from 'stores/registration';
+import type { IState } from 'stores/registration';
 import type { IFourDigitsProps } from '../../types';
 
 const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
+  const status = useStore((state: IState) => state.status);
+  const statusNext = useStore((state: IState) => state.statusNext);
+  const isCodeValid = useStore((state: IState) => state.user.isCodeValid);
+  const userEixsts = useStore((state: IState) => state.user.eixsts);
+  const verifyCode = useStore((state: IState) => state.verifyCode);
+  const nextStep = useStore((state: IState) => state.nextStep);
+
   const { colors } = useTheme();
   const inputRef = React.useRef(null);
   const [code, setCode] = React.useState('');
 
   React.useEffect(() => {
     if (code.length === 4) {
-      //request
+      verifyCode(code);
     }
-  }, [code]);
+  }, [code, verifyCode]);
+
+  React.useLayoutEffect(() => {
+    if (statusNext === 'success') {
+      Keyboard.dismiss();
+      if (isCodeValid) {
+        if (userEixsts) {
+          // login
+        } else {
+          nextStep();
+        }
+      }
+    }
+  }, [statusNext, isCodeValid, userEixsts, nextStep]);
 
   const digitProps = {
     w: 46,
@@ -55,21 +85,25 @@ const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
           {I18n.t('joinUsFourDigitsCode')}
         </Text>
         <Pressable onPress={onPress}>
-          <HStack space={'2'}>
-            {[0, 1, 2, 3].map(i => (
-              <Center
-                key={i}
-                {...digitProps}
-                borderColor={
-                  code.length === i
-                    ? colors.iconVerified
-                    : colors.backgroundDividerTransparent
-                }
-              >
-                {code[i] || ''}
-              </Center>
-            ))}
-          </HStack>
+          {status === 'loading' || statusNext === 'loading' ? (
+            <DigitsLoader color={colors.textPrimary} />
+          ) : (
+            <HStack space={'2'}>
+              {[0, 1, 2, 3].map(i => (
+                <Center
+                  key={i}
+                  {...digitProps}
+                  borderColor={
+                    code.length === i
+                      ? colors.iconVerified
+                      : colors.backgroundDividerTransparent
+                  }
+                >
+                  {code[i] || ''}
+                </Center>
+              ))}
+            </HStack>
+          )}
           <Input
             ref={inputRef}
             keyboardType={'number-pad'}
@@ -90,3 +124,17 @@ const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
 };
 
 export default React.memo<IFourDigitsProps>(FourDigits);
+
+const DigitsLoader = ({ color }: { color: string }) => (
+  <HStack space={'2'}>
+    {[0, 1, 2, 3].map(i => (
+      <Skeleton
+        key={'DigitsLoader' + i}
+        w={46}
+        h={57}
+        rounded={'xl'}
+        startColor={color}
+      />
+    ))}
+  </HStack>
+);

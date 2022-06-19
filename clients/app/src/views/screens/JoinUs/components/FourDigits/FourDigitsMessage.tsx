@@ -10,37 +10,44 @@ const cycle = 60;
 
 const FourDigitsMessage: React.FC<IFourDigitsMessageProps> = ({ useStore }) => {
   const status = useStore((state: IState) => state.status);
+  const statusNext = useStore((state: IState) => state.statusNext);
+  const isCodeValid = useStore((state: IState) => state.user.isCodeValid);
   const confirmIdentity = useStore((state: IState) => state.confirmIdentity);
 
   const [time, setTime] = React.useState(0);
   const intervalRef = React.useRef();
 
-  React.useEffect(() => {
-    setTime(cycle);
+  const showError = !isCodeValid && statusNext === 'success';
+
+  React.useLayoutEffect(() => {
+    if (!intervalRef.current) setTime(cycle);
     return () => clearInterval(intervalRef.current);
   }, []);
 
   React.useLayoutEffect(() => {
-    if (time === cycle)
+    if (time === 0) clearInterval(intervalRef.current);
+    else if (time === cycle && !intervalRef.current) {
       intervalRef.current = setInterval(() => setTime(t => t - 1), 1000);
-    else if (time === 0) clearInterval(intervalRef.current);
+    }
   }, [time]);
 
   React.useLayoutEffect(() => {
-    if (status === 'success') setTime(cycle);
+    if (status === 'success' && !intervalRef.current) setTime(cycle);
   }, [status]);
 
   return (
     <VStack justifyContent={'flex-end'} mr={'2'} mt={'1.5'}>
       <HStack space={'1'} justifyContent={'flex-end'} alignItems={'center'}>
-        <Icon name={Icons.Warning} color={'textAction'} size={'ic-2xs'} />
+        {showError && <Icon name={Icons.Warning} color={'textAction'} size={'ic-2xs'} />}
         <Text variant={'smallText'} textAlign={'right'}>
-          {I18n.t('joinUsFourDigitsCodeNotRecieved')}
+          {showError
+            ? I18n.t('joinUsFourDigitsWrongCode')
+            : I18n.t('joinUsFourDigitsCodeNotRecieved')}
         </Text>
       </HStack>
       <Pressable
         onPress={() => confirmIdentity()}
-        disabled={time > 0 || status === 'loading'}
+        disabled={time > 0 || status === 'loading' || statusNext === 'loading'}
       >
         <Text variant={'smallTextAction'} textAlign={'right'}>
           {I18n.t('joinUsFourDigitsRequestAgain') + (time > 0 ? ' (' + time + ')' : '')}

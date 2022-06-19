@@ -9,6 +9,7 @@ export default {
   enter: 'Enter',
   email: 'Email',
   phone: 'Phone Number',
+  username: 'Username',
   tapToChange: 'Tap to Change',
   almostDone: 'Almost done',
   close: 'Close',
@@ -58,6 +59,7 @@ export default {
   joinUsFourDigitsWrongCode: 'Wrong code, please check it or',
   joinUsFourDigitsRequestAgain: 'request it again',
   joinUsPickUsername: 'Pick a username for your acount',
+  joinUsUsernameTaken: 'The username {{username}} is not available',
   joinUsWellDoneLast: 'Well done, and the last one.',
   joinUsWantNotify:
     'We want to notify you about events near your location, your favorite team matches and other things not to miss.',

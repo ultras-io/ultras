@@ -13,6 +13,7 @@ import RightMessage from './RightMessage';
 import JoinUsButton from './JoinUsButton';
 import EmailOrPhone from './EmailOrPhone';
 import FourDigits from './FourDigits/FourDigits';
+import Username from './Username';
 import type { IState } from 'stores/registration';
 import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
 import { dataKeyType } from 'views/screens/SearchListModal/types';
@@ -29,6 +30,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
   const step = useStore((state: IState) => state.step);
   const selectedTeamName = useStore((state: IState) => state.user.team.name);
   const emailOrPhone = useStore((state: IState) => state.user.joinVia.value);
+  const code = useStore((state: IState) => state.user.code);
 
   const nextStep = useStore((state: IState) => state.nextStep);
   const setSelected = useStore((state: IState) => state.setSelected);
@@ -75,10 +77,10 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
         options.onPress = openListModal('team');
       } else if (item.data.type === 'emailOrphone') {
         options.text = emailOrPhone;
+      } else if (item.data.type === '4digits') {
+        options.text = code.split('').join(' ');
       }
-      // else if (item.data.type === '4digits') {
-      //   options.text = userState.code!;
-      // } else if (item.data.type === 'username') {
+      // else if (item.data.type === 'username') {
       //   options.text = userState.username!;
       // } else if (item.data.type === 'notification' && !userState.notificationsAllowed) {
       //   options.messages = item.data.post.denied!;
@@ -89,7 +91,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
       // }
       return options;
     },
-    [openListModal, selectedTeamName, emailOrPhone]
+    [openListModal, selectedTeamName, emailOrPhone, code]
   );
 
   const renderRightComponent = React.useCallback(
@@ -107,6 +109,8 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
           );
         case '4digits':
           return <FourDigits useStore={useStore} />;
+        case 'username':
+          return <Username useStore={useStore} />;
       }
       return null;
     },

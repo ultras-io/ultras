@@ -9,6 +9,7 @@ let registrationStore: any;
 
 const initialState: IProps = {
   status: 'initial',
+  statusNext: 'initial',
   step: 1,
   user: {
     team: {
@@ -26,6 +27,8 @@ const initialState: IProps = {
       isEmail: true,
     },
     eixsts: false,
+    isCodeValid: false,
+    isUserNameValid: false,
     code: '',
     username: '',
     notificationsAllowed: false,
@@ -37,8 +40,20 @@ const initStore = () => {
   if (!registrationStore) {
     registrationStore = create<IState>((set, get) => ({
       ...initialState,
-      nextStep: () => set((state: IState) => ({ step: state.step + 1 })),
-      jumpToStep: (step: number) => set({ step, status: 'initial' }),
+      nextStep: () =>
+        set((state: IState) => ({
+          step: state.step + 1,
+          status: 'initial',
+          statusNext: 'initial',
+        })),
+
+      jumpToStep: (step: number) =>
+        set({
+          step,
+          status: 'initial',
+          statusNext: 'initial',
+        }),
+
       setSelected: (data: ListItemSelectType) =>
         set(
           produce((state: IState) => {
@@ -46,6 +61,7 @@ const initStore = () => {
             state.user[dataType] = selected;
           })
         ),
+
       swicthJoinMethod: () =>
         set(
           produce((state: IState) => {
@@ -57,6 +73,7 @@ const initStore = () => {
             };
           })
         ),
+
       confirmIdentity: (value?: string) => {
         if (value) {
           set(
@@ -78,16 +95,96 @@ const initStore = () => {
         if (promise) {
           set({ status: 'loading' });
           promise?.then(response => {
-            set({ status: 'success' });
             set(
               produce((state: IState) => {
                 state.user.eixsts = response.body.data.userExists;
+                state.status = 'success';
               })
             );
           });
         } else {
           // @TODO handle error
           set({ status: 'error' });
+        }
+      },
+
+      verifyCode: (value: string) => {
+        set(
+          produce((state: IState) => {
+            state.user.code = value!;
+          })
+        );
+        const isEmail = get().user.joinVia.isEmail;
+        const emailOrPhpne = get().user.joinVia.value;
+        const code = '+374'; // @TODO get().user.country.name;
+
+        const promise = isEmail
+          ? sdk.verifyCode({ email: emailOrPhpne, code: value })
+          : sdk.verifyCode({ phone: code + emailOrPhpne, code: value });
+
+        if (promise) {
+          set({ statusNext: 'loading' });
+          promise?.then(response => {
+            set(
+              produce((state: IState) => {
+                state.user.isCodeValid = response.body.data.valid;
+                state.statusNext = 'success';
+              })
+            );
+          });
+        } else {
+          // @TODO handle error
+          set({ statusNext: 'error' });
+        }
+      },
+
+      checkUsername: (value: string) => {
+        set(
+          produce((state: IState) => {
+            state.user.username = value!;
+          })
+        );
+
+        if (value.length < 4) {
+          set(
+            produce((state: IState) => {
+              state.user.isUserNameValid = false;
+              state.status = 'success';
+            })
+          );
+        } else {
+          set({ status: 'loading' });
+          sdk.checkUsernameExistence(value)?.then(response => {
+            // @TODO handle error
+            set({ status: 'success' });
+            set(
+              produce((state: IState) => {
+                state.user.isUserNameValid = response.body.data.available;
+                state.status = 'success';
+              })
+            );
+          });
+        }
+      },
+
+      register: () => {
+        const teamId = Number(get().user.team.id);
+        const emailOrPhoneKey = get().user.joinVia.key;
+        const emailOrPhone = get().user.joinVia.value;
+        const code = get().user.code;
+        const username = get().user.username;
+
+        if (teamId) {
+          set({ statusNext: 'loading' });
+          sdk
+            .register({ teamId, code, username, [emailOrPhoneKey]: emailOrPhone })
+            ?.then(response => {
+              // @TODO handle error
+              set({ statusNext: 'success' });
+              console.log(response);
+            });
+        } else {
+          set({ statusNext: 'error' });
         }
       },
     }));
