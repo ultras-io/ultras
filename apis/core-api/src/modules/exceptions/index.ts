@@ -4,6 +4,7 @@ import { AuthErrorDetail, ErrorDetail, Exception } from 'types';
 class BaseError<T1, T2> extends Error {
   protected details?: T1 | ErrorDetail = {};
   protected exception?: T2 | ErrorDetail = {};
+  protected previous?: Exception | Error | null = null;
 }
 
 class InternalServerError extends BaseError<null, null> {
@@ -146,13 +147,17 @@ class SequelizeError extends BaseError<null, null> {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       this.details = exception?.message;
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      this.previous = exception?.previous;
     }
   }
 
-  public getError() {
+  public getError(): Exception {
     let error = BASE_ERRORS.INVALID_USER_INPUT;
     if (this.details) {
-      error = { ...error, details: this.details };
+      error = { ...error, details: this.details, previous: this.previous };
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       if (!this.exception?.errors) {

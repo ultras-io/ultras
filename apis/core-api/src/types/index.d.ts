@@ -51,6 +51,7 @@ export type Exception = {
   // for client development  processes
   debug: string;
   details?: ErrorDetail;
+  previous?: Error | Exception | null;
 };
 
 // NOTE: replace with string if UUIDv4 will be used as data identifier.
