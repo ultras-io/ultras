@@ -1,3 +1,5 @@
+import { Transaction } from 'sequelize';
+
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { PostMemberCreationAttributes } from 'core/data/models/PostMember';
@@ -52,27 +54,33 @@ class PostMemberService extends BaseService {
   /**
    * Create post member instance.
    */
-  static async create({ postId, userId }: CreateParamsInterface) {
+  static async create(
+    { postId, userId }: CreateParamsInterface,
+    transaction?: Transaction
+  ) {
     const postData: PostMemberCreationAttributes = {
       userId,
       postId,
     };
 
-    const post = await db.PostMember.create(postData);
+    const post = await db.PostMember.create(postData, { transaction });
     return post;
   }
 
   /**
    * Delete post member.
    */
-  static delete({ postId, userId }: DeleteParamsInterface) {
-    return db.PostMember.destroy({
-      where: {
-        postId,
-        userId,
+  static delete({ postId, userId }: DeleteParamsInterface, transaction?: Transaction) {
+    return db.PostMember.destroy(
+      {
+        where: {
+          postId,
+          userId,
+        },
+        force: true,
       },
-      force: true,
-    });
+      { transaction }
+    );
   }
 
   /**

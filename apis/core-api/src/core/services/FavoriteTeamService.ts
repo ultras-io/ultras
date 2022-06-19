@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import {
   ResourceIdentifier,
   ServiceByIdResultType,
@@ -86,10 +87,10 @@ class FavoriteTeamService extends BaseService {
   /**
    * Add user new favorite team.
    */
-  static async add({
-    userId,
-    teamId,
-  }: AddSingleParamsInterface): Promise<FavoriteTeamsViewModel> {
+  static async add(
+    { userId, teamId }: AddSingleParamsInterface,
+    transaction?: Transaction
+  ): Promise<FavoriteTeamsViewModel> {
     if (!Array.isArray(teamId)) {
       teamId = [teamId];
     }
@@ -103,6 +104,7 @@ class FavoriteTeamService extends BaseService {
     );
 
     const favoriteTeams = await db.FavoriteTeam.bulkCreate(data, {
+      transaction,
       // ignoreDuplicates: true,
       updateOnDuplicate: ['deletedAt'],
     });
@@ -215,15 +217,21 @@ class FavoriteTeamService extends BaseService {
   /**
    * Remove user new favorite team.
    */
-  static async remove(params: ActionByIdentifierInterface): Promise<void> {
+  static async remove(
+    params: ActionByIdentifierInterface,
+    transaction?: Transaction
+  ): Promise<void> {
     const condition = this.buildActionCondition(params);
     if (!condition) {
       return;
     }
 
-    await db.FavoriteTeam.destroy({
-      where: condition,
-    });
+    await db.FavoriteTeam.destroy(
+      {
+        where: condition,
+      },
+      { transaction }
+    );
   }
 }
 

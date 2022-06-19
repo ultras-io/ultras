@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import { LocationViewModel } from '@ultras/view-models';
 import { ServiceResultType } from 'types';
 
@@ -26,18 +27,17 @@ class LocationService extends BaseService {
   /**
    * Create location instance.
    */
-  static async create({
-    name,
-    lat,
-    lng,
-  }: CreateParamsInterface): ServiceResultType<LocationViewModel> {
+  static async create(
+    { name, lat, lng }: CreateParamsInterface,
+    transaction?: Transaction
+  ): ServiceResultType<LocationViewModel> {
     const locationData: LocationCreationAttributes = {
       name,
       lat,
       lng,
     };
 
-    const location = await db.Location.create(locationData);
+    const location = await db.Location.create(locationData, { transaction });
 
     return location;
   }
@@ -73,7 +73,10 @@ class LocationService extends BaseService {
   /**
    * Create or get location instance.
    */
-  static async createOrGet({ name, lat, lng }: CreateParamsInterface) {
+  static async createOrGet(
+    { name, lat, lng }: CreateParamsInterface,
+    transaction?: Transaction
+  ) {
     const location = await this.get({
       name,
       lat,
@@ -84,11 +87,14 @@ class LocationService extends BaseService {
       return location;
     }
 
-    return this.create({
-      name,
-      lat,
-      lng,
-    });
+    return this.create(
+      {
+        name,
+        lat,
+        lng,
+      },
+      transaction
+    );
   }
 }
 

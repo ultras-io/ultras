@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
 
 import resources from 'core/data/lcp';
@@ -61,18 +62,8 @@ class FanClubService extends BaseService {
   /**
    * Create fan club.
    */
-  static async create({
-    name,
-    description,
-    cityId,
-    countryId,
-    teamId,
-    ownerId,
-    avatar,
-    coverPhoto,
-    privacy,
-  }: FanClubCreationAttributes) {
-    const fanClub = await db.FanClub.create({
+  static async create(
+    {
       name,
       description,
       cityId,
@@ -82,7 +73,23 @@ class FanClubService extends BaseService {
       avatar,
       coverPhoto,
       privacy,
-    });
+    }: FanClubCreationAttributes,
+    transaction?: Transaction
+  ) {
+    const fanClub = await db.FanClub.create(
+      {
+        name,
+        description,
+        cityId,
+        countryId,
+        teamId,
+        ownerId,
+        avatar,
+        coverPhoto,
+        privacy,
+      },
+      { transaction }
+    );
 
     return fanClub;
   }
@@ -102,7 +109,8 @@ class FanClubService extends BaseService {
       avatar,
       coverPhoto,
       privacy,
-    }: Partial<Omit<FanClubCreationAttributes, 'teamId'>>
+    }: Partial<Omit<FanClubCreationAttributes, 'teamId'>>,
+    transaction?: Transaction
   ) {
     const fanClub = await db.FanClub.findOne({
       where: {
@@ -132,7 +140,7 @@ class FanClubService extends BaseService {
       fanClub.setDataValue('countryId', countryId);
     }
 
-    await fanClub.save();
+    await fanClub.save({ transaction });
     return fanClub;
   }
 
@@ -185,7 +193,7 @@ class FanClubService extends BaseService {
    * If members status is a pending then it will not be included
    * in fan club as member.
    */
-  static async updateMembersCount(id: ResourceIdentifier) {
+  static async updateMembersCount(id: ResourceIdentifier, transaction?: Transaction) {
     const fanClub = await db.FanClub.findByPk(id);
     if (!fanClub) {
       return;
@@ -206,7 +214,7 @@ class FanClubService extends BaseService {
     });
 
     fanClub.setDataValue('membersCount', membersCount);
-    await fanClub.save();
+    await fanClub.save({ transaction });
   }
 }
 

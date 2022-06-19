@@ -4,6 +4,10 @@ import { AuthErrorDetail, ErrorDetail, Exception } from 'types';
 class BaseError<T1, T2> extends Error {
   protected details?: T1 | ErrorDetail = {};
   protected exception?: T2 | ErrorDetail = {};
+
+  public getDetails() {
+    return this.details;
+  }
 }
 
 class InternalServerError extends BaseError<null, null> {
@@ -149,7 +153,7 @@ class SequelizeError extends BaseError<null, null> {
     }
   }
 
-  public getError() {
+  public getError(): Exception {
     let error = BASE_ERRORS.INVALID_USER_INPUT;
     if (this.details) {
       error = { ...error, details: this.details };
@@ -165,6 +169,44 @@ class SequelizeError extends BaseError<null, null> {
       };
     }
     return error;
+  }
+}
+
+class TransactionException extends BaseError<null, null> {
+  protected mainError: Error | Exception | null = null;
+
+  public constructor(mainError: Error | Exception, details?: ErrorDetail) {
+    super();
+    this.mainError = mainError;
+    this.details = details;
+  }
+
+  public getError(): Exception {
+    let error: Exception = BASE_ERRORS.BAD_REQUEST;
+    if (this.details) {
+      error = { ...error, details: this.details };
+    } else {
+      error = { ...error, details: BASE_ERRORS.BAD_REQUEST.debug };
+    }
+
+    return error;
+  }
+
+  static copyFrom(error: Error | Exception) {
+    const transactionException = new TransactionException(error);
+    if (error instanceof BaseError) {
+      transactionException.details = error.getDetails();
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const message = error.details ? error.details.message : error.message || '';
+
+      transactionException.details = {
+        message,
+      };
+    }
+
+    return transactionException;
   }
 }
 
@@ -276,6 +318,7 @@ export {
   AuthenticationError,
   AccessDeniedError,
   SequelizeError,
+  TransactionException,
   ServiceNotAvailableError,
   SomethingWentWrong,
 };
