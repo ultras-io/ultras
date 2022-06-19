@@ -120,44 +120,58 @@ class EventService extends BaseService {
     const queryOptions: any = {
       limit: params.limit,
       offset: params.offset,
-      where: {},
       ...this.includeRelations(),
     };
 
-    if (params.fanClubId) {
-      // @TODO: filter using multiple values.
-      queryOptions.where.fanClubId = params.fanClubId;
-    }
-    if (params.matchId) {
-      // @TODO: filter using multiple values.
-      queryOptions.where.matchId = params.matchId;
-    }
-    if (params.authorId) {
-      // @TODO: filter using multiple values.
-      queryOptions.where.authorId = params.authorId;
-    }
+    queryOptions.include.forEach((eventRelation: any) => {
+      // find post relation (fan club is connected to posts)
+      if (eventRelation.as == resources.POST.ALIAS.SINGULAR) {
+        eventRelation.required = true;
+        eventRelation.include.forEach((postRelation: any) => {
+          // if fanClubId provided, then find fan club relation and append condition
+          if (params.fanClubId && postRelation.as == resources.FAN_CLUB.ALIAS.SINGULAR) {
+            postRelation.required = true;
+            postRelation.where = this.queryInit(postRelation.where || {});
 
-    // if search query was provided then we need to search in post fields
-    if (params.search) {
-      // remove post relation
-      queryOptions.include = queryOptions.include.filter(
-        (include: any) => include.as != resources.POST.ALIAS.SINGULAR
-      );
+            this.queryArrayOrSingle(postRelation.where, 'id', params.fanClubId);
+          }
 
-      const searchCondition = ['title', 'content'].map(field => ({
-        [field]: {
-          [db.Sequelize.Op.iLike]: `%${params.search}%`,
-        },
-      }));
+          // if matchId provided, then find match relation and append condition
+          if (params.matchId && postRelation.as == resources.MATCH.ALIAS.SINGULAR) {
+            postRelation.required = true;
+            postRelation.where = this.queryInit(postRelation.where || {});
 
-      // add fan club relation with search conditions
-      queryOptions.include.push({
-        model: db.Post,
-        as: resources.POST.ALIAS.SINGULAR,
-        required: true,
-        where: searchCondition,
-      });
-    }
+            this.queryArrayOrSingle(postRelation.where, 'id', params.matchId);
+          }
+
+          // if authorId provided, then find author relation and append condition
+          if (params.authorId && postRelation.as == 'author') {
+            postRelation.required = true;
+            postRelation.where = this.queryInit(postRelation.where || {});
+
+            this.queryArrayOrSingle(postRelation.where, 'id', params.authorId);
+          }
+        });
+
+        // if search query was provided, then we need to search in post fields
+        if (params.search) {
+          const searchCondition = ['title', 'content'].map(field => ({
+            [field]: {
+              [db.Sequelize.Op.iLike]: `%${params.search}%`,
+            },
+          }));
+
+          eventRelation.where = {
+            [db.Sequelize.Op.and]: [
+              eventRelation.where || {},
+              {
+                [db.Sequelize.Op.or]: searchCondition,
+              },
+            ],
+          };
+        }
+      }
+    });
 
     const { rows, count } = await db.Event.findAndCountAll(queryOptions);
     return { rows, count };

@@ -1,8 +1,15 @@
-import { PostTypeEnum } from '@ultras/utils';
+import { PostTypeEnum, OrderEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { RoomService, PostService } from 'core/services';
+import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 
-import { RoomCreateParams, RoomCreateResult } from './types';
+import {
+  RoomCreateParams,
+  RoomCreateResult,
+  RoomsListParams,
+  RoomsListResult,
+  RoomByIdResult,
+} from './types';
 
 class RoomController extends BaseController {
   /**
@@ -31,6 +38,46 @@ class RoomController extends BaseController {
 
       return room;
     });
+
+    return {
+      data: room,
+    };
+  }
+  /**
+   * Get all rooms.
+   */
+  static async getAll({
+    limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
+    offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
+    orderAttr = '',
+    order = OrderEnum.asc,
+    search = '',
+    fanClubId,
+    authorId,
+  }: RoomsListParams): RoomsListResult {
+    const { rows, count } = await RoomService.getAll({
+      limit,
+      offset,
+      orderAttr,
+      order,
+      search,
+      fanClubId,
+      authorId,
+    });
+
+    return {
+      data: rows,
+      count,
+      limit,
+      offset,
+    };
+  }
+
+  /**
+   * Get room by id.
+   */
+  static async getById(id: ResourceIdentifier): RoomByIdResult {
+    const room = await RoomService.getById(id);
 
     return {
       data: room,

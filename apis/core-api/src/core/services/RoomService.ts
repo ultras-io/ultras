@@ -1,15 +1,20 @@
 import { Transaction } from 'sequelize';
-import { ResourceIdentifier } from 'types';
+import { ResourceIdentifier, ServiceListParamsType, ServiceListResultType } from 'types';
 import { RoomPrivacyEnum } from '@ultras/utils';
-import { RoomViewModel } from '@ultras/view-models';
+import { RoomsViewModel, RoomViewModel } from '@ultras/view-models';
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { RoomCreationAttributes } from 'core/data/models/Room';
 
 import BaseService from './BaseService';
-import LocationService from './LocationService';
 import PostService from './PostService';
+
+export interface RoomListParamsInterface {
+  search?: string;
+  fanClubId?: ResourceIdentifier;
+  authorId?: ResourceIdentifier;
+}
 
 export interface CreateParamsInterface {
   privacy: RoomPrivacyEnum;
@@ -28,11 +33,6 @@ class RoomService extends BaseService {
           as: resources.POST.ALIAS.SINGULAR,
           ...PostService.getIncludeRelations(),
         },
-        {
-          model: db.Location,
-          as: resources.LOCATION.ALIAS.SINGULAR,
-          ...LocationService.getIncludeRelations(),
-        },
       ],
     };
   }
@@ -50,6 +50,79 @@ class RoomService extends BaseService {
     };
 
     const room = await db.Room.create(roomData, { transaction });
+
+    return room;
+  }
+
+  /**
+   * Get all rooms.
+   */
+  static async getAll(
+    params: ServiceListParamsType<RoomListParamsInterface>
+  ): ServiceListResultType<RoomsViewModel> {
+    // build generic query options
+    const queryOptions: any = {
+      limit: params.limit,
+      offset: params.offset,
+      ...this.includeRelations(),
+    };
+
+    queryOptions.include.forEach((roomRelation: any) => {
+      // find post relation (fan club is connected to posts)
+      if (roomRelation.as == resources.POST.ALIAS.SINGULAR) {
+        roomRelation.required = true;
+        roomRelation.include.forEach((postRelation: any) => {
+          // if fanClubId provided, then find fan club relation and append condition
+          if (params.fanClubId && postRelation.as == resources.FAN_CLUB.ALIAS.SINGULAR) {
+            postRelation.required = true;
+            postRelation.where = this.queryInit(postRelation.where || {});
+
+            this.queryArrayOrSingle(postRelation.where, 'id', params.fanClubId);
+          }
+
+          // if authorId provided, then find author relation and append condition
+          if (params.authorId && postRelation.as == 'author') {
+            postRelation.required = true;
+            postRelation.where = this.queryInit(postRelation.where || {});
+
+            this.queryArrayOrSingle(postRelation.where, 'id', params.authorId);
+          }
+        });
+
+        // if search query was provided, then we need to search in post fields
+        if (params.search) {
+          const searchCondition = ['title', 'content'].map(field => ({
+            [field]: {
+              [db.Sequelize.Op.iLike]: `%${params.search}%`,
+            },
+          }));
+
+          roomRelation.where = {
+            [db.Sequelize.Op.and]: [
+              roomRelation.where || {},
+              {
+                [db.Sequelize.Op.or]: searchCondition,
+              },
+            ],
+          };
+        }
+      }
+    });
+
+    const { rows, count } = await db.Room.findAndCountAll(queryOptions);
+    return { rows, count };
+  }
+
+  /**
+   * Get room by id.
+   */
+  static async getById(id: ResourceIdentifier, withIncludes = true) {
+    const room = await db.Room.findOne({
+      where: {
+        id: id,
+      },
+      ...(withIncludes ? this.includeRelations() : {}),
+    });
 
     return room;
   }
