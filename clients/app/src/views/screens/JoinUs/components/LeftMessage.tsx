@@ -10,7 +10,7 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
   const joinViaKeyInvert = useStore((state: IState) => state.user.joinVia.keyInvert);
   const joinViaValue = useStore((state: IState) => state.user.joinVia.value);
   const jumpToStep = useStore((state: IState) => state.jumpToStep);
-  const swicthJoinMethod = useStore((state: IState) => state.swicthJoinMethod);
+  const switchJoinMethod = useStore((state: IState) => state.switchJoinMethod);
 
   const renderText = useCallback(
     message => {
@@ -49,7 +49,7 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
                 onPress={
                   message.change
                     ? () => {
-                        swicthJoinMethod();
+                        switchJoinMethod();
                         jumpToStep(message.jumpToStep!);
                       }
                     : () => jumpToStep(message.jumpToStep!)

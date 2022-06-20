@@ -5,7 +5,7 @@ import { Context } from 'types';
 class ControllerAdapter {
   static async create(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const { name, description, cityId, teamId, avatar, coverPhoto, privacy } =
+    const { shortName, name, description, cityId, teamId, avatar, coverPhoto, privacy } =
       ctx.request.body;
 
     const { userId } = ctx.user;
@@ -13,6 +13,7 @@ class ControllerAdapter {
     /** CONTROLLERS */
     const { data } = await FanClubController.create({
       ownerId: userId,
+      shortName,
       name,
       description,
       cityId,
@@ -33,12 +34,14 @@ class ControllerAdapter {
 
   static async update(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
-    const { name, description, cityId, avatar, coverPhoto, privacy } = ctx.request.body;
+    const { shortName, name, description, cityId, avatar, coverPhoto, privacy } =
+      ctx.request.body;
 
     /** CONTROLLERS */
     const { fanClubId } = ctx.request.params;
     const { data } = await FanClubController.update({
       id: fanClubId,
+      shortName,
       name,
       description,
       cityId,

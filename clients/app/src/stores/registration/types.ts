@@ -26,7 +26,7 @@ export interface IProps {
     team: ListItemType;
     country: ListItemType;
     joinVia: JoinVia;
-    eixsts: boolean;
+    exists: boolean;
     isCodeValid: boolean;
     isUserNameValid: boolean;
     code: string;
@@ -40,7 +40,7 @@ export interface IMethods {
   nextStep: () => void;
   jumpToStep: (step: number) => void;
   setSelected: (data: ListItemSelectType) => void;
-  swicthJoinMethod: () => void;
+  switchJoinMethod: () => void;
   confirmIdentity: (value?: string) => void;
   verifyCode: (value: string) => void;
   checkUsername: (value: string) => void;

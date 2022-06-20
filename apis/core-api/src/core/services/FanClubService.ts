@@ -64,6 +64,7 @@ class FanClubService extends BaseService {
    */
   static async create(
     {
+      shortName,
       name,
       description,
       cityId,
@@ -78,6 +79,7 @@ class FanClubService extends BaseService {
   ) {
     const fanClub = await db.FanClub.create(
       {
+        shortName,
         name,
         description,
         cityId,
@@ -102,6 +104,7 @@ class FanClubService extends BaseService {
   static async update(
     id: ResourceIdentifier,
     {
+      shortName,
       name,
       description,
       cityId,
@@ -118,6 +121,9 @@ class FanClubService extends BaseService {
       },
     });
 
+    if (shortName) {
+      fanClub.setDataValue('shortName', shortName);
+    }
     if (name) {
       fanClub.setDataValue('name', name);
     }

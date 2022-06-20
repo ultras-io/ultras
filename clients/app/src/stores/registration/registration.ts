@@ -26,7 +26,7 @@ const initialState: IProps = {
       value: 'string',
       isEmail: true,
     },
-    eixsts: false,
+    exists: false,
     isCodeValid: false,
     isUserNameValid: false,
     code: '',
@@ -62,7 +62,7 @@ const initStore = () => {
           })
         ),
 
-      swicthJoinMethod: () =>
+      switchJoinMethod: () =>
         set(
           produce((state: IState) => {
             state.user.joinVia = {
@@ -97,7 +97,7 @@ const initStore = () => {
           promise?.then(response => {
             set(
               produce((state: IState) => {
-                state.user.eixsts = response.body.data.userExists;
+                state.user.exists = response.body.data.userExists;
                 state.status = 'success';
               })
             );
@@ -115,12 +115,12 @@ const initStore = () => {
           })
         );
         const isEmail = get().user.joinVia.isEmail;
-        const emailOrPhpne = get().user.joinVia.value;
+        const emailOrPhone = get().user.joinVia.value;
         const code = '+374'; // @TODO get().user.country.name;
 
         const promise = isEmail
-          ? sdk.verifyCode({ email: emailOrPhpne, code: value })
-          : sdk.verifyCode({ phone: code + emailOrPhpne, code: value });
+          ? sdk.verifyCode({ email: emailOrPhone, code: value })
+          : sdk.verifyCode({ phone: code + emailOrPhone, code: value });
 
         if (promise) {
           set({ statusNext: 'loading' });

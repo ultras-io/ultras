@@ -18,6 +18,7 @@ import {
 class FanClubController extends BaseController {
   static async create({
     ownerId,
+    shortName,
     name,
     description,
     cityId,
@@ -37,6 +38,7 @@ class FanClubController extends BaseController {
       const countryId = city.getDataValue('country').getDataValue('id');
       const fanClub = await FanClubService.create(
         {
+          shortName,
           name,
           description,
           cityId,
@@ -70,6 +72,7 @@ class FanClubController extends BaseController {
 
   static async update({
     id,
+    shortName,
     name,
     description,
     cityId,
@@ -78,6 +81,7 @@ class FanClubController extends BaseController {
     privacy,
   }: FanClubUpdateParams): FanClubUpdateResult {
     const update: any = {
+      shortName,
       name,
       description,
       avatar,
