@@ -8,7 +8,7 @@ import type { IState } from 'stores/registration';
 import type { IUsernameProps } from '../types';
 
 const Username: React.FC<IUsernameProps> = ({ useStore }) => {
-  //const nextStep = useStore((state: IState) => state.nextStep);
+  const nextStep = useStore((state: IState) => state.nextStep);
   const status = useStore((state: IState) => state.status);
   const statusNext = useStore((state: IState) => state.statusNext);
   const username = useStore((state: IState) => state.user.username);
@@ -18,9 +18,11 @@ const Username: React.FC<IUsernameProps> = ({ useStore }) => {
 
   React.useLayoutEffect(() => {
     if (statusNext === 'success') {
-      console.log('registered');
+      nextStep();
+    } else if (statusNext === 'error') {
+      // @TODO handle error
     }
-  }, [statusNext]);
+  }, [statusNext, nextStep]);
 
   return (
     <Box w={'80%'} alignSelf="flex-end" mr={5} my={2}>

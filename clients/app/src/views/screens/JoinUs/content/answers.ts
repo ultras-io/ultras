@@ -92,7 +92,9 @@ export const answers: Answer[] = [
   },
   {
     type: 'notification',
-    pre: {},
+    pre: {
+      text: I18n.t('allowNotifications'),
+    },
     post: {
       confirmed: [
         {
@@ -109,7 +111,9 @@ export const answers: Answer[] = [
   },
   {
     type: 'location',
-    pre: {},
+    pre: {
+      text: I18n.t('enableLocationsServices'),
+    },
     post: {
       confirmed: [
         {
@@ -125,9 +129,9 @@ export const answers: Answer[] = [
     },
   },
   {
-    type: 'success',
+    type: 'register',
     pre: {
-      text: I18n.t('gotIt'),
+      text: I18n.t('joinUsLetMeIn'),
     },
     post: { confirmed: [], denied: [] },
   },
@@ -135,6 +139,8 @@ export const answers: Answer[] = [
 
 export const answerLogin: Answer = {
   type: 'login',
-  pre: {},
+  pre: {
+    text: I18n.t('joinUsLetMeIn'),
+  },
   post: { confirmed: [], denied: [] },
 };

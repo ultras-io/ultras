@@ -43,6 +43,8 @@ export interface IMethods {
   nextStep: () => void;
   toLoginStep: () => void;
   jumpToStep: (step: number) => void;
+  setNotificationsAllowed: (allowed: boolean) => void;
+  setLocationEnabled: (enabled: boolean) => void;
   setSelected: (data: ListItemSelectType) => void;
   switchJoinMethod: () => void;
   confirmIdentity: (value?: string) => void;
