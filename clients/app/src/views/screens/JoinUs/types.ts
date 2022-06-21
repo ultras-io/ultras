@@ -1,8 +1,10 @@
 import { InterfaceTextProps } from 'native-base/lib/typescript/components/primitives/Text/types';
+import { UserType } from 'stores/authentication';
 
 export interface IJoinUsComponentProps {
   data: ChatRow[];
   useStore: any;
+  useAuthStore: any;
 }
 
 export type Message = {
@@ -11,18 +13,20 @@ export type Message = {
   jumpToStep?: number;
   availableBefore?: number;
   pressable?: boolean;
+  email?: boolean;
   change?: boolean;
 };
 
 type AnswerType =
   | 'button'
   | 'selectTeam'
-  | 'emailOrphone'
+  | 'emailOrPhone'
   | '4digits'
   | 'username'
   | 'notification'
   | 'location'
-  | 'success';
+  | 'success'
+  | 'login';
 
 export type AnswerPost = {
   text?: string | ((phoneNumber: string) => string);
@@ -73,8 +77,8 @@ export interface IRightMessageProps {
 }
 
 export interface IJoinUsButtonProps {
-  onPress?: () => void;
-  text?: string;
+  useStore: any;
+  useAuthStore: any;
 }
 
 export interface IEmailOrPhoneProps {

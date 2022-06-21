@@ -1,7 +1,7 @@
 import I18n from 'i18n/i18n';
 import { Message } from '../types';
 
-const messages: Message[][][] = [
+export const messages: Message[][][] = [
   [
     [
       {
@@ -21,24 +21,19 @@ const messages: Message[][][] = [
       },
     ],
   ],
-
   [
     [
       {
-        text: I18n.t('joinUsPickTeam'),
-      },
-    ],
-  ],
-  [
-    [
-      {
-        text: I18n.t('joinUsEnterPhone'),
+        email: true,
+        text: (emailOrPhoneKey: string) =>
+          I18n.t('joinUsEnterEmailPhoneMessage', { x: I18n.t(emailOrPhoneKey) }),
       },
       {
+        email: true,
         pressable: true,
         change: true,
-        jumpToStep: 3,
-        availableBefore: 5,
+        jumpToStep: 2,
+        availableBefore: 4,
         text: (emailOrPhoneKey: string) =>
           I18n.t('joinUsEnterEmailPhone', { x: I18n.t(emailOrPhoneKey) }),
         textProps: {
@@ -61,9 +56,10 @@ const messages: Message[][][] = [
         },
       },
       {
+        email: true,
         pressable: true,
         jumpToStep: 3,
-        availableBefore: 5,
+        availableBefore: 4,
         text: (emailOrPhoneValue: string) =>
           I18n.t('changeEmailPhone', { x: I18n.t(emailOrPhoneValue) }),
         textProps: {
@@ -72,12 +68,21 @@ const messages: Message[][][] = [
       },
     ],
   ],
+
   [
     [
       {
         text: I18n.t('almostDone'),
       },
     ],
+    [
+      {
+        text: I18n.t('joinUsPickTeam'),
+      },
+    ],
+  ],
+
+  [
     [
       {
         text: I18n.t('joinUsPickUsername'),
@@ -120,4 +125,10 @@ const messages: Message[][][] = [
   ],
 ];
 
-export default messages;
+export const messageLogin: Message[][] = [
+  [
+    {
+      text: I18n.t('joinUsLogin'),
+    },
+  ],
+];

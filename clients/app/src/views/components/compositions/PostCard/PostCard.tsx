@@ -9,7 +9,7 @@ import Icon from 'views/components/base/Icon';
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
 import { IconNamesEnum } from 'assets/icons';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 
 import { IPostCardProps } from './types';
 import styles from './styles';
@@ -26,7 +26,7 @@ const PostCard: React.FC<IPostCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={prevertMulticalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(() => onPress())}>
       <BluredView style={styles.container}>
         <UltrasText style={styles.date} color="textPrimary">
           {moment(date).fromNow()}

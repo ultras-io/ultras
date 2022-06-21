@@ -22,11 +22,14 @@ export interface IProps {
   status: StatusType;
   statusNext: StatusType;
   step: number;
+  loginStep: boolean;
+  token: string;
+  userResponse: any;
   user: {
     team: ListItemType;
     country: ListItemType;
     joinVia: JoinVia;
-    eixsts: boolean;
+    exists: boolean;
     isCodeValid: boolean;
     isUserNameValid: boolean;
     code: string;
@@ -38,13 +41,16 @@ export interface IProps {
 
 export interface IMethods {
   nextStep: () => void;
+  toLoginStep: () => void;
   jumpToStep: (step: number) => void;
   setSelected: (data: ListItemSelectType) => void;
-  swicthJoinMethod: () => void;
+  switchJoinMethod: () => void;
   confirmIdentity: (value?: string) => void;
   verifyCode: (value: string) => void;
   checkUsername: (value: string) => void;
+  login: () => any;
   register: () => void;
+  clearStore: () => void;
 }
 
 export interface IState extends IProps, IMethods {}

@@ -34,7 +34,7 @@ export default {
   noResults: 'No Results',
 
   // splash
-  splashText: 'Explore. Join. Meet. \nCheer on together.',
+  splashText: '#WatchFootball',
 
   // intro
   introWelcome: 'Welcome to ultras - online \ncommunity for lorem ipsum',
@@ -45,8 +45,8 @@ export default {
     'Nice Desision to Join Us.\nI am Robot Mobot and I will help you lorem ipsum.\n',
   joinUsPickTeam: 'Which Football Club or National Team do you support?',
   joinUsSelectTeam: 'Select Team',
-  joinUsEnterPhone:
-    'For becoming Ultras user, we need to verify you. Just enter your phone number, verify it by entering confirmation code and you are welcome to the family.',
+  joinUsEnterEmailPhoneMessage:
+    'For becoming Ultras user, we need to verify you. Just enter your {{x}}, verify it by entering confirmation code and you are welcome to the family.',
   joinUsEnterEmailPhone: 'Sign up with {{x}}',
   joinUsLetMeEnter: 'Ok, Let me enter',
   joinUsEnterValidEmailPhone: 'Please enter valid',
@@ -77,7 +77,9 @@ export default {
   joinUsCongrats: 'Congrats, Lorem ipsum dolor sit amet,',
   joinUsCongratsText:
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-
+  joinUsLogin:
+    'You have already registered log in lorep ipsum dolor sirtempor incididunt ut labore et dolore magna aliqua.',
+  joinUsLetMeIn: 'Let me in!',
   // posts
 
   // events

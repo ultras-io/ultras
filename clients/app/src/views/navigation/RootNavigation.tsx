@@ -2,6 +2,8 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { Box } from 'native-base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import initStore, { IState } from 'stores/authentication';
+import initRegistrationStore, { IState as IRegistrationState } from 'stores/registration';
 import { useTheme } from 'themes';
 import SplashScreen from 'views/screens/Splash';
 import { rootScreens } from './screens';
@@ -11,23 +13,28 @@ const Stack = createNativeStackNavigator();
 interface IRootNavigationProps {}
 
 const RootNavigation: React.FC<IRootNavigationProps> = () => {
-  const { colors, isDarkMode } = useTheme();
+  const useAuthenticationStore = initStore();
+  const useRegistrationStore = initRegistrationStore();
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isAuthenticated] = React.useState<boolean>(
-    // true
-    false
+  const isLoading = useAuthenticationStore((state: IState) => state.isLoading);
+  const isAuthenticated = useAuthenticationStore(
+    (state: IState) => state.isAuthenticated
+  );
+  const clearStore = useRegistrationStore(
+    (state: IRegistrationState) => state.clearStore
   );
 
-  if (!isLoading) {
-    return (
-      <>
-        <StatusBar hidden={true} />
-        <SplashScreen setIsLoading={setIsLoading} />
-      </>
-    );
+  const { colors, isDarkMode } = useTheme();
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      clearStore();
+    }
+  }, [isAuthenticated, clearStore]);
+
+  if (isLoading) {
+    return <SplashScreen useStore={useAuthenticationStore} />;
   }
-  // console.log(JSON.stringify(rootScreens, null, 2));
 
   return (
     <>
