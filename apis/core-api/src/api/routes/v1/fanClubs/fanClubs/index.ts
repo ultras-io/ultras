@@ -15,7 +15,12 @@ router.patch(
   checkFanClubExistence(idKey),
   ControllerAdapter.update
 );
-router.get('/', ControllerAdapter.getAll);
-router.get(`/:${idKey}`, checkFanClubExistence(idKey), ControllerAdapter.getById);
+router.get('/', checkUserAuth(), ControllerAdapter.getAll);
+router.get(
+  `/:${idKey}`,
+  checkUserAuth(),
+  checkFanClubExistence(idKey),
+  ControllerAdapter.getById
+);
 
 export default router;
