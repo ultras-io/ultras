@@ -64,7 +64,7 @@ export type UserRegistrationResult = ControllerResultType<
   {
     success: boolean;
     error?: UserErrorEnum;
-    user?: UserViewModel;
+    user?: UserAndTeams;
     teams?: Array<ResourceIdentifier>;
   },
   {
@@ -81,8 +81,7 @@ export type UserLoginResult = ControllerResultType<
   {
     success: boolean;
     error?: UserErrorEnum;
-    user?: UserViewModel;
-    teams?: Array<ResourceIdentifier>;
+    user?: UserAndTeams;
   },
   {
     token: AuthTokenType;
@@ -106,6 +105,11 @@ export type GetMeParams = {
 };
 
 export type GetMeResult = ControllerResultType<{
-  user: User | null;
-  teams: Array<ResourceIdentifier>;
+  user: UserAndTeams;
 }>;
+
+export type UserAndTeams = Nullable<
+  User & {
+    teams: Array<ResourceIdentifier>;
+  }
+>;

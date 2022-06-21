@@ -6,6 +6,7 @@ import {
   InvalidUserInput,
   ResourceDuplicationError,
 } from 'modules/exceptions';
+import { User } from 'core/data/models/User';
 import {
   AuthService,
   UserService,
@@ -34,6 +35,7 @@ import {
   GetMeParams,
   GetMeResult,
 } from './types';
+import { UserAndTeams } from '.';
 
 class UserController extends BaseController {
   static async checkUsernameExistence({
@@ -217,16 +219,11 @@ class UserController extends BaseController {
       return { user, token };
     });
 
-    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
-      user.getDataValue('id')
-    );
-
     return {
       token: token,
       data: {
         success: true,
-        user: user,
-        teams: favoriteTeams,
+        user: await this.mergeUserAndTeams(user),
       },
     };
   }
@@ -327,16 +324,11 @@ class UserController extends BaseController {
       return token;
     });
 
-    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
-      user.getDataValue('id')
-    );
-
     return {
       token: token,
       data: {
         success: true,
-        user: user,
-        teams: favoriteTeams,
+        user: await this.mergeUserAndTeams(user),
       },
     };
   }
@@ -380,16 +372,30 @@ class UserController extends BaseController {
       id: authToken.getDataValue('userId'),
     });
 
-    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
-      authToken.getDataValue('userId')
-    );
-
     return {
       data: {
-        user,
-        teams: favoriteTeams,
+        user: await this.mergeUserAndTeams(user),
       },
     };
+  }
+
+  private static async mergeUserAndTeams(user: Nullable<User>): Promise<UserAndTeams> {
+    if (!user) {
+      return null;
+    }
+
+    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
+      user.getDataValue('id')
+    );
+
+    const result: UserAndTeams = {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      ...user.dataValues,
+      teams: favoriteTeams,
+    };
+
+    return result;
   }
 }
 
