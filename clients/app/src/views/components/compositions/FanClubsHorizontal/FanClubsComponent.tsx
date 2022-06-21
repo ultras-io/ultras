@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';
 import { tabScreens, searchTabScreens } from 'views/navigation/screens';
 import FanClubCard from 'views/components/compositions/FanClubCard';
@@ -51,7 +51,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
         <Text variant={'searchTitle'}>{I18n.t('fanClubs')}</Text>
         {showHeaderButton && (
           <Button
-            onPress={prevertMulticalls(() => navigateToFanClubs())}
+            onPress={preventMultiCalls(() => navigateToFanClubs())}
             rightIcon={
               <Icon name={Icons.ArrowRightRound} color={'iconPrimary'} size={'ic-2xs'} />
             }

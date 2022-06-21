@@ -11,7 +11,7 @@ import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
 import { IconNamesEnum } from 'assets/icons';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { IEventCardProps } from './types';
 import styles from './styles';
 
@@ -30,7 +30,7 @@ const EventCard: React.FC<IEventCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={prevertMulticalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(() => onPress())}>
       <BluredView style={styles.container}>
         {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
         <View style={styles.innerContainer}>

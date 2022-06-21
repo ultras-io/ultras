@@ -5,7 +5,7 @@ import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import BluredView from 'views/components/base/BluredView';
 import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamCardProps } from './types';
@@ -16,7 +16,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
   const { colors } = useTheme();
 
   return (
-    <Pressable onPress={prevertMulticalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(() => onPress())}>
       <BluredView style={styles.container}>
         <Circle size={'av-md'} bg={colors.backgroundLogo} mr={15}>
           <Image

@@ -13,6 +13,7 @@ import RightMessage from './RightMessage';
 import JoinUsButton from './JoinUsButton';
 import EmailOrPhone from './EmailOrPhone';
 import FourDigits from './FourDigits/FourDigits';
+import JoinUsLogin from './JoinUsLogin';
 import Username from './Username';
 import type { IState } from 'stores/registration';
 import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
@@ -20,7 +21,11 @@ import { dataKeyType } from 'views/screens/SearchListModal/types';
 
 const animation_delay = 150;
 
-const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) => {
+const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
+  data,
+  useStore,
+  useAuthStore,
+}) => {
   const flatListRef = React.useRef({ scrollToEnd: () => {} });
   const route = useRoute();
   const isKeyboardOpen = useKeyboard();
@@ -31,7 +36,6 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
   const selectedTeamName = useStore((state: IState) => state.user.team.name);
   const emailOrPhone = useStore((state: IState) => state.user.joinVia.value);
   const code = useStore((state: IState) => state.user.code);
-
   const nextStep = useStore((state: IState) => state.nextStep);
   const setSelected = useStore((state: IState) => state.setSelected);
 
@@ -75,7 +79,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
       if (item.data.type === 'selectTeam') {
         options.text = selectedTeamName;
         options.onPress = openListModal('team');
-      } else if (item.data.type === 'emailOrphone') {
+      } else if (item.data.type === 'emailOrPhone') {
         options.text = emailOrPhone;
       } else if (item.data.type === '4digits') {
         options.text = code.split('').join(' ');
@@ -103,7 +107,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
           return (
             <JoinUsButton onPress={openListModal('team')} text={item.data.pre.text} />
           );
-        case 'emailOrphone':
+        case 'emailOrPhone':
           return (
             <EmailOrPhone useStore={useStore} onModalOpen={openListModal('country')} />
           );
@@ -111,10 +115,12 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({ data, useStore }) =>
           return <FourDigits useStore={useStore} />;
         case 'username':
           return <Username useStore={useStore} />;
+        case 'login':
+          return <JoinUsLogin useStore={useStore} useAuthStore={useAuthStore} />;
       }
       return null;
     },
-    [nextStep, openListModal, useStore]
+    [nextStep, openListModal, useStore, useAuthStore]
   );
 
   const renderStep: ListRenderItem<ChatRow> = React.useCallback(

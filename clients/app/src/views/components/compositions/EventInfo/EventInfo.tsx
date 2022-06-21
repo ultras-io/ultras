@@ -15,7 +15,7 @@ import Box from 'views/components/base/Box';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { EventInfoProps } from '../EventCard';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 // import { upperCaseFirstLetter } from 'utils/helpers/string';
 import styles from './styles';
 
@@ -58,7 +58,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
         )}
         <View style={styles.creatorContainer}>
           <Pressable
-            onPress={prevertMulticalls(() =>
+            onPress={preventMultiCalls(() =>
               pushTo(commonScreens.profile.name, { id: 67 })
             )}
           >
@@ -69,7 +69,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </Pressable>
           {supportersClub && (
             <Pressable
-              onPress={prevertMulticalls(() =>
+              onPress={preventMultiCalls(() =>
                 pushTo(commonScreens.fanClub.name, { id: 67 })
               )}
             >
@@ -82,7 +82,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
 
         <View style={styles.stats}>
           <Pressable
-            onPress={prevertMulticalls(() =>
+            onPress={preventMultiCalls(() =>
               pushTo(commonScreens.profileList.name, {
                 id: 2,
                 type: ProfileListTypeEnum.eventMemebers,
@@ -95,7 +95,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
           </Pressable>
           <VerticalDivider />
           <Pressable
-            onPress={prevertMulticalls(() =>
+            onPress={preventMultiCalls(() =>
               pushTo(commonScreens.profileList.name, {
                 id: 2,
                 type: ProfileListTypeEnum.eventLikes,

@@ -20,9 +20,10 @@ const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
   const status = useStore((state: IState) => state.status);
   const statusNext = useStore((state: IState) => state.statusNext);
   const isCodeValid = useStore((state: IState) => state.user.isCodeValid);
-  const userEixsts = useStore((state: IState) => state.user.eixsts);
+  const userExists = useStore((state: IState) => state.user.exists);
   const verifyCode = useStore((state: IState) => state.verifyCode);
   const nextStep = useStore((state: IState) => state.nextStep);
+  const toLoginStep = useStore((state: IState) => state.toLoginStep);
 
   const { colors } = useTheme();
   const inputRef = React.useRef(null);
@@ -38,14 +39,11 @@ const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
     if (statusNext === 'success') {
       Keyboard.dismiss();
       if (isCodeValid) {
-        if (userEixsts) {
-          // login
-        } else {
-          nextStep();
-        }
+        if (userExists) toLoginStep();
+        else nextStep();
       }
     }
-  }, [statusNext, isCodeValid, userEixsts, nextStep]);
+  }, [statusNext, isCodeValid, userExists, nextStep, toLoginStep]);
 
   const digitProps = {
     w: 46,

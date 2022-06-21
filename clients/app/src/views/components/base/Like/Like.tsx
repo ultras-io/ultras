@@ -4,13 +4,13 @@ import Icon from 'views/components/base/Icon';
 import { IconNamesEnum as Icons } from 'assets/icons';
 import UltrasText from 'views/components/base/UltrasText';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ILikeProps } from './type';
 import styles from './styles';
 
 const Like: React.FC<ILikeProps> = ({ isLiked = false, count = 0, onPress }) => {
   return (
-    <Pressable onPress={prevertMulticalls(() => onPress())} style={styles.container}>
+    <Pressable onPress={preventMultiCalls(() => onPress())} style={styles.container}>
       <Icon
         name={isLiked ? Icons.Liked : Icons.Like}
         color={isLiked ? 'buttonAction' : 'buttonActionInvert'}

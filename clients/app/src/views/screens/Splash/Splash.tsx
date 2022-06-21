@@ -1,23 +1,28 @@
-import React, { useEffect } from 'react';
-import { ImageBackground } from 'react-native';
+import React from 'react';
+import { StatusBar, ImageBackground } from 'react-native';
 import { Text } from 'native-base';
+import { IState } from 'stores/authentication';
 import { ISplashProps } from './types';
 import gStyles from 'styles/styles';
-import bg from 'assets/images/bg.png';
 
-const Splash: React.FC<ISplashProps> = ({ setIsLoading }) => {
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(true);
-    }, 2000);
-  }, []);
+const bg = require('assets/images/bg.png');
+
+const Splash: React.FC<ISplashProps> = ({ useStore }) => {
+  const authenticate = useStore((state: IState) => state.authenticate);
+
+  React.useEffect(() => {
+    authenticate();
+  }, [authenticate]);
 
   return (
-    <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
-      <Text variant="logo" marginBottom={210}>
-        ultras
-      </Text>
-    </ImageBackground>
+    <>
+      <StatusBar hidden={true} />
+      <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
+        <Text variant="logo" marginBottom={210}>
+          ultras
+        </Text>
+      </ImageBackground>
+    </>
   );
 };
 

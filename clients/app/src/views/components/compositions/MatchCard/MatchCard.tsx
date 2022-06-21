@@ -5,7 +5,7 @@ import VerticalDivider from 'views/components/base/VerticalDivider';
 import MatchTime from '../MatchTime';
 import BluredView from 'views/components/base/BluredView';
 import { isMatchGoing } from 'utils/helpers/matchTime';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { MatchStatusesEnum } from '@ultras/utils';
 import { IMatchCardProps } from './types';
 import styles from './styles';
@@ -17,7 +17,7 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, inverted = false 
   const variantSuffix = inverted ? 'Invert' : '';
 
   return (
-    <Pressable onPress={prevertMulticalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(() => onPress())}>
       <BluredView
         style={inverted ? styles.containerH : styles.container}
         isDark={!inverted}

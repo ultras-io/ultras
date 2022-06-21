@@ -12,7 +12,7 @@ import I18n from 'i18n/i18n';
 import { validateEmail, validatePhoneNumber } from 'utils/helpers/validation';
 import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import rootScreens from 'views/navigation/screens/rootScreens';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
@@ -86,7 +86,7 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
         </InputGroup>
       )}
 
-      <Pressable onPress={prevertMulticalls(() => openModal(rootScreens.privacy.name))}>
+      <Pressable onPress={preventMultiCalls(() => openModal(rootScreens.privacy.name))}>
         <Text variant={'smallText'} p={'2'} pr={'4'} textAlign={'right'}>
           {I18n.t('joinUsGetConfirmationCode')}
           <Text variant={'smallTextAction'} underline color={colors.textAction}>

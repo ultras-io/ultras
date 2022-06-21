@@ -1,7 +1,7 @@
 import I18n from 'i18n/i18n';
 import { Answer } from '../types';
 
-const answers: Answer[] = [
+export const answers: Answer[] = [
   {
     type: 'button',
     pre: {
@@ -11,6 +11,44 @@ const answers: Answer[] = [
       confirmed: [
         {
           text: I18n.t('okLetsStart'),
+        },
+      ],
+      denied: [],
+    },
+  },
+  {
+    type: 'button',
+    pre: {
+      text: I18n.t('joinUsLetMeEnter'),
+    },
+    post: {
+      confirmed: [
+        {
+          text: I18n.t('joinUsLetMeEnter'),
+        },
+      ],
+      denied: [],
+    },
+  },
+  {
+    type: 'emailOrPhone',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: (emailOrPhoneValue: string) => emailOrPhoneValue,
+        },
+      ],
+      denied: [],
+    },
+  },
+  {
+    type: '4digits',
+    pre: {},
+    post: {
+      confirmed: [
+        {
+          text: (code: string) => code,
         },
       ],
       denied: [],
@@ -39,44 +77,7 @@ const answers: Answer[] = [
       denied: [],
     },
   },
-  {
-    type: 'button',
-    pre: {
-      text: I18n.t('joinUsLetMeEnter'),
-    },
-    post: {
-      confirmed: [
-        {
-          text: I18n.t('joinUsLetMeEnter'),
-        },
-      ],
-      denied: [],
-    },
-  },
-  {
-    type: 'emailOrphone',
-    pre: {},
-    post: {
-      confirmed: [
-        {
-          text: (emailOrPhoneValue: string) => emailOrPhoneValue,
-        },
-      ],
-      denied: [],
-    },
-  },
-  {
-    type: '4digits',
-    pre: {},
-    post: {
-      confirmed: [
-        {
-          text: (code: string) => code,
-        },
-      ],
-      denied: [],
-    },
-  },
+
   {
     type: 'username',
     pre: {},
@@ -132,4 +133,8 @@ const answers: Answer[] = [
   },
 ];
 
-export default answers;
+export const answerLogin: Answer = {
+  type: 'login',
+  pre: {},
+  post: { confirmed: [], denied: [] },
+};

@@ -8,7 +8,7 @@ import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
-import prevertMulticalls from 'utils/helpers/prevertMulticalls';
+import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
 
@@ -45,7 +45,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           {data.name}
         </Text>
         <HStack>
-          <Pressable onPress={prevertMulticalls(() => openMembersList())}>
+          <Pressable onPress={preventMultiCalls(() => openMembersList())}>
             <Text variant={'info'}>
               {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
             </Text>
@@ -54,7 +54,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           <Text variant={'info'}>{data.city.name}</Text>
         </HStack>
 
-        <Pressable onPress={prevertMulticalls(() => openTeam())}>
+        <Pressable onPress={preventMultiCalls(() => openTeam())}>
           <HStack alignItems={'center'} space={'1'}>
             <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
             <Text variant={'info'}>{data.team.name}</Text>
