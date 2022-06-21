@@ -8,7 +8,10 @@ import {
 } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import { FavoriteTeamCreationAttributes } from 'core/data/models/FavoriteTeam';
+import {
+  FavoriteTeam,
+  FavoriteTeamCreationAttributes,
+} from 'core/data/models/FavoriteTeam';
 
 import BaseService from './BaseService';
 import { FavoriteTeamsViewModel, FavoriteTeamViewModel } from '@ultras/view-models';
@@ -232,6 +235,28 @@ class FavoriteTeamService extends BaseService {
       },
       { transaction }
     );
+  }
+
+  /**
+   * Get favorite teams id list by user.
+   */
+  static async getTeamsIdList(
+    userId: ResourceIdentifier
+  ): Promise<Array<ResourceIdentifier>> {
+    const favoriteTeams = await db.FavoriteTeam.findAll({
+      where: {
+        userId: userId,
+      },
+      attributes: {
+        include: ['teamId'],
+      },
+    });
+
+    const idList: Array<ResourceIdentifier> = favoriteTeams.map(
+      (favoriteTeam: FavoriteTeam) => favoriteTeam.getDataValue('teamId')
+    );
+
+    return idList;
   }
 }
 

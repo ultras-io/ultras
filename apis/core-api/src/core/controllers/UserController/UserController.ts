@@ -217,11 +217,16 @@ class UserController extends BaseController {
       return { user, token };
     });
 
+    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
+      user.getDataValue('id')
+    );
+
     return {
       token: token,
       data: {
         success: true,
         user: user,
+        teams: favoriteTeams,
       },
     };
   }
@@ -322,11 +327,16 @@ class UserController extends BaseController {
       return token;
     });
 
+    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
+      user.getDataValue('id')
+    );
+
     return {
       token: token,
       data: {
         success: true,
         user: user,
+        teams: favoriteTeams,
       },
     };
   }
@@ -370,9 +380,14 @@ class UserController extends BaseController {
       id: authToken.getDataValue('userId'),
     });
 
+    const favoriteTeams = await FavoriteTeamService.getTeamsIdList(
+      authToken.getDataValue('userId')
+    );
+
     return {
       data: {
         user,
+        teams: favoriteTeams,
       },
     };
   }
