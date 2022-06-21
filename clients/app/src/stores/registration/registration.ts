@@ -65,6 +65,20 @@ const initStore = () => {
           statusNext: 'initial',
         }),
 
+      setNotificationsAllowed: allowed =>
+        set(
+          produce(state => {
+            state.user.notificationsAllowed = allowed;
+          })
+        ),
+
+      setLocationEnabled: enabled =>
+        set(
+          produce(state => {
+            state.user.locationEnabled = enabled;
+          })
+        ),
+
       setSelected: data =>
         set(
           produce(state => {
@@ -183,20 +197,27 @@ const initStore = () => {
         const code = get().user.code;
 
         set({ status: 'loading' });
-        sdk.login({ code, [emailOrPhoneKey]: emailOrPhone })?.then(response => {
-          const { auth_token } = response.body.meta;
-          if (!auth_token) {
+        sdk
+          .login({ code, [emailOrPhoneKey]: emailOrPhone })
+          ?.then(response => {
+            const auth_token = response.body.meta?.auth_token!;
+            if (!auth_token) {
+              set({ status: 'error' });
+            } else {
+              set(
+                produce(state => {
+                  state.status = 'success';
+                  state.token = auth_token;
+                  state.userResponse = response.body.data.user;
+                })
+              );
+            }
+          })
+          .catch((err: any) => {
+            // @TODO handle error
+            console.error(err);
             set({ status: 'error' });
-          } else {
-            set(
-              produce(state => {
-                state.status = 'success';
-                state.token = auth_token;
-                state.userResponse = response.body.data.user;
-              })
-            );
-          }
-        });
+          });
       },
 
       register: () => {
@@ -211,9 +232,23 @@ const initStore = () => {
           sdk
             .register({ teamId, code, username, [emailOrPhoneKey]: emailOrPhone })
             ?.then(response => {
+              const auth_token = response.body.meta?.auth_token!;
+              if (!auth_token) {
+                set({ statusNext: 'error' });
+              } else {
+                set(
+                  produce(state => {
+                    state.statusNext = 'success';
+                    state.token = auth_token;
+                    state.userResponse = response.body.data.user;
+                  })
+                );
+              }
+            })
+            .catch((err: any) => {
               // @TODO handle error
-              set({ statusNext: 'success' });
-              console.log(response);
+              console.error(err);
+              set({ status: 'error' });
             });
         } else {
           set({ statusNext: 'error' });

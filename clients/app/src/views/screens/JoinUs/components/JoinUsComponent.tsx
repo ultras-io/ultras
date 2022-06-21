@@ -13,8 +13,9 @@ import RightMessage from './RightMessage';
 import JoinUsButton from './JoinUsButton';
 import EmailOrPhone from './EmailOrPhone';
 import FourDigits from './FourDigits/FourDigits';
-import JoinUsLogin from './JoinUsLogin';
 import Username from './Username';
+import EnableLocation from './EnableLocation';
+import Login from './Login';
 import type { IState } from 'stores/registration';
 import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
 import { dataKeyType } from 'views/screens/SearchListModal/types';
@@ -36,6 +37,11 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   const selectedTeamName = useStore((state: IState) => state.user.team.name);
   const emailOrPhone = useStore((state: IState) => state.user.joinVia.value);
   const code = useStore((state: IState) => state.user.code);
+  const username = useStore((state: IState) => state.user.username);
+  const notificationsAllowed = useStore(
+    (state: IState) => state.user.notificationsAllowed
+  );
+  const locationEnabled = useStore((state: IState) => state.user.locationEnabled);
   const nextStep = useStore((state: IState) => state.nextStep);
   const setSelected = useStore((state: IState) => state.setSelected);
 
@@ -83,19 +89,30 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
         options.text = emailOrPhone;
       } else if (item.data.type === '4digits') {
         options.text = code.split('').join(' ');
+      } else if (item.data.type === 'username') {
+        options.text = username;
+      } else if (item.data.type === 'notification') {
+        options.messages = notificationsAllowed
+          ? item.data.post.confirmed!
+          : item.data.post.denied!;
+        options.confirmed = notificationsAllowed;
+      } else if (item.data.type === 'location') {
+        options.messages = locationEnabled
+          ? item.data.post.confirmed!
+          : item.data.post.denied!;
+        options.confirmed = locationEnabled;
       }
-      // else if (item.data.type === 'username') {
-      //   options.text = userState.username!;
-      // } else if (item.data.type === 'notification' && !userState.notificationsAllowed) {
-      //   options.messages = item.data.post.denied!;
-      //   options.confirmed = false;
-      // } else if (item.data.type === 'location' && !userState.locationEnabled) {
-      //   options.messages = item.data.post.denied!;
-      //   options.confirmed = false;
-      // }
       return options;
     },
-    [openListModal, selectedTeamName, emailOrPhone, code]
+    [
+      selectedTeamName,
+      openListModal,
+      emailOrPhone,
+      code,
+      username,
+      notificationsAllowed,
+      locationEnabled,
+    ]
   );
 
   const renderRightComponent = React.useCallback(
@@ -115,8 +132,28 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
           return <FourDigits useStore={useStore} />;
         case 'username':
           return <Username useStore={useStore} />;
+        case 'notification':
+          return <JoinUsButton onPress={nextStep} text={item.data.pre.text} />;
+        case 'location':
+          return <EnableLocation useStore={useStore} text={item.data.pre.text} />;
         case 'login':
-          return <JoinUsLogin useStore={useStore} useAuthStore={useAuthStore} />;
+          return (
+            <Login
+              useStore={useStore}
+              useAuthStore={useAuthStore}
+              text={item.data.pre.text}
+              login
+            />
+          );
+        case 'register':
+          return (
+            <Login
+              useStore={useStore}
+              useAuthStore={useAuthStore}
+              text={item.data.pre.text}
+              login={false}
+            />
+          );
       }
       return null;
     },
