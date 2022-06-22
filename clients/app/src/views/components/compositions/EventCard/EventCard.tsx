@@ -43,7 +43,7 @@ const EventCard: React.FC<IEventCardProps> = ({
             {title}
           </UltrasText>
           <UltrasText style={styles.smallText} color="textSecondary">
-            {getReadableNumber(goingCount)} {I18n.t('going')}
+            {getReadableNumber(goingCount)} {I18n.t('common-going')}
           </UltrasText>
           {location && (
             <UltrasText style={styles.location} color="textSecondary">
@@ -51,7 +51,7 @@ const EventCard: React.FC<IEventCardProps> = ({
             </UltrasText>
           )}
           <UltrasText style={styles.smallText} color="textPrimary">
-            {I18n.t('eventsEventBy')} {creator}
+            {I18n.t('events-eventBy')} {creator}
             {supportersClub && ', ' + supportersClub}
           </UltrasText>
           <View style={styles.bottomButtons}>

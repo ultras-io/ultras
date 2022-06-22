@@ -27,14 +27,14 @@ export const formatDateAndTime = (
     else date = moment(dateTime).format('DD.MM.YY');
     time = moment(dateTime).format('HH:mm');
   } else if (matchStatus === MatchStatusesEnum.live) {
-    date = I18n.t('matchesLive');
+    date = I18n.t('matches-live');
     time = (elapsedTime || 0) + '’';
   } else if (matchStatus === MatchStatusesEnum.extraTime) {
-    date = I18n.t('matchesET');
+    date = I18n.t('matches-et');
     time = (elapsedTime || 0) + '’';
   } else if (matchStatus === MatchStatusesEnum.penalties) {
-    date = I18n.t('matchesFinished');
-    time = I18n.t('matchesPenalties');
+    date = I18n.t('matches-finished');
+    time = I18n.t('matches-penalties');
   }
 
   return {

@@ -15,7 +15,7 @@ const Search: React.FC<ISearchProps> = () => {
       <Input
         mx={4}
         variant="search"
-        placeholder={I18n.t('search')}
+        placeholder={I18n.t('common-search')}
         InputLeftElement={
           <Icon name={Icons.SearchText} color={'textQuinary'} size={'ic-xs'} ml={2} />
         }

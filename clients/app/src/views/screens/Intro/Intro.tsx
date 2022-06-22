@@ -16,19 +16,19 @@ const Intro: React.FC<IIntroProps> = () => {
   return (
     <ImageBackground source={bg} resizeMode="cover" style={gStyles.containerBg}>
       <Text variant={'logo'}>ultras</Text>
-      <Text variant={'subTitle'}>{I18n.t('splashText')}</Text>
+      <Text variant={'subTitle'}>{I18n.t('splash-slogan')}</Text>
       <VStack mt={10} mb={10} space={5} w={'80%'}>
         <Button
           onPress={preventMultiCalls(() => pushTo(rootScreens.joinUs.name))}
           variant={'primary'}
         >
-          {I18n.t('introLetMeIn')}
+          {I18n.t('intro-letMeIn')}
         </Button>
         <Button
           onPress={preventMultiCalls(() => pushTo(rootScreens.privacy.name))}
           variant={'empty'}
         >
-          {I18n.t('privacy')}
+          {I18n.t('common-privacy')}
         </Button>
       </VStack>
     </ImageBackground>

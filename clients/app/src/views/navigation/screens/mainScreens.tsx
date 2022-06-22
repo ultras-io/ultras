@@ -109,7 +109,7 @@ const SCREENS: ScreenNavigationConfig = {
         options: {
           headerTitle: () => (
             <Text variant={'sectionTitle'} flex={1} ml={'3'}>
-              {I18n.t('settings')}
+              {I18n.t('profile-settings')}
             </Text>
           ),
         },
@@ -120,7 +120,7 @@ const SCREENS: ScreenNavigationConfig = {
         options: {
           headerTitle: () => (
             <Text variant={'sectionTitle'} flex={1} ml={'3'}>
-              {I18n.t('notifications')}
+              {I18n.t('profile-notifications')}
             </Text>
           ),
         },

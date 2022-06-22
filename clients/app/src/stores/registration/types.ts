@@ -12,8 +12,8 @@ export type ListItemSelectType = ListItemType & {
 };
 
 type JoinVia = {
-  key: 'email' | 'phone';
-  keyInvert: 'phone' | 'email';
+  key: 'common-email' | 'common-phone';
+  keyInvert: 'common-phone' | 'common-email';
   value: string;
   isEmail: boolean;
 };

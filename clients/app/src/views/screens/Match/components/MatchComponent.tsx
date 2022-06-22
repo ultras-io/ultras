@@ -24,7 +24,7 @@ const MatchComponent: React.FC<IMatchComponentProps> = ({ data }) => {
         paddingX={'8'}
         alignSelf={'center'}
       >
-        {I18n.t('eventsCreate')}
+        {I18n.t('events-create')}
       </Button>
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={15} />
     </>

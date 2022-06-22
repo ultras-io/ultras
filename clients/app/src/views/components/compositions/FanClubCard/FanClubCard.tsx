@@ -28,7 +28,7 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
             </Text>
             <HStack>
               <Text variant={'info'}>
-                {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
+                {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
               </Text>
               <VerticalDivider />
               <Text variant={'info'}>{data.city.name}</Text>
@@ -44,7 +44,7 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
           </Text>
           {data.membersCount && (
             <Text variant={'smallDescription'} textAlign={'center'}>
-              {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
+              {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
             </Text>
           )}
         </Center>

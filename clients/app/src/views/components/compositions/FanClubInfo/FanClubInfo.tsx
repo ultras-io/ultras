@@ -47,7 +47,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         <HStack>
           <Pressable onPress={preventMultiCalls(() => openMembersList())}>
             <Text variant={'info'}>
-              {getReadableNumber(data.membersCount)} {I18n.t('ultras')}
+              {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
             </Text>
           </Pressable>
           <VerticalDivider />
@@ -74,7 +74,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           mt={'3'}
           mr={'4'}
         >
-          {I18n.t(isJoined ? 'joined' : 'fanClubJoin')}
+          {I18n.t(isJoined ? 'fanClubs-joined' : 'fanClubs-join')}
         </Button>
       </VStack>
     </HStack>

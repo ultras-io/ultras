@@ -30,7 +30,7 @@ const Username: React.FC<IUsernameProps> = ({ useStore }) => {
         flex={1}
         onChange={text => checkUsername(text)}
         variant="email"
-        placeholder={I18n.t('enter') + ' ' + I18n.t('username')}
+        placeholder={I18n.t('common-enter') + ' ' + I18n.t('common-username')}
         returnKeyType="done"
         mb={'2'}
       />
@@ -45,7 +45,7 @@ const Username: React.FC<IUsernameProps> = ({ useStore }) => {
         >
           <Icon name={Icons.Warning} color={'textAction'} size={'ic-2xs'} />
           <Text variant={'smallText'} textAlign={'right'}>
-            {I18n.t('joinUsUsernameTaken', { username })}
+            {I18n.t('joinUs-usernameTaken', { username })}
           </Text>
         </HStack>
       )}
@@ -57,7 +57,7 @@ const Username: React.FC<IUsernameProps> = ({ useStore }) => {
         disabled={!(status === 'success' && isUserNameValid)}
         isLoading={status === 'loading' || statusNext === 'loading'}
       >
-        {I18n.t('confirm')}
+        {I18n.t('common-confirm')}
       </Button>
     </Box>
   );

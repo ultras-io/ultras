@@ -63,7 +63,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
             )}
           >
             <UltrasText style={styles.creator} color="textSecondary">
-              {I18n.t('eventsBy')} {creator}
+              {I18n.t('events-by')} {creator}
               {supportersClub && ', '}
             </UltrasText>
           </Pressable>
@@ -90,7 +90,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
             )}
           >
             <UltrasText style={styles.going} color="textSecondary">
-              {getReadableNumber(goingCount)} {I18n.t('going')}
+              {getReadableNumber(goingCount)} {I18n.t('common-going')}
             </UltrasText>
           </Pressable>
           <VerticalDivider />
@@ -103,7 +103,7 @@ const EventInfo: React.FC<EventInfoProps> = ({
             )}
           >
             <UltrasText style={styles.going} color="textSecondary">
-              {getReadableNumber(likeCount)} {I18n.t('likes')}
+              {getReadableNumber(likeCount)} {I18n.t('common-likes')}
             </UltrasText>
           </Pressable>
         </View>

@@ -33,11 +33,11 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ data }) => {
           <Text variant={'info'}>
             {data.type === TeamTypesEnum.club
               ? data.city.name + ', ' + data.country.name
-              : I18n.t('nationalTeam')}
+              : I18n.t('team-national')}
           </Text>
 
           <Button variant={isFavorite ? 'actionInvert' : 'action'} mt={'3'} mr={'4'}>
-            {I18n.t(isFavorite ? 'teamInFavorites' : 'teamAdd')}
+            {I18n.t(isFavorite ? 'team-added' : 'team-add')}
           </Button>
         </View>
       </View>

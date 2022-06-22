@@ -24,8 +24,8 @@ const initialState: IProps = {
       name: '',
     },
     joinVia: {
-      key: 'email',
-      keyInvert: 'phone',
+      key: 'common-email',
+      keyInvert: 'common-phone',
       value: 'string',
       isEmail: true,
     },
