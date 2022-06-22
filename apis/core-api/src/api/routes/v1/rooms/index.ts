@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import ControllerAdapter from './ControllerAdapter';
+import hasEventAccess from './middlewares/hasEventAccess';
 
 const router = new Router({
   prefix: '/rooms',
@@ -8,8 +9,8 @@ const router = new Router({
 
 router.post('/', checkUserAuth(), ControllerAdapter.create);
 router.get('/', ControllerAdapter.getAll);
-router.get('/:id', ControllerAdapter.getById);
-// router.put('/:id', checkUserAuth(), ControllerAdapter.update);
-// router.delete('/:id', checkUserAuth(), ControllerAdapter.delete);
+router.get('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.getById);
+router.put('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.update);
+// router.delete('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.delete);
 
 export default router;

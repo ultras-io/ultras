@@ -17,7 +17,7 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
       if (typeof message.text === 'string') {
         return message.text; // text
       }
-      if (message.pressable) {
+      if (message.email) {
         if (message.change) {
           return message.text(joinViaKeyInvert); // [Sign Up with Phone Number]
         }

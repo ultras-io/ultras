@@ -1,27 +1,15 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const AsyncStorage = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setItem: (key: string, value: string) => {},
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getItem: (key: string): string => {
-    return '';
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeItem: (key: string) => {},
-  clear: () => {},
-};
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class StorageService {
   static setItem = async (key: string, value: any) => {
     try {
-      return await AsyncStorage.setItem(key, value);
+      await AsyncStorage.setItem(key, value);
     } catch (e) {
       // handle error;
     }
   };
 
-  static getItem = async (key: string): Promise<string> => {
+  static getItem = async (key: string) => {
     try {
       return AsyncStorage.getItem(key);
     } catch (e) {
@@ -36,7 +24,11 @@ class StorageService {
 
   static getObject = async (key: string) => {
     const json = await StorageService.getItem(key);
-    return JSON.parse(json);
+    try {
+      return JSON.parse(json!);
+    } catch (e) {
+      return null;
+    }
   };
 
   static removeData = async (key: string) => {

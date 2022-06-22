@@ -1,7 +1,7 @@
 import create from 'zustand';
 import produce from 'immer';
 import { UserSDK } from '@ultras/core-api-sdk';
-import { IState, IProps, ListItemSelectType } from './types';
+import { IState, IProps } from './types';
 
 const sdk = new UserSDK('dev');
 
@@ -11,6 +11,9 @@ const initialState: IProps = {
   status: 'initial',
   statusNext: 'initial',
   step: 1,
+  loginStep: false,
+  token: '',
+  userResponse: {},
   user: {
     team: {
       id: undefined,
@@ -41,22 +44,44 @@ const initStore = () => {
     registrationStore = create<IState>((set, get) => ({
       ...initialState,
       nextStep: () =>
-        set((state: IState) => ({
+        set(state => ({
           step: state.step + 1,
           status: 'initial',
           statusNext: 'initial',
         })),
 
-      jumpToStep: (step: number) =>
+      toLoginStep: () =>
+        set(state => ({
+          loginStep: true,
+          step: state.step + 1,
+          status: 'initial',
+          statusNext: 'initial',
+        })),
+
+      jumpToStep: step =>
         set({
           step,
           status: 'initial',
           statusNext: 'initial',
         }),
 
-      setSelected: (data: ListItemSelectType) =>
+      setNotificationsAllowed: allowed =>
         set(
-          produce((state: IState) => {
+          produce(state => {
+            state.user.notificationsAllowed = allowed;
+          })
+        ),
+
+      setLocationEnabled: enabled =>
+        set(
+          produce(state => {
+            state.user.locationEnabled = enabled;
+          })
+        ),
+
+      setSelected: data =>
+        set(
+          produce(state => {
             const { dataType, ...selected } = data;
             state.user[dataType] = selected;
           })
@@ -64,7 +89,7 @@ const initStore = () => {
 
       switchJoinMethod: () =>
         set(
-          produce((state: IState) => {
+          produce(state => {
             state.user.joinVia = {
               key: state.user.joinVia.keyInvert,
               keyInvert: state.user.joinVia.key,
@@ -74,10 +99,10 @@ const initStore = () => {
           })
         ),
 
-      confirmIdentity: (value?: string) => {
+      confirmIdentity: value => {
         if (value) {
           set(
-            produce((state: IState) => {
+            produce(state => {
               state.user.joinVia.value = value!;
             })
           );
@@ -96,7 +121,7 @@ const initStore = () => {
           set({ status: 'loading' });
           promise?.then(response => {
             set(
-              produce((state: IState) => {
+              produce(state => {
                 state.user.exists = response.body.data.userExists;
                 state.status = 'success';
               })
@@ -108,9 +133,9 @@ const initStore = () => {
         }
       },
 
-      verifyCode: (value: string) => {
+      verifyCode: value => {
         set(
-          produce((state: IState) => {
+          produce(state => {
             state.user.code = value!;
           })
         );
@@ -126,7 +151,7 @@ const initStore = () => {
           set({ statusNext: 'loading' });
           promise?.then(response => {
             set(
-              produce((state: IState) => {
+              produce(state => {
                 state.user.isCodeValid = response.body.data.valid;
                 state.statusNext = 'success';
               })
@@ -138,16 +163,16 @@ const initStore = () => {
         }
       },
 
-      checkUsername: (value: string) => {
+      checkUsername: value => {
         set(
-          produce((state: IState) => {
+          produce(state => {
             state.user.username = value!;
           })
         );
 
         if (value.length < 4) {
           set(
-            produce((state: IState) => {
+            produce(state => {
               state.user.isUserNameValid = false;
               state.status = 'success';
             })
@@ -156,15 +181,43 @@ const initStore = () => {
           set({ status: 'loading' });
           sdk.checkUsernameExistence(value)?.then(response => {
             // @TODO handle error
-            set({ status: 'success' });
             set(
-              produce((state: IState) => {
-                state.user.isUserNameValid = response.body.data.available;
+              produce(state => {
                 state.status = 'success';
+                state.user.isUserNameValid = response.body.data.available;
               })
             );
           });
         }
+      },
+
+      login: () => {
+        const emailOrPhoneKey = get().user.joinVia.key;
+        const emailOrPhone = get().user.joinVia.value;
+        const code = get().user.code;
+
+        set({ status: 'loading' });
+        sdk
+          .login({ code, [emailOrPhoneKey]: emailOrPhone })
+          ?.then(response => {
+            const auth_token = response.body.meta?.auth_token!;
+            if (!auth_token) {
+              set({ status: 'error' });
+            } else {
+              set(
+                produce(state => {
+                  state.status = 'success';
+                  state.token = auth_token;
+                  state.userResponse = response.body.data.user;
+                })
+              );
+            }
+          })
+          .catch((err: any) => {
+            // @TODO handle error
+            console.error(err);
+            set({ status: 'error' });
+          });
       },
 
       register: () => {
@@ -179,13 +232,31 @@ const initStore = () => {
           sdk
             .register({ teamId, code, username, [emailOrPhoneKey]: emailOrPhone })
             ?.then(response => {
+              const auth_token = response.body.meta?.auth_token!;
+              if (!auth_token) {
+                set({ statusNext: 'error' });
+              } else {
+                set(
+                  produce(state => {
+                    state.statusNext = 'success';
+                    state.token = auth_token;
+                    state.userResponse = response.body.data.user;
+                  })
+                );
+              }
+            })
+            .catch((err: any) => {
               // @TODO handle error
-              set({ statusNext: 'success' });
-              console.log(response);
+              console.error(err);
+              set({ status: 'error' });
             });
         } else {
           set({ statusNext: 'error' });
         }
+      },
+
+      clearStore: () => {
+        set(initialState);
       },
     }));
   }

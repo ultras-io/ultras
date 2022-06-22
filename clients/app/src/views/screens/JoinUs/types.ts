@@ -3,6 +3,7 @@ import { InterfaceTextProps } from 'native-base/lib/typescript/components/primit
 export interface IJoinUsComponentProps {
   data: ChatRow[];
   useStore: any;
+  useAuthStore: any;
 }
 
 export type Message = {
@@ -11,18 +12,21 @@ export type Message = {
   jumpToStep?: number;
   availableBefore?: number;
   pressable?: boolean;
+  email?: boolean;
   change?: boolean;
 };
 
 type AnswerType =
   | 'button'
   | 'selectTeam'
-  | 'emailOrphone'
+  | 'emailOrPhone'
   | '4digits'
   | 'username'
   | 'notification'
   | 'location'
-  | 'success';
+  | 'success'
+  | 'login'
+  | 'register';
 
 export type AnswerPost = {
   text?: string | ((phoneNumber: string) => string);
@@ -73,7 +77,7 @@ export interface IRightMessageProps {
 }
 
 export interface IJoinUsButtonProps {
-  onPress?: () => void;
+  onPress: () => void;
   text?: string;
 }
 
@@ -92,4 +96,16 @@ export interface IFourDigitsMessageProps {
 
 export interface IUsernameProps {
   useStore: any;
+}
+
+export interface ILoginProps {
+  useStore: any;
+  useAuthStore: any;
+  text?: string;
+  login: boolean;
+}
+
+export interface IEnableLocationProps {
+  useStore: any;
+  text?: string;
 }

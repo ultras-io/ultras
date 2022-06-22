@@ -46,7 +46,7 @@ export class UserSDK extends CoreApiBaseSDK {
     return this.api?.makeAPIDeleteRequest('revoke-token');
   }
 
-  public getTokenInfo() {
-    return this.api?.makeAPIGetRequest('token');
+  public getMe() {
+    return this.api?.makeAPIGetRequest('me');
   }
 }

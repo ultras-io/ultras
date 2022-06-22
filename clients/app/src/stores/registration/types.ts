@@ -22,6 +22,9 @@ export interface IProps {
   status: StatusType;
   statusNext: StatusType;
   step: number;
+  loginStep: boolean;
+  token: string;
+  userResponse: any;
   user: {
     team: ListItemType;
     country: ListItemType;
@@ -38,13 +41,18 @@ export interface IProps {
 
 export interface IMethods {
   nextStep: () => void;
+  toLoginStep: () => void;
   jumpToStep: (step: number) => void;
+  setNotificationsAllowed: (allowed: boolean) => void;
+  setLocationEnabled: (enabled: boolean) => void;
   setSelected: (data: ListItemSelectType) => void;
   switchJoinMethod: () => void;
   confirmIdentity: (value?: string) => void;
   verifyCode: (value: string) => void;
   checkUsername: (value: string) => void;
+  login: () => any;
   register: () => void;
+  clearStore: () => void;
 }
 
 export interface IState extends IProps, IMethods {}
