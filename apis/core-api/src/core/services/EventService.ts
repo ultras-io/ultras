@@ -123,9 +123,13 @@ class EventService extends BaseService {
       ...this.includeRelations(),
     };
 
-    queryOptions.include.forEach((include: any) => {
-      if (include.as === resources.POST.ALIAS.SINGULAR) {
-        delete include.include;
+    queryOptions.include.forEach((relation: any) => {
+      if (relation.as === resources.POST.ALIAS.SINGULAR) {
+        if (relation.include) {
+          relation.include = relation.include.filter((postRelation: any) => {
+            return postRelation.as !== resources.MATCH.ALIAS.SINGULAR;
+          });
+        }
       }
     });
 
