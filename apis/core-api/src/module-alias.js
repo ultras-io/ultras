@@ -8,6 +8,7 @@ const aliases = {
   core: './core',
   modules: './modules',
   scripts: './scripts',
+  static: './static',
   types: './types',
   utils: './utils',
   '@constants': './config/constants.ts',

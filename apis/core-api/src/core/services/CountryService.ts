@@ -6,6 +6,7 @@ import {
   ServiceByIdResultType,
   ResourceIdentifier,
 } from 'types';
+import countriesInfo from 'static/countries.json';
 
 import db from 'core/data/models';
 import { CountryCreationAttributes } from 'core/data/models/Country';
@@ -116,6 +117,19 @@ class CountryService extends BaseService {
     await db.Country.bulkCreate(records, {
       ignoreDuplicates: true,
     });
+
+    for (const countryInfo of countriesInfo) {
+      await db.Country.update(
+        {
+          telPrefix: countryInfo.phoneCode,
+        },
+        {
+          where: {
+            code: countryInfo.countryCode2,
+          },
+        }
+      );
+    }
   }
 }
 

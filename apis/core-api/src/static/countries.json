@@ -1,0 +1,1930 @@
+[
+  {
+    "countryName": "Afghanistan",
+    "phoneCode": "+93",
+    "countryCode2": "AF",
+    "countryCode3": "AFG",
+    "population": 29121286,
+    "countryAreaKM2": 647500
+  },
+  {
+    "countryName": "Albania",
+    "phoneCode": "+355",
+    "countryCode2": "AL",
+    "countryCode3": "ALB",
+    "population": 2986952,
+    "countryAreaKM2": 28748
+  },
+  {
+    "countryName": "Algeria",
+    "phoneCode": "+213",
+    "countryCode2": "DZ",
+    "countryCode3": "DZA",
+    "population": 34586184,
+    "countryAreaKM2": 2381740
+  },
+  {
+    "countryName": "American Samoa",
+    "phoneCode": "+1684",
+    "countryCode2": "AS",
+    "countryCode3": "ASM",
+    "population": 57881,
+    "countryAreaKM2": 199
+  },
+  {
+    "countryName": "Andorra",
+    "phoneCode": "+376",
+    "countryCode2": "AD",
+    "countryCode3": "AND",
+    "population": 84000,
+    "countryAreaKM2": 468
+  },
+  {
+    "countryName": "Angola",
+    "phoneCode": "+244",
+    "countryCode2": "AO",
+    "countryCode3": "AGO",
+    "population": 13068161,
+    "countryAreaKM2": 1246700
+  },
+  {
+    "countryName": "Anguilla",
+    "phoneCode": "+1264",
+    "countryCode2": "AI",
+    "countryCode3": "AIA",
+    "population": 13254,
+    "countryAreaKM2": 102
+  },
+  {
+    "countryName": "Antarctica",
+    "phoneCode": "+672",
+    "countryCode2": "AQ",
+    "countryCode3": "ATA",
+    "population": 0,
+    "countryAreaKM2": 14000000
+  },
+  {
+    "countryName": "Antigua and Barbuda",
+    "phoneCode": "+1268",
+    "countryCode2": "AG",
+    "countryCode3": "ATG",
+    "population": 86754,
+    "countryAreaKM2": 443
+  },
+  {
+    "countryName": "Argentina",
+    "phoneCode": "+54",
+    "countryCode2": "AR",
+    "countryCode3": "ARG",
+    "population": 41343201,
+    "countryAreaKM2": 2766890
+  },
+  {
+    "countryName": "Armenia",
+    "phoneCode": "+374",
+    "countryCode2": "AM",
+    "countryCode3": "ARM",
+    "population": 2968000,
+    "countryAreaKM2": 29800
+  },
+  {
+    "countryName": "Aruba",
+    "phoneCode": "+297",
+    "countryCode2": "AW",
+    "countryCode3": "ABW",
+    "population": 71566,
+    "countryAreaKM2": 193
+  },
+  {
+    "countryName": "Australia",
+    "phoneCode": "+61",
+    "countryCode2": "AU",
+    "countryCode3": "AUS",
+    "population": 21515754,
+    "countryAreaKM2": 7686850
+  },
+  {
+    "countryName": "Austria",
+    "phoneCode": "+43",
+    "countryCode2": "AT",
+    "countryCode3": "AUT",
+    "population": 8205000,
+    "countryAreaKM2": 83858
+  },
+  {
+    "countryName": "Azerbaijan",
+    "phoneCode": "+994",
+    "countryCode2": "AZ",
+    "countryCode3": "AZE",
+    "population": 8303512,
+    "countryAreaKM2": 86600
+  },
+  {
+    "countryName": "Bahamas",
+    "phoneCode": "+1242",
+    "countryCode2": "BS",
+    "countryCode3": "BHS",
+    "population": 301790,
+    "countryAreaKM2": 13940
+  },
+  {
+    "countryName": "Bahrain",
+    "phoneCode": "+973",
+    "countryCode2": "BH",
+    "countryCode3": "BHR",
+    "population": 738004,
+    "countryAreaKM2": 665
+  },
+  {
+    "countryName": "Bangladesh",
+    "phoneCode": "+880",
+    "countryCode2": "BD",
+    "countryCode3": "BGD",
+    "population": 156118464,
+    "countryAreaKM2": 144000
+  },
+  {
+    "countryName": "Barbados",
+    "phoneCode": "+1246",
+    "countryCode2": "BB",
+    "countryCode3": "BRB",
+    "population": 285653,
+    "countryAreaKM2": 431
+  },
+  {
+    "countryName": "Belarus",
+    "phoneCode": "+375",
+    "countryCode2": "BY",
+    "countryCode3": "BLR",
+    "population": 9685000,
+    "countryAreaKM2": 207600
+  },
+  {
+    "countryName": "Belgium",
+    "phoneCode": "+32",
+    "countryCode2": "BE",
+    "countryCode3": "BEL",
+    "population": 10403000,
+    "countryAreaKM2": 30510
+  },
+  {
+    "countryName": "Belize",
+    "phoneCode": "+501",
+    "countryCode2": "BZ",
+    "countryCode3": "BLZ",
+    "population": 314522,
+    "countryAreaKM2": 22966
+  },
+  {
+    "countryName": "Benin",
+    "phoneCode": "+229",
+    "countryCode2": "BJ",
+    "countryCode3": "BEN",
+    "population": 9056010,
+    "countryAreaKM2": 112620
+  },
+  {
+    "countryName": "Bermuda",
+    "phoneCode": "+1441",
+    "countryCode2": "BM",
+    "countryCode3": "BMU",
+    "population": 65365,
+    "countryAreaKM2": 53
+  },
+  {
+    "countryName": "Bhutan",
+    "phoneCode": "+975",
+    "countryCode2": "BT",
+    "countryCode3": "BTN",
+    "population": 699847,
+    "countryAreaKM2": 47000
+  },
+  {
+    "countryName": "Bolivia",
+    "phoneCode": "+591",
+    "countryCode2": "BO",
+    "countryCode3": "BOL",
+    "population": 9947418,
+    "countryAreaKM2": 1098580
+  },
+  {
+    "countryName": "Bosnia and Herzegovina",
+    "phoneCode": "+387",
+    "countryCode2": "BA",
+    "countryCode3": "BIH",
+    "population": 4590000,
+    "countryAreaKM2": 51129
+  },
+  {
+    "countryName": "Botswana",
+    "phoneCode": "+267",
+    "countryCode2": "BW",
+    "countryCode3": "BWA",
+    "population": 2029307,
+    "countryAreaKM2": 600370
+  },
+  {
+    "countryName": "Brazil",
+    "phoneCode": "+55",
+    "countryCode2": "BR",
+    "countryCode3": "BRA",
+    "population": 201103330,
+    "countryAreaKM2": 8511965
+  },
+  {
+    "countryName": "British Indian Ocean Territory",
+    "phoneCode": "+246",
+    "countryCode2": "IO",
+    "countryCode3": "IOT",
+    "population": 4000,
+    "countryAreaKM2": 60
+  },
+  {
+    "countryName": "British Virgin Islands",
+    "phoneCode": "+1284",
+    "countryCode2": "VG",
+    "countryCode3": "VGB",
+    "population": 21730,
+    "countryAreaKM2": 153
+  },
+  {
+    "countryName": "Brunei",
+    "phoneCode": "+673",
+    "countryCode2": "BN",
+    "countryCode3": "BRN",
+    "population": 395027,
+    "countryAreaKM2": 5770
+  },
+  {
+    "countryName": "Bulgaria",
+    "phoneCode": "+359",
+    "countryCode2": "BG",
+    "countryCode3": "BGR",
+    "population": 7148785,
+    "countryAreaKM2": 110910
+  },
+  {
+    "countryName": "Burkina Faso",
+    "phoneCode": "+226",
+    "countryCode2": "BF",
+    "countryCode3": "BFA",
+    "population": 16241811,
+    "countryAreaKM2": 274200
+  },
+  {
+    "countryName": "Burundi",
+    "phoneCode": "+257",
+    "countryCode2": "BI",
+    "countryCode3": "BDI",
+    "population": 9863117,
+    "countryAreaKM2": 27830
+  },
+  {
+    "countryName": "Cambodia",
+    "phoneCode": "+855",
+    "countryCode2": "KH",
+    "countryCode3": "KHM",
+    "population": 14453680,
+    "countryAreaKM2": 181040
+  },
+  {
+    "countryName": "Cameroon",
+    "phoneCode": "+237",
+    "countryCode2": "CM",
+    "countryCode3": "CMR",
+    "population": 19294149,
+    "countryAreaKM2": 475440
+  },
+  {
+    "countryName": "Canada",
+    "phoneCode": "+1",
+    "countryCode2": "CA",
+    "countryCode3": "CAN",
+    "population": 33679000,
+    "countryAreaKM2": 9984670
+  },
+  {
+    "countryName": "Cape Verde",
+    "phoneCode": "+238",
+    "countryCode2": "CV",
+    "countryCode3": "CPV",
+    "population": 508659,
+    "countryAreaKM2": 4033
+  },
+  {
+    "countryName": "Cayman Islands",
+    "phoneCode": "+1345",
+    "countryCode2": "KY",
+    "countryCode3": "CYM",
+    "population": 44270,
+    "countryAreaKM2": 262
+  },
+  {
+    "countryName": "Central African Republic",
+    "phoneCode": "+236",
+    "countryCode2": "CF",
+    "countryCode3": "CAF",
+    "population": 4844927,
+    "countryAreaKM2": 622984
+  },
+  {
+    "countryName": "Chad",
+    "phoneCode": "+235",
+    "countryCode2": "TD",
+    "countryCode3": "TCD",
+    "population": 10543464,
+    "countryAreaKM2": 1284000
+  },
+  {
+    "countryName": "Chile",
+    "phoneCode": "+56",
+    "countryCode2": "CL",
+    "countryCode3": "CHL",
+    "population": 16746491,
+    "countryAreaKM2": 756950
+  },
+  {
+    "countryName": "China",
+    "phoneCode": "+86",
+    "countryCode2": "CN",
+    "countryCode3": "CHN",
+    "population": 1330044000,
+    "countryAreaKM2": 9596960
+  },
+  {
+    "countryName": "Christmas Island",
+    "phoneCode": "+61",
+    "countryCode2": "CX",
+    "countryCode3": "CXR",
+    "population": 1500,
+    "countryAreaKM2": 135
+  },
+  {
+    "countryName": "Cocos Islands",
+    "phoneCode": "+61",
+    "countryCode2": "CC",
+    "countryCode3": "CCK",
+    "population": 628,
+    "countryAreaKM2": 14
+  },
+  {
+    "countryName": "Colombia",
+    "phoneCode": "+57",
+    "countryCode2": "CO",
+    "countryCode3": "COL",
+    "population": 47790000,
+    "countryAreaKM2": 1138910
+  },
+  {
+    "countryName": "Comoros",
+    "phoneCode": "+269",
+    "countryCode2": "KM",
+    "countryCode3": "COM",
+    "population": 773407,
+    "countryAreaKM2": 2170
+  },
+  {
+    "countryName": "Cook Islands",
+    "phoneCode": "+682",
+    "countryCode2": "CK",
+    "countryCode3": "COK",
+    "population": 21388,
+    "countryAreaKM2": 240
+  },
+  {
+    "countryName": "Costa Rica",
+    "phoneCode": "+506",
+    "countryCode2": "CR",
+    "countryCode3": "CRI",
+    "population": 4516220,
+    "countryAreaKM2": 51100
+  },
+  {
+    "countryName": "Croatia",
+    "phoneCode": "+385",
+    "countryCode2": "HR",
+    "countryCode3": "HRV",
+    "population": 4491000,
+    "countryAreaKM2": 56542
+  },
+  {
+    "countryName": "Cuba",
+    "phoneCode": "+53",
+    "countryCode2": "CU",
+    "countryCode3": "CUB",
+    "population": 11423000,
+    "countryAreaKM2": 110860
+  },
+  {
+    "countryName": "Curacao",
+    "phoneCode": "+599",
+    "countryCode2": "CW",
+    "countryCode3": "CUW",
+    "population": 141766,
+    "countryAreaKM2": 444
+  },
+  {
+    "countryName": "Cyprus",
+    "phoneCode": "+357",
+    "countryCode2": "CY",
+    "countryCode3": "CYP",
+    "population": 1102677,
+    "countryAreaKM2": 9250
+  },
+  {
+    "countryName": "Czech Republic",
+    "phoneCode": "+420",
+    "countryCode2": "CZ",
+    "countryCode3": "CZE",
+    "population": 10476000,
+    "countryAreaKM2": 78866
+  },
+  {
+    "countryName": "Democratic Republic of the Congo",
+    "phoneCode": "+243",
+    "countryCode2": "CD",
+    "countryCode3": "COD",
+    "population": 70916439,
+    "countryAreaKM2": 2345410
+  },
+  {
+    "countryName": "Denmark",
+    "phoneCode": "+45",
+    "countryCode2": "DK",
+    "countryCode3": "DNK",
+    "population": 5484000,
+    "countryAreaKM2": 43094
+  },
+  {
+    "countryName": "Djibouti",
+    "phoneCode": "+253",
+    "countryCode2": "DJ",
+    "countryCode3": "DJI",
+    "population": 740528,
+    "countryAreaKM2": 23000
+  },
+  {
+    "countryName": "Dominica",
+    "phoneCode": "+1767",
+    "countryCode2": "DM",
+    "countryCode3": "DMA",
+    "population": 72813,
+    "countryAreaKM2": 754
+  },
+  {
+    "countryName": "Dominican Republic",
+    "phoneCode": "+1",
+    "countryCode2": "DO",
+    "countryCode3": "DOM",
+    "population": 9823821,
+    "countryAreaKM2": 48730
+  },
+  {
+    "countryName": "East Timor",
+    "phoneCode": "+670",
+    "countryCode2": "TL",
+    "countryCode3": "TLS",
+    "population": 1154625,
+    "countryAreaKM2": 15007
+  },
+  {
+    "countryName": "Ecuador",
+    "phoneCode": "+593",
+    "countryCode2": "EC",
+    "countryCode3": "ECU",
+    "population": 14790608,
+    "countryAreaKM2": 283560
+  },
+  {
+    "countryName": "Egypt",
+    "phoneCode": "+20",
+    "countryCode2": "EG",
+    "countryCode3": "EGY",
+    "population": 80471869,
+    "countryAreaKM2": 1001450
+  },
+  {
+    "countryName": "El Salvador",
+    "phoneCode": "+503",
+    "countryCode2": "SV",
+    "countryCode3": "SLV",
+    "population": 6052064,
+    "countryAreaKM2": 21040
+  },
+  {
+    "countryName": "Equatorial Guinea",
+    "phoneCode": "+240",
+    "countryCode2": "GQ",
+    "countryCode3": "GNQ",
+    "population": 1014999,
+    "countryAreaKM2": 28051
+  },
+  {
+    "countryName": "Eritrea",
+    "phoneCode": "+291",
+    "countryCode2": "ER",
+    "countryCode3": "ERI",
+    "population": 5792984,
+    "countryAreaKM2": 121320
+  },
+  {
+    "countryName": "Estonia",
+    "phoneCode": "+372",
+    "countryCode2": "EE",
+    "countryCode3": "EST",
+    "population": 1291170,
+    "countryAreaKM2": 45226
+  },
+  {
+    "countryName": "Ethiopia",
+    "phoneCode": "+251",
+    "countryCode2": "ET",
+    "countryCode3": "ETH",
+    "population": 88013491,
+    "countryAreaKM2": 1127127
+  },
+  {
+    "countryName": "Falkland Islands",
+    "phoneCode": "+500",
+    "countryCode2": "FK",
+    "countryCode3": "FLK",
+    "population": 2638,
+    "countryAreaKM2": 12173
+  },
+  {
+    "countryName": "Faroe Islands",
+    "phoneCode": "+298",
+    "countryCode2": "FO",
+    "countryCode3": "FRO",
+    "population": 48228,
+    "countryAreaKM2": 1399
+  },
+  {
+    "countryName": "Fiji",
+    "phoneCode": "+679",
+    "countryCode2": "FJ",
+    "countryCode3": "FJI",
+    "population": 875983,
+    "countryAreaKM2": 18270
+  },
+  {
+    "countryName": "Finland",
+    "phoneCode": "+358",
+    "countryCode2": "FI",
+    "countryCode3": "FIN",
+    "population": 5244000,
+    "countryAreaKM2": 337030
+  },
+  {
+    "countryName": "France",
+    "phoneCode": "+33",
+    "countryCode2": "FR",
+    "countryCode3": "FRA",
+    "population": 64768389,
+    "countryAreaKM2": 547030
+  },
+  {
+    "countryName": "French Polynesia",
+    "phoneCode": "+689",
+    "countryCode2": "PF",
+    "countryCode3": "PYF",
+    "population": 270485,
+    "countryAreaKM2": 4167
+  },
+  {
+    "countryName": "Gabon",
+    "phoneCode": "+241",
+    "countryCode2": "GA",
+    "countryCode3": "GAB",
+    "population": 1545255,
+    "countryAreaKM2": 267667
+  },
+  {
+    "countryName": "Gambia",
+    "phoneCode": "+220",
+    "countryCode2": "GM",
+    "countryCode3": "GMB",
+    "population": 1593256,
+    "countryAreaKM2": 11300
+  },
+  {
+    "countryName": "Georgia",
+    "phoneCode": "+995",
+    "countryCode2": "GE",
+    "countryCode3": "GEO",
+    "population": 4630000,
+    "countryAreaKM2": 69700
+  },
+  {
+    "countryName": "Germany",
+    "phoneCode": "+49",
+    "countryCode2": "DE",
+    "countryCode3": "DEU",
+    "population": 81802257,
+    "countryAreaKM2": 357021
+  },
+  {
+    "countryName": "Ghana",
+    "phoneCode": "+233",
+    "countryCode2": "GH",
+    "countryCode3": "GHA",
+    "population": 24339838,
+    "countryAreaKM2": 239460
+  },
+  {
+    "countryName": "Gibraltar",
+    "phoneCode": "+350",
+    "countryCode2": "GI",
+    "countryCode3": "GIB",
+    "population": 27884,
+    "countryAreaKM2": 7
+  },
+  {
+    "countryName": "Greece",
+    "phoneCode": "+30",
+    "countryCode2": "GR",
+    "countryCode3": "GRC",
+    "population": 11000000,
+    "countryAreaKM2": 131940
+  },
+  {
+    "countryName": "Greenland",
+    "phoneCode": "+299",
+    "countryCode2": "GL",
+    "countryCode3": "GRL",
+    "population": 56375,
+    "countryAreaKM2": 2166086
+  },
+  {
+    "countryName": "Grenada",
+    "phoneCode": "+1473",
+    "countryCode2": "GD",
+    "countryCode3": "GRD",
+    "population": 107818,
+    "countryAreaKM2": 344
+  },
+  {
+    "countryName": "Guadeloupe",
+    "phoneCode": "+590",
+    "countryCode2": "GP",
+    "countryCode3": "GLP",
+    "population": 395700,
+    "countryAreaKM2": 1628
+  },
+  {
+    "countryName": "Guam",
+    "phoneCode": "+1671",
+    "countryCode2": "GU",
+    "countryCode3": "GUM",
+    "population": 159358,
+    "countryAreaKM2": 549
+  },
+  {
+    "countryName": "Guatemala",
+    "phoneCode": "+502",
+    "countryCode2": "GT",
+    "countryCode3": "GTM",
+    "population": 13550440,
+    "countryAreaKM2": 108890
+  },
+  {
+    "countryName": "Guernsey",
+    "phoneCode": "+441481",
+    "countryCode2": "GG",
+    "countryCode3": "GGY",
+    "population": 65228,
+    "countryAreaKM2": 78
+  },
+  {
+    "countryName": "Guinea",
+    "phoneCode": "+224",
+    "countryCode2": "GN",
+    "countryCode3": "GIN",
+    "population": 10324025,
+    "countryAreaKM2": 245857
+  },
+  {
+    "countryName": "Guinea-Bissau",
+    "phoneCode": "+245",
+    "countryCode2": "GW",
+    "countryCode3": "GNB",
+    "population": 1565126,
+    "countryAreaKM2": 36120
+  },
+  {
+    "countryName": "Guyana",
+    "phoneCode": "+592",
+    "countryCode2": "GY",
+    "countryCode3": "GUY",
+    "population": 748486,
+    "countryAreaKM2": 214970
+  },
+  {
+    "countryName": "Haiti",
+    "phoneCode": "+509",
+    "countryCode2": "HT",
+    "countryCode3": "HTI",
+    "population": 9648924,
+    "countryAreaKM2": 27750
+  },
+  {
+    "countryName": "Honduras",
+    "phoneCode": "+504",
+    "countryCode2": "HN",
+    "countryCode3": "HND",
+    "population": 7989415,
+    "countryAreaKM2": 112090
+  },
+  {
+    "countryName": "Hong Kong",
+    "phoneCode": "+852",
+    "countryCode2": "HK",
+    "countryCode3": "HKG",
+    "population": 6898686,
+    "countryAreaKM2": 1092
+  },
+  {
+    "countryName": "Hungary",
+    "phoneCode": "+36",
+    "countryCode2": "HU",
+    "countryCode3": "HUN",
+    "population": 9982000,
+    "countryAreaKM2": 93030
+  },
+  {
+    "countryName": "Iceland",
+    "phoneCode": "+354",
+    "countryCode2": "IS",
+    "countryCode3": "ISL",
+    "population": 308910,
+    "countryAreaKM2": 103000
+  },
+  {
+    "countryName": "India",
+    "phoneCode": "+91",
+    "countryCode2": "IN",
+    "countryCode3": "IND",
+    "population": 1173108018,
+    "countryAreaKM2": 3287590
+  },
+  {
+    "countryName": "Indonesia",
+    "phoneCode": "+62",
+    "countryCode2": "ID",
+    "countryCode3": "IDN",
+    "population": 242968342,
+    "countryAreaKM2": 1919440
+  },
+  {
+    "countryName": "Iran",
+    "phoneCode": "+98",
+    "countryCode2": "IR",
+    "countryCode3": "IRN",
+    "population": 76923300,
+    "countryAreaKM2": 1648000
+  },
+  {
+    "countryName": "Iraq",
+    "phoneCode": "+964",
+    "countryCode2": "IQ",
+    "countryCode3": "IRQ",
+    "population": 29671605,
+    "countryAreaKM2": 437072
+  },
+  {
+    "countryName": "Ireland",
+    "phoneCode": "+353",
+    "countryCode2": "IE",
+    "countryCode3": "IRL",
+    "population": 4622917,
+    "countryAreaKM2": 70280
+  },
+  {
+    "countryName": "Isle of Man",
+    "phoneCode": "+441624",
+    "countryCode2": "IM",
+    "countryCode3": "IMN",
+    "population": 75049,
+    "countryAreaKM2": 572
+  },
+  {
+    "countryName": "Israel",
+    "phoneCode": "+972",
+    "countryCode2": "IL",
+    "countryCode3": "ISR",
+    "population": 7353985,
+    "countryAreaKM2": 20770
+  },
+  {
+    "countryName": "Italy",
+    "phoneCode": "+39",
+    "countryCode2": "IT",
+    "countryCode3": "ITA",
+    "population": 60340328,
+    "countryAreaKM2": 301230
+  },
+  {
+    "countryName": "Ivory Coast",
+    "phoneCode": "+225",
+    "countryCode2": "CI",
+    "countryCode3": "CIV",
+    "population": 21058798,
+    "countryAreaKM2": 322460
+  },
+  {
+    "countryName": "Jamaica",
+    "phoneCode": "+1876",
+    "countryCode2": "JM",
+    "countryCode3": "JAM",
+    "population": 2847232,
+    "countryAreaKM2": 10991
+  },
+  {
+    "countryName": "Japan",
+    "phoneCode": "+81",
+    "countryCode2": "JP",
+    "countryCode3": "JPN",
+    "population": 127288000,
+    "countryAreaKM2": 377835
+  },
+  {
+    "countryName": "Jersey",
+    "phoneCode": "+441534",
+    "countryCode2": "JE",
+    "countryCode3": "JEY",
+    "population": 90812,
+    "countryAreaKM2": 116
+  },
+  {
+    "countryName": "Jordan",
+    "phoneCode": "+962",
+    "countryCode2": "JO",
+    "countryCode3": "JOR",
+    "population": 6407085,
+    "countryAreaKM2": 92300
+  },
+  {
+    "countryName": "Kazakhstan",
+    "phoneCode": "+7",
+    "countryCode2": "KZ",
+    "countryCode3": "KAZ",
+    "population": 15340000,
+    "countryAreaKM2": 2717300
+  },
+  {
+    "countryName": "Kenya",
+    "phoneCode": "+254",
+    "countryCode2": "KE",
+    "countryCode3": "KEN",
+    "population": 40046566,
+    "countryAreaKM2": 582650
+  },
+  {
+    "countryName": "Kiribati",
+    "phoneCode": "+686",
+    "countryCode2": "KI",
+    "countryCode3": "KIR",
+    "population": 92533,
+    "countryAreaKM2": 811
+  },
+  {
+    "countryName": "Kosovo",
+    "phoneCode": "+383",
+    "countryCode2": "XK",
+    "countryCode3": "XKX",
+    "population": 1800000,
+    "countryAreaKM2": 10887
+  },
+  {
+    "countryName": "Kuwait",
+    "phoneCode": "+965",
+    "countryCode2": "KW",
+    "countryCode3": "KWT",
+    "population": 2789132,
+    "countryAreaKM2": 17820
+  },
+  {
+    "countryName": "Kyrgyzstan",
+    "phoneCode": "+996",
+    "countryCode2": "KG",
+    "countryCode3": "KGZ",
+    "population": 5508626,
+    "countryAreaKM2": 198500
+  },
+  {
+    "countryName": "Laos",
+    "phoneCode": "+856",
+    "countryCode2": "LA",
+    "countryCode3": "LAO",
+    "population": 6368162,
+    "countryAreaKM2": 236800
+  },
+  {
+    "countryName": "Latvia",
+    "phoneCode": "+371",
+    "countryCode2": "LV",
+    "countryCode3": "LVA",
+    "population": 2217969,
+    "countryAreaKM2": 64589
+  },
+  {
+    "countryName": "Lebanon",
+    "phoneCode": "+961",
+    "countryCode2": "LB",
+    "countryCode3": "LBN",
+    "population": 4125247,
+    "countryAreaKM2": 10400
+  },
+  {
+    "countryName": "Lesotho",
+    "phoneCode": "+266",
+    "countryCode2": "LS",
+    "countryCode3": "LSO",
+    "population": 1919552,
+    "countryAreaKM2": 30355
+  },
+  {
+    "countryName": "Liberia",
+    "phoneCode": "+231",
+    "countryCode2": "LR",
+    "countryCode3": "LBR",
+    "population": 3685076,
+    "countryAreaKM2": 111370
+  },
+  {
+    "countryName": "Libya",
+    "phoneCode": "+218",
+    "countryCode2": "LY",
+    "countryCode3": "LBY",
+    "population": 6461454,
+    "countryAreaKM2": 1759540
+  },
+  {
+    "countryName": "Liechtenstein",
+    "phoneCode": "+423",
+    "countryCode2": "LI",
+    "countryCode3": "LIE",
+    "population": 35000,
+    "countryAreaKM2": 160
+  },
+  {
+    "countryName": "Lithuania",
+    "phoneCode": "+370",
+    "countryCode2": "LT",
+    "countryCode3": "LTU",
+    "population": 2944459,
+    "countryAreaKM2": 65200
+  },
+  {
+    "countryName": "Luxembourg",
+    "phoneCode": "+352",
+    "countryCode2": "LU",
+    "countryCode3": "LUX",
+    "population": 497538,
+    "countryAreaKM2": 2586
+  },
+  {
+    "countryName": "Macau",
+    "phoneCode": "+853",
+    "countryCode2": "MO",
+    "countryCode3": "MAC",
+    "population": 449198,
+    "countryAreaKM2": 254
+  },
+  {
+    "countryName": "Macedonia",
+    "phoneCode": "+389",
+    "countryCode2": "MK",
+    "countryCode3": "MKD",
+    "population": 2062294,
+    "countryAreaKM2": 25333
+  },
+  {
+    "countryName": "Madagascar",
+    "phoneCode": "+261",
+    "countryCode2": "MG",
+    "countryCode3": "MDG",
+    "population": 21281844,
+    "countryAreaKM2": 587040
+  },
+  {
+    "countryName": "Malawi",
+    "phoneCode": "+265",
+    "countryCode2": "MW",
+    "countryCode3": "MWI",
+    "population": 15447500,
+    "countryAreaKM2": 118480
+  },
+  {
+    "countryName": "Malaysia",
+    "phoneCode": "+60",
+    "countryCode2": "MY",
+    "countryCode3": "MYS",
+    "population": 28274729,
+    "countryAreaKM2": 329750
+  },
+  {
+    "countryName": "Maldives",
+    "phoneCode": "+960",
+    "countryCode2": "MV",
+    "countryCode3": "MDV",
+    "population": 395650,
+    "countryAreaKM2": 300
+  },
+  {
+    "countryName": "Mali",
+    "phoneCode": "+223",
+    "countryCode2": "ML",
+    "countryCode3": "MLI",
+    "population": 13796354,
+    "countryAreaKM2": 1240000
+  },
+  {
+    "countryName": "Malta",
+    "phoneCode": "+356",
+    "countryCode2": "MT",
+    "countryCode3": "MLT",
+    "population": 403000,
+    "countryAreaKM2": 316
+  },
+  {
+    "countryName": "Marshall Islands",
+    "phoneCode": "+692",
+    "countryCode2": "MH",
+    "countryCode3": "MHL",
+    "population": 65859,
+    "countryAreaKM2": 181
+  },
+  {
+    "countryName": "Mauritania",
+    "phoneCode": "+222",
+    "countryCode2": "MR",
+    "countryCode3": "MRT",
+    "population": 3205060,
+    "countryAreaKM2": 1030700
+  },
+  {
+    "countryName": "Mauritius",
+    "phoneCode": "+230",
+    "countryCode2": "MU",
+    "countryCode3": "MUS",
+    "population": 1294104,
+    "countryAreaKM2": 2040
+  },
+  {
+    "countryName": "Mayotte",
+    "phoneCode": "+262",
+    "countryCode2": "YT",
+    "countryCode3": "MYT",
+    "population": 159042,
+    "countryAreaKM2": 374
+  },
+  {
+    "countryName": "Mexico",
+    "phoneCode": "+52",
+    "countryCode2": "MX",
+    "countryCode3": "MEX",
+    "population": 112468855,
+    "countryAreaKM2": 1972550
+  },
+  {
+    "countryName": "Micronesia",
+    "phoneCode": "+691",
+    "countryCode2": "FM",
+    "countryCode3": "FSM",
+    "population": 107708,
+    "countryAreaKM2": 702
+  },
+  {
+    "countryName": "Moldova",
+    "phoneCode": "+373",
+    "countryCode2": "MD",
+    "countryCode3": "MDA",
+    "population": 4324000,
+    "countryAreaKM2": 33843
+  },
+  {
+    "countryName": "Monaco",
+    "phoneCode": "+377",
+    "countryCode2": "MC",
+    "countryCode3": "MCO",
+    "population": 32965,
+    "countryAreaKM2": 2
+  },
+  {
+    "countryName": "Mongolia",
+    "phoneCode": "+976",
+    "countryCode2": "MN",
+    "countryCode3": "MNG",
+    "population": 3086918,
+    "countryAreaKM2": 1565000
+  },
+  {
+    "countryName": "Montenegro",
+    "phoneCode": "+382",
+    "countryCode2": "ME",
+    "countryCode3": "MNE",
+    "population": 666730,
+    "countryAreaKM2": 14026
+  },
+  {
+    "countryName": "Montserrat",
+    "phoneCode": "+1664",
+    "countryCode2": "MS",
+    "countryCode3": "MSR",
+    "population": 9341,
+    "countryAreaKM2": 102
+  },
+  {
+    "countryName": "Morocco",
+    "phoneCode": "+212",
+    "countryCode2": "MA",
+    "countryCode3": "MAR",
+    "population": 31627428,
+    "countryAreaKM2": 446550
+  },
+  {
+    "countryName": "Mozambique",
+    "phoneCode": "+258",
+    "countryCode2": "MZ",
+    "countryCode3": "MOZ",
+    "population": 22061451,
+    "countryAreaKM2": 801590
+  },
+  {
+    "countryName": "Myanmar",
+    "phoneCode": "+95",
+    "countryCode2": "MM",
+    "countryCode3": "MMR",
+    "population": 53414374,
+    "countryAreaKM2": 678500
+  },
+  {
+    "countryName": "Namibia",
+    "phoneCode": "+264",
+    "countryCode2": "NA",
+    "countryCode3": "NAM",
+    "population": 2128471,
+    "countryAreaKM2": 825418
+  },
+  {
+    "countryName": "Nauru",
+    "phoneCode": "+674",
+    "countryCode2": "NR",
+    "countryCode3": "NRU",
+    "population": 10065,
+    "countryAreaKM2": 21
+  },
+  {
+    "countryName": "Nepal",
+    "phoneCode": "+977",
+    "countryCode2": "NP",
+    "countryCode3": "NPL",
+    "population": 28951852,
+    "countryAreaKM2": 140800
+  },
+  {
+    "countryName": "Netherlands",
+    "phoneCode": "+31",
+    "countryCode2": "NL",
+    "countryCode3": "NLD",
+    "population": 16645000,
+    "countryAreaKM2": 41526
+  },
+  {
+    "countryName": "Netherlands Antilles",
+    "phoneCode": "+599",
+    "countryCode2": "AN",
+    "countryCode3": "ANT",
+    "population": 136197,
+    "countryAreaKM2": 960
+  },
+  {
+    "countryName": "New Caledonia",
+    "phoneCode": "+687",
+    "countryCode2": "NC",
+    "countryCode3": "NCL",
+    "population": 216494,
+    "countryAreaKM2": 19060
+  },
+  {
+    "countryName": "New Zealand",
+    "phoneCode": "+64",
+    "countryCode2": "NZ",
+    "countryCode3": "NZL",
+    "population": 4252277,
+    "countryAreaKM2": 268680
+  },
+  {
+    "countryName": "Nicaragua",
+    "phoneCode": "+505",
+    "countryCode2": "NI",
+    "countryCode3": "NIC",
+    "population": 5995928,
+    "countryAreaKM2": 129494
+  },
+  {
+    "countryName": "Niger",
+    "phoneCode": "+227",
+    "countryCode2": "NE",
+    "countryCode3": "NER",
+    "population": 15878271,
+    "countryAreaKM2": 1267000
+  },
+  {
+    "countryName": "Nigeria",
+    "phoneCode": "+234",
+    "countryCode2": "NG",
+    "countryCode3": "NGA",
+    "population": 154000000,
+    "countryAreaKM2": 923768
+  },
+  {
+    "countryName": "Niue",
+    "phoneCode": "+683",
+    "countryCode2": "NU",
+    "countryCode3": "NIU",
+    "population": 2166,
+    "countryAreaKM2": 260
+  },
+  {
+    "countryName": "North Korea",
+    "phoneCode": "+850",
+    "countryCode2": "KP",
+    "countryCode3": "PRK",
+    "population": 22912177,
+    "countryAreaKM2": 120540
+  },
+  {
+    "countryName": "Northern Mariana Islands",
+    "phoneCode": "+1670",
+    "countryCode2": "MP",
+    "countryCode3": "MNP",
+    "population": 53883,
+    "countryAreaKM2": 477
+  },
+  {
+    "countryName": "Norway",
+    "phoneCode": "+47",
+    "countryCode2": "NO",
+    "countryCode3": "NOR",
+    "population": 5009150,
+    "countryAreaKM2": 324220
+  },
+  {
+    "countryName": "Oman",
+    "phoneCode": "+968",
+    "countryCode2": "OM",
+    "countryCode3": "OMN",
+    "population": 2967717,
+    "countryAreaKM2": 212460
+  },
+  {
+    "countryName": "Pakistan",
+    "phoneCode": "+92",
+    "countryCode2": "PK",
+    "countryCode3": "PAK",
+    "population": 184404791,
+    "countryAreaKM2": 803940
+  },
+  {
+    "countryName": "Palau",
+    "phoneCode": "+680",
+    "countryCode2": "PW",
+    "countryCode3": "PLW",
+    "population": 19907,
+    "countryAreaKM2": 458
+  },
+  {
+    "countryName": "Palestine",
+    "phoneCode": "+970",
+    "countryCode2": "PS",
+    "countryCode3": "PSE",
+    "population": 3800000,
+    "countryAreaKM2": 5970
+  },
+  {
+    "countryName": "Panama",
+    "phoneCode": "+507",
+    "countryCode2": "PA",
+    "countryCode3": "PAN",
+    "population": 3410676,
+    "countryAreaKM2": 78200
+  },
+  {
+    "countryName": "Papua New Guinea",
+    "phoneCode": "+675",
+    "countryCode2": "PG",
+    "countryCode3": "PNG",
+    "population": 6064515,
+    "countryAreaKM2": 462840
+  },
+  {
+    "countryName": "Paraguay",
+    "phoneCode": "+595",
+    "countryCode2": "PY",
+    "countryCode3": "PRY",
+    "population": 6375830,
+    "countryAreaKM2": 406750
+  },
+  {
+    "countryName": "Peru",
+    "phoneCode": "+51",
+    "countryCode2": "PE",
+    "countryCode3": "PER",
+    "population": 29907003,
+    "countryAreaKM2": 1285220
+  },
+  {
+    "countryName": "Philippines",
+    "phoneCode": "+63",
+    "countryCode2": "PH",
+    "countryCode3": "PHL",
+    "population": 99900177,
+    "countryAreaKM2": 300000
+  },
+  {
+    "countryName": "Pitcairn",
+    "phoneCode": "+64",
+    "countryCode2": "PN",
+    "countryCode3": "PCN",
+    "population": 46,
+    "countryAreaKM2": 47
+  },
+  {
+    "countryName": "Poland",
+    "phoneCode": "+48",
+    "countryCode2": "PL",
+    "countryCode3": "POL",
+    "population": 38500000,
+    "countryAreaKM2": 312685
+  },
+  {
+    "countryName": "Portugal",
+    "phoneCode": "+351",
+    "countryCode2": "PT",
+    "countryCode3": "PRT",
+    "population": 10676000,
+    "countryAreaKM2": 92391
+  },
+  {
+    "countryName": "Puerto Rico",
+    "phoneCode": "+1787, 1939",
+    "countryCode2": "PR",
+    "countryCode3": "PRI",
+    "population": 3916632,
+    "countryAreaKM2": 9104
+  },
+  {
+    "countryName": "Qatar",
+    "phoneCode": "+974",
+    "countryCode2": "QA",
+    "countryCode3": "QAT",
+    "population": 840926,
+    "countryAreaKM2": 11437
+  },
+  {
+    "countryName": "Republic of the Congo",
+    "phoneCode": "+242",
+    "countryCode2": "CG",
+    "countryCode3": "COG",
+    "population": 3039126,
+    "countryAreaKM2": 342000
+  },
+  {
+    "countryName": "Reunion",
+    "phoneCode": "+262",
+    "countryCode2": "RE",
+    "countryCode3": "REU",
+    "population": 776948,
+    "countryAreaKM2": 2517
+  },
+  {
+    "countryName": "Romania",
+    "phoneCode": "+40",
+    "countryCode2": "RO",
+    "countryCode3": "ROU",
+    "population": 21959278,
+    "countryAreaKM2": 237500
+  },
+  {
+    "countryName": "Russia",
+    "phoneCode": "+7",
+    "countryCode2": "RU",
+    "countryCode3": "RUS",
+    "population": 140702000,
+    "countryAreaKM2": 17100000
+  },
+  {
+    "countryName": "Rwanda",
+    "phoneCode": "+250",
+    "countryCode2": "RW",
+    "countryCode3": "RWA",
+    "population": 11055976,
+    "countryAreaKM2": 26338
+  },
+  {
+    "countryName": "Saint Barthelemy",
+    "phoneCode": "+590",
+    "countryCode2": "BL",
+    "countryCode3": "BLM",
+    "population": 8450,
+    "countryAreaKM2": 21
+  },
+  {
+    "countryName": "Saint Helena",
+    "phoneCode": "+290",
+    "countryCode2": "SH",
+    "countryCode3": "SHN",
+    "population": 7460,
+    "countryAreaKM2": 410
+  },
+  {
+    "countryName": "Saint Kitts and Nevis",
+    "phoneCode": "+1869",
+    "countryCode2": "KN",
+    "countryCode3": "KNA",
+    "population": 51134,
+    "countryAreaKM2": 261
+  },
+  {
+    "countryName": "Saint Lucia",
+    "phoneCode": "+1758",
+    "countryCode2": "LC",
+    "countryCode3": "LCA",
+    "population": 160922,
+    "countryAreaKM2": 616
+  },
+  {
+    "countryName": "Saint Martin",
+    "phoneCode": "+590",
+    "countryCode2": "MF",
+    "countryCode3": "MAF",
+    "population": 35925,
+    "countryAreaKM2": 53
+  },
+  {
+    "countryName": "Saint Pierre and Miquelon",
+    "phoneCode": "+508",
+    "countryCode2": "PM",
+    "countryCode3": "SPM",
+    "population": 7012,
+    "countryAreaKM2": 242
+  },
+  {
+    "countryName": "Saint Vincent and the Grenadines",
+    "phoneCode": "+1784",
+    "countryCode2": "VC",
+    "countryCode3": "VCT",
+    "population": 104217,
+    "countryAreaKM2": 389
+  },
+  {
+    "countryName": "Samoa",
+    "phoneCode": "+685",
+    "countryCode2": "WS",
+    "countryCode3": "WSM",
+    "population": 192001,
+    "countryAreaKM2": 2944
+  },
+  {
+    "countryName": "San Marino",
+    "phoneCode": "+378",
+    "countryCode2": "SM",
+    "countryCode3": "SMR",
+    "population": 31477,
+    "countryAreaKM2": 61
+  },
+  {
+    "countryName": "Sao Tome and Principe",
+    "phoneCode": "+239",
+    "countryCode2": "ST",
+    "countryCode3": "STP",
+    "population": 175808,
+    "countryAreaKM2": 1001
+  },
+  {
+    "countryName": "Saudi Arabia",
+    "phoneCode": "+966",
+    "countryCode2": "SA",
+    "countryCode3": "SAU",
+    "population": 25731776,
+    "countryAreaKM2": 1960582
+  },
+  {
+    "countryName": "Senegal",
+    "phoneCode": "+221",
+    "countryCode2": "SN",
+    "countryCode3": "SEN",
+    "population": 12323252,
+    "countryAreaKM2": 196190
+  },
+  {
+    "countryName": "Serbia",
+    "phoneCode": "+381",
+    "countryCode2": "RS",
+    "countryCode3": "SRB",
+    "population": 7344847,
+    "countryAreaKM2": 88361
+  },
+  {
+    "countryName": "Seychelles",
+    "phoneCode": "+248",
+    "countryCode2": "SC",
+    "countryCode3": "SYC",
+    "population": 88340,
+    "countryAreaKM2": 455
+  },
+  {
+    "countryName": "Sierra Leone",
+    "phoneCode": "+232",
+    "countryCode2": "SL",
+    "countryCode3": "SLE",
+    "population": 5245695,
+    "countryAreaKM2": 71740
+  },
+  {
+    "countryName": "Singapore",
+    "phoneCode": "+65",
+    "countryCode2": "SG",
+    "countryCode3": "SGP",
+    "population": 4701069,
+    "countryAreaKM2": 693
+  },
+  {
+    "countryName": "Sint Maarten",
+    "phoneCode": "+1721",
+    "countryCode2": "SX",
+    "countryCode3": "SXM",
+    "population": 37429,
+    "countryAreaKM2": 34
+  },
+  {
+    "countryName": "Slovakia",
+    "phoneCode": "+421",
+    "countryCode2": "SK",
+    "countryCode3": "SVK",
+    "population": 5455000,
+    "countryAreaKM2": 48845
+  },
+  {
+    "countryName": "Slovenia",
+    "phoneCode": "+386",
+    "countryCode2": "SI",
+    "countryCode3": "SVN",
+    "population": 2007000,
+    "countryAreaKM2": 20273
+  },
+  {
+    "countryName": "Solomon Islands",
+    "phoneCode": "+677",
+    "countryCode2": "SB",
+    "countryCode3": "SLB",
+    "population": 559198,
+    "countryAreaKM2": 28450
+  },
+  {
+    "countryName": "Somalia",
+    "phoneCode": "+252",
+    "countryCode2": "SO",
+    "countryCode3": "SOM",
+    "population": 10112453,
+    "countryAreaKM2": 637657
+  },
+  {
+    "countryName": "South Africa",
+    "phoneCode": "+27",
+    "countryCode2": "ZA",
+    "countryCode3": "ZAF",
+    "population": 49000000,
+    "countryAreaKM2": 1219912
+  },
+  {
+    "countryName": "South Korea",
+    "phoneCode": "+82",
+    "countryCode2": "KR",
+    "countryCode3": "KOR",
+    "population": 48422644,
+    "countryAreaKM2": 98480
+  },
+  {
+    "countryName": "South Sudan",
+    "phoneCode": "+211",
+    "countryCode2": "SS",
+    "countryCode3": "SSD",
+    "population": 8260490,
+    "countryAreaKM2": 644329
+  },
+  {
+    "countryName": "Spain",
+    "phoneCode": "+34",
+    "countryCode2": "ES",
+    "countryCode3": "ESP",
+    "population": 46505963,
+    "countryAreaKM2": 504782
+  },
+  {
+    "countryName": "Sri Lanka",
+    "phoneCode": "+94",
+    "countryCode2": "LK",
+    "countryCode3": "LKA",
+    "population": 21513990,
+    "countryAreaKM2": 65610
+  },
+  {
+    "countryName": "Sudan",
+    "phoneCode": "+249",
+    "countryCode2": "SD",
+    "countryCode3": "SDN",
+    "population": 35000000,
+    "countryAreaKM2": 1861484
+  },
+  {
+    "countryName": "Suriname",
+    "phoneCode": "+597",
+    "countryCode2": "SR",
+    "countryCode3": "SUR",
+    "population": 492829,
+    "countryAreaKM2": 163270
+  },
+  {
+    "countryName": "Svalbard and Jan Mayen",
+    "phoneCode": "+47",
+    "countryCode2": "SJ",
+    "countryCode3": "SJM",
+    "population": 2550,
+    "countryAreaKM2": 62049
+  },
+  {
+    "countryName": "Swaziland",
+    "phoneCode": "+268",
+    "countryCode2": "SZ",
+    "countryCode3": "SWZ",
+    "population": 1354051,
+    "countryAreaKM2": 17363
+  },
+  {
+    "countryName": "Sweden",
+    "phoneCode": "+46",
+    "countryCode2": "SE",
+    "countryCode3": "SWE",
+    "population": 9555893,
+    "countryAreaKM2": 449964
+  },
+  {
+    "countryName": "Switzerland",
+    "phoneCode": "+41",
+    "countryCode2": "CH",
+    "countryCode3": "CHE",
+    "population": 7581000,
+    "countryAreaKM2": 41290
+  },
+  {
+    "countryName": "Syria",
+    "phoneCode": "+963",
+    "countryCode2": "SY",
+    "countryCode3": "SYR",
+    "population": 22198110,
+    "countryAreaKM2": 185180
+  },
+  {
+    "countryName": "Taiwan",
+    "phoneCode": "+886",
+    "countryCode2": "TW",
+    "countryCode3": "TWN",
+    "population": 22894384,
+    "countryAreaKM2": 35980
+  },
+  {
+    "countryName": "Tajikistan",
+    "phoneCode": "+992",
+    "countryCode2": "TJ",
+    "countryCode3": "TJK",
+    "population": 7487489,
+    "countryAreaKM2": 143100
+  },
+  {
+    "countryName": "Tanzania",
+    "phoneCode": "+255",
+    "countryCode2": "TZ",
+    "countryCode3": "TZA",
+    "population": 41892895,
+    "countryAreaKM2": 945087
+  },
+  {
+    "countryName": "Thailand",
+    "phoneCode": "+66",
+    "countryCode2": "TH",
+    "countryCode3": "THA",
+    "population": 67089500,
+    "countryAreaKM2": 514000
+  },
+  {
+    "countryName": "Togo",
+    "phoneCode": "+228",
+    "countryCode2": "TG",
+    "countryCode3": "TGO",
+    "population": 6587239,
+    "countryAreaKM2": 56785
+  },
+  {
+    "countryName": "Tokelau",
+    "phoneCode": "+690",
+    "countryCode2": "TK",
+    "countryCode3": "TKL",
+    "population": 1466,
+    "countryAreaKM2": 10
+  },
+  {
+    "countryName": "Tonga",
+    "phoneCode": "+676",
+    "countryCode2": "TO",
+    "countryCode3": "TON",
+    "population": 122580,
+    "countryAreaKM2": 748
+  },
+  {
+    "countryName": "Trinidad and Tobago",
+    "phoneCode": "+1868",
+    "countryCode2": "TT",
+    "countryCode3": "TTO",
+    "population": 1228691,
+    "countryAreaKM2": 5128
+  },
+  {
+    "countryName": "Tunisia",
+    "phoneCode": "+216",
+    "countryCode2": "TN",
+    "countryCode3": "TUN",
+    "population": 10589025,
+    "countryAreaKM2": 163610
+  },
+  {
+    "countryName": "Turkey",
+    "phoneCode": "+90",
+    "countryCode2": "TR",
+    "countryCode3": "TUR",
+    "population": 77804122,
+    "countryAreaKM2": 780580
+  },
+  {
+    "countryName": "Turkmenistan",
+    "phoneCode": "+993",
+    "countryCode2": "TM",
+    "countryCode3": "TKM",
+    "population": 4940916,
+    "countryAreaKM2": 488100
+  },
+  {
+    "countryName": "Turks and Caicos Islands",
+    "phoneCode": "+1649",
+    "countryCode2": "TC",
+    "countryCode3": "TCA",
+    "population": 20556,
+    "countryAreaKM2": 430
+  },
+  {
+    "countryName": "Tuvalu",
+    "phoneCode": "+688",
+    "countryCode2": "TV",
+    "countryCode3": "TUV",
+    "population": 10472,
+    "countryAreaKM2": 26
+  },
+  {
+    "countryName": "U.S. Virgin Islands",
+    "phoneCode": "+1340",
+    "countryCode2": "VI",
+    "countryCode3": "VIR",
+    "population": 108708,
+    "countryAreaKM2": 352
+  },
+  {
+    "countryName": "Uganda",
+    "phoneCode": "+256",
+    "countryCode2": "UG",
+    "countryCode3": "UGA",
+    "population": 33398682,
+    "countryAreaKM2": 236040
+  },
+  {
+    "countryName": "Ukraine",
+    "phoneCode": "+380",
+    "countryCode2": "UA",
+    "countryCode3": "UKR",
+    "population": 45415596,
+    "countryAreaKM2": 603700
+  },
+  {
+    "countryName": "United Arab Emirates",
+    "phoneCode": "+971",
+    "countryCode2": "AE",
+    "countryCode3": "ARE",
+    "population": 4975593,
+    "countryAreaKM2": 82880
+  },
+  {
+    "countryName": "United Kingdom",
+    "phoneCode": "+44",
+    "countryCode2": "GB",
+    "countryCode3": "GBR",
+    "population": 62348447,
+    "countryAreaKM2": 244820
+  },
+  {
+    "countryName": "United States",
+    "phoneCode": "+1",
+    "countryCode2": "US",
+    "countryCode3": "USA",
+    "population": 310232863,
+    "countryAreaKM2": 9629091
+  },
+  {
+    "countryName": "Uruguay",
+    "phoneCode": "+598",
+    "countryCode2": "UY",
+    "countryCode3": "URY",
+    "population": 3477000,
+    "countryAreaKM2": 176220
+  },
+  {
+    "countryName": "Uzbekistan",
+    "phoneCode": "+998",
+    "countryCode2": "UZ",
+    "countryCode3": "UZB",
+    "population": 27865738,
+    "countryAreaKM2": 447400
+  },
+  {
+    "countryName": "Vanuatu",
+    "phoneCode": "+678",
+    "countryCode2": "VU",
+    "countryCode3": "VUT",
+    "population": 221552,
+    "countryAreaKM2": 12200
+  },
+  {
+    "countryName": "Vatican",
+    "phoneCode": "+379",
+    "countryCode2": "VA",
+    "countryCode3": "VAT",
+    "population": 921,
+    "countryAreaKM2": 0
+  },
+  {
+    "countryName": "Venezuela",
+    "phoneCode": "+58",
+    "countryCode2": "VE",
+    "countryCode3": "VEN",
+    "population": 27223228,
+    "countryAreaKM2": 912050
+  },
+  {
+    "countryName": "Vietnam",
+    "phoneCode": "+84",
+    "countryCode2": "VN",
+    "countryCode3": "VNM",
+    "population": 89571130,
+    "countryAreaKM2": 329560
+  },
+  {
+    "countryName": "Wallis and Futuna",
+    "phoneCode": "+681",
+    "countryCode2": "WF",
+    "countryCode3": "WLF",
+    "population": 16025,
+    "countryAreaKM2": 274
+  },
+  {
+    "countryName": "Western Sahara",
+    "phoneCode": "+212",
+    "countryCode2": "EH",
+    "countryCode3": "ESH",
+    "population": 273008,
+    "countryAreaKM2": 266000
+  },
+  {
+    "countryName": "Yemen",
+    "phoneCode": "+967",
+    "countryCode2": "YE",
+    "countryCode3": "YEM",
+    "population": 23495361,
+    "countryAreaKM2": 527970
+  },
+  {
+    "countryName": "Zambia",
+    "phoneCode": "+260",
+    "countryCode2": "ZM",
+    "countryCode3": "ZMB",
+    "population": 13460305,
+    "countryAreaKM2": 752614
+  },
+  {
+    "countryName": "Zimbabwe",
+    "phoneCode": "+263",
+    "countryCode2": "ZW",
+    "countryCode3": "ZWE",
+    "population": 11651858,
+    "countryAreaKM2": 390580
+  }
+]
