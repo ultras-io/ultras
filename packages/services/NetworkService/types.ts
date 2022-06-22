@@ -1,4 +1,24 @@
-export type Interceptor = <T>(data: T, headers?: Record<string, unknown>) => T;
+type InterceptorCallback<T> = (
+  params: T
+) => void | T | Promise<void | T> | PromiseLike<void | T>;
+
+export type InterceptorRequestParams = {
+  url: string;
+  options: RequestOptions;
+};
+export type InterceptorRequest = InterceptorCallback<InterceptorRequestParams>;
+
+export type InterceptorResponseParams<T> = {
+  body: T;
+  headers?: Record<string, any>;
+};
+export type InterceptorResponse<T> = InterceptorCallback<InterceptorResponseParams<T>>;
+
+export type Interceptor<T = any> = {
+  request?: InterceptorRequest;
+  response?: InterceptorResponse<T>;
+  [key: string]: any;
+};
 
 export enum HttpRequestMethods {
   GET = 'GET',

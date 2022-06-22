@@ -1,3 +1,5 @@
+/* eslint-disable no-async-promise-executor */
+
 import {
   HttpRequestMethods,
   HttpErrorMessages,
@@ -36,9 +38,14 @@ class NetworkService {
 
     if (interceptors.length) {
       interceptors.forEach((interceptor: Interceptor) => {
-        if (typeof interceptor !== 'function') {
-          throw new Error(`The '${interceptor}' is not a function.`);
+        if (
+          !interceptor ||
+          (typeof interceptor.request !== 'function' &&
+            typeof interceptor.response !== 'function')
+        ) {
+          throw new Error(`The '${interceptor}' is not a valid interceptor.`);
         }
+
         this.interceptors.push(interceptor);
       });
     }
@@ -127,8 +134,20 @@ class NetworkService {
     partUrl: string,
     options: RequestOptions = {}
   ): Promise<ResponseInterface<TBody, THeaders>> => {
-    return new Promise((resolve, reject) => {
-      const url = this.createUrl(partUrl);
+    return new Promise(async (resolve, reject) => {
+      let url = this.createUrl(partUrl);
+
+      if (this.interceptors.length) {
+        for (const interceptor of this.interceptors) {
+          if (interceptor && typeof interceptor.request === 'function') {
+            const result = await interceptor.request({ url, options });
+            if (result) {
+              url = result.url;
+              options = result.options;
+            }
+          }
+        }
+      }
 
       this.request(url, options)
         .then(async (response: RequestResultInterface) => {
@@ -138,7 +157,7 @@ class NetworkService {
             });
           }
 
-          const { headers } = response;
+          let { headers } = response;
           let body = {
             status: 0,
           } as ResponseBodyType<TBody>;
@@ -153,11 +172,15 @@ class NetworkService {
 
           try {
             if (this.interceptors.length) {
-              this.interceptors.forEach(interceptor => {
-                if (typeof interceptor === 'function') {
-                  body = interceptor(body, headers);
+              for (const interceptor of this.interceptors) {
+                if (interceptor && typeof interceptor.response === 'function') {
+                  const result = await interceptor.response({ body, headers });
+                  if (result) {
+                    body = result.body;
+                    headers = result.headers;
+                  }
                 }
-              });
+              }
             }
           } catch (e: any) {
             reject({

@@ -1,9 +1,9 @@
 import NetworkService from '@ultras/services/NetworkService';
 import type { ResponseInterface } from '@ultras/services/NetworkService';
-import { Interceptor } from '../interceptors/types';
+import { Interceptor } from '@ultras/services/NetworkService/types';
 import { AuthTokenInterceptor } from '../interceptors';
-import type { ApiResponseType, ListResponseMetaType } from './types';
 import configs from '../configs';
+import type { ApiResponseType, ListResponseMetaType } from './types';
 import { DynamicQueryParam, QueryParam } from './types';
 
 export type Mode = 'dev' | 'staging' | 'production';
