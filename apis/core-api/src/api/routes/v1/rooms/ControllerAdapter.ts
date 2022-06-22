@@ -61,6 +61,29 @@ class ControllerAdapter {
 
     return ctx.ok(response);
   }
+
+  static async update(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { title, content, privacy } = ctx.request.body;
+
+    const { id } = ctx.request.params;
+
+    /** CONTROLLERS */
+    const { data } = await RoomController.update({
+      id,
+      title,
+      content,
+      privacy,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
 }
 
 export default ControllerAdapter;

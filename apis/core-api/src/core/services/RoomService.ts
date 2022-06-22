@@ -21,6 +21,10 @@ export interface CreateParamsInterface {
   postId: ResourceIdentifier;
 }
 
+export interface UpdateParamsInterface {
+  privacy: RoomPrivacyEnum;
+}
+
 class RoomService extends BaseService {
   protected static includeRelations() {
     return {
@@ -125,6 +129,30 @@ class RoomService extends BaseService {
     });
 
     return room;
+  }
+
+  /**
+   * Update room.
+   */
+  static async update(
+    eventId: ResourceIdentifier,
+    { privacy }: UpdateParamsInterface,
+    transaction?: Transaction
+  ): Promise<RoomViewModel> {
+    const event = await db.Room.findOne({
+      where: {
+        id: eventId,
+      },
+    });
+
+    await event.update(
+      {
+        privacy,
+      },
+      { transaction }
+    );
+
+    return event;
   }
 }
 

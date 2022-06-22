@@ -1,4 +1,4 @@
-import { PostTypeEnum, OrderEnum } from '@ultras/utils';
+import { PostTypeEnum, OrderEnum, RoomPrivacyEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { RoomService, PostService } from 'core/services';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
@@ -9,6 +9,8 @@ import {
   RoomsListParams,
   RoomsListResult,
   RoomByIdResult,
+  RoomUpdateParams,
+  RoomUpdateResult,
 } from './types';
 
 class RoomController extends BaseController {
@@ -81,6 +83,39 @@ class RoomController extends BaseController {
 
     return {
       data: room,
+    };
+  }
+
+  /**
+   * Update room.
+   */
+  static async update(params: RoomUpdateParams): RoomUpdateResult {
+    const roomUpdate = await this.withTransaction(async transaction => {
+      const room = await RoomService.getById(params.id);
+      const postId = room.getDataValue('post').getDataValue('id');
+
+      await PostService.update(
+        postId,
+        {
+          title: params.title,
+          content: params.content,
+        },
+        transaction
+      );
+
+      const roomUpdate = await RoomService.update(
+        params.id,
+        {
+          privacy: params.privacy,
+        },
+        transaction
+      );
+
+      return roomUpdate;
+    });
+
+    return {
+      data: roomUpdate,
     };
   }
 }
