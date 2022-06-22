@@ -6,7 +6,7 @@ import {
   ServiceByIdResultType,
   ResourceIdentifier,
 } from 'types';
-import countriesInfo from 'static/countries.json';
+import countryPhoneCodes from 'static/countries.json';
 
 import db from 'core/data/models';
 import { CountryCreationAttributes } from 'core/data/models/Country';
@@ -118,14 +118,16 @@ class CountryService extends BaseService {
       ignoreDuplicates: true,
     });
 
-    for (const countryInfo of countriesInfo) {
+    for (const countryCode in countryPhoneCodes) {
       await db.Country.update(
         {
-          telPrefix: countryInfo.phoneCode,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          telPrefix: countryPhoneCodes[countryCode],
         },
         {
           where: {
-            code: countryInfo.countryCode2,
+            code: countryCode,
           },
         }
       );
