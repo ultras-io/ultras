@@ -16,6 +16,7 @@ import { Team } from 'core/data/models/Team';
 
 export interface FanClubAttributes {
   id: ResourceIdentifier;
+  shortName: string;
   name: string;
   description: string | null;
   countryId: ResourceIdentifier;
@@ -40,6 +41,7 @@ export class FanClub
 {
   // Note that the `null assertion` `!` is required in strict mode.
   public id!: ResourceIdentifier;
+  public shortName!: string;
   public name!: string;
   public description!: string | null;
   public countryId!: ResourceIdentifier;
@@ -98,6 +100,10 @@ module.exports = (sequelize: Sequelize): typeof FanClub => {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
+      },
+      shortName: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,

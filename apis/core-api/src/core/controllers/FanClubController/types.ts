@@ -18,6 +18,7 @@ interface FanClubsFilterInterface {
 
 export type FanClubCreateParams = {
   ownerId: ResourceIdentifier;
+  shortName: string;
   name: string;
   description: string | null;
   cityId: ResourceIdentifier;
@@ -33,6 +34,7 @@ export type FanClubCreateResult = ControllerResultType<{
 
 export type FanClubUpdateParams = {
   id: ResourceIdentifier;
+  shortName?: string;
   name?: string;
   description?: string | null;
   cityId?: ResourceIdentifier;

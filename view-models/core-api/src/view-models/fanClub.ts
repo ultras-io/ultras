@@ -7,6 +7,7 @@ import { UserViewModel } from './user';
 
 export type FanClubViewModel = ViewModel<{
   isOfficial: false;
+  shortName: string;
   name: string;
   description: string;
   avatar: string;
