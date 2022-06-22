@@ -11,6 +11,6 @@ router.post('/', checkUserAuth(), ControllerAdapter.create);
 router.get('/', ControllerAdapter.getAll);
 router.get('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.getById);
 router.put('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.update);
-// router.delete('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.delete);
+router.delete('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.delete);
 
 export default router;

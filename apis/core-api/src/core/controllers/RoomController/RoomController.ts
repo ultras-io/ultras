@@ -2,6 +2,7 @@ import { PostTypeEnum, OrderEnum, RoomPrivacyEnum } from '@ultras/utils';
 import BaseController from 'core/controllers/BaseController';
 import { RoomService, PostService } from 'core/services';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
+import { AccessDeniedError } from 'modules/exceptions';
 
 import {
   RoomCreateParams,
@@ -11,6 +12,7 @@ import {
   RoomByIdResult,
   RoomUpdateParams,
   RoomUpdateResult,
+  RoomDeleteParams,
 } from './types';
 
 class RoomController extends BaseController {
@@ -117,6 +119,27 @@ class RoomController extends BaseController {
     return {
       data: roomUpdate,
     };
+  }
+
+  /**
+   * Delete room.
+   */
+  static async delete(params: RoomDeleteParams) {
+    const room = await RoomService.getById(params.id);
+
+    const authorId = room.getDataValue('post').getDataValue('author').getDataValue('id');
+    const postId = room.getDataValue('post').getDataValue('id');
+
+    if (authorId !== params.authorId) {
+      throw new AccessDeniedError({
+        message: 'Not owned.',
+      });
+    }
+
+    this.withTransaction(async transaction => {
+      await PostService.delete(postId, transaction);
+      await RoomService.delete(params.id, transaction);
+    });
   }
 }
 

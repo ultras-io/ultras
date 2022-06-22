@@ -135,24 +135,36 @@ class RoomService extends BaseService {
    * Update room.
    */
   static async update(
-    eventId: ResourceIdentifier,
+    roomId: ResourceIdentifier,
     { privacy }: UpdateParamsInterface,
     transaction?: Transaction
   ): Promise<RoomViewModel> {
-    const event = await db.Room.findOne({
+    const room = await db.Room.findOne({
       where: {
-        id: eventId,
+        id: roomId,
       },
     });
 
-    await event.update(
+    await room.update(
       {
         privacy,
       },
       { transaction }
     );
 
-    return event;
+    return room;
+  }
+
+  /**
+   * Delete room.
+   */
+  static delete(id: ResourceIdentifier, transaction?: Transaction) {
+    return db.Room.destroy(
+      {
+        where: { id },
+      },
+      { transaction }
+    );
   }
 }
 
