@@ -7,9 +7,20 @@ import {
 } from './types';
 export * from './types';
 
+import type { OnUpdateListener } from '../../interceptors/AuthTokenInterceptor/types';
+import AuthTokenInterceptor from '../../interceptors/AuthTokenInterceptor';
+
 export class UserSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
     super(mode, 'users');
+  }
+
+  public static setAuthToken(token: string) {
+    AuthTokenInterceptor.setAuthToken(token);
+  }
+
+  public static onTokenUpdate(callback: OnUpdateListener) {
+    AuthTokenInterceptor.onTokenUpdate(callback);
   }
 
   public confirmIdentity(params: ConfirmIdentityInterface) {

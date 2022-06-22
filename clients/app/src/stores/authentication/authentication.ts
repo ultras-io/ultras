@@ -1,8 +1,13 @@
 import create from 'zustand';
-// import { UserSDK } from '@ultras/core-api-sdk';
+import { UserSDK } from '@ultras/core-api-sdk';
 import StorageService from 'services/storage/storageService';
 import { IState, IProps } from './types';
-// const sdk = new UserSDK('dev');
+
+UserSDK.onTokenUpdate((token: string) => {
+  StorageService.setAuthToken(token);
+});
+
+const sdk = new UserSDK('dev');
 
 let authenticationStore: any;
 
@@ -19,21 +24,34 @@ const initStore = () => {
       ...initialState,
       authenticate: async () => {
         const token = await StorageService.getAuthToken();
+
         if (!token) {
           set({ isLoading: false });
         } else {
-          // sdk.getMe(token);
-          const user = await StorageService.getObject('user'); // @TODO change to response from call
-          set({ isLoading: false, isAuthenticated: true, token, user });
+          UserSDK.setAuthToken(token);
+
+          const response = await sdk.getMe();
+          const { user } = response?.body.data;
+
+          if (!user) {
+            set({ isLoading: false });
+          } else {
+            set({ isLoading: false, isAuthenticated: true, token, user });
+          }
         }
       },
       login: async (token, user) => {
+        UserSDK.setAuthToken(token);
         await StorageService.setAuthToken(token);
-        StorageService.setObject('user', user); // @TODO remove when sdk will be ready
+
         set({ isLoading: false, isAuthenticated: true, token, user });
       },
       logout: async () => {
+        await sdk.logout();
+
+        UserSDK.setAuthToken('');
         await StorageService.setAuthToken('');
+
         set({ isAuthenticated: false });
       },
     }));
