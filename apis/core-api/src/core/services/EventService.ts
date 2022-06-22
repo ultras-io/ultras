@@ -123,35 +123,46 @@ class EventService extends BaseService {
       ...this.includeRelations(),
     };
 
+    queryOptions.include.forEach((include: any) => {
+      if (include.as === resources.POST.ALIAS.SINGULAR) {
+        delete include.include;
+      }
+    });
+
     queryOptions.include.forEach((eventRelation: any) => {
       // find post relation (fan club is connected to posts)
       if (eventRelation.as == resources.POST.ALIAS.SINGULAR) {
         eventRelation.required = true;
-        eventRelation.include.forEach((postRelation: any) => {
-          // if fanClubId provided, then find fan club relation and append condition
-          if (params.fanClubId && postRelation.as == resources.FAN_CLUB.ALIAS.SINGULAR) {
-            postRelation.required = true;
-            postRelation.where = this.queryInit(postRelation.where || {});
+        if (eventRelation.include) {
+          eventRelation.include.forEach((postRelation: any) => {
+            // if fanClubId provided, then find fan club relation and append condition
+            if (
+              params.fanClubId &&
+              postRelation.as == resources.FAN_CLUB.ALIAS.SINGULAR
+            ) {
+              postRelation.required = true;
+              postRelation.where = this.queryInit(postRelation.where || {});
 
-            this.queryArrayOrSingle(postRelation.where, 'id', params.fanClubId);
-          }
+              this.queryArrayOrSingle(postRelation.where, 'id', params.fanClubId);
+            }
 
-          // if matchId provided, then find match relation and append condition
-          if (params.matchId && postRelation.as == resources.MATCH.ALIAS.SINGULAR) {
-            postRelation.required = true;
-            postRelation.where = this.queryInit(postRelation.where || {});
+            // if matchId provided, then find match relation and append condition
+            if (params.matchId && postRelation.as == resources.MATCH.ALIAS.SINGULAR) {
+              postRelation.required = true;
+              postRelation.where = this.queryInit(postRelation.where || {});
 
-            this.queryArrayOrSingle(postRelation.where, 'id', params.matchId);
-          }
+              this.queryArrayOrSingle(postRelation.where, 'id', params.matchId);
+            }
 
-          // if authorId provided, then find author relation and append condition
-          if (params.authorId && postRelation.as == 'author') {
-            postRelation.required = true;
-            postRelation.where = this.queryInit(postRelation.where || {});
+            // if authorId provided, then find author relation and append condition
+            if (params.authorId && postRelation.as == 'author') {
+              postRelation.required = true;
+              postRelation.where = this.queryInit(postRelation.where || {});
 
-            this.queryArrayOrSingle(postRelation.where, 'id', params.authorId);
-          }
-        });
+              this.queryArrayOrSingle(postRelation.where, 'id', params.authorId);
+            }
+          });
+        }
 
         // if search query was provided, then we need to search in post fields
         if (params.search) {
