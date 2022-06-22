@@ -2,7 +2,7 @@ import React from 'react';
 import { VStack, HStack, Text, Pressable } from 'native-base';
 import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import type { IState } from 'stores/registration';
 import type { IFourDigitsMessageProps } from '../../types';
 

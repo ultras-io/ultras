@@ -14,6 +14,7 @@ const Login: React.FC<ILoginProps> = ({ useStore, useAuthStore, text, login }) =
     if (status === 'success') {
       enterMe(token, userResponse);
     }
+    // @TODO handle error
   }, [status, enterMe, token, userResponse]);
 
   return (

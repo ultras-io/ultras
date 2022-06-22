@@ -18,6 +18,7 @@ export interface IMethods {
   authenticate: () => void;
   login: (token: string, user: UserType) => void;
   logout: () => void;
+  clearToken: () => void;
 }
 
 export interface IState extends IProps, IMethods {}

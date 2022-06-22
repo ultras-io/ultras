@@ -1,27 +1,19 @@
 import React from 'react';
-import Box from 'views/components/base/Box';
-import EventsComponent from '../components/EventsComponent';
-
+import EventsComponent, { EventsLoader } from '../components/EventsComponent';
+import buildEventsStore from 'stores/events';
 import { IEventsContainerProps } from '../types';
-import styles from '../styles';
 
-import { generateEvents } from 'utils/helpers/dummy';
+const eventsStore = buildEventsStore();
+eventsStore.getAll();
 
 const EventsContainer: React.FC<IEventsContainerProps> = () => {
-  const [data, setData] = React.useState<Array<any>>([]);
+  const result = eventsStore.useSelector('list');
 
-  const getData = React.useCallback(() => {
-    const eventsData = generateEvents(5);
-    setData([...data, ...eventsData]);
-  }, [setData, data]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(getData, []);
+  // @TODO handle error status
+  if (!result.list.data && result.list.status === 'loading') return <EventsLoader />;
 
   return (
-    <Box style={styles.container} bgColor="backgroundMain">
-      <EventsComponent data={data} onEndReached={getData} />
-    </Box>
+    <EventsComponent data={result.list.data || []} onEndReached={eventsStore.getAll} />
   );
 };
 

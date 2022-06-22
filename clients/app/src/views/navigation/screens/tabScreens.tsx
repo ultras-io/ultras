@@ -5,7 +5,7 @@ import MatchesNavigation from 'views/screens/Matches/navigation';
 import EventsNavigation from 'views/screens/Events/navigation';
 import ProfileNavigation from 'views/screens/Profile/navigation';
 import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import type { TabNavigationScreens } from '../types';
 
 const SCREENS: TabNavigationScreens = {

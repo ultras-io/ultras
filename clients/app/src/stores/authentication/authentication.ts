@@ -20,38 +20,42 @@ const initialState: IProps = {
 
 const initStore = () => {
   if (!authenticationStore) {
-    authenticationStore = create<IState>(set => ({
+    authenticationStore = create<IState>((set, get) => ({
       ...initialState,
       authenticate: async () => {
         const token = await StorageService.getAuthToken();
-
         if (!token) {
           set({ isLoading: false });
         } else {
-          UserSDK.setAuthToken(token);
-
-          const response = await sdk.getMe();
-          const { user } = response?.body.data;
-
-          if (!user) {
-            set({ isLoading: false });
-          } else {
-            set({ isLoading: false, isAuthenticated: true, token, user });
+          try {
+            UserSDK.setAuthToken(token);
+            const response = await sdk.getMe();
+            const { user } = response?.body.data;
+            if (!user) {
+              set({ isLoading: false });
+            } else {
+              set({ isLoading: false, isAuthenticated: true, token, user });
+            }
+          } catch (e) {
+            await get().clearToken();
           }
         }
       },
       login: async (token, user) => {
         UserSDK.setAuthToken(token);
         await StorageService.setAuthToken(token);
-
         set({ isLoading: false, isAuthenticated: true, token, user });
       },
       logout: async () => {
-        await sdk.logout();
-
+        try {
+          await sdk.logout();
+        } finally {
+          await get().clearToken();
+        }
+      },
+      clearToken: async () => {
         UserSDK.setAuthToken('');
         await StorageService.setAuthToken('');
-
         set({ isAuthenticated: false });
       },
     }));

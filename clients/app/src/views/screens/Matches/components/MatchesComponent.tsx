@@ -12,7 +12,6 @@ import gStyles from 'styles/styles';
 
 const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached }) => {
   const { pushTo } = useNavigationWithParams();
-
   const ref = React.useRef(null);
   useScrollToTop(ref);
 

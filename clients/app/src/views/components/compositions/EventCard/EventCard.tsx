@@ -1,74 +1,72 @@
 import React from 'react';
-import { View, Image, Pressable } from 'react-native';
+import { StyleSheet, Image as RNImage } from 'react-native';
+import { Pressable, Text, VStack, HStack, AspectRatio, Image } from 'native-base';
 import moment from 'moment';
 import I18n from 'i18n/i18n';
-
-import BluredView from 'views/components/base/BluredView';
-import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-
-import CommentsCount from 'views/components/base/CommentsCount';
-import Like from 'views/components/base/Like';
-import { IconNamesEnum } from 'assets/icons';
+import { Icons } from 'assets/icons';
+import BluredView from 'views/components/base/BluredView';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { IEventCardProps } from './types';
-import styles from './styles';
 
-const EventCard: React.FC<IEventCardProps> = ({
-  imageUri,
-  date,
-  title,
-  location,
-  goingCount,
-  commentsCount,
-  likeCount,
-  creator,
-  supportersClub,
-  isGoing,
-  isLiked,
-  onPress,
-}) => {
+const EventCard: React.FC<IEventCardProps> = ({ data, onPress }) => {
+  const [ratio, setRatio] = React.useState(3 / 2);
+
+  React.useLayoutEffect(() => {
+    if (data.post.image) {
+      RNImage.getSize(data.post.image, (w, h) => {
+        setRatio(w / h);
+      });
+    }
+  }, [data.post.image]);
+
   return (
     <Pressable onPress={preventMultiCalls(() => onPress())}>
       <BluredView style={styles.container}>
-        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
-        <View style={styles.innerContainer}>
-          <UltrasText style={styles.date} color="textSecondary">
-            {date < new Date()
-              ? moment(date).fromNow()
-              : moment(date).format('MMM DD, hh:mm')}
-          </UltrasText>
-          <UltrasText style={styles.title} color="textPrimary">
-            {title}
-          </UltrasText>
-          <UltrasText style={styles.smallText} color="textSecondary">
-            {getReadableNumber(goingCount)} {I18n.t('common-going')}
-          </UltrasText>
-          {location && (
-            <UltrasText style={styles.location} color="textSecondary">
-              {location}
-            </UltrasText>
+        <VStack>
+          {data.post.image && (
+            <AspectRatio ratio={{ base: ratio }} width={{ base: 'full' }}>
+              <Image
+                source={{ uri: data.post.image }}
+                alt={data.post.title}
+                resizeMode="cover"
+              />
+            </AspectRatio>
           )}
-          <UltrasText style={styles.smallText} color="textPrimary">
-            {I18n.t('events-eventBy')} {creator}
-            {supportersClub && ', ' + supportersClub}
-          </UltrasText>
-          <View style={styles.bottomButtons}>
-            <View style={styles.comments}>
-              <Like isLiked={isLiked} count={likeCount} onPress={() => {}} />
-            </View>
-            <View style={styles.comments}>
-              <CommentsCount count={commentsCount} />
-            </View>
-            <View style={styles.arrow}>
-              <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-2xs'} />
-            </View>
-          </View>
-        </View>
+
+          <VStack p={4}>
+            <Text variant={'cardTime'}>
+              {new Date(data.dateTime) < new Date()
+                ? moment(data.dateTime).fromNow()
+                : moment(data.dateTime).format('MMM DD, hh:mm')}
+            </Text>
+            <Text variant={'cardTitle'}>{data.post.title}</Text>
+            <Text variant={'cardStats'}>
+              {getReadableNumber(2763)} {I18n.t('common-going')}
+            </Text>
+            <Text variant={'cardPlace'} mt={'1'}>
+              <Icon name={Icons.Map} size={'ic-2xs'} color="textPrimary" />{' '}
+              {data.location.name}
+            </Text>
+            <HStack>
+              <Text variant={'cardInfo'}>
+                {I18n.t('events-eventBy')} {data.post.author.username}
+                {data.post.fanClub && ', ' + data.post.fanClub.name}
+              </Text>
+            </HStack>
+          </VStack>
+        </VStack>
       </BluredView>
     </Pressable>
   );
 };
 
 export default React.memo<IEventCardProps>(EventCard);
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 10,
+    borderRadius: 13,
+  },
+});
