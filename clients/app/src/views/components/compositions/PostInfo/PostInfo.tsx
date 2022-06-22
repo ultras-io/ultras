@@ -10,7 +10,7 @@ import { getReadableNumber } from 'utils/helpers/readableNumber';
 import UltrasText from 'views/components/base/UltrasText';
 import Like from 'views/components/base/Like';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import { PostInfoProps } from '../PostCard';
 
 import styles from './styles';

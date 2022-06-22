@@ -80,6 +80,7 @@ export default {
   'matches-et': 'ET',
   'matches-finished': 'Full Time',
   'matches-penalties': 'Pen.',
+  'matches-vs': ' vs ',
 
   // fan clubs
   fanClub: 'Fan Club',
@@ -100,6 +101,8 @@ export default {
   'events-by': 'by',
   'events-eventBy': 'Event by',
   'events-create': 'Create an Events',
+  'events-join': 'Join',
+  'events-going': 'Going',
 
   //profile
   'profile-settings': 'Settings',

@@ -5,11 +5,11 @@ import { IEventProps } from './types';
 const EventContainer = React.lazy(() => import('./containers/EventContainer'));
 
 const Event: React.FC<IEventProps> = ({ route }) => {
-  const { id } = route.params;
+  const { data } = route.params;
 
   return (
     <Container withSuspense>
-      <EventContainer id={id} />
+      <EventContainer data={data} />
     </Container>
   );
 };

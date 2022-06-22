@@ -1,7 +1,7 @@
 import React from 'react';
-import { Avatar, Button, Pressable, Text, HStack, VStack } from 'native-base';
+import { Avatar, Button, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
@@ -45,21 +45,27 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           {data.name}
         </Text>
         <HStack>
-          <Pressable onPress={preventMultiCalls(() => openMembersList())}>
-            <Text variant={'info'}>
-              {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
-            </Text>
-          </Pressable>
+          <Text
+            variant={'info'}
+            onPress={preventMultiCalls(() => openMembersList())}
+            suppressHighlighting
+          >
+            {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
+          </Text>
           <VerticalDivider />
           <Text variant={'info'}>{data.city.name}</Text>
         </HStack>
 
-        <Pressable onPress={preventMultiCalls(() => openTeam())}>
-          <HStack alignItems={'center'} space={'1'}>
-            <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
-            <Text variant={'info'}>{data.team.name}</Text>
-          </HStack>
-        </Pressable>
+        <HStack alignItems={'center'} space={'1'}>
+          <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
+          <Text
+            variant={'info'}
+            onPress={preventMultiCalls(() => openTeam())}
+            suppressHighlighting
+          >
+            {data.team.name}
+          </Text>
+        </HStack>
 
         <Button
           onPress={() => {}}

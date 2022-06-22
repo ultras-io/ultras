@@ -5,7 +5,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import I18n from 'i18n/i18n';
 import { commonScreens } from 'views/navigation/screens';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import MatchInfo from 'views/components/compositions/MatchInfo';
 import { IMatchComponentProps } from '../types';
 

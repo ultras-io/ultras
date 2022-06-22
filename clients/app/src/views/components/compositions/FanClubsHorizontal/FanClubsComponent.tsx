@@ -3,7 +3,7 @@ import { FlatList } from 'native-base';
 import { VStack, HStack, Button, Text, Skeleton } from 'native-base';
 import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';

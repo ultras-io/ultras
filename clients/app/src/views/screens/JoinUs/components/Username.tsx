@@ -3,7 +3,7 @@ import { Box, Button, Text, HStack } from 'native-base';
 import I18n from 'i18n/i18n';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import type { IState } from 'stores/registration';
 import type { IUsernameProps } from '../types';
 

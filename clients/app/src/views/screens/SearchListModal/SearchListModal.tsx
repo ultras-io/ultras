@@ -5,7 +5,7 @@ import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import Container from 'views/components/base/Container';
 import { ISearchListModalProps } from './types';
 

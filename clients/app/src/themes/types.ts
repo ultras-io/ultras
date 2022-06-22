@@ -24,6 +24,8 @@ export type ColorKey =
   | 'buttonSecondary'
   | 'buttonSecondaryPressed'
   | 'buttonSecondaryDisabled'
+  | 'buttonSecondaryInvert'
+  | 'buttonSecondaryInvertPressed'
   | 'buttonAction'
   | 'buttonActionPressed'
   | 'buttonActionDisabled'
