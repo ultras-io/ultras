@@ -5,16 +5,16 @@ export const messages: Message[][][] = [
   [
     [
       {
-        text: I18n.t('hi'),
+        text: I18n.t('joinUs-hi'),
         textProps: {
           fontWeight: 700,
         },
       },
       {
-        text: I18n.t('joinUsGreeting'),
+        text: I18n.t('joinUs-greeting'),
       },
       {
-        text: I18n.t('letsStart'),
+        text: I18n.t('joinUs-letsStart'),
         textProps: {
           fontWeight: 700,
         },
@@ -26,7 +26,7 @@ export const messages: Message[][][] = [
       {
         email: true,
         text: (emailOrPhoneKey: string) =>
-          I18n.t('joinUsEnterEmailPhoneMessage', { x: I18n.t(emailOrPhoneKey) }),
+          I18n.t('joinUs-enterX', { x: I18n.t(emailOrPhoneKey) }),
       },
       {
         email: true,
@@ -35,7 +35,7 @@ export const messages: Message[][][] = [
         jumpToStep: 2,
         availableBefore: 4,
         text: (emailOrPhoneKey: string) =>
-          I18n.t('joinUsEnterEmailPhone', { x: I18n.t(emailOrPhoneKey) }),
+          I18n.t('joinUs-signUpWithX', { x: I18n.t(emailOrPhoneKey) }),
         textProps: {
           variant: 'link',
         },
@@ -46,7 +46,7 @@ export const messages: Message[][][] = [
   [
     [
       {
-        text: I18n.t('joinUsEnterCode'),
+        text: I18n.t('joinUs-enterCode'),
       },
       {
         text: (emailOrPhone: string) => emailOrPhone,
@@ -61,7 +61,7 @@ export const messages: Message[][][] = [
         jumpToStep: 3,
         availableBefore: 4,
         text: (emailOrPhoneValue: string) =>
-          I18n.t('changeEmailPhone', { x: I18n.t(emailOrPhoneValue) }),
+          I18n.t('joinUs-changeX', { x: I18n.t(emailOrPhoneValue) }),
         textProps: {
           variant: 'link',
         },
@@ -72,12 +72,12 @@ export const messages: Message[][][] = [
   [
     [
       {
-        text: I18n.t('almostDone'),
+        text: I18n.t('joinUs-almostDone'),
       },
     ],
     [
       {
-        text: I18n.t('joinUsPickTeam'),
+        text: I18n.t('joinUs-pickTeam'),
       },
     ],
   ],
@@ -85,41 +85,41 @@ export const messages: Message[][][] = [
   [
     [
       {
-        text: I18n.t('joinUsPickUsername'),
+        text: I18n.t('joinUs-pickUsername'),
       },
     ],
   ],
   [
     [
       {
-        text: I18n.t('joinUsWellDoneLast'),
+        text: I18n.t('joinUs-wellDone'),
       },
       {
-        text: I18n.t('joinUsWantNotify'),
+        text: I18n.t('joinUs-wantNotify'),
       },
     ],
     [
       {
-        text: I18n.t('joinUsNotificationsLocation'),
-      },
-    ],
-  ],
-  [
-    [
-      {
-        text: I18n.t('joinUsAndLocation'),
+        text: I18n.t('joinUs-notificationsAndLocation'),
       },
     ],
   ],
   [
     [
       {
-        text: I18n.t('joinUsCongrats'),
+        text: I18n.t('joinUs-andLocation'),
+      },
+    ],
+  ],
+  [
+    [
+      {
+        text: I18n.t('joinUs-congrats'),
       },
     ],
     [
       {
-        text: I18n.t('joinUsCongratsText'),
+        text: I18n.t('joinUs-congratsText'),
       },
     ],
   ],
@@ -128,7 +128,7 @@ export const messages: Message[][][] = [
 export const messageLogin: Message[][] = [
   [
     {
-      text: I18n.t('joinUsLogin'),
+      text: I18n.t('joinUs-login'),
     },
   ],
 ];

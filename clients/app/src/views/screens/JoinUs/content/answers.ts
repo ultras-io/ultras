@@ -5,12 +5,12 @@ export const answers: Answer[] = [
   {
     type: 'button',
     pre: {
-      text: I18n.t('okLetsStart'),
+      text: I18n.t('joinUs-letsStartOK'),
     },
     post: {
       confirmed: [
         {
-          text: I18n.t('okLetsStart'),
+          text: I18n.t('joinUs-letsStartOK'),
         },
       ],
       denied: [],
@@ -19,12 +19,12 @@ export const answers: Answer[] = [
   {
     type: 'button',
     pre: {
-      text: I18n.t('joinUsLetMeEnter'),
+      text: I18n.t('joinUs-letMeEnter'),
     },
     post: {
       confirmed: [
         {
-          text: I18n.t('joinUsLetMeEnter'),
+          text: I18n.t('joinUs-letMeEnter'),
         },
       ],
       denied: [],
@@ -57,7 +57,7 @@ export const answers: Answer[] = [
   {
     type: 'selectTeam',
     pre: {
-      text: I18n.t('joinUsSelectTeam'),
+      text: I18n.t('joinUs-selectTeam'),
     },
     post: {
       confirmed: [
@@ -66,7 +66,7 @@ export const answers: Answer[] = [
         },
         {
           pressable: true,
-          text: I18n.t('tapToChange'),
+          text: I18n.t('common-tapToChange'),
           textProps: {
             variant: 'smallTitle',
             underline: true,
@@ -93,18 +93,18 @@ export const answers: Answer[] = [
   {
     type: 'notification',
     pre: {
-      text: I18n.t('allowNotifications'),
+      text: I18n.t('joinUs-allowNotifications'),
     },
     post: {
       confirmed: [
         {
-          text: I18n.t('joinUsNotificationAllowed'),
+          text: I18n.t('joinUs-notificationAllowed'),
         },
       ],
       denied: [
         {
-          text: I18n.t('joinUsNotificationNotAllowed'),
-          description: I18n.t('joinUsNotificationNotAllowedText'),
+          text: I18n.t('joinUs-notificationNotAllowed'),
+          description: I18n.t('joinUs-notificationNotAllowedText'),
         },
       ],
     },
@@ -112,18 +112,18 @@ export const answers: Answer[] = [
   {
     type: 'location',
     pre: {
-      text: I18n.t('enableLocationsServices'),
+      text: I18n.t('joinUs-enableLocationsServices'),
     },
     post: {
       confirmed: [
         {
-          text: I18n.t('joinUsLocationEnabled'),
+          text: I18n.t('joinUs-locationEnabled'),
         },
       ],
       denied: [
         {
-          text: I18n.t('joinUsLocationNotEnabled'),
-          description: I18n.t('joinUsLocationNotEnabledText'),
+          text: I18n.t('joinUs-locationNotEnabled'),
+          description: I18n.t('joinUs-locationNotEnabledText'),
         },
       ],
     },
@@ -131,7 +131,7 @@ export const answers: Answer[] = [
   {
     type: 'register',
     pre: {
-      text: I18n.t('joinUsLetMeIn'),
+      text: I18n.t('joinUs-letMeIn'),
     },
     post: { confirmed: [], denied: [] },
   },
@@ -140,7 +140,7 @@ export const answers: Answer[] = [
 export const answerLogin: Answer = {
   type: 'login',
   pre: {
-    text: I18n.t('joinUsLetMeIn'),
+    text: I18n.t('joinUs-letMeIn'),
   },
   post: { confirmed: [], denied: [] },
 };

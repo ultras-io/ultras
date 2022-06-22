@@ -36,17 +36,17 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
         mb={'2.5'}
         px={'2.5'}
       >
-        {I18n.t('close')}
+        {I18n.t('common-close')}
       </Button>
 
       <Text variant={'title'} mb={'2'} px="5">
-        {I18n.t('select')} {I18n.t(dataKey === 'team' ? 'team' : 'country')}
+        {I18n.t('common-select')} {I18n.t(dataKey === 'team' ? 'team' : 'country')}
       </Text>
 
       <Input
         mx={4}
         variant="search"
-        placeholder={I18n.t('search')}
+        placeholder={I18n.t('common-search')}
         InputLeftElement={
           <Icon name={Icons.SearchText} color={'textQuinary'} size={'ic-xs'} ml={2} />
         }

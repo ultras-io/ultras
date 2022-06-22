@@ -48,7 +48,7 @@ const PostInfo: React.FC<PostInfoProps> = ({
         <View style={styles.creatorContainer}>
           <Pressable>
             <UltrasText style={styles.creator} color="textPrimary">
-              {I18n.t('eventsBy')} {creator}
+              {I18n.t('events-by')} {creator}
               {supportersClub && ', '}
             </UltrasText>
           </Pressable>

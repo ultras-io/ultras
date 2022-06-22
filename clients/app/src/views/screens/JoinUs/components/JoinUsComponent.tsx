@@ -120,16 +120,16 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
       switch (item.data.type) {
         case 'button':
           return <JoinUsButton onPress={nextStep} text={item.data.pre.text} />;
-        case 'selectTeam':
-          return (
-            <JoinUsButton onPress={openListModal('team')} text={item.data.pre.text} />
-          );
         case 'emailOrPhone':
           return (
             <EmailOrPhone useStore={useStore} onModalOpen={openListModal('country')} />
           );
         case '4digits':
           return <FourDigits useStore={useStore} />;
+        case 'selectTeam':
+          return (
+            <JoinUsButton onPress={openListModal('team')} text={item.data.pre.text} />
+          );
         case 'username':
           return <Username useStore={useStore} />;
         case 'notification':

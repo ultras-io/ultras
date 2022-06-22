@@ -67,7 +67,7 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data }) => {
           }
           variant={'empty'}
         >
-          {I18n.t('viewAll')}
+          {I18n.t('common-viewAll')}
         </Button>
       </HStack>
       <FlatList

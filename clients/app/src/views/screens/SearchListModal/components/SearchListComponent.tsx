@@ -73,7 +73,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         ListFooterComponentStyle={gStyles.listFooterComponentStyle}
       />
       <Text variant={'smallText'} px={'6'} mt={'3'} mb={'5'}>
-        {I18n.t('canChangeClub')}
+        {I18n.t('joinUs-canChangeTeam')}
       </Text>
     </VStack>
   );

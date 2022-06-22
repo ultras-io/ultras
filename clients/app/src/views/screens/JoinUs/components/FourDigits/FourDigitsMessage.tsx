@@ -41,8 +41,8 @@ const FourDigitsMessage: React.FC<IFourDigitsMessageProps> = ({ useStore }) => {
         {showError && <Icon name={Icons.Warning} color={'textAction'} size={'ic-2xs'} />}
         <Text variant={'smallText'} textAlign={'right'}>
           {showError
-            ? I18n.t('joinUsFourDigitsWrongCode')
-            : I18n.t('joinUsFourDigitsCodeNotRecieved')}
+            ? I18n.t('joinUs-fourDigitsCodeWrong')
+            : I18n.t('joinUs-fourDigitsCodeNotReceived')}
         </Text>
       </HStack>
       <Pressable
@@ -50,7 +50,7 @@ const FourDigitsMessage: React.FC<IFourDigitsMessageProps> = ({ useStore }) => {
         disabled={time > 0 || status === 'loading' || statusNext === 'loading'}
       >
         <Text variant={'smallTextAction'} textAlign={'right'}>
-          {I18n.t('joinUsFourDigitsRequestAgain') + (time > 0 ? ' (' + time + ')' : '')}
+          {I18n.t('joinUs-fourDigitsRequestAgain') + (time > 0 ? ' (' + time + ')' : '')}
         </Text>
       </Pressable>
     </VStack>

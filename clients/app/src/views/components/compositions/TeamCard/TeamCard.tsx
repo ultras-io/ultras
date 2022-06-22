@@ -34,7 +34,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
 
           <HStack>
             <Text variant={'info'}>
-              {fanClubsCount === 0 && I18n.t('noFanClubs')}
+              {fanClubsCount === 0 && I18n.t('fanClubs-no')}
               {fanClubsCount === 1 &&
                 getReadableNumber(fanClubsCount) + ' ' + I18n.t('fanClub')}
               {fanClubsCount > 1 &&

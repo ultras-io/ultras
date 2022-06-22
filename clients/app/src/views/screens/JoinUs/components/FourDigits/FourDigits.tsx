@@ -80,7 +80,7 @@ const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
     <Box alignSelf="flex-end" mr={5} my={2}>
       <VStack bg={colors.backgroundCardInvert} p={'4'} rounded={'xl'}>
         <Text variant={'matchTimeInvert'} mb={'2'}>
-          {I18n.t('joinUsFourDigitsCode')}
+          {I18n.t('joinUs-fourDigitsCode')}
         </Text>
         <Pressable onPress={onPress}>
           {status === 'loading' || statusNext === 'loading' ? (

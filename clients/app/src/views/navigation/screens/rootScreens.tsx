@@ -24,7 +24,7 @@ const SCREENS: RootNavigationScreens = {
       headerShadowVisible: false,
       headerTitle: () => (
         <Text variant={'title'} flex={1} ml={'4'}>
-          {I18n.t('joinUs')}
+          {I18n.t('common-joinUs')}
         </Text>
       ),
     },

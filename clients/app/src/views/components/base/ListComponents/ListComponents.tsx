@@ -11,7 +11,7 @@ export const NoResults: React.FC = () => {
       borderBottomColor={colors.backgroundDividerTransparent}
     >
       <Text variant={'standart'} paddingY={'4'} ml={2}>
-        {I18n.t('noResults')}
+        {I18n.t('common-noResults')}
       </Text>
     </Box>
   );

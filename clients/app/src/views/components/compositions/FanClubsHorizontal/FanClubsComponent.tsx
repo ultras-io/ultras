@@ -57,7 +57,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
             }
             variant={'empty'}
           >
-            {I18n.t('discover')}
+            {I18n.t('common-discover')}
           </Button>
         )}
       </HStack>

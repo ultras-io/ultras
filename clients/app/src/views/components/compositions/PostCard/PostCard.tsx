@@ -36,7 +36,7 @@ const PostCard: React.FC<IPostCardProps> = ({
         </UltrasText>
         <View style={styles.creatorContainer}>
           <UltrasText style={styles.creator} color="textPrimary">
-            {I18n.t('eventsBy')} {creator}
+            {I18n.t('events-by')} {creator}
             {supportersClub && ', '}
           </UltrasText>
           {supportersClub && (

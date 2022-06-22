@@ -15,11 +15,11 @@ const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
   const [store, title] = React.useMemo(() => {
     switch (type) {
       case ProfileListTypeEnum.fanClubMembers:
-        return [buildFanClubMembersStore(), I18n.t('fans')];
+        return [buildFanClubMembersStore(), I18n.t('fanClubs-fans')];
       case ProfileListTypeEnum.eventMemebers:
-        return [buildFanClubMembersStore(), I18n.t('going')];
+        return [buildFanClubMembersStore(), I18n.t('common-going')];
       case ProfileListTypeEnum.eventLikes:
-        return [buildFanClubMembersStore(), I18n.t('likes')];
+        return [buildFanClubMembersStore(), I18n.t('common-likes')];
     }
   }, [type]);
 

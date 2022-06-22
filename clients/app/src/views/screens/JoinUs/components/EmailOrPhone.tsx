@@ -58,7 +58,7 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
       onChange={onChange}
       variant="email"
       debounce={false}
-      placeholder={I18n.t('enter') + ' ' + I18n.t(key)}
+      placeholder={I18n.t('common-enter') + ' ' + I18n.t(key)}
       keyboardType={isEmail ? 'email-address' : 'number-pad'}
       returnKeyType="done"
       onlyNumbers={!isEmail}
@@ -88,9 +88,9 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
 
       <Pressable onPress={preventMultiCalls(() => openModal(rootScreens.privacy.name))}>
         <Text variant={'smallText'} p={'2'} pr={'4'} textAlign={'right'}>
-          {I18n.t('joinUsGetConfirmationCode')}
+          {I18n.t('joinUs-getConfirmationCode')}
           <Text variant={'smallTextAction'} underline color={colors.textAction}>
-            {I18n.t('joinUsPrivacyPolicy')}
+            {I18n.t('joinUs-privacyPolicy')}
           </Text>
         </Text>
       </Pressable>
@@ -105,7 +105,7 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
         >
           <Icon name={Icons.Warning} color={'textAction'} size={'ic-2xs'} />
           <Text variant={'smallText'} textAlign={'right'}>
-            {I18n.t('joinUsEnterValidEmailPhone') + ' ' + I18n.t(key)}
+            {I18n.t('joinUs-enterValid') + ' ' + I18n.t(key)}
           </Text>
         </HStack>
       )}
@@ -117,7 +117,7 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
         disabled={!isValid || value === ''}
         isLoading={status === 'loading'}
       >
-        {I18n.t('confirm') + ' ' + I18n.t(key)}
+        {I18n.t('common-confirm') + ' ' + I18n.t(key)}
       </Button>
     </Box>
   );
