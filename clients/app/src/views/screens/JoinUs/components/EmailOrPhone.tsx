@@ -16,7 +16,7 @@ import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import rootScreens from 'views/navigation/screens/rootScreens';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import type { IState } from 'stores/registration';
 import type { IEmailOrPhoneProps } from '../types';
 
@@ -86,14 +86,19 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
         </InputGroup>
       )}
 
-      <Pressable onPress={preventMultiCalls(() => openModal(rootScreens.privacy.name))}>
-        <Text variant={'smallText'} p={'2'} pr={'4'} textAlign={'right'}>
-          {I18n.t('joinUs-getConfirmationCode')}
-          <Text variant={'smallTextAction'} underline color={colors.textAction}>
-            {I18n.t('joinUs-privacyPolicy')}
-          </Text>
+      <Text
+        variant={'smallText'}
+        p={'2'}
+        pr={'4'}
+        textAlign={'right'}
+        onPress={preventMultiCalls(() => openModal(rootScreens.privacy.name))}
+        suppressHighlighting
+      >
+        {I18n.t('joinUs-getConfirmationCode')}
+        <Text variant={'smallTextAction'} underline color={colors.textAction}>
+          {I18n.t('joinUs-privacyPolicy')}
         </Text>
-      </Pressable>
+      </Text>
 
       {!isValid && (
         <HStack

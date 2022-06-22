@@ -1,17 +1,27 @@
 import React from 'react';
-
 import EventComponent from '../components/EventComponent';
-import { generateEvent } from 'utils/helpers/dummy';
-
+import buildEventsStore from 'stores/events';
 import { IEventContainerProps } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const EventContainer: React.FC<IEventContainerProps> = ({ id }) => {
-  // get event's data by id
+const eventsStore = buildEventsStore();
 
-  const data = generateEvent();
+const EventContainer: React.FC<IEventContainerProps> = ({ data }) => {
+  React.useEffect(() => {
+    eventsStore.getSingle(data.id);
+    // erase store on unmount
+  }, [data.id]);
 
-  return <EventComponent data={data} />;
+  const result = eventsStore.useSelector('single');
+
+  return (
+    <EventComponent
+      data={
+        result.single.data && result.single.status === 'success'
+          ? result.single.data
+          : data
+      }
+    />
+  );
 };
 
 export default EventContainer;

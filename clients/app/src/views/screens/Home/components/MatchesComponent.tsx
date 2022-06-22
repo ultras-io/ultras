@@ -5,7 +5,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens, tabScreens } from 'views/navigation/screens';
 import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import MatchCard from 'views/components/compositions/MatchCard';
 import { MatchViewModel } from '@ultras/core-api-sdk';
 import { IMatchesComponentProps } from '../types';

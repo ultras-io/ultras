@@ -1,13 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
+import { EventViewModel } from '@ultras/core-api-sdk';
 
 export interface IEventProps {
-  route: RouteProp<{ params: { tabName: string; id: string } }, 'params'>;
+  route: RouteProp<{ params: { tabName: string; data: EventViewModel } }, 'params'>;
 }
 
 export interface IEventContainerProps {
-  id: string;
+  data: EventViewModel;
 }
 
 export interface IEventComponentProps {
-  data: any;
+  data: EventViewModel;
 }

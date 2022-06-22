@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, HStack, VStack } from 'native-base';
 import MessageBox from 'views/components/base/MessageBox';
 import Icon from 'views/components/base/Icon';
-import { Icons } from 'assets/icons';
+import { Icons as Icons } from 'assets/icons';
 import type { AnswerPost, IRightMessageProps } from '../types';
 
 const RightMessage: React.FC<IRightMessageProps> = ({

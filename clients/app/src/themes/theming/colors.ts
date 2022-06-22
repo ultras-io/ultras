@@ -30,6 +30,8 @@ const dark: ColorType = {
   buttonSecondary: 'rgba(0, 0, 0, 0.3)',
   buttonSecondaryPressed: 'rgba(0, 0, 0, 0.25)',
   buttonSecondaryDisabled: 'rgba(0, 0, 0, 0.15)',
+  buttonSecondaryInvert: 'rgba(255, 255, 255, 0.8)',
+  buttonSecondaryInvertPressed: 'rgba(255, 255, 255, 0.6)',
   buttonAction: 'rgba(255, 255, 255, 1)',
   buttonActionPressed: 'rgba(255, 255, 255, 0.8)',
   buttonActionDisabled: 'rgba(255, 255, 255, 0.2)',

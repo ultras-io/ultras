@@ -44,13 +44,31 @@ export default {
       };
     },
 
+    secondaryInvert: ({ colorMode }: ComponentParams) => {
+      return {
+        alignSelf: 'flex-start',
+        bg: colors[colorMode].buttonSecondaryInvert,
+        h: '5',
+        paddingX: '3',
+        rounded: 'full',
+        _text: {
+          fontSize: 'sm',
+          fontWeight: 600,
+          color: colors[colorMode].textPrimaryInvert,
+        },
+        _pressed: {
+          bg: colors[colorMode].buttonSecondaryInvertPressed,
+        },
+      };
+    },
+
     action: ({ colorMode, disabled = false }: ComponentParams) => {
       return {
         bg: disabled
           ? colors[colorMode].buttonActionDisabled
           : colors[colorMode].buttonAction,
-        h: 30,
-        rounded: 'full',
+        h: 34,
+        rounded: 8,
         _text: {
           fontSize: 'xl',
           fontWeight: 600,
@@ -69,8 +87,8 @@ export default {
         bg: disabled
           ? colors[colorMode].buttonActionInvertDisabled
           : colors[colorMode].buttonActionInvert,
-        h: 30,
-        rounded: 'full',
+        h: 34,
+        rounded: 8,
         _text: {
           fontSize: 'xl',
           fontWeight: 600,

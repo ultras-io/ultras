@@ -91,6 +91,7 @@ export default {
       return {
         fontFamily: 'Montserrat',
         fontSize: '5xl',
+        lineHeight: 'sm',
         fontWeight: 600,
         style: {
           color: colors[colorMode].textSectionHeader,

@@ -2,7 +2,7 @@ import React from 'react';
 // import { View } from 'react-native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 // import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/WithBadge';
-// import { Icons } from 'assets/icons';
+// import { Icons as Icons } from 'assets/icons';
 import Container from 'views/components/base/Container';
 import { IProfileProps } from './types';
 // import { screenSettings } from 'views/navigation/screens';
