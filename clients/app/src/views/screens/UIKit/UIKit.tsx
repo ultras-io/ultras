@@ -29,7 +29,7 @@ const UIKit = () => {
           <Text variant={'matchDateInvert'}>06 JUN</Text>
           <Text variant={'matchTimeInvert'}>23:45</Text>
           <Text variant={'matchTeamInvert'}>Bayer 04 Leverkusen</Text>
-          <Text variant={'standart'}>
+          <Text variant={'standard'}>
             Rome is one of the host cities, including for Italy’s three group stage
             matches and a quarter-final game on July 3rd.
           </Text>

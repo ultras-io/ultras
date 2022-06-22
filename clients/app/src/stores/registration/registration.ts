@@ -192,7 +192,7 @@ const initStore = () => {
       },
 
       login: () => {
-        const emailOrPhoneKey = get().user.joinVia.key;
+        const emailOrPhoneKey = get().user.joinVia.isEmail ? 'email' : 'phone';
         const emailOrPhone = get().user.joinVia.value;
         const code = get().user.code;
 
@@ -222,7 +222,7 @@ const initStore = () => {
 
       register: () => {
         const teamId = Number(get().user.team.id);
-        const emailOrPhoneKey = get().user.joinVia.key;
+        const emailOrPhoneKey = get().user.joinVia.isEmail ? 'email' : 'phone';
         const emailOrPhone = get().user.joinVia.value;
         const code = get().user.code;
         const username = get().user.username;

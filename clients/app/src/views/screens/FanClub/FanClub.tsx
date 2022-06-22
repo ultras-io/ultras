@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable } from 'native-base';
 import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';

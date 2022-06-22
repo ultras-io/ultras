@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from '../Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 
 import { ICommentsCountProps } from './types';

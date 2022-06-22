@@ -200,7 +200,7 @@ export default {
         },
       };
     },
-    standart: ({ colorMode }: ComponentParams) => {
+    standard: ({ colorMode }: ComponentParams) => {
       return {
         fontSize: '2xl',
         style: {

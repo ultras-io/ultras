@@ -28,7 +28,7 @@ const FanClubAbout: React.FC<IFanClubAboutProps> = ({ route }) => {
         <Text variant={'title'} mb={'2'}>
           {I18n.t('common-about')}
         </Text>
-        <Text variant={'standart'} mb={'10'}>
+        <Text variant={'standard'} mb={'10'}>
           {description}
         </Text>
       </ScrollView>

@@ -8,7 +8,7 @@ import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 import CommentsCount from 'views/components/base/CommentsCount';
 import Like from 'views/components/base/Like';
-import { IconNamesEnum } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 
 import { IPostCardProps } from './types';
@@ -50,7 +50,7 @@ const PostCard: React.FC<IPostCardProps> = ({
             <CommentsCount count={commentsCount} />
           </View>
           <View style={styles.arrow}>
-            <Icon key="icon" name={IconNamesEnum.ArrowRight} size={'ic-2xs'} />
+            <Icon key="icon" name={Icons.ArrowRight} size={'ic-2xs'} />
           </View>
         </View>
       </BluredView>

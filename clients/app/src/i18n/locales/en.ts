@@ -17,7 +17,7 @@ export default {
   'common-going': 'Going',
   'common-search': 'Search',
   'common-about': 'About',
-  'common-noResults': 'No Results',
+  'common-noResults': 'No results',
 
   // splash
   'splash-slogan': '#WatchFootball',
@@ -43,6 +43,7 @@ export default {
   'joinUs-enterCode': "Please enter 4-digit code we've sent to",
   'joinUs-fourDigitsCode': '4-digit confirmation code',
   'joinUs-fourDigitsCodeWrong': 'Wrong code, please check it or',
+  'joinUs-fourDigitsCodeNotReceived': "If you haven't received code",
   'joinUs-fourDigitsRequestAgain': 'request it again',
   'joinUs-login':
     'You have already registered log in lorep ipsum dolor sirtempor incididunt ut labore et dolore magna aliqua.',

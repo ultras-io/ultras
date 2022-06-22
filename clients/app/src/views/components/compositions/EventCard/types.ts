@@ -1,16 +1,6 @@
-export interface IEventCardProps {
-  imageUri?: string;
-  date: Date;
-  title: string;
-  location?: string;
-  goingCount: number;
-  commentsCount: number;
-  likeCount?: number;
-  creator: string;
-  supportersClub?: string;
-  isGoing: boolean;
-  isLiked: boolean;
-  onPress: () => void;
-}
+import { EventViewModel } from '@ultras/view-models';
 
-export type EventInfoProps = Omit<IEventCardProps, 'onPress'>;
+export interface IEventCardProps {
+  onPress: () => void;
+  data: EventViewModel;
+}

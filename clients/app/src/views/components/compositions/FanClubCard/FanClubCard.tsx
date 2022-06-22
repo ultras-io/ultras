@@ -41,11 +41,9 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
           <Text variant={'smallTitle'} textAlign={'center'} numberOfLines={1}>
             {data.shortName}
           </Text>
-          {data.membersCount && (
-            <Text variant={'smallDescription'} textAlign={'center'}>
-              {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
-            </Text>
-          )}
+          <Text variant={'smallDescription'} textAlign={'center'}>
+            {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
+          </Text>
         </Center>
       )}
     </Pressable>

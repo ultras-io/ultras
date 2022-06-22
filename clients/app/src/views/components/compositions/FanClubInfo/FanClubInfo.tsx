@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Button, Pressable, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import VerticalDivider from 'views/components/base/VerticalDivider';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';

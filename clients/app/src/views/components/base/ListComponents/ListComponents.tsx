@@ -10,7 +10,7 @@ export const NoResults: React.FC = () => {
       borderBottomWidth={'0.5'}
       borderBottomColor={colors.backgroundDividerTransparent}
     >
-      <Text variant={'standart'} paddingY={'4'} ml={2}>
+      <Text variant={'info'} paddingY={'4'} ml={2}>
         {I18n.t('common-noResults')}
       </Text>
     </Box>

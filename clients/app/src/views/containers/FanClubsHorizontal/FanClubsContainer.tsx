@@ -18,12 +18,14 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   if (!result.list.data && result.list.status === 'loading') return <FanClubsLoader />;
 
   return (
-    <FanClubsComponent
-      data={result.list.data || []}
-      onEndReached={fanClubsStore.getAll}
-      withBounce={withBounce}
-      showHeaderButton={showHeaderButton}
-    />
+    result.list.data && (
+      <FanClubsComponent
+        data={result.list.data}
+        onEndReached={fanClubsStore.getAll}
+        withBounce={withBounce}
+        showHeaderButton={showHeaderButton}
+      />
+    )
   );
 };
 

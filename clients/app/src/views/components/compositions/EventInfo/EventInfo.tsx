@@ -9,7 +9,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
-import { IconNamesEnum as Icons } from 'assets/icons';
+import { Icons } from 'assets/icons';
 import Like from 'views/components/base/Like';
 import Box from 'views/components/base/Box';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';

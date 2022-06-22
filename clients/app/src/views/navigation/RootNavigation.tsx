@@ -46,7 +46,6 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
       <Box flex={1}>
         <Stack.Navigator
           initialRouteName={rootScreens.intro.name}
-          // initialRouteName={rootScreens.joinUs.name}
           screenOptions={{
             headerShown: false,
             headerStyle: {
