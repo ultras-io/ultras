@@ -36,6 +36,23 @@ class S3Service extends BaseService {
       path: key,
     };
   }
+
+  static async getFileContent(path: string) {
+    return new Promise<string | undefined>((resolve, reject) => {
+      const options = {
+        Bucket: awsConfig.s3.Bucket!,
+        Key: path,
+      };
+
+      s3.getObject(options, (error, data) => {
+        if (error) {
+          return reject(error);
+        }
+
+        resolve(data?.Body?.toString());
+      });
+    });
+  }
 }
 
 export default S3Service;

@@ -14,6 +14,7 @@ import injectCountries, {
 } from 'core/data/inject-scripts/injectCountries';
 
 import BaseService from './BaseService';
+import S3Service from './aws/S3Service';
 
 export interface CountriesListParamsInterface {
   name?: string;
@@ -116,6 +117,28 @@ class CountryService extends BaseService {
     await db.Country.bulkCreate(records, {
       ignoreDuplicates: true,
     });
+
+    const phoneCodesJson = await S3Service.getFileContent('countries.json');
+    if (!phoneCodesJson) {
+      return;
+    }
+
+    const countryPhoneCodes = JSON.parse(phoneCodesJson);
+    for (const countryCode in countryPhoneCodes) {
+      await db.Country.update(
+        {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          telPrefix: countryPhoneCodes[countryCode],
+        },
+        {
+          where: {
+            code: countryCode,
+          },
+          limit: 1,
+        }
+      );
+    }
   }
 }
 
