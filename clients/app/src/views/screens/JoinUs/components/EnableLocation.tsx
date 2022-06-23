@@ -5,8 +5,13 @@ import type { IState } from 'stores/registration';
 import type { IEnableLocationProps } from '../types';
 
 const EnableLocation: React.FC<IEnableLocationProps> = ({ useStore, text }) => {
-  const setLocationEnabled = useStore((state: IState) => state.setLocationEnabled);
-  const nextStep = useStore((state: IState) => state.nextStep);
+  const setLocationEnabledSelector = React.useCallback(
+    () => (state: IState) => state.setLocationEnabled,
+    []
+  );
+  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
+  const setLocationEnabled = useStore(setLocationEnabledSelector());
+  const nextStep = useStore(nextStepSelector());
 
   const requestLocation = React.useCallback(async () => {
     setLocationEnabled(await LocationService.hasLocationPermission());

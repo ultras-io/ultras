@@ -127,6 +127,7 @@ export default {
       return {
         fontFamily: 'Montserrat',
         fontSize: '3xl',
+        lineHeight: 'sm',
         fontWeight: 600,
         style: {
           color: colors[colorMode].textPrimary,

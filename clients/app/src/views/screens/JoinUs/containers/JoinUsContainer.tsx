@@ -28,8 +28,14 @@ const useRegistrationStore = initStore();
 const useAuthenticationStore = initAuthStore();
 
 const JoinUsContainer: React.FC = () => {
-  const loginStep = useRegistrationStore((state: IState) => state.loginStep);
-  const step = useRegistrationStore((state: IState) => state.step);
+  const loginStepSelector = React.useCallback(
+    () => (state: IState) => state.loginStep,
+    []
+  );
+  const stepSelector = React.useCallback(() => (state: IState) => state.step, []);
+
+  const loginStep = useRegistrationStore(loginStepSelector());
+  const step = useRegistrationStore(stepSelector());
 
   return (
     <JoinUsComponent

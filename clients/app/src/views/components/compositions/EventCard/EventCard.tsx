@@ -41,7 +41,9 @@ const EventCard: React.FC<IEventCardProps> = ({ data, onPress }) => {
                 ? moment(data.dateTime).fromNow()
                 : moment(data.dateTime).format('MMM DD, hh:mm')}
             </Text>
-            <Text variant={'cardTitle'}>{data.post.title}</Text>
+            <Text variant={'cardTitle'} mb={'1'}>
+              {data.post.title}
+            </Text>
             <Text variant={'cardStats'}>
               {getReadableNumber(2763)} {I18n.t('common-going')}
             </Text>

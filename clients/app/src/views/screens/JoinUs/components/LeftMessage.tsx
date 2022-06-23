@@ -5,12 +5,34 @@ import type { IState } from 'stores/registration';
 import type { Message, ILeftMessageProps } from '../types';
 
 const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
-  const step = useStore((state: IState) => state.step);
-  const joinViaKey = useStore((state: IState) => state.user.joinVia.key);
-  const joinViaKeyInvert = useStore((state: IState) => state.user.joinVia.keyInvert);
-  const joinViaValue = useStore((state: IState) => state.user.joinVia.value);
-  const jumpToStep = useStore((state: IState) => state.jumpToStep);
-  const switchJoinMethod = useStore((state: IState) => state.switchJoinMethod);
+  const stepSelector = React.useCallback(() => (state: IState) => state.step, []);
+  const joinViaKeySelector = React.useCallback(
+    () => (state: IState) => state.user.joinVia.key,
+    []
+  );
+  const joinViaKeyInvertSelector = React.useCallback(
+    () => (state: IState) => state.user.joinVia.keyInvert,
+    []
+  );
+  const joinViaValueSelector = React.useCallback(
+    () => (state: IState) => state.user.joinVia.value,
+    []
+  );
+  const jumpToStepSelector = React.useCallback(
+    () => (state: IState) => state.jumpToStep,
+    []
+  );
+  const switchJoinMethodSelector = React.useCallback(
+    () => (state: IState) => state.switchJoinMethod,
+    []
+  );
+
+  const step = useStore(stepSelector());
+  const joinViaKey = useStore(joinViaKeySelector());
+  const joinViaKeyInvert = useStore(joinViaKeyInvertSelector());
+  const joinViaValue = useStore(joinViaValueSelector());
+  const jumpToStep = useStore(jumpToStepSelector());
+  const switchJoinMethod = useStore(switchJoinMethodSelector());
 
   const renderText = useCallback(
     message => {

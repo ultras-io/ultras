@@ -33,24 +33,50 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   const { openModal } = useNavigationWithParams();
   const [isTeamSelected, setIsTeamSelected] = React.useState(false);
 
-  const step = useStore((state: IState) => state.step);
-  const selectedTeamName = useStore((state: IState) => state.user.team.name);
-  const emailOrPhone = useStore((state: IState) => state.user.joinVia.value);
-  const code = useStore((state: IState) => state.user.code);
-  const username = useStore((state: IState) => state.user.username);
-  const notificationsAllowed = useStore(
-    (state: IState) => state.user.notificationsAllowed
+  const stepSelector = React.useCallback(() => (state: IState) => state.step, []);
+  const selectedTeamNameSelector = React.useCallback(
+    () => (state: IState) => state.user.team.name,
+    []
   );
-  const locationEnabled = useStore((state: IState) => state.user.locationEnabled);
-  const nextStep = useStore((state: IState) => state.nextStep);
-  const setSelected = useStore((state: IState) => state.setSelected);
+  const emailOrPhoneSelector = React.useCallback(
+    () => (state: IState) => state.user.joinVia.value,
+    []
+  );
+  const codeSelector = React.useCallback(() => (state: IState) => state.user.code, []);
+  const usernameSelector = React.useCallback(
+    () => (state: IState) => state.user.username,
+    []
+  );
+  const notificationsAllowedSelector = React.useCallback(
+    () => (state: IState) => state.user.notificationsAllowed,
+    []
+  );
+  const locationEnabledSelector = React.useCallback(
+    () => (state: IState) => state.user.locationEnabled,
+    []
+  );
+  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
+  const setSelectedSelector = React.useCallback(
+    () => (state: IState) => state.setSelected,
+    []
+  );
+
+  const step = useStore(stepSelector());
+  const selectedTeamName = useStore(selectedTeamNameSelector());
+  const emailOrPhone = useStore(emailOrPhoneSelector());
+  const code = useStore(codeSelector());
+  const username = useStore(usernameSelector());
+  const notificationsAllowed = useStore(notificationsAllowedSelector());
+  const locationEnabled = useStore(locationEnabledSelector());
+  const nextStep = useStore(nextStepSelector());
+  const setSelected = useStore(setSelectedSelector());
 
   React.useLayoutEffect(() => {
     setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
   }, [step]);
 
   React.useLayoutEffect(() => {
-    isKeyboardOpen && setTimeout(() => flatListRef?.current?.scrollToEnd(), 0);
+    isKeyboardOpen && setTimeout(() => flatListRef?.current?.scrollToEnd(), 10);
   }, [isKeyboardOpen]);
 
   React.useEffect(() => {

@@ -10,6 +10,8 @@ export default {
   'common-tapToChange': 'Tap to Change',
   'common-close': 'Close',
   'common-select': 'Select',
+  'common-team': 'Team',
+  'common-country': 'Country',
   'common-discover': 'Discover',
   'common-viewAll': 'View All',
   'common-privacy': 'Privacy Policy',

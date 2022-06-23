@@ -3,14 +3,15 @@ import FanClubComponent from '../components/FanClubComponent';
 // import buildFanClubsStore from 'stores/fanClubs';
 import { IFanClubContainerProps } from '../types';
 
-// const fanClubsStore = buildFanClubsStore();
-
 const FanClubContainer: React.FC<IFanClubContainerProps> = ({ data }) => {
+  // const fanClubsStoreRef = React.useRef(buildFanClubsStore());
+
   // React.useEffect(() => {
-  //   fanClubsStore.getSingle(data.id);
+  //   fanClubsStoreRef.current.getSingle(data.id);
+  //   // do we need to erase store on unmount?
   // }, [data.id]);
 
-  // const result = fanClubsStore.useSelector('single');
+  // const result = fanClubsStoreRef.current.useSelector('single');
 
   return <FanClubComponent data={data} />;
 };

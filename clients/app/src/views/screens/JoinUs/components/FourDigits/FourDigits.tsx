@@ -17,13 +17,36 @@ import type { IState } from 'stores/registration';
 import type { IFourDigitsProps } from '../../types';
 
 const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
-  const status = useStore((state: IState) => state.status);
-  const statusNext = useStore((state: IState) => state.statusNext);
-  const isCodeValid = useStore((state: IState) => state.user.isCodeValid);
-  const userExists = useStore((state: IState) => state.user.exists);
-  const verifyCode = useStore((state: IState) => state.verifyCode);
-  const nextStep = useStore((state: IState) => state.nextStep);
-  const toLoginStep = useStore((state: IState) => state.toLoginStep);
+  const statusSelector = React.useCallback(() => (state: IState) => state.status, []);
+  const statusNextSelector = React.useCallback(
+    () => (state: IState) => state.statusNext,
+    []
+  );
+  const isCodeValidSelector = React.useCallback(
+    () => (state: IState) => state.user.isCodeValid,
+    []
+  );
+  const userExistsSelector = React.useCallback(
+    () => (state: IState) => state.user.exists,
+    []
+  );
+  const verifyCodeSelector = React.useCallback(
+    () => (state: IState) => state.verifyCode,
+    []
+  );
+  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
+  const toLoginStepSelector = React.useCallback(
+    () => (state: IState) => state.toLoginStep,
+    []
+  );
+
+  const status = useStore(statusSelector());
+  const statusNext = useStore(statusNextSelector());
+  const isCodeValid = useStore(isCodeValidSelector());
+  const userExists = useStore(userExistsSelector());
+  const verifyCode = useStore(verifyCodeSelector());
+  const nextStep = useStore(nextStepSelector());
+  const toLoginStep = useStore(toLoginStepSelector());
 
   const { colors } = useTheme();
   const inputRef = React.useRef(null);

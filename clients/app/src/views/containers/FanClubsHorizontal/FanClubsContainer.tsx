@@ -5,15 +5,17 @@ import FanClubsComponent, {
 import buildFanClubsStore from 'stores/fanClubs';
 import { IFanClubsContainerProps } from './types';
 
-const fanClubsStore = buildFanClubsStore();
-fanClubsStore.getAll();
-
 const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   showHeaderButton = true,
   withBounce = true,
 }) => {
-  const result = fanClubsStore.useSelector('list');
+  const fanClubsStoreRef = React.useRef(buildFanClubsStore());
 
+  React.useEffect(() => {
+    fanClubsStoreRef.current.getAll();
+  }, []);
+
+  const result = fanClubsStoreRef.current.useSelector('list');
   // @TODO handle error status
   if (!result.list.data && result.list.status === 'loading') return <FanClubsLoader />;
 
@@ -21,7 +23,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
     result.list.data && (
       <FanClubsComponent
         data={result.list.data}
-        onEndReached={fanClubsStore.getAll}
+        onEndReached={fanClubsStoreRef.current.getAll}
         withBounce={withBounce}
         showHeaderButton={showHeaderButton}
       />

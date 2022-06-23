@@ -8,7 +8,11 @@ import gStyles from 'styles/styles';
 const bg = require('assets/images/bg.png');
 
 const Splash: React.FC<ISplashProps> = ({ useStore }) => {
-  const authenticate = useStore((state: IState) => state.authenticate);
+  const authenticateSelector = React.useCallback(
+    () => (state: IState) => state.authenticate,
+    []
+  );
+  const authenticate = useStore(authenticateSelector());
 
   React.useEffect(() => {
     authenticate();

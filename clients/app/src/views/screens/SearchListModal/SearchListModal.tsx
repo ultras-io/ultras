@@ -40,7 +40,8 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
       </Button>
 
       <Text variant={'title'} mb={'2'} px="5">
-        {I18n.t('common-select')} {I18n.t(dataKey === 'team' ? 'team' : 'country')}
+        {I18n.t('common-select')}{' '}
+        {I18n.t(dataKey === 'team' ? 'common-team' : 'common-country')}
       </Text>
 
       <Input
