@@ -135,6 +135,7 @@ class CountryService extends BaseService {
           where: {
             code: countryCode,
           },
+          limit: 1,
         }
       );
     }
