@@ -19,6 +19,7 @@ export interface PostAttributes {
   fanClubId: Nullable<ResourceIdentifier>;
   title: Nullable<string>;
   content: Nullable<string>;
+  image: Nullable<string>;
   commentsCount: number;
   likesCount: number;
 }
@@ -35,8 +36,9 @@ export class Post
   public authorId!: ResourceIdentifier;
   public matchId!: Nullable<ResourceIdentifier>;
   public fanClubId!: Nullable<ResourceIdentifier>;
-  public title!: string;
-  public content!: string;
+  public title!: Nullable<string>;
+  public content!: Nullable<string>;
+  public image!: Nullable<string>;
   public commentsCount!: number;
   public likesCount!: number;
 
@@ -136,6 +138,10 @@ module.exports = (sequelize: Sequelize): typeof Post => {
       },
       content: {
         type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      image: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
       commentsCount: {

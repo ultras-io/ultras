@@ -10,7 +10,7 @@ import { Location } from 'core/data/models/Location';
 export interface EventAttributes {
   id: ResourceIdentifier;
   postId: ResourceIdentifier;
-  locationId: ResourceIdentifier;
+  locationId: Nullable<ResourceIdentifier>;
   dateTime: Date;
   privacy: EventPrivacyEnum;
 }
@@ -24,7 +24,7 @@ export class Event
   // Note that the `null assertion` `!` is required in strict mode.
   public id!: ResourceIdentifier;
   public postId!: ResourceIdentifier;
-  public locationId!: ResourceIdentifier;
+  public locationId!: Nullable<ResourceIdentifier>;
   public dateTime!: Date;
   public privacy!: EventPrivacyEnum;
 
@@ -72,7 +72,7 @@ module.exports = (sequelize: Sequelize): typeof Event => {
       },
       locationId: {
         type: DataTypes.BIGINT,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: {
             tableName: resources.LOCATION.RELATION,

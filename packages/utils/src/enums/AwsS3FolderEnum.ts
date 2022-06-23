@@ -15,9 +15,14 @@ enum AwsS3FolderEnum {
   fanClubCover = 'fanClubCover',
 
   /**
-   * Folder for topics.
+   * Folder for events.
    */
-  topic = 'topic',
+  event = 'event',
+
+  /**
+   * Folder for rooms.
+   */
+  room = 'room',
 }
 
 export default AwsS3FolderEnum;

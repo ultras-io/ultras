@@ -11,6 +11,7 @@ class ControllerAdapter {
       title,
       content,
       privacy,
+      image,
       dateTime,
       locationName,
       locationLat,
@@ -26,6 +27,7 @@ class ControllerAdapter {
       fanClubId,
       title,
       content,
+      image,
       privacy,
       dateTime: new Date(dateTime),
       locationName,
@@ -44,8 +46,16 @@ class ControllerAdapter {
 
   static async update(ctx: Context) {
     /** VALIDATIONS, PARAMETERS */
-    const { title, content, privacy, dateTime, locationName, locationLat, locationLng } =
-      ctx.request.body;
+    const {
+      title,
+      content,
+      image,
+      privacy,
+      dateTime,
+      locationName,
+      locationLat,
+      locationLng,
+    } = ctx.request.body;
 
     const { id } = ctx.request.params;
 
@@ -54,6 +64,7 @@ class ControllerAdapter {
       id,
       title,
       content,
+      image,
       privacy,
       dateTime: new Date(dateTime),
       locationName,

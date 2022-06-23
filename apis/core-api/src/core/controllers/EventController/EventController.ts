@@ -63,21 +63,38 @@ class EventController extends BaseController {
   /**
    * Add new event.
    */
-  static async create(params: EventCreateParams): EventCreateResult {
+  static async create({
+    authorId,
+    title,
+    content,
+    fanClubId,
+    matchId,
+    image,
+    privacy,
+    dateTime,
+    locationName,
+    locationLat,
+    locationLng,
+  }: EventCreateParams): EventCreateResult {
     const event = await this.withTransaction(async transaction => {
-      const location = await LocationService.createOrGet({
-        name: params.locationName,
-        lat: params.locationLat,
-        lng: params.locationLng,
-      });
+      let location = null;
+
+      if (locationName) {
+        location = await LocationService.createOrGet({
+          name: locationName,
+          lat: locationLat,
+          lng: locationLng,
+        });
+      }
 
       const post = await PostService.create(
         {
-          authorId: params.authorId,
-          matchId: params.matchId,
-          fanClubId: params.fanClubId,
-          title: params.title,
-          content: params.content,
+          image: image,
+          authorId: authorId,
+          matchId: matchId,
+          fanClubId: fanClubId,
+          title: title,
+          content: content,
           type: PostTypeEnum.event,
         },
         transaction
@@ -85,10 +102,10 @@ class EventController extends BaseController {
 
       const event = await EventService.create(
         {
-          locationId: location.getDataValue('id'),
+          locationId: location ? location.getDataValue('id') : null,
           postId: post.getDataValue('id'),
-          privacy: !params.fanClubId ? EventPrivacyEnum.public : params.privacy,
-          dateTime: params.dateTime,
+          privacy: !fanClubId ? EventPrivacyEnum.public : privacy,
+          dateTime: dateTime,
         },
         transaction
       );
@@ -104,22 +121,36 @@ class EventController extends BaseController {
   /**
    * Add new event.
    */
-  static async update(params: EventUpdateParams): EventUpdateResult {
+  static async update({
+    id,
+    title,
+    content,
+    privacy,
+    dateTime,
+    image,
+    locationName,
+    locationLat,
+    locationLng,
+  }: EventUpdateParams): EventUpdateResult {
     const eventUpdate = await this.withTransaction(async transaction => {
-      const location = await LocationService.createOrGet({
-        name: params.locationName,
-        lat: params.locationLat,
-        lng: params.locationLng,
-      });
+      let location = null;
+      if (locationName) {
+        location = await LocationService.createOrGet({
+          name: locationName,
+          lat: locationLat,
+          lng: locationLng,
+        });
+      }
 
-      const event = await EventService.getById(params.id);
+      const event = await EventService.getById(id);
       const postId = event.getDataValue('post').getDataValue('id');
 
       await PostService.update(
         postId,
         {
-          title: params.title,
-          content: params.content,
+          image: image,
+          title: title,
+          content: content,
         },
         transaction
       );
@@ -127,11 +158,11 @@ class EventController extends BaseController {
       const fanClubId = event.getDataValue('post').getDataValue('fanClubId');
 
       const eventUpdate = await EventService.update(
-        params.id,
+        id,
         {
-          locationId: location.getDataValue('id'),
-          privacy: !fanClubId ? EventPrivacyEnum.public : params.privacy,
-          dateTime: params.dateTime,
+          locationId: location ? location.getDataValue('id') : null,
+          privacy: !fanClubId ? EventPrivacyEnum.public : privacy,
+          dateTime: dateTime,
         },
         transaction
       );
