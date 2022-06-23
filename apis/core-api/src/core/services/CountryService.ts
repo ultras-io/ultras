@@ -6,7 +6,6 @@ import {
   ServiceByIdResultType,
   ResourceIdentifier,
 } from 'types';
-import countryPhoneCodes from 'static/countries.json';
 
 import db from 'core/data/models';
 import { CountryCreationAttributes } from 'core/data/models/Country';
@@ -15,6 +14,7 @@ import injectCountries, {
 } from 'core/data/inject-scripts/injectCountries';
 
 import BaseService from './BaseService';
+import S3Service from './aws/S3Service';
 
 export interface CountriesListParamsInterface {
   name?: string;
@@ -118,6 +118,12 @@ class CountryService extends BaseService {
       ignoreDuplicates: true,
     });
 
+    const phoneCodesJson = await S3Service.getFileContent('countries.json');
+    if (!phoneCodesJson) {
+      return;
+    }
+
+    const countryPhoneCodes = JSON.parse(phoneCodesJson);
     for (const countryCode in countryPhoneCodes) {
       await db.Country.update(
         {
