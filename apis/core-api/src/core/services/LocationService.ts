@@ -18,7 +18,7 @@ export interface CreateParamsInterface {
 }
 
 export interface SearchParamsInterface {
-  name: string;
+  name?: Nullable<string>;
   lat?: Nullable<number>;
   lng?: Nullable<number>;
 }
@@ -77,6 +77,10 @@ class LocationService extends BaseService {
     { name, lat, lng }: CreateParamsInterface,
     transaction?: Transaction
   ) {
+    if (!name && (!lat || !lng)) {
+      return null;
+    }
+
     const location = await this.get({
       name,
       lat,

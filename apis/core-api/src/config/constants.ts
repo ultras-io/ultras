@@ -30,7 +30,8 @@ const AWS_S3_BUCKET_FOLDERS: Record<AwsS3FolderEnum, string> = {
   profilePicture: 'profile-pictures',
   fanClubAvatar: 'fan-clubs/avatars',
   fanClubCover: 'fan-clubs/covers',
-  topic: 'topics',
+  room: 'posts/rooms',
+  event: 'posts/events',
 };
 
 const MIME_TYPES: Record<string, string> = {

@@ -3,7 +3,13 @@ import BaseService from './BaseService';
 type MaybeUnknown<T> = T | 'UNKNOWN';
 
 export type BrowserType = MaybeUnknown<
-  'Opera' | 'Firefox' | 'Microsoft Edge' | 'Chrome' | 'Safari' | 'Internet Explorer'
+  | 'Opera'
+  | 'Firefox'
+  | 'Microsoft Edge'
+  | 'Chrome'
+  | 'Safari'
+  | 'Internet Explorer'
+  | 'MobileApp'
 >;
 
 export type OperationSystemType = {
@@ -41,6 +47,9 @@ class UserAgentService extends BaseService {
     if (userAgent.indexOf('MSIE') != -1) {
       return 'Internet Explorer';
     }
+    if (/^app/.test(userAgent) || /ultras/.test(userAgent)) {
+      return 'MobileApp';
+    }
 
     return 'UNKNOWN';
   }
@@ -62,6 +71,13 @@ class UserAgentService extends BaseService {
     if (/(iPhone|iPad|iPod|iOS)/.test(userAgent)) {
       info.name = 'iOS';
       info.version = this.getByPattern(userAgent, /ios (\d+)/i);
+    }
+
+    if (
+      (/darwin/.test(userAgent) || /Darwin/.test(userAgent)) &&
+      (/^app/.test(userAgent) || /ultras/.test(userAgent))
+    ) {
+      info.name = 'iOS';
     }
 
     if (userAgent.indexOf('Windows') != -1) {

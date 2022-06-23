@@ -22,9 +22,10 @@ export type EventCreateParams = {
   content: string;
   fanClubId?: ResourceIdentifier;
   matchId?: ResourceIdentifier;
+  image: Nullable<string>;
   privacy: EventPrivacyEnum;
   dateTime: Date;
-  locationName: string;
+  locationName: Nullable<string>;
   locationLat?: Nullable<number>;
   locationLng?: Nullable<number>;
 };
@@ -35,7 +36,8 @@ export type EventUpdateParams = {
   content: string;
   privacy: EventPrivacyEnum;
   dateTime: Date;
-  locationName: string;
+  image: Nullable<string>;
+  locationName: Nullable<string>;
   locationLat?: Nullable<number>;
   locationLng?: Nullable<number>;
 };

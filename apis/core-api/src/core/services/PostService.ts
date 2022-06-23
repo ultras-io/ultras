@@ -10,6 +10,7 @@ import FanClubService from './FanClubService';
 import MatchService from './MatchService';
 
 export interface CreateParamsInterface {
+  image?: Nullable<string>;
   authorId: ResourceIdentifier;
   title: string;
   content: string;
@@ -19,6 +20,7 @@ export interface CreateParamsInterface {
 }
 
 export interface UpdateParamsInterface {
+  image?: Nullable<string>;
   title: string;
   content: string;
 }
@@ -52,10 +54,11 @@ class PostService extends BaseService {
    * Create post instance.
    */
   static async create(
-    { authorId, title, content, fanClubId, matchId, type }: CreateParamsInterface,
+    { image, authorId, title, content, fanClubId, matchId, type }: CreateParamsInterface,
     transaction?: Transaction
   ) {
     const postData: PostCreationAttributes = {
+      image: image || null,
       type,
       authorId,
       matchId: matchId || null,
@@ -75,7 +78,7 @@ class PostService extends BaseService {
    */
   static async update(
     postId: ResourceIdentifier,
-    { title, content }: UpdateParamsInterface,
+    { image, title, content }: UpdateParamsInterface,
     transaction?: Transaction
   ) {
     const post = await db.Post.findOne({
@@ -86,6 +89,7 @@ class PostService extends BaseService {
 
     await post.update(
       {
+        image,
         title,
         content,
       },
