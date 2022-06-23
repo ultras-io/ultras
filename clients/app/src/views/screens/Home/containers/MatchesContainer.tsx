@@ -1,23 +1,29 @@
 import React from 'react';
 import MatchesComponent, { MatchesLoader } from '../components/MatchesComponent';
+import initAuthStore, { IState } from 'stores/authentication';
 import buildMatchesStore from 'stores/matches';
 import { OrderEnum } from '@ultras/utils';
 import { IMatchesContainerProps } from '../types';
 
-const matchesStore = buildMatchesStore();
+const useAuthenticationStore = initAuthStore();
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = () => {
-  React.useEffect(() => {
-    matchesStore.updateFilter({
-      teamId: '2124,212', // my teams get from profile,
+  const matchesStoreRef = React.useRef(buildMatchesStore());
+  const userSelector = React.useCallback(() => (state: IState) => state.user, []);
+  const user = useAuthenticationStore(userSelector());
+
+  const getData = React.useCallback(() => {
+    matchesStoreRef.current.updateFilter({
+      teamId: user.teams,
       limit: 3,
       orderAttr: 'dateTime',
       order: OrderEnum.desc,
     });
-    matchesStore.getAll();
-  }, []);
+    matchesStoreRef.current.getAll();
+  }, [user.teams]);
 
-  const result = matchesStore.useSelector('list');
+  React.useEffect(getData, [getData]);
+  const result = matchesStoreRef.current.useSelector('list');
 
   // @TODO handle error status
   if (!result.list.data && result.list.status === 'loading') return <MatchesLoader />;

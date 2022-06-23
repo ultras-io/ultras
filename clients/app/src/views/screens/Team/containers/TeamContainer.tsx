@@ -3,14 +3,15 @@ import TeamComponent from '../components/TeamComponent';
 // import buildTeamsStore from 'stores/teams';
 import { ITeamContainerProps } from '../types';
 
-// const teamsStore = buildTeamsStore();
-
 const TeamContainer: React.FC<ITeamContainerProps> = ({ data }) => {
+  // const teamsStoreRef = React.useRef(buildTeamsStore());
+
   // React.useEffect(() => {
-  //   teamsStore.getSingle(data.id);
+  //   teamsStoreRef.current.getSingle(data.id);
+  //   // do we need to erase store on unmount?
   // }, [data.id]);
 
-  // const result = teamsStore.useSelector('single');
+  // const result = teamsStoreRef.current.useSelector('single');
 
   return <TeamComponent data={data} />;
 };

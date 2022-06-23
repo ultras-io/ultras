@@ -3,15 +3,15 @@ import EventComponent from '../components/EventComponent';
 import buildEventsStore from 'stores/events';
 import { IEventContainerProps } from '../types';
 
-const eventsStore = buildEventsStore();
-
 const EventContainer: React.FC<IEventContainerProps> = ({ data }) => {
+  const eventsStoreRef = React.useRef(buildEventsStore());
+
   React.useEffect(() => {
-    eventsStore.getSingle(data.id);
-    // erase store on unmount
+    eventsStoreRef.current.getSingle(data.id);
+    // do we need to erase store on unmount?
   }, [data.id]);
 
-  const result = eventsStore.useSelector('single');
+  const result = eventsStoreRef.current.useSelector('single');
 
   return (
     <EventComponent

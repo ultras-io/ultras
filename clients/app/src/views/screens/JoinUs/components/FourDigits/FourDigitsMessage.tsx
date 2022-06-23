@@ -9,10 +9,24 @@ import type { IFourDigitsMessageProps } from '../../types';
 const cycle = 60;
 
 const FourDigitsMessage: React.FC<IFourDigitsMessageProps> = ({ useStore }) => {
-  const status = useStore((state: IState) => state.status);
-  const statusNext = useStore((state: IState) => state.statusNext);
-  const isCodeValid = useStore((state: IState) => state.user.isCodeValid);
-  const confirmIdentity = useStore((state: IState) => state.confirmIdentity);
+  const statusSelector = React.useCallback(() => (state: IState) => state.status, []);
+  const statusNextSelector = React.useCallback(
+    () => (state: IState) => state.statusNext,
+    []
+  );
+  const isCodeValidSelector = React.useCallback(
+    () => (state: IState) => state.user.isCodeValid,
+    []
+  );
+  const confirmIdentitySelector = React.useCallback(
+    () => (state: IState) => state.confirmIdentity,
+    []
+  );
+
+  const status = useStore(statusSelector());
+  const statusNext = useStore(statusNextSelector());
+  const isCodeValid = useStore(isCodeValidSelector());
+  const confirmIdentity = useStore(confirmIdentitySelector());
 
   const [time, setTime] = React.useState(0);
   const intervalRef = React.useRef();

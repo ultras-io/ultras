@@ -16,13 +16,21 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
   const useAuthenticationStore = initStore();
   const useRegistrationStore = initRegistrationStore();
 
-  const isLoading = useAuthenticationStore((state: IState) => state.isLoading);
-  const isAuthenticated = useAuthenticationStore(
-    (state: IState) => state.isAuthenticated
+  const isLoadingSelector = React.useCallback(
+    () => (state: IState) => state.isLoading,
+    []
   );
-  const clearStore = useRegistrationStore(
-    (state: IRegistrationState) => state.clearStore
+  const isAuthenticatedSelector = React.useCallback(
+    () => (state: IState) => state.isAuthenticated,
+    []
   );
+  const clearStoreSelector = React.useCallback(
+    () => (state: IRegistrationState) => state.clearStore,
+    []
+  );
+  const isLoading = useAuthenticationStore(isLoadingSelector());
+  const isAuthenticated = useAuthenticationStore(isAuthenticatedSelector());
+  const clearStore = useRegistrationStore(clearStoreSelector());
 
   const { colors, isDarkMode } = useTheme();
 

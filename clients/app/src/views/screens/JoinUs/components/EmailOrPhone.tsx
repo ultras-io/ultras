@@ -21,12 +21,31 @@ import type { IState } from 'stores/registration';
 import type { IEmailOrPhoneProps } from '../types';
 
 const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) => {
-  const isEmail = useStore((state: IState) => state.user.joinVia.isEmail);
-  const key = useStore((state: IState) => state.user.joinVia.key);
-  const countryCode = useStore((state: IState) => state.user.country.name);
-  const status = useStore((state: IState) => state.status);
-  const confirmIdentity = useStore((state: IState) => state.confirmIdentity);
-  const nextStep = useStore((state: IState) => state.nextStep);
+  const isEmailSelector = React.useCallback(
+    () => (state: IState) => state.user.joinVia.isEmail,
+    []
+  );
+  const keySelector = React.useCallback(
+    () => (state: IState) => state.user.joinVia.key,
+    []
+  );
+  const countryCodeSelector = React.useCallback(
+    () => (state: IState) => state.user.country.name,
+    []
+  );
+  const statusSelector = React.useCallback(() => (state: IState) => state.status, []);
+  const confirmIdentitySelector = React.useCallback(
+    () => (state: IState) => state.confirmIdentity,
+    []
+  );
+  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
+
+  const isEmail = useStore(isEmailSelector());
+  const key = useStore(keySelector());
+  const countryCode = useStore(countryCodeSelector());
+  const status = useStore(statusSelector());
+  const confirmIdentity = useStore(confirmIdentitySelector());
+  const nextStep = useStore(nextStepSelector());
 
   const [isValid, setIsValid] = React.useState(true);
   const [value, setValue] = React.useState('');
