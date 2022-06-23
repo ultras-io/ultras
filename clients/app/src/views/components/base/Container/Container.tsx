@@ -13,7 +13,7 @@ const Container: React.FC<IContainerProps> = ({
   const content = withSuspense ? (
     <React.Suspense fallback={<Loader />}>{children}</React.Suspense>
   ) : (
-    <>children</>
+    children
   );
 
   return withBg ? (
