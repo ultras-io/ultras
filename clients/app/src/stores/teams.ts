@@ -21,7 +21,7 @@ const buildTeamsStore = (params: Partial<ParamType> = {}) => {
     keys: ['list', 'single'],
     ...(params as ParamType),
 
-    loadAll: (filter: FullFilterable<FilterType>) => {
+    loadAll: (filter: FullFilterable<GetTeamsFilter>) => {
       return sdk.getTeams({
         ...filter,
       });
