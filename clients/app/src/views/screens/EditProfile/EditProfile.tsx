@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from 'native-base';
 
-const Settings: React.FC = () => {
+const EditProfile: React.FC = () => {
   return (
     <Text variant={'title'} p={'4'}>
-      Settings Content...
+      EditProfile Content...
     </Text>
   );
 };
 
-export default Settings;
+export default EditProfile;

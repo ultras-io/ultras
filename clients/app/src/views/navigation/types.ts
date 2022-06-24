@@ -75,7 +75,7 @@ export type EventsNavigationScreens = {
 
 export type ProfileNavigationScreens = {
   settings: NavigationScreen;
-  notifications: NavigationScreen;
+  editProfile: NavigationScreen;
 };
 
 export type SearchTabScreens = {

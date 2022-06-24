@@ -5,5 +5,7 @@ export { default as Avatar } from './Avatar';
 export { default as Button } from './Button';
 export { default as Input } from './Input';
 export { default as Icon } from './Icon';
+export { default as IconButton } from './IconButton';
 export { default as Skeleton } from './Skeleton';
 export { default as SkeletonText } from './Skeleton';
+export { ActionsheetContent, ActionsheetItem } from './ActionSheet';

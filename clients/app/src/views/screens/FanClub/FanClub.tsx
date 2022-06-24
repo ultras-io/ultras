@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable } from 'native-base';
+import { IconButton } from 'native-base';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -17,13 +17,13 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
   React.useLayoutEffect(() => {
     setOptions({
       headerRight: () => (
-        <Pressable
+        <IconButton
           onPress={preventMultiCalls(() =>
             pushTo(commonScreens.fanClubAbout.name, { description: data.description })
           )}
-        >
-          <Icon name={Icons.InfoDark} color={'iconPrimary'} size={'ic-md'} />
-        </Pressable>
+          variant="ghost"
+          icon={<Icon name={Icons.InfoDark} color={'iconPrimary'} size={'ic-md'} />}
+        />
       ),
     });
   }, [setOptions, pushTo, data.description]);

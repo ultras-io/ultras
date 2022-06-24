@@ -53,7 +53,9 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
 
       <Box flex={1}>
         <Stack.Navigator
-          initialRouteName={rootScreens.intro.name}
+          initialRouteName={
+            isAuthenticated ? rootScreens.tabNavigation.name : rootScreens.intro.name
+          }
           screenOptions={{
             headerShown: false,
             headerStyle: {
@@ -73,17 +75,17 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
                 component={rootScreens.intro.component!}
               />
               <Stack.Screen
-                name={rootScreens.privacy.name}
-                component={rootScreens.privacy.component}
-                options={rootScreens.privacy.options}
-              />
-              <Stack.Screen
                 name={rootScreens.joinUs.name}
                 component={rootScreens.joinUs.component!}
                 options={rootScreens.joinUs.options}
               />
             </Stack.Group>
           )}
+          <Stack.Screen
+            name={rootScreens.privacy.name}
+            component={rootScreens.privacy.component}
+            options={rootScreens.privacy.options}
+          />
           <Stack.Screen
             name={rootScreens.searchListModal.name}
             component={rootScreens.searchListModal.component!}

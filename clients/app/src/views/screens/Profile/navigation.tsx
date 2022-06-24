@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 interface IProfileNavigationProps {}
 const TAB_NAME = mainScreens.profile.tabName;
 
-const ProfileNavigation: React.FC<IProfileNavigationProps> = ({}) => {
+const ProfileNavigation: React.FC<IProfileNavigationProps> = () => {
   const { colors } = useTheme();
 
   return (

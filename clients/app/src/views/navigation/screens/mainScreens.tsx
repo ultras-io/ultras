@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'native-base';
 import commonScreens from './commonScreens';
+import profileScreens from './profileScreens';
 import I18n from 'i18n/i18n';
 import { ScreenNavigationConfig } from '../types';
 
@@ -8,8 +9,6 @@ import Home from 'views/screens/Home';
 import Search from 'views/screens/Search';
 import Events from 'views/screens/Events';
 import Matches from 'views/screens/Matches';
-import Settings from 'views/screens/Settings';
-import Notifications from 'views/screens/Notifications';
 
 // @TODO complete list, change all names using in pushTo
 const screenSettings = {
@@ -18,11 +17,10 @@ const screenSettings = {
   matches: 'Matches',
   events: 'Events',
   profile: 'Profiles',
-  settings: 'Settings',
-  notifications: 'Notifications',
 };
 
 const commonScreensMap = Object.values(commonScreens);
+const profileScreensMap = Object.values(profileScreens);
 
 const SCREENS: ScreenNavigationConfig = {
   home: {
@@ -102,31 +100,7 @@ const SCREENS: ScreenNavigationConfig = {
   profile: {
     tabName: screenSettings.profile,
     initialScreenName: screenSettings.profile,
-    screens: [
-      {
-        name: screenSettings.settings,
-        component: Settings,
-        options: {
-          headerTitle: () => (
-            <Text variant={'sectionTitle'} flex={1} ml={'3'}>
-              {I18n.t('profile-settings')}
-            </Text>
-          ),
-        },
-      },
-      {
-        name: screenSettings.notifications,
-        component: Notifications,
-        options: {
-          headerTitle: () => (
-            <Text variant={'sectionTitle'} flex={1} ml={'3'}>
-              {I18n.t('profile-notifications')}
-            </Text>
-          ),
-        },
-      },
-      ...commonScreensMap,
-    ],
+    screens: [...profileScreensMap, ...commonScreensMap],
   },
 };
 

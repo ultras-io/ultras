@@ -1,49 +1,43 @@
 import React from 'react';
-// import { View } from 'react-native';
+import { HStack, IconButton, useDisclose } from 'native-base';
+import Icon from 'views/components/base/Icon';
+import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-// import { WithBadge, SizeEnum as BadgeSize } from 'views/components/base/WithBadge';
-// import { Icons as Icons } from 'assets/icons';
+import initAuthStore from 'stores/authentication';
 import Container from 'views/components/base/Container';
+import ActionSheet from './components/MenuActionSheet';
 import { IProfileProps } from './types';
-// import { screenSettings } from 'views/navigation/screens';
-// import styles from './styles';
+
+const useAuthenticationStore = initAuthStore();
 
 const ProfileContainer = React.lazy(() => import('./containers/ProfileContainer'));
 
 const Profile: React.FC<IProfileProps> = ({ route }) => {
   const { id } = route.params;
-  const { setOptions, pushTo } = useNavigationWithParams();
+  const { setOptions } = useNavigationWithParams();
+  const { isOpen, onOpen, onClose } = useDisclose();
 
   React.useLayoutEffect(() => {
     setOptions({
-      // headerRight: () => (
-      // <View style={styles.headerButtonsContainer}>
-      //   <Button
-      //     onPress={() => {
-      //       pushTo(screenSettings.settings);
-      //     }}
-      //     appearance={ButtonAppearance.Minimal}
-      //     size={ButtonSize.ExtraBig}
-      //     icon={Icons.Settings}
-      //   />
-      //   <WithBadge number={1} size={BadgeSize.Small} bgColor="iconNotification">
-      //     <Button
-      //       onPress={() => {
-      //         pushTo(screenSettings.notifications);
-      //       }}
-      //       appearance={ButtonAppearance.Minimal}
-      //       size={ButtonSize.ExtraBig}
-      //       icon={Icons.Notifications}
-      //     />
-      //   </WithBadge>
-      // </View>
-      // ),
+      headerRight: () => (
+        <HStack space={'1.5'}>
+          <IconButton
+            onPress={() => {}}
+            icon={<Icon name={Icons.Add} color={'iconPrimary'} size={'ic-md'} />}
+          />
+          <IconButton
+            onPress={onOpen}
+            icon={<Icon name={Icons.Menu} color={'iconPrimary'} size={'ic-md'} />}
+          />
+        </HStack>
+      ),
     });
-  }, [setOptions, pushTo]);
+  }, [setOptions, onOpen]);
 
   return (
     <Container withSuspense>
-      <ProfileContainer id={id} />
+      <ProfileContainer useStore={useAuthenticationStore} id={id} />
+      <ActionSheet useStore={useAuthenticationStore} isOpen={isOpen} onClose={onClose} />
     </Container>
   );
 };
