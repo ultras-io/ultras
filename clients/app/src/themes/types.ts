@@ -7,6 +7,7 @@ export type ColorKey =
   | 'iconNotification'
   | 'iconVerified'
   | 'backgroundMain'
+  | 'backgroundActionSheet'
   | 'backgroundCard'
   | 'backgroundCardInvert'
   | 'backgroundTabBar'

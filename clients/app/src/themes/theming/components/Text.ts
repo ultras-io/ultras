@@ -49,6 +49,16 @@ export default {
         },
       };
     },
+    profileTitle: ({ colorMode }: ComponentParams) => {
+      return {
+        fontFamily: 'MontserratAlternates',
+        fontSize: '2xl',
+        fontWeight: 600,
+        style: {
+          color: colors[colorMode].textSectionHeader,
+        },
+      };
+    },
     message: ({ colorMode }: ComponentParams) => {
       return {
         fontSize: '4xl',

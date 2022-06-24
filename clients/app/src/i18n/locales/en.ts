@@ -20,6 +20,8 @@ export default {
   'common-search': 'Search',
   'common-about': 'About',
   'common-noResults': 'No results',
+  'common-notifications': 'Notifications',
+  'common-cancel': 'Cancel',
 
   // splash
   'splash-slogan': '#WatchFootball',
@@ -102,11 +104,13 @@ export default {
   events: 'Events',
   'events-by': 'by',
   'events-eventBy': 'Event by',
-  'events-create': 'Create an Events',
+  'events-create': 'Create an Event',
   'events-join': 'Join',
   'events-going': 'Going',
 
   //profile
   'profile-settings': 'Settings',
-  'profile-notifications': 'Notifications',
+  'profile-edit': 'Edit Profile',
+  'profile-logout': 'Log out',
+  'profile-logoutOfX': 'Log out of {{x}}?',
 };

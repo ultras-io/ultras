@@ -12,6 +12,7 @@ const dark: ColorType = {
   iconVerified: '#47C471',
 
   backgroundMain: '#272829',
+  backgroundActionSheet: '#323334',
   backgroundTabBar: 'rgba(39, 40, 41, 0.9)',
   backgroundCard: 'rgba(255, 255, 255, 0.1)',
   backgroundCardInvert: 'rgba(255, 255, 255, 0.85)',
