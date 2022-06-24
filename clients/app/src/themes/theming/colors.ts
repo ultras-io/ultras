@@ -21,7 +21,7 @@ const dark: ColorType = {
   backgroundMessageSent: 'rgba(255, 255, 255, 0.2)',
   backgroundMessageReceived: 'rgba(255, 255, 255, 0.85)',
   backgroundMessageWarning: '#917935',
-  backgroundLogo: 'rgba(255, 255, 255, 1)',
+  backgroundLogo: 'rgba(240, 240, 240, 1)',
   backgroundDivider: 'rgba(255, 255, 255, 1)',
   backgroundDividerTransparent: 'rgba(125, 125, 125, 0.5)',
 

@@ -25,10 +25,6 @@ const buildMatchesStore = (params: Partial<ParamType> = {}) => {
     loadAll: (filter: FullFilterable<GetMatchesFilter>) => {
       return sdk.getMatches({
         ...filter,
-        // orderAttr: 'dateTime',
-        // order: OrderEnum.desc,
-        // limit: 10,
-        // teamId: 2124,
       });
     },
 
