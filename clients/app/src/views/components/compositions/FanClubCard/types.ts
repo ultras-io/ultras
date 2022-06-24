@@ -4,4 +4,5 @@ export interface IFanClubCardProps {
   onPress: () => void;
   data: FanClubViewModel;
   direction?: 'vertical' | 'horizontal';
+  type?: 'my' | 'discover';
 }

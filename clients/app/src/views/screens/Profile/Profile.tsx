@@ -12,6 +12,9 @@ const useAuthenticationStore = initAuthStore();
 
 const ProfileContainer = React.lazy(() => import('./containers/ProfileContainer'));
 const TeamsContainer = React.lazy(() => import('./containers/TeamsContainer'));
+const FanClubsContainer = React.lazy(
+  () => import('views/containers/FanClubsHorizontal/FanClubsContainer')
+);
 
 const Profile: React.FC<IProfileProps> = ({ route }) => {
   const { id } = route.params;
@@ -39,6 +42,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
     <Container withSuspense>
       <ProfileContainer useStore={useAuthenticationStore} id={id} />
       <TeamsContainer useStore={useAuthenticationStore} id={id} />
+      <FanClubsContainer type={'my'} />
       <ActionSheet useStore={useAuthenticationStore} isOpen={isOpen} onClose={onClose} />
     </Container>
   );
