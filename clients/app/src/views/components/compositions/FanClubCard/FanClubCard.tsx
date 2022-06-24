@@ -15,6 +15,7 @@ const avatarURI =
 const FanClubCard: React.FC<IFanClubCardProps> = ({
   data,
   direction = 'vertical',
+  type,
   onPress,
 }) => {
   return (
@@ -36,14 +37,16 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
           </VStack>
         </BluredView>
       ) : (
-        <Center px={'2'} w={100}>
+        <Center px={'2'} w={type === 'discover' ? 100 : 87}>
           <Avatar source={{ uri: avatarURI }} size={'av-lg'} mb={2} />
           <Text variant={'smallTitle'} textAlign={'center'} numberOfLines={1}>
             {data.shortName}
           </Text>
-          <Text variant={'smallDescription'} textAlign={'center'}>
-            {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
-          </Text>
+          {type === 'discover' && (
+            <Text variant={'smallDescription'} textAlign={'center'}>
+              {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
+            </Text>
+          )}
         </Center>
       )}
     </Pressable>

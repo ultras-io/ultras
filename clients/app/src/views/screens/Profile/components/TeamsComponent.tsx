@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import {
   FlatList,
   VStack,
@@ -15,6 +16,8 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';
 import { ITeamsComponentProps } from '../types';
+
+const windowWidth = Dimensions.get('window').width;
 
 const TeamsComponent: React.FC<ITeamsComponentProps> = ({ data }) => {
   const { colors } = useTheme();
@@ -39,7 +42,7 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({ data }) => {
   );
 
   return (
-    <VStack>
+    <VStack mb={'2'}>
       <Text variant={'searchTitle'} ml={'5'} mr={'2'} my={'3'}>
         {I18n.t('teams')}
       </Text>
@@ -51,14 +54,14 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({ data }) => {
         renderItem={renderColumn}
         data={data}
         horizontal={true}
-        bounces={data.length > 4}
+        bounces={data.length >= Math.round(windowWidth / 72)}
       />
     </VStack>
   );
 };
 
 export const TeamsLoader: React.FC = () => (
-  <VStack mt={'.5'}>
+  <VStack mb={'2'} mt={'.5'}>
     <Skeleton.Text lines={1} w={'20'} ml={'5'} mr={'2'} my={'4'} />
     <HStack pl={'5'}>
       {[0, 1, 2].map(k => (
