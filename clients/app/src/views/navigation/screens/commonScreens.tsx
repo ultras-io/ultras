@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from 'native-base';
+import I18n from 'i18n/i18n';
 import type { CommonScreens } from '../types';
 
 import Match from 'views/screens/Match';
@@ -9,8 +10,9 @@ import Team from 'views/screens/Team';
 import FanClub from 'views/screens/FanClub';
 import FanClubAbout from 'views/screens/FanClubAbout';
 import Profile from 'views/screens/Profile';
-import NewEvent from 'views/screens/NewEvent';
+import CreateEvent from 'views/screens/CreateEvent';
 import ProfileList from 'views/screens/ProfileList';
+import Notifications from 'views/screens/Notifications';
 
 const defaultOptions = {
   headerTitle: '',
@@ -73,9 +75,9 @@ const SCREENS: CommonScreens = {
       ...defaultOptions,
     },
   },
-  newEvent: {
-    name: 'NewEvent', // @TODO change to create Event
-    component: NewEvent,
+  createEvent: {
+    name: 'CreateEvent',
+    component: CreateEvent,
     options: {
       ...defaultOptions,
       presentation: 'modal',
@@ -89,6 +91,18 @@ const SCREENS: CommonScreens = {
       ...defaultOptions,
       presentation: 'modal',
       headerShown: false,
+    },
+  },
+  notifications: {
+    name: 'Notifications',
+    component: Notifications,
+    options: {
+      ...defaultOptions,
+      headerTitle: () => (
+        <Text variant={'sectionTitle'} flex={1}>
+          {I18n.t('common-notifications')}
+        </Text>
+      ),
     },
   },
 };

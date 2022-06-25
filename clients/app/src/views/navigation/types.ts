@@ -9,8 +9,9 @@ export type CommonScreens = Record<
   | 'fanClub'
   | 'fanClubAbout'
   | 'profile'
-  | 'newEvent'
-  | 'profileList',
+  | 'createEvent'
+  | 'profileList'
+  | 'notifications',
   {
     name:
       | 'Match'
@@ -20,8 +21,9 @@ export type CommonScreens = Record<
       | 'FanClub'
       | 'FanClubAbout'
       | 'Profile'
-      | 'NewEvent'
-      | 'ProfileList';
+      | 'CreateEvent'
+      | 'ProfileList'
+      | 'Notifications';
     component: React.FC<any>;
     options?: ScreenOptions;
   }
