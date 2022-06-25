@@ -10,3 +10,8 @@ export type HomeNavigationScreens = {
 export interface IMatchesComponentProps {
   data: Array<MatchViewModel>;
 }
+
+export interface IAddActionSheetProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

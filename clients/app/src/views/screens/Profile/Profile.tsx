@@ -5,7 +5,7 @@ import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import initAuthStore from 'stores/authentication';
 import Container from 'views/components/base/Container';
-import ActionSheet from './components/MenuActionSheet';
+import MenuActionSheet from './components/MenuActionSheet';
 import { IProfileProps } from './types';
 
 const useAuthenticationStore = initAuthStore();
@@ -27,7 +27,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
         <HStack space={'1.5'}>
           <IconButton
             onPress={() => {}}
-            icon={<Icon name={Icons.Add} color={'iconPrimary'} size={'ic-md'} />}
+            icon={<Icon name={Icons.Warning} color={'iconPrimary'} size={'ic-md'} />}
           />
           <IconButton
             onPress={onOpen}
@@ -39,11 +39,15 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   }, [setOptions, onOpen]);
 
   return (
-    <Container withSuspense>
+    <Container withSuspense withBg>
       <ProfileContainer useStore={useAuthenticationStore} id={id} />
       <TeamsContainer useStore={useAuthenticationStore} id={id} />
       <FanClubsContainer type={'my'} />
-      <ActionSheet useStore={useAuthenticationStore} isOpen={isOpen} onClose={onClose} />
+      <MenuActionSheet
+        useStore={useAuthenticationStore}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Container>
   );
 };

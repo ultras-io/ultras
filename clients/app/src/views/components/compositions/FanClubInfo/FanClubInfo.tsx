@@ -57,7 +57,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         </HStack>
 
         <HStack alignItems={'center'} space={'1'}>
-          <Icon name={Icons.Team} color="textSecondary" size={'ic-2xs'} />
+          <Icon name={Icons.Club} color="iconPrimary" size={'ic-2xs'} />
           <Text
             variant={'info'}
             onPress={preventMultiCalls(() => openTeam())}

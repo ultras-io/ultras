@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from 'native-base';
 
-const Notifications: React.FC = () => {
+const CreateEvent: React.FC = () => {
   return (
     <Text variant={'searchTitle'} p={'5'}>
-      Notifications
+      Create Event
     </Text>
   );
 };
 
-export default Notifications;
+export default CreateEvent;

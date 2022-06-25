@@ -6,7 +6,7 @@ const SearchItemContainer = React.lazy(() => import('./containers/SearchItemCont
 
 const SearchItem: React.FC<ISearchItemProps> = ({ searchItem, searchText }) => {
   return (
-    <Container withSuspense withBg bgSize="lg">
+    <Container withSuspense withBg bgSize={'lg'}>
       <SearchItemContainer searchItem={searchItem} searchText={searchText} />
     </Container>
   );

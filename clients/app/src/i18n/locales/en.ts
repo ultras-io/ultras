@@ -22,6 +22,7 @@ export default {
   'common-noResults': 'No results',
   'common-notifications': 'Notifications',
   'common-cancel': 'Cancel',
+  'common-create': 'Create',
 
   // splash
   'splash-slogan': '#WatchFootball',
@@ -101,6 +102,7 @@ export default {
   'team-added': 'In My Teams',
 
   // events
+  event: 'Event',
   events: 'Events',
   'events-by': 'by',
   'events-eventBy': 'Event by',
