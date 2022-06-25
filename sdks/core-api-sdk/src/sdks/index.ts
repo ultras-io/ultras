@@ -16,6 +16,8 @@ export * from './MatchSDK';
 export * from './UserSDK';
 export * from './EventSDK';
 export * from './EventMemberSDK';
+export * from './RoomSDK';
+export * from './RoomMemberSDK';
 export * from './FanClubSDK';
 export * from './FanClubMembershipSDK';
 export * from './UltrasS3SDK';
