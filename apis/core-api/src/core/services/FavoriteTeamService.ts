@@ -14,8 +14,17 @@ import {
 } from 'core/data/models/FavoriteTeam';
 
 import BaseService from './BaseService';
-import { FavoriteTeamsViewModel, FavoriteTeamViewModel } from '@ultras/view-models';
+import {
+  FavoriteTeamsViewModel,
+  FavoriteTeamViewModel,
+  TeamsViewModel,
+} from '@ultras/view-models';
 import TeamService from './TeamService';
+
+export interface FavoriteTeamByUserListParamsInterface {
+  userId?: ResourceIdentifier;
+  search?: string;
+}
 
 export interface FavoriteTeamListParamsInterface {
   userId?: ResourceIdentifier;
@@ -113,6 +122,55 @@ class FavoriteTeamService extends BaseService {
     });
 
     return favoriteTeams;
+  }
+
+  /**
+   * Get all favorite teams by user id.
+   */
+  static async getAllTeams(
+    params: ServiceListParamsType<FavoriteTeamByUserListParamsInterface>
+  ): ServiceListResultType<TeamsViewModel> {
+    // generate subquery
+    const subquerySel = db.sequelize.dialect.queryGenerator
+      .selectQuery(db.FavoriteTeam.getTableName(), {
+        attributes: ['id'],
+        where: {
+          userId: params.userId,
+        },
+      })
+      .slice(0, -1);
+
+    // check if search parameter was provided, then we need to
+    // search using team fields too.
+    let searchCondition = {};
+    if (params.search) {
+      searchCondition = ['name'].reduce(
+        (acc, field) => ({
+          ...acc,
+          [field]: {
+            [db.Sequelize.Op.iLike]: `%${params.search}%`,
+          },
+        }),
+        {}
+      );
+    }
+
+    // build generic query options
+    const queryOptions: any = {
+      limit: params.limit,
+      offset: params.offset,
+      where: {
+        ...searchCondition,
+        id: {
+          [db.Sequelize.Op.in]: db.Sequelize.literal(`
+            (${subquerySel})
+          `),
+        },
+      },
+    };
+
+    const { rows, count } = await db.Team.findAndCountAll(queryOptions);
+    return { rows, count };
   }
 
   /**
