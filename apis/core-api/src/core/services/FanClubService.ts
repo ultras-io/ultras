@@ -33,7 +33,7 @@ class FanClubService extends BaseService {
   protected static includeRelations() {
     return {
       attributes: {
-        exclude: ['cityId', 'countryId', 'teamId', 'ownerId'],
+        // exclude: ['cityId', 'countryId', 'teamId', 'ownerId'],
       },
       include: [
         {

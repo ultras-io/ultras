@@ -59,11 +59,7 @@ abstract class BaseService {
   }
 
   protected static getCondition(value: any, separator = ',') {
-    if (!value) {
-      return null;
-    }
-
-    const list = Array.isArray(value) ? value : value.split(separator);
+    const list = this.separateIds(value, separator);
     if (!list.length) {
       return null;
     }
@@ -77,6 +73,15 @@ abstract class BaseService {
     return {
       [db.Sequelize.Op.eq]: list[0],
     };
+  }
+
+  protected static separateIds(value: any, separator = ',') {
+    if (!value) {
+      return [];
+    }
+
+    const list = Array.isArray(value) ? value : value.split(separator);
+    return list;
   }
 
   /**

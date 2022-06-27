@@ -6,6 +6,7 @@ export type GetEventsFilter = {
   fanClubId?: MultiResourceIdentifier;
   matchId?: MultiResourceIdentifier;
   authorId?: MultiResourceIdentifier;
+  teamId?: MultiResourceIdentifier;
 };
 
 export type CreateEventType = {

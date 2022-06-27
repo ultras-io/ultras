@@ -14,6 +14,7 @@ interface EventsFilterInterface {
   fanClubId?: ResourceIdentifier;
   matchId?: ResourceIdentifier;
   authorId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
 }
 
 export type EventCreateParams = {
