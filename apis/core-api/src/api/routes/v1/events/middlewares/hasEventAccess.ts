@@ -23,6 +23,12 @@ export default (restrictedAction = false): Middleware => {
 
     // event author can access to event
     const post = await PostService.getById(event.getDataValue('postId'), false);
+    if (!post) {
+      throw new ResourceNotFoundError({
+        message: 'Event not found.',
+      });
+    }
+
     if (post.getDataValue('authorId') == userId) {
       return next();
     }

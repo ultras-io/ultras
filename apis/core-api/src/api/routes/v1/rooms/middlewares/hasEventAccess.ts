@@ -18,6 +18,12 @@ export default (restrictedAction = false): Middleware => {
 
     // room author can access to room
     const post = await PostService.getById(room.getDataValue('postId'), false);
+    if (!post) {
+      throw new ResourceNotFoundError({
+        message: 'Room not found.',
+      });
+    }
+
     if (post.getDataValue('authorId') == userId) {
       return next();
     }
