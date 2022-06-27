@@ -41,7 +41,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   return (
     <Container withSuspense withBg>
       <ProfileContainer useStore={useAuthenticationStore} id={id} />
-      <TeamsContainer useStore={useAuthenticationStore} id={id} />
+      <TeamsContainer id={id} />
       <FanClubsContainer type={'my'} />
       <MenuActionSheet
         useStore={useAuthenticationStore}

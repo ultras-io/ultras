@@ -53,6 +53,29 @@ const initStore = () => {
           await get().clearToken();
         }
       },
+      updateTeams: (teamId, action) => {
+        const user = get().user;
+        if (user) {
+          if (action === 'add') {
+            set({ user: { ...user, teams: [...user.teams, teamId] } });
+          } else if (action === 'remove') {
+            if (user.teams.length > 1) {
+              const index = user.teams.indexOf(teamId);
+              if (index >= 0) {
+                set({
+                  user: {
+                    ...user,
+                    teams: [
+                      ...user.teams.slice(0, index),
+                      ...user.teams.slice(index + 1),
+                    ],
+                  },
+                });
+              }
+            }
+          }
+        }
+      },
       clearToken: async () => {
         UserSDK.setAuthToken('');
         await StorageService.setAuthToken('');
