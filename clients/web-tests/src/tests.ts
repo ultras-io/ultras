@@ -1,5 +1,9 @@
+// libs
 import { runTest as testUtilEnums } from './lib-tests/util-enums';
+import { runTest as testUtilValidation } from './lib-tests/util-validation';
 import { runTest as testUtilTimezone } from './lib-tests/util-timezone';
+
+// SDKs
 import { runTest as testSdkCountry } from './lib-tests/sdk-country';
 import { runTest as testSdkCity } from './lib-tests/sdk-city';
 import { runTest as testSdkVenue } from './lib-tests/sdk-venue';
@@ -14,8 +18,12 @@ import { runTest as testSdkEvent } from './lib-tests/sdk-event';
 import { runTest as testSdkRoom } from './lib-tests/sdk-room';
 
 const tests = {
+  // libs
   testUtilEnums,
+  testUtilValidation,
   testUtilTimezone,
+
+  // SDKs
   testSdkCountry,
   testSdkCity,
   testSdkVenue,
