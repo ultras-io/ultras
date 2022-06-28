@@ -26,7 +26,7 @@ class FavoriteTeamController extends BaseController {
     search = '',
     userId,
   }: FavoriteTeamListParamsType): FavoriteTeamListResultType {
-    const { rows, count } = await FavoriteTeamService.getAll({
+    const { rows, count } = await FavoriteTeamService.getAllTeams({
       limit,
       offset,
       orderAttr,
