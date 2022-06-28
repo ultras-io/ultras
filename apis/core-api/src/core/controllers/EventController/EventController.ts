@@ -29,6 +29,7 @@ class EventController extends BaseController {
     fanClubId,
     matchId,
     authorId,
+    teamId,
   }: EventsListParams): EventsListResult {
     const { rows, count } = await EventService.getAll({
       limit,
@@ -39,6 +40,7 @@ class EventController extends BaseController {
       fanClubId,
       matchId,
       authorId,
+      teamId,
     });
 
     return {

@@ -30,7 +30,7 @@ class MatchService extends BaseService {
   protected static includeRelations() {
     return {
       attributes: {
-        exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
+        // exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
       },
       include: [
         {
