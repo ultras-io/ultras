@@ -53,26 +53,18 @@ const initStore = () => {
           await get().clearToken();
         }
       },
-      updateTeams: (teamId, action) => {
+      updateTeams: teamId => {
         const user = get().user;
         if (user) {
-          if (action === 'add') {
+          if (user.teams.indexOf(teamId) === -1) {
             set({ user: { ...user, teams: [...user.teams, teamId] } });
-          } else if (action === 'remove') {
-            if (user.teams.length > 1) {
-              const index = user.teams.indexOf(teamId);
-              if (index >= 0) {
-                set({
-                  user: {
-                    ...user,
-                    teams: [
-                      ...user.teams.slice(0, index),
-                      ...user.teams.slice(index + 1),
-                    ],
-                  },
-                });
-              }
-            }
+          } else if (user.teams.length > 1) {
+            set({
+              user: {
+                ...user,
+                teams: user.teams.filter(id => id !== teamId),
+              },
+            });
           }
         }
       },

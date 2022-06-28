@@ -11,6 +11,4 @@ export interface ITeamContainerProps {
 
 export interface ITeamComponentProps {
   data: TeamViewModel;
-  isFavorite: boolean;
-  updateTeams: (teamId: number) => void;
 }

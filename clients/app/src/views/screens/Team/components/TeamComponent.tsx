@@ -3,15 +3,27 @@ import { VStack, HStack, Button } from 'native-base';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import { Divider, Circle, Image, Text } from 'native-base';
+import initAuthStore, { IState } from 'stores/authentication';
 import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamComponentProps } from '../types';
 
-const TeamComponent: React.FC<ITeamComponentProps> = ({
-  data,
-  isFavorite,
-  updateTeams,
-}) => {
+const useAuthenticationStore = initAuthStore();
+
+const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
   const { colors } = useTheme();
+
+  const userSelector = React.useCallback(() => (state: IState) => state.user, []);
+  const updateTeamsSelector = React.useCallback(
+    () => (state: IState) => state.updateTeams,
+    []
+  );
+  const user = useAuthenticationStore(userSelector());
+  const updateTeams = useAuthenticationStore(updateTeamsSelector());
+
+  const isFavorite = React.useMemo(
+    () => user.teams.indexOf(data.id) !== -1,
+    [data.id, user.teams]
+  );
 
   return (
     <>
