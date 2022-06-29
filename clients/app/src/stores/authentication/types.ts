@@ -5,6 +5,7 @@ export type UserType = {
   username: string;
   avatar?: string | null;
   fullname?: string | null;
+  teams: Array<number>;
 };
 
 export interface IProps {
@@ -18,6 +19,7 @@ export interface IMethods {
   authenticate: () => void;
   login: (token: string, user: UserType) => void;
   logout: () => void;
+  updateTeams: (teamId: number) => void;
   clearToken: () => void;
 }
 

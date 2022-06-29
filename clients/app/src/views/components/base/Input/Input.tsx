@@ -18,7 +18,7 @@ const Input: React.FC<IInputProps> = ({
   const runTimeoutUpdate = React.useCallback(
     text => {
       resetTimer();
-      timerRef.current = setTimeout(() => onChange && onChange(text), 600);
+      timerRef.current = setTimeout(() => onChange && onChange(text), 200);
     },
     [onChange, resetTimer]
   );

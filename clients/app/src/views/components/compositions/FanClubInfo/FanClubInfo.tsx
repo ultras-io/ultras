@@ -33,7 +33,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   );
 
   return (
-    <HStack px={5} py={5}>
+    <HStack p={5}>
       <Avatar
         size="av-xl"
         mr={5}
