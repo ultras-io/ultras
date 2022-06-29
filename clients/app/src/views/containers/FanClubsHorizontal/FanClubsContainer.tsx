@@ -20,15 +20,13 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({ type = 'discover
   if (!result.list.data && result.list.status === 'loading')
     return <FanClubsLoader type={type} />;
 
-  return (
-    result.list.data && (
-      <FanClubsComponent
-        data={result.list.data}
-        onEndReached={fanClubsStoreRef.current.getAll}
-        type={type}
-      />
-    )
-  );
+  return result.list.data && result.list.data.length ? (
+    <FanClubsComponent
+      data={result.list.data}
+      onEndReached={fanClubsStoreRef.current.getAll}
+      type={type}
+    />
+  ) : null;
 };
 
 export default FanClubsContainer;

@@ -3,7 +3,7 @@ import { VStack, HStack, Text, Pressable } from 'native-base';
 import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
-import type { IState } from 'stores/registration';
+import registrationStore, { IState } from 'stores/registration';
 import type { IFourDigitsMessageProps } from '../../types';
 
 const cycle = 60;
@@ -18,15 +18,11 @@ const FourDigitsMessage: React.FC<IFourDigitsMessageProps> = ({ useStore }) => {
     () => (state: IState) => state.user.isCodeValid,
     []
   );
-  const confirmIdentitySelector = React.useCallback(
-    () => (state: IState) => state.confirmIdentity,
-    []
-  );
 
   const status = useStore(statusSelector());
   const statusNext = useStore(statusNextSelector());
   const isCodeValid = useStore(isCodeValidSelector());
-  const confirmIdentity = useStore(confirmIdentitySelector());
+  const confirmIdentity = useStore(registrationStore.confirmIdentitySelector());
 
   const [time, setTime] = React.useState(0);
   const intervalRef = React.useRef();

@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { Actionsheet } from 'native-base';
 import I18n from 'i18n/i18n';
-import { IState } from 'stores/authentication';
+import authenticationStore, { IState } from 'stores/authentication';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import profileScreens from 'views/navigation/screens/profileScreens';
 import rootScreens from 'views/navigation/screens/rootScreens';
@@ -15,9 +15,8 @@ const MenuActionSheet: React.FC<IMenuActionSheetProps> = ({
   isOpen,
   onClose,
 }) => {
-  const logoutSelector = React.useCallback(() => (state: IState) => state.logout, []);
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
-  const logout = useStore(logoutSelector());
+  const logout = useStore(authenticationStore.logoutSelector());
   const user = useStore(userSelector());
   const { pushTo, openModal } = useNavigationWithParams();
 

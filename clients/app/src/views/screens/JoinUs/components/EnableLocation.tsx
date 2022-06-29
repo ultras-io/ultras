@@ -1,17 +1,12 @@
 import React from 'react';
 import { Box, Button } from 'native-base';
 import LocationService from 'services/location/locationService';
-import type { IState } from 'stores/registration';
+import registrationStore from 'stores/registration';
 import type { IEnableLocationProps } from '../types';
 
 const EnableLocation: React.FC<IEnableLocationProps> = ({ useStore, text }) => {
-  const setLocationEnabledSelector = React.useCallback(
-    () => (state: IState) => state.setLocationEnabled,
-    []
-  );
-  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
-  const setLocationEnabled = useStore(setLocationEnabledSelector());
-  const nextStep = useStore(nextStepSelector());
+  const setLocationEnabled = useStore(registrationStore.setLocationEnabledSelector());
+  const nextStep = useStore(registrationStore.nextStepSelector());
 
   const requestLocation = React.useCallback(async () => {
     setLocationEnabled(await LocationService.hasLocationPermission());

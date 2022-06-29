@@ -3,12 +3,12 @@ import { HStack, IconButton, useDisclose } from 'native-base';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import initAuthStore from 'stores/authentication';
+import authenticationStore from 'stores/authentication';
 import Container from 'views/components/base/Container';
 import MenuActionSheet from './components/MenuActionSheet';
 import { IProfileProps } from './types';
 
-const useAuthenticationStore = initAuthStore();
+const useAuthenticationStore = authenticationStore.initStore();
 
 const ProfileContainer = React.lazy(() => import('./containers/ProfileContainer'));
 const TeamsContainer = React.lazy(() => import('./containers/TeamsContainer'));

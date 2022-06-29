@@ -17,7 +17,7 @@ import rootScreens from 'views/navigation/screens/rootScreens';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
-import type { IState } from 'stores/registration';
+import registrationStore, { IState } from 'stores/registration';
 import type { IEmailOrPhoneProps } from '../types';
 
 const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) => {
@@ -34,18 +34,13 @@ const EmailOrPhone: React.FC<IEmailOrPhoneProps> = ({ useStore, onModalOpen }) =
     []
   );
   const statusSelector = React.useCallback(() => (state: IState) => state.status, []);
-  const confirmIdentitySelector = React.useCallback(
-    () => (state: IState) => state.confirmIdentity,
-    []
-  );
-  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
 
   const isEmail = useStore(isEmailSelector());
   const key = useStore(keySelector());
   const countryCode = useStore(countryCodeSelector());
   const status = useStore(statusSelector());
-  const confirmIdentity = useStore(confirmIdentitySelector());
-  const nextStep = useStore(nextStepSelector());
+  const confirmIdentity = useStore(registrationStore.confirmIdentitySelector());
+  const nextStep = useStore(registrationStore.nextStepSelector());
 
   const [isValid, setIsValid] = React.useState(true);
   const [value, setValue] = React.useState('');

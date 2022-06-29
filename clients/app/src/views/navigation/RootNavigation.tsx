@@ -2,8 +2,8 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { Box } from 'native-base';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import initStore, { IState } from 'stores/authentication';
-import initRegistrationStore, { IState as IRegistrationState } from 'stores/registration';
+import authenticationStore, { IState } from 'stores/authentication';
+import registrationStore from 'stores/registration';
 import { useTheme } from 'themes';
 import SplashScreen from 'views/screens/Splash';
 import { rootScreens } from './screens';
@@ -13,8 +13,8 @@ const Stack = createNativeStackNavigator();
 interface IRootNavigationProps {}
 
 const RootNavigation: React.FC<IRootNavigationProps> = () => {
-  const useAuthenticationStore = initStore();
-  const useRegistrationStore = initRegistrationStore();
+  const useAuthenticationStore = authenticationStore.initStore();
+  const useRegistrationStore = registrationStore.initStore();
 
   const isLoadingSelector = React.useCallback(
     () => (state: IState) => state.isLoading,
@@ -24,13 +24,10 @@ const RootNavigation: React.FC<IRootNavigationProps> = () => {
     () => (state: IState) => state.isAuthenticated,
     []
   );
-  const clearStoreSelector = React.useCallback(
-    () => (state: IRegistrationState) => state.clearStore,
-    []
-  );
+
   const isLoading = useAuthenticationStore(isLoadingSelector());
   const isAuthenticated = useAuthenticationStore(isAuthenticatedSelector());
-  const clearStore = useRegistrationStore(clearStoreSelector());
+  const clearStore = useRegistrationStore(registrationStore.clearStoreSelector());
 
   const { colors, isDarkMode } = useTheme();
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button } from 'native-base';
-import type { IState } from 'stores/registration';
-import type { IState as IAuthState } from 'stores/authentication';
+import registrationStore, { IState } from 'stores/registration';
+import authenticationStore from 'stores/authentication';
 import type { ILoginProps } from '../types';
 
 const Login: React.FC<ILoginProps> = ({ useStore, useAuthStore, text, login }) => {
@@ -11,17 +11,11 @@ const Login: React.FC<ILoginProps> = ({ useStore, useAuthStore, text, login }) =
     () => (state: IState) => state.userResponse,
     []
   );
-  const loginRegistrationSelector = React.useCallback(
-    () => (state: IState) => state.login,
-    []
-  );
-  const enterMeSelector = React.useCallback(() => (state: IAuthState) => state.login, []);
-
   const status = useStore(statusSelector());
   const token = useStore(tokenSelector());
   const userResponse = useStore(userResponseSelector());
-  const loginRegistration = useStore(loginRegistrationSelector());
-  const enterMe = useAuthStore(enterMeSelector());
+  const loginRegistration = useStore(registrationStore.loginSelector());
+  const enterMe = useAuthStore(authenticationStore.loginSelector);
 
   React.useLayoutEffect(() => {
     if (status === 'success') {

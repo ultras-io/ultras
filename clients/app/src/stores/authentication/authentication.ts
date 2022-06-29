@@ -50,6 +50,7 @@ const initStore = () => {
         try {
           await sdk.logout();
         } finally {
+          await StorageService.clearAll();
           await get().clearToken();
         }
       },
@@ -79,4 +80,11 @@ const initStore = () => {
   return authenticationStore;
 };
 
-export default initStore;
+export default {
+  initStore,
+  authenticateSelector: () => (state: IState) => state.authenticate,
+  loginSelector: () => (state: IState) => state.login,
+  logoutSelector: () => (state: IState) => state.logout,
+  updateTeamsSelector: () => (state: IState) => state.updateTeams,
+  clearTokenSelector: () => (state: IState) => state.clearToken,
+};
