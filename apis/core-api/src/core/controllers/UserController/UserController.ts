@@ -5,6 +5,7 @@ import {
   BadRequest,
   InvalidUserInput,
   ResourceDuplicationError,
+  ResourceNotFoundError,
 } from 'modules/exceptions';
 import { User } from 'core/data/models/User';
 import {
@@ -14,6 +15,7 @@ import {
   FavoriteTeamService,
   SMSService,
   MailerService,
+  FanClubService,
 } from 'core/services';
 
 import {
@@ -35,7 +37,8 @@ import {
   GetMeParams,
   GetMeResult,
 } from './types';
-import { UserAndTeams } from '.';
+import { ProfileParams, ProfileResult, UserAndTeams } from '.';
+import { FanClubsViewModel, TeamsViewModel } from '@ultras/view-models';
 
 class UserController extends BaseController {
   static async checkUsernameExistence({
@@ -375,6 +378,41 @@ class UserController extends BaseController {
     return {
       data: {
         user: await this.mergeUserAndTeams(user),
+      },
+    };
+  }
+
+  /**
+   * Get user profile by their ID.
+   */
+  static async getProfile({ userId }: ProfileParams): ProfileResult {
+    const user = await UserService.findByUniqueIdentifier({
+      id: userId,
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundError({
+        message: 'User not found.',
+      });
+    }
+
+    const fanClubs: FanClubsViewModel = [];
+    // const fanClubs = await FanClubService.getAllFanClubs({
+    //   userId,
+    // });
+
+    const teams: TeamsViewModel = [];
+    // const teams = await FavoriteTeamService.getAllTeams({
+    //   userId,
+    // });
+
+    return {
+      data: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        ...user.dataValues,
+        fanClubs,
+        teams,
       },
     };
   }
