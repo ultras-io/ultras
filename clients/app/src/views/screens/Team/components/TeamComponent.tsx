@@ -3,22 +3,18 @@ import { VStack, HStack, Button } from 'native-base';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import { Divider, Circle, Image, Text } from 'native-base';
-import initAuthStore, { IState } from 'stores/authentication';
+import authenticationStore, { IState } from 'stores/authentication';
 import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamComponentProps } from '../types';
 
-const useAuthenticationStore = initAuthStore();
+const useAuthenticationStore = authenticationStore.initStore();
 
 const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
   const { colors } = useTheme();
 
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
-  const updateTeamsSelector = React.useCallback(
-    () => (state: IState) => state.updateTeams,
-    []
-  );
   const user = useAuthenticationStore(userSelector());
-  const updateTeams = useAuthenticationStore(updateTeamsSelector());
+  const updateTeams = useAuthenticationStore(authenticationStore.updateTeamsSelector());
 
   const isFavorite = React.useMemo(
     () => user.teams.indexOf(data.id) !== -1,
@@ -44,7 +40,7 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
 
           <Text variant={'info'}>
             {data.type === TeamTypesEnum.club
-              ? data.city.name + ', ' + data.country.name
+              ? (data.city?.name || '') + ', ' + (data.country?.name || '')
               : I18n.t('team-national')}
           </Text>
 

@@ -16,7 +16,7 @@ import FourDigits from './FourDigits/FourDigits';
 import Username from './Username';
 import EnableLocation from './EnableLocation';
 import Login from './Login';
-import type { IState } from 'stores/registration';
+import registrationStore, { IState } from 'stores/registration';
 import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
 import { dataKeyType } from 'views/screens/SearchListModal/types';
 
@@ -55,11 +55,6 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
     () => (state: IState) => state.user.locationEnabled,
     []
   );
-  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
-  const setSelectedSelector = React.useCallback(
-    () => (state: IState) => state.setSelected,
-    []
-  );
 
   const step = useStore(stepSelector());
   const selectedTeamName = useStore(selectedTeamNameSelector());
@@ -68,8 +63,8 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   const username = useStore(usernameSelector());
   const notificationsAllowed = useStore(notificationsAllowedSelector());
   const locationEnabled = useStore(locationEnabledSelector());
-  const nextStep = useStore(nextStepSelector());
-  const setSelected = useStore(setSelectedSelector());
+  const nextStep = useStore(registrationStore.nextStepSelector());
+  const setSelected = useStore(registrationStore.setSelectedSelector());
 
   React.useLayoutEffect(() => {
     setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);

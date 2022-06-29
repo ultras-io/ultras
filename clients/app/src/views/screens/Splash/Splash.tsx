@@ -1,18 +1,14 @@
 import React from 'react';
 import { StatusBar, ImageBackground } from 'react-native';
 import { Text } from 'native-base';
-import { IState } from 'stores/authentication';
+import authenticationStore from 'stores/authentication';
 import { ISplashProps } from './types';
 import gStyles from 'styles/styles';
 
 const bg = require('assets/images/bg.png');
 
 const Splash: React.FC<ISplashProps> = ({ useStore }) => {
-  const authenticateSelector = React.useCallback(
-    () => (state: IState) => state.authenticate,
-    []
-  );
-  const authenticate = useStore(authenticateSelector());
+  const authenticate = useStore(authenticationStore.authenticateSelector());
 
   React.useEffect(() => {
     authenticate();

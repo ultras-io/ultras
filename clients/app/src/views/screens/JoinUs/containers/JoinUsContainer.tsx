@@ -1,6 +1,6 @@
 import React from 'react';
-import initStore, { IState } from 'stores/registration';
-import initAuthStore from 'stores/authentication';
+import registrationStore, { IState } from 'stores/registration';
+import authenticationStore from 'stores/authentication';
 import JoinUsComponent from '../components/JoinUsComponent';
 import { messages, messageLogin } from '../content/messages';
 import { answers, answerLogin } from '../content/answers';
@@ -24,8 +24,8 @@ const mergeData = (loginStep: boolean, step: number): ChatRow[] => {
   return data;
 };
 
-const useRegistrationStore = initStore();
-const useAuthenticationStore = initAuthStore();
+const useRegistrationStore = registrationStore.initStore();
+const useAuthenticationStore = authenticationStore.initStore();
 
 const JoinUsContainer: React.FC = () => {
   const loginStepSelector = React.useCallback(

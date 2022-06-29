@@ -264,4 +264,19 @@ const initStore = () => {
   return registrationStore;
 };
 
-export default initStore;
+export default {
+  initStore,
+  nextStepSelector: () => (state: IState) => state.nextStep,
+  toLoginStepSelector: () => (state: IState) => state.toLoginStep,
+  jumpToStepSelector: () => (state: IState) => state.jumpToStep,
+  setNotificationsAllowedSelector: () => (state: IState) => state.setNotificationsAllowed,
+  setLocationEnabledSelector: () => (state: IState) => state.setLocationEnabled,
+  setSelectedSelector: () => (state: IState) => state.setSelected,
+  switchJoinMethodSelector: () => (state: IState) => state.switchJoinMethod,
+  confirmIdentitySelector: () => (state: IState) => state.confirmIdentity,
+  verifyCodeSelector: () => (state: IState) => state.verifyCode,
+  checkUsernameSelector: () => (state: IState) => state.checkUsername,
+  loginSelector: () => (state: IState) => state.login,
+  registerSelector: () => (state: IState) => state.register,
+  clearStoreSelector: () => (state: IState) => state.clearStore,
+};

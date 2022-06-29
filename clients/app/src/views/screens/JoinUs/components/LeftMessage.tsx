@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Pressable, Text } from 'native-base';
 import MessageBox from 'views/components/base/MessageBox';
-import type { IState } from 'stores/registration';
+import registrationStore, { IState } from 'stores/registration';
 import type { Message, ILeftMessageProps } from '../types';
 
 const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
@@ -18,21 +18,13 @@ const LeftMessage: React.FC<ILeftMessageProps> = ({ item, useStore }) => {
     () => (state: IState) => state.user.joinVia.value,
     []
   );
-  const jumpToStepSelector = React.useCallback(
-    () => (state: IState) => state.jumpToStep,
-    []
-  );
-  const switchJoinMethodSelector = React.useCallback(
-    () => (state: IState) => state.switchJoinMethod,
-    []
-  );
 
   const step = useStore(stepSelector());
   const joinViaKey = useStore(joinViaKeySelector());
   const joinViaKeyInvert = useStore(joinViaKeyInvertSelector());
   const joinViaValue = useStore(joinViaValueSelector());
-  const jumpToStep = useStore(jumpToStepSelector());
-  const switchJoinMethod = useStore(switchJoinMethodSelector());
+  const jumpToStep = useStore(registrationStore.jumpToStepSelector());
+  const switchJoinMethod = useStore(registrationStore.switchJoinMethodSelector());
 
   const renderText = useCallback(
     message => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import MatchesComponent, { MatchesLoader } from '../components/MatchesComponent';
-import initAuthStore, { IState } from 'stores/authentication';
+import authenticationStore, { IState } from 'stores/authentication';
 import buildMatchesStore from 'stores/matches';
 import { OrderEnum } from '@ultras/utils';
 import { IMatchesContainerProps } from '../types';
 
-const useAuthenticationStore = initAuthStore();
+const useAuthenticationStore = authenticationStore.initStore();
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
   const matchesStoreRef = React.useRef(buildMatchesStore());

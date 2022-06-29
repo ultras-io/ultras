@@ -4,11 +4,10 @@ import I18n from 'i18n/i18n';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
-import type { IState } from 'stores/registration';
+import registrationStore, { IState } from 'stores/registration';
 import type { IUsernameProps } from '../types';
 
 const Username: React.FC<IUsernameProps> = ({ useStore }) => {
-  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
   const statusSelector = React.useCallback(() => (state: IState) => state.status, []);
   const statusNextSelector = React.useCallback(
     () => (state: IState) => state.statusNext,
@@ -22,19 +21,13 @@ const Username: React.FC<IUsernameProps> = ({ useStore }) => {
     () => (state: IState) => state.user.isUserNameValid,
     []
   );
-  const checkUsernameSelector = React.useCallback(
-    () => (state: IState) => state.checkUsername,
-    []
-  );
-  const registerSelector = React.useCallback(() => (state: IState) => state.register, []);
-
-  const nextStep = useStore(nextStepSelector());
   const status = useStore(statusSelector());
   const statusNext = useStore(statusNextSelector());
   const username = useStore(usernameSelector());
   const isUserNameValid = useStore(isUserNameValidSelector());
-  const checkUsername = useStore(checkUsernameSelector());
-  const register = useStore(registerSelector());
+  const nextStep = useStore(registrationStore.nextStepSelector());
+  const checkUsername = useStore(registrationStore.checkUsernameSelector());
+  const register = useStore(registrationStore.registerSelector());
 
   React.useLayoutEffect(() => {
     if (statusNext === 'success') {

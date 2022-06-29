@@ -26,16 +26,14 @@ const TeamsComponent: React.FC<ITeamsComponentProps> = ({ data }) => {
   const renderColumn = React.useCallback(
     ({ item }) => (
       <Pressable
-        onPress={preventMultiCalls(() =>
-          pushTo(commonScreens.team.name, { data: item.team })
-        )}
+        onPress={preventMultiCalls(() => pushTo(commonScreens.team.name, { data: item }))}
       >
         <Circle size={'av-lg'} bg={colors.backgroundLogo} mr={'3'}>
           <Image
-            source={{ uri: item.team.logo }}
+            source={{ uri: item.logo }}
             size={'av-sm'}
             resizeMode={'contain'}
-            alt={item.team.name}
+            alt={item.name}
           />
         </Circle>
       </Pressable>

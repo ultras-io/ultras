@@ -13,7 +13,7 @@ import {
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import FourDigitsMessage from './FourDigitsMessage';
-import type { IState } from 'stores/registration';
+import registrationStore, { IState } from 'stores/registration';
 import type { IFourDigitsProps } from '../../types';
 
 const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
@@ -30,23 +30,14 @@ const FourDigits: React.FC<IFourDigitsProps> = ({ useStore }) => {
     () => (state: IState) => state.user.exists,
     []
   );
-  const verifyCodeSelector = React.useCallback(
-    () => (state: IState) => state.verifyCode,
-    []
-  );
-  const nextStepSelector = React.useCallback(() => (state: IState) => state.nextStep, []);
-  const toLoginStepSelector = React.useCallback(
-    () => (state: IState) => state.toLoginStep,
-    []
-  );
 
   const status = useStore(statusSelector());
   const statusNext = useStore(statusNextSelector());
   const isCodeValid = useStore(isCodeValidSelector());
   const userExists = useStore(userExistsSelector());
-  const verifyCode = useStore(verifyCodeSelector());
-  const nextStep = useStore(nextStepSelector());
-  const toLoginStep = useStore(toLoginStepSelector());
+  const verifyCode = useStore(registrationStore.verifyCodeSelector());
+  const nextStep = useStore(registrationStore.nextStepSelector());
+  const toLoginStep = useStore(registrationStore.toLoginStepSelector());
 
   const { colors } = useTheme();
   const inputRef = React.useRef(null);
