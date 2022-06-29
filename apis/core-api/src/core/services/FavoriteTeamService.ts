@@ -133,7 +133,7 @@ class FavoriteTeamService extends BaseService {
     // generate subquery
     const subquerySel = db.sequelize.dialect.queryGenerator
       .selectQuery(db.FavoriteTeam.getTableName(), {
-        attributes: ['id'],
+        attributes: ['teamId'],
         where: {
           userId: params.userId,
         },
