@@ -12,7 +12,7 @@ type CurrentStoreKeyType = 'single';
 
 // build initial state for single.
 export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<TData, CurrentStoreKeyType, TFilter>
+  state: ExtractStateType<TData, null, null, CurrentStoreKeyType, TFilter>
 ) => {
   state.single = {
     status: 'loading',
@@ -23,10 +23,10 @@ export const buildInitialState = <TData, TFilter>(
 
 // build actions for list.
 export const buildActions = <TData, TFilter>(
-  actions: ExtractActionType<TData, CurrentStoreKeyType, TFilter>,
-  getState: StateGetterCallType<TData, CurrentStoreKeyType, TFilter>,
-  setState: StateSetterCallType<TData, CurrentStoreKeyType, TFilter>,
-  interceptors: ExtractInterceptorType<TData, CurrentStoreKeyType, TFilter>
+  actions: ExtractActionType<TData, null, null, CurrentStoreKeyType, TFilter>,
+  getState: StateGetterCallType<TData, null, null, CurrentStoreKeyType, TFilter>,
+  setState: StateSetterCallType<TData, null, null, CurrentStoreKeyType, TFilter>,
+  interceptors: ExtractInterceptorType<TData, null, null, CurrentStoreKeyType, TFilter>
 ) => {
   // add getSingle method to action list, that just calling loadSingle interceptor method
   // and updates "single" state
@@ -57,12 +57,14 @@ export const buildActions = <TData, TFilter>(
 
 // build root actions for single.
 export const buildRootAction = <TData, TFilter>(
-  rootActions: ExtractActionType<TData, CurrentStoreKeyType, TFilter>,
-  storeVanilla: RootStoreType<TData, CurrentStoreKeyType, TFilter>
+  rootActions: ExtractActionType<TData, null, null, CurrentStoreKeyType, TFilter>,
+  storeVanilla: RootStoreType<TData, null, null, CurrentStoreKeyType, TFilter>
 ) => {
   const getVanillaState = () => {
     return storeVanilla.getState() as unknown as ExtractActionType<
       TData,
+      null,
+      null,
       CurrentStoreKeyType,
       TFilter
     >;

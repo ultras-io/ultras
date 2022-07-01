@@ -18,7 +18,13 @@ type FilterType = Filterable<GetEventsFilter>;
 const sdk = new EventSDK('dev');
 
 const buildEventsStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<EventViewModel, FilterType, 'list' | 'single'>({
+  return generateCRUD<
+    EventViewModel,
+    EventViewModel,
+    EventViewModel,
+    FilterType,
+    'list' | 'single'
+  >({
     keys: ['list', 'single'],
     ...(params as ParamType),
 

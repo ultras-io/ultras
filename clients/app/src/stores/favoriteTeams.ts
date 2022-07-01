@@ -1,8 +1,8 @@
 import {
-  FavoriteTeamViewModel,
   FavoriteTeamSDK,
   // ResourceIdentifier,
   GetFavoriteTeamsFilter,
+  TeamViewModel,
 } from '@ultras/core-api-sdk';
 
 import {
@@ -12,13 +12,13 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<FavoriteTeamViewModel>;
+type ParamType = InitStoreParamsInterface<TeamViewModel>;
 type FilterType = Filterable<GetFavoriteTeamsFilter>;
 
 const sdk = new FavoriteTeamSDK('dev');
 
 const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<FavoriteTeamViewModel, FilterType, 'list'>({
+  return generateCRUD<TeamViewModel, ResourceIdentifier, null, FilterType, 'list'>({
     keys: ['list'],
 
     ...(params as ParamType),

@@ -19,7 +19,13 @@ const sdk = new FanClubSDK('dev');
 
 const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
   // return generateCRUD<FanClubViewModel, FilterType, 'list' | 'single' | 'add'>({
-  return generateCRUD<FanClubViewModel, FilterType, 'list' | 'single'>({
+  return generateCRUD<
+    FanClubViewModel,
+    FanClubViewModel,
+    FanClubViewModel,
+    FilterType,
+    'list' | 'single'
+  >({
     // keys: ['list', 'single', 'add'],
     keys: ['list', 'single'],
     ...(params as ParamType),

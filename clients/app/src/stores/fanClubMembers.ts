@@ -22,7 +22,13 @@ interface LoadAllParams extends FullFilterable<GetFanClubMembershipsFilter> {
 const sdk = new FanClubMembershipSDK('dev');
 
 const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<FanClubMemberViewModel, FilterType, 'list'>({
+  return generateCRUD<
+    FanClubMemberViewModel,
+    ResourceIdentifier,
+    FanClubMemberViewModel,
+    FilterType,
+    'list'
+  >({
     keys: ['list'],
     ...(params as ParamType),
 

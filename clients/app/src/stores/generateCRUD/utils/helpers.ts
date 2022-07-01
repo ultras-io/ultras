@@ -55,16 +55,44 @@ export function buildFilterHash<T>(filter: null | FullFilterable<T>): string {
 }
 
 // make action extractor function.
-export function makeActionExtract<TData, TKey extends StateKeyType, TFilter>(
-  params: ParamsType<TData, TKey, TFilter>,
-  setStateCall: SetState<ExtractStateAndActionType<TData, TKey, TFilter>>,
-  getStateCall: GetState<ExtractStateAndActionType<TData, TKey, TFilter>>
+export function makeActionExtract<
+  TDataViewModel,
+  TDataCreate,
+  TDataUpdate,
+  TKey extends StateKeyType,
+  TFilter
+>(
+  params: ParamsType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>,
+  setStateCall: SetState<
+    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  >,
+  getStateCall: GetState<
+    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  >
 ) {
   // extract params and make get/set state group based.
   return function <TStateGroup extends StateKeyType>() {
-    const getState = getStateCall as StateGetterCallType<TData, TStateGroup, TFilter>;
-    const setState = setStateCall as StateSetterCallType<TData, TStateGroup, TFilter>;
-    const interceptors = params as ExtractInterceptorType<TData, TStateGroup, TFilter>;
+    const getState = getStateCall as StateGetterCallType<
+      TDataViewModel,
+      TDataCreate,
+      TDataUpdate,
+      TStateGroup,
+      TFilter
+    >;
+    const setState = setStateCall as StateSetterCallType<
+      TDataViewModel,
+      TDataCreate,
+      TDataUpdate,
+      TStateGroup,
+      TFilter
+    >;
+    const interceptors = params as ExtractInterceptorType<
+      TDataViewModel,
+      TDataCreate,
+      TDataUpdate,
+      TStateGroup,
+      TFilter
+    >;
 
     return { getState, setState, interceptors };
   };

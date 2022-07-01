@@ -7,20 +7,30 @@ import * as crudList from '../crud/list';
 import * as crudSingle from '../crud/single';
 import * as crudAdd from '../crud/add';
 
-function buildInitialStateAndActions<TData, TKey extends StateKeyType, TFilter>(
-  params: ParamsType<TData, TKey, TFilter>,
-  setStateCall: SetState<ExtractStateAndActionType<TData, TKey, TFilter>>,
-  getStateCall: GetState<ExtractStateAndActionType<TData, TKey, TFilter>>
-): ExtractStateAndActionType<TData, TKey, TFilter> {
+function buildStateAndActions<
+  TDataViewModel,
+  TDataCreate,
+  TDataUpdate,
+  TKey extends StateKeyType,
+  TFilter
+>(
+  params: ParamsType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>,
+  setStateCall: SetState<
+    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  >,
+  getStateCall: GetState<
+    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  >
+): ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter> {
   const includeKeys = fillStateKeys(params.keys || []);
 
   const actionExtractor = makeActionExtract(params, setStateCall, getStateCall);
 
   // @ts-ignore
-  const state: ExtractStateType<TData, TKey> = {};
+  const state: ExtractStateType<TDataViewModel, TDataCreate, TDataUpdate, TKey> = {};
 
   // @ts-ignore
-  const actions: ExtractActionType<TData, TKey> = {};
+  const actions: ExtractActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey> = {};
 
   if (includeKeys.list) {
     const { getState, setState, interceptors } = actionExtractor<'list'>();
@@ -50,4 +60,4 @@ function buildInitialStateAndActions<TData, TKey extends StateKeyType, TFilter>(
   return { ...state, ...actions };
 }
 
-export default buildInitialStateAndActions;
+export default buildStateAndActions;

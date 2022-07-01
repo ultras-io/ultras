@@ -18,7 +18,7 @@ type CurrentStoreKeyType = 'add';
 
 // build initial state for add.
 export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<TData, CurrentStoreKeyType, TFilter>,
+  state: ExtractStateType<null, TData, null, CurrentStoreKeyType, TFilter>,
   scheme: SchemeInterface | null | undefined
 ) => {
   // @ts-ignore
@@ -41,10 +41,10 @@ export const buildInitialState = <TData, TFilter>(
 
 // build actions for list.
 export const buildActions = <TData, TFilter>(
-  actions: ExtractActionType<TData, CurrentStoreKeyType, TFilter>,
-  getState: StateGetterCallType<TData, CurrentStoreKeyType, TFilter>,
-  setState: StateSetterCallType<TData, CurrentStoreKeyType, TFilter>,
-  interceptors: ExtractInterceptorType<TData, CurrentStoreKeyType, TFilter>
+  actions: ExtractActionType<null, TData, null, CurrentStoreKeyType, TFilter>,
+  getState: StateGetterCallType<null, TData, null, CurrentStoreKeyType, TFilter>,
+  setState: StateSetterCallType<null, TData, null, CurrentStoreKeyType, TFilter>,
+  interceptors: ExtractInterceptorType<null, TData, null, CurrentStoreKeyType, TFilter>
 ) => {
   // add setFieldValue method to action list, that setting value property
   // by provided key and value, and it will call validate interceptor method
@@ -166,12 +166,14 @@ export const buildActions = <TData, TFilter>(
 
 // build root actions for add.
 export const buildRootAction = <TData, TFilter>(
-  rootActions: ExtractActionType<TData, CurrentStoreKeyType, TFilter>,
-  storeVanilla: RootStoreType<TData, CurrentStoreKeyType, TFilter>
+  rootActions: ExtractActionType<null, TData, null, CurrentStoreKeyType, TFilter>,
+  storeVanilla: RootStoreType<null, TData, null, CurrentStoreKeyType, TFilter>
 ) => {
   const getVanillaState = () => {
     return storeVanilla.getState() as unknown as ExtractActionType<
+      null,
       TData,
+      null,
       CurrentStoreKeyType,
       TFilter
     >;
