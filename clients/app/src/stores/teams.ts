@@ -17,7 +17,13 @@ type FilterType = Filterable<GetTeamsFilter>;
 const sdk = new TeamSDK('dev');
 
 const buildTeamsStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<TeamViewModel, FilterType, 'list' | 'single'>({
+  return generateCRUD<
+    TeamViewModel,
+    TeamViewModel,
+    TeamViewModel,
+    FilterType,
+    'list' | 'single'
+  >({
     keys: ['list', 'single'],
     ...(params as ParamType),
 
