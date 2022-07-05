@@ -7,25 +7,45 @@ import buildRootActions from './utils/buildRootActions';
 import type { StateKeyType, ParamsType, ExtractStateAndActionType } from './types';
 
 export const generateCRUD = <
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TFilter,
   TKey extends StateKeyType = StateKeyType
 >(
-  params: ParamsType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  params: ParamsType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey,
+    TFilter
+  >
 ) => {
   const storeVanilla = createVanilla<
-    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+    ExtractStateAndActionType<
+      TDataList,
+      TDataSingle,
+      TDataCreate,
+      TDataUpdate,
+      TDataDelete,
+      TKey,
+      TFilter
+    >
   >((stateSetter, stateGetter) => buildStateAndActions(params, stateSetter, stateGetter));
 
   const storeReact = createReact(storeVanilla);
 
   const useSelector = <TPassedKeys extends TKey>(...keys: Array<TPassedKeys>) => {
     const state = storeReact() as ExtractStateAndActionType<
-      TDataViewModel,
+      TDataList,
+      TDataSingle,
       TDataCreate,
       TDataUpdate,
+      TDataDelete,
       TPassedKeys,
       TFilter
     >;
@@ -37,7 +57,7 @@ export const generateCRUD = <
       // @ts-ignore
       acc[value] = state[value];
       return acc;
-    }, {} as ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TPassedKeys, TFilter>);
+    }, {} as ExtractStateAndActionType<TDataList, TDataSingle, TDataCreate, TDataUpdate, TDataDelete, TPassedKeys, TFilter>);
   };
 
   return {

@@ -15,6 +15,10 @@ import {
 type ParamType = InitStoreParamsInterface<EventViewModel>;
 type FilterType = Filterable<GetEventsFilter>;
 
+type TDeleteEvent = {
+  eventId: ResourceIdentifier;
+};
+
 const sdk = new EventSDK('dev');
 
 const buildEventsStore = (params: Partial<ParamType> = {}) => {
@@ -22,10 +26,12 @@ const buildEventsStore = (params: Partial<ParamType> = {}) => {
     EventViewModel,
     EventViewModel,
     EventViewModel,
+    EventViewModel,
+    TDeleteEvent,
     FilterType,
-    'list' | 'single'
+    'list' | 'single' | 'delete'
   >({
-    keys: ['list', 'single'],
+    keys: ['list', 'single', 'delete'],
     ...(params as ParamType),
 
     loadAll: (filter: FullFilterable<GetEventsFilter>) => {
@@ -36,6 +42,10 @@ const buildEventsStore = (params: Partial<ParamType> = {}) => {
 
     loadSingle: (id: ResourceIdentifier) => {
       return sdk.getEvent(id);
+    },
+
+    remove: (data: TDeleteEvent) => {
+      return sdk.deleteEvent(data.eventId);
     },
   });
 };

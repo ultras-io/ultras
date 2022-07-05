@@ -17,7 +17,7 @@ export type FullFilterable<TFilter> = TFilter & ListRequestParams;
 export type Filterable<TFilter> = Omit<FullFilterable<TFilter>, 'offset'>;
 
 // export type StateKeyType = 'list' | 'single' | 'add' | 'update' | 'delete';
-export type StateKeyType = 'list' | 'single' | 'add';
+export type StateKeyType = 'list' | 'single' | 'add' | 'delete';
 export type StateKeyParamType = Record<StateKeyType, boolean>;
 
 export type StatusType = 'loading' | 'error' | 'success';

@@ -21,6 +21,8 @@ const buildTeamsStore = (params: Partial<ParamType> = {}) => {
     TeamViewModel,
     TeamViewModel,
     TeamViewModel,
+    TeamViewModel,
+    ResourceIdentifier,
     FilterType,
     'list' | 'single'
   >({

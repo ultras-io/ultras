@@ -16,15 +16,30 @@ import type {
   ListGroupedStateType,
   ListGroupedInterceptorType,
 } from './crud/list';
+import type {
+  DeleteGroupedActionType,
+  DeleteGroupedInterceptorType,
+  DeleteGroupedStateType,
+} from './crud/delete';
 
 export type RootStoreType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TKey extends StateKeyType,
   TFilter
 > = StoreApi<
-  ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  ExtractStateAndActionType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey,
+    TFilter
+  >
 >;
 
 export interface InitStoreParamsInterface<TDataViewModel> {
@@ -32,73 +47,146 @@ export interface InitStoreParamsInterface<TDataViewModel> {
   beforeSend: BeforeSendInterface<TDataViewModel>;
 }
 
-export type GroupedStateType<TDataViewModel, TDataCreate, TDataUpdate, TFilter> = {
+export type GroupedStateType<
+  TDataList,
+  TDataSingle,
+  TDataCreate,
+  TDataUpdate,
+  TDataDelete,
+  TFilter
+> = {
   add: AddGroupedStateType<TDataCreate>;
-  list: ListGroupedStateType<TDataViewModel, TFilter>;
-  single: SingleGroupedStateType<TDataViewModel>;
+  list: ListGroupedStateType<TDataList, TFilter>;
+  single: SingleGroupedStateType<TDataSingle>;
+  delete: DeleteGroupedStateType<TDataDelete>;
 };
 
-export type GroupedActionType<TDataViewModel, TDataCreate, TDataUpdate, TFilter> = {
+export type GroupedActionType<
+  TDataList,
+  TDataSingle,
+  TDataCreate,
+  TDataUpdate,
+  TDataDelete,
+  TFilter
+> = {
   add: AddGroupedActionType<TDataCreate>;
-  list: ListGroupedActionType<TDataViewModel, TFilter>;
-  single: SingleGroupedActionType<TDataViewModel>;
+  list: ListGroupedActionType<TDataList, TFilter>;
+  single: SingleGroupedActionType<TDataSingle>;
+  delete: DeleteGroupedActionType<TDataDelete>;
 };
 
-export type GroupedInterceptorType<TDataViewModel, TDataCreate, TDataUpdate, TFilter> = {
+export type GroupedInterceptorType<
+  TDataList,
+  TDataSingle,
+  TDataCreate,
+  TDataUpdate,
+  TDataDelete,
+  TFilter
+> = {
   add: AddGroupedInterceptorType<TDataCreate>;
-  list: ListGroupedInterceptorType<TDataViewModel, TFilter>;
-  single: SingleGroupedInterceptorType<TDataViewModel>;
+  list: ListGroupedInterceptorType<TDataList, TFilter>;
+  single: SingleGroupedInterceptorType<TDataSingle>;
+  delete: DeleteGroupedInterceptorType<TDataDelete>;
 };
 
 export type ExtractStateType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TStateItem extends StateKeyType,
   TFilter
 > = MergeUnion<
-  GroupedStateType<TDataViewModel, TDataCreate, TDataUpdate, TFilter>[TStateItem]
+  GroupedStateType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TFilter
+  >[TStateItem]
 >;
 
 export type ExtractActionType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TStateItem extends StateKeyType,
   TFilter
 > = MergeUnion<
-  GroupedActionType<TDataViewModel, TDataCreate, TDataUpdate, TFilter>[TStateItem]
+  GroupedActionType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TFilter
+  >[TStateItem]
 >;
 
 export type ExtractInterceptorType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TStateItem extends StateKeyType,
   TFilter
 > = MergeUnion<
-  GroupedInterceptorType<TDataViewModel, TDataCreate, TDataUpdate, TFilter>[TStateItem]
+  GroupedInterceptorType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TFilter
+  >[TStateItem]
 >;
 
 export type ExtractStateAndActionType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TStateItem extends StateKeyType,
   TFilter
-> = ExtractStateType<TDataViewModel, TDataCreate, TDataUpdate, TStateItem, TFilter> &
-  ExtractActionType<TDataViewModel, TDataCreate, TDataUpdate, TStateItem, TFilter>;
-
-export type ParamsType<
-  TDataViewModel,
+> = ExtractStateType<
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
+  TStateItem,
+  TFilter
+> &
+  ExtractActionType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TStateItem,
+    TFilter
+  >;
+
+export type ParamsType<
+  TDataList,
+  TDataSingle,
+  TDataCreate,
+  TDataUpdate,
+  TDataDelete,
   TStateItem extends StateKeyType,
   TFilter
 > = ExtractInterceptorType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TStateItem,
   TFilter
 > & {
@@ -107,19 +195,39 @@ export type ParamsType<
 };
 
 export type StateGetterCallType<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TKey extends StateKeyType,
   TFilter
-> = () => ExtractStateType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>;
-
-export type StateSetterCallType<
-  TDataViewModel,
+> = () => ExtractStateType<
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
+  TKey,
+  TFilter
+>;
+
+export type StateSetterCallType<
+  TDataList,
+  TDataSingle,
+  TDataCreate,
+  TDataUpdate,
+  TDataDelete,
   TKey extends StateKeyType,
   TFilter
 > = (
-  args: ExtractStateType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+  args: ExtractStateType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey,
+    TFilter
+  >
 ) => void;

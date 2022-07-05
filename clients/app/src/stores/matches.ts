@@ -18,7 +18,15 @@ type FilterType = Filterable<GetMatchesFilter>;
 const sdk = new MatchSDK('dev');
 
 const buildMatchesStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<MatchViewModel, null, null, FilterType, 'list' | 'single'>({
+  return generateCRUD<
+    MatchViewModel,
+    MatchViewModel,
+    null,
+    null,
+    ResourceIdentifier,
+    FilterType,
+    'list' | 'single'
+  >({
     keys: ['list', 'single'],
     ...(params as ParamType),
 

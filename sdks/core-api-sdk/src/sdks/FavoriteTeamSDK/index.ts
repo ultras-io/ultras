@@ -43,4 +43,8 @@ export class FavoriteTeamSDK extends CoreApiBaseSDK {
   public remove(id: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(`/${id}`);
   }
+
+  public removeByTeamId(id: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`/teams/${id}`);
+  }
 }

@@ -57,7 +57,7 @@ module.exports = (sequelize: Sequelize): typeof FavoriteTeam => {
       },
       userId: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: {
             tableName: resources.USER.RELATION,
@@ -69,7 +69,7 @@ module.exports = (sequelize: Sequelize): typeof FavoriteTeam => {
       },
       teamId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: {
             tableName: resources.TEAM.RELATION,

@@ -15,6 +15,10 @@ import {
 type ParamType = InitStoreParamsInterface<FanClubViewModel>;
 type FilterType = Filterable<GetFanClubsFilter>;
 
+type TDeleteEvent = {
+  eventId: ResourceIdentifier;
+};
+
 const sdk = new FanClubSDK('dev');
 
 const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
@@ -23,6 +27,8 @@ const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
     FanClubViewModel,
     FanClubViewModel,
     FanClubViewModel,
+    FanClubViewModel,
+    TDeleteEvent,
     FilterType,
     'list' | 'single'
   >({

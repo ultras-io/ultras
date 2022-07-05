@@ -81,7 +81,7 @@ abstract class BaseService {
     }
 
     const list = Array.isArray(value) ? value : value.split(separator);
-    return list;
+    return list.filter((id: null | ResourceIdentifier) => !!id);
   }
 
   /**

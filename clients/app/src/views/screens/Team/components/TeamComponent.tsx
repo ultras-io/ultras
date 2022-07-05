@@ -4,10 +4,12 @@ import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import { Divider, Circle, Image, Text } from 'native-base';
 import authenticationStore, { IState } from 'stores/authentication';
+import buildFavoriteTeamsStore from 'stores/favoriteTeams';
 import { TeamTypesEnum } from '@ultras/utils';
 import { ITeamComponentProps } from '../types';
 
 const useAuthenticationStore = authenticationStore.initStore();
+const favoriteTeamsStore = buildFavoriteTeamsStore();
 
 const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
   const { colors } = useTheme();
@@ -19,6 +21,20 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
   const isFavorite = React.useMemo(
     () => user.teams.indexOf(data.id) !== -1,
     [data.id, user.teams]
+  );
+
+  const onUpdateTeamsPress = React.useCallback(
+    (teamId: ResourceIdentifier) => {
+      if (isFavorite) {
+        favoriteTeamsStore.remove({ teamId });
+      } else {
+        favoriteTeamsStore.setFieldValue('teamId', teamId);
+        favoriteTeamsStore.create();
+      }
+
+      updateTeams(teamId);
+    },
+    [isFavorite, updateTeams]
   );
 
   return (
@@ -45,7 +61,7 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
           </Text>
 
           <Button
-            onPress={() => updateTeams(data.id)}
+            onPress={() => onUpdateTeamsPress(data.id)}
             variant={isFavorite ? 'actionInvert' : 'action'}
             mt={'3'}
             mr={'4'}

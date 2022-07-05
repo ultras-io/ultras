@@ -10,30 +10,65 @@ import { fillStateKeys } from './helpers';
 import * as crudList from '../crud/list';
 import * as crudSingle from '../crud/single';
 import * as crudAdd from '../crud/add';
+import * as crudDelete from '../crud/delete';
 
 function buildRootActions<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TKey extends StateKeyType,
   TFilter
 >(
-  params: ParamsType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>,
-  storeVanilla: RootStoreType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
-): ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter> {
+  params: ParamsType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey,
+    TFilter
+  >,
+  storeVanilla: RootStoreType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey,
+    TFilter
+  >
+): ExtractStateAndActionType<
+  TDataList,
+  TDataSingle,
+  TDataCreate,
+  TDataUpdate,
+  TDataDelete,
+  TKey,
+  TFilter
+> {
   const includeKeys = fillStateKeys(params.keys || []);
 
   // @ts-ignore
-  const rootActions: ExtractActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey> =
-    {};
+  const rootActions: ExtractActionType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey
+  > = {};
 
   if (includeKeys.list) {
     crudList.buildRootAction(
       rootActions,
       storeVanilla as RootStoreType<
-        TDataViewModel,
+        TDataList,
+        TDataSingle,
         TDataCreate,
         TDataUpdate,
+        TDataDelete,
         'list',
         TFilter
       >
@@ -44,9 +79,11 @@ function buildRootActions<
     crudSingle.buildRootAction(
       rootActions,
       storeVanilla as RootStoreType<
-        TDataViewModel,
+        TDataList,
+        TDataSingle,
         TDataCreate,
         TDataUpdate,
+        TDataDelete,
         'single',
         TFilter
       >
@@ -57,10 +94,27 @@ function buildRootActions<
     crudAdd.buildRootAction(
       rootActions,
       storeVanilla as RootStoreType<
-        TDataViewModel,
+        TDataList,
+        TDataSingle,
         TDataCreate,
         TDataUpdate,
+        TDataDelete,
         'add',
+        TFilter
+      >
+    );
+  }
+
+  if (includeKeys.delete) {
+    crudDelete.buildRootAction(
+      rootActions,
+      storeVanilla as RootStoreType<
+        TDataList,
+        TDataSingle,
+        TDataCreate,
+        TDataUpdate,
+        TDataDelete,
+        'delete',
         TFilter
       >
     );
