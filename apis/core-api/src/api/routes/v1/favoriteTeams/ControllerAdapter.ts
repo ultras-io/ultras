@@ -87,6 +87,23 @@ class ControllerAdapter {
 
     return ctx.noContent();
   }
+
+  /**
+   * Remove team from favorites.
+   */
+  static async removeByTeamId(ctx: Context) {
+    /** VALIDATIONS, PARAMETERS */
+    const { id } = ctx.request.params;
+    const { userId } = ctx.user;
+
+    /** CONTROLLERS */
+    await FavoriteTeamController.remove({
+      teamId: id,
+      userId: userId,
+    });
+
+    return ctx.noContent();
+  }
 }
 
 export default ControllerAdapter;

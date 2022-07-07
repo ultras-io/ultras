@@ -18,7 +18,15 @@ type FilterType = Filterable<GetCountriesFilter>;
 const sdk = new CountrySDK('dev');
 
 const buildCountriesStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<CountryViewModel, null, null, FilterType, 'list' | 'single'>({
+  return generateCRUD<
+    CountryViewModel,
+    CountryViewModel,
+    null,
+    null,
+    null,
+    FilterType,
+    'list' | 'single'
+  >({
     keys: ['list', 'single'],
     ...(params as ParamType),
 

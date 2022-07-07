@@ -108,9 +108,9 @@ class FavoriteTeamService extends BaseService {
     }
 
     const data: Array<FavoriteTeamCreationAttributes> = teamId.map(
-      (teamId: ResourceIdentifier) => ({
+      (teamIdItem: ResourceIdentifier) => ({
         userId,
-        teamId,
+        teamId: teamIdItem,
         deletedAt: null,
       })
     );
@@ -290,6 +290,7 @@ class FavoriteTeamService extends BaseService {
     await db.FavoriteTeam.destroy(
       {
         where: condition,
+        force: true,
       },
       { transaction }
     );

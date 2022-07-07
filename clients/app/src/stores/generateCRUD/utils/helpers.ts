@@ -17,6 +17,7 @@ export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
     list: true,
     single: true,
     add: true,
+    delete: true,
   };
 
   if (keys.length !== 0) {
@@ -56,40 +57,72 @@ export function buildFilterHash<T>(filter: null | FullFilterable<T>): string {
 
 // make action extractor function.
 export function makeActionExtract<
-  TDataViewModel,
+  TDataList,
+  TDataSingle,
   TDataCreate,
   TDataUpdate,
+  TDataDelete,
   TKey extends StateKeyType,
   TFilter
 >(
-  params: ParamsType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>,
+  params: ParamsType<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TKey,
+    TFilter
+  >,
   setStateCall: SetState<
-    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+    ExtractStateAndActionType<
+      TDataList,
+      TDataSingle,
+      TDataCreate,
+      TDataUpdate,
+      TDataDelete,
+      TKey,
+      TFilter
+    >
   >,
   getStateCall: GetState<
-    ExtractStateAndActionType<TDataViewModel, TDataCreate, TDataUpdate, TKey, TFilter>
+    ExtractStateAndActionType<
+      TDataList,
+      TDataSingle,
+      TDataCreate,
+      TDataUpdate,
+      TDataDelete,
+      TKey,
+      TFilter
+    >
   >
 ) {
   // extract params and make get/set state group based.
   return function <TStateGroup extends StateKeyType>() {
     const getState = getStateCall as StateGetterCallType<
-      TDataViewModel,
+      TDataList,
+      TDataSingle,
       TDataCreate,
       TDataUpdate,
+      TDataDelete,
       TStateGroup,
       TFilter
     >;
     const setState = setStateCall as StateSetterCallType<
-      TDataViewModel,
+      TDataList,
+      TDataSingle,
       TDataCreate,
       TDataUpdate,
+      TDataDelete,
       TStateGroup,
       TFilter
     >;
     const interceptors = params as ExtractInterceptorType<
-      TDataViewModel,
+      TDataList,
+      TDataSingle,
       TDataCreate,
       TDataUpdate,
+      TDataDelete,
       TStateGroup,
       TFilter
     >;

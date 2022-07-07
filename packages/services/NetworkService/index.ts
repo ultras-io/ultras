@@ -99,10 +99,16 @@ class NetworkService {
   };
 
   createUrl = (arg: string) => {
+    let endpoint = '';
     if (Array.isArray(arg)) {
-      return [this.uri, ...arg].join('/');
+      // join arguments via slash
+      endpoint = [this.uri, ...arg].join('/');
+    } else {
+      // remove first slash
+      endpoint = arg.replace(/^\//, '');
     }
-    return `${this.uri}/${arg}`;
+
+    return `${this.uri}/${endpoint}`;
   };
 
   createQueryParams = (queryParams: Record<string, unknown>) => {
@@ -224,18 +230,20 @@ class NetworkService {
         options.method = HttpRequestMethods.GET;
       }
 
-      // const auth_token = CacheService.getItem('auth_token');
       const fetchOptions: RequestInit = {
         method: options.method,
-        headers: options.headers || {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          // Authorization: auth_token ? `Bearer ${auth_token}` : null,
         },
       };
 
-      if (options.headers) {
-        fetchOptions.headers = options.headers;
+      if (options.headers && typeof options.headers === 'object') {
+        fetchOptions.headers = {
+          ...fetchOptions.headers,
+          ...options.headers,
+        };
       }
 
       try {

@@ -15,11 +15,27 @@ import {
 type ParamType = InitStoreParamsInterface<TeamViewModel>;
 type FilterType = Filterable<GetFavoriteTeamsFilter>;
 
+type TCreateEvent = {
+  teamId: ResourceIdentifier;
+};
+type TDeleteEvent = {
+  favoriteTeamId?: ResourceIdentifier;
+  teamId?: ResourceIdentifier;
+};
+
 const sdk = new FavoriteTeamSDK('dev');
 
 const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
-  return generateCRUD<TeamViewModel, ResourceIdentifier, null, FilterType, 'list'>({
-    keys: ['list'],
+  return generateCRUD<
+    TeamViewModel,
+    TeamViewModel,
+    TCreateEvent,
+    null,
+    TDeleteEvent,
+    FilterType,
+    'list' | 'add' | 'delete'
+  >({
+    keys: ['list', 'add', 'delete'],
 
     ...(params as ParamType),
 
@@ -29,9 +45,19 @@ const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
       });
     },
 
-    // create: (data: ResourceIdentifier) => {
-    //   return sdk.add(data);
-    // },
+    create: (data: TCreateEvent) => {
+      return sdk.add(data.teamId);
+    },
+
+    remove: (data: TDeleteEvent) => {
+      if (data.teamId) {
+        return sdk.removeByTeamId(data.teamId);
+      }
+
+      if (data.favoriteTeamId) {
+        return sdk.remove(data.favoriteTeamId);
+      }
+    },
   });
 };
 
