@@ -15,7 +15,7 @@ import {
 type ParamType = InitStoreParamsInterface<TeamViewModel>;
 type FilterType = Filterable<GetFavoriteTeamsFilter>;
 
-type TCreateEvent = {
+type TCreateFavoriteTeam = {
   teamId: ResourceIdentifier;
 };
 type TDeleteEvent = {
@@ -29,7 +29,7 @@ const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<
     TeamViewModel,
     TeamViewModel,
-    TCreateEvent,
+    TCreateFavoriteTeam,
     null,
     TDeleteEvent,
     FilterType,
@@ -45,7 +45,7 @@ const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
       });
     },
 
-    create: (data: TCreateEvent) => {
+    create: (data: TCreateFavoriteTeam) => {
       return sdk.add(data.teamId);
     },
 

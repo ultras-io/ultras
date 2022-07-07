@@ -9,6 +9,7 @@ export type PostViewModel = ViewModel<{
   author: UserViewModel;
   match?: Nullable<MatchViewModel>;
   fanClub?: Nullable<FanClubViewModel>;
+  image: string;
   title: string;
   content: string;
   likesCount: number;

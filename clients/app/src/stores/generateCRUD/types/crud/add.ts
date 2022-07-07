@@ -30,5 +30,5 @@ export type AddGroupedActionType<TData> = {
 export type AddGroupedInterceptorType<TData> = {
   scheme: SchemeInterface;
   beforeSend: BeforeSendInterface<TData> | null;
-  create(data: Partial<TData>): CreatePromiseType<TData>;
+  create<TResult>(data: Partial<TData>): CreatePromiseType<TResult>;
 };

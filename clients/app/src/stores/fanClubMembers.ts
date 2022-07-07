@@ -15,7 +15,7 @@ import {
 type ParamType = InitStoreParamsInterface<FanClubMemberViewModel>;
 type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
-type TDeleteEvent = {
+type TDeleteFanClubMember = {
   fanClubId: ResourceIdentifier;
   membershipId: ResourceIdentifier;
 };
@@ -32,7 +32,7 @@ const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
     FanClubMemberViewModel,
     ResourceIdentifier,
     FanClubMemberViewModel,
-    TDeleteEvent,
+    TDeleteFanClubMember,
     FilterType,
     'list' | 'delete'
   >({
@@ -54,7 +54,7 @@ const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
     //   return sdk.create(data);
     // },
 
-    remove: (data: TDeleteEvent) => {
+    remove: (data: TDeleteFanClubMember) => {
       return sdk.leaveFanClub(data.fanClubId, data.membershipId);
     },
   });
