@@ -52,27 +52,6 @@ export const generateCRUD = <
     TFilter
   >(useReactStore);
 
-  // const useSelector = <TPassedKeys extends TKey>(...keys: Array<TPassedKeys>) => {
-  //   const state = useReactStore() as ExtractStateAndActionType<
-  //     TDataList,
-  //     TDataSingle,
-  //     TDataCreate,
-  //     TDataUpdate,
-  //     TDataDelete,
-  //     TPassedKeys,
-  //     TFilter
-  //   >;
-  //   if (!keys || keys.length === 0) {
-  //     return state;
-  //   }
-
-  //   return keys.reduce((acc, value: StateKeyType) => {
-  //     // @ts-ignore
-  //     acc[value] = state[value];
-  //     return acc;
-  //   }, {} as ExtractStateAndActionType<TDataList, TDataSingle, TDataCreate, TDataUpdate, TDataDelete, TPassedKeys, TFilter>);
-  // };
-
   return {
     useStore: useReactStore,
     useSelector: useSelector,
