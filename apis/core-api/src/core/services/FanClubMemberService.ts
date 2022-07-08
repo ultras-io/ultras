@@ -1,5 +1,5 @@
 import { Transaction } from 'sequelize';
-import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
+import { FanClubMemberRoleEnum, FanClubMemberStatusEnum, OrderEnum } from '@ultras/utils';
 import { FanClubMemberViewModel } from '@ultras/view-models';
 
 import resources from 'core/data/lcp';
@@ -388,7 +388,16 @@ class FanClubMemberService extends BaseService {
       }
     } else if (params.fanClubId) {
       queryOptions.where.fanClubId = params.fanClubId;
-      queryOptions.order = [['member', params.orderAttr || 'fullname', params.order]];
+      if (!params.orderAttr) {
+        queryOptions.order = [
+          ['member', 'fullname', params.order || OrderEnum.asc],
+          ['member', 'username', params.order || OrderEnum.asc],
+        ];
+      } else {
+        queryOptions.order = [
+          ['member', params.orderAttr, params.order || OrderEnum.asc],
+        ];
+      }
 
       // if fan club id and search query provided then we need to search
       // in user fields
@@ -414,6 +423,16 @@ class FanClubMemberService extends BaseService {
           },
         });
       }
+    }
+
+    // set alphabetical ordering using member.fullname,
+    // in case of member.fullname is empty we need to order
+    // using member.username
+    if (!queryOptions.order) {
+      queryOptions.order = [
+        ['member', 'fullname', OrderEnum.asc],
+        ['member', 'username', OrderEnum.asc],
+      ];
     }
 
     const { rows, count } = await db.FanClubMember.findAndCountAll(queryOptions);

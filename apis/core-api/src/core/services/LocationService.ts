@@ -1,5 +1,6 @@
 import { Transaction } from 'sequelize';
 import { LocationViewModel } from '@ultras/view-models';
+import { OrderEnum } from '@ultras/utils';
 import { ServiceResultType } from 'types';
 
 import db from 'core/data/models';
@@ -63,10 +64,12 @@ class LocationService extends BaseService {
       };
     }
 
-    const location = await db.Location.findOne({
+    const query = {
       where: filterParams,
-    });
+      order: [['name', OrderEnum.asc]],
+    };
 
+    const location = await db.Location.findOne(query);
     return location;
   }
 

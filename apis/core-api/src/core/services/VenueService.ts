@@ -1,4 +1,5 @@
 import { VenueViewModel } from '@ultras/view-models';
+import { OrderEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -62,6 +63,12 @@ class VenueService extends BaseService {
 
     if (params.cityId) {
       this.queryArrayOrSingle(query, 'cityId', params.cityId);
+    }
+
+    // set alphabetical ordering
+    if (!params.orderAttr) {
+      params.orderAttr = 'name';
+      params.order = OrderEnum.asc;
     }
 
     return this.findAndCountAll(db.Venue, query, params);

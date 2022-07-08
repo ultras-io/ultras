@@ -1,5 +1,5 @@
-import { OrderEnum } from '@ultras/utils';
 import { CountryViewModel } from '@ultras/view-models';
+import { OrderEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -34,6 +34,12 @@ class CountryService extends BaseService {
       this.queryAppend(query, 'name', {
         [db.Sequelize.Op.iLike]: `%${params.name}%`,
       });
+    }
+
+    // set alphabetical ordering
+    if (!params.orderAttr) {
+      params.orderAttr = 'name';
+      params.order = OrderEnum.asc;
     }
 
     if (params.code) {

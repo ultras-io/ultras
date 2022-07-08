@@ -1,5 +1,5 @@
 import { TeamViewModel } from '@ultras/view-models';
-import { TeamTypesEnum } from '@ultras/utils';
+import { OrderEnum, TeamTypesEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -81,6 +81,12 @@ class TeamService extends BaseService {
       this.queryAppend(query, 'type', {
         [db.Sequelize.Op.eq]: params.type,
       });
+    }
+
+    // set alphabetical ordering
+    if (!params.orderAttr) {
+      params.orderAttr = 'name';
+      params.order = OrderEnum.asc;
     }
 
     return this.findAndCountAll(db.Team, query, params);
