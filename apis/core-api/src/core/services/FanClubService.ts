@@ -1,4 +1,5 @@
 import { Transaction } from 'sequelize';
+import { FanClubMemberStatusEnum, OrderEnum } from '@ultras/utils';
 import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
 
 import resources from 'core/data/lcp';
@@ -11,7 +12,6 @@ import {
 } from 'types';
 
 import BaseService from './BaseService';
-import { FanClubMemberStatusEnum } from '@ultras/utils';
 import CityService from './CityService';
 import CountryService from './CountryService';
 import TeamService from './TeamService';
@@ -174,6 +174,12 @@ class FanClubService extends BaseService {
 
     if (params.teamId) {
       this.queryArrayOrSingle(query, 'teamId', params.teamId);
+    }
+
+    // set alphabetical ordering
+    if (!params.orderAttr) {
+      params.orderAttr = 'name';
+      params.order = OrderEnum.asc;
     }
 
     return this.findAndCountAll(db.FanClub, query, params);

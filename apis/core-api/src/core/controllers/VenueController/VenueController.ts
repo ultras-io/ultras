@@ -17,7 +17,7 @@ class VenueController extends BaseController {
   static async getAll({
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
-    orderAttr = 'id',
+    orderAttr = 'name',
     order = OrderEnum.asc,
     name,
     countryId,

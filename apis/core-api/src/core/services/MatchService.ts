@@ -1,5 +1,5 @@
 import { MatchViewModel } from '@ultras/view-models';
-import { parseMatchStatus, WinnerEnum } from '@ultras/utils';
+import { OrderEnum, parseMatchStatus, WinnerEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
   ServiceListResultType,

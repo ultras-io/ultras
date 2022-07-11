@@ -1,4 +1,5 @@
 import { LeagueViewModel } from '@ultras/view-models';
+import { OrderEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -51,6 +52,12 @@ class LeagueService extends BaseService {
 
     if (params.countryId) {
       this.queryArrayOrSingle(query, 'countryId', params.countryId);
+    }
+
+    // set alphabetical ordering
+    if (!params.orderAttr) {
+      params.orderAttr = 'name';
+      params.order = OrderEnum.asc;
     }
 
     return this.findAndCountAll(db.League, query, params);

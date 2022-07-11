@@ -1,4 +1,5 @@
 import { Transaction } from 'sequelize';
+import { OrderEnum } from '@ultras/utils';
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
@@ -126,6 +127,16 @@ class PostMemberService extends BaseService {
         required: true,
         where: searchCondition,
       });
+    }
+
+    // set alphabetical ordering using user.fullname,
+    // in case of user.fullname is empty we need to order
+    // using user.username
+    if (!queryOptions.order) {
+      queryOptions.order = [
+        [resources.USER.ALIAS.SINGULAR, 'fullname', OrderEnum.asc],
+        [resources.USER.ALIAS.SINGULAR, 'username', OrderEnum.asc],
+      ];
     }
 
     const { rows, count } = await db.PostMember.findAndCountAll(queryOptions);

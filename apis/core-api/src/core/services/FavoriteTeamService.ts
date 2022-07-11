@@ -1,4 +1,5 @@
 import { Transaction } from 'sequelize';
+import { OrderEnum } from '@ultras/utils';
 import {
   ResourceIdentifier,
   ServiceByIdResultType,
@@ -169,6 +170,11 @@ class FavoriteTeamService extends BaseService {
       },
     };
 
+    // set alphabetical ordering
+    if (!queryOptions.order) {
+      queryOptions.order = [['name', OrderEnum.asc]];
+    }
+
     const { rows, count } = await db.Team.findAndCountAll(queryOptions);
     return { rows, count };
   }
@@ -250,6 +256,11 @@ class FavoriteTeamService extends BaseService {
           },
         });
       }
+    }
+
+    // set alphabetical ordering
+    if (!queryOptions.order) {
+      queryOptions.order = [[resources.TEAM.ALIAS.SINGULAR, 'name', OrderEnum.asc]];
     }
 
     const { rows, count } = await db.FavoriteTeam.findAndCountAll(queryOptions);

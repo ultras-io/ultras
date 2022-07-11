@@ -1,6 +1,6 @@
 import { Transaction } from 'sequelize';
 import { ResourceIdentifier, ServiceListParamsType, ServiceListResultType } from 'types';
-import { RoomPrivacyEnum } from '@ultras/utils';
+import { OrderEnum, RoomPrivacyEnum } from '@ultras/utils';
 import { RoomsViewModel, RoomViewModel } from '@ultras/view-models';
 
 import resources from 'core/data/lcp';
@@ -112,6 +112,11 @@ class RoomService extends BaseService {
         }
       }
     });
+
+    // set alphabetical ordering using post.title
+    if (!queryOptions.order) {
+      queryOptions.order = [[resources.POST.ALIAS.SINGULAR, 'title', OrderEnum.asc]];
+    }
 
     const { rows, count } = await db.Room.findAndCountAll(queryOptions);
     return { rows, count };

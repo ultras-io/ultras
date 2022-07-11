@@ -8,6 +8,7 @@ import {
 } from 'types';
 import { EventPrivacyEnum, PostTypeEnum } from '@ultras/utils';
 import { EventsViewModel, EventViewModel } from '@ultras/view-models';
+import { OrderEnum } from '@ultras/utils';
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
@@ -224,6 +225,11 @@ class EventService extends BaseService {
           }
         });
       }
+    }
+
+    // set alphabetical ordering using post.title
+    if (!queryOptions.order) {
+      queryOptions.order = [[resources.POST.ALIAS.SINGULAR, 'title', OrderEnum.asc]];
     }
 
     const { rows, count } = await db.Event.findAndCountAll(queryOptions);

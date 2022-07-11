@@ -1,4 +1,5 @@
 import { CityViewModel } from '@ultras/view-models';
+import { OrderEnum } from '@ultras/utils';
 import {
   ServiceListParamsType,
   ServiceListResultType,
@@ -50,6 +51,12 @@ class CityService extends BaseService {
 
     if (params.countryId) {
       this.queryArrayOrSingle(query, 'countryId', params.countryId);
+    }
+
+    // set alphabetical ordering
+    if (!params.orderAttr) {
+      params.orderAttr = 'name';
+      params.order = OrderEnum.asc;
     }
 
     return this.findAndCountAll(db.City, query, params);
