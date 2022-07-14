@@ -1,6 +1,11 @@
 import { Transaction } from 'sequelize';
 import { ResourceIdentifier, ServiceListParamsType, ServiceListResultType } from 'types';
-import { OrderEnum, RoomPrivacyEnum } from '@ultras/utils';
+import {
+  FanClubMemberRoleEnum,
+  FanClubPrivacyEnum,
+  OrderEnum,
+  RoomPrivacyEnum,
+} from '@ultras/utils';
 import { RoomsViewModel, RoomViewModel } from '@ultras/view-models';
 
 import resources from 'core/data/lcp';
@@ -9,10 +14,12 @@ import { RoomCreationAttributes } from 'core/data/models/Room';
 
 import BaseService from './BaseService';
 import PostService from './PostService';
+import FanClubMemberService from './FanClubMemberService';
 
 export interface RoomListParamsInterface {
+  userId: null | ResourceIdentifier;
   search?: string;
-  fanClubId?: ResourceIdentifier;
+  fanClubId?: ResourceIdentifier | Array<ResourceIdentifier>;
   authorId?: ResourceIdentifier;
 }
 
@@ -64,6 +71,26 @@ class RoomService extends BaseService {
   static async getAll(
     params: ServiceListParamsType<RoomListParamsInterface>
   ): ServiceListResultType<RoomsViewModel> {
+    let userFanClubIdsMember: null | Array<ResourceIdentifier> = null;
+    let userFanClubIdsAdmin: null | Array<ResourceIdentifier> = null;
+
+    // if user is logged, then we need to show him rooms from their fan clubs
+    if (params.userId) {
+      userFanClubIdsMember = await FanClubMemberService.getFanClubIdsForMember(
+        params.userId,
+        FanClubMemberRoleEnum.member
+      );
+
+      userFanClubIdsAdmin = await FanClubMemberService.getFanClubIdsForMember(
+        params.userId,
+        [FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.owner]
+      );
+
+      if (!params.fanClubId) {
+        params.fanClubId = [...userFanClubIdsMember, ...userFanClubIdsAdmin];
+      }
+    }
+
     // build generic query options
     const queryOptions: any = {
       limit: params.limit,
@@ -71,27 +98,48 @@ class RoomService extends BaseService {
       ...this.includeRelations(),
     };
 
+    // hide match and/or fanClub nested relations
+    queryOptions.include.forEach((relation: any) => {
+      if (relation.as === resources.POST.ALIAS.SINGULAR) {
+        if (relation.include) {
+          relation.include.forEach((postRelation: any) => {
+            if (postRelation.as === resources.MATCH.ALIAS.SINGULAR) {
+              postRelation.include = [];
+            }
+            if (postRelation.as === resources.FAN_CLUB.ALIAS.SINGULAR) {
+              postRelation.include = [];
+            }
+          });
+        }
+      }
+    });
+
     queryOptions.include.forEach((roomRelation: any) => {
       // find post relation (fan club is connected to posts)
       if (roomRelation.as == resources.POST.ALIAS.SINGULAR) {
         roomRelation.required = true;
-        roomRelation.include.forEach((postRelation: any) => {
-          // if fanClubId provided, then find fan club relation and append condition
-          if (params.fanClubId && postRelation.as == resources.FAN_CLUB.ALIAS.SINGULAR) {
-            postRelation.required = true;
-            postRelation.where = this.queryInit(postRelation.where || {});
+        if (roomRelation.include) {
+          roomRelation.include.forEach((postRelation: any) => {
+            // if fanClubId provided, then find fan club relation and append condition
+            if (
+              params.fanClubId &&
+              postRelation.as == resources.FAN_CLUB.ALIAS.SINGULAR
+            ) {
+              postRelation.required = true;
+              postRelation.where = this.queryInit(postRelation.where || {});
 
-            this.queryArrayOrSingle(postRelation.where, 'id', params.fanClubId);
-          }
+              this.queryArrayOrSingle(postRelation.where, 'id', params.fanClubId);
+            }
 
-          // if authorId provided, then find author relation and append condition
-          if (params.authorId && postRelation.as == 'author') {
-            postRelation.required = true;
-            postRelation.where = this.queryInit(postRelation.where || {});
+            // if authorId provided, then find author relation and append condition
+            if (params.authorId && postRelation.as == 'author') {
+              postRelation.required = true;
+              postRelation.where = this.queryInit(postRelation.where || {});
 
-            this.queryArrayOrSingle(postRelation.where, 'id', params.authorId);
-          }
-        });
+              this.queryArrayOrSingle(postRelation.where, 'id', params.authorId);
+            }
+          });
+        }
 
         // if search query was provided, then we need to search in post fields
         if (params.search) {
@@ -117,6 +165,64 @@ class RoomService extends BaseService {
     if (!queryOptions.order) {
       queryOptions.order = [[resources.POST.ALIAS.SINGULAR, 'title', OrderEnum.asc]];
     }
+
+    // make condition extendable
+    const oldCondition = queryOptions.where;
+    queryOptions.where = {
+      [db.Sequelize.Op.and]: [],
+    };
+
+    if (oldCondition) {
+      queryOptions.where[db.Sequelize.Op.and].push(oldCondition);
+    }
+
+    const relationNamePost = resources.POST.ALIAS.SINGULAR;
+    const relationNameRoom = resources.ROOM.RELATION;
+    const relationNameFanClub = resources.FAN_CLUB.ALIAS.SINGULAR;
+
+    // if is not a logged user, then we need to show him member-level rooms
+    // only on public fan clubs, otherwise he can't see data.
+    const moreFilterConditions: any = {
+      [db.Sequelize.Op.or]: [
+        {
+          [db.Sequelize.Op.and]: [
+            db.Sequelize.literal(`
+              "${relationNamePost}->${relationNameFanClub}"."privacy" =
+                '${FanClubPrivacyEnum.public}'
+            `),
+            db.Sequelize.literal(`
+              "${relationNameRoom}"."privacy" = '${RoomPrivacyEnum.member}'
+            `),
+          ],
+        },
+      ],
+    };
+
+    if (params.userId && userFanClubIdsMember && userFanClubIdsAdmin) {
+      moreFilterConditions[db.Sequelize.Op.or].push({
+        [db.Sequelize.Op.and]: [
+          { privacy: RoomPrivacyEnum.member },
+          db.Sequelize.literal(`
+            "${relationNamePost}->${relationNameFanClub}"."id" IN (
+              ${[...userFanClubIdsMember, ...userFanClubIdsAdmin].join(',')}
+            )
+          `),
+        ],
+      });
+
+      moreFilterConditions[db.Sequelize.Op.or].push({
+        [db.Sequelize.Op.and]: [
+          { privacy: RoomPrivacyEnum.admin },
+          db.Sequelize.literal(`
+              "${relationNamePost}->${relationNameFanClub}"."id" IN (
+                ${[userFanClubIdsAdmin].join(',')}
+              )
+            `),
+        ],
+      });
+    }
+
+    queryOptions.where[db.Sequelize.Op.and].push(moreFilterConditions);
 
     const { rows, count } = await db.Room.findAndCountAll(queryOptions);
     return { rows, count };
