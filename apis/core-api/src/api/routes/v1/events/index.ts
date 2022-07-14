@@ -11,7 +11,7 @@ const router = new Router({
 router.post('/', checkUserAuth(), ControllerAdapter.create);
 router.get('/', checkUserAuth(), ControllerAdapter.getAll);
 router.get('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.getById);
-router.put('/:id', checkUserAuth(), hasEventAccess(), ControllerAdapter.update);
+router.put('/:id', checkUserAuth(), hasEventAccess(true), ControllerAdapter.update);
 router.delete('/:id', checkUserAuth(), hasEventAccess(true), ControllerAdapter.delete);
 
 router.use(members.routes());

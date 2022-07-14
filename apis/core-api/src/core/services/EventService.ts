@@ -17,8 +17,10 @@ import { EventCreationAttributes } from 'core/data/models/Event';
 import BaseService from './BaseService';
 import LocationService from './LocationService';
 import PostService from './PostService';
+import FanClubMemberService from './FanClubMemberService';
 
 export interface EventListParamsInterface {
+  userId: ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier;
   matchId?: ResourceIdentifier;
@@ -230,6 +232,54 @@ class EventService extends BaseService {
     // set alphabetical ordering using post.title
     if (!queryOptions.order) {
       queryOptions.order = [[resources.POST.ALIAS.SINGULAR, 'title', OrderEnum.asc]];
+    }
+
+    // make condition extendable
+    const oldCondition = queryOptions.where;
+    queryOptions.where = {
+      [db.Sequelize.Op.and]: [],
+    };
+
+    if (oldCondition) {
+      queryOptions.where[db.Sequelize.Op.and].push(oldCondition);
+    }
+
+    // if is not a logged user, then we need to show him only public events,
+    // otherwise more conditions need to be checked
+    if (!params.userId) {
+      queryOptions.where[db.Sequelize.Op.and].push({
+        privacy: EventPrivacyEnum.public,
+      });
+    } else {
+      const relationNamePost = resources.POST.ALIAS.SINGULAR;
+      const relationNameFanClub = resources.FAN_CLUB.ALIAS.SINGULAR;
+
+      const userFanClubIds = await FanClubMemberService.getFanClubIdsForMember(
+        params.userId
+      );
+
+      const fanClubIds = userFanClubIds.join(', ');
+
+      queryOptions.where[db.Sequelize.Op.and].push({
+        [db.Sequelize.Op.or]: [
+          { privacy: EventPrivacyEnum.public },
+          {
+            [db.Sequelize.Op.and]: [
+              { privacy: EventPrivacyEnum.private },
+              {
+                [db.Sequelize.Op.or]: [
+                  db.Sequelize.literal(`
+                    "${relationNamePost}->author"."id" = ${params.userId}
+                  `),
+                  db.Sequelize.literal(`
+                    "${relationNamePost}->${relationNameFanClub}"."id" IN (${fanClubIds})
+                  `),
+                ],
+              },
+            ],
+          },
+        ],
+      });
     }
 
     const { rows, count } = await db.Event.findAndCountAll(queryOptions);

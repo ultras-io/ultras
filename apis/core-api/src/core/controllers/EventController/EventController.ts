@@ -21,6 +21,7 @@ class EventController extends BaseController {
    * Get all events.
    */
   static async getAll({
+    userId,
     limit = DEFAULT_PAGINATION_ATTRIBUTES.LIMIT,
     offset = DEFAULT_PAGINATION_ATTRIBUTES.OFFSET,
     orderAttr = '',
@@ -32,6 +33,7 @@ class EventController extends BaseController {
     teamId,
   }: EventsListParams): EventsListResult {
     const { rows, count } = await EventService.getAll({
+      userId,
       limit,
       offset,
       orderAttr,

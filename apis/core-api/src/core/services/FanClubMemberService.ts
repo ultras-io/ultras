@@ -9,6 +9,7 @@ import {
   ServiceByIdResultType,
   ServiceListParamsType,
   ServiceListResultType,
+  ServiceResultType,
 } from 'types';
 
 import BaseService from './BaseService';
@@ -327,6 +328,24 @@ class FanClubMemberService extends BaseService {
     id: ResourceIdentifier
   ): ServiceByIdResultType<FanClubMemberViewModel> {
     return this.findById(db.FanClubMember, id);
+  }
+
+  /**
+   * Get fan club memberships by provided filters.
+   */
+  static async getFanClubIdsForMember(
+    memberId: ResourceIdentifier
+  ): ServiceResultType<Array<ResourceIdentifier>> {
+    const queryOptions = {
+      where: {
+        status: FanClubMemberStatusEnum.active,
+        memberId,
+      },
+      attributes: ['fanClubId'],
+    };
+
+    const result = await db.FanClubMember.findAll(queryOptions);
+    return result.map((member: any) => member.getDataValue('fanClubId'));
   }
 
   /**
