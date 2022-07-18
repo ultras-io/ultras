@@ -13,6 +13,7 @@ import Profile from 'views/screens/Profile';
 import CreateEvent from 'views/screens/CreateEvent';
 import ProfileList from 'views/screens/ProfileList';
 import Notifications from 'views/screens/Notifications';
+import Room from 'views/screens/Room';
 
 const defaultOptions = {
   headerTitle: '',
@@ -103,6 +104,13 @@ const SCREENS: CommonScreens = {
           {I18n.t('common-notifications')}
         </Text>
       ),
+    },
+  },
+  room: {
+    name: 'Room',
+    component: Room,
+    options: {
+      ...defaultOptions,
     },
   },
 };

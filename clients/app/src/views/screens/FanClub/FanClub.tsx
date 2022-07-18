@@ -1,17 +1,18 @@
 import React from 'react';
 import { IconButton } from 'native-base';
+import Container from 'views/components/base/Container';
+import FanClubTabNavigation from './components/FanClubTabNavigation';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';
-import Container from 'views/components/base/Container';
 import { IFanClubProps } from './types';
 
 const FanClubContainer = React.lazy(() => import('./containers/FanClubContainer'));
 
 const FanClub: React.FC<IFanClubProps> = ({ route }) => {
-  const { data } = route.params;
+  const { tabName, data } = route.params;
   const { setOptions, pushTo } = useNavigationWithParams();
 
   React.useLayoutEffect(() => {
@@ -31,6 +32,7 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
   return (
     <Container withSuspense withBg>
       <FanClubContainer data={data} />
+      <FanClubTabNavigation tabName={tabName} id={data.id} />
     </Container>
   );
 };

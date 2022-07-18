@@ -95,6 +95,10 @@ export default {
   'fanClubs-joined': 'joined',
   'fanClubs-fans': 'Fans',
 
+  // rooms
+  rooms: 'Rooms',
+  'rooms-by': 'by',
+
   //teams
   teams: 'Teams',
   'team-national': 'National Team',

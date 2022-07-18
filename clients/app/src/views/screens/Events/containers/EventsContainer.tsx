@@ -3,12 +3,21 @@ import EventsComponent, { EventsLoader } from '../components/EventsComponent';
 import buildEventsStore from 'stores/events';
 import { IEventsContainerProps } from '../types';
 
-const EventsContainer: React.FC<IEventsContainerProps> = () => {
+const EventsContainer: React.FC<IEventsContainerProps> = ({
+  fanClubId,
+  matchId,
+  teamId,
+}) => {
   const eventsStoreRef = React.useRef(buildEventsStore());
 
   React.useEffect(() => {
+    eventsStoreRef.current.updateFilter({
+      fanClubId,
+      matchId,
+      teamId,
+    });
     eventsStoreRef.current.getAll();
-  }, []);
+  }, [fanClubId, matchId, teamId]);
 
   const result = eventsStoreRef.current.useSelector('list');
 

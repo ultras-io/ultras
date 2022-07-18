@@ -1,5 +1,6 @@
 import React, { ComponentType } from 'react';
 import { ScreenProps } from 'react-native-screens';
+import { ResourceIdentifier } from '@ultras/core-api-sdk';
 
 export type CommonScreens = Record<
   | 'match'
@@ -11,7 +12,8 @@ export type CommonScreens = Record<
   | 'profile'
   | 'createEvent'
   | 'profileList'
-  | 'notifications',
+  | 'notifications'
+  | 'room',
   {
     name:
       | 'Match'
@@ -23,7 +25,8 @@ export type CommonScreens = Record<
       | 'Profile'
       | 'CreateEvent'
       | 'ProfileList'
-      | 'Notifications';
+      | 'Notifications'
+      | 'Room';
     component: React.FC<any>;
     options?: ScreenOptions;
   }
@@ -92,6 +95,11 @@ export type TeamTabScreens = {
   events: NavigationScreen;
 };
 
+export type FanClubTabScreens = {
+  rooms: NavigationScreen;
+  events: NavigationScreen;
+};
+
 export type ScreenNavigationConfig = Record<
   string,
   {
@@ -103,7 +111,12 @@ export type ScreenNavigationConfig = Record<
 
 export interface ITeamTabNavigationProps {
   tabName: string;
-  id: number;
+  id: ResourceIdentifier;
+}
+
+export interface IFanClubTabNavigationProps {
+  tabName: string;
+  id: ResourceIdentifier;
 }
 
 export interface ISearchTabNavigationProps {
