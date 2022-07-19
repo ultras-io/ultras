@@ -61,7 +61,7 @@ class TeamService extends BaseService {
 
     if (params.name) {
       this.queryAppend(query, 'name', {
-        [db.Sequelize.Op.iLike]: `%${params.name}%`,
+        [db.Sequelize.Op.iLike]: `${params.name}%`,
       });
     }
 
