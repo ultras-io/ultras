@@ -52,7 +52,7 @@ export class Team
 
   static associate(models: any) {
     Team.belongsToMany(models.User, {
-      as: resources.TEAM.ALIAS.PLURAL,
+      as: resources.USER.ALIAS.PLURAL,
       through: resources.FAVORITE_TEAM.RELATION,
       foreignKey: 'teamId',
     });

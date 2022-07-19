@@ -36,9 +36,10 @@ import {
   RevokeTokenResult,
   GetMeParams,
   GetMeResult,
+  ProfileParams,
+  ProfileResult,
+  UserAndTeams,
 } from './types';
-import { ProfileParams, ProfileResult, UserAndTeams } from '.';
-import { FanClubsViewModel, TeamsViewModel } from '@ultras/view-models';
 
 class UserController extends BaseController {
   static async checkUsernameExistence({
@@ -396,15 +397,8 @@ class UserController extends BaseController {
       });
     }
 
-    const fanClubs: FanClubsViewModel = [];
-    // const fanClubs = await FanClubService.getAllFanClubs({
-    //   userId,
-    // });
-
-    const teams: TeamsViewModel = [];
-    // const teams = await FavoriteTeamService.getAllTeams({
-    //   userId,
-    // });
+    const fanClubs = await FanClubService.getUserFanClubs(userId);
+    const teams = await FavoriteTeamService.getUserFavoriteTeams(userId);
 
     return {
       data: {

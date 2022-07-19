@@ -258,6 +258,30 @@ class FavoriteTeamService extends BaseService {
 
     return idList;
   }
+
+  /**
+   * Get favorite teams of user.
+   */
+  static async getUserFavoriteTeams(userId: ResourceIdentifier) {
+    const teams = await db.Team.findAll({
+      include: [
+        {
+          required: true,
+          model: db.User,
+          as: resources.USER.ALIAS.PLURAL,
+          through: {
+            attributes: [],
+          },
+          attributes: [],
+          where: {
+            id: userId,
+          },
+        },
+      ],
+    });
+
+    return teams;
+  }
 }
 
 export default FavoriteTeamService;
