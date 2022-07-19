@@ -1,8 +1,46 @@
-import { RoomPrivacyEnum } from '@ultras/utils';
+import { FanClubMemberRoleEnum, RoomPrivacyEnum } from '@ultras/utils';
 import { Middleware, Next as KoaNext } from 'koa';
 import { Context } from 'types';
-import { RoomService, PostService } from 'core/services';
+import {
+  RoomService,
+  PostService,
+  FanClubMemberService,
+  FanClubService,
+} from 'core/services';
 import { AccessDeniedError, ResourceNotFoundError } from 'modules/exceptions';
+
+const errorNotFound = () => {
+  throw new ResourceNotFoundError({
+    message: 'Room not found.',
+  });
+};
+
+const errorAccessDenied = () => {
+  throw new AccessDeniedError({
+    message: "You don't have access to this room.",
+  });
+};
+
+const getFanClubMemberInfo = async (
+  fanClubId: ResourceIdentifier,
+  memberId: ResourceIdentifier
+) => {
+  if (!fanClubId) {
+    return null;
+  }
+
+  const fanClub = await FanClubService.getById(fanClubId);
+  if (!fanClub) {
+    return null;
+  }
+
+  const fanClubMember = await FanClubMemberService.getOne(fanClubId, memberId);
+  return fanClubMember;
+};
+
+const isFanClubAdmin = (role: FanClubMemberRoleEnum): boolean => {
+  return role == FanClubMemberRoleEnum.admin || role == FanClubMemberRoleEnum.owner;
+};
 
 export default (restrictedAction = false): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
@@ -11,48 +49,40 @@ export default (restrictedAction = false): Middleware => {
 
     const room = await RoomService.getById(roomId, false);
     if (!room) {
-      throw new ResourceNotFoundError({
-        message: 'Room not found.',
-      });
+      errorNotFound();
     }
 
-    // room author can access to room
     const post = await PostService.getById(room.getDataValue('postId'), false);
     if (!post) {
-      throw new ResourceNotFoundError({
-        message: 'Room not found.',
-      });
+      errorNotFound();
     }
 
+    // if action is called by author, then any operation is granted
+    // for him
     if (post.getDataValue('authorId') == userId) {
       return next();
     }
 
-    let hasAccess = true;
+    const fanClubId = post.getDataValue('fanClubId');
 
-    // if user is not a author of room
-    if (!restrictedAction) {
-      // if room is member, then anyone in fan club can access to room
-      if (room.getDataValue('privacy') == RoomPrivacyEnum.member) {
-        // @TODO: check user in fan club with member or admin role.
-        return next();
-      }
-
-      // if room is admin, then only admins and owner in fan club can access to room
-      if (room.getDataValue('privacy') == RoomPrivacyEnum.admin) {
-        // @TODO: check is user an admin/owner of fan club
-        return next();
-      }
-    } else {
-      hasAccess = false;
+    // out of fan club members can't access to room
+    const fanClubMember = await getFanClubMemberInfo(fanClubId, userId);
+    if (!fanClubMember) {
+      errorAccessDenied();
     }
 
-    if (!hasAccess) {
-      throw new AccessDeniedError({
-        message: "You don't have access to this room.",
-      });
+    // fan club admin/owner has access to everything
+    const role = fanClubMember.getDataValue('fanClubMemberRole');
+    if (isFanClubAdmin(role.getDataValue('role'))) {
+      return next();
     }
 
-    return next();
+    // if room has member level privacy, then anyone in the fan club
+    // can access to room if it's not a restricted action
+    if (room.getDataValue('privacy') == RoomPrivacyEnum.member && !restrictedAction) {
+      return next();
+    }
+
+    errorAccessDenied();
   };
 };

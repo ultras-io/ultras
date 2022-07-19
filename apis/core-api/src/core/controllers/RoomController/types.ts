@@ -10,6 +10,7 @@ import {
 } from 'types';
 
 interface RoomsFilterInterface {
+  userId: ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier;
   matchId?: ResourceIdentifier;
