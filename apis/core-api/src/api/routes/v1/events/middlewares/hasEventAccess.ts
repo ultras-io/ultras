@@ -1,51 +1,115 @@
-import { EventPrivacyEnum } from '@ultras/utils';
+import { EventPrivacyEnum, FanClubMemberRoleEnum } from '@ultras/utils';
 import { Middleware, Next as KoaNext } from 'koa';
 import { Context } from 'types';
-import { EventService, PostService } from 'core/services';
+import {
+  EventService,
+  PostService,
+  FanClubMemberService,
+  FanClubService,
+} from 'core/services';
 import { AccessDeniedError, ResourceNotFoundError } from 'modules/exceptions';
 
-export default (restrictedAction = false): Middleware => {
+const errorNotFound = () => {
+  throw new ResourceNotFoundError({
+    message: 'Event not found.',
+  });
+};
+
+const errorAccessDenied = () => {
+  throw new AccessDeniedError({
+    message: "You don't have access to this event.",
+  });
+};
+
+const getFanClubMemberInfo = async (
+  fanClubId: ResourceIdentifier,
+  memberId: ResourceIdentifier
+) => {
+  if (!fanClubId) {
+    return null;
+  }
+
+  const fanClub = await FanClubService.getById(fanClubId);
+  if (!fanClub) {
+    return null;
+  }
+
+  const fanClubMember = await FanClubMemberService.getOne(fanClubId, memberId);
+  return fanClubMember;
+};
+
+const isFanClubAdmin = (role: FanClubMemberRoleEnum): boolean => {
+  return role == FanClubMemberRoleEnum.admin || role == FanClubMemberRoleEnum.owner;
+};
+
+export default (
+  // restricted actions means update or delete
+  restrictedAction = false
+): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     const eventId = ctx.request.params.id;
     const userId = ctx.user.userId;
 
     const event = await EventService.getById(eventId, false);
     if (!event) {
-      throw new ResourceNotFoundError({
-        message: 'Event not found.',
-      });
+      errorNotFound();
     }
 
-    // if event is public then anyone can access to event
-    if (event.getDataValue('privacy') == EventPrivacyEnum.public) {
-      return next();
-    }
-
-    // event author can access to event
     const post = await PostService.getById(event.getDataValue('postId'), false);
     if (!post) {
-      throw new ResourceNotFoundError({
-        message: 'Event not found.',
-      });
+      errorNotFound();
     }
 
+    const fanClubId = post.getDataValue('fanClubId');
+
+    // if action is called by author, then any operation is granted
+    // for him
     if (post.getDataValue('authorId') == userId) {
       return next();
     }
 
-    let hasAccess = true;
+    // if event is public then anyone can access to event if it's
+    // not a restricted action
+    if (event.getDataValue('privacy') == EventPrivacyEnum.public) {
+      // if is not a restricted action to event then access granted
+      if (!restrictedAction) {
+        return next();
+      }
 
-    // if user is not a author of event
-    if (!restrictedAction) {
-      // @TODO: check user can access to event (e.g. in same fan club)
-    } else {
-      hasAccess = false;
+      // out of fan club members can't access to event with
+      // restricted action
+      const fanClubMember = await getFanClubMemberInfo(fanClubId, userId);
+      if (!fanClubMember) {
+        errorAccessDenied();
+      }
+
+      const role = fanClubMember.getDataValue('fanClubMemberRole');
+      if (isFanClubAdmin(role.getDataValue('role'))) {
+        return next();
+      }
+
+      errorAccessDenied();
     }
 
-    if (!hasAccess) {
-      throw new AccessDeniedError({
-        message: "You don't have access to this event.",
-      });
+    // if event is private, then it must have a fan club
+    if (!fanClubId) {
+      errorNotFound();
+    }
+
+    const fanClubMember = await getFanClubMemberInfo(fanClubId, userId);
+    if (!fanClubMember) {
+      errorAccessDenied();
+    }
+
+    // everyone in same fan club has access to event, if it's
+    // not a restricted action
+    if (!restrictedAction) {
+      return next();
+    }
+
+    const role = fanClubMember.getDataValue('fanClubMemberRole');
+    if (!isFanClubAdmin(role.getDataValue('role'))) {
+      errorAccessDenied();
     }
 
     return next();

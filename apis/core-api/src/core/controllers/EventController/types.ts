@@ -10,6 +10,7 @@ import {
 } from 'types';
 
 interface EventsFilterInterface {
+  userId: ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier;
   matchId?: ResourceIdentifier;
