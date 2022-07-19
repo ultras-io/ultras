@@ -47,6 +47,12 @@ export class User
       through: resources.FAVORITE_TEAM.RELATION,
       foreignKey: 'userId',
     });
+
+    User.belongsToMany(models.FanClub, {
+      as: resources.FAN_CLUB.ALIAS.PLURAL,
+      through: resources.FAN_CLUB_MEMBER.RELATION,
+      foreignKey: 'memberId',
+    });
   }
 }
 

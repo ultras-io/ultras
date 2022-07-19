@@ -173,6 +173,24 @@ class ControllerAdapter {
 
     return ctx.ok(response);
   }
+
+  static async getProfile(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { id } = ctx.request.params;
+
+    /** CONTROLLERS */
+    const { data } = await UserController.getProfile({
+      userId: id,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
 }
 
 export default ControllerAdapter;

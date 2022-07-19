@@ -90,6 +90,12 @@ export class FanClub
       as: 'owner',
       foreignKey: 'ownerId',
     });
+
+    FanClub.belongsToMany(models.User, {
+      as: resources.USER.ALIAS.PLURAL,
+      through: resources.FAN_CLUB_MEMBER.RELATION,
+      foreignKey: 'fanClubId',
+    });
   }
 }
 

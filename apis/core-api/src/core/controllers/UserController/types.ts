@@ -1,4 +1,4 @@
-import { UserViewModel } from '@ultras/view-models';
+import { FanClubsViewModel, TeamsViewModel, UserViewModel } from '@ultras/view-models';
 import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
 import { User } from 'core/data/models/User';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
@@ -107,6 +107,17 @@ export type GetMeParams = {
 export type GetMeResult = ControllerResultType<{
   user: UserAndTeams;
 }>;
+
+export type ProfileParams = {
+  userId: ResourceIdentifier;
+};
+
+export type ProfileResult = ControllerResultType<
+  User & {
+    fanClubs: FanClubsViewModel;
+    teams: TeamsViewModel;
+  }
+>;
 
 export type UserAndTeams = Nullable<
   User & {

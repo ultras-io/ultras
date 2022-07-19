@@ -228,6 +228,30 @@ class FanClubService extends BaseService {
     fanClub.setDataValue('membersCount', membersCount);
     await fanClub.save({ transaction });
   }
+
+  /**
+   * Get fan clubs by member ID.
+   */
+  static async getUserFanClubs(userId: ResourceIdentifier) {
+    const fanClubs = await db.FanClub.findAll({
+      include: [
+        {
+          required: true,
+          model: db.User,
+          as: resources.USER.ALIAS.PLURAL,
+          through: {
+            attributes: [],
+          },
+          attributes: [],
+          where: {
+            id: userId,
+          },
+        },
+      ],
+    });
+
+    return fanClubs;
+  }
 }
 
 export default FanClubService;
