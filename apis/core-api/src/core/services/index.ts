@@ -18,3 +18,4 @@ export { default as EventService } from './EventService';
 export { default as RoomService } from './RoomService';
 export { default as LocationService } from './LocationService';
 export { default as PostMemberService } from './PostMemberService';
+export { default as RedisService } from './RedisService';

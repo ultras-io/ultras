@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
 import rateLimit from 'koa-ratelimit';
-import Redis from 'ioredis';
 import { Context } from 'types';
+import { RedisService } from 'core/services';
 
 interface OptionsInterface {
   seconds: number;
@@ -27,7 +27,7 @@ export default (options: OptionsInterface): Middleware => {
     throw: true,
 
     driver: 'redis',
-    db: new Redis(),
+    db: RedisService.getInstance(),
     disableHeader: false,
   });
 };
