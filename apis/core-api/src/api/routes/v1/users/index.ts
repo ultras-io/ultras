@@ -28,6 +28,6 @@ router.delete(
 );
 
 router.get('/me', checkUserAuth(), ControllerAdapter.getMe);
-router.get('/profile/:id',  ControllerAdapter.getProfile);
+router.get('/profile/:id', ControllerAdapter.getProfile);
 
 export default router;
