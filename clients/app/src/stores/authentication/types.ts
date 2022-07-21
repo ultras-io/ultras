@@ -19,7 +19,8 @@ export interface IMethods {
   authenticate: () => void;
   login: (token: string, user: UserType) => void;
   logout: () => void;
-  updateTeams: (teamId: number) => void;
+  addTeam: (teamId: number) => void;
+  removeTeam: (teamId: number) => void;
   clearToken: () => void;
 }
 

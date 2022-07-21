@@ -54,21 +54,24 @@ const initStore = () => {
           await get().clearToken();
         }
       },
-      updateTeams: teamId => {
+
+      addTeam: teamId => {
         const user = get().user;
-        if (user) {
-          if (user.teams.indexOf(teamId) === -1) {
-            set({ user: { ...user, teams: [...user.teams, teamId] } });
-          } else if (user.teams.length > 1) {
-            set({
-              user: {
-                ...user,
-                teams: user.teams.filter(id => id !== teamId),
-              },
-            });
-          }
+        if (user) set({ user: { ...user, teams: [...user.teams, teamId] } });
+      },
+
+      removeTeam: teamId => {
+        const user = get().user;
+        if (user && user.teams.length > 1) {
+          set({
+            user: {
+              ...user,
+              teams: user.teams.filter(id => id !== teamId),
+            },
+          });
         }
       },
+
       clearToken: async () => {
         UserSDK.setAuthToken('');
         await StorageService.setAuthToken('');
@@ -85,6 +88,7 @@ export default {
   authenticateSelector: () => (state: IState) => state.authenticate,
   loginSelector: () => (state: IState) => state.login,
   logoutSelector: () => (state: IState) => state.logout,
-  updateTeamsSelector: () => (state: IState) => state.updateTeams,
+  addTeamSelector: () => (state: IState) => state.addTeam,
+  removeTeamSelector: () => (state: IState) => state.removeTeam,
   clearTokenSelector: () => (state: IState) => state.clearToken,
 };

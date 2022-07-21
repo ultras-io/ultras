@@ -16,7 +16,12 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
 
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
   const user = useAuthenticationStore(userSelector());
-  const updateTeams = useAuthenticationStore(authenticationStore.updateTeamsSelector());
+  const addTeam = useAuthenticationStore(authenticationStore.addTeamSelector());
+  const removeTeam = useAuthenticationStore(authenticationStore.removeTeamSelector());
+
+  const teamIdRef = React.useRef(0);
+  const addStatusRef = React.useRef('');
+  const deleteStatusRef = React.useRef('');
 
   const isFavorite = React.useMemo(
     () => user.teams.indexOf(data.id) !== -1,
@@ -25,17 +30,37 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
 
   const onUpdateTeamsPress = React.useCallback(
     (teamId: ResourceIdentifier) => {
+      teamIdRef.current = teamId;
       if (isFavorite) {
         favoriteTeamsStore.remove({ teamId });
+        removeTeam(teamId);
       } else {
         favoriteTeamsStore.setFieldValue('teamId', teamId);
         favoriteTeamsStore.create();
+        addTeam(teamId);
       }
-
-      updateTeams(teamId);
     },
-    [isFavorite, updateTeams]
+    [isFavorite, addTeam, removeTeam]
   );
+
+  const statuses = favoriteTeamsStore.useSelector('add', 'delete');
+
+  const revertActionOnError = React.useCallback(() => {
+    if (addStatusRef.current === 'loading' && statuses.add.status === 'error')
+      removeTeam(teamIdRef.current);
+
+    if (deleteStatusRef.current === 'loading' && statuses.delete.status === 'error')
+      addTeam(teamIdRef.current);
+
+    addStatusRef.current = statuses.add.status;
+    deleteStatusRef.current = statuses.delete.status;
+  }, [addTeam, removeTeam, statuses.add.status, statuses.delete.status]);
+
+  React.useEffect(revertActionOnError, [
+    revertActionOnError,
+    statuses.add.status,
+    statuses.delete.status,
+  ]);
 
   return (
     <>

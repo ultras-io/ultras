@@ -1,15 +1,18 @@
 import React from 'react';
+import { IState } from 'stores/authentication';
 import buildFavoriteTeamsStore from 'stores/favoriteTeams';
 import TeamsComponent, { TeamsLoader } from '../components/TeamsComponent';
 import { ITeamsContainerProps } from '../types';
 
-const TeamsContainer: React.FC<ITeamsContainerProps> = ({ id }) => {
+const TeamsContainer: React.FC<ITeamsContainerProps> = ({ useStore, id }) => {
   const favoriteTeamsStoreRef = React.useRef(buildFavoriteTeamsStore());
+  const userSelector = React.useCallback(() => (state: IState) => state.user, []);
+  const user = useStore(userSelector());
+
   React.useEffect(() => {
-    // get user teams if id exist
-    //else
+    // need to reset and get All
     favoriteTeamsStoreRef.current.getAll();
-  }, []);
+  }, [user.teams]);
 
   const result = favoriteTeamsStoreRef.current.useSelector('list');
 
