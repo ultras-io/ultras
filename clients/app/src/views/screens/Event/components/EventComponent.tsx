@@ -79,7 +79,15 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
         <HStack>
           <Text variant={'cardInfo'}>
             {I18n.t('events-by')}{' '}
-            <Text fontWeight={700}>{data.post.author.username}</Text>
+            <Text
+              fontWeight={700}
+              onPress={preventMultiCalls(() =>
+                pushTo(commonScreens.profile.name, { data: data.post.author })
+              )}
+              suppressHighlighting
+            >
+              {data.post.author.username}
+            </Text>
             {data.post.fanClub && (
               <Text>
                 ,{' '}

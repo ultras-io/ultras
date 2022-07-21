@@ -1,15 +1,18 @@
 import { FanClubViewModel } from '@ultras/core-api-sdk';
 
+export type ContainerType = 'discover' | 'my' | 'otherUser';
+
 export interface IFanClubsContainerProps {
-  type?: 'discover' | 'my';
+  data?: Array<FanClubViewModel>;
+  type?: ContainerType;
 }
 
 export interface IFanClubsComponentProps {
   data: Array<FanClubViewModel>;
-  type: 'discover' | 'my';
+  type: ContainerType;
   onEndReached: () => void;
 }
 
 export interface IFanClubsLoaderProps {
-  type: 'discover' | 'my';
+  type: ContainerType;
 }

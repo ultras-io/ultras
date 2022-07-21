@@ -1,14 +1,12 @@
 import { RouteProp } from '@react-navigation/native';
 import { UserViewModel, TeamsViewModel } from '@ultras/view-models';
-import { ResourceIdentifier } from '@ultras/core-api-sdk';
 
 export interface IProfileProps {
-  route: RouteProp<{ params: { tabName: string; id?: string } }, 'params'>;
+  route: RouteProp<{ params: { tabName: string; data?: UserViewModel } }, 'params'>;
 }
 
 export interface IProfileContainerProps {
-  useStore: any;
-  id?: ResourceIdentifier;
+  data?: UserViewModel;
 }
 
 export interface IProfileComponentProps {
@@ -20,8 +18,8 @@ export interface IProfileInfoProps {
 }
 
 export interface ITeamsContainerProps {
-  useStore: any;
-  id?: ResourceIdentifier;
+  isMe: boolean;
+  data?: UserViewModel;
 }
 
 export interface ITeamsComponentProps {

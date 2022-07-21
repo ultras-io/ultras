@@ -19,8 +19,7 @@ const buildUserStore = (params: Partial<ParamType> = {}) => {
     ...(params as ParamType),
 
     loadSingle: (id: ResourceIdentifier) => {
-      // @TODO chnange to getProfile when SDK will be implemented
-      return sdk.getMe(id);
+      return sdk.getProfile(id);
     },
   });
 };
