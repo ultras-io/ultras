@@ -20,6 +20,7 @@ export interface IProfileInfoProps {
 }
 
 export interface ITeamsContainerProps {
+  useStore: any;
   id?: ResourceIdentifier;
 }
 
