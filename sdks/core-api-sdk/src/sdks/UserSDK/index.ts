@@ -9,6 +9,7 @@ export * from './types';
 
 import type { OnUpdateListener } from '../../interceptors/AuthTokenInterceptor/types';
 import AuthTokenInterceptor from '../../interceptors/AuthTokenInterceptor';
+import { ResourceIdentifier } from '../types';
 
 export class UserSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
@@ -59,5 +60,9 @@ export class UserSDK extends CoreApiBaseSDK {
 
   public getMe() {
     return this.api?.makeAPIGetRequest('me');
+  }
+
+  public getProfile(id: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`/profile/${id}`);
   }
 }
