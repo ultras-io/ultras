@@ -11,12 +11,7 @@ const routerWithFanClubId = new Router({
   prefix: `/:${idKey}/memberships`,
 });
 
-routerWithFanClubId.post(
-  '/join',
-  checkUserAuth(),
-  validateFanClubMembership({}, idKey),
-  ControllerAdapter.requestJoin
-);
+routerWithFanClubId.post('/join', checkUserAuth(), ControllerAdapter.requestJoin);
 routerWithFanClubId.delete(
   '/:id/leave',
   checkUserAuth(),
