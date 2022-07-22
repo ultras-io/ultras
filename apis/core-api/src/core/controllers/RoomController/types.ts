@@ -22,6 +22,7 @@ export type RoomCreateParams = {
   title: string;
   content: string;
   fanClubId: ResourceIdentifier;
+  dateTime: Date;
   privacy: RoomPrivacyEnum;
 };
 
@@ -29,6 +30,7 @@ export type RoomUpdateParams = {
   id: ResourceIdentifier;
   title: string;
   content: string;
+  dateTime: Date;
   privacy: RoomPrivacyEnum;
 };
 

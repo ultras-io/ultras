@@ -24,11 +24,13 @@ export interface RoomListParamsInterface {
 }
 
 export interface CreateParamsInterface {
+  dateTime: Date;
   privacy: RoomPrivacyEnum;
   postId: ResourceIdentifier;
 }
 
 export interface UpdateParamsInterface {
+  dateTime: Date;
   privacy: RoomPrivacyEnum;
 }
 
@@ -52,11 +54,12 @@ class RoomService extends BaseService {
    * Create room instance.
    */
   static async create(
-    { privacy, postId }: CreateParamsInterface,
+    { dateTime, privacy, postId }: CreateParamsInterface,
     transaction?: Transaction
   ): Promise<RoomViewModel> {
     const roomData: RoomCreationAttributes = {
       postId: postId,
+      dateTime,
       privacy,
     };
 
@@ -247,7 +250,7 @@ class RoomService extends BaseService {
    */
   static async update(
     roomId: ResourceIdentifier,
-    { privacy }: UpdateParamsInterface,
+    { privacy, dateTime }: UpdateParamsInterface,
     transaction?: Transaction
   ): Promise<RoomViewModel> {
     const room = await db.Room.findOne({
