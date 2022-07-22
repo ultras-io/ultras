@@ -293,7 +293,46 @@ class FavoriteTeamService extends BaseService {
     params: ActionByIdentifierInterface,
     transaction?: Transaction
   ): Promise<void> {
-    const condition = this.buildActionCondition(params);
+    // if favoriteTeamId provided then other field must be ignored
+    // if no any field provided then nothing to do
+    const identifier: ActionByIdentifierInterface = {};
+    if (params.favoriteTeamId) {
+      identifier.favoriteTeamId = params.favoriteTeamId;
+    } else if (params.userId && params.teamId) {
+      identifier.userId = params.userId;
+      identifier.teamId = params.teamId;
+    } else {
+      return;
+    }
+
+    // get user id to detect favorite teams count
+    let userId = identifier.userId;
+    if (!userId) {
+      const favoriteTeamPivot = await db.FavoriteTeam.findOne({
+        where: {
+          id: identifier.favoriteTeamId,
+        },
+      });
+
+      if (!favoriteTeamPivot) {
+        return;
+      }
+
+      userId = favoriteTeamPivot.getDataValue('userId');
+    }
+
+    // get user's favorite team count, if it's only one, then
+    // he can't delete them.
+    const favoriteTeamsCount = await db.FavoriteTeam.count({
+      where: { userId },
+    });
+
+    if (favoriteTeamsCount < 2) {
+      return;
+    }
+
+    // remove favorite team from list
+    const condition = this.buildActionCondition(identifier);
     if (!condition) {
       return;
     }
