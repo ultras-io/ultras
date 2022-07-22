@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image as RNImage } from 'react-native';
 import { Pressable, Text, VStack, AspectRatio, Image } from 'native-base';
+import moment from 'moment';
 import I18n from 'i18n/i18n';
 import BluredView from 'views/components/base/BluredView';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
@@ -33,16 +34,22 @@ const RoomCard: React.FC<IRoomCardProps> = ({ data, onPress }) => {
           )}
 
           <VStack p={4}>
+            {data.dateTime && (
+              <Text variant={'cardTime'}>
+                {new Date(data.dateTime) < new Date()
+                  ? moment(data.dateTime).fromNow()
+                  : moment(data.dateTime).format('MMM DD, hh:mm')}
+              </Text>
+            )}
             <Text variant={'cardTitle'} mb={'1'}>
               {data.post.title}
+            </Text>
+            <Text variant={'cardStats'}>
+              {getReadableNumber(data.post.commentsCount)} comments
             </Text>
             <Text variant={'cardInfo'}>
               {I18n.t('rooms-by')} {data.post.author.username}
               {data.post.fanClub && ', ' + data.post.fanClub.name}
-            </Text>
-            {/* TODO comments Box */}
-            <Text variant={'cardStats'}>
-              {getReadableNumber(data.post.commentsCount)} comments
             </Text>
           </VStack>
         </VStack>

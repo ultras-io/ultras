@@ -98,6 +98,8 @@ export default {
   // rooms
   rooms: 'Rooms',
   'rooms-by': 'by',
+  'rooms-subscribe': 'Subscribe',
+  'rooms-subscribed': 'Subscribed',
 
   //teams
   teams: 'Teams',
