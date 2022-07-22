@@ -52,20 +52,28 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           >
             {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
           </Text>
-          <VerticalDivider />
-          <Text variant={'info'}>{data.city.name}</Text>
+          {data.city && (
+            <>
+              <VerticalDivider />
+              <Text variant={'info'}>{data.city.name}</Text>
+            </>
+          )}
         </HStack>
 
-        <HStack alignItems={'center'} space={'1'}>
-          <Icon name={Icons.Club} color="iconPrimary" size={'ic-2xs'} />
-          <Text
-            variant={'info'}
-            onPress={preventMultiCalls(() => openTeam())}
-            suppressHighlighting
-          >
-            {data.team.name}
-          </Text>
-        </HStack>
+        {data.team ? (
+          <HStack alignItems={'center'} space={'1'}>
+            <Icon name={Icons.Club} color="iconPrimary" size={'ic-2xs'} />
+            <Text
+              variant={'info'}
+              onPress={preventMultiCalls(() => openTeam())}
+              suppressHighlighting
+            >
+              {data.team.name}
+            </Text>
+          </HStack>
+        ) : (
+          <HStack space={'1'} h={'5'} />
+        )}
 
         <Button
           onPress={() => {}}

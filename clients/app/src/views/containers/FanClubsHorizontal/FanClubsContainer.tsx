@@ -5,17 +5,28 @@ import FanClubsComponent, {
 import buildFanClubsStore from 'stores/fanClubs';
 import { IFanClubsContainerProps } from './types';
 
-const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({ type = 'discover' }) => {
+const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
+  data,
+  type = 'discover',
+}) => {
   const fanClubsStoreRef = React.useRef(buildFanClubsStore());
 
   React.useEffect(() => {
-    // if type === 'my' filter my fun clubs
-    // else filter fan clubs of my supported teams
-
-    fanClubsStoreRef.current.getAll();
-  }, []);
+    // filter my fun clubs
+    if (type === 'my') fanClubsStoreRef.current.getAll();
+    // filter fan clubs of my supported teams
+    else if (type === 'discover') fanClubsStoreRef.current.getAll();
+  }, [type]);
 
   const result = fanClubsStoreRef.current.useSelector('list');
+
+  if (type === 'otherUser')
+    return data ? (
+      <FanClubsComponent data={data} type={type} onEndReached={() => {}} />
+    ) : (
+      <FanClubsLoader type={type} />
+    );
+
   // @TODO handle error status
   if (!result.list.data && result.list.status === 'loading')
     return <FanClubsLoader type={type} />;
