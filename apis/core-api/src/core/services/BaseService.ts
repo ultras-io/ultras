@@ -98,19 +98,45 @@ abstract class BaseService {
     model: any,
     query: any,
     params: ServiceListParamsType<T>,
-    includeModelRelations = true
+    includeModelRelations = true,
+    moreQueryOptions: any = {}
   ) {
     let queryOptions = {
       limit: params.limit,
       offset: params.offset,
       where: query,
       order: [[params.orderAttr, params.order]],
+      include: [],
     };
 
     if (includeModelRelations) {
       queryOptions = {
         ...queryOptions,
         ...this.includeRelations(),
+      };
+    }
+
+    if (moreQueryOptions) {
+      moreQueryOptions = moreQueryOptions || {};
+      if (moreQueryOptions.where) {
+        moreQueryOptions.where = {
+          [db.Sequelize.Op.and]: {
+            ...queryOptions.where[db.Sequelize.Op.and],
+            ...moreQueryOptions.where,
+          },
+        };
+      }
+
+      if (moreQueryOptions.include) {
+        moreQueryOptions.include = [
+          ...(queryOptions.include || []),
+          ...moreQueryOptions.include,
+        ];
+      }
+
+      queryOptions = {
+        ...queryOptions,
+        ...moreQueryOptions,
       };
     }
 

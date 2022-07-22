@@ -1,5 +1,5 @@
 import { Transaction } from 'sequelize';
-import { FanClubMemberStatusEnum, OrderEnum } from '@ultras/utils';
+import { FanClubMemberStatusEnum, FanClubPrivacyEnum, OrderEnum } from '@ultras/utils';
 import { FanClubAttributes, FanClubCreationAttributes } from 'core/data/models/FanClub';
 
 import resources from 'core/data/lcp';
@@ -17,6 +17,7 @@ import CountryService from './CountryService';
 import TeamService from './TeamService';
 
 export interface FanClubListParamsInterface {
+  userId?: ResourceIdentifier | null;
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
@@ -182,7 +183,49 @@ class FanClubService extends BaseService {
       params.order = OrderEnum.asc;
     }
 
-    return this.findAndCountAll(db.FanClub, query, params);
+    let moreQueryOptions = {};
+    if (!params.userId) {
+      // show only public fan clubs if user is not logged in
+      this.queryAppend(query, 'privacy', FanClubPrivacyEnum.public);
+    } else {
+      const relationNameMember = resources.USER.ALIAS.PLURAL;
+      const relationNameFanClubMember = resources.FAN_CLUB_MEMBER.RELATION;
+
+      // show public fan clubs and private fan clubs that user in
+      moreQueryOptions = {
+        subQuery: false,
+        include: [
+          {
+            required: false,
+            model: db.User,
+            as: resources.USER.ALIAS.PLURAL,
+            through: {
+              attributes: [],
+            },
+            attributes: [],
+            where: {
+              id: params.userId,
+            },
+          },
+        ],
+        where: {
+          [db.Sequelize.Op.or]: [
+            { privacy: FanClubPrivacyEnum.public },
+            {
+              [db.Sequelize.Op.and]: [
+                { privacy: FanClubPrivacyEnum.private },
+
+                db.Sequelize.literal(`
+                  "${relationNameMember}->${relationNameFanClubMember}"."id" IS NOT NULL
+                `),
+              ],
+            },
+          ],
+        },
+      };
+    }
+
+    return this.findAndCountAll(db.FanClub, query, params, true, moreQueryOptions);
   }
 
   /**
