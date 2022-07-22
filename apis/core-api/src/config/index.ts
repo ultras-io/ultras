@@ -18,6 +18,14 @@ const dbConfig = {
   logging: Boolean(intConf(process.env.DB_LOGGING || 0)) || false,
 };
 
+const redisConfig = {
+  host: process.env.REDIS_HOST,
+  port: intConf(process.env.REDIS_PORT || 0),
+  username: process.env.REDIS_USERNAME,
+  password: process.env.REDIS_PASSWORD,
+  prefix: process.env.REDIS_PREFIX,
+};
+
 const serverConfig = {
   host: process.env.HOST,
   port: parseInt(process.env.PORT || ''),
@@ -68,6 +76,7 @@ const rapidApiConfig = {
 
 export {
   dbConfig,
+  redisConfig,
   awsConfig,
   authConfig,
   whiteList,
