@@ -5,7 +5,7 @@ import { Context } from 'types';
 class ControllerAdapter {
   static async create(ctx: Context) {
     /** VALIDATIONS, PARAMETERS */
-    const { fanClubId, title, content, privacy } = ctx.request.body;
+    const { fanClubId, title, content, dateTime, privacy } = ctx.request.body;
 
     const { userId } = ctx.user;
 
@@ -15,6 +15,7 @@ class ControllerAdapter {
       fanClubId,
       title,
       content,
+      dateTime: new Date(dateTime),
       privacy,
     });
 
@@ -69,7 +70,7 @@ class ControllerAdapter {
 
   static async update(ctx: Context) {
     /** VALIDATIONS, PARAMETERS */
-    const { title, content, privacy } = ctx.request.body;
+    const { title, content, dateTime, privacy } = ctx.request.body;
 
     const { id } = ctx.request.params;
 
@@ -78,6 +79,7 @@ class ControllerAdapter {
       id,
       title,
       content,
+      dateTime: new Date(dateTime),
       privacy,
     });
 

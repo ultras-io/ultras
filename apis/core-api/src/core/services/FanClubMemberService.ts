@@ -1,5 +1,10 @@
 import { Transaction } from 'sequelize';
-import { FanClubMemberRoleEnum, FanClubMemberStatusEnum, OrderEnum } from '@ultras/utils';
+import {
+  FanClubMemberRoleEnum,
+  FanClubMemberStatusEnum,
+  FanClubPrivacyEnum,
+  OrderEnum,
+} from '@ultras/utils';
 import { FanClubMemberViewModel } from '@ultras/view-models';
 
 import resources from 'core/data/lcp';
@@ -94,6 +99,17 @@ class FanClubMemberService extends BaseService {
     { fanClubId, memberId, role, status }: CreateMemberInterface,
     transaction?: Transaction
   ): Promise<null | FanClubMemberViewModel> {
+    const fanClub = await db.FanClub.findByPk(fanClubId);
+
+    // if is join request and fan club is public then status must be
+    // updated to active automatically
+    if (
+      fanClub.getDataValue('privacy') === FanClubPrivacyEnum.public &&
+      status === FanClubMemberStatusEnum.pendingRequest
+    ) {
+      status = FanClubMemberStatusEnum.active;
+    }
+
     const existingMember = await db.FanClubMember.findOne({
       where: {
         fanClubId: fanClubId,
@@ -106,8 +122,10 @@ class FanClubMemberService extends BaseService {
 
     // we need to restore deleted row if user was previously a member of a fan club
     if (existingMember) {
-      // restore fan club and user membership
-      await existingMember.restore({ transaction });
+      if (existingMember.getDataValue('deletedAt')) {
+        // restore fan club and user membership
+        await existingMember.restore({ transaction });
+      }
 
       // if is previous role is owner, then need to keep it
       const ownerRoleId = await this.getRoleId(FanClubMemberRoleEnum.owner);
@@ -144,6 +162,12 @@ class FanClubMemberService extends BaseService {
 
     if (!skipStatuses.includes(status)) {
       await FanClubService.updateMembersCount(fanClubId, transaction);
+    }
+
+    if (status === FanClubMemberStatusEnum.pendingInvitation) {
+      // @TODO: notify invitation request to user
+    } else if (status === FanClubMemberStatusEnum.pendingRequest) {
+      // @TODO: notify join request to admin
     }
 
     return newMember;

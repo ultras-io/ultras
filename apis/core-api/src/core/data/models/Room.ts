@@ -9,6 +9,7 @@ import { Post } from 'core/data/models/Post';
 export interface RoomAttributes {
   id: ResourceIdentifier;
   postId: ResourceIdentifier;
+  dateTime: Date;
   privacy: RoomPrivacyEnum;
 }
 
@@ -21,6 +22,7 @@ export class Room
   // Note that the `null assertion` `!` is required in strict mode.
   public id!: ResourceIdentifier;
   public postId!: ResourceIdentifier;
+  public dateTime!: Date;
   public privacy!: RoomPrivacyEnum;
 
   // timestamps!
@@ -58,6 +60,10 @@ module.exports = (sequelize: Sequelize): typeof Room => {
           key: 'id',
         },
         onDelete: 'CASCADE',
+      },
+      dateTime: {
+        type: DataTypes.DATE,
+        allowNull: false,
       },
       privacy: {
         type: DataTypes.ENUM({

@@ -36,6 +36,7 @@ class RoomController extends BaseController {
         {
           postId: post.getDataValue('id'),
           privacy: params.privacy,
+          dateTime: params.dateTime,
         },
         transaction
       );
@@ -111,6 +112,7 @@ class RoomController extends BaseController {
         params.id,
         {
           privacy: params.privacy,
+          dateTime: params.dateTime,
         },
         transaction
       );
