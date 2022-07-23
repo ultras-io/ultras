@@ -1,18 +1,18 @@
-import { MultiResourceIdentifier } from '../types';
+import type { CitiesViewModel, CityViewModel } from '@ultras/view-models';
+import type {
+  ApiResponseBodyType,
+  ListResponseMetaType,
+  MultiResourceIdentifier,
+} from '../types';
 
 export type GetCitiesFilter = {
   name?: string;
   countryId?: MultiResourceIdentifier;
 };
 
-type CountryView = {
-  id: ResourceIdentifier;
-  name: string;
-  code?: string;
-};
+export type GetCitiesResponse = ApiResponseBodyType<
+  CitiesViewModel,
+  ListResponseMetaType
+>;
 
-export type CityView = {
-  id: number;
-  name: string;
-  country: CountryView;
-};
+export type GetCityResponse = ApiResponseBodyType<CityViewModel>;

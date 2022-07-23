@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, ResourceIdentifier } from '../types';
-import { GetEventMembersFilter } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type { GetEventMembersFilter, GetEventMembersResponse } from './types';
+
 export * from './types';
 
 export class EventMemberSDK extends CoreApiBaseSDK {
@@ -12,7 +13,7 @@ export class EventMemberSDK extends CoreApiBaseSDK {
     eventId: ResourceIdentifier,
     params: QueryParam<GetEventMembersFilter> = {}
   ) {
-    return this.api?.makeAPIGetRequest(`${eventId}/members`, {
+    return this.api?.makeAPIGetRequest<GetEventMembersResponse>(`${eventId}/members`, {
       query_params: this.buildQueryParam(params),
     });
   }

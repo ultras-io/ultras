@@ -1,7 +1,6 @@
 import { HttpRequestMethods } from '@ultras/services/NetworkService/types';
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { DynamicQueryParam } from '../types';
-import {
+import type {
   SigningUrlParamsInterface,
   UploadViaSignedUrlParamsInterface,
   UploadParamsInterface,

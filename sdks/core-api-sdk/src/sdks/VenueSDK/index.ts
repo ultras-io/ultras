@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
-import { GetVenuesFilter } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type { GetVenuesFilter, GetVenueResponse, GetVenuesResponse } from './types';
+
 export * from './types';
 
 export class VenueSDK extends CoreApiBaseSDK {
@@ -9,12 +10,12 @@ export class VenueSDK extends CoreApiBaseSDK {
   }
 
   public getVenues(params: QueryParam<GetVenuesFilter> = {}) {
-    return this.api?.makeAPIGetRequest('', {
+    return this.api?.makeAPIGetRequest<GetVenuesResponse>('', {
       query_params: this.buildQueryParam(params),
     });
   }
 
   public getVenue(id: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(id.toString());
+    return this.api?.makeAPIGetRequest<GetVenueResponse>(id.toString());
   }
 }

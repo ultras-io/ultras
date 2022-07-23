@@ -1,6 +1,15 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, ResourceIdentifier } from '../types';
-import { GetEventsFilter, CreateEventType, UpdateEventType } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type {
+  GetEventsFilter,
+  GetEventsResponse,
+  GetEventResponse,
+  CreateEventType,
+  CreateEventResponse,
+  UpdateEventType,
+  UpdateEventResponse,
+} from './types';
+
 export * from './types';
 
 export class EventSDK extends CoreApiBaseSDK {
@@ -9,23 +18,23 @@ export class EventSDK extends CoreApiBaseSDK {
   }
 
   public getEvents(params: QueryParam<GetEventsFilter> = {}) {
-    return this.api?.makeAPIGetRequest('', {
+    return this.api?.makeAPIGetRequest<GetEventsResponse>('', {
       query_params: this.buildQueryParam(params),
     });
   }
 
   public getEvent(id: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(id.toString());
+    return this.api?.makeAPIGetRequest<GetEventResponse>(id.toString());
   }
 
   public createEvent(params: CreateEventType) {
-    return this.api?.makeAPIPostRequest('', {
+    return this.api?.makeAPIPostRequest<CreateEventResponse>('', {
       body: params,
     });
   }
 
   public updateEvent(id: ResourceIdentifier, params: UpdateEventType) {
-    return this.api?.makeAPIPutRequest(id.toString(), {
+    return this.api?.makeAPIPutRequest<UpdateEventResponse>(id.toString(), {
       body: params,
     });
   }
