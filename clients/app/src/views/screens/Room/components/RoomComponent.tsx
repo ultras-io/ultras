@@ -8,8 +8,9 @@ import {
   AspectRatio,
   Image,
   Text,
+  Button,
 } from 'native-base';
-// import moment from 'moment';
+import moment from 'moment';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -17,7 +18,7 @@ import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';
 import Icon from 'views/components/base/Icon';
 import { Icons } from 'assets/icons';
-import { getReadableNumber } from 'utils/helpers/readableNumber';
+// import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IRoomComponentProps } from '../types';
 
 const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
@@ -46,11 +47,12 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
       )}
 
       <VStack p={4}>
-        {/* <Text variant={'cardTime'}>
+        <Text variant={'cardTime'}>
           {new Date(data.dateTime) < new Date()
             ? moment(data.dateTime).fromNow()
             : moment(data.dateTime).format('MMM DD, hh:mm')}
-        </Text> */}
+        </Text>
+
         <Text variant={'sectionTitle'} my={'2'}>
           {data.post.title}
         </Text>
@@ -60,7 +62,16 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
 
         <HStack>
           <Text variant={'cardInfo'}>
-            {I18n.t('rooms-by')} <Text fontWeight={700}>{data.post.author.username}</Text>
+            {I18n.t('rooms-by')}{' '}
+            <Text
+              fontWeight={700}
+              onPress={preventMultiCalls(() =>
+                pushTo(commonScreens.profile.name, { data: data.post.author })
+              )}
+              suppressHighlighting
+            >
+              {data.post.author.username}
+            </Text>
             {data.post.fanClub && (
               <Text>
                 ,{' '}
@@ -82,9 +93,16 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
       </VStack>
 
       <HStack mx={'4'} space={'5'} alignItems={'center'}>
+        <Button
+          leftIcon={
+            <Icon name={Icons.Notifications} color={'iconPrimary'} size={'ic-xs'} />
+          }
+          variant={'actionInvert'}
+          flex={1}
+        >
+          {I18n.t('rooms-subscribe')}
+        </Button>
         <Icon name={Icons.Like} color={'iconPrimary'} size={'ic-md'} />
-        <Icon name={Icons.Comments} color={'iconPrimary'} size={'ic-md'} />
-        <Text>{getReadableNumber(data.post.commentsCount)}</Text>
       </HStack>
 
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={5} />
