@@ -34,13 +34,11 @@ const RoomCard: React.FC<IRoomCardProps> = ({ data, onPress }) => {
           )}
 
           <VStack p={4}>
-            {data.dateTime && (
-              <Text variant={'cardTime'}>
-                {new Date(data.dateTime) < new Date()
-                  ? moment(data.dateTime).fromNow()
-                  : moment(data.dateTime).format('MMM DD, hh:mm')}
-              </Text>
-            )}
+            <Text variant={'cardTime'}>
+              {new Date(data.dateTime) < new Date()
+                ? moment(data.dateTime).fromNow()
+                : moment(data.dateTime).format('MMM DD, hh:mm')}
+            </Text>
             <Text variant={'cardTitle'} mb={'1'}>
               {data.post.title}
             </Text>

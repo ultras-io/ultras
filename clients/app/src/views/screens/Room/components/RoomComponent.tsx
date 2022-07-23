@@ -34,8 +34,6 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
     }
   }, [data.post.image]);
 
-  data.dateTime = '02/02/2022';
-
   return (
     <ScrollView>
       {data.post.image && (
@@ -49,13 +47,12 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
       )}
 
       <VStack p={4}>
-        {data.dateTime && (
-          <Text variant={'cardTime'}>
-            {new Date(data.dateTime) < new Date()
-              ? moment(data.dateTime).fromNow()
-              : moment(data.dateTime).format('MMM DD, hh:mm')}
-          </Text>
-        )}
+        <Text variant={'cardTime'}>
+          {new Date(data.dateTime) < new Date()
+            ? moment(data.dateTime).fromNow()
+            : moment(data.dateTime).format('MMM DD, hh:mm')}
+        </Text>
+
         <Text variant={'sectionTitle'} my={'2'}>
           {data.post.title}
         </Text>
