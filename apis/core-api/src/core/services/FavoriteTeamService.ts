@@ -21,7 +21,11 @@ import {
   TeamsViewModel,
 } from '@ultras/view-models';
 import TeamService from './TeamService';
-import { InvalidUserInput, ResourceNotFoundError, BadRequest } from 'modules/exceptions';
+import {
+  InvalidUserInput,
+  ResourceNotFoundError,
+  InsufficientResource,
+} from 'modules/exceptions';
 
 export interface FavoriteTeamByUserListParamsInterface {
   userId?: ResourceIdentifier;
@@ -334,9 +338,8 @@ class FavoriteTeamService extends BaseService {
     });
 
     if (favoriteTeamsCount < 2) {
-      throw new BadRequest({
+      throw new InsufficientResource({
         message: 'User need to have at least one favorite team.',
-        debugValue: 'insufficient resource',
       });
     }
 

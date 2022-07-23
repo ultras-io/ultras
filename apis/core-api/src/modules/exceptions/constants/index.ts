@@ -74,7 +74,16 @@ const BASE_ERRORS: Record<string, Exception> = {
     statusName: 'unavailableForLegalReasons',
     debug: 'UNAVAILABLE_FOR_LEGAL_REASONS',
   },
-  BAD_REQUEST: { status: 400, statusName: 'badRequest', debug: 'BAD_REQUEST' },
+  BAD_REQUEST: {
+    status: 400,
+    statusName: 'badRequest',
+    debug: 'BAD_REQUEST',
+  },
+  INSUFFICIENT_RESOURCE: {
+    status: 400,
+    statusName: 'insufficientResource',
+    debug: 'INSUFFICIENT_RESOURCE',
+  },
   INVALID_PROPERTY_INPUT: {
     status: 400,
     statusName: 'badRequest',
