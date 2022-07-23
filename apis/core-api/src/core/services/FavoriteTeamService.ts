@@ -21,6 +21,7 @@ import {
   TeamsViewModel,
 } from '@ultras/view-models';
 import TeamService from './TeamService';
+import { InvalidUserInput, ResourceNotFoundError, BadRequest } from 'modules/exceptions';
 
 export interface FavoriteTeamByUserListParamsInterface {
   userId?: ResourceIdentifier;
@@ -302,7 +303,10 @@ class FavoriteTeamService extends BaseService {
       identifier.userId = params.userId;
       identifier.teamId = params.teamId;
     } else {
-      return;
+      throw new InvalidUserInput({
+        message: 'No any identifier provided to remove favorite team.',
+        identifiers: ['userId+teamId', 'favoriteTeamId'],
+      });
     }
 
     // get user id to detect favorite teams count
@@ -315,7 +319,9 @@ class FavoriteTeamService extends BaseService {
       });
 
       if (!favoriteTeamPivot) {
-        return;
+        throw new ResourceNotFoundError({
+          message: "User's favorite tea not found",
+        });
       }
 
       userId = favoriteTeamPivot.getDataValue('userId');
@@ -328,7 +334,10 @@ class FavoriteTeamService extends BaseService {
     });
 
     if (favoriteTeamsCount < 2) {
-      return;
+      throw new BadRequest({
+        message: 'User need to have at least one favorite team.',
+        debugValue: 'insufficient resource',
+      });
     }
 
     // remove favorite team from list
