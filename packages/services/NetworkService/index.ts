@@ -20,6 +20,7 @@ interface RequestResultInterface {
 
 export type ResponseBodyType<TBody> = TBody & {
   status?: number;
+  success?: boolean;
 };
 
 export interface ResponseInterface<TBody = any, THeaders = any> {
@@ -175,6 +176,7 @@ class NetworkService {
           }
 
           body.status = response.status;
+          body.success = response.status < 400;
 
           try {
             if (this.interceptors.length) {
