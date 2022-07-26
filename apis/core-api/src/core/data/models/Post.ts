@@ -75,10 +75,16 @@ export class Post
       foreignKey: 'postId',
     });
 
-    // Post.hasOne(models.Topic, {
-    //   as: resources.EVENT.ALIAS.SINGULAR,
-    //   foreignKey: 'postId',
-    // });
+    Post.hasOne(models.Room, {
+      as: resources.ROOM.ALIAS.SINGULAR,
+      foreignKey: 'postId',
+    });
+
+    Post.belongsToMany(models.User, {
+      as: resources.LIKE.ALIAS.PLURAL,
+      through: resources.LIKE.RELATION,
+      foreignKey: 'postId',
+    });
   }
 }
 
