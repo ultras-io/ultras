@@ -1,24 +1,27 @@
 import Router from 'koa-router';
+import parseAuthToken from 'api/middlewares/parse-auth-token';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import checkFanClubExistence from '../middlewares/checkFanClubExistence';
 import ControllerAdapter from './ControllerAdapter';
+
+const auth = [parseAuthToken(), checkUserAuth()];
 
 const idKey = 'fanClubId';
 const router = new Router({
   prefix: '',
 });
 
-router.post('/', checkUserAuth(), ControllerAdapter.create);
+router.post('/', ...auth, ControllerAdapter.create);
 router.patch(
   `/:${idKey}`,
-  checkUserAuth(),
+  ...auth,
   checkFanClubExistence(idKey),
   ControllerAdapter.update
 );
-router.get('/', checkUserAuth(), ControllerAdapter.getAll);
+router.get('/', parseAuthToken(), ControllerAdapter.getAll);
 router.get(
   `/:${idKey}`,
-  checkUserAuth(),
+  parseAuthToken(),
   checkFanClubExistence(idKey),
   ControllerAdapter.getById
 );
