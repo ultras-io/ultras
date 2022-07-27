@@ -324,7 +324,7 @@ class FavoriteTeamService extends BaseService {
 
       if (!favoriteTeamPivot) {
         throw new ResourceNotFoundError({
-          message: "User's favorite tea not found",
+          message: "User's favorite team not found",
         });
       }
 
