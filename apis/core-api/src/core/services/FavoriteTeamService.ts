@@ -21,6 +21,11 @@ import {
   TeamsViewModel,
 } from '@ultras/view-models';
 import TeamService from './TeamService';
+import {
+  InvalidUserInput,
+  ResourceNotFoundError,
+  InsufficientResource,
+} from 'modules/exceptions';
 
 export interface FavoriteTeamByUserListParamsInterface {
   userId?: ResourceIdentifier;
@@ -293,7 +298,53 @@ class FavoriteTeamService extends BaseService {
     params: ActionByIdentifierInterface,
     transaction?: Transaction
   ): Promise<void> {
-    const condition = this.buildActionCondition(params);
+    // if favoriteTeamId provided then other field must be ignored
+    // if no any field provided then nothing to do
+    const identifier: ActionByIdentifierInterface = {};
+    if (params.favoriteTeamId) {
+      identifier.favoriteTeamId = params.favoriteTeamId;
+    } else if (params.userId && params.teamId) {
+      identifier.userId = params.userId;
+      identifier.teamId = params.teamId;
+    } else {
+      throw new InvalidUserInput({
+        message: 'No any identifier provided to remove favorite team.',
+        identifiers: ['userId+teamId', 'favoriteTeamId'],
+      });
+    }
+
+    // get user id to detect favorite teams count
+    let userId = identifier.userId;
+    if (!userId) {
+      const favoriteTeamPivot = await db.FavoriteTeam.findOne({
+        where: {
+          id: identifier.favoriteTeamId,
+        },
+      });
+
+      if (!favoriteTeamPivot) {
+        throw new ResourceNotFoundError({
+          message: "User's favorite team not found",
+        });
+      }
+
+      userId = favoriteTeamPivot.getDataValue('userId');
+    }
+
+    // get user's favorite team count, if it's only one, then
+    // he can't delete them.
+    const favoriteTeamsCount = await db.FavoriteTeam.count({
+      where: { userId },
+    });
+
+    if (favoriteTeamsCount < 2) {
+      throw new InsufficientResource({
+        message: 'User need to have at least one favorite team.',
+      });
+    }
+
+    // remove favorite team from list
+    const condition = this.buildActionCondition(identifier);
     if (!condition) {
       return;
     }

@@ -304,6 +304,21 @@ class BadRequest extends BaseError<null, null> {
   }
 }
 
+class InsufficientResource extends BaseError<null, null> {
+  public constructor(details: ErrorDetail) {
+    super();
+    this.details = details;
+  }
+
+  public getError(): Exception {
+    let error: Exception = BASE_ERRORS.INSUFFICIENT_RESOURCE;
+    if (this.details) {
+      error = { ...error, details: this.details };
+    }
+    return error;
+  }
+}
+
 export {
   BaseError,
   BadRequest,
@@ -321,4 +336,5 @@ export {
   TransactionException,
   ServiceNotAvailableError,
   SomethingWentWrong,
+  InsufficientResource,
 };
