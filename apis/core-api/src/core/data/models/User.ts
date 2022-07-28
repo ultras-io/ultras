@@ -53,6 +53,12 @@ export class User
       through: resources.FAN_CLUB_MEMBER.RELATION,
       foreignKey: 'memberId',
     });
+
+    User.belongsToMany(models.Post, {
+      as: resources.POST.ALIAS.PLURAL,
+      through: resources.POST_MEMBER.RELATION,
+      foreignKey: 'userId',
+    });
   }
 }
 

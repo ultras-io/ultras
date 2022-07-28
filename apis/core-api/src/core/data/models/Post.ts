@@ -55,6 +55,12 @@ export class Post
 
   // associations
   static associate(models: any) {
+    Post.belongsToMany(models.User, {
+      as: resources.POST_MEMBER.ALIAS.PLURAL,
+      through: resources.POST_MEMBER.RELATION,
+      foreignKey: 'postId',
+    });
+
     Post.belongsTo(models.User, {
       as: 'author',
       foreignKey: 'authorId',

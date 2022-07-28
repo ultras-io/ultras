@@ -32,8 +32,10 @@ class ControllerAdapter {
     /** VALIDATIONS, PARAMETERS */
     const { id } = ctx.request.params;
 
+    const userId = ctx.user ? ctx.user.userId : null;
+
     /** CONTROLLERS */
-    const { data } = await RoomController.getById(id);
+    const { data } = await RoomController.getById({ id, userId });
 
     /** RESPONSE */
     // @TODO make response types
@@ -49,6 +51,7 @@ class ControllerAdapter {
     const params = ctx.request.query;
 
     const userId = ctx.user ? ctx.user.userId : null;
+    console.log({ user: ctx.user});
 
     /** CONTROLLERS */
     const { data, limit, offset, count } = await RoomController.getAll({

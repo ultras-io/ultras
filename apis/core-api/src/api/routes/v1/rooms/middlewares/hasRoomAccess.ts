@@ -47,7 +47,7 @@ export default (restrictedAction = false): Middleware => {
     const roomId = ctx.request.params.id;
     const userId = ctx.user.userId;
 
-    const room = await RoomService.getById(roomId, false);
+    const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {
       errorNotFound();
     }

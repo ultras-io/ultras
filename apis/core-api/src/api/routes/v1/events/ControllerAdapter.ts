@@ -85,8 +85,10 @@ class ControllerAdapter {
     /** VALIDATIONS, PARAMETERS */
     const { id } = ctx.request.params;
 
+    const userId = ctx.user ? ctx.user.userId : null;
+
     /** CONTROLLERS */
-    const { data } = await EventController.getById(id);
+    const { data } = await EventController.getById({ id, userId });
 
     /** RESPONSE */
     // @TODO make response types
