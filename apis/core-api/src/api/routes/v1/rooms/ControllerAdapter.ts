@@ -51,7 +51,6 @@ class ControllerAdapter {
     const params = ctx.request.query;
 
     const userId = ctx.user ? ctx.user.userId : null;
-    console.log({ user: ctx.user});
 
     /** CONTROLLERS */
     const { data, limit, offset, count } = await RoomController.getAll({
