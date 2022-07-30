@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
-import { GetTeamResponse, GetTeamsFilter, GetTeamsResponse } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type { GetTeamResponse, GetTeamsFilter, GetTeamsResponse } from './types';
+
 export * from './types';
 
 export class TeamSDK extends CoreApiBaseSDK {

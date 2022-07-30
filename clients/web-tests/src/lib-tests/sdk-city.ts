@@ -22,7 +22,7 @@ export const runTest = () => {
     ?.then((cities: ApiResponseType<CitiesViewModel, ListResponseMetaType>) => {
       console.log('CitySDK.getCities():', {
         params,
-        result: cities,
+        result: cities.body,
       });
     })
     ?.catch((err: any) => {

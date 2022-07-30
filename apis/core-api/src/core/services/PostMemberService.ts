@@ -129,6 +129,14 @@ class PostMemberService extends BaseService {
       });
     }
 
+    queryOptions.include.forEach((include: any) => {
+      if (include.as === resources.POST.ALIAS.SINGULAR) {
+        include.required = true;
+        include.attributes = [];
+        include.include = [];
+      }
+    });
+
     // set alphabetical ordering using user.fullname,
     // in case of user.fullname is empty we need to order
     // using user.username

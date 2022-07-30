@@ -1,5 +1,10 @@
 import { EventPrivacyEnum } from '@ultras/utils';
-import { MultiResourceIdentifier } from '../types';
+import type { EventsViewModel, EventViewModel } from '@ultras/view-models';
+import type {
+  ApiResponseBodyType,
+  ListResponseMetaType,
+  MultiResourceIdentifier,
+} from '../types';
 
 export type GetEventsFilter = {
   search?: string;
@@ -31,3 +36,11 @@ export type UpdateEventType = {
   locationLat?: Nullable<number>;
   locationLng?: Nullable<number>;
 };
+
+export type GetEventsResponse = ApiResponseBodyType<
+  EventsViewModel,
+  ListResponseMetaType
+>;
+export type GetEventResponse = ApiResponseBodyType<EventViewModel>;
+export type CreateEventResponse = ApiResponseBodyType<EventViewModel>;
+export type UpdateEventResponse = ApiResponseBodyType<EventViewModel>;
