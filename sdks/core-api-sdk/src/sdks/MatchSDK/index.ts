@@ -1,8 +1,9 @@
 import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
-import { GetMatchesFilter } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type { GetMatchesFilter, GetMatchesResponse, GetMatchResponse } from './types';
+
 export * from './types';
 
 export class MatchSDK extends CoreApiBaseSDK {
@@ -25,12 +26,12 @@ export class MatchSDK extends CoreApiBaseSDK {
       params.dateTo = timezone.localToZulu(`${params.dateTo} 23:59:59.999`);
     }
 
-    return this.api?.makeAPIGetRequest('', {
+    return this.api?.makeAPIGetRequest<GetMatchesResponse>('', {
       query_params: this.buildQueryParam(params),
     });
   }
 
   public getMatch(id: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(id.toString());
+    return this.api?.makeAPIGetRequest<GetMatchResponse>(id.toString());
   }
 }

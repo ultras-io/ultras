@@ -1,6 +1,15 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, ResourceIdentifier } from '../types';
-import { GetRoomsFilter, CreateRoomType, UpdateRoomType } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type {
+  GetRoomsFilter,
+  CreateRoomType,
+  UpdateRoomType,
+  GetRoomsResponse,
+  GetRoomResponse,
+  CreateRoomResponse,
+  UpdateRoomResponse,
+} from './types';
+
 export * from './types';
 
 export class RoomSDK extends CoreApiBaseSDK {
@@ -9,23 +18,23 @@ export class RoomSDK extends CoreApiBaseSDK {
   }
 
   public getRooms(params: QueryParam<GetRoomsFilter> = {}) {
-    return this.api?.makeAPIGetRequest('', {
+    return this.api?.makeAPIGetRequest<GetRoomsResponse>('', {
       query_params: this.buildQueryParam(params),
     });
   }
 
   public getRoom(id: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(id.toString());
+    return this.api?.makeAPIGetRequest<GetRoomResponse>(id.toString());
   }
 
   public createRoom(params: CreateRoomType) {
-    return this.api?.makeAPIPostRequest('', {
+    return this.api?.makeAPIPostRequest<CreateRoomResponse>('', {
       body: params,
     });
   }
 
   public updateRoom(id: ResourceIdentifier, params: UpdateRoomType) {
-    return this.api?.makeAPIPutRequest(id.toString(), {
+    return this.api?.makeAPIPutRequest<UpdateRoomResponse>(id.toString(), {
       body: params,
     });
   }

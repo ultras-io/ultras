@@ -1,5 +1,5 @@
-import { CountriesViewModel, CountryViewModel } from '@ultras/view-models';
-import { ApiResponseBodyType, ListResponseMetaType } from '../types';
+import type { CountriesViewModel, CountryViewModel } from '@ultras/view-models';
+import type { ApiResponseBodyType, ListResponseMetaType } from '../types';
 
 export type GetCountriesFilter = {
   name?: string;

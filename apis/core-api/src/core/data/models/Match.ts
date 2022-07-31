@@ -85,6 +85,12 @@ export class Match
       as: resources.SCORE.ALIAS.PLURAL,
       foreignKey: 'matchId',
     });
+
+    Match.belongsToMany(models.User, {
+      as: resources.LIKE.ALIAS.PLURAL,
+      through: resources.LIKE.RELATION,
+      foreignKey: 'matchId',
+    });
   }
 }
 

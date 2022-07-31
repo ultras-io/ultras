@@ -4,12 +4,19 @@ import {
   VerifyCodeInterface,
   RegistrationInterface,
   LoginInterface,
+  ConfirmIdentityResponse,
+  VerifyCodeResponse,
+  CheckUserExistenceResponse,
+  LoginResponse,
+  LogoutResponse,
+  GetMeResponse,
+  GetProfileResponse,
 } from './types';
-export * from './types';
-
 import type { OnUpdateListener } from '../../interceptors/AuthTokenInterceptor/types';
 import AuthTokenInterceptor from '../../interceptors/AuthTokenInterceptor';
 import { ResourceIdentifier } from '../types';
+
+export * from './types';
 
 export class UserSDK extends CoreApiBaseSDK {
   constructor(mode?: Mode) {
@@ -25,44 +32,47 @@ export class UserSDK extends CoreApiBaseSDK {
   }
 
   public confirmIdentity(params: ConfirmIdentityInterface) {
-    return this.api?.makeAPIPostRequest('identity-confirm', {
+    return this.api?.makeAPIPostRequest<ConfirmIdentityResponse>('identity-confirm', {
       body: params,
     });
   }
 
   public verifyCode(params: VerifyCodeInterface) {
-    return this.api?.makeAPIPostRequest('verify-code', {
+    return this.api?.makeAPIPostRequest<VerifyCodeResponse>('verify-code', {
       body: params,
     });
   }
 
   public checkUsernameExistence(username: string) {
-    return this.api?.makeAPIGetRequest('check-username-existence', {
-      query_params: { username },
-    });
+    return this.api?.makeAPIGetRequest<CheckUserExistenceResponse>(
+      'check-username-existence',
+      {
+        query_params: { username },
+      }
+    );
   }
 
   public register(params: RegistrationInterface) {
-    return this.api?.makeAPIPostRequest('register', {
+    return this.api?.makeAPIPostRequest<LoginResponse>('register', {
       body: params,
     });
   }
 
   public login(params: LoginInterface) {
-    return this.api?.makeAPIPostRequest('login', {
+    return this.api?.makeAPIPostRequest<LoginResponse>('login', {
       body: params,
     });
   }
 
   public logout() {
-    return this.api?.makeAPIDeleteRequest('revoke-token');
+    return this.api?.makeAPIDeleteRequest<LogoutResponse>('revoke-token');
   }
 
   public getMe() {
-    return this.api?.makeAPIGetRequest('me');
+    return this.api?.makeAPIGetRequest<GetMeResponse>('me');
   }
 
   public getProfile(id: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`/profile/${id}`);
+    return this.api?.makeAPIGetRequest<GetProfileResponse>(`/profile/${id}`);
   }
 }

@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
-import { GetLeaguesFilter } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type { GetLeaguesFilter, GetLeaguesResponse, GetLeagueResponse } from './types';
+
 export * from './types';
 
 export class LeagueSDK extends CoreApiBaseSDK {
@@ -9,12 +10,12 @@ export class LeagueSDK extends CoreApiBaseSDK {
   }
 
   public getLeagues(params: QueryParam<GetLeaguesFilter> = {}) {
-    return this.api?.makeAPIGetRequest('', {
+    return this.api?.makeAPIGetRequest<GetLeaguesResponse>('', {
       query_params: this.buildQueryParam(params),
     });
   }
 
   public getLeague(id: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(id.toString());
+    return this.api?.makeAPIGetRequest<GetLeagueResponse>(id.toString());
   }
 }

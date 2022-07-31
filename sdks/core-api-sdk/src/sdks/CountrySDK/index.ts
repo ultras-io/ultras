@@ -1,10 +1,11 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, ResourceIdentifier } from '../types';
+import type { QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetCountriesFilter,
   GetCountriesResponse,
   GetCountryResponse,
 } from './types';
+
 export * from './types';
 
 export class CountrySDK extends CoreApiBaseSDK {
