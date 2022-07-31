@@ -7,13 +7,13 @@ import { TransactionException } from 'modules/exceptions';
 export type WithTransactionCallback = (transaction: Transaction) => any;
 
 abstract class BaseService {
-  protected static includeRelations(): any {
+  protected static includeRelations(args: any = {}): any {
     return {};
   }
 
-  public static getIncludeRelations() {
+  public static getIncludeRelations(args: any = {}) {
     // get model relations
-    const relations = this.includeRelations();
+    const relations = this.includeRelations(args);
 
     // append global exclude attribute to child relations
     relations.attributes = relations.attributes || {};

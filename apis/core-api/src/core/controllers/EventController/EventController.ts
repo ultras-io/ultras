@@ -6,6 +6,7 @@ import { AccessDeniedError, ResourceNotFoundError } from 'modules/exceptions';
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 
 import {
+  EventByIdParams,
   EventByIdResult,
   EventsListParams,
   EventsListResult,
@@ -56,8 +57,8 @@ class EventController extends BaseController {
   /**
    * Get event by id.
    */
-  static async getById(id: ResourceIdentifier): EventByIdResult {
-    const event = await EventService.getById(id);
+  static async getById(params: EventByIdParams): EventByIdResult {
+    const event = await EventService.getById(params);
 
     return {
       data: event,
@@ -146,7 +147,7 @@ class EventController extends BaseController {
         });
       }
 
-      const event = await EventService.getById(id);
+      const event = await EventService.getById({ id });
       const postId = event.getDataValue('post').getDataValue('id');
 
       await PostService.update(
@@ -183,7 +184,7 @@ class EventController extends BaseController {
    * Delete event.
    */
   static async delete(params: EventDeleteParams) {
-    const event = await EventService.getById(params.id);
+    const event = await EventService.getById({ id: params.id });
 
     const authorId = event.getDataValue('post').getDataValue('author').getDataValue('id');
     const postId = event.getDataValue('post').getDataValue('id');

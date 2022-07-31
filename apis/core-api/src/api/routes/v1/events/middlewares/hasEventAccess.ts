@@ -50,7 +50,7 @@ export default (
     const eventId = ctx.request.params.id;
     const userId = ctx.user.userId;
 
-    const event = await EventService.getById(eventId, false);
+    const event = await EventService.getById({ id: eventId }, false);
     if (!event) {
       errorNotFound();
     }

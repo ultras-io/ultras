@@ -44,4 +44,8 @@ export type RoomUpdateResult = ControllerResultType<RoomViewModel>;
 
 export type RoomsListParams = ControllerListParamsType<RoomsFilterInterface>;
 export type RoomsListResult = ControllerListResultType<RoomViewModel>;
+export type RoomByIdParams = {
+  id: ResourceIdentifier;
+  userId?: null | ResourceIdentifier;
+};
 export type RoomByIdResult = ControllerByIdResultType<RoomViewModel>;

@@ -1,6 +1,6 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, DynamicQueryParam, ResourceIdentifier } from '../types';
-import {
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type {
   GetFanClubsFilter,
   FanClubCreateType,
   FanClubUpdateType,

@@ -57,6 +57,15 @@ class MatchService extends BaseService {
           model: db.Score,
           as: resources.SCORE.ALIAS.PLURAL,
         },
+
+        // @TODO: uncomment and update logic to load count only instead of relations
+        // {
+        //   model: db.User,
+        //   as: resources.LIKE.ALIAS.PLURAL,
+        //   through: {
+        //     attributes: [],
+        //   },
+        // },
       ],
     };
   }

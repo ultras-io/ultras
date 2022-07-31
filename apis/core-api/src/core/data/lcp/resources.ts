@@ -173,6 +173,14 @@ const resources = {
       PLURAL: 'locations',
     },
   },
+  LIKE: {
+    RELATION: 'Like',
+    MODEL: 'Like',
+    ALIAS: {
+      SINGULAR: 'like',
+      PLURAL: 'likes',
+    },
+  },
 };
 
 export interface IDBSet {

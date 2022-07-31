@@ -3,7 +3,7 @@ import parseAuthToken from 'api/middlewares/parse-auth-token';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import ControllerAdapter from './ControllerAdapter';
 import members from './members';
-import hasEventAccess from './middlewares/hasEventAccess';
+import hasRoomAccess from './middlewares/hasRoomAccess';
 
 const auth = [parseAuthToken(), checkUserAuth()];
 

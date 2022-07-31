@@ -1,7 +1,7 @@
 import { FanClubPrivacyEnum } from '@ultras/utils';
-import { FanClubsViewModel, FanClubViewModel } from '@ultras/view-models';
-import { ApiResponseBodyType, ListResponseMetaType } from '../types';
-import { ResourceIdentifier, MultiResourceIdentifier } from '../types';
+import type { FanClubsViewModel, FanClubViewModel } from '@ultras/view-models';
+import type { ApiResponseBodyType, ListResponseMetaType } from '../types';
+import type { ResourceIdentifier, MultiResourceIdentifier } from '../types';
 
 export type GetFanClubsFilter = {
   name?: string;

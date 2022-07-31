@@ -1,9 +1,4 @@
-import {
-  ApiResponseType,
-  ListResponseMetaType,
-  UserSDK,
-  UsersViewModel,
-} from '@ultras/core-api-sdk';
+import { ApiResponseType, UserSDK, UserViewModel } from '@ultras/core-api-sdk';
 
 const sdk = new UserSDK('dev');
 
@@ -12,7 +7,7 @@ export const runTest = () => {
 
   return sdk
     .getProfile(userId)
-    ?.then((users: ApiResponseType<UsersViewModel, ListResponseMetaType>) => {
+    ?.then((users: ApiResponseType<UserViewModel>) => {
       console.log('UserSDK.getProfile():', {
         userId,
         result: users,

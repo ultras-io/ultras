@@ -26,10 +26,29 @@ export interface UpdateParamsInterface {
 }
 
 class PostService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(args: any = {}) {
+    const attributes = [];
+    if (args.userId) {
+      attributes.push([
+        db.Sequelize.literal(`
+          EXISTS (
+            SELECT 1
+            FROM "${resources.ULTRAS_CORE}"."${resources.POST_MEMBER.RELATION}"
+            WHERE (
+              "userId" = ${args.userId}
+              AND
+              "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
+            )
+          )
+        `),
+        'joined',
+      ]);
+    }
+
     return {
       attributes: {
         // exclude: ['fanClubId', 'matchId', 'authorId'],
+        include: attributes,
       },
       include: [
         {
@@ -46,6 +65,15 @@ class PostService extends BaseService {
           model: db.User,
           as: 'author',
         },
+
+        // @TODO: uncomment and update logic to load count only instead of relations
+        // {
+        //   model: db.User,
+        //   as: resources.LIKE.ALIAS.PLURAL,
+        //   through: {
+        //     attributes: [],
+        //   },
+        // },
       ],
     };
   }
@@ -113,12 +141,14 @@ class PostService extends BaseService {
    * Get post by id.
    */
   static async getById(id: ResourceIdentifier, withIncludes = true) {
-    const event = await db.Post.findOne({
+    const options = {
       where: {
         id: id,
       },
       ...(withIncludes ? this.includeRelations() : {}),
-    });
+    };
+
+    const event = await db.Post.findOne(options);
 
     return event;
   }

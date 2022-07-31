@@ -55,6 +55,12 @@ export class Post
 
   // associations
   static associate(models: any) {
+    Post.belongsToMany(models.User, {
+      as: resources.POST_MEMBER.ALIAS.PLURAL,
+      through: resources.POST_MEMBER.RELATION,
+      foreignKey: 'postId',
+    });
+
     Post.belongsTo(models.User, {
       as: 'author',
       foreignKey: 'authorId',
@@ -75,10 +81,16 @@ export class Post
       foreignKey: 'postId',
     });
 
-    // Post.hasOne(models.Topic, {
-    //   as: resources.EVENT.ALIAS.SINGULAR,
-    //   foreignKey: 'postId',
-    // });
+    Post.hasOne(models.Room, {
+      as: resources.ROOM.ALIAS.SINGULAR,
+      foreignKey: 'postId',
+    });
+
+    Post.belongsToMany(models.User, {
+      as: resources.LIKE.ALIAS.PLURAL,
+      through: resources.LIKE.RELATION,
+      foreignKey: 'postId',
+    });
   }
 }
 

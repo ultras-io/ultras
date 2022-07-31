@@ -56,7 +56,7 @@ module.exports = (sequelize: Sequelize): typeof PostMember => {
       },
       postId: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: {
             tableName: resources.POST.RELATION,
@@ -68,7 +68,7 @@ module.exports = (sequelize: Sequelize): typeof PostMember => {
       },
       userId: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: {
             tableName: resources.USER.RELATION,

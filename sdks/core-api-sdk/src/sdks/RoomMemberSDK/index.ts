@@ -1,6 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import { QueryParam, ResourceIdentifier } from '../types';
-import { GetRoomMembersFilter } from './types';
+import type { QueryParam, ResourceIdentifier } from '../types';
+import type { GetRoomMembersFilter, GetRoomMembersResponse } from './types';
+
 export * from './types';
 
 export class RoomMemberSDK extends CoreApiBaseSDK {
@@ -12,7 +13,7 @@ export class RoomMemberSDK extends CoreApiBaseSDK {
     roomId: ResourceIdentifier,
     params: QueryParam<GetRoomMembersFilter> = {}
   ) {
-    return this.api?.makeAPIGetRequest(`${roomId}/members`, {
+    return this.api?.makeAPIGetRequest<GetRoomMembersResponse>(`${roomId}/members`, {
       query_params: this.buildQueryParam(params),
     });
   }

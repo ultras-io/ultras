@@ -54,4 +54,8 @@ export type EventUpdateResult = ControllerResultType<EventViewModel>;
 
 export type EventsListParams = ControllerListParamsType<EventsFilterInterface>;
 export type EventsListResult = ControllerListResultType<EventViewModel>;
+export type EventByIdParams = {
+  id: ResourceIdentifier;
+  userId?: null | ResourceIdentifier;
+};
 export type EventByIdResult = ControllerByIdResultType<EventViewModel>;
