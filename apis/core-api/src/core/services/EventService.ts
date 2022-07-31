@@ -19,6 +19,11 @@ import LocationService from './LocationService';
 import PostService from './PostService';
 import FanClubMemberService from './FanClubMemberService';
 
+export interface EventByIdParamsInterface {
+  id: ResourceIdentifier;
+  userId?: null | ResourceIdentifier;
+}
+
 export interface EventListParamsInterface {
   userId: ResourceIdentifier;
   search?: string;
@@ -48,7 +53,7 @@ export interface UpdateParamsInterface {
 }
 
 class EventService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(args: any = {}) {
     return {
       attributes: {
         exclude: ['postId'],
@@ -57,7 +62,7 @@ class EventService extends BaseService {
         {
           model: db.Post,
           as: resources.POST.ALIAS.SINGULAR,
-          ...PostService.getIncludeRelations(),
+          ...PostService.getIncludeRelations({ userId: args.userId }),
         },
         {
           model: db.Location,
@@ -123,7 +128,7 @@ class EventService extends BaseService {
     const queryOptions: any = {
       limit: params.limit,
       offset: params.offset,
-      ...this.includeRelations(),
+      ...this.includeRelations({ userId: params.userId }),
     };
 
     // hide match and/or fanClub nested relations
@@ -289,12 +294,12 @@ class EventService extends BaseService {
   /**
    * Get event by id.
    */
-  static async getById(id: ResourceIdentifier, withIncludes = true) {
+  static async getById(params: EventByIdParamsInterface, withIncludes = true) {
     const event = await db.Event.findOne({
       where: {
-        id: id,
+        id: params.id,
       },
-      ...(withIncludes ? this.includeRelations() : {}),
+      ...(withIncludes ? this.includeRelations({ userId: params.userId }) : {}),
     });
 
     return event;

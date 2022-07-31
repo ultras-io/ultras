@@ -54,6 +54,12 @@ export class User
       foreignKey: 'memberId',
     });
 
+    User.belongsToMany(models.Post, {
+      as: resources.POST.ALIAS.PLURAL,
+      through: resources.POST_MEMBER.RELATION,
+      foreignKey: 'userId',
+    });
+
     User.belongsToMany(models.Match, {
       // as: resources.LIKE.ALIAS.PLURAL,
       through: resources.LIKE.RELATION,

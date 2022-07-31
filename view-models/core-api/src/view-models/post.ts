@@ -13,6 +13,7 @@ export type PostViewModel = ViewModel<{
   content: string;
   likesCount: number;
   commentsCount: number;
+  joined?: boolean;
 }>;
 
 export type PostsViewModel = Array<PostViewModel>;

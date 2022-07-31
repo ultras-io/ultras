@@ -16,6 +16,11 @@ import BaseService from './BaseService';
 import PostService from './PostService';
 import FanClubMemberService from './FanClubMemberService';
 
+export interface RoomByIdParamsInterface {
+  id: ResourceIdentifier;
+  userId?: null | ResourceIdentifier;
+}
+
 export interface RoomListParamsInterface {
   userId: null | ResourceIdentifier;
   search?: string;
@@ -35,7 +40,7 @@ export interface UpdateParamsInterface {
 }
 
 class RoomService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(args: any = {}) {
     return {
       attributes: {
         exclude: ['postId'],
@@ -44,7 +49,7 @@ class RoomService extends BaseService {
         {
           model: db.Post,
           as: resources.POST.ALIAS.SINGULAR,
-          ...PostService.getIncludeRelations(),
+          ...PostService.getIncludeRelations({ userId: args.userId }),
         },
       ],
     };
@@ -98,7 +103,7 @@ class RoomService extends BaseService {
     const queryOptions: any = {
       limit: params.limit,
       offset: params.offset,
-      ...this.includeRelations(),
+      ...this.includeRelations({ userId: params.userId }),
     };
 
     // hide match and/or fanClub nested relations
@@ -234,12 +239,12 @@ class RoomService extends BaseService {
   /**
    * Get room by id.
    */
-  static async getById(id: ResourceIdentifier, withIncludes = true) {
+  static async getById(params: RoomByIdParamsInterface, withIncludes = true) {
     const room = await db.Room.findOne({
       where: {
-        id: id,
+        id: params.id,
       },
-      ...(withIncludes ? this.includeRelations() : {}),
+      ...(withIncludes ? this.includeRelations({ userId: params.userId }) : {}),
     });
 
     return room;

@@ -17,6 +17,7 @@ export type FanClubViewModel = ViewModel<{
   country: CountryViewModel;
   team: TeamViewModel;
   owner: UserViewModel;
+  joined?: boolean;
 }>;
 
 export type FanClubsViewModel = Array<FanClubViewModel>;

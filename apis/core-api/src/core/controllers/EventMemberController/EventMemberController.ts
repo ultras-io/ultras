@@ -24,7 +24,7 @@ class EventMemberController extends BaseController {
     search = '',
     eventId,
   }: EventMembersListParams): EventMembersListResult {
-    const event = await EventService.getById(eventId, false);
+    const event = await EventService.getById({ id: eventId }, false);
     const postId = event.getDataValue('postId');
 
     const { rows, count } = await PostMemberService.getAll({
@@ -51,7 +51,7 @@ class EventMemberController extends BaseController {
     eventId,
     userId,
   }: EventMemberCreateParams): EventMemberCreateResult {
-    const event = await EventService.getById(eventId, false);
+    const event = await EventService.getById({ id: eventId }, false);
     const postId = event.getDataValue('postId');
 
     const postMember = await PostMemberService.create({
@@ -68,7 +68,7 @@ class EventMemberController extends BaseController {
    * Delete event.
    */
   static async delete({ eventId, userId }: EventMemberDeleteParams) {
-    const event = await EventService.getById(eventId, false);
+    const event = await EventService.getById({ id: eventId }, false);
     const postId = event.getDataValue('postId');
 
     const postMember = await PostMemberService.getOne({

@@ -24,7 +24,7 @@ class RoomMemberController extends BaseController {
     search = '',
     roomId,
   }: RoomMembersListParams): RoomMembersListResult {
-    const room = await RoomService.getById(roomId, false);
+    const room = await RoomService.getById({ id: roomId }, false);
     const postId = room.getDataValue('postId');
 
     const { rows, count } = await PostMemberService.getAll({
@@ -51,7 +51,7 @@ class RoomMemberController extends BaseController {
     roomId,
     userId,
   }: RoomMemberCreateParams): RoomMemberCreateResult {
-    const room = await RoomService.getById(roomId, false);
+    const room = await RoomService.getById({ id: roomId }, false);
     const postId = room.getDataValue('postId');
 
     const postMember = await PostMemberService.create({
@@ -68,7 +68,7 @@ class RoomMemberController extends BaseController {
    * Delete room.
    */
   static async delete({ roomId, userId }: RoomMemberDeleteParams) {
-    const room = await RoomService.getById(roomId, false);
+    const room = await RoomService.getById({ id: roomId }, false);
     const postId = room.getDataValue('postId');
 
     const postMember = await PostMemberService.getOne({

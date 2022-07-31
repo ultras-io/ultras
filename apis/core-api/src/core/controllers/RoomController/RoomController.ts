@@ -9,6 +9,7 @@ import {
   RoomCreateResult,
   RoomsListParams,
   RoomsListResult,
+  RoomByIdParams,
   RoomByIdResult,
   RoomUpdateParams,
   RoomUpdateResult,
@@ -83,8 +84,8 @@ class RoomController extends BaseController {
   /**
    * Get room by id.
    */
-  static async getById(id: ResourceIdentifier): RoomByIdResult {
-    const room = await RoomService.getById(id);
+  static async getById(params: RoomByIdParams): RoomByIdResult {
+    const room = await RoomService.getById(params);
 
     return {
       data: room,
@@ -96,7 +97,7 @@ class RoomController extends BaseController {
    */
   static async update(params: RoomUpdateParams): RoomUpdateResult {
     const roomUpdate = await this.withTransaction(async transaction => {
-      const room = await RoomService.getById(params.id);
+      const room = await RoomService.getById({ id: params.id });
       const postId = room.getDataValue('post').getDataValue('id');
 
       await PostService.update(
@@ -129,7 +130,7 @@ class RoomController extends BaseController {
    * Delete room.
    */
   static async delete(params: RoomDeleteParams) {
-    const room = await RoomService.getById(params.id);
+    const room = await RoomService.getById({ id: params.id });
 
     const authorId = room.getDataValue('post').getDataValue('author').getDataValue('id');
     const postId = room.getDataValue('post').getDataValue('id');
