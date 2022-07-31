@@ -13,9 +13,9 @@ const router = new Router({
 
 router.post('/', ...auth, ControllerAdapter.create);
 router.get('/', parseAuthToken(), ControllerAdapter.getAll);
-router.get('/:id', parseAuthToken(), hasEventAccess(), ControllerAdapter.getById);
-router.put('/:id', ...auth, hasEventAccess(true), ControllerAdapter.update);
-router.delete('/:id', ...auth, hasEventAccess(true), ControllerAdapter.delete);
+router.get('/:id', parseAuthToken(), hasRoomAccess(), ControllerAdapter.getById);
+router.put('/:id', ...auth, hasRoomAccess(true), ControllerAdapter.update);
+router.delete('/:id', ...auth, hasRoomAccess(true), ControllerAdapter.delete);
 
 router.use(members.routes());
 
