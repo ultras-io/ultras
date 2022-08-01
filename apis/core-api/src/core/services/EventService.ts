@@ -209,10 +209,10 @@ class EventService extends BaseService {
     // if teamId provided, then find fanClub and/or match relation
     // and append condition
     if (params.teamId) {
-      const condition = this.separateIds(params.teamId);
+      const idList = this.separateIds(params.teamId);
 
-      if (Array.isArray(condition)) {
-        const idList = condition.join(', ');
+      if (Array.isArray(idList) && idList.length > 0) {
+        const ids = idList.join(', ');
 
         const relationNamePost = resources.POST.ALIAS.SINGULAR;
         const relationNameFanClub = resources.FAN_CLUB.ALIAS.SINGULAR;
@@ -220,9 +220,9 @@ class EventService extends BaseService {
 
         queryOptions.where = db.Sequelize.literal(`
           (
-            "${relationNamePost}->${relationNameFanClub}"."teamId" IN (${idList}) OR
-            "${relationNamePost}->${relationNameMatch}"."teamHomeId" IN (${idList}) OR
-            "${relationNamePost}->${relationNameMatch}"."teamAwayId" IN (${idList})
+            "${relationNamePost}->${relationNameFanClub}"."teamId" IN (${ids}) OR
+            "${relationNamePost}->${relationNameMatch}"."teamHomeId" IN (${ids}) OR
+            "${relationNamePost}->${relationNameMatch}"."teamAwayId" IN (${ids})
           )
         `);
 
@@ -263,28 +263,28 @@ class EventService extends BaseService {
         params.userId
       );
 
-      const fanClubIds = userFanClubIds.join(', ');
+      if (!Array.isArray(userFanClubIds) || userFanClubIds.length === 0) {
+        queryOptions.where[db.Sequelize.Op.and].push({
+          privacy: EventPrivacyEnum.public,
+        });
+      } else {
+        const fanClubIds = userFanClubIds.join(', ');
 
-      queryOptions.where[db.Sequelize.Op.and].push({
-        [db.Sequelize.Op.or]: [
-          { privacy: EventPrivacyEnum.public },
-          {
-            [db.Sequelize.Op.and]: [
-              { privacy: EventPrivacyEnum.private },
-              {
-                [db.Sequelize.Op.or]: [
-                  db.Sequelize.literal(`
-                    "${relationNamePost}->author"."id" = ${params.userId}
-                  `),
-                  db.Sequelize.literal(`
-                    "${relationNamePost}->${relationNameFanClub}"."id" IN (${fanClubIds})
-                  `),
-                ],
-              },
-            ],
-          },
-        ],
-      });
+        queryOptions.where[db.Sequelize.Op.and].push({
+          [db.Sequelize.Op.or]: [
+            { privacy: EventPrivacyEnum.public },
+            {
+              [db.Sequelize.Op.and]: [
+                { privacy: EventPrivacyEnum.private },
+                db.Sequelize.literal(`
+                  "${relationNamePost}->author"."id" = ${params.userId} OR
+                  "${relationNamePost}->${relationNameFanClub}"."id" IN (${fanClubIds})
+                `),
+              ],
+            },
+          ],
+        });
+      }
     }
 
     const { rows, count } = await db.Event.findAndCountAll(queryOptions);

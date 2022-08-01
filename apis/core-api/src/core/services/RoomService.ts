@@ -207,27 +207,33 @@ class RoomService extends BaseService {
     };
 
     if (params.userId && userFanClubIdsMember && userFanClubIdsAdmin) {
-      moreFilterConditions[db.Sequelize.Op.or].push({
-        [db.Sequelize.Op.and]: [
-          { privacy: RoomPrivacyEnum.member },
-          db.Sequelize.literal(`
-            "${relationNamePost}->${relationNameFanClub}"."id" IN (
-              ${[...userFanClubIdsMember, ...userFanClubIdsAdmin].join(',')}
-            )
-          `),
-        ],
-      });
+      const idList = [...userFanClubIdsMember, ...userFanClubIdsAdmin];
 
-      moreFilterConditions[db.Sequelize.Op.or].push({
-        [db.Sequelize.Op.and]: [
-          { privacy: RoomPrivacyEnum.admin },
-          db.Sequelize.literal(`
-              "${relationNamePost}->${relationNameFanClub}"."id" IN (
-                ${[userFanClubIdsAdmin].join(',')}
-              )
+      if (Array.isArray(idList) && idList.length > 0) {
+        const ids = idList.join(', ');
+
+        moreFilterConditions[db.Sequelize.Op.or].push({
+          [db.Sequelize.Op.and]: [
+            { privacy: RoomPrivacyEnum.member },
+            db.Sequelize.literal(`
+            "${relationNamePost}->${relationNameFanClub}"."id" IN (${ids})
+          `),
+          ],
+        });
+      }
+
+      if (Array.isArray(userFanClubIdsAdmin) && userFanClubIdsAdmin.length > 0) {
+        const ids = userFanClubIdsAdmin.join(', ');
+
+        moreFilterConditions[db.Sequelize.Op.or].push({
+          [db.Sequelize.Op.and]: [
+            { privacy: RoomPrivacyEnum.admin },
+            db.Sequelize.literal(`
+              "${relationNamePost}->${relationNameFanClub}"."id" IN (${ids})
             `),
-        ],
-      });
+          ],
+        });
+      }
     }
 
     queryOptions.where[db.Sequelize.Op.and].push(moreFilterConditions);
