@@ -26,7 +26,7 @@ const PostCard: React.FC<IPostCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={preventMultiCalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(onPress)}>
       <BluredView style={styles.container}>
         <UltrasText style={styles.date} color="textPrimary">
           {moment(date).fromNow()}

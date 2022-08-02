@@ -55,7 +55,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
         <Text variant={'searchTitle'}>{I18n.t('fanClubs')}</Text>
         {type === 'discover' && (
           <Button
-            onPress={preventMultiCalls(() => navigateToFanClubs())}
+            onPress={preventMultiCalls(navigateToFanClubs)}
             rightIcon={
               <Icon name={Icons.ArrowRightRound} color={'iconPrimary'} size={'ic-2xs'} />
             }
