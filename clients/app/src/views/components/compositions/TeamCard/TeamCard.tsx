@@ -16,7 +16,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({ data, onPress }) => {
   const { colors } = useTheme();
 
   return (
-    <Pressable onPress={preventMultiCalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(onPress)}>
       <BluredView style={styles.container}>
         <Circle size={'av-md'} bg={colors.backgroundLogo} mr={15}>
           <Image
