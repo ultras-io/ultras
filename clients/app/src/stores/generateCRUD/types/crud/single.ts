@@ -15,6 +15,7 @@ export interface SingleGroupedStateType<TData> {
 
 export type SingleGroupedActionType<TData> = {
   getSingle(id: ResourceIdentifier): Promise<SingleStateDataInterface<TData>>;
+  reset(): void;
 };
 
 export type SingleGroupedInterceptorType<TData> = {

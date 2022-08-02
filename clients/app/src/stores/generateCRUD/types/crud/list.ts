@@ -25,6 +25,7 @@ export interface ListGroupedStateType<TData, TFilter> {
 export type ListGroupedActionType<TData, TFilter> = {
   getAll(): Promise<ListStateDataInterface<TData, TFilter>>;
   updateFilter(filter: Partial<TFilter>): void;
+  reset(): void;
 };
 
 export type ListGroupedInterceptorType<TData, TFilter> = {

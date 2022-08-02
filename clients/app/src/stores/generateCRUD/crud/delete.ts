@@ -1,3 +1,4 @@
+import type { DeleteStateDataInterface } from '../types/crud/delete';
 import type {
   RootStoreType,
   ExtractStateType,
@@ -9,14 +10,18 @@ import type {
 
 type CurrentStoreKeyType = 'delete';
 
+function generateInitialState<TData>(): DeleteStateDataInterface<TData> {
+  return {
+    status: 'loading',
+    error: null,
+  };
+}
+
 // build initial state for delete.
 export const buildInitialState = <TData, TFilter>(
   state: ExtractStateType<null, null, null, null, TData, CurrentStoreKeyType, null>
 ) => {
-  state.delete = {
-    status: 'loading',
-    error: null,
-  };
+  state.delete = generateInitialState<TData>();
 };
 
 // build actions for list.
@@ -79,6 +84,11 @@ export const buildActions = <TData, TFilter>(
       return null;
     }
   };
+
+  // reset to initial state
+  actions.reset = () => {
+    setState({ delete: generateInitialState<TData>() });
+  };
 };
 
 // build root actions for add.
@@ -108,5 +118,9 @@ export const buildRootAction = <TData, TFilter>(
 
   rootActions.remove = (data: TData) => {
     return getVanillaState().remove(data);
+  };
+
+  rootActions.reset = () => {
+    return getVanillaState().reset();
   };
 };
