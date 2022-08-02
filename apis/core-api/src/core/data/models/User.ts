@@ -71,6 +71,18 @@ export class User
       through: resources.LIKE.RELATION,
       foreignKey: 'userId',
     });
+
+    User.belongsToMany(models.Match, {
+      // as: resources.COMMENT.ALIAS.PLURAL,
+      through: resources.COMMENT.RELATION,
+      foreignKey: 'userId',
+    });
+
+    User.belongsToMany(models.Post, {
+      // as: resources.COMMENT.ALIAS.PLURAL,
+      through: resources.COMMENT.RELATION,
+      foreignKey: 'userId',
+    });
   }
 }
 

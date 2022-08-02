@@ -28,9 +28,14 @@ export interface MatchesListParamsInterface {
 
 class MatchService extends BaseService {
   protected static includeRelations() {
+    // const attributes = [
+    //   // @TODO: write logic to load count of likes and comments
+    // ];
+
     return {
       attributes: {
         // exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
+        // include: attributes,
       },
       include: [
         {
@@ -57,15 +62,6 @@ class MatchService extends BaseService {
           model: db.Score,
           as: resources.SCORE.ALIAS.PLURAL,
         },
-
-        // @TODO: uncomment and update logic to load count only instead of relations
-        // {
-        //   model: db.User,
-        //   as: resources.LIKE.ALIAS.PLURAL,
-        //   through: {
-        //     attributes: [],
-        //   },
-        // },
       ],
     };
   }

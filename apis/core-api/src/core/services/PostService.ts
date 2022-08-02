@@ -27,7 +27,10 @@ export interface UpdateParamsInterface {
 
 class PostService extends BaseService {
   protected static includeRelations(args: any = {}) {
-    const attributes = [];
+    const attributes = [
+      // @TODO: write logic to load count of likes and comments
+    ];
+
     if (args.userId) {
       attributes.push([
         db.Sequelize.literal(`
@@ -65,15 +68,6 @@ class PostService extends BaseService {
           model: db.User,
           as: 'author',
         },
-
-        // @TODO: uncomment and update logic to load count only instead of relations
-        // {
-        //   model: db.User,
-        //   as: resources.LIKE.ALIAS.PLURAL,
-        //   through: {
-        //     attributes: [],
-        //   },
-        // },
       ],
     };
   }

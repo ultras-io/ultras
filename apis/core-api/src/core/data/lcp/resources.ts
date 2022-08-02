@@ -181,6 +181,14 @@ const resources = {
       PLURAL: 'likes',
     },
   },
+  COMMENT: {
+    RELATION: 'Comment',
+    MODEL: 'Comment',
+    ALIAS: {
+      SINGULAR: 'comment',
+      PLURAL: 'comments',
+    },
+  },
 };
 
 export interface IDBSet {
