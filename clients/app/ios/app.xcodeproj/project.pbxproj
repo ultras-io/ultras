@@ -40,7 +40,7 @@
 		B71C6530F0124F6BA434C0B2 /* MontserratAlternates-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3108D92BE64F4F0B857EA8E7 /* MontserratAlternates-BoldItalic.ttf */; };
 		B8C15AF14B304DCD82FBFE6A /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A4509E8BB41A0AC3767F8 /* Montserrat-Italic.ttf */; };
 		BAC2849575304BC9B2CF0C94 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5D57DBA736545959961CE82 /* Montserrat-ExtraBold.ttf */; };
-		C20E3DDF8D7DF28EAAC614F4 /* Pods_ultras.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3E44FF32BF6F11A9C232A /* Pods_ultras.framework */; };
+		BDF65DE32E3F5C562EA7DDBF /* Pods_ultras.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C3E44FF32BF6F11A9C232A /* Pods_ultras.framework */; };
 		C23252444AF04CF2ADC3EBE4 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C35D921D9894548AD134D17 /* Montserrat-Bold.ttf */; };
 		C2345E0936BD4F638D0B5DA3 /* MontserratAlternates-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3EEC871DAB74FB2962FA734 /* MontserratAlternates-SemiBold.ttf */; };
 		C3CD3DD1C06F4BB980F82429 /* MontserratAlternates-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 836CD58862D544F9844F59EB /* MontserratAlternates-Thin.ttf */; };
@@ -98,7 +98,6 @@
 		52C8F96DF43CF1833E6893E1 /* Pods_ultras_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ultras_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CF50A591074B85B5D6B8E9 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.ttf"; path = "../src/assets/fonts/Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		60F9C29108614626AAB72345 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BlackItalic.ttf"; path = "../src/assets/fonts/Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
-		62D83E6E28942A5C00F73A02 /* libswiftWebKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftWebKit.tbd; path = usr/lib/swift/libswiftWebKit.tbd; sourceTree = SDKROOT; };
 		6C97AB639B58BBB4B15BBE30 /* Pods-app-appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app-appTests.debug.xcconfig"; path = "Target Support Files/Pods-app-appTests/Pods-app-appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6EEBD1415270419D831C8626 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		712566921A0E40FFAF7F106A /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../src/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -145,11 +144,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		523C4198AE3B2746F5BF80D7 /* Frameworks */ = {
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20E3DDF8D7DF28EAAC614F4 /* Pods_ultras.framework in Frameworks */,
+				BDF65DE32E3F5C562EA7DDBF /* Pods_ultras.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,7 +188,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				62D83E6E28942A5C00F73A02 /* libswiftWebKit.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				13C3E44FF32BF6F11A9C232A /* Pods_ultras.framework */,
 				52C8F96DF43CF1833E6893E1 /* Pods_ultras_appTests.framework */,
@@ -328,10 +326,10 @@
 				3E482C27206C4DEF2FE45063 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				C8AC78B0264D0F9F6F6D630E /* [CP] Embed Pods Frameworks */,
-				523C4198AE3B2746F5BF80D7 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -655,23 +653,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KHJJM3X76P;
+				DEVELOPMENT_TEAM = J4D8QFNRZD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/usr/lib/swift",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ultras.io;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ultras;
 				PRODUCT_NAME = app;
 				SWIFT_OBJC_BRIDGING_HEADER = "app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -689,22 +683,18 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KHJJM3X76P;
+				DEVELOPMENT_TEAM = J4D8QFNRZD;
 				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/usr/lib/swift",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ultras.io;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ultras;
 				PRODUCT_NAME = app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "app-Bridging-Header.h";

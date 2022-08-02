@@ -32,7 +32,7 @@ const FanClub: React.FC<IFanClubProps> = ({ route }) => {
   return (
     <Container withSuspense withBg>
       <FanClubContainer data={data} />
-      {/* <FanClubTabNavigation tabName={tabName} id={data.id} /> */}
+      <FanClubTabNavigation tabName={tabName} id={data.id} />
     </Container>
   );
 };

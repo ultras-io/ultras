@@ -115,9 +115,6 @@ export default {
   'events-create': 'Create an Event',
   'events-join': 'Join',
   'events-going': 'Going',
-  'events-add-name': 'Event Name',
-  'events-add-location': 'Location',
-  'events-add-description': 'Event Desctiption (Optional)',
 
   //profile
   'profile-settings': 'Settings',

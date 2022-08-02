@@ -22,7 +22,7 @@ const EventCard: React.FC<IEventCardProps> = ({ data, onPress }) => {
   }, [data.post.image]);
 
   return (
-    <Pressable onPress={preventMultiCalls(onPress)}>
+    <Pressable onPress={preventMultiCalls(() => onPress())}>
       <BluredView style={styles.container}>
         <VStack>
           {data.post.image && (
