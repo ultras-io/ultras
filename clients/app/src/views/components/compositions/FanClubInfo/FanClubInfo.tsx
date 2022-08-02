@@ -46,9 +46,8 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         </Text>
         <HStack>
           <Text
-            key={'membersCount'}
             variant={'info'}
-            onPress={preventMultiCalls(openMembersList)}
+            onPress={preventMultiCalls(() => openMembersList())}
             suppressHighlighting
           >
             {getReadableNumber(data.membersCount)} {I18n.t('common-ultras')}
@@ -66,7 +65,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
             <Icon name={Icons.Club} color="iconPrimary" size={'ic-2xs'} />
             <Text
               variant={'info'}
-              onPress={preventMultiCalls(openTeam)}
+              onPress={preventMultiCalls(() => openTeam())}
               suppressHighlighting
             >
               {data.team.name}

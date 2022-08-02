@@ -19,7 +19,7 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
   onPress,
 }) => {
   return (
-    <Pressable onPress={preventMultiCalls(onPress)}>
+    <Pressable onPress={preventMultiCalls(() => onPress())}>
       {direction === 'vertical' ? (
         <BluredView style={styles.container}>
           <Avatar source={{ uri: avatarURI }} mr={15} />

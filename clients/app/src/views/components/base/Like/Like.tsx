@@ -10,7 +10,7 @@ import styles from './styles';
 
 const Like: React.FC<ILikeProps> = ({ isLiked = false, count = 0, onPress }) => {
   return (
-    <Pressable onPress={preventMultiCalls(onPress)} style={styles.container}>
+    <Pressable onPress={preventMultiCalls(() => onPress())} style={styles.container}>
       <Icon
         name={isLiked ? Icons.Liked : Icons.Like}
         color={isLiked ? 'buttonAction' : 'buttonActionInvert'}

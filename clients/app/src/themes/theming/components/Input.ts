@@ -31,16 +31,5 @@ export default {
         },
       };
     },
-    form: ({ colorMode }: ComponentParams) => {
-      return {
-        h: 53,
-        bg: colors[colorMode].backgroundInput,
-        style: {
-          color: colors[colorMode].textSecondary,
-          fontSize: 17,
-          fontWeight: '500',
-        },
-      };
-    },
   },
 };

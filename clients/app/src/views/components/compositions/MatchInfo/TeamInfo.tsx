@@ -9,7 +9,7 @@ const TeamInfo: React.FC<ITeamInfoProps> = ({ onPress, logo, name }) => {
 
   return (
     <VStack pt={'1'} alignItems={'center'} flex={4}>
-      <Pressable onPress={preventMultiCalls(onPress)}>
+      <Pressable onPress={preventMultiCalls(() => onPress())}>
         <Circle size={'av-lg'} bg={colors.backgroundLogo}>
           <Image source={{ uri: logo }} size={'av-sm'} alt={name} />
         </Circle>
