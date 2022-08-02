@@ -17,7 +17,7 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, inverted = false 
   const variantSuffix = inverted ? 'Invert' : '';
 
   return (
-    <Pressable onPress={preventMultiCalls(() => onPress())}>
+    <Pressable onPress={preventMultiCalls(onPress)}>
       <BluredView
         style={inverted ? styles.containerH : styles.container}
         isDark={!inverted}
