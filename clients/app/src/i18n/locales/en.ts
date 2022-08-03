@@ -116,6 +116,12 @@ export default {
   'events-join': 'Join',
   'events-going': 'Going',
   'events-add-name': 'Event Name',
+  'events-add-date': 'Date',
+  'events-add-time': 'Time',
+  'events-add-endDateTime': 'End date and time',
+  'events-add-endDate': 'End date',
+  'events-add-endTime': 'End time',
+  'events-add-privacy': 'Event Privacy',
   'events-add-location': 'Location',
   'events-add-description': 'Event Desctiption (Optional)',
 

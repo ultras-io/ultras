@@ -33,7 +33,7 @@ export default {
     },
     form: ({ colorMode }: ComponentParams) => {
       return {
-        h: 53,
+        h: 51,
         bg: colors[colorMode].backgroundInput,
         style: {
           color: colors[colorMode].textSecondary,
