@@ -25,6 +25,7 @@ export type AddGroupedActionType<TData> = {
     fieldValue: TData[TFieldKey]
   ): void;
   create(): Promise<TData | null>;
+  reset(): void;
 };
 
 export type AddGroupedInterceptorType<TData> = {

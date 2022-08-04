@@ -1,3 +1,4 @@
+import type { AddStateDataInterface } from '../types/crud/add';
 import type {
   BeforeSendInterface,
   SchemeInterface,
@@ -16,12 +17,9 @@ import { createField } from '../utils/helpers';
 
 type CurrentStoreKeyType = 'add';
 
-// build initial state for add.
-export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<null, null, TData, null, null, CurrentStoreKeyType, TFilter>,
+function generateInitialState<TData>(
   scheme: SchemeInterface | null | undefined
-) => {
-  // @ts-ignore
+): AddStateDataInterface<TData> {
   const stateAddData: StateDataSchemeInterface = {};
 
   if (scheme) {
@@ -31,12 +29,20 @@ export const buildInitialState = <TData, TFilter>(
     });
   }
 
-  state.add = {
+  return {
     status: 'loading',
     error: null,
     data: stateAddData,
     valid: false,
   };
+}
+
+// build initial state for add.
+export const buildInitialState = <TData, TFilter>(
+  state: ExtractStateType<null, null, TData, null, null, CurrentStoreKeyType, TFilter>,
+  scheme: SchemeInterface | null | undefined
+) => {
+  state.add = generateInitialState<TData>(scheme);
 };
 
 // build actions for list.
@@ -181,9 +187,14 @@ export const buildActions = <TData, TFilter>(
         throw new Error('"create" returned empty result.');
       }
 
-      add.status = 'success';
+      if (!apiResult.body.success) {
+        const message = JSON.stringify(apiResult.body.error);
+        throw new Error(`Error received: ${message}`);
+      }
 
+      add.status = 'success';
       setState({ add });
+
       return apiResult.body.data;
     } catch (e) {
       add.status = 'error';
@@ -192,6 +203,11 @@ export const buildActions = <TData, TFilter>(
       setState({ add });
       return null;
     }
+  };
+
+  // reset to initial state
+  actions.reset = () => {
+    setState({ add: generateInitialState<TData>(interceptors.scheme) });
   };
 };
 
@@ -229,5 +245,9 @@ export const buildRootAction = <TData, TFilter>(
 
   rootActions.create = () => {
     return getVanillaState().create();
+  };
+
+  rootActions.reset = () => {
+    return getVanillaState().reset();
   };
 };

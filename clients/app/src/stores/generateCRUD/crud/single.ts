@@ -1,3 +1,4 @@
+import type { SingleStateDataInterface } from '../types/crud/single';
 import type {
   RootStoreType,
   ExtractStateType,
@@ -6,19 +7,22 @@ import type {
   StateGetterCallType,
   StateSetterCallType,
 } from '../types/store';
-import type { SingleStateDataInterface } from '../types/crud/single';
 
 type CurrentStoreKeyType = 'single';
+
+function generateInitialState<TData>(): SingleStateDataInterface<TData> {
+  return {
+    status: 'loading',
+    error: null,
+    data: null,
+  };
+}
 
 // build initial state for single.
 export const buildInitialState = <TData, TFilter>(
   state: ExtractStateType<null, TData, null, null, null, CurrentStoreKeyType, TFilter>
 ) => {
-  state.single = {
-    status: 'loading',
-    error: null,
-    data: null,
-  };
+  state.single = generateInitialState<TData>();
 };
 
 // build actions for list.
@@ -67,6 +71,11 @@ export const buildActions = <TData, TFilter>(
         throw new Error('"loadSingle" returned empty result.');
       }
 
+      if (!result.body.success) {
+        const message = JSON.stringify(result.body.error);
+        throw new Error(`Error received: ${message}`);
+      }
+
       single.status = 'success';
       single.data = result.body.data;
     } catch (e) {
@@ -76,6 +85,11 @@ export const buildActions = <TData, TFilter>(
 
     setState({ single });
     return single;
+  };
+
+  // reset to initial state
+  actions.reset = () => {
+    setState({ single: generateInitialState<TData>() });
   };
 };
 
@@ -106,5 +120,9 @@ export const buildRootAction = <TData, TFilter>(
 
   rootActions.getSingle = (id: ResourceIdentifier) => {
     return getVanillaState().getSingle(id);
+  };
+
+  rootActions.reset = () => {
+    return getVanillaState().reset();
   };
 };

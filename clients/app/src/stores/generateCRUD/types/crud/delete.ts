@@ -14,6 +14,7 @@ export interface DeleteGroupedStateType<TData> {
 
 export type DeleteGroupedActionType<TData> = {
   remove(data: TData): Promise<void | null>;
+  reset(): void;
 };
 
 export type DeleteGroupedInterceptorType<TData> = {

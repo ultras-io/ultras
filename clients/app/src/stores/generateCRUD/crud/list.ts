@@ -1,3 +1,4 @@
+import type { ListStateDataInterface } from '../types/crud/list';
 import type { FullFilterable } from '../types/common';
 import type {
   RootStoreType,
@@ -7,19 +8,13 @@ import type {
   StateGetterCallType,
   StateSetterCallType,
 } from '../types/store';
-import type { ListStateDataInterface } from '../types/crud/list';
 
 import { buildFilterHash } from '../utils/helpers';
 
 type CurrentStoreKeyType = 'list';
 
-export const defaultLimit = 10;
-
-// build initial state for list.
-export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<TData, null, null, null, null, CurrentStoreKeyType, TFilter>
-) => {
-  state.list = {
+function generateInitialState<TData, TFilter>(): ListStateDataInterface<TData, TFilter> {
+  return {
     status: 'loading',
     error: null,
     data: null,
@@ -31,6 +26,15 @@ export const buildInitialState = <TData, TFilter>(
       offset: 0,
     },
   };
+}
+
+export const defaultLimit = 10;
+
+// build initial state for list.
+export const buildInitialState = <TData, TFilter>(
+  state: ExtractStateType<TData, null, null, null, null, CurrentStoreKeyType, TFilter>
+) => {
+  state.list = generateInitialState<TData, TFilter>();
 };
 
 // build actions for list.
@@ -126,6 +130,11 @@ export const buildActions = <TData, TFilter>(
         throw new Error('"loadAll" returned empty result.');
       }
 
+      if (!result.body.success) {
+        const message = JSON.stringify(result.body.error);
+        throw new Error(`Error received: ${message}`);
+      }
+
       list.data = (list.data || []).concat(result.body.data);
       list.status = 'success';
       list.pagination.total = result.body.meta.pagination.total;
@@ -138,6 +147,11 @@ export const buildActions = <TData, TFilter>(
 
     setState({ list });
     return list;
+  };
+
+  // reset to initial state
+  actions.reset = () => {
+    setState({ list: generateInitialState<TData, TFilter>() });
   };
 };
 
@@ -172,5 +186,9 @@ export const buildRootAction = <TData, TFilter>(
 
   rootActions.updateFilter = (filter: Partial<TFilter>) => {
     return getVanillaState().updateFilter(filter);
+  };
+
+  rootActions.reset = () => {
+    return getVanillaState().reset();
   };
 };
