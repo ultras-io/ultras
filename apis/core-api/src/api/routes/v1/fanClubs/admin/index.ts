@@ -1,5 +1,6 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import Router from 'koa-router';
+import parseAuthToken from 'api/middlewares/parse-auth-token';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import validateFanClubMembership from '../middlewares/validateFanClubMembership';
 import ControllerAdapter from './ControllerAdapter';
@@ -9,8 +10,10 @@ const router = new Router({
   prefix: `/:${idKey}/memberships`,
 });
 
+const auth = [parseAuthToken(), checkUserAuth()];
+
 const middlewares = [
-  checkUserAuth(),
+  ...auth,
   validateFanClubMembership(
     {
       roles: [FanClubMemberRoleEnum.owner, FanClubMemberRoleEnum.admin],
@@ -24,7 +27,7 @@ const middlewares = [
 router.post('/invite-member', ...middlewares, ControllerAdapter.invite);
 router.delete('/', ...middlewares, ControllerAdapter.remove);
 router.delete('/:id', ...middlewares, ControllerAdapter.removeById);
-router.get('/', checkUserAuth(), ControllerAdapter.getAll);
+router.get('/', ...auth, ControllerAdapter.getAll);
 router.get('/:id', ...middlewares, ControllerAdapter.getById);
 router.patch('/', ...middlewares, ControllerAdapter.update);
 router.patch('/:id', ...middlewares, ControllerAdapter.updateById);

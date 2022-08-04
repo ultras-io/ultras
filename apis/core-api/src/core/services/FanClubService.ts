@@ -50,7 +50,7 @@ class FanClubService extends BaseService {
         {
           model: db.Team,
           as: resources.TEAM.ALIAS.SINGULAR,
-          ...TeamService.getIncludeRelations(),
+          // ...TeamService.getIncludeRelations(),
         },
         {
           model: db.User,

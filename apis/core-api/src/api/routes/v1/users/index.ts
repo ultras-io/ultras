@@ -1,4 +1,5 @@
 import Router from 'koa-router';
+import parseAuthToken from 'api/middlewares/parse-auth-token';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import rateLimit from 'api/middlewares/rate-limit';
 import ControllerAdapter from './ControllerAdapter';
@@ -21,13 +22,12 @@ router.post('/login', ControllerAdapter.login);
 
 router.delete(
   '/revoke-token',
-  checkUserAuth({
-    regenerateOnExpire: false,
-  }),
+  parseAuthToken({ regenerateOnExpire: false }),
+  checkUserAuth(),
   ControllerAdapter.revokeToken
 );
 
-router.get('/me', checkUserAuth(), ControllerAdapter.getMe);
+router.get('/me', parseAuthToken(), checkUserAuth(), ControllerAdapter.getMe);
 router.get('/profile/:id', ControllerAdapter.getProfile);
 
 export default router;

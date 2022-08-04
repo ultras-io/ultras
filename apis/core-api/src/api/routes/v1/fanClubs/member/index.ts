@@ -1,8 +1,11 @@
 import { FanClubMemberRoleEnum, FanClubMemberStatusEnum } from '@ultras/utils';
 import Router from 'koa-router';
+import parseAuthToken from 'api/middlewares/parse-auth-token';
 import checkUserAuth from 'api/middlewares/check-user-auth';
 import validateFanClubMembership from '../middlewares/validateFanClubMembership';
 import ControllerAdapter from './ControllerAdapter';
+
+const auth = [parseAuthToken(), checkUserAuth()];
 
 // #region - with fan club id routes
 // build router that contains fan club id
@@ -11,10 +14,10 @@ const routerWithFanClubId = new Router({
   prefix: `/:${idKey}/memberships`,
 });
 
-routerWithFanClubId.post('/join', checkUserAuth(), ControllerAdapter.requestJoin);
+routerWithFanClubId.post('/join', ...auth, ControllerAdapter.requestJoin);
 routerWithFanClubId.delete(
   '/:id/leave',
-  checkUserAuth(),
+  ...auth,
   validateFanClubMembership(
     {
       roles: [FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member],
@@ -26,7 +29,7 @@ routerWithFanClubId.delete(
 
 // add middleware that checks member roles and pending status
 const middlewaresWithFanClubIdAndChecks = [
-  checkUserAuth(),
+  ...auth,
   validateFanClubMembership(
     {
       roles: [FanClubMemberRoleEnum.admin, FanClubMemberRoleEnum.member],
@@ -54,8 +57,8 @@ const routerWithoutFanClubId = new Router({
   prefix: '/memberships',
 });
 
-routerWithoutFanClubId.post('/join', checkUserAuth(), ControllerAdapter.requestJoin);
-routerWithoutFanClubId.get('/', checkUserAuth(), ControllerAdapter.getAll);
+routerWithoutFanClubId.post('/join', ...auth, ControllerAdapter.requestJoin);
+routerWithoutFanClubId.get('/', ...auth, ControllerAdapter.getAll);
 // #endregion
 
 // build new router that requires authenticated user, then
