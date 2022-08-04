@@ -23,6 +23,7 @@ export default {
   'common-notifications': 'Notifications',
   'common-cancel': 'Cancel',
   'common-create': 'Create',
+  'common-tapToAdd': 'Tap to Add',
 
   // splash
   'splash-slogan': '#WatchFootball',
@@ -118,12 +119,19 @@ export default {
   'events-add-name': 'Event Name',
   'events-add-date': 'Date',
   'events-add-time': 'Time',
+  'events-add-dateTimeDescription': 'All dates and times are local.',
   'events-add-endDateTime': 'End date and time',
   'events-add-endDate': 'End date',
   'events-add-endTime': 'End time',
+  'events-add-endDateTimeDescription':
+    'Turn this option on only when your event have exact duration. Otherwise you can leave it off.',
   'events-add-privacy': 'Event Privacy',
-  'events-add-location': 'Location',
+  'events-add-privacyDescription':
+    'Fan Club Administrators, Moderators and Members can view, comment and join event',
+  'events-add-location': 'Location (Optional)',
   'events-add-description': 'Event Desctiption (Optional)',
+  'events-add-photo': 'Event Photo',
+  'events-add-button': 'Publish Event',
 
   //profile
   'profile-settings': 'Settings',
