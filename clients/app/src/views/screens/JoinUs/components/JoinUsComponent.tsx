@@ -29,7 +29,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
 }) => {
   const flatListRef = React.useRef({ scrollToEnd: () => {} });
   const route = useRoute();
-  const isKeyboardOpen = useKeyboard();
+  const [isKeyboardOpen] = useKeyboard();
   const { openModal } = useNavigationWithParams();
   const [isTeamSelected, setIsTeamSelected] = React.useState(false);
 
