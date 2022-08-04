@@ -5,6 +5,7 @@ import I18n from 'i18n/i18n';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { useKeyboard } from 'utils/hooks/useKeyboard';
 import KeyValue, { KeyValueGroup, KeyValueInner } from 'views/components/base/KeyValue';
+import AttacheImage from 'views/components/compositions/AttacheImage';
 import { Text } from 'native-base';
 
 const CreateEvent: React.FC = () => {
@@ -48,7 +49,7 @@ const CreateEvent: React.FC = () => {
         {I18n.t('common-close')}
       </Button>
       <ScrollView mb={+keyboardHeight} ref={scrollRef}>
-        <VStack px={'3'} space={'4'} mb={'4'}>
+        <VStack px={'3'} space={'4'} mb={'10'}>
           <Text variant={'title'}>Create Event</Text>
           <Input
             variant={'form'}
@@ -58,12 +59,12 @@ const CreateEvent: React.FC = () => {
             ref={eventNameRef}
           />
 
-          <KeyValueGroup description={'All Dates and Times are local.'}>
+          <KeyValueGroup description={I18n.t('events-add-dateTimeDescription')}>
             <KeyValueInner name={I18n.t('events-add-date')} value={'Sep 23, Tuesday'} />
             <KeyValueInner name={I18n.t('events-add-time')} value={'22:45'} />
           </KeyValueGroup>
 
-          <KeyValueGroup>
+          <KeyValueGroup description={I18n.t('events-add-endDateTimeDescription')}>
             <KeyValueInner name={I18n.t('events-add-endDateTime')} value={false} />
             <KeyValueInner
               name={I18n.t('events-add-endDate')}
@@ -75,16 +76,22 @@ const CreateEvent: React.FC = () => {
           <KeyValue
             name={I18n.t('events-add-privacy')}
             value={'Public'}
-            description={'All Dates and Times are local.'}
+            description={I18n.t('events-add-privacyDescription')}
           />
 
-          <Input
-            variant={'form'}
-            placeholder={I18n.t('events-add-location')}
-            placeholderTextColor={colors.textQuaternary}
-            onFocus={() => onFocus(locationRef)}
-            ref={locationRef}
-          />
+          <VStack>
+            <Input
+              variant={'form'}
+              placeholder={I18n.t('events-add-location')}
+              placeholderTextColor={colors.textQuaternary}
+              onFocus={() => onFocus(locationRef)}
+              ref={locationRef}
+            />
+            <Text variant={'cardStats'} p={'2'}>
+              {I18n.t('events-add-endDateTimeDescription')}
+            </Text>
+          </VStack>
+
           <TextArea
             variant={'form'}
             placeholder={I18n.t('events-add-description')}
@@ -92,6 +99,12 @@ const CreateEvent: React.FC = () => {
             onFocus={() => onFocus(descriptionRef)}
             ref={descriptionRef}
           />
+
+          <AttacheImage title={I18n.t('events-add-photo')} />
+
+          <Button onPress={() => {}} variant={'primary'}>
+            {I18n.t('events-add-button')}
+          </Button>
         </VStack>
       </ScrollView>
     </>
