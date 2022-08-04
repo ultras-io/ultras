@@ -91,6 +91,12 @@ export class Match
       through: resources.LIKE.RELATION,
       foreignKey: 'matchId',
     });
+
+    Match.belongsToMany(models.User, {
+      as: resources.COMMENT.ALIAS.PLURAL,
+      through: resources.COMMENT.RELATION,
+      foreignKey: 'matchId',
+    });
   }
 }
 

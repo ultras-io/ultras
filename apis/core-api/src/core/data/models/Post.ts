@@ -91,6 +91,12 @@ export class Post
       through: resources.LIKE.RELATION,
       foreignKey: 'postId',
     });
+
+    Post.belongsToMany(models.User, {
+      as: resources.COMMENT.ALIAS.PLURAL,
+      through: resources.COMMENT.RELATION,
+      foreignKey: 'postId',
+    });
   }
 }
 
