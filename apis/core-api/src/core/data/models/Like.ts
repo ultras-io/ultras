@@ -108,6 +108,16 @@ module.exports = (sequelize: Sequelize): typeof Like => {
       freezeTableName: true,
       paranoid: true,
       sequelize,
+      indexes: [
+        {
+          unique: true,
+          fields: ['userId', 'matchId'],
+        },
+        {
+          unique: true,
+          fields: ['userId', 'postId'],
+        },
+      ],
     }
   );
 

@@ -1,8 +1,10 @@
 const path = require('path');
 
+const rootPath = 'build/core/data';
+
 module.exports = {
-  config: path.resolve('build/core/data/config', 'config.js'),
-  'models-path': path.resolve('build/core/data', 'models'),
-  'seeders-path': path.resolve('build/core/data', 'seeders'),
-  'migrations-path': path.resolve('build/core/data', 'migrations')
-}
+  config: path.resolve(`${rootPath}/config`, 'config.js'),
+  'models-path': path.resolve(rootPath, 'models'),
+  'seeders-path': path.resolve(rootPath, 'seeders'),
+  'migrations-path': path.resolve(rootPath, 'migrations'),
+};
