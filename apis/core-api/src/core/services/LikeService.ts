@@ -19,6 +19,7 @@ interface LikeUnlikeParamsInterface extends LikeBasicParamsInterface {
 interface FieldsByTypeInterface {
   fieldId: string;
   throughAlias: string;
+  model: any;
 }
 
 class LikeService extends BaseService {
@@ -28,11 +29,13 @@ class LikeService extends BaseService {
         return {
           fieldId: 'matchId',
           throughAlias: resources.LIKE.ALIAS.PLURAL + 'Match',
+          model: db.Match,
         };
       case LikeTypeEnum.post:
         return {
           fieldId: 'postId',
           throughAlias: resources.LIKE.ALIAS.PLURAL + 'Post',
+          model: db.Post,
         };
     }
   }
@@ -43,13 +46,13 @@ class LikeService extends BaseService {
   static async getAll(
     params: ServiceListParamsType<LikeBasicParamsInterface>
   ): ServiceListResultType<UserViewModel> {
-    const { fieldId, throughAlias } = this.getFieldsByType(params.resourceType);
+    const { fieldId, throughAlias, model } = this.getFieldsByType(params.resourceType);
 
     const likers = await db.User.findAll({
       include: [
         {
           required: true,
-          model: db.Post,
+          model: model,
           as: throughAlias,
           attributes: [],
           through: {
