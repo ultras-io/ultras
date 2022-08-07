@@ -1,4 +1,5 @@
 import { dbConfig } from '../../../config';
+import { ULTRAS_CORE } from '../lcp/schemas';
 
 export const commonExcludeFields = [
   'dataRapidId',
@@ -28,6 +29,12 @@ const configs = {
       },
     },
   },
+  migrationStorage: 'sequelize',
+  migrationStorageTableSchema: ULTRAS_CORE,
+  migrationStorageTableName: '_migrations',
+  seederStorage: 'sequelize',
+  seederStorageTableSchema: ULTRAS_CORE,
+  seederStorageTableName: '_seeders',
 };
 
 export default configs;

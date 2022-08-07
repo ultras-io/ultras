@@ -61,25 +61,25 @@ export class User
     });
 
     User.belongsToMany(models.Match, {
-      // as: resources.LIKE.ALIAS.PLURAL,
+      as: resources.LIKE.ALIAS.PLURAL + 'Match',
       through: resources.LIKE.RELATION,
       foreignKey: 'userId',
     });
 
     User.belongsToMany(models.Post, {
-      // as: resources.LIKE.ALIAS.PLURAL,
+      as: resources.LIKE.ALIAS.PLURAL + 'Post',
       through: resources.LIKE.RELATION,
       foreignKey: 'userId',
     });
 
     User.belongsToMany(models.Match, {
-      // as: resources.COMMENT.ALIAS.PLURAL,
+      as: resources.COMMENT.ALIAS.PLURAL + 'Match',
       through: resources.COMMENT.RELATION,
       foreignKey: 'userId',
     });
 
     User.belongsToMany(models.Post, {
-      // as: resources.COMMENT.ALIAS.PLURAL,
+      as: resources.COMMENT.ALIAS.PLURAL + 'Post',
       through: resources.COMMENT.RELATION,
       foreignKey: 'userId',
     });
