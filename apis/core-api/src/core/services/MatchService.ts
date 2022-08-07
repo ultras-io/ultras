@@ -115,7 +115,7 @@ class MatchService extends BaseService {
   /**
    * Get match by their ID.
    */
-  static async getById(id: ResourceIdentifier): ServiceByIdResultType<MatchViewModel> {
+  static async getById(id: ResourceIdentifier): ServiceByIdResultType<any> {
     return this.findById(db.Match, id);
   }
 
