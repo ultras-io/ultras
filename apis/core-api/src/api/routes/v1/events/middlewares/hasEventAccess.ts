@@ -48,7 +48,7 @@ export default (
 ): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     const eventId = ctx.request.params.id;
-    const userId = ctx.user.userId;
+    const userId = ctx.user?.userId;
 
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {

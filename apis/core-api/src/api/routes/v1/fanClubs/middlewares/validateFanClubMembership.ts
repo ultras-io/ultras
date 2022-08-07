@@ -26,7 +26,13 @@ export default (validation: ValidationInterface, routeIdParamName = 'id'): Middl
     }
 
     // get membership by fan club id and member id
-    const memberId = ctx.user.userId;
+    const memberId = ctx.user?.userId;
+    if (!memberId) {
+      throw new ResourceNotFoundError({
+        message: 'Fan club membership not found.',
+      });
+    }
+
     const membership = await FanClubMemberService.getOne(fanClubId, memberId);
     if (!membership) {
       throw new ResourceNotFoundError({

@@ -1,4 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
+import LikeableInterface from '../LikeableInterface';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetRoomsFilter,
@@ -12,7 +13,7 @@ import type {
 
 export * from './types';
 
-export class RoomSDK extends CoreApiBaseSDK {
+export class RoomSDK extends CoreApiBaseSDK implements LikeableInterface {
   constructor(mode?: Mode) {
     super(mode, 'rooms');
   }
@@ -41,5 +42,17 @@ export class RoomSDK extends CoreApiBaseSDK {
 
   public deleteRoom(id: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(id.toString());
+  }
+
+  public getLikes(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${eventId}/likes`);
+  }
+
+  public like(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${eventId}/likes`);
+  }
+
+  public unlike(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${eventId}/likes`);
   }
 }

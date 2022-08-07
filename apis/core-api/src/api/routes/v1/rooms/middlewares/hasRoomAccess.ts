@@ -45,7 +45,7 @@ const isFanClubAdmin = (role: FanClubMemberRoleEnum): boolean => {
 export default (restrictedAction = false): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     const roomId = ctx.request.params.id;
-    const userId = ctx.user.userId;
+    const userId = ctx.user?.userId;
 
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {

@@ -1,12 +1,13 @@
 import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
+import LikeableInterface from '../LikeableInterface';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type { GetMatchesFilter, GetMatchesResponse, GetMatchResponse } from './types';
 
 export * from './types';
 
-export class MatchSDK extends CoreApiBaseSDK {
+export class MatchSDK extends CoreApiBaseSDK implements LikeableInterface {
   constructor(mode?: Mode) {
     super(mode, 'matches');
   }
@@ -33,5 +34,17 @@ export class MatchSDK extends CoreApiBaseSDK {
 
   public getMatch(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetMatchResponse>(id.toString());
+  }
+
+  public getLikes(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${eventId}/likes`);
+  }
+
+  public like(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${eventId}/likes`);
+  }
+
+  public unlike(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${eventId}/likes`);
   }
 }
