@@ -17,6 +17,7 @@ import { runTest as testSdkAwsS3 } from './lib-tests/sdk-awsS3';
 import { runTest as testSdkEvent } from './lib-tests/sdk-event';
 import { runTest as testSdkRoom } from './lib-tests/sdk-room';
 import { runTest as testSdkUser } from './lib-tests/sdk-user';
+import { runTest as testSdkLike } from './lib-tests/sdk-likes';
 
 const tests = {
   // libs
@@ -38,6 +39,7 @@ const tests = {
   testSdkEvent,
   testSdkRoom,
   testSdkUser,
+  testSdkLike,
 };
 
 export default tests;

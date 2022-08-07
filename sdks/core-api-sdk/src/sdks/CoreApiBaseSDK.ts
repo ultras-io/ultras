@@ -9,7 +9,7 @@ import { DynamicQueryParam, QueryParam } from './types';
 export type Mode = 'dev' | 'staging' | 'production';
 export { ApiResponseType, ListResponseMetaType, ResponseInterface };
 
-class CoreApiBaseSDK {
+abstract class CoreApiBaseSDK {
   protected api: NetworkService | undefined;
 
   private interceptors: Array<Interceptor> = [AuthTokenInterceptor];
