@@ -14,6 +14,7 @@ export interface CommentAttributes {
   matchId: null | ResourceIdentifier;
   postId: null | ResourceIdentifier;
   content: string;
+  edited: boolean;
 }
 
 export type CommentCreationAttributes = Optional<CommentAttributes, 'id'>;
@@ -29,6 +30,7 @@ export class Comment
   public matchId!: null | ResourceIdentifier;
   public postId!: null | ResourceIdentifier;
   public content!: string;
+  public edited!: boolean;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -48,6 +50,11 @@ export class Comment
     Comment.belongsTo(models.Post, {
       as: resources.POST.ALIAS.SINGULAR,
       foreignKey: 'postId',
+    });
+
+    Comment.belongsTo(models.User, {
+      as: resources.USER.ALIAS.SINGULAR,
+      foreignKey: 'userId',
     });
   }
 }
@@ -106,6 +113,11 @@ module.exports = (sequelize: Sequelize): typeof Comment => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      edited: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       tableName: resources.COMMENT.RELATION,
@@ -114,16 +126,6 @@ module.exports = (sequelize: Sequelize): typeof Comment => {
       freezeTableName: true,
       paranoid: true,
       sequelize,
-      indexes: [
-        {
-          unique: true,
-          fields: ['userId', 'matchId'],
-        },
-        {
-          unique: true,
-          fields: ['userId', 'postId'],
-        },
-      ],
     }
   );
 

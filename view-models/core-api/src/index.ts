@@ -15,3 +15,4 @@ export * from './view-models/post';
 export * from './view-models/event';
 export * from './view-models/room';
 export * from './view-models/location';
+export * from './view-models/comment';

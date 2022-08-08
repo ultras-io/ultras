@@ -88,13 +88,19 @@ export class Post
 
     Post.belongsToMany(models.User, {
       as: resources.LIKE.ALIAS.PLURAL,
-      through: resources.LIKE.RELATION,
+      through: {
+        model: resources.LIKE.MODEL,
+        unique: false,
+      },
       foreignKey: 'postId',
     });
 
     Post.belongsToMany(models.User, {
       as: resources.COMMENT.ALIAS.PLURAL,
-      through: resources.COMMENT.RELATION,
+      through: {
+        model: resources.COMMENT.MODEL,
+        unique: false,
+      },
       foreignKey: 'postId',
     });
   }
