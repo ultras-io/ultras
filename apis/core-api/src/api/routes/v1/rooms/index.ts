@@ -6,6 +6,7 @@ import hasRoomAccess from './middlewares/hasRoomAccess';
 
 import members from './members';
 import likes from './likes';
+import comments from './comments';
 
 const auth = [parseAuthToken(), checkUserAuth()];
 
@@ -21,5 +22,6 @@ router.delete('/:id', ...auth, hasRoomAccess(true), ControllerAdapter.delete);
 
 router.use(members.routes());
 router.use(likes.routes());
+router.use(comments.routes());
 
 export default router;
