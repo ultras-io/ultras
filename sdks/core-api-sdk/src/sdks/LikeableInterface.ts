@@ -1,4 +1,4 @@
-import { ResponseInterface } from '.';
+import type { ResponseInterface } from './CoreApiBaseSDK';
 import type { ResourceIdentifier } from './types';
 
 type Return<TBody, THeaders> = undefined | Promise<ResponseInterface<TBody, THeaders>>;
