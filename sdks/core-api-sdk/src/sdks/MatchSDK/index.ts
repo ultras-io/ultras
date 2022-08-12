@@ -36,15 +36,43 @@ export class MatchSDK extends CoreApiBaseSDK implements LikeableInterface {
     return this.api?.makeAPIGetRequest<GetMatchResponse>(id.toString());
   }
 
-  public getLikes(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${eventId}/likes`);
+  public getLikes(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${matchId}/likes`);
   }
 
-  public like(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIPostRequest(`${eventId}/likes`);
+  public like(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${matchId}/likes`);
   }
 
-  public unlike(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIDeleteRequest(`${eventId}/likes`);
+  public unlike(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${matchId}/likes`);
+  }
+
+  public getComments(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${matchId}/comments`);
+  }
+
+  public addComment(matchId: ResourceIdentifier, content: string) {
+    return this.api?.makeAPIPostRequest(`${matchId}/comments`, {
+      body: {
+        content,
+      },
+    });
+  }
+
+  public updateComment(
+    matchId: ResourceIdentifier,
+    commentId: ResourceIdentifier,
+    content: string
+  ) {
+    return this.api?.makeAPIPutRequest(`${matchId}/comments/${commentId}`, {
+      body: {
+        content,
+      },
+    });
+  }
+
+  public deleteComment(matchId: ResourceIdentifier, commentId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${matchId}/comments/${commentId}`);
   }
 }

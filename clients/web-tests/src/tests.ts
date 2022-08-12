@@ -18,6 +18,7 @@ import { runTest as testSdkEvent } from './lib-tests/sdk-event';
 import { runTest as testSdkRoom } from './lib-tests/sdk-room';
 import { runTest as testSdkUser } from './lib-tests/sdk-user';
 import { runTest as testSdkLike } from './lib-tests/sdk-likes';
+import { runTest as testSdkComment } from './lib-tests/sdk-comments';
 
 const tests = {
   // libs
@@ -40,6 +41,7 @@ const tests = {
   testSdkRoom,
   testSdkUser,
   testSdkLike,
+  testSdkComment,
 };
 
 export default tests;

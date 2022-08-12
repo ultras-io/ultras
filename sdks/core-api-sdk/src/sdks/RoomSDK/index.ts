@@ -44,15 +44,43 @@ export class RoomSDK extends CoreApiBaseSDK implements LikeableInterface {
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getLikes(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${eventId}/likes`);
+  public getLikes(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${roomId}/likes`);
   }
 
-  public like(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIPostRequest(`${eventId}/likes`);
+  public like(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${roomId}/likes`);
   }
 
-  public unlike(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIDeleteRequest(`${eventId}/likes`);
+  public unlike(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${roomId}/likes`);
+  }
+
+  public getComments(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${roomId}/comments`);
+  }
+
+  public addComment(roomId: ResourceIdentifier, content: string) {
+    return this.api?.makeAPIPostRequest(`${roomId}/comments`, {
+      body: {
+        content,
+      },
+    });
+  }
+
+  public updateComment(
+    roomId: ResourceIdentifier,
+    commentId: ResourceIdentifier,
+    content: string
+  ) {
+    return this.api?.makeAPIPutRequest(`${roomId}/comments/${commentId}`, {
+      body: {
+        content,
+      },
+    });
+  }
+
+  public deleteComment(roomId: ResourceIdentifier, commentId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${roomId}/comments/${commentId}`);
   }
 }
