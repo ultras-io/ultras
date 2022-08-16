@@ -64,6 +64,8 @@ class LikeService extends BaseService {
         },
       ],
       order: [[params.orderAttr, params.order]],
+      limit: params.limit,
+      offset: params.offset,
     });
 
     return likers;
