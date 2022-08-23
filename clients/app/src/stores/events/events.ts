@@ -13,6 +13,8 @@ import {
   InitStoreParamsInterface,
 } from '../generateCRUD';
 
+import { scheme } from './scheme';
+
 type ParamType = InitStoreParamsInterface<EventViewModel>;
 type FilterType = Filterable<GetEventsFilter>;
 
@@ -34,6 +36,7 @@ const buildEventsStore = (params: Partial<ParamType> = {}) => {
   >({
     keys: ['list', 'single', 'add', 'delete'],
     ...(params as ParamType),
+    scheme,
 
     loadAll: (filter: FullFilterable<GetEventsFilter>) => {
       return sdk.getEvents({

@@ -1,11 +1,11 @@
 import React from 'react';
-import { VStack, ScrollView, Button, Input, TextArea } from 'native-base';
+import { VStack, ScrollView, Button, Input, TextArea, Text } from 'native-base';
 import I18n from 'i18n/i18n';
 import { useKeyboard } from 'utils/hooks/useKeyboard';
 import { useTheme } from 'themes';
-import KeyValue, { KeyValueGroup, KeyValueInner } from 'views/components/base/KeyValue';
+import KeyValue from 'views/components/base/KeyValue';
+import DateAndTimeRows from './DateAndTimeRows';
 import AttacheImage from 'views/components/compositions/AttacheImage';
-import { Text } from 'native-base';
 import { ICreateEventComponentProps } from '../types';
 
 const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
@@ -37,14 +37,13 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
     }
   }, [isKeyboardOpen, keyboardHeight]);
 
-  // console.log(data);
-
   return (
     <ScrollView mb={+keyboardHeight} ref={scrollRef}>
       <VStack px={'3'} space={'4'} mb={'10'}>
         <Text variant={'title'}>Create Event</Text>
+
         <Input
-          value={data?.title?.valueOriginal}
+          value={data.title.valueOriginal}
           variant={'form'}
           placeholder={I18n.t('events-add-name')}
           placeholderTextColor={colors.textQuaternary}
@@ -53,24 +52,26 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
           onChange={e => setFieldValue('title', e.nativeEvent.text)}
         />
 
-        <KeyValueGroup description={I18n.t('events-add-dateTimeDescription')}>
-          <KeyValueInner name={I18n.t('events-add-date')} value={'Sep 23, Tuesday'} />
-          <KeyValueInner name={I18n.t('events-add-time')} value={'22:45'} />
-        </KeyValueGroup>
+        <DateAndTimeRows
+          dateTime={data.dateTime.valueOriginal}
+          dateTitle={I18n.t('events-add-date')}
+          timeTitle={I18n.t('events-add-time')}
+          onChange={value => setFieldValue('dateTime', value)}
+          description={I18n.t('events-add-dateTimeDescription')}
+        />
 
-        {data?.isEndDateTime?.valueOriginal ? (
-          <KeyValueGroup description={I18n.t('events-add-endDateTimeDescription')}>
-            <KeyValueInner
-              name={I18n.t('events-add-endDateTime')}
-              value={true}
-              onChange={value => setFieldValue('isEndDateTime', value)}
-            />
-            <KeyValueInner
-              name={I18n.t('events-add-endDate')}
-              value={'Sep 24, Tuesday'}
-            />
-            <KeyValueInner name={I18n.t('events-add-endTime')} value={'00:45'} />
-          </KeyValueGroup>
+        {data.isEndDateTime.valueOriginal ? (
+          <DateAndTimeRows
+            dateTime={data.endDateTime.valueOriginal}
+            dateTitle={I18n.t('events-add-endDate')}
+            timeTitle={I18n.t('events-add-endTime')}
+            onChange={value => setFieldValue('endDateTime', value)}
+            description={I18n.t('events-add-endDateTimeDescription')}
+            withSwitch
+            switchTitle={I18n.t('events-add-endDateTime')}
+            switchValue={true}
+            onSwitchChange={value => setFieldValue('isEndDateTime', value)}
+          />
         ) : (
           <KeyValue
             name={I18n.t('events-add-endDateTime')}
@@ -87,10 +88,12 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
 
         <VStack>
           <Input
+            value={data.title.locationName}
             variant={'form'}
             placeholder={I18n.t('events-add-location')}
             placeholderTextColor={colors.textQuaternary}
             onFocus={() => onFocus(locationRef)}
+            onChange={e => setFieldValue('locationName', e.nativeEvent.text)}
             ref={locationRef}
           />
           <Text variant={'cardStats'} p={'2'}>
@@ -99,10 +102,12 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
         </VStack>
 
         <TextArea
+          value={data.title.content}
           variant={'form'}
           placeholder={I18n.t('events-add-description')}
           placeholderTextColor={colors.textQuaternary}
           onFocus={() => onFocus(descriptionRef)}
+          onChange={e => setFieldValue('content', e.nativeEvent.text)}
           ref={descriptionRef}
         />
 
