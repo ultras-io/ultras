@@ -1,6 +1,6 @@
 import React from 'react';
 import EventComponent from '../components/EventComponent';
-import buildEventsStore from 'stores/events';
+import buildEventsStore from 'stores/events/events';
 import { IEventContainerProps } from '../types';
 
 const EventContainer: React.FC<IEventContainerProps> = ({ data }) => {

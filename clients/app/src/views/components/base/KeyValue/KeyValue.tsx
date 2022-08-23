@@ -4,13 +4,13 @@ import { useTheme } from 'themes';
 import { KeyValueInner } from './KeyValueInner';
 import { IKeyValueProps } from './types';
 
-const KeyValue: React.FC<IKeyValueProps> = ({ name, value, description }) => {
+const KeyValue: React.FC<IKeyValueProps> = ({ name, value, description, onChange }) => {
   const { colors } = useTheme();
 
   return (
     <VStack>
       <Box bgColor={colors.backgroundInput} rounded={'lg'} overflow={'hidden'}>
-        <KeyValueInner name={name} value={value} />
+        <KeyValueInner name={name} value={value} onChange={onChange} />
       </Box>
 
       {description && (
