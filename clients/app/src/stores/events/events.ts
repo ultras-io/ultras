@@ -3,6 +3,7 @@ import {
   EventSDK,
   ResourceIdentifier,
   GetEventsFilter,
+  CreateEventType,
 } from '@ultras/core-api-sdk';
 
 import {
@@ -10,7 +11,7 @@ import {
   FullFilterable,
   generateCRUD,
   InitStoreParamsInterface,
-} from './generateCRUD';
+} from '../generateCRUD';
 
 type ParamType = InitStoreParamsInterface<EventViewModel>;
 type FilterType = Filterable<GetEventsFilter>;
@@ -25,13 +26,13 @@ const buildEventsStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<
     EventViewModel,
     EventViewModel,
-    EventViewModel,
+    CreateEventType,
     EventViewModel,
     TDeleteEvent,
     FilterType,
-    'list' | 'single' | 'delete'
+    'list' | 'single' | 'add' | 'delete'
   >({
-    keys: ['list', 'single', 'delete'],
+    keys: ['list', 'single', 'add', 'delete'],
     ...(params as ParamType),
 
     loadAll: (filter: FullFilterable<GetEventsFilter>) => {
@@ -42,6 +43,10 @@ const buildEventsStore = (params: Partial<ParamType> = {}) => {
 
     loadSingle: (id: ResourceIdentifier) => {
       return sdk.getEvent(id);
+    },
+
+    create: (data: CreateEventType) => {
+      return sdk.createEvent(data);
     },
 
     remove: (data: TDeleteEvent) => {
