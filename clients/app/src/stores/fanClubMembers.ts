@@ -12,7 +12,7 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<FanClubMemberViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<FanClubMemberViewModel, TScheme>;
 type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
 type TDeleteEvent = {
@@ -26,7 +26,7 @@ interface LoadAllParams extends FullFilterable<GetFanClubMembershipsFilter> {
 
 const sdk = new FanClubMembershipSDK('dev');
 
-const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
+const buildFanClubMembersStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     FanClubMemberViewModel,
     FanClubMemberViewModel,
@@ -34,10 +34,11 @@ const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
     FanClubMemberViewModel,
     TDeleteEvent,
     FilterType,
+    TScheme,
     'list' | 'delete'
   >({
     keys: ['list', 'delete'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: LoadAllParams) => {
       // return sdk.getAll(filter.fanClubId, {

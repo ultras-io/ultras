@@ -11,12 +11,12 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<RoomViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<RoomViewModel, TScheme>;
 type FilterType = Filterable<GetRoomsFilter>;
 
 const sdk = new RoomSDK('dev');
 
-const buildRoomsStore = (params: Partial<ParamType> = {}) => {
+const buildRoomsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     RoomViewModel,
     RoomViewModel,
@@ -24,10 +24,11 @@ const buildRoomsStore = (params: Partial<ParamType> = {}) => {
     null,
     ResourceIdentifier,
     FilterType,
+    TScheme,
     'list' | 'single'
   >({
     keys: ['list', 'single'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: FullFilterable<GetRoomsFilter>) => {
       return sdk.getRooms({

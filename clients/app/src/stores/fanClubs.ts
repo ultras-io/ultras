@@ -12,7 +12,7 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<FanClubViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<FanClubViewModel, TScheme>;
 type FilterType = Filterable<GetFanClubsFilter>;
 
 type TDeleteEvent = {
@@ -21,7 +21,7 @@ type TDeleteEvent = {
 
 const sdk = new FanClubSDK('dev');
 
-const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
+const buildFanClubsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   // return generateCRUD<FanClubViewModel, FilterType, 'list' | 'single' | 'add'>({
   return generateCRUD<
     FanClubViewModel,
@@ -30,11 +30,12 @@ const buildFanClubsStore = (params: Partial<ParamType> = {}) => {
     FanClubViewModel,
     TDeleteEvent,
     FilterType,
+    TScheme,
     'list' | 'single'
   >({
     // keys: ['list', 'single', 'add'],
     keys: ['list', 'single'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: FullFilterable<GetFanClubsFilter>) => {
       return sdk.getFanClubs({

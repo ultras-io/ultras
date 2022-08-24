@@ -19,7 +19,8 @@ function buildRootActions<
   TDataUpdate,
   TDataDelete,
   TKey extends StateKeyType,
-  TFilter
+  TFilter,
+  TScheme
 >(
   params: ParamsType<
     TDataList,
@@ -28,7 +29,8 @@ function buildRootActions<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >,
   storeVanilla: RootStoreType<
     TDataList,
@@ -37,7 +39,8 @@ function buildRootActions<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >
 ): ExtractStateAndActionType<
   TDataList,
@@ -46,7 +49,8 @@ function buildRootActions<
   TDataUpdate,
   TDataDelete,
   TKey,
-  TFilter
+  TFilter,
+  TScheme
 > {
   const includeKeys = fillStateKeys(params.keys || []);
 
@@ -70,7 +74,8 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'list',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
@@ -85,7 +90,8 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'single',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
@@ -100,7 +106,8 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'add',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
@@ -115,12 +122,11 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'delete',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
-
-  // @TODO: add delete code
 
   // @TODO: add update code
 

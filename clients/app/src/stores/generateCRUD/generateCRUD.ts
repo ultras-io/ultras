@@ -13,6 +13,7 @@ export const generateCRUD = <
   TDataUpdate,
   TDataDelete,
   TFilter,
+  TScheme,
   TKey extends StateKeyType = StateKeyType
 >(
   params: ParamsType<
@@ -22,7 +23,8 @@ export const generateCRUD = <
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >
 ) => {
   const storeVanilla = createVanilla<
@@ -33,7 +35,8 @@ export const generateCRUD = <
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >((stateSetter, stateGetter) => buildStateAndActions(params, stateSetter, stateGetter));
 
@@ -47,7 +50,8 @@ export const generateCRUD = <
       TDataUpdate,
       TDataDelete,
       TPassedKeys,
-      TFilter
+      TFilter,
+      TScheme
     >;
     if (!keys || keys.length === 0) {
       return state;
@@ -57,7 +61,7 @@ export const generateCRUD = <
       // @ts-ignore
       acc[value] = state[value];
       return acc;
-    }, {} as ExtractStateAndActionType<TDataList, TDataSingle, TDataCreate, TDataUpdate, TDataDelete, TPassedKeys, TFilter>);
+    }, {} as ExtractStateAndActionType<TDataList, TDataSingle, TDataCreate, TDataUpdate, TDataDelete, TPassedKeys, TFilter, TScheme>);
   };
 
   return {

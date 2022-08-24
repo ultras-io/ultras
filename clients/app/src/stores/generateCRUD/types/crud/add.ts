@@ -8,15 +8,15 @@ import {
 
 type CreatePromiseType<TData> = undefined | Promise<ApiResponseType<TData>>;
 
-export interface AddStateDataInterface<TData> {
+export interface AddStateDataInterface<TData, TScheme> {
   status: StatusType;
   error: null | Error;
-  data: null | StateDataSchemeInterface;
+  data: null | StateDataSchemeInterface<TScheme>;
   valid: boolean;
 }
 
-export interface AddGroupedStateType<TData> {
-  add: AddStateDataInterface<TData>;
+export interface AddGroupedStateType<TData, TScheme> {
+  add: AddStateDataInterface<TData, TScheme>;
 }
 
 export type AddGroupedActionType<TData> = {
@@ -28,8 +28,8 @@ export type AddGroupedActionType<TData> = {
   reset(): void;
 };
 
-export type AddGroupedInterceptorType<TData> = {
-  scheme: SchemeInterface;
-  beforeSend: BeforeSendInterface<TData> | null;
+export type AddGroupedInterceptorType<TData, TScheme> = {
+  scheme: SchemeInterface<TScheme>;
+  beforeSend: BeforeSendInterface<TData, TScheme> | null;
   create(data: Partial<TData>): CreatePromiseType<TData>;
 };

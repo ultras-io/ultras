@@ -1,6 +1,11 @@
 import { SchemeInterface } from '../generateCRUD/types/scheme';
 
-export const scheme: SchemeInterface = {
+interface DataTypeInterface {
+  title: string;
+  isEndDateTime: boolean;
+}
+
+export const scheme: SchemeInterface<DataTypeInterface> = {
   title: {
     initialValue: '',
     // validate: (a, b) => {
