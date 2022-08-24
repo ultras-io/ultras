@@ -13,18 +13,20 @@ export const KeyValueGroup: React.FC<IKeyValueGroupProps> = ({
     <VStack>
       <Box bgColor={colors.backgroundInput} rounded={'lg'} overflow={'hidden'}>
         {children &&
-          children.map((row, i) => (
-            <React.Fragment key={'pair' + i}>
-              {i !== 0 && (
-                <Divider
-                  ml={'4'}
-                  thickness={1}
-                  bgColor={colors.backgroundDividerTransparent}
-                />
-              )}
-              {row}
-            </React.Fragment>
-          ))}
+          children
+            .filter(child => child)
+            .map((row, i) => (
+              <React.Fragment key={'pair' + i}>
+                {i !== 0 && (
+                  <Divider
+                    ml={'4'}
+                    thickness={1}
+                    bgColor={colors.backgroundDividerTransparent}
+                  />
+                )}
+                {row}
+              </React.Fragment>
+            ))}
       </Box>
 
       {description && (
