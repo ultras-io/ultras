@@ -37,6 +37,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.6.0",
     "@ultras/utils": "^1.0.0",
+    "firebase-admin": "^11.0.1",
     "isomorphic-fetch": "^3.0.0",
     "twilio": "^3.73.0"
   },

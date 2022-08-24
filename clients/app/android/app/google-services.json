@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "386308660396",
+    "project_id": "ultrastestpushnotification",
+    "storage_bucket": "ultrastestpushnotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386308660396:android:d2a4693083693e26bf5309",
+        "android_client_info": {
+          "package_name": "com.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386308660396-74ev6mqh9mmsf0i9cdbfkt6pjafrh1ds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYjyqfzxda4dp5GnLeYZFysfnjI3yAeN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386308660396-74ev6mqh9mmsf0i9cdbfkt6pjafrh1ds.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "386308660396-5ot8cfk6rr7m5vrtsfj1uhaa21gmh9m9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
