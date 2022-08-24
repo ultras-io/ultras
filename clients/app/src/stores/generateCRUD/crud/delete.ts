@@ -12,7 +12,7 @@ type CurrentStoreKeyType = 'delete';
 
 function generateInitialState<TData>(): DeleteStateDataInterface<TData> {
   return {
-    status: 'loading',
+    status: 'default',
     error: null,
   };
 }

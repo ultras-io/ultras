@@ -34,7 +34,7 @@ function generateInitialState<TData, TScheme>(
   }
 
   return {
-    status: 'loading',
+    status: 'default',
     error: null,
     data: stateAddData,
     valid: false,

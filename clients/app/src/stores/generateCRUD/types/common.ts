@@ -20,4 +20,4 @@ export type Filterable<TFilter> = Omit<FullFilterable<TFilter>, 'offset'>;
 export type StateKeyType = 'list' | 'single' | 'add' | 'delete';
 export type StateKeyParamType = Record<StateKeyType, boolean>;
 
-export type StatusType = 'loading' | 'error' | 'success';
+export type StatusType = 'default' | 'loading' | 'error' | 'success';
