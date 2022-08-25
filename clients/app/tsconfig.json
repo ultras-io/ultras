@@ -64,6 +64,12 @@
       "themes": [
         "src/themes/index"
       ],
+      "notifications/*": [
+        "src/notifications/*"
+      ],
+      "notifications": [
+        "src/notifications/index"
+      ],
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     "typeRoots": [

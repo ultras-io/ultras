@@ -11,6 +11,40 @@ import { KoaApp } from 'types';
 
 import bootstrap from './bootstrap';
 
+const admin = require('firebase-admin');
+
+const serviceAccount = require('../../firebase-admin-sdk-cy59v-4d877b504a.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+admin.messaging().send({
+  token:
+    'dNuGQ6_Fvh38HtBdqPonoC:APA91bHxMSded-FQVf3TDd1TbpcT1b6RJs' +
+    '_RZWlQ3hGOTi4pA1H-nlbzYdZQGgPpJXwieK9pHxz6xF9KQbV_l3oTyShmlJIfCnWkWdRdOM' +
+    '-czwvqk_as112dpto4MaCt4UcDI1sMxOeD',
+
+  notification: {
+    title: 'Ultras',
+    body: 'Real Mardid - Barcelona match will start soon.',
+    imageUrl:
+      'https://i0.wp.com/elartedf.com/wp-content/uploads' +
+      '/2017/11/E01_0152.jpg?resize=550%2C366',
+  },
+
+  apns: {
+    payload: {
+      aps: {
+        alert: {
+          title: 'Ultras',
+          body: 'Real Mardid - Barcelona match will start soon.',
+        },
+      },
+    },
+  },
+});
+
 // database instance
 const database: IDatabase = new Database(dbConfig.logging);
 

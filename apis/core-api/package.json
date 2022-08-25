@@ -37,6 +37,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "firebase-admin": "^11.0.1",
     "module-alias": "^2.2.2",
     "nodemon": "^2.0.12",
     "onchange": "^7.1.0",

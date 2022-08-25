@@ -1,5 +1,10 @@
 import React from 'react';
 import { ThemeProvider } from 'themes';
+import {
+  configureBackgroundMode,
+  configureInAppMode,
+  requestUserPermission,
+} from 'notifications';
 import AppContainer from 'views/AppContainer';
 
 // import moment from 'moment';
@@ -25,7 +30,14 @@ import AppContainer from 'views/AppContainer';
 //   },
 // });
 
+configureBackgroundMode();
+
 const App = () => {
+  React.useEffect(() => {
+    requestUserPermission();
+    return configureInAppMode();
+  }, []);
+
   return (
     <ThemeProvider>
       <AppContainer />
