@@ -88,7 +88,7 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
 
         <VStack>
           <Input
-            value={data.title.locationName}
+            value={data.locationName.valueOriginal}
             variant={'form'}
             placeholder={I18n.t('events-add-location')}
             placeholderTextColor={colors.textQuaternary}
@@ -102,7 +102,7 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
         </VStack>
 
         <TextArea
-          value={data.title.content}
+          value={data.content.valueOriginal}
           variant={'form'}
           placeholder={I18n.t('events-add-description')}
           placeholderTextColor={colors.textQuaternary}

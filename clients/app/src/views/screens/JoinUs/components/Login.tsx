@@ -15,7 +15,7 @@ const Login: React.FC<ILoginProps> = ({ useStore, useAuthStore, text, login }) =
   const token = useStore(tokenSelector());
   const userResponse = useStore(userResponseSelector());
   const loginRegistration = useStore(registrationStore.loginSelector());
-  const enterMe = useAuthStore(authenticationStore.loginSelector);
+  const enterMe = useAuthStore(authenticationStore.loginSelector());
 
   React.useLayoutEffect(() => {
     if (status === 'success') {
@@ -27,7 +27,7 @@ const Login: React.FC<ILoginProps> = ({ useStore, useAuthStore, text, login }) =
   return (
     <Box w={'70%'} alignSelf="flex-end" mr={5} my={2}>
       <Button
-        onPress={login ? () => loginRegistration() : () => enterMe(token, userResponse)}
+        onPress={login ? loginRegistration : () => enterMe(token, userResponse)}
         variant={'primary'}
         isLoading={status === 'loading'}
       >
