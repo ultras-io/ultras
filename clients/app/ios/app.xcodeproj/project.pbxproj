@@ -671,7 +671,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ultras.io;
+				PRODUCT_BUNDLE_IDENTIFIER = ultras.internatioanl;
 				PRODUCT_NAME = app;
 				SWIFT_OBJC_BRIDGING_HEADER = "app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -704,7 +704,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ultras.io;
+				PRODUCT_BUNDLE_IDENTIFIER = ultras.internatioanl;
 				PRODUCT_NAME = app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "app-Bridging-Header.h";
