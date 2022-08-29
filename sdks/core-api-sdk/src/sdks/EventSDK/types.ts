@@ -22,6 +22,8 @@ export type CreateEventType = {
   matchId?: ResourceIdentifier;
   privacy: EventPrivacyEnum;
   dateTime: Date;
+  isEndDateTime: boolean;
+  endDateTime: Date;
   locationName: string;
   locationLat?: Nullable<number>;
   locationLng?: Nullable<number>;

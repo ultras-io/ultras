@@ -124,3 +124,8 @@ export type UserAndTeams = Nullable<
     teams: Array<ResourceIdentifier>;
   }
 >;
+
+export type SetDeviceTokenParams = {
+  authToken: string;
+  deviceToken: string;
+};

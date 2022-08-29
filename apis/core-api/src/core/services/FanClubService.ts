@@ -17,7 +17,7 @@ import CountryService from './CountryService';
 import TeamService from './TeamService';
 
 export interface FanClubListParamsInterface {
-  userId?: ResourceIdentifier | null;
+  userId?: null | ResourceIdentifier;
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;

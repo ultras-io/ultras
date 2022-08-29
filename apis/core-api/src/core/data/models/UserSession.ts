@@ -18,6 +18,7 @@ export interface UserSessionAttributes {
   lastAccess: number;
   authToken: string;
   tokenExpiresAt: number;
+  deviceToken: string | null;
 }
 
 export type UserSessionCreationAttributes = Optional<UserSessionAttributes, 'id'>;
@@ -39,6 +40,7 @@ export class UserSession
   public lastAccess!: number;
   public authToken!: string;
   public tokenExpiresAt!: number;
+  public deviceToken!: string | null;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -116,6 +118,10 @@ module.exports = (sequelize: Sequelize): typeof UserSession => {
       tokenExpiresAt: {
         type: DataTypes.BIGINT,
         allowNull: false,
+      },
+      deviceToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {

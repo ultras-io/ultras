@@ -12,6 +12,12 @@ interface UserUniqueIdentifierInterface {
   username?: null | string;
   id?: null | ResourceIdentifier;
 }
+
+interface SetDeviceTokenInterface {
+  authToken: string;
+  deviceToken: string;
+}
+
 class UserService extends BaseService {
   /**
    * Check username is taken.
@@ -142,6 +148,22 @@ class UserService extends BaseService {
   ): ServiceResultType<null | User> {
     // TODO: write logic to create user and send notification
     return null;
+  }
+
+  /**
+   * Set device token of user.
+   */
+  static async setDeviceToken({ authToken, deviceToken }: SetDeviceTokenInterface) {
+    await db.UserSession.update(
+      { deviceToken },
+      {
+        where: {
+          deviceToken: null,
+          authToken,
+        },
+        limit: 1,
+      }
+    );
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, ListRenderItem, Platform } from 'react-native';
-import { Box, FlatList, KeyboardAvoidingView } from 'native-base';
+import { StyleSheet, ListRenderItem } from 'react-native';
+import { Box, FlatList } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { useKeyboard } from 'utils/hooks/useKeyboard';
@@ -27,9 +27,9 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   useStore,
   useAuthStore,
 }) => {
-  const flatListRef = React.useRef({ scrollToEnd: () => {} });
+  const flatListRef = React.useRef(null);
   const route = useRoute();
-  const [isKeyboardOpen] = useKeyboard();
+  const [isKeyboardOpen, keyboardHeight] = useKeyboard();
   const { openModal } = useNavigationWithParams();
   const [isTeamSelected, setIsTeamSelected] = React.useState(false);
 
@@ -66,13 +66,15 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   const nextStep = useStore(registrationStore.nextStepSelector());
   const setSelected = useStore(registrationStore.setSelectedSelector());
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
+    if (keyboardHeight !== 0) {
+      setTimeout(() => flatListRef?.current?.scrollToEnd());
+    }
+  }, [keyboardHeight]);
+
+  React.useEffect(() => {
     setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
   }, [step]);
-
-  React.useLayoutEffect(() => {
-    isKeyboardOpen && setTimeout(() => flatListRef?.current?.scrollToEnd(), 10);
-  }, [isKeyboardOpen]);
 
   React.useEffect(() => {
     if (route.params?.selected) {
@@ -208,25 +210,24 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
           );
         }
       } else if (item.type === 'empty') {
-        return <Box h={'60'} />;
+        return <Box h={'37'} />;
       }
-
       return null;
     },
     [getRightMessageOptions, renderRightComponent, step, useStore]
   );
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <FlatList
-        ref={flatListRef}
-        data={data}
-        renderItem={renderStep}
-        keyExtractor={item => item.key}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainerStyle}
-      />
-    </KeyboardAvoidingView>
+    <FlatList
+      ref={flatListRef}
+      data={data}
+      renderItem={renderStep}
+      keyExtractor={item => item.key}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.contentContainerStyle}
+      style={{ marginBottom: +keyboardHeight }}
+      keyboardShouldPersistTaps={'always'}
+    />
   );
 };
 

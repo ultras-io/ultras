@@ -1,10 +1,3 @@
-//
-//  NotificationService.m
-//  ImageNotification
-//
-//  Created by Rado on 8/27/22.
-//
-
 #import "NotificationService.h"
 #import "FirebaseMessaging.h"
 

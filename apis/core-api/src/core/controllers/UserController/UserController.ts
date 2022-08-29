@@ -40,6 +40,7 @@ import {
   ProfileResult,
   UserAndTeams,
 } from './types';
+import { SetDeviceTokenParams } from '.';
 
 class UserController extends BaseController {
   static async checkUsernameExistence({
@@ -428,6 +429,14 @@ class UserController extends BaseController {
     };
 
     return result;
+  }
+
+  static async setDeviceToken({ authToken, deviceToken }: SetDeviceTokenParams) {
+    await UserService.setDeviceToken({ authToken, deviceToken });
+
+    return {
+      data: { status: 'OK' },
+    };
   }
 }
 

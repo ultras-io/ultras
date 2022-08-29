@@ -19,7 +19,7 @@ const handlePhoneOrEmail = ({ email, phone }: PhoneOrEmail) => {
 };
 
 const getAuthHeader = (ctx: Context): string => {
-  return (ctx.headers['authorization'] || '').replace('Bearer ', '');
+  return (ctx.headers['authorization'] || '').replace(/^bearer/gi, '').trim();
 };
 
 class ControllerAdapter {
@@ -181,6 +181,26 @@ class ControllerAdapter {
     /** CONTROLLERS */
     const { data } = await UserController.getProfile({
       userId: id,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
+
+  static async addDeviceToken(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { deviceToken } = ctx.request.body;
+    const authToken = ctx.headers['authorization']?.replace(/^bearer/gi, '').trim();
+
+    /** CONTROLLERS */
+    const { data } = await UserController.setDeviceToken({
+      authToken,
+      deviceToken,
     });
 
     /** RESPONSE */

@@ -14,7 +14,7 @@ const getAuthToken = (ctx: Context): null | string => {
     return null;
   }
 
-  return token.replace('Bearer ', '');
+  return token.replace(/^bearer/gi, '').trim();
 };
 
 /**

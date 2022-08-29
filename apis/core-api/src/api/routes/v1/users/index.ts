@@ -30,4 +30,11 @@ router.delete(
 router.get('/me', parseAuthToken(), checkUserAuth(), ControllerAdapter.getMe);
 router.get('/profile/:id', ControllerAdapter.getProfile);
 
+router.post(
+  '/device-token',
+  parseAuthToken(),
+  checkUserAuth(),
+  ControllerAdapter.addDeviceToken
+);
+
 export default router;

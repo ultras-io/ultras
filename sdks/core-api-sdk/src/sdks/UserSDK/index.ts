@@ -75,4 +75,10 @@ export class UserSDK extends CoreApiBaseSDK {
   public getProfile(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetProfileResponse>(`/profile/${id}`);
   }
+
+  public registerDeviceToken(deviceToken: string) {
+    return this.api?.makeAPIPostRequest('device-token', {
+      body: { deviceToken },
+    });
+  }
 }

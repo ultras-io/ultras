@@ -13,11 +13,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1685270F59E6B698E49CBC65 /* Pods_ImageNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F87F9ABC2E52BB5E3C3EF922 /* Pods_ImageNotification.framework */; };
 		197D4F4C57B1481D8C1E18A5 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03221E78E82F406E8FF65661 /* Montserrat-Medium.ttf */; };
 		1A17947C28B40DD80097D14E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A17947B28B40DD80097D14E /* GoogleService-Info.plist */; };
 		1A17947D28B40DD80097D14E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A17947B28B40DD80097D14E /* GoogleService-Info.plist */; };
-		1AB31B7728B972BA009CFD3F /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB31B7628B972BA009CFD3F /* NotificationService.m */; };
-		1AB31B7B28B972BA009CFD3F /* ImageNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1AB31B7328B972BA009CFD3F /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1A65036228BD5A57009182AF /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A65036128BD5A57009182AF /* NotificationService.m */; };
+		1A65036628BD5A57009182AF /* ImageNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1A65035E28BD5A57009182AF /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1E90B9B9BF364CEF9D45E3CE /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09971A23346243F7890C4181 /* Montserrat-ExtraLight.ttf */; };
 		27A724AC35B040D782087E86 /* MontserratAlternates-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DC993A6097E4F818B739A6B /* MontserratAlternates-ExtraBoldItalic.ttf */; };
 		2BB5406F532040838531B3FA /* MontserratAlternates-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2CCF7A5911C4DF4B3D54BA1 /* MontserratAlternates-ThinItalic.ttf */; };
@@ -35,7 +36,6 @@
 		6BAA9473D0814B9396BDCA28 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCDE20C362DC4FE3AE0F0823 /* Montserrat-Light.ttf */; };
 		6CE4109DECB647D7B42876C7 /* MontserratAlternates-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AC1C8B26E0C4D739E17F284 /* MontserratAlternates-Bold.ttf */; };
 		7616C93D5DAD46C787097B2C /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E44940ACDB6B42D4AB2D7B0B /* Montserrat-LightItalic.ttf */; };
-		782C4983230D600B38D64CCD /* Pods_ImageNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB1F6F34AC603E5DF4270F1 /* Pods_ImageNotification.framework */; };
 		7FA25002AB5E471C963D9F95 /* MontserratAlternates-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E2C2CC752054329BAF9129D /* MontserratAlternates-BlackItalic.ttf */; };
 		882D1E8F26FC98470096586F /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 882D1E8E26FC982B0096586F /* libRNCAsyncStorage.a */; };
 		88BB84B7270C94EF002D97C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88BB84B6270C94EF002D97C5 /* LaunchScreen.storyboard */; };
@@ -66,11 +66,11 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = app;
 		};
-		1AB31B7928B972BA009CFD3F /* PBXContainerItemProxy */ = {
+		1A65036428BD5A57009182AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1AB31B7228B972BA009CFD3F;
+			remoteGlobalIDString = 1A65035D28BD5A57009182AF;
 			remoteInfo = ImageNotification;
 		};
 		882D1E8D26FC982B0096586F /* PBXContainerItemProxy */ = {
@@ -83,13 +83,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1AB31B7C28B972BA009CFD3F /* Embed App Extensions */ = {
+		1A65036728BD5A57009182AF /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1AB31B7B28B972BA009CFD3F /* ImageNotification.appex in Embed App Extensions */,
+				1A65036628BD5A57009182AF /* ImageNotification.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +104,7 @@
 		055D1A7FAA3085ED000605BF /* Pods-ultras-appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ultras-appTests.release.xcconfig"; path = "Target Support Files/Pods-ultras-appTests/Pods-ultras-appTests.release.xcconfig"; sourceTree = "<group>"; };
 		058205512951ED7250F7F3F0 /* Pods-ultras-appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ultras-appTests.debug.xcconfig"; path = "Target Support Files/Pods-ultras-appTests/Pods-ultras-appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		09971A23346243F7890C4181 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraLight.ttf"; path = "../src/assets/fonts/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		09A9BE907C3B902322A70952 /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		0DC993A6097E4F818B739A6B /* MontserratAlternates-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/MontserratAlternates-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		126027E70BCA4EA8B8F009AB /* MontserratAlternates-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-SemiBoldItalic.ttf"; path = "../src/assets/fonts/MontserratAlternates-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,18 +116,18 @@
 		13C3E44FF32BF6F11A9C232A /* Pods_ultras.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ultras.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F6AF8A8D9D44989D4A8DBA /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-MediumItalic.ttf"; path = "../src/assets/fonts/Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
 		1A17947B28B40DD80097D14E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1AB31B7328B972BA009CFD3F /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1AB31B7528B972BA009CFD3F /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		1A65035E28BD5A57009182AF /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A65036028BD5A57009182AF /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		1A65036128BD5A57009182AF /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		1A65036328BD5A57009182AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AB31B7628B972BA009CFD3F /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
-		1AB31B7828B972BA009CFD3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AEF3CC528B7EB53004C3F64 /* ultras.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ultras.entitlements; sourceTree = "<group>"; };
 		1D0AE47A65C8663E3B452821 /* Pods-app-appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app-appTests.release.xcconfig"; path = "Target Support Files/Pods-app-appTests/Pods-app-appTests.release.xcconfig"; sourceTree = "<group>"; };
 		1DE238DA08174A3F8621D2AD /* MontserratAlternates-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-LightItalic.ttf"; path = "../src/assets/fonts/MontserratAlternates-LightItalic.ttf"; sourceTree = "<group>"; };
+		2A55E7D6246EBC72F7CAF1D1 /* Pods-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
 		3108D92BE64F4F0B857EA8E7 /* MontserratAlternates-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-BoldItalic.ttf"; path = "../src/assets/fonts/MontserratAlternates-BoldItalic.ttf"; sourceTree = "<group>"; };
-		31946DF0150317CA3337CB6B /* Pods-ultras-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ultras-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ultras-ImageNotification/Pods-ultras-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		36E0BE0DE60A424DB6267AE3 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../src/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		3C3A4509E8BB41A0AC3767F8 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Italic.ttf"; path = "../src/assets/fonts/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
-		40062A48ADAF4E2F9485DCB7 /* Pods-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
 		4D696C95B6BE4D0083201BA3 /* MontserratAlternates-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-MediumItalic.ttf"; path = "../src/assets/fonts/MontserratAlternates-MediumItalic.ttf"; sourceTree = "<group>"; };
 		52C8F96DF43CF1833E6893E1 /* Pods_ultras_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ultras_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CF50A591074B85B5D6B8E9 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.ttf"; path = "../src/assets/fonts/Montserrat-Black.ttf"; sourceTree = "<group>"; };
@@ -139,7 +140,6 @@
 		781666C91FAB370602E9F991 /* Pods-ultras.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ultras.debug.xcconfig"; path = "Target Support Files/Pods-ultras/Pods-ultras.debug.xcconfig"; sourceTree = "<group>"; };
 		7AC1C8B26E0C4D739E17F284 /* MontserratAlternates-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-Bold.ttf"; path = "../src/assets/fonts/MontserratAlternates-Bold.ttf"; sourceTree = "<group>"; };
 		8212639089894452AEE9901B /* MontserratAlternates-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-Italic.ttf"; path = "../src/assets/fonts/MontserratAlternates-Italic.ttf"; sourceTree = "<group>"; };
-		8332D472FA177FD1EED3FA16 /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		836CD58862D544F9844F59EB /* MontserratAlternates-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-Thin.ttf"; path = "../src/assets/fonts/MontserratAlternates-Thin.ttf"; sourceTree = "<group>"; };
 		882D1E8926FC982B0096586F /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-async-storage/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		88BB84B6270C94EF002D97C5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -150,9 +150,7 @@
 		9FD59B6950264F3AA9EF5D40 /* MontserratAlternates-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-ExtraLight.ttf"; path = "../src/assets/fonts/MontserratAlternates-ExtraLight.ttf"; sourceTree = "<group>"; };
 		A3EDAB86D24E44D7893439D6 /* MontserratAlternates-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-ExtraBold.ttf"; path = "../src/assets/fonts/MontserratAlternates-ExtraBold.ttf"; sourceTree = "<group>"; };
 		B057375C818B4178906EFE0B /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Thin.ttf"; path = "../src/assets/fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; };
-		B48B1057C333E93D7AFA163E /* Pods-ultras-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ultras-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-ultras-ImageNotification/Pods-ultras-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
 		B679C785B53B43CA866D2C34 /* MontserratAlternates-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-Light.ttf"; path = "../src/assets/fonts/MontserratAlternates-Light.ttf"; sourceTree = "<group>"; };
-		BEB1F6F34AC603E5DF4270F1 /* Pods_ImageNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app.debug.xcconfig"; path = "Target Support Files/Pods-app/Pods-app.debug.xcconfig"; sourceTree = "<group>"; };
 		C2CCF7A5911C4DF4B3D54BA1 /* MontserratAlternates-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-ThinItalic.ttf"; path = "../src/assets/fonts/MontserratAlternates-ThinItalic.ttf"; sourceTree = "<group>"; };
 		C5D57DBA736545959961CE82 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBold.ttf"; path = "../src/assets/fonts/Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -166,6 +164,7 @@
 		E9B9B356846C814F7F93D07A /* Pods-ultras.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ultras.release.xcconfig"; path = "Target Support Files/Pods-ultras/Pods-ultras.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F3EEC871DAB74FB2962FA734 /* MontserratAlternates-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "MontserratAlternates-SemiBold.ttf"; path = "../src/assets/fonts/MontserratAlternates-SemiBold.ttf"; sourceTree = "<group>"; };
+		F87F9ABC2E52BB5E3C3EF922 /* Pods_ImageNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F93DE59F74E0447585851B50 /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		FCDE20C362DC4FE3AE0F0823 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../src/assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,11 +179,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1AB31B7028B972BA009CFD3F /* Frameworks */ = {
+		1A65035B28BD5A57009182AF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				782C4983230D600B38D64CCD /* Pods_ImageNotification.framework in Frameworks */,
+				1685270F59E6B698E49CBC65 /* Pods_ImageNotification.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,12 +229,20 @@
 			name = app;
 			sourceTree = "<group>";
 		};
-		1AB31B7428B972BA009CFD3F /* ImageNotification */ = {
+		1A65035428BD59C8009182AF /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				1AB31B7528B972BA009CFD3F /* NotificationService.h */,
 				1AB31B7628B972BA009CFD3F /* NotificationService.m */,
-				1AB31B7828B972BA009CFD3F /* Info.plist */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		1A65035F28BD5A57009182AF /* ImageNotification */ = {
+			isa = PBXGroup;
+			children = (
+				1A65036028BD5A57009182AF /* NotificationService.h */,
+				1A65036128BD5A57009182AF /* NotificationService.m */,
+				1A65036328BD5A57009182AF /* Info.plist */,
 			);
 			path = ImageNotification;
 			sourceTree = "<group>";
@@ -247,7 +254,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				13C3E44FF32BF6F11A9C232A /* Pods_ultras.framework */,
 				52C8F96DF43CF1833E6893E1 /* Pods_ultras_appTests.framework */,
-				BEB1F6F34AC603E5DF4270F1 /* Pods_ImageNotification.framework */,
+				F87F9ABC2E52BB5E3C3EF922 /* Pods_ImageNotification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -309,13 +316,14 @@
 				13B07FAE1A68108700A75B9A /* app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* appTests */,
-				1AB31B7428B972BA009CFD3F /* ImageNotification */,
+				1A65035F28BD5A57009182AF /* ImageNotification */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				E233CBF5F47BEE60B243DCF8 /* Pods */,
 				53D5B60F8C744A73B1162052 /* Resources */,
 				88BB84BB270F19FE002D97C5 /* app-Bridging-Header.h */,
 				882D1E8926FC982B0096586F /* RNCAsyncStorage.xcodeproj */,
+				1A65035428BD59C8009182AF /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -327,7 +335,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* app.app */,
 				00E356EE1AD99517003FC87E /* appTests.xctest */,
-				1AB31B7328B972BA009CFD3F /* ImageNotification.appex */,
+				1A65035E28BD5A57009182AF /* ImageNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -351,10 +359,8 @@
 				E9B9B356846C814F7F93D07A /* Pods-ultras.release.xcconfig */,
 				058205512951ED7250F7F3F0 /* Pods-ultras-appTests.debug.xcconfig */,
 				055D1A7FAA3085ED000605BF /* Pods-ultras-appTests.release.xcconfig */,
-				31946DF0150317CA3337CB6B /* Pods-ultras-ImageNotification.debug.xcconfig */,
-				B48B1057C333E93D7AFA163E /* Pods-ultras-ImageNotification.release.xcconfig */,
-				8332D472FA177FD1EED3FA16 /* Pods-ImageNotification.debug.xcconfig */,
-				40062A48ADAF4E2F9485DCB7 /* Pods-ImageNotification.release.xcconfig */,
+				09A9BE907C3B902322A70952 /* Pods-ImageNotification.debug.xcconfig */,
+				2A55E7D6246EBC72F7CAF1D1 /* Pods-ImageNotification.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -394,26 +400,26 @@
 				C8AC78B0264D0F9F6F6D630E /* [CP] Embed Pods Frameworks */,
 				523C4198AE3B2746F5BF80D7 /* Frameworks */,
 				0EB51E0DFDBB192851FC028D /* [CP-User] [RNFB] Core Configuration */,
-				1AB31B7C28B972BA009CFD3F /* Embed App Extensions */,
+				1A65036728BD5A57009182AF /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				1AB31B7A28B972BA009CFD3F /* PBXTargetDependency */,
+				1A65036528BD5A57009182AF /* PBXTargetDependency */,
 			);
 			name = ultras;
 			productName = app;
 			productReference = 13B07F961A680F5B00A75B9A /* app.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1AB31B7228B972BA009CFD3F /* ImageNotification */ = {
+		1A65035D28BD5A57009182AF /* ImageNotification */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1AB31B8028B972BA009CFD3F /* Build configuration list for PBXNativeTarget "ImageNotification" */;
+			buildConfigurationList = 1A65036B28BD5A57009182AF /* Build configuration list for PBXNativeTarget "ImageNotification" */;
 			buildPhases = (
-				8CEC2E5883A9E8987617F22E /* [CP] Check Pods Manifest.lock */,
-				1AB31B6F28B972BA009CFD3F /* Sources */,
-				1AB31B7028B972BA009CFD3F /* Frameworks */,
-				1AB31B7128B972BA009CFD3F /* Resources */,
+				1963AFE8479B7F1F12CF2E45 /* [CP] Check Pods Manifest.lock */,
+				1A65035A28BD5A57009182AF /* Sources */,
+				1A65035B28BD5A57009182AF /* Frameworks */,
+				1A65035C28BD5A57009182AF /* Resources */,
 			);
 			buildRules = (
 			);
@@ -421,7 +427,7 @@
 			);
 			name = ImageNotification;
 			productName = ImageNotification;
-			productReference = 1AB31B7328B972BA009CFD3F /* ImageNotification.appex */;
+			productReference = 1A65035E28BD5A57009182AF /* ImageNotification.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -440,7 +446,7 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
 					};
-					1AB31B7228B972BA009CFD3F = {
+					1A65035D28BD5A57009182AF = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
@@ -466,7 +472,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* ultras */,
 				00E356ED1AD99517003FC87E /* appTests */,
-				1AB31B7228B972BA009CFD3F /* ImageNotification */,
+				1A65035D28BD5A57009182AF /* ImageNotification */,
 			);
 		};
 /* End PBXProject section */
@@ -536,7 +542,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1AB31B7128B972BA009CFD3F /* Resources */ = {
+		1A65035C28BD5A57009182AF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -590,6 +596,28 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
+		1963AFE8479B7F1F12CF2E45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ImageNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3E482C27206C4DEF2FE45063 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -606,28 +634,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-ultras-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8CEC2E5883A9E8987617F22E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ImageNotification-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -712,11 +718,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1AB31B6F28B972BA009CFD3F /* Sources */ = {
+		1A65035A28BD5A57009182AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AB31B7728B972BA009CFD3F /* NotificationService.m in Sources */,
+				1A65036228BD5A57009182AF /* NotificationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,10 +734,10 @@
 			target = 13B07F861A680F5B00A75B9A /* ultras */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
-		1AB31B7A28B972BA009CFD3F /* PBXTargetDependency */ = {
+		1A65036528BD5A57009182AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1AB31B7228B972BA009CFD3F /* ImageNotification */;
-			targetProxy = 1AB31B7928B972BA009CFD3F /* PBXContainerItemProxy */;
+			target = 1A65035D28BD5A57009182AF /* ImageNotification */;
+			targetProxy = 1A65036428BD5A57009182AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -859,9 +865,9 @@
 			};
 			name = Release;
 		};
-		1AB31B7D28B972BA009CFD3F /* Debug */ = {
+		1A65036828BD5A57009182AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8332D472FA177FD1EED3FA16 /* Pods-ImageNotification.debug.xcconfig */;
+			baseConfigurationReference = 09A9BE907C3B902322A70952 /* Pods-ImageNotification.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -896,9 +902,9 @@
 			};
 			name = Debug;
 		};
-		1AB31B7E28B972BA009CFD3F /* Release */ = {
+		1A65036928BD5A57009182AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40062A48ADAF4E2F9485DCB7 /* Pods-ImageNotification.release.xcconfig */;
+			baseConfigurationReference = 2A55E7D6246EBC72F7CAF1D1 /* Pods-ImageNotification.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -992,6 +998,7 @@
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1050,6 +1057,7 @@
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"\n";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1077,11 +1085,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1AB31B8028B972BA009CFD3F /* Build configuration list for PBXNativeTarget "ImageNotification" */ = {
+		1A65036B28BD5A57009182AF /* Build configuration list for PBXNativeTarget "ImageNotification" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1AB31B7D28B972BA009CFD3F /* Debug */,
-				1AB31B7E28B972BA009CFD3F /* Release */,
+				1A65036828BD5A57009182AF /* Debug */,
+				1A65036928BD5A57009182AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

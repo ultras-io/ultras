@@ -1,13 +1,24 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'themes';
+import * as notifications from 'notifications';
 import tabScreens from './screens/tabScreens';
 
 const Tab = createBottomTabNavigator();
 
 interface ITabNavigationProps {}
 
+notifications.configureBackgroundMode();
+
 const TabNavigation: React.FC<ITabNavigationProps> = () => {
+  React.useEffect(() => {
+    notifications.requestUserPermission();
+    const unsubscribe = notifications.configureInAppMode();
+
+    notifications.sendTokenToServer();
+    return unsubscribe;
+  }, []);
+
   const { colors } = useTheme();
 
   return (

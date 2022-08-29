@@ -1,7 +1,8 @@
 export interface IKeyValueProps {
   name: string;
-  value: string | boolean;
+  value: string | boolean | React.ReactNode;
   description?: string;
+  onChange?: (value: boolean) => void;
 }
 
 export interface IKeyValueGroupProps {

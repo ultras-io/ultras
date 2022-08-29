@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:386308660396:android:d2a4693083693e26bf5309",
         "android_client_info": {
-          "package_name": "com.app"
+          "package_name": "io.ultras"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "386308660396-5ot8cfk6rr7m5vrtsfj1uhaa21gmh9m9.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.app"
+                "bundle_id": "io.ultras"
               }
             }
           ]

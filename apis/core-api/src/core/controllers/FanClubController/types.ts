@@ -10,6 +10,7 @@ import {
 import { FanClubAttributes } from 'core/data/models/FanClub';
 
 interface FanClubsFilterInterface {
+  userId?: null | ResourceIdentifier;
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;

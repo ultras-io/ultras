@@ -17,6 +17,7 @@
     "@react-native-community/blur": "^3.6.0",
     "@react-native-firebase/app": "^15.3.0",
     "@react-native-firebase/messaging": "^15.3.0",
+    "@react-native-community/datetimepicker": "^6.3.2",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/material-top-tabs": "^6.0.2",
     "@react-navigation/native": "^6.0.2",
