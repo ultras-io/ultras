@@ -14,7 +14,7 @@ target 'ultras' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-
+  
   target 'appTests' do
     inherit! :complete
     # Pods for testing
@@ -32,3 +32,8 @@ target 'ultras' do
   end
 end
 
+target 'ImageNotification' do
+  pod 'Firebase/Messaging'
+
+  use_frameworks!
+end

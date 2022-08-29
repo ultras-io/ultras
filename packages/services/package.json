@@ -18,7 +18,8 @@
   "exports": {
     "./NetworkService": "./build/NetworkService/index.js",
     "./SMSService": "./build/SMSService/index.js",
-    "./MailerService": "./build/MailerService/index.js"
+    "./MailerService": "./build/MailerService/index.js",
+    "./PushNotificationService": "./build/PushNotificationService/index.js"
   },
   "repository": {
     "type": "git",

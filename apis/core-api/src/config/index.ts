@@ -74,6 +74,13 @@ const rapidApiConfig = {
   },
 };
 
+const pushNotificationConfig = {
+  projectId: process.env.FIREBASE_ADMIN_PROJECT_ID || '',
+  clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL || '',
+  privateKeyFile: process.env.FIREBASE_ADMIN_PRIVATE_KEY || '',
+  privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY_FILE || '',
+};
+
 export {
   dbConfig,
   redisConfig,
@@ -84,4 +91,5 @@ export {
   mailerConfig,
   smsConfig,
   rapidApiConfig,
+  pushNotificationConfig,
 };

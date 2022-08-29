@@ -10,40 +10,7 @@ import { dbConfig, serverConfig } from 'config';
 import { KoaApp } from 'types';
 
 import bootstrap from './bootstrap';
-
-const admin = require('firebase-admin');
-
-const serviceAccount = require('../../firebase-admin-sdk-cy59v-4d877b504a.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
-admin.messaging().send({
-  token:
-    'dNuGQ6_Fvh38HtBdqPonoC:APA91bHxMSded-FQVf3TDd1TbpcT1b6RJs' +
-    '_RZWlQ3hGOTi4pA1H-nlbzYdZQGgPpJXwieK9pHxz6xF9KQbV_l3oTyShmlJIfCnWkWdRdOM' +
-    '-czwvqk_as112dpto4MaCt4UcDI1sMxOeD',
-
-  notification: {
-    title: 'Ultras',
-    body: 'Real Mardid - Barcelona match will start soon.',
-    imageUrl:
-      'https://i0.wp.com/elartedf.com/wp-content/uploads' +
-      '/2017/11/E01_0152.jpg?resize=550%2C366',
-  },
-
-  apns: {
-    payload: {
-      aps: {
-        alert: {
-          title: 'Ultras',
-          body: 'Real Mardid - Barcelona match will start soon.',
-        },
-      },
-    },
-  },
-});
+import PushNotificationService from '@ultras/services/PushNotificationService';
 
 // database instance
 const database: IDatabase = new Database(dbConfig.logging);
@@ -61,6 +28,19 @@ const server: IApp = new App({
  * ############## BOOTSTRAP APP ##############
  */
 bootstrap();
+
+PushNotificationService.send({
+  title: 'Ultras',
+  message: 'Real Mardid - Barcelona match will start soon.',
+  imageUrl:
+    'https://i0.wp.com/elartedf.com/wp-content/uploads' +
+    '/2017/11/E01_0152.jpg?resize=550%2C366',
+  tokens: [
+    'f4Av_srt502Gml3JHOge9t:' +
+      'APA91bF-0565twV5B24c1c6475HKhDn0RXhVU1M0J2ODl6U71XvthjjvC8ZsR9HVYJ0cy05xnKriLN' +
+      '-9bQ-Mq5Y3ZRZ3ikqztFCAcmI6SGHadjVuPRZue_ObicYEI6h7H0qfCSA7YX7P',
+  ],
+});
 
 /**
  * ############## RUN SERVER ##############

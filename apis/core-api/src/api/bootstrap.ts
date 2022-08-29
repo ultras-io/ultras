@@ -1,7 +1,8 @@
-import { mailerConfig, smsConfig } from 'config';
+import { mailerConfig, smsConfig, pushNotificationConfig } from 'config';
 
 import MailerService from '@ultras/services/MailerService';
 import SMSService from '@ultras/services/SMSService';
+import PushNotificationService from '@ultras/services/PushNotificationService';
 
 const bootstrap = () => {
   // initiate mailer service
@@ -16,6 +17,14 @@ const bootstrap = () => {
     smsConfig.authToken,
     smsConfig.messageServiceId,
     smsConfig.phoneNumber
+  );
+
+  // initiate push notification service
+  PushNotificationService.initiate(
+    pushNotificationConfig.projectId,
+    pushNotificationConfig.clientEmail,
+    pushNotificationConfig.privateKeyFile,
+    pushNotificationConfig.privateKey
   );
 };
 
