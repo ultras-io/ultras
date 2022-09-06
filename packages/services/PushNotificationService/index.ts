@@ -54,31 +54,36 @@ class PushNotificationService {
     return this.singleton().send(message);
   }
 
+  static async subscribeToTopic(topic: string, deviceTokens: Array<string>) {
+    return this.singleton().subscribeToTopic(topic, deviceTokens);
+  }
+
+  static async unsubscribeFromTopic(topic: string, deviceTokens: Array<string>) {
+    return this.singleton().unsubscribeFromTopic(topic, deviceTokens);
+  }
+
   async send(message: MessageType) {
     const notification: any = {
       notification: {
-        body: message.message,
         title: message.title,
-        imageUrl: message.imageUrl,
+        body: message.message,
+        image: message.imageUrl,
       },
       apns: {
         payload: {
           aps: {
-            mutableContent: true,
+            'mutable-content': 1,
             sound: 'default',
-            alert: {
-              body: message.message,
-              title: message.title,
-            },
           },
         },
-        fcmOptions: {
-          imageUrl: message.imageUrl,
+        fcm_options: {
+          image: message.imageUrl,
         },
       },
       android: {
         priority: 'high',
         notification: {
+          imageUrl: message.imageUrl,
           sound: 'default',
         },
       },
@@ -100,7 +105,15 @@ class PushNotificationService {
       }));
     }
 
-    firebaseAdmin.messaging().sendAll(notificationList);
+    return firebaseAdmin.messaging().sendAll(notificationList);
+  }
+
+  async subscribeToTopic(topic: string, deviceTokens: Array<string>) {
+    return firebaseAdmin.messaging().subscribeToTopic(deviceTokens, topic);
+  }
+
+  async unsubscribeFromTopic(topic: string, deviceTokens: Array<string>) {
+    return firebaseAdmin.messaging().unsubscribeFromTopic(deviceTokens, topic);
   }
 }
 

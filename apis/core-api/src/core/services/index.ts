@@ -21,3 +21,4 @@ export { default as PostMemberService } from './PostMemberService';
 export { default as RedisService } from './RedisService';
 export { default as LikeService } from './LikeService';
 export { default as CommentService } from './CommentService';
+export { default as NotificationService } from './NotificationService';

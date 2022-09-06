@@ -39,8 +39,8 @@ import {
   ProfileParams,
   ProfileResult,
   UserAndTeams,
+  SetDeviceTokenParams,
 } from './types';
-import { SetDeviceTokenParams } from '.';
 
 class UserController extends BaseController {
   static async checkUsernameExistence({

@@ -12,10 +12,11 @@ notifications.configureBackgroundMode();
 
 const TabNavigation: React.FC<ITabNavigationProps> = () => {
   React.useEffect(() => {
-    notifications.requestUserPermission();
-    const unsubscribe = notifications.configureInAppMode();
+    notifications.requestUserPermission().then(() => {
+      notifications.sendTokenToServer();
+    });
 
-    notifications.sendTokenToServer();
+    const unsubscribe = notifications.configureInAppMode();
     return unsubscribe;
   }, []);
 

@@ -29,18 +29,30 @@ const server: IApp = new App({
  */
 bootstrap();
 
-PushNotificationService.send({
-  title: 'Ultras',
-  message: 'Real Mardid - Barcelona match will start soon.',
-  imageUrl:
-    'https://i0.wp.com/elartedf.com/wp-content/uploads' +
-    '/2017/11/E01_0152.jpg?resize=550%2C366',
-  tokens: [
-    'f4Av_srt502Gml3JHOge9t:' +
-      'APA91bF-0565twV5B24c1c6475HKhDn0RXhVU1M0J2ODl6U71XvthjjvC8ZsR9HVYJ0cy05xnKriLN' +
-      '-9bQ-Mq5Y3ZRZ3ikqztFCAcmI6SGHadjVuPRZue_ObicYEI6h7H0qfCSA7YX7P',
-  ],
-});
+// const topic = 'topic-3';
+// PushNotificationService.subscribeToTopic(topic, [
+//   // eslint-disable-next-line max-len
+//   'flydhwx5EErcoQ4nhVd6FC:APA91bGnJgcGtoweAj8vB6CoMrKYXng1mlSqGY1hFOxjUlvp3VCI337UvDNO85XxGUKrgdsXJaqWkc-5irOOPns7WoUZfzyIRzz7jayxUJQujT5wXNQ2iFuf1E1LV815Gc-Y2t1PsDFQ',
+// ])
+//   .then(() => {
+//     console.log();
+//     console.log(`Successfully subscribed to topic: ${topic}`);
+//     console.log();
+
+//     PushNotificationService.send({
+//       title: `Bad news !!!`,
+//       message: 'Real Madrid vs Real Sossiedad match cancelled.',
+//       imageUrl: 'https://www.insidesport.in/wp-content/uploads/2020/06/2017091319383128613_1505650806-800-1.jpg',
+//       // tokens: [
+//       //   // eslint-disable-next-line max-len
+//       //   'd_89isHY6k0imhO-duxGfs:APA91bE030Ha-U2Tya-vxF5aGUN6dB7F9foTfGTO6tHFAzgmsT7ET6EuqpedI_Ddm_7i3EAN_CdZQdm58peN6cEx_8bM7u9TSC0jl66atuZTjPXa6tFridQdj__K9qqnhT8LZvZmE69S',
+//       // ],
+//       topic: topic,
+//     });
+//   })
+//   .catch(error => {
+//     console.log('Error subscribing to topic:', error);
+//   });
 
 /**
  * ############## RUN SERVER ##############
