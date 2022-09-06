@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import '../module-alias.js';
 
 import Koa from 'koa';
@@ -10,7 +12,7 @@ import { dbConfig, serverConfig } from 'config';
 import { KoaApp } from 'types';
 
 import bootstrap from './bootstrap';
-import PushNotificationService from '@ultras/services/PushNotificationService';
+// import PushNotificationService from '@ultras/services/PushNotificationService';
 
 // database instance
 const database: IDatabase = new Database(dbConfig.logging);
@@ -31,7 +33,6 @@ bootstrap();
 
 // const topic = 'topic-3';
 // PushNotificationService.subscribeToTopic(topic, [
-//   // eslint-disable-next-line max-len
 //   'flydhwx5EErcoQ4nhVd6FC:APA91bGnJgcGtoweAj8vB6CoMrKYXng1mlSqGY1hFOxjUlvp3VCI337UvDNO85XxGUKrgdsXJaqWkc-5irOOPns7WoUZfzyIRzz7jayxUJQujT5wXNQ2iFuf1E1LV815Gc-Y2t1PsDFQ',
 // ])
 //   .then(() => {
@@ -44,7 +45,6 @@ bootstrap();
 //       message: 'Real Madrid vs Real Sossiedad match cancelled.',
 //       imageUrl: 'https://www.insidesport.in/wp-content/uploads/2020/06/2017091319383128613_1505650806-800-1.jpg',
 //       // tokens: [
-//       //   // eslint-disable-next-line max-len
 //       //   'd_89isHY6k0imhO-duxGfs:APA91bE030Ha-U2Tya-vxF5aGUN6dB7F9foTfGTO6tHFAzgmsT7ET6EuqpedI_Ddm_7i3EAN_CdZQdm58peN6cEx_8bM7u9TSC0jl66atuZTjPXa6tFridQdj__K9qqnhT8LZvZmE69S',
 //       // ],
 //       topic: topic,
