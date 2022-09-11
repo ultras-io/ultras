@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Avatar, Button, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
