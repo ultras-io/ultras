@@ -12,6 +12,7 @@ import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
 import buildFanClubMembersStore from 'stores/fanClubMembers';
+import { FanClubMemberStatusEnum } from '@ultras/utils';
 
 const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
@@ -23,7 +24,9 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
     'delete'
   );
 
-  const [isJoined, setIsJoined] = React.useState(data.joined || false);
+  const [isJoined, setIsJoined] = React.useState(
+    data.joinStatus === FanClubMemberStatusEnum.active || false
+  );
 
   const onJoinLeavePress = React.useCallback(() => {
     setIsJoined(!isJoined);
@@ -37,10 +40,16 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   }, [data.id, isJoined, fanClubMembersStore]);
 
   React.useEffect(() => {
-    if (isJoined && storeAdd.status === 'error') {
+    if (data.joinStatus === FanClubMemberStatusEnum.active) {
+      setIsJoined(true);
+    }
+  }, [data.joinStatus]);
+
+  React.useEffect(() => {
+    if (storeAdd.status === 'error') {
       setIsJoined(false);
     }
-    if (!isJoined && storeDelete.status === 'error') {
+    if (storeDelete.status === 'error') {
       setIsJoined(true);
     }
   }, [isJoined, storeAdd.status, storeDelete.status]);

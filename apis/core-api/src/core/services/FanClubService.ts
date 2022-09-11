@@ -197,17 +197,19 @@ class FanClubService extends BaseService {
           include: [
             [
               db.Sequelize.literal(`
-                EXISTS (
-                  SELECT 1
+                (
+                  SELECT "status" AS "joinStatus"
                   FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
                   WHERE (
+                    "deletedAt" IS NULL
+                    AND
                     "memberId" = ${params.userId}
                     AND
                     "fanClubId" = "${resources.FAN_CLUB.RELATION}"."id"
                   )
                 )
               `),
-              'joined',
+              'joinStatus',
             ],
           ],
         },
@@ -237,8 +239,8 @@ class FanClubService extends BaseService {
                 { privacy: FanClubPrivacyEnum.private },
 
                 db.Sequelize.literal(`
-          "${relationNameMember}->${relationNameFanClubMember}"."id" IS NOT NULL
-        `),
+                  "${relationNameMember}->${relationNameFanClubMember}"."id" IS NOT NULL
+                `),
               ],
             },
           ],
@@ -262,17 +264,19 @@ class FanClubService extends BaseService {
         include: [
           [
             db.Sequelize.literal(`
-              EXISTS (
-                SELECT 1
+              (
+                SELECT "status" AS "joinStatus"
                 FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
                 WHERE (
+                  "deletedAt" IS NULL
+                  AND
                   "memberId" = ${userId}
                   AND
                   "fanClubId" = "${resources.FAN_CLUB.RELATION}"."id"
                 )
               )
             `),
-            'joined',
+            'joinStatus',
           ],
         ],
       };

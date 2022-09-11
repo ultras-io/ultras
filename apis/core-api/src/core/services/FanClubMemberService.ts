@@ -115,6 +115,9 @@ class FanClubMemberService extends BaseService {
         fanClubId: fanClubId,
         memberId: memberId,
       },
+      attributes: {
+        include: ['deletedAt'],
+      },
       paranoid: false,
     });
 
