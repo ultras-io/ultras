@@ -48,10 +48,14 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   }, [data.id, isJoined, eventMembersStore]);
 
   React.useEffect(() => {
-    if (isJoined && storeAdd.status === 'error') {
+    setIsJoined(data.post.joined || false);
+  }, [data.post.joined]);
+
+  React.useEffect(() => {
+    if (storeAdd.status === 'error') {
       setIsJoined(false);
     }
-    if (!isJoined && storeDelete.status === 'error') {
+    if (storeDelete.status === 'error') {
       setIsJoined(true);
     }
   }, [isJoined, storeAdd.status, storeDelete.status]);
