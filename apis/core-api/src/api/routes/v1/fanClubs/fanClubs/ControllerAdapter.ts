@@ -62,9 +62,13 @@ class ControllerAdapter {
   static async getAll(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const params = ctx.request.query;
+    const { userId } = ctx.user;
 
     /** CONTROLLERS */
-    const { data, limit, offset, count } = await FanClubController.getAll(params);
+    const { data, limit, offset, count } = await FanClubController.getAll({
+      ...params,
+      userId,
+    });
 
     /** RESPONSE */
     // @TODO make response types
@@ -81,9 +85,10 @@ class ControllerAdapter {
   static async getById(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { fanClubId } = ctx.request.params;
+    const userId = ctx.user.userId || undefined;
 
     /** CONTROLLERS */
-    const { data } = await FanClubController.getById(fanClubId);
+    const { data } = await FanClubController.getById(fanClubId, userId);
 
     /** RESPONSE */
     // @TODO make response types

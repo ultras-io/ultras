@@ -116,16 +116,21 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
 
   public rejectRequest(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
     return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
-      `${fanClubId}/memberships/${membershipId}/accept-request`
+      `${fanClubId}/memberships/${membershipId}/reject-request`
     );
   }
   // #endregion
 
   // #region admin/member actions
-  public leaveFanClub(fanClubId: ResourceIdentifier, membershipId: ResourceIdentifier) {
-    return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
-      `${fanClubId}/memberships/${membershipId}/leave`
-    );
+  public leaveFanClub(
+    fanClubId: ResourceIdentifier,
+    membershipId?: ResourceIdentifier | undefined
+  ) {
+    const leaveFanClubUrl = membershipId
+      ? `${fanClubId}/memberships/${membershipId}/leave`
+      : `${fanClubId}/memberships/leave`;
+
+    return this.api?.makeAPIDeleteRequest<ConfirmationResultType>(leaveFanClubUrl);
   }
   // #endregion
 

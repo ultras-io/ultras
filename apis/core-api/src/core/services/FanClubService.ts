@@ -183,7 +183,7 @@ class FanClubService extends BaseService {
       params.order = OrderEnum.asc;
     }
 
-    let moreQueryOptions = {};
+    let moreQueryOptions: any = {};
     if (!params.userId) {
       // show only public fan clubs if user is not logged in
       this.queryAppend(query, 'privacy', FanClubPrivacyEnum.public);
@@ -193,6 +193,24 @@ class FanClubService extends BaseService {
 
       // show public fan clubs and private fan clubs that user in
       moreQueryOptions = {
+        attributes: {
+          include: [
+            [
+              db.Sequelize.literal(`
+                EXISTS (
+                  SELECT 1
+                  FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
+                  WHERE (
+                    "memberId" = ${params.userId}
+                    AND
+                    "fanClubId" = "${resources.FAN_CLUB.RELATION}"."id"
+                  )
+                )
+              `),
+              'joined',
+            ],
+          ],
+        },
         subQuery: false,
         include: [
           {
@@ -208,7 +226,10 @@ class FanClubService extends BaseService {
             },
           },
         ],
-        where: {
+      };
+
+      if (!params.name) {
+        moreQueryOptions.where = {
           [db.Sequelize.Op.or]: [
             { privacy: FanClubPrivacyEnum.public },
             {
@@ -216,13 +237,13 @@ class FanClubService extends BaseService {
                 { privacy: FanClubPrivacyEnum.private },
 
                 db.Sequelize.literal(`
-                  "${relationNameMember}->${relationNameFanClubMember}"."id" IS NOT NULL
-                `),
+          "${relationNameMember}->${relationNameFanClubMember}"."id" IS NOT NULL
+        `),
               ],
             },
           ],
-        },
-      };
+        };
+      }
     }
 
     return this.findAndCountAll(db.FanClub, query, params, true, moreQueryOptions);
@@ -231,8 +252,33 @@ class FanClubService extends BaseService {
   /**
    * Get fan club by their ID.
    */
-  static async getById(id: ResourceIdentifier): ServiceByIdResultType<FanClubAttributes> {
-    return this.findById(db.FanClub, id);
+  static async getById(
+    id: ResourceIdentifier,
+    userId?: ResourceIdentifier | undefined
+  ): ServiceByIdResultType<FanClubAttributes> {
+    const options: any = {};
+    if (userId) {
+      options.attributes = {
+        include: [
+          [
+            db.Sequelize.literal(`
+              EXISTS (
+                SELECT 1
+                FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
+                WHERE (
+                  "memberId" = ${userId}
+                  AND
+                  "fanClubId" = "${resources.FAN_CLUB.RELATION}"."id"
+                )
+              )
+            `),
+            'joined',
+          ],
+        ],
+      };
+    }
+
+    return this.findById(db.FanClub, id, options);
   }
 
   /**

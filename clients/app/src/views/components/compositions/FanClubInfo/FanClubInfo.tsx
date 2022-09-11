@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Button, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
@@ -11,12 +11,40 @@ import { getReadableNumber } from 'utils/helpers/readableNumber';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
+import buildFanClubMembersStore from 'stores/fanClubMembers';
 
 const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
 
-  const isJoined = false;
+  const fanClubMembersStore = React.useMemo(() => buildFanClubMembersStore(), []);
+  const { add: storeAdd, delete: storeDelete } = fanClubMembersStore.useSelector(
+    'add',
+    'delete'
+  );
+
+  const [isJoined, setIsJoined] = React.useState(data.joined || false);
+
+  const onJoinLeavePress = React.useCallback(() => {
+    setIsJoined(!isJoined);
+
+    if (isJoined) {
+      fanClubMembersStore.remove({ fanClubId: data.id });
+    } else {
+      fanClubMembersStore.setFieldValue('fanClubId', data.id);
+      fanClubMembersStore.create();
+    }
+  }, [data.id, isJoined, fanClubMembersStore]);
+
+  React.useEffect(() => {
+    if (isJoined && storeAdd.status === 'error') {
+      setIsJoined(false);
+    }
+    if (!isJoined && storeDelete.status === 'error') {
+      setIsJoined(true);
+    }
+    console.log(isJoined, storeAdd.status, storeDelete.status);
+  }, [isJoined, storeAdd.status, storeDelete.status]);
 
   const openMembersList = React.useCallback(
     () =>
@@ -77,7 +105,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         )}
 
         <Button
-          onPress={() => {}}
+          onPress={onJoinLeavePress}
           leftIcon={
             <Icon
               name={isJoined ? Icons.Check : Icons.ArrowForward}
