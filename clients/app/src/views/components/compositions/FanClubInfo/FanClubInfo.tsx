@@ -43,7 +43,6 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
     if (!isJoined && storeDelete.status === 'error') {
       setIsJoined(true);
     }
-    console.log(isJoined, storeAdd.status, storeDelete.status);
   }, [isJoined, storeAdd.status, storeDelete.status]);
 
   const openMembersList = React.useCallback(
