@@ -11,6 +11,7 @@ export type PostViewModel = ViewModel<{
   fanClub?: Nullable<FanClubViewModel>;
   title: string;
   content: string;
+  image: Nullable<string>;
   likesCount: number;
   commentsCount: number;
   joined?: boolean;

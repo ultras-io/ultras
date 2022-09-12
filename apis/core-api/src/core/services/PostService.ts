@@ -38,6 +38,8 @@ class PostService extends BaseService {
             SELECT 1
             FROM "${resources.ULTRAS_CORE}"."${resources.POST_MEMBER.RELATION}"
             WHERE (
+              "deletedAt" IS NULL
+              AND
               "userId" = ${args.userId}
               AND
               "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"

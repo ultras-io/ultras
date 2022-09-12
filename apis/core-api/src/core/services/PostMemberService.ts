@@ -74,11 +74,11 @@ class PostMemberService extends BaseService {
   static delete({ postId, userId }: DeleteParamsInterface, transaction?: Transaction) {
     return db.PostMember.destroy(
       {
+        force: true,
         where: {
           postId,
           userId,
         },
-        force: true,
       },
       { transaction }
     );

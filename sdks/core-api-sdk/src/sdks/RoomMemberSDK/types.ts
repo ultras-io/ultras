@@ -1,4 +1,4 @@
-import type { BaseUserViewModel } from '@ultras/view-models';
+import type { RoomMembersViewModel } from '@ultras/view-models';
 import type { ApiResponseBodyType, ListResponseMetaType } from '../types';
 
 export type GetRoomMembersFilter = {
@@ -6,9 +6,6 @@ export type GetRoomMembersFilter = {
 };
 
 export type GetRoomMembersResponse = ApiResponseBodyType<
-  Array<{
-    id: ResourceIdentifier;
-    user: BaseUserViewModel;
-  }>,
+  RoomMembersViewModel,
   ListResponseMetaType
 >;

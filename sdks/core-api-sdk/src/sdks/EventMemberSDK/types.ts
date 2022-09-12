@@ -1,4 +1,4 @@
-import type { BaseUserViewModel } from '@ultras/view-models';
+import type { EventMembersViewModel } from '@ultras/view-models';
 import type { ApiResponseBodyType, ListResponseMetaType } from '../types';
 
 export type GetEventMembersFilter = {
@@ -6,9 +6,6 @@ export type GetEventMembersFilter = {
 };
 
 export type GetEventMembersResponse = ApiResponseBodyType<
-  Array<{
-    id: ResourceIdentifier;
-    user: BaseUserViewModel;
-  }>,
+  EventMembersViewModel,
   ListResponseMetaType
 >;
