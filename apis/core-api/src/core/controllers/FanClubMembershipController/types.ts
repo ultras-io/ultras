@@ -89,7 +89,7 @@ export type FanClubMembershipActionResult = ControllerResultType<{
 
 export type FanClubAcceptOrRejectInvitationParams = {
   fanClubId: ResourceIdentifier;
-  membershipId: ResourceIdentifier;
+  membershipId?: ResourceIdentifier;
   memberId?: ResourceIdentifier;
 };
 export type FanClubAcceptOrRejectInvitationResult = ControllerResultType<{

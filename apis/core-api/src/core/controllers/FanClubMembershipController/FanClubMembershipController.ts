@@ -345,12 +345,15 @@ class FanClubMembershipController extends BaseController {
     membershipId,
     memberId,
   }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
-    await FanClubMemberService.remove({
-      membershipId,
-      memberId,
-      fanClubId,
-    });
+    const conditionParams: any = { fanClubId };
+    if (membershipId) {
+      conditionParams.membershipId = membershipId;
+    }
+    if (memberId) {
+      conditionParams.memberId = memberId;
+    }
 
+    await FanClubMemberService.remove(conditionParams);
     return {
       data: {
         success: true,
@@ -362,13 +365,15 @@ class FanClubMembershipController extends BaseController {
     membershipId,
     memberId,
   }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
-    await FanClubMemberService.updateStatusAndRole({
-      memberId,
-      membershipId,
-      fanClubId,
-      status: FanClubMemberStatusEnum.active,
-    });
+    const conditionParams: any = { fanClubId, status: FanClubMemberStatusEnum.active };
+    if (membershipId) {
+      conditionParams.membershipId = membershipId;
+    }
+    if (memberId) {
+      conditionParams.memberId = memberId;
+    }
 
+    await FanClubMemberService.updateStatusAndRole(conditionParams);
     return {
       data: {
         success: true,
@@ -381,12 +386,15 @@ class FanClubMembershipController extends BaseController {
     membershipId,
     memberId,
   }: FanClubAcceptOrRejectInvitationParams): FanClubAcceptOrRejectInvitationResult {
-    await FanClubMemberService.remove({
-      memberId,
-      membershipId,
-      fanClubId,
-    });
+    const conditionParams: any = { fanClubId };
+    if (membershipId) {
+      conditionParams.membershipId = membershipId;
+    }
+    if (memberId) {
+      conditionParams.memberId = memberId;
+    }
 
+    await FanClubMemberService.remove(conditionParams);
     return {
       data: {
         success: true,

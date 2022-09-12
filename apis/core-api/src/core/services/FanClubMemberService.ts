@@ -99,7 +99,7 @@ class FanClubMemberService extends BaseService {
     { fanClubId, memberId, role, status }: CreateMemberInterface,
     transaction?: Transaction
   ): Promise<null | FanClubMemberViewModel> {
-    const fanClub = await db.FanClub.findByPk(fanClubId);
+    const fanClub = await db.FanClub.findByPk(fanClubId, { transaction });
 
     // if is join request and fan club is public then status must be
     // updated to active automatically
@@ -114,6 +114,9 @@ class FanClubMemberService extends BaseService {
       where: {
         fanClubId: fanClubId,
         memberId: memberId,
+      },
+      attributes: {
+        include: ['deletedAt'],
       },
       paranoid: false,
     });

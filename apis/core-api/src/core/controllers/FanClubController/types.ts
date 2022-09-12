@@ -14,6 +14,7 @@ interface FanClubsFilterInterface {
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
   teamId?: ResourceIdentifier;
+  userId?: ResourceIdentifier;
 }
 
 export type FanClubCreateParams = {

@@ -15,9 +15,12 @@ import {
 type ParamType = InitStoreParamsInterface<FanClubMemberViewModel>;
 type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
-type TDeleteEvent = {
+type TDeleteFanClubMember = {
   fanClubId: ResourceIdentifier;
   membershipId: ResourceIdentifier;
+};
+type TCreateFanClubMember = {
+  fanClubId: ResourceIdentifier;
 };
 
 interface LoadAllParams extends FullFilterable<GetFanClubMembershipsFilter> {
@@ -30,13 +33,13 @@ const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<
     FanClubMemberViewModel,
     FanClubMemberViewModel,
-    ResourceIdentifier,
+    TCreateFanClubMember,
     FanClubMemberViewModel,
-    TDeleteEvent,
+    TDeleteFanClubMember,
     FilterType,
-    'list' | 'delete'
+    'list' | 'add' | 'delete'
   >({
-    keys: ['list', 'delete'],
+    keys: ['list', 'add', 'delete'],
     ...(params as ParamType),
 
     loadAll: (filter: LoadAllParams) => {
@@ -50,11 +53,11 @@ const buildFanClubMembersStore = (params: Partial<ParamType> = {}) => {
     //   return sdk.getFanClub(id);
     // },
 
-    // create: (data: Partial<FanClubViewModel>) => {
-    //   return sdk.create(data);
-    // },
+    create: (data: TCreateFanClubMember) => {
+      return sdk.requestJoin(data.fanClubId);
+    },
 
-    remove: (data: TDeleteEvent) => {
+    remove: (data: TDeleteFanClubMember) => {
       return sdk.leaveFanClub(data.fanClubId, data.membershipId);
     },
   });

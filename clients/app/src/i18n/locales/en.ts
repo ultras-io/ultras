@@ -93,7 +93,7 @@ export default {
   fanClubs: 'Fan Clubs',
   'fanClubs-no': 'No Fan Clubs',
   'fanClubs-join': 'Join the Club',
-  'fanClubs-joined': 'joined',
+  'fanClubs-joined': 'Joined',
   'fanClubs-fans': 'Fans',
 
   // rooms
