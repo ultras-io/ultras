@@ -29,7 +29,7 @@ const AddActionSheet: React.FC<IAddActionSheetProps> = ({ isOpen, onClose }) => 
           w={'full'}
           py={'3'}
         >
-          <Text variant={'matchTime'}> {I18n.t('common-create')}</Text>
+          <Text variant={'actionSheetTitle'}>{I18n.t('common-create')}</Text>
         </Center>
         <Actionsheet.Item
           startIcon={<Icon name={Icons.Event} color={'iconPrimary'} size={'ic-md'} />}

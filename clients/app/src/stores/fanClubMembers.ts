@@ -17,7 +17,7 @@ type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
 type TDeleteFanClubMember = {
   fanClubId: ResourceIdentifier;
-  membershipId: ResourceIdentifier;
+  membershipId?: ResourceIdentifier;
 };
 type TCreateFanClubMember = {
   fanClubId: ResourceIdentifier;
