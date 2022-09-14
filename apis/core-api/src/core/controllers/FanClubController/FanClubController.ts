@@ -120,6 +120,7 @@ class FanClubController extends BaseController {
     cityId,
     countryId,
     teamId,
+    userId,
   }: FanClubsListParams): FanClubsListResult {
     const { rows, count } = await FanClubService.getAll({
       limit,
@@ -130,6 +131,7 @@ class FanClubController extends BaseController {
       cityId,
       countryId,
       teamId,
+      userId,
     });
 
     return {
@@ -140,8 +142,11 @@ class FanClubController extends BaseController {
     };
   }
 
-  static async getById(id: ResourceIdentifier): FanClubByIdResult {
-    const fanClub = await FanClubService.getById(id);
+  static async getById(
+    id: ResourceIdentifier,
+    userId?: ResourceIdentifier | undefined
+  ): FanClubByIdResult {
+    const fanClub = await FanClubService.getById(id, userId);
 
     if (!fanClub) {
       throw new ResourceNotFoundError({

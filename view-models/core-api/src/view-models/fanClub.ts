@@ -1,4 +1,4 @@
-import { FanClubPrivacyEnum } from '@ultras/utils';
+import { FanClubMemberStatusEnum, FanClubPrivacyEnum } from '@ultras/utils';
 
 import { CityViewModel } from './city';
 import { CountryViewModel } from './country';
@@ -17,7 +17,7 @@ export type FanClubViewModel = ViewModel<{
   country: CountryViewModel;
   team: TeamViewModel;
   owner: UserViewModel;
-  joined?: boolean;
+  joinStatus?: FanClubMemberStatusEnum;
 }>;
 
 export type FanClubsViewModel = Array<FanClubViewModel>;

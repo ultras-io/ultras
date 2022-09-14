@@ -8,10 +8,14 @@ interface DataTypeInterface {
 export const scheme: SchemeInterface<DataTypeInterface> = {
   title: {
     initialValue: '',
-    // validate: (a, b) => {
-    //   return ['error1', 'error2'];
-    // },
-    // processValue
+  },
+  dateTime: {
+    initialValue: new Date(),
   },
   isEndDateTime: { initialValue: false },
+  endDateTime: {
+    initialValue: new Date(),
+  },
+  locationName: { initialValue: '' },
+  content: { initialValue: '' },
 };

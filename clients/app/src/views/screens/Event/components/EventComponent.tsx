@@ -21,11 +21,44 @@ import Icon from 'views/components/base/Icon';
 import { Icons } from 'assets/icons';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IEventComponentProps } from '../types';
+import buildEventMembersStore from 'stores/eventMembers';
 
 const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
   const [ratio, setRatio] = React.useState(3 / 2);
+
+  const eventMembersStore = React.useMemo(() => buildEventMembersStore(), []);
+  const { add: storeAdd, delete: storeDelete } = eventMembersStore.useSelector(
+    'add',
+    'delete'
+  );
+
+  const [isJoined, setIsJoined] = React.useState(data.post.joined || false);
+
+  const onJoinLeavePress = React.useCallback(() => {
+    setIsJoined(!isJoined);
+
+    if (isJoined) {
+      eventMembersStore.remove({ eventId: data.id });
+    } else {
+      eventMembersStore.setFieldValue('eventId', data.id);
+      eventMembersStore.create();
+    }
+  }, [data.id, isJoined, eventMembersStore]);
+
+  React.useEffect(() => {
+    setIsJoined(data.post.joined || false);
+  }, [data.post.joined]);
+
+  React.useEffect(() => {
+    if (storeAdd.status === 'error') {
+      setIsJoined(false);
+    }
+    if (storeDelete.status === 'error') {
+      setIsJoined(true);
+    }
+  }, [isJoined, storeAdd.status, storeDelete.status]);
 
   React.useLayoutEffect(() => {
     if (data.post.image) {
@@ -113,11 +146,18 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
 
       <HStack mx={'4'} space={'5'} alignItems={'center'}>
         <Button
-          rightIcon={<Icon name={Icons.Check} color={'iconPrimary'} size={'ic-xs'} />}
-          variant={'actionInvert'}
+          rightIcon={
+            <Icon
+              name={isJoined ? Icons.Check : Icons.ArrowForward}
+              color={isJoined ? 'iconPrimary' : 'iconPrimaryInvert'}
+              size={'ic-xs'}
+            />
+          }
+          variant={isJoined ? 'actionInvert' : 'action'}
           flex={1}
+          onPress={onJoinLeavePress}
         >
-          {I18n.t('events-going')}
+          {I18n.t(isJoined ? 'events-going' : 'events-join')}
         </Button>
         <Icon name={Icons.Like} color={'iconPrimary'} size={'ic-md'} />
         <Icon name={Icons.Comments} color={'iconPrimary'} size={'ic-md'} />

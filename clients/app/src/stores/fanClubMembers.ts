@@ -15,9 +15,12 @@ import {
 type ParamType<TScheme> = InitStoreParamsInterface<FanClubMemberViewModel, TScheme>;
 type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
-type TDeleteEvent = {
+type TDeleteFanClubMember = {
   fanClubId: ResourceIdentifier;
   membershipId: ResourceIdentifier;
+};
+type TCreateFanClubMember = {
+  fanClubId: ResourceIdentifier;
 };
 
 interface LoadAllParams extends FullFilterable<GetFanClubMembershipsFilter> {
@@ -30,14 +33,14 @@ const buildFanClubMembersStore = <TScheme>(params: Partial<ParamType<TScheme>> =
   return generateCRUD<
     FanClubMemberViewModel,
     FanClubMemberViewModel,
-    ResourceIdentifier,
+    TCreateFanClubMember,
     FanClubMemberViewModel,
-    TDeleteEvent,
+    TDeleteFanClubMember,
     FilterType,
     TScheme,
-    'list' | 'delete'
+    'list' | 'add' | 'delete'
   >({
-    keys: ['list', 'delete'],
+    keys: ['list', 'add', 'delete'],
     ...(params as ParamType<TScheme>),
 
     loadAll: (filter: LoadAllParams) => {
@@ -51,11 +54,11 @@ const buildFanClubMembersStore = <TScheme>(params: Partial<ParamType<TScheme>> =
     //   return sdk.getFanClub(id);
     // },
 
-    // create: (data: Partial<FanClubViewModel>) => {
-    //   return sdk.create(data);
-    // },
+    create: (data: TCreateFanClubMember) => {
+      return sdk.requestJoin(data.fanClubId);
+    },
 
-    remove: (data: TDeleteEvent) => {
+    remove: (data: TDeleteFanClubMember) => {
       return sdk.leaveFanClub(data.fanClubId, data.membershipId);
     },
   });

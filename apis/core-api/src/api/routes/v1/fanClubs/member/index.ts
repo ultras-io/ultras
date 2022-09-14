@@ -15,6 +15,7 @@ const routerWithFanClubId = new Router({
 });
 
 routerWithFanClubId.post('/join', ...auth, ControllerAdapter.requestJoin);
+routerWithFanClubId.delete('/leave', ...auth, ControllerAdapter.leave);
 routerWithFanClubId.delete(
   '/:id/leave',
   ...auth,

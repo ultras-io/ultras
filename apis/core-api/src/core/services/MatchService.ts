@@ -119,6 +119,10 @@ class MatchService extends BaseService {
     return this.findById(db.Match, id);
   }
 
+  private static teamsById: Record<number, any> = {};
+  private static leaguesById: Record<number, any> = {};
+  private static venuesById: Record<number, any> = {};
+
   /**
    * Inject data from Rapid API.
    * @important matches date is required.
@@ -133,61 +137,65 @@ class MatchService extends BaseService {
 
     for (const responseItem of response) {
       const item: RapidApiMatch = responseItem as RapidApiMatch;
-
-      const teams = await db.Team.findAll({
-        where: {
-          dataRapidId: {
-            [db.Sequelize.Op.in]: [item.teams.home.id, item.teams.away.id],
-          },
-        },
-        attributes: ['dataRapidId', 'id'],
-        limit: 2,
-      });
-
-      if (teams.length != 2) {
+      if (
+        !item.fixture.venue.id ||
+        !item.league.id ||
+        !item.teams.home.id ||
+        !item.teams.away.id
+      ) {
         continue;
       }
 
-      const venue = await db.Venue.findOne({
-        where: {
-          dataRapidId: item.fixture.venue.id,
-        },
-        attributes: ['dataRapidId', 'id'],
-      });
-
+      let venue = this.venuesById[item.fixture.venue.id];
       if (!venue) {
-        continue;
-      }
-
-      const league = await db.League.findOne({
-        where: {
-          dataRapidId: item.league.id,
-        },
-        attributes: ['dataRapidId', 'id'],
-      });
-
-      if (!league) {
-        continue;
-      }
-
-      const { teamHome, teamAway } = teams.reduce(
-        (acc: any, team: any) => {
-          if (team.getDataValue('dataRapidId') == item.teams.home.id) {
-            acc.teamHome = team;
-          } else if (team.getDataValue('dataRapidId') == item.teams.away.id) {
-            acc.teamAway = team;
-          }
-
-          return acc;
-        },
-        {
-          teamHome: null,
-          teamAway: null,
+        venue = await db.Venue.findOne({
+          attributes: ['dataRapidId', 'id'],
+          where: {
+            dataRapidId: item.fixture.venue.id,
+          },
+        });
+        if (!venue) {
+          continue;
         }
-      );
+      }
 
-      if (!teamHome || !teamAway) {
-        continue;
+      let league = this.leaguesById[item.league.id];
+      if (!league) {
+        league = await db.League.findOne({
+          attributes: ['dataRapidId', 'id'],
+          where: {
+            dataRapidId: item.league.id,
+          },
+        });
+        if (!league) {
+          continue;
+        }
+      }
+
+      let teamHome = this.teamsById[item.teams.home.id];
+      if (!teamHome) {
+        teamHome = await db.Team.findOne({
+          attributes: ['dataRapidId', 'id'],
+          where: {
+            dataRapidId: item.teams.home.id,
+          },
+        });
+        if (!teamHome) {
+          continue;
+        }
+      }
+
+      let teamAway = this.teamsById[item.teams.away.id];
+      if (!teamAway) {
+        teamAway = await db.Team.findOne({
+          attributes: ['dataRapidId', 'id'],
+          where: {
+            dataRapidId: item.teams.away.id,
+          },
+        });
+        if (!teamAway) {
+          continue;
+        }
       }
 
       let matchWinner: WinnerEnum = WinnerEnum.draw;
@@ -197,7 +205,7 @@ class MatchService extends BaseService {
         matchWinner = WinnerEnum.away;
       }
 
-      records.push({
+      const rowData = {
         dateTime: item.fixture.date,
         teamHomeId: teamHome.getDataValue('id'),
         teamAwayId: teamAway.getDataValue('id'),
@@ -209,8 +217,22 @@ class MatchService extends BaseService {
         goalsAway: item.goals.away,
         elapsedTime: item.fixture.status.elapsed,
         dataRapidId: item.fixture.id,
+      };
+
+      const existing = await db.Match.findOne({
+        where: { dataRapidId: item.fixture.id },
       });
 
+      if (existing) {
+        for (const key in rowData) {
+          existing.setDataValue(key, (rowData as any)[key]);
+        }
+
+        await existing.save();
+        continue;
+      }
+
+      records.push(rowData);
       if (records.length != 0 && ++iteration % 20 == 0) {
         await db.Match.bulkCreate(records, {
           ignoreDuplicates: true,

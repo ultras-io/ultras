@@ -64,7 +64,7 @@ const Username: React.FC<IUsernameProps> = ({ useStore }) => {
       )}
 
       <Button
-        onPress={() => register()}
+        onPress={register}
         variant={'primary'}
         mt={'2'}
         disabled={!(status === 'success' && isUserNameValid)}
