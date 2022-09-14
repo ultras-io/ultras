@@ -12,12 +12,12 @@ import {
 } from './generateCRUD';
 import { OrderEnum } from '@ultras/utils';
 
-type ParamType = InitStoreParamsInterface<CountryViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<CountryViewModel, TScheme>;
 type FilterType = Filterable<GetCountriesFilter>;
 
 const sdk = new CountrySDK('dev');
 
-const buildCountriesStore = (params: Partial<ParamType> = {}) => {
+const buildCountriesStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     CountryViewModel,
     CountryViewModel,
@@ -25,10 +25,11 @@ const buildCountriesStore = (params: Partial<ParamType> = {}) => {
     null,
     null,
     FilterType,
+    TScheme,
     'list' | 'single'
   >({
     keys: ['list', 'single'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: FullFilterable<GetCountriesFilter>) => {
       return sdk.getCountries({

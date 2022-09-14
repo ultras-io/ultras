@@ -1,11 +1,11 @@
 import { UserViewModel, UserSDK, ResourceIdentifier } from '@ultras/core-api-sdk';
 import { generateCRUD, InitStoreParamsInterface } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<UserViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<UserViewModel, TScheme>;
 
 const sdk = new UserSDK('dev');
 
-const buildUserStore = (params: Partial<ParamType> = {}) => {
+const buildUserStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     UserViewModel,
     UserViewModel,
@@ -13,10 +13,11 @@ const buildUserStore = (params: Partial<ParamType> = {}) => {
     null,
     ResourceIdentifier,
     null,
+    TScheme,
     'single'
   >({
     keys: ['single'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadSingle: (id: ResourceIdentifier) => {
       return sdk.getProfile(id);

@@ -11,12 +11,12 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<TeamViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<TeamViewModel, TScheme>;
 type FilterType = Filterable<GetTeamsFilter>;
 
 const sdk = new TeamSDK('dev');
 
-const buildTeamsStore = (params: Partial<ParamType> = {}) => {
+const buildTeamsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     TeamViewModel,
     TeamViewModel,
@@ -24,10 +24,11 @@ const buildTeamsStore = (params: Partial<ParamType> = {}) => {
     TeamViewModel,
     ResourceIdentifier,
     FilterType,
+    TScheme,
     'list' | 'single'
   >({
     keys: ['list', 'single'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: FullFilterable<GetTeamsFilter>) => {
       return sdk.getTeams({

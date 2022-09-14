@@ -3,6 +3,7 @@ import type {
   BeforeSendInterface,
   SchemeInterface,
   StateDataSchemeInterface,
+  StateFieldSchemeInterface,
 } from '../types/scheme';
 import type {
   RootStoreType,
@@ -17,20 +18,23 @@ import { createField } from '../utils/helpers';
 
 type CurrentStoreKeyType = 'add';
 
-function generateInitialState<TData>(
-  scheme: SchemeInterface | null | undefined
-): AddStateDataInterface<TData> {
-  const stateAddData: StateDataSchemeInterface = {};
+function generateInitialState<TData, TScheme>(
+  scheme: SchemeInterface<TScheme> | null | undefined
+): AddStateDataInterface<TData, TScheme> {
+  // @ts-ignore
+  const stateAddData: StateDataSchemeInterface<TScheme> = {};
 
   if (scheme) {
-    Object.keys(scheme).forEach((key: string) => {
+    Object.keys(scheme).forEach((keyName: string) => {
+      const key = keyName as keyof TScheme;
+
       const field = createField(scheme[key].initialValue || null);
       stateAddData[key] = field;
     });
   }
 
   return {
-    status: 'loading',
+    status: 'default',
     error: null,
     data: stateAddData,
     valid: false,
@@ -38,16 +42,34 @@ function generateInitialState<TData>(
 }
 
 // build initial state for add.
-export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<null, null, TData, null, null, CurrentStoreKeyType, TFilter>,
-  scheme: SchemeInterface | null | undefined
+export const buildInitialState = <TData, TFilter, TScheme>(
+  state: ExtractStateType<
+    null,
+    null,
+    TData,
+    null,
+    null,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >,
+  scheme: SchemeInterface<TScheme> | null | undefined
 ) => {
-  state.add = generateInitialState<TData>(scheme);
+  state.add = generateInitialState<TData, TScheme>(scheme);
 };
 
 // build actions for list.
-export const buildActions = <TData, TFilter>(
-  actions: ExtractActionType<null, null, TData, null, null, CurrentStoreKeyType, TFilter>,
+export const buildActions = <TData, TFilter, TScheme>(
+  actions: ExtractActionType<
+    null,
+    null,
+    TData,
+    null,
+    null,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >,
   getState: StateGetterCallType<
     null,
     null,
@@ -55,7 +77,8 @@ export const buildActions = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   setState: StateSetterCallType<
     null,
@@ -64,7 +87,8 @@ export const buildActions = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   interceptors: ExtractInterceptorType<
     null,
@@ -73,7 +97,8 @@ export const buildActions = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >
 ) => {
   // add setFieldValue method to action list, that setting value property
@@ -83,17 +108,18 @@ export const buildActions = <TData, TFilter>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void => {
-    const key = fieldKey as unknown as string;
-    const value = fieldValue as unknown as string;
+    const key = fieldKey as unknown as keyof TScheme;
+    const value = fieldValue as unknown as TScheme[keyof TScheme];
 
     const add = getState().add;
 
+    // @ts-ignore
     add.data = add.data || {};
-    add.data[key] = add.data[key] || createField();
+    add.data![key] = add.data![key] || createField();
 
-    add.data[key].valueOriginal = value;
-    add.data[key].valueToSave = value;
-    add.data[key].errors = [];
+    add.data![key].valueOriginal = value;
+    add.data![key].valueToSave = value;
+    add.data![key].errors = [];
 
     if (
       typeof interceptors.scheme !== 'undefined' &&
@@ -102,28 +128,32 @@ export const buildActions = <TData, TFilter>(
       const schemeItem = interceptors.scheme[key];
 
       if (typeof schemeItem.processValue === 'function') {
-        add.data[key].valueToSave = schemeItem.processValue(add.data[key].valueOriginal);
+        add.data![key].valueToSave = schemeItem.processValue(
+          add.data![key].valueOriginal
+        );
       }
 
       if (typeof schemeItem.validate === 'function') {
         let errors = schemeItem.validate(
-          add.data[key].valueOriginal,
-          add.data[key].valueToSave
+          add.data![key].valueOriginal,
+          add.data![key].valueToSave
         );
 
         if (!errors) {
           errors = [];
         }
 
-        add.data[key].errors = errors;
+        add.data![key].errors = errors;
       }
     }
 
-    add.data[key].isValid = add.data[key].errors.length === 0;
+    add.data![key].isValid = add.data![key].errors.length === 0;
     add.valid = true;
 
-    for (const dataKey of Object.keys(add.data)) {
-      const isValid = add.data[dataKey].isValid;
+    for (const dataKeyName of Object.keys(add.data!)) {
+      const dataKey = dataKeyName as keyof TScheme;
+
+      const isValid = add.data![dataKey].isValid;
       if (!isValid) {
         add.valid = false;
         break;
@@ -148,12 +178,21 @@ export const buildActions = <TData, TFilter>(
       return null;
     }
 
-    const state = Object.keys(mapData).reduce((acc, key) => {
-      acc[key] = addData[key];
-      return acc;
-    }, {} as StateDataSchemeInterface);
+    const state = Object.keys(mapData).reduce(
+      (acc: StateDataSchemeInterface<TScheme>, keyName: string) => {
+        const key = keyName as keyof TScheme;
 
-    for (const stateItem of Object.values(state)) {
+        acc[key] = addData[key];
+        return acc;
+      },
+      {} as StateDataSchemeInterface<TScheme>
+    );
+
+    const stateValues = Object.values(state) as Array<
+      StateFieldSchemeInterface<keyof TScheme>
+    >;
+
+    for (const stateItem of stateValues) {
       if (!stateItem.isValid) {
         return null;
       }
@@ -165,15 +204,20 @@ export const buildActions = <TData, TFilter>(
     // received result must be sent to backend, otherwise state values will
     // be used to send to backend.
     if (typeof interceptors.beforeSend === 'function') {
-      const beforeSendCall = interceptors.beforeSend as BeforeSendInterface<TData>;
+      const beforeSendCall = interceptors.beforeSend as BeforeSendInterface<
+        TData,
+        TScheme
+      >;
+
       result = await beforeSendCall(state);
 
       if (!result) {
         return null;
       }
     } else {
-      result = Object.keys(mapData).reduce((acc, key) => {
-        acc[key] = addData[key].valueToSave || addData[key].valueOriginal;
+      result = Object.keys(mapData).reduce((acc, keyName: string) => {
+        const key = keyName as keyof TScheme;
+        acc[key] = addData![key].valueToSave || addData![key].valueOriginal;
         return acc;
       }, {} as any);
     }
@@ -207,12 +251,12 @@ export const buildActions = <TData, TFilter>(
 
   // reset to initial state
   actions.reset = () => {
-    setState({ add: generateInitialState<TData>(interceptors.scheme) });
+    setState({ add: generateInitialState<TData, TScheme>(interceptors.scheme) });
   };
 };
 
 // build root actions for add.
-export const buildRootAction = <TData, TFilter>(
+export const buildRootAction = <TData, TFilter, TScheme>(
   rootActions: ExtractActionType<
     null,
     null,
@@ -220,9 +264,19 @@ export const buildRootAction = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
-  storeVanilla: RootStoreType<null, null, TData, null, null, CurrentStoreKeyType, TFilter>
+  storeVanilla: RootStoreType<
+    null,
+    null,
+    TData,
+    null,
+    null,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >
 ) => {
   const getVanillaState = () => {
     return storeVanilla.getState() as unknown as ExtractActionType<
@@ -232,7 +286,8 @@ export const buildRootAction = <TData, TFilter>(
       null,
       null,
       CurrentStoreKeyType,
-      TFilter
+      TFilter,
+      TScheme
     >;
   };
 

@@ -15,7 +15,8 @@ function buildStateAndActions<
   TDataUpdate,
   TDataDelete,
   TKey extends StateKeyType,
-  TFilter
+  TFilter,
+  TScheme
 >(
   params: ParamsType<
     TDataList,
@@ -24,7 +25,8 @@ function buildStateAndActions<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >,
   setStateCall: SetState<
     ExtractStateAndActionType<
@@ -34,7 +36,8 @@ function buildStateAndActions<
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >,
   getStateCall: GetState<
@@ -45,7 +48,8 @@ function buildStateAndActions<
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >
 ): ExtractStateAndActionType<
@@ -55,7 +59,8 @@ function buildStateAndActions<
   TDataUpdate,
   TDataDelete,
   TKey,
-  TFilter
+  TFilter,
+  TScheme
 > {
   const includeKeys = fillStateKeys(params.keys || []);
 

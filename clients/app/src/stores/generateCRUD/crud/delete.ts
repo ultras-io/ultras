@@ -12,21 +12,39 @@ type CurrentStoreKeyType = 'delete';
 
 function generateInitialState<TData>(): DeleteStateDataInterface<TData> {
   return {
-    status: 'loading',
+    status: 'default',
     error: null,
   };
 }
 
 // build initial state for delete.
-export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<null, null, null, null, TData, CurrentStoreKeyType, null>
+export const buildInitialState = <TData, TFilter, TScheme>(
+  state: ExtractStateType<
+    null,
+    null,
+    null,
+    null,
+    TData,
+    CurrentStoreKeyType,
+    null,
+    TScheme
+  >
 ) => {
   state.delete = generateInitialState<TData>();
 };
 
 // build actions for list.
-export const buildActions = <TData, TFilter>(
-  actions: ExtractActionType<null, null, null, null, TData, CurrentStoreKeyType, TFilter>,
+export const buildActions = <TData, TFilter, TScheme>(
+  actions: ExtractActionType<
+    null,
+    null,
+    null,
+    null,
+    TData,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >,
   getState: StateGetterCallType<
     null,
     null,
@@ -34,7 +52,8 @@ export const buildActions = <TData, TFilter>(
     null,
     TData,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   setState: StateSetterCallType<
     null,
@@ -43,7 +62,8 @@ export const buildActions = <TData, TFilter>(
     null,
     TData,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   interceptors: ExtractInterceptorType<
     null,
@@ -52,7 +72,8 @@ export const buildActions = <TData, TFilter>(
     null,
     TData,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >
 ) => {
   // add delete method to action delete, that just calling delete interceptor method
@@ -92,7 +113,7 @@ export const buildActions = <TData, TFilter>(
 };
 
 // build root actions for add.
-export const buildRootAction = <TData, TFilter>(
+export const buildRootAction = <TData, TFilter, TScheme>(
   rootActions: ExtractActionType<
     null,
     null,
@@ -100,9 +121,19 @@ export const buildRootAction = <TData, TFilter>(
     null,
     TData,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
-  storeVanilla: RootStoreType<null, null, null, null, TData, CurrentStoreKeyType, TFilter>
+  storeVanilla: RootStoreType<
+    null,
+    null,
+    null,
+    null,
+    TData,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >
 ) => {
   const getVanillaState = () => {
     return storeVanilla.getState() as unknown as ExtractActionType<
@@ -112,7 +143,8 @@ export const buildRootAction = <TData, TFilter>(
       null,
       TData,
       CurrentStoreKeyType,
-      TFilter
+      TFilter,
+      TScheme
     >;
   };
 

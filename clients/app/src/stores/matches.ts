@@ -12,12 +12,12 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<MatchViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<MatchViewModel, TScheme>;
 type FilterType = Filterable<GetMatchesFilter>;
 
 const sdk = new MatchSDK('dev');
 
-const buildMatchesStore = (params: Partial<ParamType> = {}) => {
+const buildMatchesStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     MatchViewModel,
     MatchViewModel,
@@ -25,10 +25,11 @@ const buildMatchesStore = (params: Partial<ParamType> = {}) => {
     null,
     ResourceIdentifier,
     FilterType,
+    TScheme,
     'list' | 'single'
   >({
     keys: ['list', 'single'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: FullFilterable<GetMatchesFilter>) => {
       return sdk.getMatches({
