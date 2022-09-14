@@ -11,6 +11,7 @@ import * as crudList from '../crud/list';
 import * as crudSingle from '../crud/single';
 import * as crudAdd from '../crud/add';
 import * as crudDelete from '../crud/delete';
+import * as crudUpdate from '../crud/update';
 
 function buildRootActions<
   TDataList,
@@ -128,7 +129,21 @@ function buildRootActions<
     );
   }
 
-  // @TODO: add update code
+  if (includeKeys.update) {
+    crudUpdate.buildRootAction(
+      rootActions,
+      storeVanilla as RootStoreType<
+        TDataList,
+        TDataSingle,
+        TDataCreate,
+        TDataUpdate,
+        TDataDelete,
+        'update',
+        TFilter,
+        TScheme
+      >
+    );
+  }
 
   return rootActions;
 }
