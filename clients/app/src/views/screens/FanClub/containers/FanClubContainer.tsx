@@ -4,14 +4,14 @@ import buildFanClubsStore from 'stores/fanClubs';
 import { IFanClubContainerProps } from '../types';
 
 const FanClubContainer: React.FC<IFanClubContainerProps> = ({ data }) => {
-  const fanClubsStoreRef = React.useRef(buildFanClubsStore());
+  const fanClubsStore = React.useMemo(() => buildFanClubsStore(), []);
 
   React.useEffect(() => {
-    fanClubsStoreRef.current.getSingle(data.id);
+    fanClubsStore.getSingle(data.id);
     // do we need to erase store on unmount?
-  }, [data.id]);
+  }, [data.id, fanClubsStore]);
 
-  const result = fanClubsStoreRef.current.useSelector('single');
+  const result = fanClubsStore.useSelector('single');
 
   return (
     <FanClubComponent

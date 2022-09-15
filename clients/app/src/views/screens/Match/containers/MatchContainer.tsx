@@ -4,14 +4,14 @@ import MatchComponent from '../components/MatchComponent';
 import { IMatchContainerProps } from '../types';
 
 const MatchContainer: React.FC<IMatchContainerProps> = ({ data }) => {
-  // const matchesStoreRef = React.useRef(buildMatchesStore());
+  // const matchesStore = React.useMemo(() => buildMatchesStore(), []);
 
   // React.useEffect(() => {
-  //   matchesStoreRef.current.getSingle(data.id);
+  //   matchesStore.getSingle(data.id);
   //   // do we need to erase store on unmount?
-  // }, [data.id]);
+  // }, [matchesStore, data.id]);
 
-  // const result = matchesStoreRef.current.useSelector('single');
+  // const result = matchesStore.useSelector('single');
 
   return <MatchComponent data={data} />;
 };

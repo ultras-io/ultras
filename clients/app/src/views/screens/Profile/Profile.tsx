@@ -19,7 +19,7 @@ const FanClubsContainer = React.lazy(
 
 const Profile: React.FC<IProfileProps> = ({ route }) => {
   const { data } = route.params;
-  const userStoreRef = React.useRef(buildUserStore());
+  const userStore = React.useMemo(() => buildUserStore(), []);
   const { setOptions } = useNavigationWithParams();
   const { isOpen, onOpen, onClose } = useDisclose();
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
@@ -47,10 +47,10 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   }, [setOptions, onOpen, data]);
 
   React.useEffect(() => {
-    if (data?.id) userStoreRef.current.getSingle(data.id);
-  }, [data?.id]);
+    if (data?.id) userStore.getSingle(data.id);
+  }, [data?.id, userStore]);
 
-  const result = userStoreRef.current.useSelector('single');
+  const result = userStore.useSelector('single');
 
   const [isMe, userData] = React.useMemo(() => {
     if (result.single.data && result.single.status === 'success')
