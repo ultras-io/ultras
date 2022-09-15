@@ -35,7 +35,7 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
         favoriteTeamsStore.remove({ teamId });
         removeTeam(teamId);
       } else {
-        favoriteTeamsStore.setFieldValue('teamId', teamId);
+        favoriteTeamsStore.setAddFieldValue('teamId', teamId);
         favoriteTeamsStore.create();
         addTeam(teamId);
       }

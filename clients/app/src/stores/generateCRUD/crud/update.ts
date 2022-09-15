@@ -110,10 +110,10 @@ export const buildActions = <TData, TFilter, TScheme>(
     setState({ update });
   };
 
-  // add setFieldValue method to action list, that setting value property
+  // add setUpdateFieldValue method to action list, that setting value property
   // by provided key and value, and it will call validate interceptor method
   // to set "valid" boolean property of "update" state
-  actions.setFieldValue = <TFieldKey extends keyof TData>(
+  actions.setUpdateFieldValue = <TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void => {
@@ -172,9 +172,9 @@ export const buildActions = <TData, TFilter, TScheme>(
     setState({ update });
   };
 
-  // add create method to action list, that just calling create interceptor method
+  // add updateData method to action list, that just calling updateData interceptor method
   // which sending data to api server
-  actions.update = async (): Promise<TData | null> => {
+  actions.updateData = async (): Promise<TData | null> => {
     const update = getState().update;
     if (!update.valid) {
       return null;
@@ -235,7 +235,7 @@ export const buildActions = <TData, TFilter, TScheme>(
     setState({ update });
 
     try {
-      const apiResult = await interceptors.update(update.resourceId, result);
+      const apiResult = await interceptors.updateData(update.resourceId, result);
       if (!apiResult) {
         throw new Error('"create" returned empty result.');
       }
@@ -304,15 +304,15 @@ export const buildRootAction = <TData, TFilter, TScheme>(
     return getVanillaState().setResourceId(resourceId);
   };
 
-  rootActions.setFieldValue = <TFieldKey extends keyof TData>(
+  rootActions.setUpdateFieldValue = <TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ) => {
-    return getVanillaState().setFieldValue(fieldKey, fieldValue);
+    return getVanillaState().setUpdateFieldValue(fieldKey, fieldValue);
   };
 
-  rootActions.update = () => {
-    return getVanillaState().update();
+  rootActions.updateData = () => {
+    return getVanillaState().updateData();
   };
 
   rootActions.reset = () => {

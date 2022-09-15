@@ -20,7 +20,7 @@ export interface AddGroupedStateType<TData, TScheme> {
 }
 
 export type AddGroupedActionType<TData> = {
-  setFieldValue<TFieldKey extends keyof TData>(
+  setAddFieldValue<TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void;

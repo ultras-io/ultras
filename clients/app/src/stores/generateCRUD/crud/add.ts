@@ -101,10 +101,10 @@ export const buildActions = <TData, TFilter, TScheme>(
     TScheme
   >
 ) => {
-  // add setFieldValue method to action list, that setting value property
+  // add setAddFieldValue method to action list, that setting value property
   // by provided key and value, and it will call validate interceptor method
   // to set "valid" boolean property of "add" state
-  actions.setFieldValue = <TFieldKey extends keyof TData>(
+  actions.setAddFieldValue = <TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void => {
@@ -291,11 +291,11 @@ export const buildRootAction = <TData, TFilter, TScheme>(
     >;
   };
 
-  rootActions.setFieldValue = <TFieldKey extends keyof TData>(
+  rootActions.setAddFieldValue = <TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ) => {
-    return getVanillaState().setFieldValue(fieldKey, fieldValue);
+    return getVanillaState().setAddFieldValue(fieldKey, fieldValue);
   };
 
   rootActions.create = () => {

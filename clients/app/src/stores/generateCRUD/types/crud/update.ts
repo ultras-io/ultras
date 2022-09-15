@@ -22,18 +22,18 @@ export interface UpdateGroupedStateType<TData, TScheme> {
 
 export type UpdateGroupedActionType<TData> = {
   setResourceId(resourceId: ResourceIdentifier): void;
-  setFieldValue<TFieldKey extends keyof TData>(
+  setUpdateFieldValue<TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void;
-  update(): Promise<TData | null>;
+  updateData(): Promise<TData | null>;
   reset(): void;
 };
 
 export type UpdateGroupedInterceptorType<TData, TScheme> = {
   scheme: SchemeInterface<TScheme>;
   beforeSend: BeforeSendInterface<TData, TScheme> | null;
-  update(
+  updateData(
     resourceId: Nullable<ResourceIdentifier>,
     data: Partial<TData>
   ): CreatePromiseType<TData>;
