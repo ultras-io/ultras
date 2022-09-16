@@ -5,16 +5,16 @@ import buildTeamsStore from 'stores/teams';
 import { ITeamContainerProps } from '../types';
 
 const TeamContainer: React.FC<ITeamContainerProps> = ({ data }) => {
-  const teamsStoreRef = React.useRef(buildTeamsStore());
-  // const favoriteTeamsStoreRef = React.useRef(buildFavoriteTeamsStore());
+  const teamsStore = React.useMemo(() => buildTeamsStore(), []);
+  // const favoriteTeamsStore = React.useMemo(() => buildFavoriteTeamsStore(), []);
 
   React.useEffect(() => {
-    teamsStoreRef.current.getSingle(data.id);
+    teamsStore.getSingle(data.id);
     // do we need to erase store on unmount?
-  }, [data.id]);
+  }, [data.id, teamsStore]);
 
-  const result = teamsStoreRef.current.useSelector('single');
-  // const result = favoriteTeamsStoreRef.current.add;
+  const result = teamsStore.useSelector('single');
+  // const result = favoriteTeamsStore.add;
 
   return (
     <TeamComponent

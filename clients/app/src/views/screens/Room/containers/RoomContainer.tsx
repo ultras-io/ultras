@@ -4,14 +4,14 @@ import buildRoomsStore from 'stores/rooms';
 import { IRoomContainerProps } from '../types';
 
 const RoomContainer: React.FC<IRoomContainerProps> = ({ data }) => {
-  const roomsStoreRef = React.useRef(buildRoomsStore());
+  const roomsStore = React.useMemo(() => buildRoomsStore(), []);
 
   React.useEffect(() => {
-    roomsStoreRef.current.getSingle(data.id);
+    roomsStore.getSingle(data.id);
     // do we need to erase store on unmount?
-  }, [data.id]);
+  }, [data.id, roomsStore]);
 
-  const result = roomsStoreRef.current.useSelector('single');
+  const result = roomsStore.useSelector('single');
 
   return (
     <RoomComponent

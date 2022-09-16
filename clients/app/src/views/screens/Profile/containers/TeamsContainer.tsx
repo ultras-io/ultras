@@ -4,18 +4,18 @@ import TeamsComponent, { TeamsLoader } from '../components/TeamsComponent';
 import { ITeamsContainerProps } from '../types';
 
 const TeamsContainer: React.FC<ITeamsContainerProps> = ({ isMe, data }) => {
-  const favoriteTeamsStoreRef = React.useRef(buildFavoriteTeamsStore());
+  const favoriteTeamsStore = React.useMemo(() => buildFavoriteTeamsStore(), []);
 
   React.useEffect(() => {
     if (isMe) {
       // need to reset and get All
-      favoriteTeamsStoreRef.current.getAll();
+      favoriteTeamsStore.getAll();
     }
-  }, [data.teams, isMe]);
+  }, [data?.teams, favoriteTeamsStore, isMe]);
 
-  const result = favoriteTeamsStoreRef.current.useSelector('list');
+  const result = favoriteTeamsStore.useSelector('list');
 
-  if (!isMe) return data.teams ? <TeamsComponent data={data.teams} /> : <TeamsLoader />;
+  if (!isMe) return data?.teams ? <TeamsComponent data={data.teams} /> : <TeamsLoader />;
 
   // @TODO handle error status
   if (!result.list.data && result.list.status === 'loading') return <TeamsLoader />;

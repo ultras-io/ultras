@@ -9,16 +9,16 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   data,
   type = 'discover',
 }) => {
-  const fanClubsStoreRef = React.useRef(buildFanClubsStore());
+  const fanClubsStore = React.useMemo(() => buildFanClubsStore(), []);
 
   React.useEffect(() => {
     // filter my fun clubs
-    if (type === 'my') fanClubsStoreRef.current.getAll();
+    if (type === 'my') fanClubsStore.getAll();
     // filter fan clubs of my supported teams
-    else if (type === 'discover') fanClubsStoreRef.current.getAll();
-  }, [type]);
+    else if (type === 'discover') fanClubsStore.getAll();
+  }, [fanClubsStore, type]);
 
-  const result = fanClubsStoreRef.current.useSelector('list');
+  const result = fanClubsStore.useSelector('list');
 
   if (type === 'otherUser')
     return data ? (
@@ -34,7 +34,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
   return result.list.data && result.list.data.length ? (
     <FanClubsComponent
       data={result.list.data}
-      onEndReached={fanClubsStoreRef.current.getAll}
+      onEndReached={fanClubsStore.getAll}
       type={type}
     />
   ) : null;
