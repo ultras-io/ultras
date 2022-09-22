@@ -1,11 +1,18 @@
 import { CreateEventType } from '@ultras/core-api-sdk';
 
 export interface ICreateEventComponentProps {
+  loading: boolean;
   data: any;
   setFieldValue: (
     fieldKey: keyof CreateEventType,
     fieldValue: CreateEventType[keyof CreateEventType]
   ) => void;
+  onCreatePress: () => void;
+}
+
+export interface ISelectedMatchProps {
+  matchId: ResourceIdentifier;
+  onRemoveMatchPress: () => void;
 }
 
 export interface IDateAndTimeRowsProps {
@@ -18,4 +25,10 @@ export interface IDateAndTimeRowsProps {
   switchTitle?: string;
   switchValue?: boolean;
   onSwitchChange?: (value?: boolean) => void;
+}
+
+export interface RouteParamsInterface {
+  params: {
+    matchId?: null | ResourceIdentifier;
+  };
 }

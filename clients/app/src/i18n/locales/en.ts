@@ -75,7 +75,7 @@ export default {
   'joinUs-locationEnabled': 'Location Access Enabled',
   'joinUs-locationNotEnabled': 'Location Access Not Enabled',
   'joinUs-locationNotEnabledText':
-    'No Location access was granted.\nWe won’t be able to send best recomendations near you.\nBut no worries, you can always enable location access from App Settings Page or your system Settings',
+    'No Location access was granted.\nWe won’t be able to send best recommendations near you.\nBut no worries, you can always enable location access from App Settings Page or your system Settings',
   'joinUs-congrats': 'Congrats, Lorem ipsum dolor sit amet,',
   'joinUs-congratsText':
     ' consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -125,11 +125,16 @@ export default {
   'events-add-endTime': 'End time',
   'events-add-endDateTimeDescription':
     'Turn this option on only when your event have exact duration. Otherwise you can leave it off.',
+  'events-add-relatedMatch': 'Related Match',
+  'events-add-changeMatch': 'Change',
+  'events-add-matchLoadFail': 'Failed to load match data.',
   'events-add-privacy': 'Event Privacy',
+  'events-add-privacy-private': 'Private',
+  'events-add-privacy-public': 'Public',
   'events-add-privacyDescription':
     'Fan Club Administrators, Moderators and Members can view, comment and join event',
   'events-add-location': 'Location (Optional)',
-  'events-add-description': 'Event Desctiption (Optional)',
+  'events-add-description': 'Event Description (Optional)',
   'events-add-photo': 'Event Photo',
   'events-add-button': 'Publish Event',
 
