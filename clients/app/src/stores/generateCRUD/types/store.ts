@@ -21,6 +21,11 @@ import type {
   DeleteGroupedInterceptorType,
   DeleteGroupedStateType,
 } from './crud/delete';
+import {
+  UpdateGroupedActionType,
+  UpdateGroupedInterceptorType,
+  UpdateGroupedStateType,
+} from './crud/update';
 
 export type RootStoreType<
   TDataList,
@@ -62,6 +67,7 @@ export type GroupedStateType<
   list: ListGroupedStateType<TDataList, TFilter>;
   single: SingleGroupedStateType<TDataSingle>;
   delete: DeleteGroupedStateType<TDataDelete>;
+  update: UpdateGroupedStateType<TDataUpdate, TScheme>;
 };
 
 export type GroupedActionType<
@@ -77,6 +83,7 @@ export type GroupedActionType<
   list: ListGroupedActionType<TDataList, TFilter>;
   single: SingleGroupedActionType<TDataSingle>;
   delete: DeleteGroupedActionType<TDataDelete>;
+  update: UpdateGroupedActionType<TDataUpdate>;
 };
 
 export type GroupedInterceptorType<
@@ -92,6 +99,7 @@ export type GroupedInterceptorType<
   list: ListGroupedInterceptorType<TDataList, TFilter>;
   single: SingleGroupedInterceptorType<TDataSingle>;
   delete: DeleteGroupedInterceptorType<TDataDelete>;
+  update: UpdateGroupedInterceptorType<TDataUpdate, TScheme>;
 };
 
 export type ExtractStateType<

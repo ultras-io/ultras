@@ -18,6 +18,7 @@ export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
     single: true,
     add: true,
     delete: true,
+    update: true,
   };
 
   if (keys.length !== 0) {

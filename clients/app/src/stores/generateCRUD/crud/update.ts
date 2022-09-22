@@ -1,4 +1,4 @@
-import type { AddStateDataInterface } from '../types/crud/add';
+import type { UpdateStateDataInterface } from '../types/crud/update';
 import type {
   BeforeSendInterface,
   SchemeInterface,
@@ -16,38 +16,39 @@ import type {
 
 import { createField } from '../utils/helpers';
 
-type CurrentStoreKeyType = 'add';
+type CurrentStoreKeyType = 'update';
 
 function generateInitialState<TData, TScheme>(
   scheme: SchemeInterface<TScheme> | null | undefined
-): AddStateDataInterface<TData, TScheme> {
+): UpdateStateDataInterface<TData, TScheme> {
   // @ts-ignore
-  const stateAddData: StateDataSchemeInterface<TScheme> = {};
+  const stateUpdateData: StateDataSchemeInterface<TScheme> = {};
 
   if (scheme) {
     Object.keys(scheme).forEach((keyName: string) => {
       const key = keyName as keyof TScheme;
 
       const field = createField(scheme[key].initialValue || null);
-      stateAddData[key] = field;
+      stateUpdateData[key] = field;
     });
   }
 
   return {
     status: 'default',
+    resourceId: null,
     error: null,
-    data: stateAddData,
+    data: stateUpdateData,
     valid: false,
   };
 }
 
-// build initial state for add.
+// build initial state for update.
 export const buildInitialState = <TData, TFilter, TScheme>(
   state: ExtractStateType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
@@ -55,7 +56,7 @@ export const buildInitialState = <TData, TFilter, TScheme>(
   >,
   scheme: SchemeInterface<TScheme> | null | undefined
 ) => {
-  state.add = generateInitialState<TData, TScheme>(scheme);
+  state.update = generateInitialState<TData, TScheme>(scheme);
 };
 
 // build actions for list.
@@ -63,8 +64,8 @@ export const buildActions = <TData, TFilter, TScheme>(
   actions: ExtractActionType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
@@ -73,8 +74,8 @@ export const buildActions = <TData, TFilter, TScheme>(
   getState: StateGetterCallType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
@@ -83,8 +84,8 @@ export const buildActions = <TData, TFilter, TScheme>(
   setState: StateSetterCallType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
@@ -93,33 +94,41 @@ export const buildActions = <TData, TFilter, TScheme>(
   interceptors: ExtractInterceptorType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
     TScheme
   >
 ) => {
-  // add setAddFieldValue method to action list, that setting value property
+  // set the resource id which need to be updated
+  actions.setResourceId = (resourceId: ResourceIdentifier) => {
+    const update = getState().update;
+    update.resourceId = resourceId;
+
+    setState({ update });
+  };
+
+  // add setUpdateFieldValue method to action list, that setting value property
   // by provided key and value, and it will call validate interceptor method
-  // to set "valid" boolean property of "add" state
-  actions.setAddFieldValue = <TFieldKey extends keyof TData>(
+  // to set "valid" boolean property of "update" state
+  actions.setUpdateFieldValue = <TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void => {
     const key = fieldKey as unknown as keyof TScheme;
     const value = fieldValue as unknown as TScheme[keyof TScheme];
 
-    const add = getState().add;
+    const update = getState().update;
 
     // @ts-ignore
-    add.data = add.data || {};
-    add.data![key] = add.data![key] || createField();
+    update.data = update.data || {};
+    update.data![key] = update.data![key] || createField();
 
-    add.data![key].valueOriginal = value;
-    add.data![key].valueToSave = value;
-    add.data![key].errors = [];
+    update.data![key].valueOriginal = value;
+    update.data![key].valueToSave = value;
+    update.data![key].errors = [];
 
     if (
       typeof interceptors.scheme !== 'undefined' &&
@@ -128,52 +137,52 @@ export const buildActions = <TData, TFilter, TScheme>(
       const schemeItem = interceptors.scheme[key];
 
       if (typeof schemeItem.processValue === 'function') {
-        add.data![key].valueToSave = schemeItem.processValue(
-          add.data![key].valueOriginal
+        update.data![key].valueToSave = schemeItem.processValue(
+          update.data![key].valueOriginal
         );
       }
 
       if (typeof schemeItem.validate === 'function') {
         let errors = schemeItem.validate(
-          add.data![key].valueOriginal,
-          add.data![key].valueToSave
+          update.data![key].valueOriginal,
+          update.data![key].valueToSave
         );
 
         if (!errors) {
           errors = [];
         }
 
-        add.data![key].errors = errors;
+        update.data![key].errors = errors;
       }
     }
 
-    add.data![key].isValid = add.data![key].errors.length === 0;
-    add.valid = true;
+    update.data![key].isValid = update.data![key].errors.length === 0;
+    update.valid = true;
 
-    for (const dataKeyName of Object.keys(add.data!)) {
+    for (const dataKeyName of Object.keys(update.data!)) {
       const dataKey = dataKeyName as keyof TScheme;
 
-      const isValid = add.data![dataKey].isValid;
+      const isValid = update.data![dataKey].isValid;
       if (!isValid) {
-        add.valid = false;
+        update.valid = false;
         break;
       }
     }
 
-    setState({ add });
+    setState({ update });
   };
 
-  // add create method to action list, that just calling create interceptor method
+  // add updateData method to action list, that just calling updateData interceptor method
   // which sending data to api server
-  actions.create = async (): Promise<TData | null> => {
-    const add = getState().add;
-    if (!add.valid) {
+  actions.updateData = async (): Promise<TData | null> => {
+    const update = getState().update;
+    if (!update.valid) {
       return null;
     }
 
-    const addData = add.data!;
+    const updateData = update.data!;
 
-    const mapData = interceptors.scheme || addData;
+    const mapData = interceptors.scheme || updateData;
     if (!mapData) {
       return null;
     }
@@ -182,7 +191,7 @@ export const buildActions = <TData, TFilter, TScheme>(
       (acc: StateDataSchemeInterface<TScheme>, keyName: string) => {
         const key = keyName as keyof TScheme;
 
-        acc[key] = addData[key];
+        acc[key] = updateData[key];
         return acc;
       },
       {} as StateDataSchemeInterface<TScheme>
@@ -217,16 +226,16 @@ export const buildActions = <TData, TFilter, TScheme>(
     } else {
       result = Object.keys(mapData).reduce((acc, keyName: string) => {
         const key = keyName as keyof TScheme;
-        acc[key] = addData![key].valueToSave || addData![key].valueOriginal;
+        acc[key] = updateData![key].valueToSave || updateData![key].valueOriginal;
         return acc;
       }, {} as any);
     }
 
-    add.status = 'loading';
-    setState({ add });
+    update.status = 'loading';
+    setState({ update });
 
     try {
-      const apiResult = await interceptors.create(result);
+      const apiResult = await interceptors.updateData(update.resourceId, result);
       if (!apiResult) {
         throw new Error('"create" returned empty result.');
       }
@@ -236,32 +245,32 @@ export const buildActions = <TData, TFilter, TScheme>(
         throw new Error(`Error received: ${message}`);
       }
 
-      add.status = 'success';
-      setState({ add });
+      update.status = 'success';
+      setState({ update });
 
       return apiResult.body.data;
     } catch (e) {
-      add.status = 'error';
-      add.error = e as Error;
+      update.status = 'error';
+      update.error = e as Error;
 
-      setState({ add });
+      setState({ update });
       return null;
     }
   };
 
   // reset to initial state
   actions.reset = () => {
-    setState({ add: generateInitialState<TData, TScheme>(interceptors.scheme) });
+    setState({ update: generateInitialState<TData, TScheme>(interceptors.scheme) });
   };
 };
 
-// build root actions for add.
+// build root actions for update.
 export const buildRootAction = <TData, TFilter, TScheme>(
   rootActions: ExtractActionType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
@@ -270,8 +279,8 @@ export const buildRootAction = <TData, TFilter, TScheme>(
   storeVanilla: RootStoreType<
     null,
     null,
-    TData,
     null,
+    TData,
     null,
     CurrentStoreKeyType,
     TFilter,
@@ -282,8 +291,8 @@ export const buildRootAction = <TData, TFilter, TScheme>(
     return storeVanilla.getState() as ExtractActionType<
       null,
       null,
-      TData,
       null,
+      TData,
       null,
       CurrentStoreKeyType,
       TFilter,
@@ -291,15 +300,19 @@ export const buildRootAction = <TData, TFilter, TScheme>(
     >;
   };
 
-  rootActions.setAddFieldValue = <TFieldKey extends keyof TData>(
+  rootActions.setResourceId = (resourceId: ResourceIdentifier) => {
+    return getVanillaState().setResourceId(resourceId);
+  };
+
+  rootActions.setUpdateFieldValue = <TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ) => {
-    return getVanillaState().setAddFieldValue(fieldKey, fieldValue);
+    return getVanillaState().setUpdateFieldValue(fieldKey, fieldValue);
   };
 
-  rootActions.create = () => {
-    return getVanillaState().create();
+  rootActions.updateData = () => {
+    return getVanillaState().updateData();
   };
 
   rootActions.reset = () => {

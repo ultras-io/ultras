@@ -34,7 +34,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
     if (isJoined) {
       fanClubMembersStore.remove({ fanClubId: data.id });
     } else {
-      fanClubMembersStore.setFieldValue('fanClubId', data.id);
+      fanClubMembersStore.setAddFieldValue('fanClubId', data.id);
       fanClubMembersStore.create();
     }
   }, [data.id, isJoined, fanClubMembersStore]);

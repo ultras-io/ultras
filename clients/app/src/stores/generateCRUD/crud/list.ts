@@ -144,7 +144,7 @@ export const buildActions = <TData, TFilter, TScheme>(
       };
 
       const result = await interceptors.loadAll(
-        filterData as unknown as FullFilterable<Partial<TFilter>>
+        filterData as FullFilterable<Partial<TFilter>>
       );
 
       if (!result) {
@@ -200,7 +200,7 @@ export const buildRootAction = <TData, TFilter, TScheme>(
   >
 ) => {
   const getVanillaState = () => {
-    return storeVanilla.getState() as unknown as ExtractActionType<
+    return storeVanilla.getState() as ExtractActionType<
       TData,
       null,
       null,
