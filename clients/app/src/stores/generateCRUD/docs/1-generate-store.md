@@ -11,15 +11,30 @@ The function receives a tree generic types
 Example:
 
 ```typescript
+import { generateCRUD, Filterable, InitStoreParamsInterface } from './generateCRUD';
 import { FanClubViewModel, FilterFanClub } from '@app/view-models';
-import { generateCRUD, Filterable } from './generateCRUD';
+
+type ParamType<TScheme> = InitStoreParamsInterface<TData, TScheme>;
 
 type TFilter = Filterable<FilterFanClub>>;
 type TKey = 'list' | 'single' | 'add' | 'update' | 'delete';
 
-const store = generateCRUD<FanClubViewModel, TFilter, TKey>({
-  // CRUD options ...
-});
+const storeBuilder = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
+  return generateCRUD<
+    TDataList,
+    TDataSingle,
+    TDataCreate,
+    TDataUpdate,
+    TDataDelete,
+    TFilter,
+    TScheme,
+    TKey
+  >({
+    // CRUD options ...
+  });
+};
+
+const store = storeBuilder();
 ```
 
 ---

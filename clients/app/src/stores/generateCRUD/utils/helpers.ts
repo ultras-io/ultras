@@ -18,6 +18,7 @@ export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
     single: true,
     add: true,
     delete: true,
+    update: true,
   };
 
   if (keys.length !== 0) {
@@ -63,7 +64,8 @@ export function makeActionExtract<
   TDataUpdate,
   TDataDelete,
   TKey extends StateKeyType,
-  TFilter
+  TFilter,
+  TScheme
 >(
   params: ParamsType<
     TDataList,
@@ -72,7 +74,8 @@ export function makeActionExtract<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >,
   setStateCall: SetState<
     ExtractStateAndActionType<
@@ -82,7 +85,8 @@ export function makeActionExtract<
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >,
   getStateCall: GetState<
@@ -93,7 +97,8 @@ export function makeActionExtract<
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >
 ) {
@@ -106,7 +111,8 @@ export function makeActionExtract<
       TDataUpdate,
       TDataDelete,
       TStateGroup,
-      TFilter
+      TFilter,
+      TScheme
     >;
     const setState = setStateCall as StateSetterCallType<
       TDataList,
@@ -115,7 +121,8 @@ export function makeActionExtract<
       TDataUpdate,
       TDataDelete,
       TStateGroup,
-      TFilter
+      TFilter,
+      TScheme
     >;
     const interceptors = params as ExtractInterceptorType<
       TDataList,
@@ -124,7 +131,8 @@ export function makeActionExtract<
       TDataUpdate,
       TDataDelete,
       TStateGroup,
-      TFilter
+      TFilter,
+      TScheme
     >;
 
     return { getState, setState, interceptors };

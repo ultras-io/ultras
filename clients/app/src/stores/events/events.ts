@@ -15,7 +15,7 @@ import {
 
 import { scheme } from './scheme';
 
-type ParamType = InitStoreParamsInterface<EventViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<EventViewModel, TScheme>;
 type FilterType = Filterable<GetEventsFilter>;
 
 type TDeleteEvent = {
@@ -24,7 +24,7 @@ type TDeleteEvent = {
 
 const sdk = new EventSDK('dev');
 
-const buildEventsStore = (params: Partial<ParamType> = {}) => {
+const buildEventsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     EventViewModel,
     EventViewModel,
@@ -32,10 +32,11 @@ const buildEventsStore = (params: Partial<ParamType> = {}) => {
     EventViewModel,
     TDeleteEvent,
     FilterType,
+    TScheme,
     'list' | 'single' | 'add' | 'delete'
   >({
     keys: ['list', 'single', 'add', 'delete'],
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
     scheme,
 
     loadAll: (filter: FullFilterable<GetEventsFilter>) => {

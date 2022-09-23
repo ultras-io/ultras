@@ -8,27 +8,24 @@ const EventsContainer: React.FC<IEventsContainerProps> = ({
   matchId,
   teamId,
 }) => {
-  const eventsStoreRef = React.useRef(buildEventsStore());
+  const eventsStore = React.useMemo(() => buildEventsStore(), []);
 
   React.useEffect(() => {
-    eventsStoreRef.current.updateFilter({
+    eventsStore.updateFilter({
       fanClubId,
       matchId,
       teamId,
     });
-    eventsStoreRef.current.getAll();
-  }, [fanClubId, matchId, teamId]);
+    eventsStore.getAll();
+  }, [eventsStore, fanClubId, matchId, teamId]);
 
-  const result = eventsStoreRef.current.useSelector('list');
+  const result = eventsStore.useSelector('list');
 
   // @TODO handle error status
   if (!result.list.data && result.list.status === 'loading') return <EventsLoader />;
 
   return (
-    <EventsComponent
-      data={result.list.data || []}
-      onEndReached={eventsStoreRef.current.getAll}
-    />
+    <EventsComponent data={result.list.data || []} onEndReached={eventsStore.getAll} />
   );
 };
 

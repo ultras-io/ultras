@@ -11,6 +11,7 @@ import * as crudList from '../crud/list';
 import * as crudSingle from '../crud/single';
 import * as crudAdd from '../crud/add';
 import * as crudDelete from '../crud/delete';
+import * as crudUpdate from '../crud/update';
 
 function buildRootActions<
   TDataList,
@@ -19,7 +20,8 @@ function buildRootActions<
   TDataUpdate,
   TDataDelete,
   TKey extends StateKeyType,
-  TFilter
+  TFilter,
+  TScheme
 >(
   params: ParamsType<
     TDataList,
@@ -28,7 +30,8 @@ function buildRootActions<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >,
   storeVanilla: RootStoreType<
     TDataList,
@@ -37,7 +40,8 @@ function buildRootActions<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >
 ): ExtractStateAndActionType<
   TDataList,
@@ -46,7 +50,8 @@ function buildRootActions<
   TDataUpdate,
   TDataDelete,
   TKey,
-  TFilter
+  TFilter,
+  TScheme
 > {
   const includeKeys = fillStateKeys(params.keys || []);
 
@@ -70,7 +75,8 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'list',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
@@ -85,7 +91,8 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'single',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
@@ -100,7 +107,8 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'add',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
@@ -115,14 +123,27 @@ function buildRootActions<
         TDataUpdate,
         TDataDelete,
         'delete',
-        TFilter
+        TFilter,
+        TScheme
       >
     );
   }
 
-  // @TODO: add delete code
-
-  // @TODO: add update code
+  if (includeKeys.update) {
+    crudUpdate.buildRootAction(
+      rootActions,
+      storeVanilla as RootStoreType<
+        TDataList,
+        TDataSingle,
+        TDataCreate,
+        TDataUpdate,
+        TDataDelete,
+        'update',
+        TFilter,
+        TScheme
+      >
+    );
+  }
 
   return rootActions;
 }

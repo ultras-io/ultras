@@ -12,32 +12,33 @@ import {
   InitStoreParamsInterface,
 } from './generateCRUD';
 
-type ParamType = InitStoreParamsInterface<TeamViewModel>;
+type ParamType<TScheme> = InitStoreParamsInterface<TeamViewModel, TScheme>;
 type FilterType = Filterable<GetFavoriteTeamsFilter>;
 
-type TCreateEvent = {
+type TCreateFavoriteTeam = {
   teamId: ResourceIdentifier;
 };
-type TDeleteEvent = {
+type TDeleteFavoriteTeam = {
   favoriteTeamId?: ResourceIdentifier;
   teamId?: ResourceIdentifier;
 };
 
 const sdk = new FavoriteTeamSDK('dev');
 
-const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
+const buildFavoriteTeamsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<
     TeamViewModel,
     TeamViewModel,
-    TCreateEvent,
+    TCreateFavoriteTeam,
     null,
-    TDeleteEvent,
+    TDeleteFavoriteTeam,
     FilterType,
+    TScheme,
     'list' | 'add' | 'delete'
   >({
     keys: ['list', 'add', 'delete'],
 
-    ...(params as ParamType),
+    ...(params as ParamType<TScheme>),
 
     loadAll: (filter: FullFilterable<GetFavoriteTeamsFilter>) => {
       return sdk.getFavoriteTeams({
@@ -45,11 +46,11 @@ const buildFavoriteTeamsStore = (params: Partial<ParamType> = {}) => {
       });
     },
 
-    create: (data: TCreateEvent) => {
+    create: (data: TCreateFavoriteTeam) => {
       return sdk.add(data.teamId);
     },
 
-    remove: (data: TDeleteEvent) => {
+    remove: (data: TDeleteFavoriteTeam) => {
       if (data.teamId) {
         return sdk.removeByTeamId(data.teamId);
       }

@@ -7,6 +7,7 @@ import * as crudList from '../crud/list';
 import * as crudSingle from '../crud/single';
 import * as crudAdd from '../crud/add';
 import * as crudDelete from '../crud/delete';
+import * as crudUpdate from '../crud/update';
 
 function buildStateAndActions<
   TDataList,
@@ -15,7 +16,8 @@ function buildStateAndActions<
   TDataUpdate,
   TDataDelete,
   TKey extends StateKeyType,
-  TFilter
+  TFilter,
+  TScheme
 >(
   params: ParamsType<
     TDataList,
@@ -24,7 +26,8 @@ function buildStateAndActions<
     TDataUpdate,
     TDataDelete,
     TKey,
-    TFilter
+    TFilter,
+    TScheme
   >,
   setStateCall: SetState<
     ExtractStateAndActionType<
@@ -34,7 +37,8 @@ function buildStateAndActions<
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >,
   getStateCall: GetState<
@@ -45,7 +49,8 @@ function buildStateAndActions<
       TDataUpdate,
       TDataDelete,
       TKey,
-      TFilter
+      TFilter,
+      TScheme
     >
   >
 ): ExtractStateAndActionType<
@@ -55,7 +60,8 @@ function buildStateAndActions<
   TDataUpdate,
   TDataDelete,
   TKey,
-  TFilter
+  TFilter,
+  TScheme
 > {
   const includeKeys = fillStateKeys(params.keys || []);
 
@@ -109,7 +115,12 @@ function buildStateAndActions<
     crudDelete.buildActions(actions, getState, setState, interceptors);
   }
 
-  // @TODO: add update code
+  if (includeKeys.update) {
+    const { getState, setState, interceptors } = actionExtractor<'update'>();
+
+    crudUpdate.buildInitialState(state, interceptors.scheme);
+    crudUpdate.buildActions(actions, getState, setState, interceptors);
+  }
 
   return { ...state, ...actions };
 }

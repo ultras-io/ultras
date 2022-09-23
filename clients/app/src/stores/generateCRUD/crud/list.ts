@@ -31,15 +31,33 @@ function generateInitialState<TData, TFilter>(): ListStateDataInterface<TData, T
 export const defaultLimit = 10;
 
 // build initial state for list.
-export const buildInitialState = <TData, TFilter>(
-  state: ExtractStateType<TData, null, null, null, null, CurrentStoreKeyType, TFilter>
+export const buildInitialState = <TData, TFilter, TScheme>(
+  state: ExtractStateType<
+    TData,
+    null,
+    null,
+    null,
+    null,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >
 ) => {
   state.list = generateInitialState<TData, TFilter>();
 };
 
 // build actions for list.
-export const buildActions = <TData, TFilter>(
-  actions: ExtractActionType<TData, null, null, null, null, CurrentStoreKeyType, TFilter>,
+export const buildActions = <TData, TFilter, TScheme>(
+  actions: ExtractActionType<
+    TData,
+    null,
+    null,
+    null,
+    null,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >,
   getState: StateGetterCallType<
     TData,
     null,
@@ -47,7 +65,8 @@ export const buildActions = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   setState: StateSetterCallType<
     TData,
@@ -56,7 +75,8 @@ export const buildActions = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   interceptors: ExtractInterceptorType<
     TData,
@@ -65,7 +85,8 @@ export const buildActions = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
   fetchLimit: number = defaultLimit
 ) => {
@@ -123,7 +144,7 @@ export const buildActions = <TData, TFilter>(
       };
 
       const result = await interceptors.loadAll(
-        filterData as unknown as FullFilterable<Partial<TFilter>>
+        filterData as FullFilterable<Partial<TFilter>>
       );
 
       if (!result) {
@@ -156,7 +177,7 @@ export const buildActions = <TData, TFilter>(
 };
 
 // build root actions for list.
-export const buildRootAction = <TData, TFilter>(
+export const buildRootAction = <TData, TFilter, TScheme>(
   rootActions: ExtractActionType<
     TData,
     null,
@@ -164,19 +185,30 @@ export const buildRootAction = <TData, TFilter>(
     null,
     null,
     CurrentStoreKeyType,
-    TFilter
+    TFilter,
+    TScheme
   >,
-  storeVanilla: RootStoreType<TData, null, null, null, null, CurrentStoreKeyType, TFilter>
+  storeVanilla: RootStoreType<
+    TData,
+    null,
+    null,
+    null,
+    null,
+    CurrentStoreKeyType,
+    TFilter,
+    TScheme
+  >
 ) => {
   const getVanillaState = () => {
-    return storeVanilla.getState() as unknown as ExtractActionType<
+    return storeVanilla.getState() as ExtractActionType<
       TData,
       null,
       null,
       null,
       null,
       CurrentStoreKeyType,
-      TFilter
+      TFilter,
+      TScheme
     >;
   };
 

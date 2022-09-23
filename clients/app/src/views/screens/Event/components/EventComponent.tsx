@@ -42,7 +42,7 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
     if (isJoined) {
       eventMembersStore.remove({ eventId: data.id });
     } else {
-      eventMembersStore.setFieldValue('eventId', data.id);
+      eventMembersStore.setAddFieldValue('eventId', data.id);
       eventMembersStore.create();
     }
   }, [data.id, isJoined, eventMembersStore]);

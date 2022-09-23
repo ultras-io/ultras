@@ -5,14 +5,17 @@ import CreateEventComponent from '../components/CreateEventComponent';
 const eventsStore = buildEventsStore();
 
 const CreateEventContainer: React.FC = () => {
-  // eventsStore.setFieldValue('title', 'a');
+  // eventsStore.setAddFieldValue('title', 'a');
 
   const { add } = eventsStore.useSelector('add');
 
   // eventsStore.create();
 
   return (
-    <CreateEventComponent data={add.data} setFieldValue={eventsStore.setFieldValue} />
+    <CreateEventComponent
+      data={add.data}
+      setAddFieldValue={eventsStore.setAddFieldValue}
+    />
   );
 };
 
