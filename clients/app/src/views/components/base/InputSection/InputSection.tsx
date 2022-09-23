@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from 'native-base';
 import { useTheme } from 'themes';
-import { IFormControlProps } from './types';
+import { IInputSectionProps } from './types';
 
-const FormControl: React.FC<IFormControlProps> = ({ children }) => {
+const InputSection: React.FC<IInputSectionProps> = ({ children }) => {
   const { colors } = useTheme();
 
   return (
@@ -13,4 +13,4 @@ const FormControl: React.FC<IFormControlProps> = ({ children }) => {
   );
 };
 
-export default FormControl;
+export default InputSection;

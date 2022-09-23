@@ -4,7 +4,7 @@ import { Box, Divider, HStack, Text } from 'native-base';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import buildMatchesStore from 'stores/matches';
-import { FormControl } from 'views/components/base/FormControl';
+import { InputSection } from 'views/components/base/InputSection';
 import { RemoveButton } from 'views/components/base/RemoveButton';
 import MatchInfo from 'views/components/compositions/MatchInfo';
 import { ISelectedMatchProps } from '../types';
@@ -27,7 +27,7 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
   }
 
   return (
-    <FormControl>
+    <InputSection>
       {single.status === 'success' ? (
         <>
           <HStack alignItems="center" space="2" paddingY="2" paddingX="4">
@@ -68,7 +68,7 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
           )}
         </>
       )}
-    </FormControl>
+    </InputSection>
   );
 };
 

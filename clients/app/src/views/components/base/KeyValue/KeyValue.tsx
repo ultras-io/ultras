@@ -1,6 +1,6 @@
 import React from 'react';
 import { VStack, Text } from 'native-base';
-import { FormControl } from 'views/components/base/FormControl';
+import { InputSection } from 'views/components/base/InputSection';
 import { KeyValueInner } from './KeyValueInner';
 import { IKeyValueProps } from './types';
 
@@ -13,9 +13,9 @@ const KeyValue: React.FC<IKeyValueProps> = ({
 }) => {
   return (
     <VStack>
-      <FormControl>
+      <InputSection>
         <KeyValueInner name={name} value={value} options={options} onChange={onChange} />
-      </FormControl>
+      </InputSection>
 
       {description && (
         <Text variant={'cardStats'} p={'2'}>

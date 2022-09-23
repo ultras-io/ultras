@@ -1,4 +1,4 @@
-export interface RemoveButtonInterface {
+export interface IRemoveButtonProps {
   size?: number;
   onPress?: () => void;
 }
