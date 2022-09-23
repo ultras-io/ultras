@@ -15,7 +15,7 @@ const CreateEventContainer: React.FC = () => {
 
   React.useEffect(() => {
     const matchId = route?.params?.matchId || undefined;
-    eventsStore.setFieldValue('matchId', matchId);
+    eventsStore.setAddFieldValue('matchId', matchId);
   }, [route?.params?.matchId]);
 
   const onCreatePress = React.useCallback(() => {
@@ -35,7 +35,7 @@ const CreateEventContainer: React.FC = () => {
     <CreateEventComponent
       loading={add.status === 'loading'}
       data={add.data}
-      setFieldValue={eventsStore.setFieldValue}
+      setAddFieldValue={eventsStore.setAddFieldValue}
       onCreatePress={onCreatePress}
     />
   );

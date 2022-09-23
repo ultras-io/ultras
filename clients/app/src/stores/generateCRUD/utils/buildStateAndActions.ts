@@ -7,6 +7,7 @@ import * as crudList from '../crud/list';
 import * as crudSingle from '../crud/single';
 import * as crudAdd from '../crud/add';
 import * as crudDelete from '../crud/delete';
+import * as crudUpdate from '../crud/update';
 
 function buildStateAndActions<
   TDataList,
@@ -114,7 +115,12 @@ function buildStateAndActions<
     crudDelete.buildActions(actions, getState, setState, interceptors);
   }
 
-  // @TODO: add update code
+  if (includeKeys.update) {
+    const { getState, setState, interceptors } = actionExtractor<'update'>();
+
+    crudUpdate.buildInitialState(state, interceptors.scheme);
+    crudUpdate.buildActions(actions, getState, setState, interceptors);
+  }
 
   return { ...state, ...actions };
 }

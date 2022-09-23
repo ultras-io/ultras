@@ -3,7 +3,7 @@ import { CreateEventType } from '@ultras/core-api-sdk';
 export interface ICreateEventComponentProps {
   loading: boolean;
   data: any;
-  setFieldValue: (
+  setAddFieldValue: (
     fieldKey: keyof CreateEventType,
     fieldValue: CreateEventType[keyof CreateEventType]
   ) => void;

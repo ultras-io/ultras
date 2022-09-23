@@ -136,7 +136,7 @@ export const buildRootAction = <TData, TFilter, TScheme>(
   >
 ) => {
   const getVanillaState = () => {
-    return storeVanilla.getState() as unknown as ExtractActionType<
+    return storeVanilla.getState() as ExtractActionType<
       null,
       null,
       null,
