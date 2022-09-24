@@ -28,11 +28,11 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
    * Current state of the join status.
    */
   const [joinStatus, setJoinStatus] = React.useState<FanClubMemberStatusEnum>(
-    data.joinStatus || FanClubMemberStatusEnum.noStatus
+    data.joinStatus || FanClubMemberStatusEnum.notRelated
   );
 
   React.useEffect(() => {
-    setJoinStatus(data.joinStatus || FanClubMemberStatusEnum.noStatus);
+    setJoinStatus(data.joinStatus || FanClubMemberStatusEnum.notRelated);
   }, [data.joinStatus]);
 
   /**
@@ -56,7 +56,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
    * On leave button press.
    */
   const onLeavePress = React.useCallback(() => {
-    setJoinStatus(FanClubMemberStatusEnum.noStatus);
+    setJoinStatus(FanClubMemberStatusEnum.notRelated);
     fanClubMembersStore.remove({ fanClubId: data.id });
   }, [data.id, fanClubMembersStore]);
 
@@ -123,7 +123,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
    */
   const onInvitationRejectPress = React.useCallback(() => {
     actionRespondInvitation.onClose();
-    setJoinStatus(FanClubMemberStatusEnum.noStatus);
+    setJoinStatus(FanClubMemberStatusEnum.notRelated);
 
     fanClubMembersStore.setResourceId(data.id);
     fanClubMembersStore.setUpdateFieldValue('type', 'reject-invitation');
@@ -144,7 +144,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
 
   React.useEffect(() => {
     if (storeAdd.status === 'error') {
-      setJoinStatus(FanClubMemberStatusEnum.noStatus);
+      setJoinStatus(FanClubMemberStatusEnum.notRelated);
     }
     if (storeDelete.status === 'error') {
       if (data.privacy === FanClubPrivacyEnum.public) {

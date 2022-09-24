@@ -200,7 +200,7 @@ class FanClubService extends BaseService {
                 (
                   SELECT
                     CASE
-                      WHEN "status" IS NULL THEN '${FanClubMemberStatusEnum.noStatus}'
+                      WHEN "status" IS NULL THEN '${FanClubMemberStatusEnum.notRelated}'
                       ELSE "status"
                     END AS "joinStatus"
                   FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
@@ -271,7 +271,7 @@ class FanClubService extends BaseService {
               (
                 SELECT
                   CASE
-                    WHEN "status" IS NULL THEN '${FanClubMemberStatusEnum.noStatus}'
+                    WHEN "status" IS NULL THEN '${FanClubMemberStatusEnum.notRelated}'
                     ELSE "status"
                   END AS "joinStatus"
                 FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"

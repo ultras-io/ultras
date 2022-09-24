@@ -26,9 +26,11 @@ import AppContainer from 'views/AppContainer';
 // });
 
 const globalAny = global as any;
+
+// eslint-disable-next-line no-console
 console.log(
-  '>>> JS Engine: ',
-  !!globalAny.HermesInternal ? 'Hermes' : !!globalAny.__v8runtime ? 'V8' : 'JSC'
+  '>>> JS Engine:',
+  globalAny.HermesInternal ? 'Hermes' : globalAny.__v8runtime ? 'V8' : 'JSC'
 );
 
 const App = () => {

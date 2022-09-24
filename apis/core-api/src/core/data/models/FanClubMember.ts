@@ -114,7 +114,7 @@ module.exports = (sequelize: Sequelize): typeof FanClubMember => {
       status: {
         type: DataTypes.ENUM({
           values: [
-            FanClubMemberStatusEnum.noStatus,
+            FanClubMemberStatusEnum.notRelated,
             FanClubMemberStatusEnum.active,
             FanClubMemberStatusEnum.pendingRequest,
             FanClubMemberStatusEnum.pendingInvitation,
