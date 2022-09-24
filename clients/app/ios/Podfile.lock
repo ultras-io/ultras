@@ -305,7 +305,7 @@ PODS:
     - glog
   - react-native-blur (4.2.0):
     - React-Core
-  - react-native-geolocation-service (5.3.0):
+  - react-native-geolocation-service (5.3.1):
     - React
   - react-native-pager-view (6.0.0):
     - React-Core
@@ -613,7 +613,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 1363be638eccfe1aea1b10dd42e632b0397e5ec8
   React-logger: 7bd569e3857d74ed412ce0a5c51f421ff7d4ca7f
   react-native-blur: 3e9c8e8e9f7d17fa1b94e1a0ae9fd816675f5382
-  react-native-geolocation-service: f32ef48fa665bd710207a3ac39bc127cac9cb993
+  react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-pager-view: e76d64a5114a152e942caa09136e4e250709378c
   react-native-safe-area-context: dfe5aa13bee37a0c7e8059d14f72ffc076d120e9
   React-perflogger: 48c6b363e867d64b682e84f80ca45636bd65e19c
@@ -637,6 +637,6 @@ SPEC CHECKSUMS:
   Yoga: 6c8252e38d65aa387daee699eacf027e055e0b31
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 55883ac333eb4a5888d6f1bc1e1c51b0591f7aec
+PODFILE CHECKSUM: 53cb586e961c9b660218faaf010809cecf2c9d67
 
 COCOAPODS: 1.11.3

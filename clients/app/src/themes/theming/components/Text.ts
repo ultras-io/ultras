@@ -291,5 +291,42 @@ export default {
         },
       };
     },
+    actionSheetTitle: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: '5xl',
+        fontWeight: 600,
+        style: {
+          color: colors[colorMode].textPrimary,
+          textAlign: 'center',
+        },
+      };
+    },
+    actionSheetItem: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: '4xl',
+        fontWeight: 600,
+        style: {
+          color: colors[colorMode].textPrimary,
+        },
+      };
+    },
+    actionSheetItemNegative: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: '4xl',
+        fontWeight: 600,
+        style: {
+          color: '#dc2626',
+        },
+      };
+    },
+    actionSheetItemPositive: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: '4xl',
+        fontWeight: 600,
+        style: {
+          color: '#10b981',
+        },
+      };
+    },
   },
 };

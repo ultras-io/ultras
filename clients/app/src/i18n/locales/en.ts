@@ -94,6 +94,17 @@ export default {
   'fanClubs-no': 'No Fan Clubs',
   'fanClubs-join': 'Join the Club',
   'fanClubs-joined': 'Joined',
+  'fanClubs-banned': 'Banned',
+  'fanClubs-pendingRequest': 'Requested',
+  'fanClubs-pendingRequest-cancel-title': 'Cancel request to join {{fanClub}}?',
+  'fanClubs-pendingRequest-cancel-confirm': 'Cancel request',
+  'fanClubs-pendingRequest-cancel-close': 'Keep waiting',
+  'fanClubs-pendingInvitation': 'Respond to Invitation',
+  'fanClubs-pendingInvitation-respond-title':
+    'Respond to join invitation from {{fanClub}}',
+  'fanClubs-pendingInvitation-respond-accept': 'Accept Invitation',
+  'fanClubs-pendingInvitation-respond-reject': 'Reject Invitation',
+  'fanClubs-pendingInvitation-respond-close': 'Close',
   'fanClubs-fans': 'Fans',
 
   // rooms

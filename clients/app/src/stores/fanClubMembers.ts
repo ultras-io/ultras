@@ -17,10 +17,13 @@ type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
 type TDeleteFanClubMember = {
   fanClubId: ResourceIdentifier;
-  membershipId: ResourceIdentifier;
+  membershipId?: ResourceIdentifier;
 };
 type TCreateFanClubMember = {
   fanClubId: ResourceIdentifier;
+};
+type TUpdateFanClubMember = {
+  type: 'accept-invitation' | 'reject-invitation';
 };
 
 interface LoadAllParams extends FullFilterable<GetFanClubMembershipsFilter> {
@@ -34,13 +37,13 @@ const buildFanClubMembersStore = <TScheme>(params: Partial<ParamType<TScheme>> =
     FanClubMemberViewModel,
     FanClubMemberViewModel,
     TCreateFanClubMember,
-    FanClubMemberViewModel,
+    TUpdateFanClubMember,
     TDeleteFanClubMember,
     FilterType,
     TScheme,
-    'list' | 'add' | 'delete'
+    'list' | 'add' | 'update' | 'delete'
   >({
-    keys: ['list', 'add', 'delete'],
+    keys: ['list', 'add', 'update', 'delete'],
     ...(params as ParamType<TScheme>),
 
     loadAll: (filter: LoadAllParams) => {
@@ -56,6 +59,15 @@ const buildFanClubMembersStore = <TScheme>(params: Partial<ParamType<TScheme>> =
 
     create: (data: TCreateFanClubMember) => {
       return sdk.requestJoin(data.fanClubId);
+    },
+
+    updateData: (fanClubId: ResourceIdentifier, data: TUpdateFanClubMember) => {
+      if (data.type === 'accept-invitation') {
+        return sdk.acceptInvitation(fanClubId);
+      }
+      if (data.type === 'reject-invitation') {
+        return sdk.rejectInvitation(fanClubId);
+      }
     },
 
     remove: (data: TDeleteFanClubMember) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Button, Text, HStack, VStack } from 'native-base';
+import { Avatar, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import VerticalDivider from 'views/components/base/VerticalDivider';
@@ -11,48 +11,11 @@ import { getReadableNumber } from 'utils/helpers/readableNumber';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
-import buildFanClubMembersStore from 'stores/fanClubMembers';
-import { FanClubMemberStatusEnum } from '@ultras/utils';
+import FanClubJoinButton from './FanClubJoinButton';
 
 const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
-
-  const fanClubMembersStore = React.useMemo(() => buildFanClubMembersStore(), []);
-  const { add: storeAdd, delete: storeDelete } = fanClubMembersStore.useSelector(
-    'add',
-    'delete'
-  );
-
-  const [isJoined, setIsJoined] = React.useState(
-    data.joinStatus === FanClubMemberStatusEnum.active || false
-  );
-
-  const onJoinLeavePress = React.useCallback(() => {
-    setIsJoined(!isJoined);
-
-    if (isJoined) {
-      fanClubMembersStore.remove({ fanClubId: data.id });
-    } else {
-      fanClubMembersStore.setAddFieldValue('fanClubId', data.id);
-      fanClubMembersStore.create();
-    }
-  }, [data.id, isJoined, fanClubMembersStore]);
-
-  React.useEffect(() => {
-    if (data.joinStatus === FanClubMemberStatusEnum.active) {
-      setIsJoined(true);
-    }
-  }, [data.joinStatus]);
-
-  React.useEffect(() => {
-    if (storeAdd.status === 'error') {
-      setIsJoined(false);
-    }
-    if (storeDelete.status === 'error') {
-      setIsJoined(true);
-    }
-  }, [isJoined, storeAdd.status, storeDelete.status]);
 
   const openMembersList = React.useCallback(
     () =>
@@ -112,21 +75,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
           <HStack space={'1'} h={'5'} />
         )}
 
-        <Button
-          onPress={onJoinLeavePress}
-          leftIcon={
-            <Icon
-              name={isJoined ? Icons.Check : Icons.ArrowForward}
-              color={isJoined ? 'iconPrimary' : 'iconPrimaryInvert'}
-              size={'ic-xs'}
-            />
-          }
-          variant={isJoined ? 'actionInvert' : 'action'}
-          mt={'3'}
-          mr={'4'}
-        >
-          {I18n.t(isJoined ? 'fanClubs-joined' : 'fanClubs-join')}
-        </Button>
+        <FanClubJoinButton data={data} />
       </VStack>
     </HStack>
   );

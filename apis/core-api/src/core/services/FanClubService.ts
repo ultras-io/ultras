@@ -198,7 +198,11 @@ class FanClubService extends BaseService {
             [
               db.Sequelize.literal(`
                 (
-                  SELECT "status" AS "joinStatus"
+                  SELECT
+                    CASE
+                      WHEN "status" IS NULL THEN '${FanClubMemberStatusEnum.notRelated}'
+                      ELSE "status"
+                    END AS "joinStatus"
                   FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
                   WHERE (
                     "deletedAt" IS NULL
@@ -265,7 +269,11 @@ class FanClubService extends BaseService {
           [
             db.Sequelize.literal(`
               (
-                SELECT "status" AS "joinStatus"
+                SELECT
+                  CASE
+                    WHEN "status" IS NULL THEN '${FanClubMemberStatusEnum.notRelated}'
+                    ELSE "status"
+                  END AS "joinStatus"
                 FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
                 WHERE (
                   "deletedAt" IS NULL
