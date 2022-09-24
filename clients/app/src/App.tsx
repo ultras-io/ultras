@@ -25,6 +25,12 @@ import AppContainer from 'views/AppContainer';
 //   },
 // });
 
+const globalAny = global as any;
+console.log(
+  '>>> JS Engine: ',
+  !!globalAny.HermesInternal ? 'Hermes' : !!globalAny.__v8runtime ? 'V8' : 'JSC'
+);
+
 const App = () => {
   return (
     <ThemeProvider>
