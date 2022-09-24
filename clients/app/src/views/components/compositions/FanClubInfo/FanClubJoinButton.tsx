@@ -6,8 +6,7 @@ import I18n from 'i18n/i18n';
 import Icon from 'views/components/base/Icon';
 import buildFanClubMembersStore from 'stores/fanClubMembers';
 import { IFanClubInfoProps } from './types';
-import CancelRequestActionSheet from './actions/CancelRequestActionSheet';
-import RespondInvitationActionSheet from './actions/RespondInvitationActionSheet';
+import ConfirmActionSheet from './actions/ConfirmActionSheet';
 import {
   buildButtonAttributes,
   ButtonAttributeInterface,
@@ -28,12 +27,12 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
   /**
    * Current state of the join status.
    */
-  const [joinStatus, setJoinStatus] = React.useState<FanClubMemberStatusEnum | undefined>(
-    data.joinStatus || undefined
+  const [joinStatus, setJoinStatus] = React.useState<FanClubMemberStatusEnum>(
+    data.joinStatus || FanClubMemberStatusEnum.noStatus
   );
 
   React.useEffect(() => {
-    setJoinStatus(data.joinStatus);
+    setJoinStatus(data.joinStatus || FanClubMemberStatusEnum.noStatus);
   }, [data.joinStatus]);
 
   /**
@@ -43,12 +42,11 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
    * otherwise join request will be sent and state will be in pending-invitation.
    */
   const onJoinPress = React.useCallback(() => {
-    const newJoinStatus =
-      data.privacy === FanClubPrivacyEnum.public
-        ? FanClubMemberStatusEnum.active
-        : FanClubMemberStatusEnum.pendingRequest;
-
-    setJoinStatus(newJoinStatus);
+    if (data.privacy === FanClubPrivacyEnum.public) {
+      setJoinStatus(FanClubMemberStatusEnum.active);
+    } else {
+      setJoinStatus(FanClubMemberStatusEnum.pendingRequest);
+    }
 
     fanClubMembersStore.setAddFieldValue('fanClubId', data.id);
     fanClubMembersStore.create();
@@ -58,7 +56,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
    * On leave button press.
    */
   const onLeavePress = React.useCallback(() => {
-    setJoinStatus(undefined);
+    setJoinStatus(FanClubMemberStatusEnum.noStatus);
     fanClubMembersStore.remove({ fanClubId: data.id });
   }, [data.id, fanClubMembersStore]);
 
@@ -125,43 +123,52 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
    */
   const onInvitationRejectPress = React.useCallback(() => {
     actionRespondInvitation.onClose();
-    setJoinStatus(undefined);
+    setJoinStatus(FanClubMemberStatusEnum.noStatus);
 
     fanClubMembersStore.setResourceId(data.id);
     fanClubMembersStore.setUpdateFieldValue('type', 'reject-invitation');
     fanClubMembersStore.updateData();
   }, [actionRespondInvitation, data.id, fanClubMembersStore]);
 
+  /**
+   * On invitation close button press.
+   *
+   * Action will called from confirmation action-sheet containing three buttons:
+   * - Accept invitation
+   * - Reject invitation
+   * - Close
+   */
+  const onInvitationClosePress = React.useCallback(() => {
+    actionRespondInvitation.onClose();
+  }, [actionRespondInvitation]);
+
   React.useEffect(() => {
     if (storeAdd.status === 'error') {
-      setJoinStatus(undefined);
+      setJoinStatus(FanClubMemberStatusEnum.noStatus);
     }
     if (storeDelete.status === 'error') {
-      setJoinStatus(
-        data.privacy === FanClubPrivacyEnum.public
-          ? FanClubMemberStatusEnum.active
-          : FanClubMemberStatusEnum.pendingRequest
-      );
+      if (data.privacy === FanClubPrivacyEnum.public) {
+        setJoinStatus(FanClubMemberStatusEnum.active);
+      } else {
+        setJoinStatus(FanClubMemberStatusEnum.pendingRequest);
+      }
     }
   }, [joinStatus, data.privacy, storeAdd.status, storeDelete.status]);
 
   const { icon, button } = React.useMemo((): ButtonAttributeInterface => {
-    if (!joinStatus) {
-      return buildButtonAttributes(joinStatus, theme.colors, onJoinPress);
+    if (joinStatus === FanClubMemberStatusEnum.active) {
+      return buildButtonAttributes(joinStatus, theme.colors, onLeavePress);
     }
-
-    switch (joinStatus) {
-      case FanClubMemberStatusEnum.active:
-        return buildButtonAttributes(joinStatus, theme.colors, onLeavePress);
-      case FanClubMemberStatusEnum.pendingRequest:
-        return buildButtonAttributes(joinStatus, theme.colors, onCancelRequestPress);
-
-      case FanClubMemberStatusEnum.pendingInvitation:
-        return buildButtonAttributes(joinStatus, theme.colors, onRespondInvitationPress);
-
-      case FanClubMemberStatusEnum.banned:
-        return buildButtonAttributes(joinStatus, theme.colors);
+    if (joinStatus === FanClubMemberStatusEnum.pendingRequest) {
+      return buildButtonAttributes(joinStatus, theme.colors, onCancelRequestPress);
     }
+    if (joinStatus === FanClubMemberStatusEnum.pendingInvitation) {
+      return buildButtonAttributes(joinStatus, theme.colors, onRespondInvitationPress);
+    }
+    if (joinStatus === FanClubMemberStatusEnum.banned) {
+      return buildButtonAttributes(joinStatus, theme.colors);
+    }
+    return buildButtonAttributes(joinStatus, theme.colors, onJoinPress);
   }, [
     onJoinPress,
     onLeavePress,
@@ -174,9 +181,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
   return (
     <>
       <Button
-        leftIcon={
-          !icon ? undefined : <Icon name={icon.name} color={icon.color} size="ic-xs" />
-        }
+        leftIcon={icon && <Icon name={icon.name} color={icon.color} size="ic-xs" />}
         variant={button.variant}
         marginTop={'3'}
         marginRight={'4'}
@@ -187,19 +192,44 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
         {I18n.t(button.text)}
       </Button>
 
-      <CancelRequestActionSheet
-        fanClubName={data.shortName}
+      <ConfirmActionSheet
+        title={I18n.t('fanClubs-pendingRequest-cancel-title', {
+          fanClub: data.name,
+        })}
         isOpen={actionCancelRequest.isOpen}
-        onCancel={onCancelClosePress}
-        onConfirm={onCancelConfirmPress}
+        onCancel={actionCancelRequest.onClose}
+        buttons={[
+          {
+            text: I18n.t('fanClubs-pendingRequest-cancel-confirm'),
+            onPress: onCancelConfirmPress,
+          },
+          {
+            text: I18n.t('fanClubs-pendingRequest-cancel-close'),
+            onPress: onCancelClosePress,
+          },
+        ]}
       />
 
-      <RespondInvitationActionSheet
-        fanClubName={data.shortName}
+      <ConfirmActionSheet
+        title={I18n.t('fanClubs-pendingInvitation-respond-title', {
+          fanClub: data.name,
+        })}
         isOpen={actionRespondInvitation.isOpen}
         onCancel={actionRespondInvitation.onClose}
-        onAccept={onInvitationAcceptPress}
-        onReject={onInvitationRejectPress}
+        buttons={[
+          {
+            text: I18n.t('fanClubs-pendingInvitation-respond-accept'),
+            onPress: onInvitationAcceptPress,
+          },
+          {
+            text: I18n.t('fanClubs-pendingInvitation-respond-reject'),
+            onPress: onInvitationRejectPress,
+          },
+          {
+            text: I18n.t('fanClubs-pendingInvitation-respond-close'),
+            onPress: onInvitationClosePress,
+          },
+        ]}
       />
     </>
   );

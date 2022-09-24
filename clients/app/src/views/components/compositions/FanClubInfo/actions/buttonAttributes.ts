@@ -1,6 +1,6 @@
+import { FanClubMemberStatusEnum } from '@ultras/utils';
 import { ColorKey, ColorType } from 'themes/types';
 import { Icons } from 'assets/icons';
-import { FanClubMemberStatusEnum } from '@ultras/utils';
 
 interface OnButtonPressInterface {
   (): void;
@@ -43,10 +43,12 @@ function buildStyle(
 }
 
 export function buildButtonAttributes(
-  joinStatus: FanClubMemberStatusEnum | undefined | null,
+  joinStatus: FanClubMemberStatusEnum,
   colors: ColorType,
   onButtonPress?: OnButtonPressInterface
 ): ButtonAttributeInterface {
+
+  // active - means user already in fan club's member list.
   if (joinStatus === FanClubMemberStatusEnum.active) {
     return {
       icon: {
@@ -62,6 +64,7 @@ export function buildButtonAttributes(
     };
   }
 
+  // pending request - means user requested to join to fan club.
   if (joinStatus === FanClubMemberStatusEnum.pendingRequest) {
     const style = buildStyle(
       colors,
@@ -84,6 +87,8 @@ export function buildButtonAttributes(
     };
   }
 
+  // pending invitation - invitation sent by fan club admin/owner and need
+  //                      to be replied by user (accept or reject).
   if (joinStatus === FanClubMemberStatusEnum.pendingInvitation) {
     const style = buildStyle(
       colors,
@@ -106,6 +111,7 @@ export function buildButtonAttributes(
     };
   }
 
+  // banned - means admin or owner has blocked member.
   if (joinStatus === FanClubMemberStatusEnum.banned) {
     return {
       button: {
@@ -116,6 +122,7 @@ export function buildButtonAttributes(
     };
   }
 
+  // no status - means user not in fan club's member list.
   return {
     icon: {
       name: Icons.ArrowForward,

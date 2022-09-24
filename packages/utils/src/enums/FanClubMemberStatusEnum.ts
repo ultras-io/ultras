@@ -1,5 +1,10 @@
 enum FanClubMemberStatusEnum {
   /**
+   * User is not a club member.
+   */
+  noStatus = 'no-status',
+
+  /**
    * Member in club and active.
    */
   active = 'active',
