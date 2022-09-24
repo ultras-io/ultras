@@ -5,11 +5,15 @@ import { useKeyboard } from 'utils/hooks/useKeyboard';
 import { useTheme } from 'themes';
 import KeyValue from 'views/components/base/KeyValue';
 import DateAndTimeRows from './DateAndTimeRows';
+import SelectedMatchComponent from './SelectedMatchComponent';
 import AttacheImage from 'views/components/compositions/AttacheImage';
 import { ICreateEventComponentProps } from '../types';
+import { EventPrivacyEnum } from '@ultras/utils';
 
 const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
+  loading,
   data,
+  onCreatePress,
   setAddFieldValue,
 }) => {
   const { colors } = useTheme();
@@ -76,14 +80,26 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
           <KeyValue
             name={I18n.t('events-add-endDateTime')}
             value={false}
-            onChange={value => setAddFieldValue('isEndDateTime', value)}
+            onChange={value => setAddFieldValue('isEndDateTime', value as boolean)}
+          />
+        )}
+
+        {data.matchId?.valueOriginal && (
+          <SelectedMatchComponent
+            matchId={data.matchId?.valueOriginal}
+            onRemoveMatchPress={() => setAddFieldValue('matchId', null)}
           />
         )}
 
         <KeyValue
           name={I18n.t('events-add-privacy')}
-          value={'Public'}
+          value={data.privacy.valueOriginal}
           description={I18n.t('events-add-privacyDescription')}
+          options={{
+            [EventPrivacyEnum.private]: I18n.t('events-add-privacy-private'),
+            [EventPrivacyEnum.public]: I18n.t('events-add-privacy-public'),
+          }}
+          onChange={value => setAddFieldValue('privacy', value as EventPrivacyEnum)}
         />
 
         <VStack>
@@ -113,7 +129,7 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
 
         <AttacheImage title={I18n.t('events-add-photo')} />
 
-        <Button onPress={() => {}} variant={'primary'}>
+        <Button onPress={onCreatePress} variant={'primary'} isLoading={loading}>
           {I18n.t('events-add-button')}
         </Button>
       </VStack>

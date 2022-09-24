@@ -1,15 +1,25 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+path_node_modules = '../node_modules'
+  
+require_relative "#{path_node_modules}/react-native/scripts/react_native_pods"
+require_relative "#{path_node_modules}/@react-native-community/cli-platform-ios/native_modules"
 
-platform :ios, '11.0'
+app_compiler_falgs='$(inherited) -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -std=c++17 -Wno-comma -Wno-shorten-64-to-32'
+
+platform :ios, '13.0'
+install! 'cocoapods', :deterministic_uuids => false
 
 target 'ultras' do
   config = use_native_modules!
+  flags = get_default_flags()
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => false
+    :hermes_enabled => flags[:hermes_enabled],
+    :fabric_enabled => flags[:fabric_enabled],
+    :app_path => "#{Dir.pwd}/..",
+    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], {
+      'Flipper' => '0.159.0'
+    }),
   )
 
   target 'appTests' do
@@ -17,15 +27,20 @@ target 'ultras' do
     # Pods for testing
   end
 
-  # Enables Flipper.
-  #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable the next line.
-  # use_flipper!()
-  use_frameworks!
+  if flags[:fabric_enabled]
+    app_compiler_falgs = "#{app_compiler_falgs} -DRCT_NEW_ARCH_ENABLED=1"
+  end
 
   post_install do |installer|
     react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+
+    installer.pods_project.targets.each do |target|
+      if target.name == 'Pods-ecitizen'
+        target.build_configurations.each do |config|
+          config.build_settings['OTHER_CPLUSPLUSFLAGS'] = app_compiler_falgs
+        end
+      end
+    end
   end
 end
-

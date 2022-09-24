@@ -1,6 +1,7 @@
 import React from 'react';
-import { VStack, Box, Divider, Text } from 'native-base';
+import { VStack, Divider, Text } from 'native-base';
 import { useTheme } from 'themes';
+import { InputSection } from 'views/components/base/InputSection';
 import { IKeyValueGroupProps } from './types';
 
 export const KeyValueGroup: React.FC<IKeyValueGroupProps> = ({
@@ -11,7 +12,7 @@ export const KeyValueGroup: React.FC<IKeyValueGroupProps> = ({
 
   return (
     <VStack>
-      <Box bgColor={colors.backgroundInput} rounded={'lg'} overflow={'hidden'}>
+      <InputSection>
         {children &&
           children
             .filter(child => child)
@@ -27,7 +28,7 @@ export const KeyValueGroup: React.FC<IKeyValueGroupProps> = ({
                 {row}
               </React.Fragment>
             ))}
-      </Box>
+      </InputSection>
 
       {description && (
         <Text variant={'cardStats'} p={'2'}>
