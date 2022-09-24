@@ -50,7 +50,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
 
     setJoinStatus(newJoinStatus);
 
-    fanClubMembersStore.setFieldValue('fanClubId', data.id);
+    fanClubMembersStore.setAddFieldValue('fanClubId', data.id);
     fanClubMembersStore.create();
   }, [data.privacy, data.id, fanClubMembersStore]);
 
@@ -113,8 +113,10 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
     actionRespondInvitation.onClose();
     setJoinStatus(FanClubMemberStatusEnum.active);
 
-    // @TODO: confirm invitation using CRUD
-  }, [actionRespondInvitation]);
+    fanClubMembersStore.setResourceId(data.id);
+    fanClubMembersStore.setUpdateFieldValue('type', 'accept-invitation');
+    fanClubMembersStore.updateData();
+  }, [actionRespondInvitation, data.id, fanClubMembersStore]);
 
   /**
    * On respond invitation reject button press.
@@ -125,8 +127,10 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
     actionRespondInvitation.onClose();
     setJoinStatus(undefined);
 
-    // @TODO: reject invitation using CRUD
-  }, [actionRespondInvitation]);
+    fanClubMembersStore.setResourceId(data.id);
+    fanClubMembersStore.setUpdateFieldValue('type', 'reject-invitation');
+    fanClubMembersStore.updateData();
+  }, [actionRespondInvitation, data.id, fanClubMembersStore]);
 
   React.useEffect(() => {
     if (storeAdd.status === 'error') {
@@ -142,9 +146,11 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
   }, [joinStatus, data.privacy, storeAdd.status, storeDelete.status]);
 
   const { icon, button } = React.useMemo((): ButtonAttributeInterface => {
+    if (!joinStatus) {
+      return buildButtonAttributes(joinStatus, theme.colors, onJoinPress);
+    }
+
     switch (joinStatus) {
-      case undefined:
-        return buildButtonAttributes(joinStatus, theme.colors, onJoinPress);
       case FanClubMemberStatusEnum.active:
         return buildButtonAttributes(joinStatus, theme.colors, onLeavePress);
       case FanClubMemberStatusEnum.pendingRequest:

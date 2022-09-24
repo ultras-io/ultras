@@ -137,20 +137,24 @@ export class FanClubMembershipSDK extends CoreApiBaseSDK {
   // #region member actions
   public acceptInvitation(
     fanClubId: ResourceIdentifier,
-    membershipId: ResourceIdentifier
+    membershipId?: ResourceIdentifier
   ) {
-    return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
-      `${fanClubId}/memberships/${membershipId}/accept-invitation`
-    );
+    const url = membershipId
+      ? `${fanClubId}/memberships/${membershipId}/accept-invitation`
+      : `${fanClubId}/memberships/accept-invitation`;
+
+    return this.api?.makeAPIPatchRequest<ConfirmationResultType>(url);
   }
 
   public rejectInvitation(
     fanClubId: ResourceIdentifier,
-    membershipId: ResourceIdentifier
+    membershipId?: ResourceIdentifier
   ) {
-    return this.api?.makeAPIPatchRequest<ConfirmationResultType>(
-      `${fanClubId}/memberships/${membershipId}/reject-invitation`
-    );
+    const url = membershipId
+      ? `${fanClubId}/memberships/${membershipId}/reject-invitation`
+      : `${fanClubId}/memberships/reject-invitation`;
+
+    return this.api?.makeAPIPatchRequest<ConfirmationResultType>(url);
   }
 
   public requestJoin(fanClubId: ResourceIdentifier) {

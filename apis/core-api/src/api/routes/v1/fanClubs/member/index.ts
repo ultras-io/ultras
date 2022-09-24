@@ -50,6 +50,16 @@ routerWithFanClubId.patch(
   ...middlewaresWithFanClubIdAndChecks,
   ControllerAdapter.rejectInvitation
 );
+routerWithFanClubId.patch(
+  '/accept-invitation',
+  ...middlewaresWithFanClubIdAndChecks,
+  ControllerAdapter.acceptInvitation
+);
+routerWithFanClubId.patch(
+  '/reject-invitation',
+  ...middlewaresWithFanClubIdAndChecks,
+  ControllerAdapter.rejectInvitation
+);
 // #endregion
 
 // #region - without fan club id routes
