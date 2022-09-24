@@ -10,7 +10,7 @@ const Icon: React.FC<IIconProps> = ({ name, color = 'iconSecondary', ...props })
 
   return (
     <NBIcon color={colors[color]} viewBox={icons[name].viewBox} {...props}>
-      <SvgXml xml={icons[name].content} />
+      <SvgXml xml={icons[name].content} fill={colors[color]} />
     </NBIcon>
   );
 };

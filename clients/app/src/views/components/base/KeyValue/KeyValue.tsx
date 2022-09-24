@@ -1,17 +1,21 @@
 import React from 'react';
-import { VStack, Box, Text } from 'native-base';
-import { useTheme } from 'themes';
+import { VStack, Text } from 'native-base';
+import { InputSection } from 'views/components/base/InputSection';
 import { KeyValueInner } from './KeyValueInner';
 import { IKeyValueProps } from './types';
 
-const KeyValue: React.FC<IKeyValueProps> = ({ name, value, description, onChange }) => {
-  const { colors } = useTheme();
-
+const KeyValue: React.FC<IKeyValueProps> = ({
+  name,
+  value,
+  description,
+  options,
+  onChange,
+}) => {
   return (
     <VStack>
-      <Box bgColor={colors.backgroundInput} rounded={'lg'} overflow={'hidden'}>
-        <KeyValueInner name={name} value={value} onChange={onChange} />
-      </Box>
+      <InputSection>
+        <KeyValueInner name={name} value={value} options={options} onChange={onChange} />
+      </InputSection>
 
       {description && (
         <Text variant={'cardStats'} p={'2'}>

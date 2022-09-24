@@ -5,7 +5,7 @@ import { useTheme } from 'themes';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import CreateEventContainer from './containers/CreateEventContainer';
 
-const CreateEvent: React.FC = () => {
+const CreateEvent: React.FC = ({}) => {
   const { colors } = useTheme();
   const { goBack } = useNavigationWithParams();
 
@@ -22,6 +22,7 @@ const CreateEvent: React.FC = () => {
       >
         {I18n.t('common-close')}
       </Button>
+
       <CreateEventContainer />
     </>
   );

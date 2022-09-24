@@ -17,7 +17,7 @@ const MatchComponent: React.FC<IMatchComponentProps> = ({ data }) => {
     <>
       <MatchInfo data={data} />
       <Button
-        onPress={() => pushTo(commonScreens.createEvent.name)}
+        onPress={() => pushTo(commonScreens.createEvent.name, { matchId: data.id })}
         leftIcon={<Icon name={Icons.Add} color={'iconPrimaryInvert'} size={'ic-xs'} />}
         variant={'action'}
         mt={'3'}
