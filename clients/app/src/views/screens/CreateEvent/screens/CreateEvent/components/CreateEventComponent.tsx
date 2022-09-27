@@ -88,6 +88,9 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
           <SelectedMatchComponent
             matchId={data.matchId?.valueOriginal}
             onRemoveMatchPress={() => setAddFieldValue('matchId', null)}
+            onMatchChange={(selectedMatchId: ResourceIdentifier) =>
+              setAddFieldValue('matchId', selectedMatchId)
+            }
           />
         )}
 

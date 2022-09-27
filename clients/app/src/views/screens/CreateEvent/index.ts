@@ -1,4 +1,4 @@
-import CreateEvent from './CreateEvent';
-export default CreateEvent;
+import CreateEventWrapper from './CreateEventWrapper';
+export default CreateEventWrapper;
 
-export * from './CreateEvent';
+export * from './CreateEventWrapper';
