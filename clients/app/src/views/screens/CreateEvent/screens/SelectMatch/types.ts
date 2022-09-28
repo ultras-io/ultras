@@ -17,9 +17,14 @@ export interface ISelectMatchContainerProps {
   matchId: ResourceIdentifier;
 }
 
+export interface ISearchMatchComponentProps {
+  onChange(value: string): void;
+}
+
 export interface ISelectMatchComponentProps {
+  loading: boolean;
   data: Array<MatchViewModel>;
   matchId: ResourceIdentifier;
   onSelect(matchId: ResourceIdentifier): void;
-  onEndReached(): void;
+  onEndReached?(): void;
 }

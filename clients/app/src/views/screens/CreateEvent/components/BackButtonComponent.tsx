@@ -24,7 +24,10 @@ const BackButtonComponent: React.FC<IBackButtonComponentProps> = ({
       px={'2.5'}
     >
       {(type === 'icon' || type === 'both') && (
-        <>{I18n.t(action === 'close' ? 'common-close' : 'common-back')}</>
+        <>
+          {/* @TODO: add icons for close and back */}
+          {action === 'close' ? null : null}
+        </>
       )}
 
       {(type === 'text' || type === 'both') && (

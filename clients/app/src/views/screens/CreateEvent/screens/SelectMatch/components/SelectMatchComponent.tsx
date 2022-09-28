@@ -1,10 +1,12 @@
 import React from 'react';
-import { FlatList, Pressable } from 'native-base';
+import { ActivityIndicator } from 'react-native';
+import { Box, FlatList, Pressable } from 'native-base';
 import { ISelectMatchComponentProps } from '../types';
 import MatchInfo from 'views/components/compositions/MatchInfo';
 import { InputSection } from 'views/components/base/InputSection';
 
 const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
+  loading,
   data,
   // matchId,
   onSelect,
@@ -36,6 +38,13 @@ const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
       onEndReachedThreshold={0.7}
       horizontal={false}
       showsVerticalScrollIndicator={false}
+      ListFooterComponent={
+        !loading ? null : (
+          <Box alignItems="center" paddingTop="4" paddingBottom="10">
+            <ActivityIndicator />
+          </Box>
+        )
+      }
     />
   );
 };
