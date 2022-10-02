@@ -1,8 +1,8 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
 import { Box, FlatList, Pressable } from 'native-base';
 import { ISelectMatchComponentProps } from '../types';
 import MatchInfo from 'views/components/compositions/MatchInfo';
+import { Loader, NoResults } from 'views/components/base/ListComponents';
 import { InputSection } from 'views/components/base/InputSection';
 
 const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
@@ -14,10 +14,12 @@ const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
 }) => {
   const renderMatch = React.useCallback(
     ({ item }) => {
+      const onPress = () => onSelect(item.id);
+
       return (
-        <Pressable marginBottom={3} onPress={() => onSelect(item.id)}>
+        <Pressable marginBottom={3} onPress={onPress}>
           <InputSection>
-            <MatchInfo data={item} pressable={false} />
+            <MatchInfo data={item} pressable={false} onPress={onPress} />
           </InputSection>
 
           {/* {matchId === item.id && 'selected'} */}
@@ -38,13 +40,8 @@ const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
       onEndReachedThreshold={0.7}
       horizontal={false}
       showsVerticalScrollIndicator={false}
-      ListFooterComponent={
-        !loading ? null : (
-          <Box alignItems="center" paddingTop="4" paddingBottom="10">
-            <ActivityIndicator />
-          </Box>
-        )
-      }
+      ListEmptyComponent={loading ? null : <NoResults />}
+      ListFooterComponent={loading ? <Loader /> : null}
     />
   );
 };

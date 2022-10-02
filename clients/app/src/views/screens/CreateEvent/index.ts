@@ -1,4 +1,4 @@
-import CreateEventWrapper from './CreateEventWrapper';
-export default CreateEventWrapper;
+import CreateEventNavigation from './CreateEventNavigation';
+export default CreateEventNavigation;
 
-export * from './CreateEventWrapper';
+export * from './CreateEventNavigation';

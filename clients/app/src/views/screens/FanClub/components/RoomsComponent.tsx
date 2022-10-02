@@ -10,7 +10,11 @@ import { RoomViewModel } from '@ultras/core-api-sdk';
 import { IRoomsComponentProps } from '../types';
 import gStyles from 'styles/styles';
 
-const RoomsComponent: React.FC<IRoomsComponentProps> = ({ data, onEndReached }) => {
+const RoomsComponent: React.FC<IRoomsComponentProps> = ({
+  loading,
+  data,
+  onEndReached,
+}) => {
   const { pushTo } = useNavigationWithParams();
 
   const ref = React.useRef(null);
@@ -35,8 +39,8 @@ const RoomsComponent: React.FC<IRoomsComponentProps> = ({ data, onEndReached }) 
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
-      ListFooterComponent={data.length ? <Loader /> : null}
-      ListEmptyComponent={<NoResults />}
+      ListEmptyComponent={loading ? null : <NoResults />}
+      ListFooterComponent={loading ? <Loader /> : null}
       contentContainerStyle={gStyles.contentContainerStyle}
       ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />

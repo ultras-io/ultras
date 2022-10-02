@@ -12,7 +12,6 @@ export interface ICreateEventComponentProps {
 
 export interface ISelectedMatchProps {
   matchId: ResourceIdentifier;
-  onMatchChange(matchId: ResourceIdentifier): void;
   onRemoveMatchPress(): void;
 }
 

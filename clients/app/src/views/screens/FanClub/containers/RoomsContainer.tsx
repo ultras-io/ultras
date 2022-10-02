@@ -21,7 +21,11 @@ const RoomsContainer: React.FC<IRoomsContainerProps> = ({ fanClubId }) => {
   if (!result.list.data && result.list.status === 'loading') return <RoomsLoader />;
 
   return (
-    <RoomsComponent data={result.list.data || []} onEndReached={roomsStore.getAll} />
+    <RoomsComponent
+      loading={result.list.status === 'loading'}
+      data={result.list.data || []}
+      onEndReached={roomsStore.getAll}
+    />
   );
 
   return null;

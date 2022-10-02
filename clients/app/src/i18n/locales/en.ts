@@ -9,7 +9,6 @@ export default {
   'common-username': 'Username',
   'common-tapToChange': 'Tap to Change',
   'common-close': 'Close',
-  'common-back': 'Back',
   'common-select': 'Select',
   'common-team': 'Team',
   'common-country': 'Country',

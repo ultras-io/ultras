@@ -9,6 +9,7 @@ import { ISearchItemComponentProps } from '../types';
 import gStyles from 'styles/styles';
 
 const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
+  loading,
   data,
   searchItem,
   onEndReached,
@@ -53,8 +54,8 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
       keyboardDismissMode={'on-drag'}
-      ListFooterComponent={data.length ? <Loader /> : null}
-      ListEmptyComponent={<NoResults />}
+      ListEmptyComponent={loading ? null : <NoResults />}
+      ListFooterComponent={loading ? <Loader /> : null}
       contentContainerStyle={gStyles.contentContainerStyle}
       ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />

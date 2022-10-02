@@ -2,18 +2,10 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateEvent from './screens/CreateEvent';
 import SelectMatch from './screens/SelectMatch';
-import { IScreenType } from './types';
+import { IScreenType, ICreateEventNavigationProps } from './types';
 
 const Stack = createNativeStackNavigator();
 
-interface ICreateEventNavigationProps {
-  tabName?: null | string;
-  matchId?: null | ResourceIdentifier;
-}
-
-const currentTabName = 'CreateEvent';
-
-// order is important !!!
 const screens: Array<IScreenType> = [
   {
     name: 'CreateEvent',
@@ -25,21 +17,21 @@ const screens: Array<IScreenType> = [
   },
 ];
 
-const CreateEventNavigation: React.FC<ICreateEventNavigationProps> = ({
-  tabName,
-  matchId,
-}) => {
+const CreateEventNavigation: React.FC<ICreateEventNavigationProps> = ({ route }) => {
+  const matchId = route?.params?.matchId || null;
+  const tabName = route?.params?.tabName || null;
+
   return (
     <Stack.Navigator
-      initialRouteName={`${currentTabName}:${screens[0].name}`}
+      initialRouteName={`${tabName}:CreateEvent`}
       screenOptions={{
         headerShown: false,
       }}
     >
       {screens.map(item => (
         <Stack.Screen
-          key={`${currentTabName}:${item.name}`}
-          name={`${currentTabName}:${item.name}`}
+          key={`${tabName}:${item.name}`}
+          name={`${tabName}:${item.name}`}
           component={item.component}
           initialParams={{ tabName, matchId }}
           options={item.options}

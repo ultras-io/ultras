@@ -8,16 +8,15 @@ import { InputSection } from 'views/components/base/InputSection';
 import { RemoveButton } from 'views/components/base/RemoveButton';
 import MatchInfo from 'views/components/compositions/MatchInfo';
 import { ISelectedMatchProps } from '../types';
-import { useNavigation } from '@react-navigation/native';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 
 const store = buildMatchesStore();
 
 const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
   matchId,
   onRemoveMatchPress,
-  onMatchChange,
 }) => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigationWithParams();
 
   const { colors } = useTheme();
   const { single } = store.useSelector('single');
@@ -42,7 +41,7 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
               variant="matchDate"
               marginLeft="auto"
               onPress={() => {
-                navigation.navigate('CreateEvent:SelectMatch');
+                navigation.pushTo('SelectMatch');
               }}
             >
               {I18n.t('events-add-changeMatch')}

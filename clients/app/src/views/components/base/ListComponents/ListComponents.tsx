@@ -19,8 +19,9 @@ export const NoResults: React.FC = () => {
 
 export const Loader: React.FC = () => {
   const { colors } = useTheme();
+
   return (
-    <Center w={'full'} position={'absolute'} bottom={-30}>
+    <Center w={'full'} position={'absolute'}>
       <Spinner color={colors.iconNavigation} />
     </Center>
   );

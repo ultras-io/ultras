@@ -1,11 +1,11 @@
 import React from 'react';
-import BackButtonComponent from '../../components/BackButtonComponent';
+import BackButton from 'views/components/base/BackButton';
 import CreateEventContainer from './containers/CreateEventContainer';
 
 const CreateEvent: React.FC = () => {
   return (
     <>
-      <BackButtonComponent action="close" />
+      <BackButton action="close" type="text" />
       <CreateEventContainer />
     </>
   );

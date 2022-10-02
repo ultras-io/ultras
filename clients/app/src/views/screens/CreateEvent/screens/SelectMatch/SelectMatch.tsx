@@ -1,5 +1,5 @@
 import React from 'react';
-import BackButtonComponent from '../../components/BackButtonComponent';
+import BackButton from 'views/components/base/BackButton';
 import { ISelectMatchProps } from './types';
 
 const SelectMatchContainer = React.lazy(
@@ -11,7 +11,7 @@ const SelectMatch: React.FC<ISelectMatchProps> = ({ route }) => {
 
   return (
     <>
-      <BackButtonComponent action="back" />
+      <BackButton action="back" type="icon" />
       <SelectMatchContainer matchId={matchId} />
     </>
   );

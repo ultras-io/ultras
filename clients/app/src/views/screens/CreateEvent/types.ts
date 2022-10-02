@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface ICreateEventWrapperProps {
+export interface ICreateEventNavigationProps {
   route?: IRouteParams;
 }
 
@@ -15,10 +15,4 @@ export interface IScreenType {
   name: string;
   component: React.FC<any>;
   options?: any;
-}
-
-export interface IBackButtonComponentProps {
-  action?: 'back' | 'close';
-  type?: 'text' | 'icon' | 'both';
-  position?: 'left' | 'right';
 }

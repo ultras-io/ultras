@@ -17,6 +17,7 @@ export interface ISearchListContainerProps {
 }
 
 export interface ISearchListComponentProps {
+  loading,
   dataType: DataKeyType;
   data: Array<CountryViewModel> | Array<TeamViewModel>;
   onEndReached: () => void;
