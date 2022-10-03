@@ -1,17 +1,15 @@
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
-import buildEventsStore from 'stores/events/events';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import CreateEventComponent from '../components/CreateEventComponent';
-import { RouteParamsInterface } from '../types';
-
-const eventsStore = buildEventsStore();
+import { eventsStore } from '../../../store';
+import { IRouteParams } from '../../../types';
 
 const CreateEventContainer: React.FC = () => {
   const { goBack } = useNavigationWithParams();
 
   const { add } = eventsStore.useSelector('add');
-  const route = useRoute() as RouteParamsInterface;
+  const route = useRoute() as IRouteParams;
 
   React.useEffect(() => {
     const matchId = route?.params?.matchId || undefined;

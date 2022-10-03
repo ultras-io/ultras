@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from 'native-base';
-import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
+import I18n from 'i18n/i18n';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import CreateEventContainer from './containers/CreateEventContainer';
 
-const CreateEvent: React.FC = ({}) => {
+const CreateEvent: React.FC = () => {
   const { colors } = useTheme();
   const { goBack } = useNavigationWithParams();
 

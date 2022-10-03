@@ -16,6 +16,7 @@ import { ISearchListComponentProps } from '../types';
 import gStyles from 'styles/styles';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
+  loading,
   data,
   dataType,
   onEndReached,
@@ -67,8 +68,8 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         keyboardDismissMode={'on-drag'}
-        ListFooterComponent={data.length ? <Loader /> : null}
-        ListEmptyComponent={<NoResults />}
+        ListEmptyComponent={loading ? null : <NoResults />}
+        ListFooterComponent={loading ? <Loader /> : null}
         contentContainerStyle={gStyles.contentContainerStyle}
         ListFooterComponentStyle={gStyles.listFooterComponentStyle}
       />

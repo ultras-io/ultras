@@ -28,6 +28,7 @@ const SearchItemContainer: React.FC<ISearchItemProps> = ({ searchItem, searchTex
 
   return (
     <SearchItemComponent
+      loading={result.list.status === 'loading'}
       data={result.list.data || []}
       searchItem={searchItem}
       onEndReached={store.getAll}

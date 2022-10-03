@@ -8,6 +8,7 @@ export interface IEventsContainerProps {
 }
 
 export interface IEventsComponentProps {
+  loading: boolean;
   data: Array<EventViewModel>;
   onEndReached: () => void;
 }

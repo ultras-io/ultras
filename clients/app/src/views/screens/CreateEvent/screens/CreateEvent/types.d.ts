@@ -12,7 +12,7 @@ export interface ICreateEventComponentProps {
 
 export interface ISelectedMatchProps {
   matchId: ResourceIdentifier;
-  onRemoveMatchPress: () => void;
+  onRemoveMatchPress(): void;
 }
 
 export interface IDateAndTimeRowsProps {
@@ -25,10 +25,4 @@ export interface IDateAndTimeRowsProps {
   switchTitle?: string;
   switchValue?: boolean;
   onSwitchChange?: (value?: boolean) => void;
-}
-
-export interface RouteParamsInterface {
-  params: {
-    matchId?: null | ResourceIdentifier;
-  };
 }

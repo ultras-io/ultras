@@ -8,6 +8,7 @@ import {
 } from 'types';
 
 interface MatchesFilterInterface {
+  search?: string;
   dateFrom?: string;
   dateTo?: string;
   leagueId?: ResourceIdentifier;

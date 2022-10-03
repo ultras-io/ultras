@@ -34,6 +34,7 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
 
   return (
     <SearchListComponent
+      loading={result.list.status === 'loading'}
       dataType={dataType}
       data={result.list.data || []}
       onEndReached={store.getAll}

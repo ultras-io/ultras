@@ -7,6 +7,7 @@ export interface ISearchItemProps {
 }
 
 export interface ISearchItemComponentProps {
+  loading: boolean;
   data: Array<TeamViewModel> | Array<FanClubViewModel>;
   searchItem: SearchItem;
   onEndReached?: () => void;

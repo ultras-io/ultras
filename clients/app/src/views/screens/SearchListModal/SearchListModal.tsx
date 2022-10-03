@@ -1,20 +1,20 @@
 import React from 'react';
-import { Button, Text } from 'native-base';
-import I18n from 'i18n/i18n';
+import { Text, Button } from 'native-base';
 import { useTheme } from 'themes';
-import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import I18n from 'i18n/i18n';
 import Input from 'views/components/base/Input';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import Container from 'views/components/base/Container';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { ISearchListModalProps } from './types';
 
 const SearchListContainer = React.lazy(() => import('./containers/SearchListContainer'));
 
 const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
-  const { goBack, goBackWithParams } = useNavigationWithParams();
-  const { colors } = useTheme();
   const { dataKey, parentScreenName } = route.params;
+  const { colors } = useTheme();
+  const { goBack, goBackWithParams } = useNavigationWithParams();
 
   const onSelect = React.useCallback(
     ({ id, name, dataType }) => {

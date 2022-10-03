@@ -10,7 +10,11 @@ import { EventViewModel } from '@ultras/core-api-sdk';
 import { IEventsComponentProps } from '../types';
 import gStyles from 'styles/styles';
 
-const EventsComponent: React.FC<IEventsComponentProps> = ({ data, onEndReached }) => {
+const EventsComponent: React.FC<IEventsComponentProps> = ({
+  loading,
+  data,
+  onEndReached,
+}) => {
   const { pushTo } = useNavigationWithParams();
 
   const ref = React.useRef(null);
@@ -35,8 +39,8 @@ const EventsComponent: React.FC<IEventsComponentProps> = ({ data, onEndReached }
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
-      ListFooterComponent={data.length ? <Loader /> : null}
-      ListEmptyComponent={<NoResults />}
+      ListEmptyComponent={loading ? null : <NoResults />}
+      ListFooterComponent={loading ? <Loader /> : null}
       contentContainerStyle={gStyles.contentContainerStyle}
       ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />

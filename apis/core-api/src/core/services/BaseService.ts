@@ -132,6 +132,12 @@ abstract class BaseService {
           ...(queryOptions.include || []),
           ...moreQueryOptions.include,
         ];
+
+        moreQueryOptions.include = [
+          ...new Map(
+            moreQueryOptions.include.map((item: any) => [item.as, item])
+          ).values(),
+        ];
       }
 
       queryOptions = {

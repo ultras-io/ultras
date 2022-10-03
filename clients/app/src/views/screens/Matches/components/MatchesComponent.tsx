@@ -10,7 +10,11 @@ import { MatchViewModel } from '@ultras/core-api-sdk';
 import { IMatchesComponentProps } from '../types';
 import gStyles from 'styles/styles';
 
-const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached }) => {
+const MatchesComponent: React.FC<IMatchesComponentProps> = ({
+  loading,
+  data,
+  onEndReached,
+}) => {
   const { pushTo } = useNavigationWithParams();
   const ref = React.useRef(null);
   useScrollToTop(ref);
@@ -34,8 +38,8 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({ data, onEndReached
       data={data}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
-      ListFooterComponent={data.length ? <Loader /> : null}
-      ListEmptyComponent={<NoResults />}
+      ListEmptyComponent={loading ? null : <NoResults />}
+      ListFooterComponent={loading ? <Loader /> : null}
       contentContainerStyle={gStyles.contentContainerStyle}
       ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />

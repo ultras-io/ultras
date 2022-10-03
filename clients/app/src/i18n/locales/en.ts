@@ -113,7 +113,7 @@ export default {
   'rooms-subscribe': 'Subscribe',
   'rooms-subscribed': 'Subscribed',
 
-  //teams
+  // teams
   teams: 'Teams',
   'team-national': 'National Team',
   'team-add': 'Add to My Teams',
@@ -148,6 +148,8 @@ export default {
   'events-add-description': 'Event Description (Optional)',
   'events-add-photo': 'Event Photo',
   'events-add-button': 'Publish Event',
+  'events-selectMatch': 'Select Match',
+  'events-searchMatch': 'Search for Match',
 
   //profile
   'profile-settings': 'Settings',

@@ -8,7 +8,7 @@ import { formatDateAndTime, isMatchGoing } from 'utils/helpers/matchTime';
 import { MatchStatusesEnum } from '@ultras/utils';
 import { IMatchInfoProps } from '../MatchCard/types';
 
-const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
+const MatchInfo: React.FC<IMatchInfoProps> = ({ data, pressable = true, onPress }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
 
@@ -24,10 +24,25 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
     [pushTo, data.teamHome, data.teamAway]
   );
 
+  const onTeamPress = React.useCallback(
+    (team: 'home' | 'away') => {
+      if (!pressable) {
+        if (typeof onPress === 'function') {
+          onPress();
+        }
+
+        return;
+      }
+
+      openTeam(team);
+    },
+    [pressable, onPress, openTeam]
+  );
+
   return (
     <HStack mx={15} my={15}>
       <TeamInfo
-        onPress={openTeam('home')}
+        onPress={() => onTeamPress('home')}
         name={data.teamHome.name}
         logo={data.teamHome.logo}
       />
@@ -68,7 +83,7 @@ const MatchInfo: React.FC<IMatchInfoProps> = ({ data }) => {
       </VStack>
 
       <TeamInfo
-        onPress={openTeam('away')}
+        onPress={() => onTeamPress('away')}
         name={data.teamAway.name}
         logo={data.teamAway.logo}
       />
