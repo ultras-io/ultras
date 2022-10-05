@@ -3,7 +3,6 @@ import { Context } from 'types';
 import { UserErrorEnum } from '@ultras/utils';
 import { AuthenticationError } from 'modules/exceptions';
 import { AuthService } from 'core/services';
-import { AuthTokenResultInterface } from 'core/services/AuthService';
 
 /**
  * Get auth token from header.
@@ -34,10 +33,17 @@ export default (): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     const authToken = getAuthToken(ctx);
 
-    if (!ctx.user || !authToken) {
+    if (!authToken) {
       throw new AuthenticationError({
         errorCode: UserErrorEnum.authTokenRequired,
         message: 'Authorization token header is missing.',
+      });
+    }
+
+    if (!ctx.user) {
+      throw new AuthenticationError({
+        errorCode: UserErrorEnum.authTokenInvalid,
+        message: 'Authorization token is invalid.',
       });
     }
 

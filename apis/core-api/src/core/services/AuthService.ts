@@ -38,6 +38,20 @@ class AuthService extends BaseService {
     device: DeviceInformationInterface,
     transaction?: Transaction
   ): ServiceResultType<AuthTokenResultInterface> {
+    // force delete from database already expired sessions
+    await db.UserSession.destroy({
+      where: {
+        userId: dataToHash.userId,
+        fingerprint: dataToHash.fingerprint,
+        deletedAt: {
+          [db.Sequelize.Op.ne]: null,
+        },
+      },
+      paranoid: true,
+      force: true,
+      transaction,
+    });
+
     const expiresIn = authConfig.accessTokenLifetime;
     const expiresAt = Date.now() + expiresIn * 1000;
 
@@ -59,30 +73,27 @@ class AuthService extends BaseService {
       },
     });
 
-    // create new session model if user login with device first time, otherwise
-    // we need to update previous token and expiration time.
-    if (!model) {
-      await db.UserSession.create(
-        {
-          userId: dataToHash.userId,
-          fingerprint: dataToHash.fingerprint,
-          ip: device.ip,
-          device: device.device,
-          osName: device.osName,
-          osVersion: device.osVersion,
-          browser: device.browser,
-          userAgent: device.userAgent,
-          lastAccess: Date.now(),
-          authToken: authToken,
-          tokenExpiresAt: expiresAt,
-        },
-        { transaction }
-      );
-    } else {
-      model.setDataValue('authToken', authToken);
-      model.setDataValue('tokenExpiresAt', expiresAt);
-      await model.save({ transaction });
+    // we need to destroy previous session.
+    if (model) {
+      await model.destroy({ transaction });
     }
+
+    await db.UserSession.create(
+      {
+        userId: dataToHash.userId,
+        fingerprint: dataToHash.fingerprint,
+        ip: device.ip,
+        device: device.device,
+        osName: device.osName,
+        osVersion: device.osVersion,
+        browser: device.browser,
+        userAgent: device.userAgent,
+        lastAccess: Date.now(),
+        authToken: authToken,
+        tokenExpiresAt: expiresAt,
+      },
+      { transaction }
+    );
 
     return {
       ...finalDataToHash,
@@ -119,12 +130,13 @@ class AuthService extends BaseService {
   /**
    * Get user session by device and user id.
    */
-  static getUserSession(fingerprint: string, authToken: string) {
+  static getUserSession(fingerprint: string, authToken: string, paranoid = true) {
     return db.UserSession.findOne({
       where: {
         fingerprint,
         authToken,
       },
+      paranoid,
     });
   }
 
