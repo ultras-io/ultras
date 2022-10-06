@@ -13,17 +13,17 @@ export interface ISearchListModalProps {
 export interface ISearchListContainerProps {
   dataType: dataKeyType;
   searchText: string;
-  onSelect: (params: onSelectParams) => void;
+  onSelect: (params: OnSelectParams) => void;
 }
 
 export interface ISearchListComponentProps {
   dataType: dataKeyType;
   data: Array<CountryViewModel> | Array<TeamViewModel>;
   onEndReached: () => void;
-  onSelect: (params: onSelectParams) => void;
+  onSelect: (params: OnSelectParams) => void;
 }
 
-type onSelectParams = {
+type OnSelectParams = {
   id: string;
   name: string;
   dataType: dataKeyType;
