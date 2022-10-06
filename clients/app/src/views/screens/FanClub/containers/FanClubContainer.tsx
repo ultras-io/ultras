@@ -1,6 +1,6 @@
 import React from 'react';
 import FanClubComponent from '../components/FanClubComponent';
-import buildFanClubsStore from 'stores/fanClubs';
+import buildFanClubsStore from 'stores/fanClubs/fanClubs';
 import { IFanClubContainerProps } from '../types';
 
 const FanClubContainer: React.FC<IFanClubContainerProps> = ({ data }) => {

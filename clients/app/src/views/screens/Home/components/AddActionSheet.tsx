@@ -39,6 +39,7 @@ const AddActionSheet: React.FC<IAddActionSheetProps> = ({ isOpen, onClose }) => 
         </Actionsheet.Item>
         <Actionsheet.Item
           startIcon={<Icon name={Icons.Club} color={'iconPrimary'} size={'ic-sm'} />}
+          onPress={() => closeAndNavigateTo(commonScreens.createFanClub.name)}
         >
           {I18n.t('fanClub')}
         </Actionsheet.Item>

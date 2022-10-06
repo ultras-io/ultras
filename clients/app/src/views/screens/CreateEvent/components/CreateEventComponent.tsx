@@ -44,7 +44,7 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
   return (
     <ScrollView mb={+keyboardHeight} ref={scrollRef}>
       <VStack px={'3'} space={'4'} mb={'10'}>
-        <Text variant={'title'}>Create Event</Text>
+        <Text variant={'title'}>{I18n.t('events-create-title')}</Text>
 
         <Input
           value={data.title.valueOriginal}

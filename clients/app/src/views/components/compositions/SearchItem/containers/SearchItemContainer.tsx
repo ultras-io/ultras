@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchItemComponent, { SearchItemLoader } from '../components/SearchItemComponent';
-import buildFanClubsStore from 'stores/fanClubs';
+import buildFanClubsStore from 'stores/fanClubs/fanClubs';
 import buildTeamsStore from 'stores/teams';
 import { ISearchItemProps } from '../types';
 

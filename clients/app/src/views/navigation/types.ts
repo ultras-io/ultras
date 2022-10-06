@@ -11,6 +11,7 @@ export type CommonScreens = Record<
   | 'fanClubAbout'
   | 'profile'
   | 'createEvent'
+  | 'createFanClub'
   | 'profileList'
   | 'notifications'
   | 'room',
@@ -24,6 +25,7 @@ export type CommonScreens = Record<
       | 'FanClubAbout'
       | 'Profile'
       | 'CreateEvent'
+      | 'CreateFanClub'
       | 'ProfileList'
       | 'Notifications'
       | 'Room';
