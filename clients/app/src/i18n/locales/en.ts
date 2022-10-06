@@ -120,8 +120,6 @@ export default {
   'fanClubs-add-description': 'Fan Club Description (Optional)',
   'fanClubs-selectCity': 'Select City',
   'fanClubs-searchCity': 'Search City',
-  'fanClubs-selectTeam': 'Select Team',
-  'fanClubs-searchTeam': 'Search Team',
 
   'fanClubs-add-visuals': 'Fan Club Visuals',
   'fanClubs-add-visuals-avatar': 'Fan Club Avatar',

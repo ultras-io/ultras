@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Box, Button, Text } from 'native-base';
+import { useRoute } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
@@ -16,6 +17,7 @@ import { ICreateFanClubProps } from './types';
 const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   const { colors } = useTheme();
   const { goBack } = useNavigationWithParams();
+  const route = useRoute();
 
   const { add } = fanClubsStore.useSelector('add');
 
@@ -59,6 +61,16 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
 
     return add.valid;
   }, [add.valid, isLastAction]);
+
+  React.useEffect(() => {
+    if (!route.params?.selected) {
+      return;
+    }
+
+    if (route.params?.selected.dataType === 'team') {
+      fanClubsStore.setAddFieldValue('teamId', route.params.selected.id);
+    }
+  }, [route.params]);
 
   React.useEffect(() => {
     if (add.status === 'success') {

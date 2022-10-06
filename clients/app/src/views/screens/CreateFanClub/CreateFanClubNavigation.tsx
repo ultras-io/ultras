@@ -1,9 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateFanClub from './screens/CreateFanClub';
-import SelectTeam from './screens/SelectTeam';
 import SelectCity from './screens/SelectCity';
 import { IScreenType, ICreateFanClubNavigationProps } from './types';
+import SearchListModal from '../SearchListModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,12 +13,12 @@ const screens: Array<IScreenType> = [
     component: CreateFanClub,
   },
   {
-    name: 'SelectTeam',
-    component: SelectTeam,
-  },
-  {
     name: 'SelectCity',
     component: SelectCity,
+  },
+  {
+    name: 'SearchList',
+    component: SearchListModal,
   },
 ];
 
