@@ -6,6 +6,7 @@ import type {
 } from '../types';
 
 export type GetMatchesFilter = {
+  search?: string;
   date?: string;
   dateFrom?: string;
   dateTo?: string;

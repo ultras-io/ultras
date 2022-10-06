@@ -18,8 +18,8 @@ import gStyles from 'styles/styles';
 import { InputSection } from 'views/components/base/InputSection';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
-  data,
   loading,
+  data,
   dataType,
   onEndReached,
   onSelect,
@@ -82,13 +82,12 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
           onEndReached={onEndReached}
           onEndReachedThreshold={0.5}
           keyboardDismissMode={'on-drag'}
-          ListFooterComponent={loading ? <Loader /> : null}
           ListEmptyComponent={loading ? null : <NoResults />}
+          ListFooterComponent={loading ? <Loader /> : null}
           contentContainerStyle={gStyles.contentContainerStyle}
           ListFooterComponentStyle={gStyles.listFooterComponentStyle}
         />
       </InputSection>
-
       <Text variant={'smallText'} px={'6'} mt={'3'} mb={'5'}>
         {I18n.t('joinUs-canChangeTeam')}
       </Text>

@@ -38,6 +38,7 @@ const initStore = () => {
             }
           } catch (e) {
             await get().clearToken();
+            set({ isLoading: false });
           }
         }
       },

@@ -22,6 +22,7 @@ export interface IRoomsContainerProps {
 }
 
 export interface IRoomsComponentProps {
+  loading: boolean;
   data: Array<RoomViewModel>;
   onEndReached: () => void;
 }

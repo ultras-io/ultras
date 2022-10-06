@@ -13,7 +13,7 @@ const AddActionSheet: React.FC<IAddActionSheetProps> = ({ isOpen, onClose }) => 
   const { colors } = useTheme();
 
   const closeAndNavigateTo = React.useCallback(
-    screen => {
+    (screen: any) => {
       onClose();
       setTimeout(() => pushTo(screen));
     },

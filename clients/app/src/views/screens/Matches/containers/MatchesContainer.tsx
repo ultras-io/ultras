@@ -28,7 +28,11 @@ const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
   if (!result.list.data && result.list.status === 'loading') return <MatchesLoader />;
 
   return (
-    <MatchesComponent data={result.list.data || []} onEndReached={matchesStore.getAll} />
+    <MatchesComponent
+      loading={result.list.status === 'loading'}
+      data={result.list.data || []}
+      onEndReached={matchesStore.getAll}
+    />
   );
 };
 

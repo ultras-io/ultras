@@ -25,7 +25,11 @@ const EventsContainer: React.FC<IEventsContainerProps> = ({
   if (!result.list.data && result.list.status === 'loading') return <EventsLoader />;
 
   return (
-    <EventsComponent data={result.list.data || []} onEndReached={eventsStore.getAll} />
+    <EventsComponent
+      loading={result.list.status === 'loading'}
+      data={result.list.data || []}
+      onEndReached={eventsStore.getAll}
+    />
   );
 };
 

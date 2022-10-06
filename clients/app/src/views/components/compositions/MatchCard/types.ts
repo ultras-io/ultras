@@ -15,6 +15,8 @@ export interface IMatchCardProps {
 
 export interface IMatchInfoProps {
   data: MatchViewModel;
+  pressable?: boolean;
+  onPress?(): void;
 }
 
 export interface ITeamInfoProps {

@@ -17,6 +17,7 @@ import VenueService from './VenueService';
 import LeagueService from './LeagueService';
 
 export interface MatchesListParamsInterface {
+  search?: string;
   dateFrom?: string;
   dateTo?: string;
   leagueId?: ResourceIdentifier;
@@ -109,7 +110,19 @@ class MatchService extends BaseService {
       ]);
     }
 
-    return this.findAndCountAll(db.Match, query, params);
+    let moreQueryOptions: any = {};
+    if (params.search) {
+      this.queryAppend(query, db.Sequelize.Op.or, [
+        db.Sequelize.literal(`"teamHome"."name" ILIKE '%${params.search}%'`),
+        db.Sequelize.literal(`"teamAway"."name" ILIKE '%${params.search}%'`),
+      ]);
+
+      moreQueryOptions = {
+        subQuery: false,
+      };
+    }
+
+    return this.findAndCountAll(db.Match, query, params, true, moreQueryOptions);
   }
 
   /**

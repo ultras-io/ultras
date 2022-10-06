@@ -1,4 +1,4 @@
-import CreateEvent from './CreateEvent';
-export default CreateEvent;
+import CreateEventNavigation from './CreateEventNavigation';
+export default CreateEventNavigation;
 
-export * from './CreateEvent';
+export * from './CreateEventNavigation';

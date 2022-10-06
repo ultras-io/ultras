@@ -34,6 +34,7 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
 
   return (
     <SearchListComponent
+      loading={result.list.status === 'loading'}
       dataType={dataType}
       loading={result.list.status === 'loading'}
       data={result.list.data || []}

@@ -173,6 +173,8 @@ export default {
   'events-add-photo': 'Event Photo',
   'events-add-button': 'Publish Event',
   'events-create-title': 'Create Event',
+  'events-selectMatch': 'Select Match',
+  'events-searchMatch': 'Search for Match',
 
   // profile
   'profile-settings': 'Settings',

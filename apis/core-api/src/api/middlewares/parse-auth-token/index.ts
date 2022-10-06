@@ -33,7 +33,7 @@ const updateAuthTokenHeader = (ctx: Context, newAuthToken: AuthTokenResultInterf
  * Get token model from database.
  */
 const getTokenModel = (ctx: Context, authToken: string) => {
-  return AuthService.getUserSession(ctx.device.fingerprint, authToken);
+  return AuthService.getUserSession(ctx.device.fingerprint, authToken, false);
 };
 
 /**
