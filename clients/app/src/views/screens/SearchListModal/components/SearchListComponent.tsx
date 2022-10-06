@@ -15,9 +15,11 @@ import I18n from 'i18n/i18n';
 import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { ISearchListComponentProps } from '../types';
 import gStyles from 'styles/styles';
+import { InputSection } from 'views/components/base/InputSection';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
   data,
+  loading,
   dataType,
   onEndReached,
   onSelect,
@@ -37,7 +39,6 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
               dataType,
             })
           }
-          bg={colors.backgroundCard}
         >
           <HStack
             ml={'4'}
@@ -72,19 +73,22 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
 
   return (
     <VStack flex={1} mt={'3'}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        showsVerticalScrollIndicator={false}
-        onEndReached={onEndReached}
-        onEndReachedThreshold={0.5}
-        keyboardDismissMode={'on-drag'}
-        ListFooterComponent={data.length ? <Loader /> : null}
-        ListEmptyComponent={<NoResults />}
-        contentContainerStyle={gStyles.contentContainerStyle}
-        ListFooterComponentStyle={gStyles.listFooterComponentStyle}
-      />
+      <InputSection bg={colors.backgroundCard} padding={0} marginX={4}>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          onEndReached={onEndReached}
+          onEndReachedThreshold={0.5}
+          keyboardDismissMode={'on-drag'}
+          ListFooterComponent={loading ? <Loader /> : null}
+          ListEmptyComponent={loading ? null : <NoResults />}
+          contentContainerStyle={gStyles.contentContainerStyle}
+          ListFooterComponentStyle={gStyles.listFooterComponentStyle}
+        />
+      </InputSection>
+
       <Text variant={'smallText'} px={'6'} mt={'3'} mb={'5'}>
         {I18n.t('joinUs-canChangeTeam')}
       </Text>

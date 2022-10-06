@@ -15,7 +15,6 @@ export default StyleSheet.create({
 
   // list footer under bottom of screen
   contentContainerStyle: {
-    padding: 15,
     paddingBottom: 0,
     flexGrow: 1,
   },
