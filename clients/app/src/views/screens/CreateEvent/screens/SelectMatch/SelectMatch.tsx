@@ -24,7 +24,7 @@ const SelectMatch: React.FC<ISelectMatchProps> = ({ route }) => {
         paddingX={'2.5'}
         onPress={goBack}
       >
-        <Icon name={Icons.Back} color="textAction" size="sm" />
+        <Icon name={Icons.BackNavigation} color="textAction" size="sm" />
       </Button>
 
       <SelectMatchContainer matchId={matchId} />

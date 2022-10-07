@@ -5,7 +5,13 @@ export type DataKeyType = 'team' | 'country';
 
 export interface ISearchListModalProps {
   route: RouteProp<
-    { params: { dataKey: DataKeyType; parentScreenName: string } },
+    {
+      params: {
+        dataKey: DataKeyType;
+        parentScreenName: string;
+        backButtonType?: 'close' | 'back';
+      };
+    },
     'params'
   >;
 }

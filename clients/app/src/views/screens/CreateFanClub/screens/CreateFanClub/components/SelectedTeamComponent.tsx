@@ -30,6 +30,7 @@ const SelectedTeamComponent: React.FC<ISelectedTeamProps> = ({ teamId }) => {
     pushTo('SearchList', {
       dataKey: 'team',
       parentScreenName: screenName,
+      backButtonType: 'back',
     });
   }, [pushTo, route.name, route.params]);
 

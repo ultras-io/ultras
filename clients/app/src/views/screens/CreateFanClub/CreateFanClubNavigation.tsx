@@ -1,34 +1,19 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CreateFanClub from './screens/CreateFanClub';
-import SelectCity from './screens/SelectCity';
-import { IScreenType, ICreateFanClubNavigationProps } from './types';
-import SearchListModal from '../SearchListModal';
+import { createFanClubScreens } from 'views/navigation/screens';
+import { ICreateFanClubNavigationProps } from './types';
 
 const Stack = createNativeStackNavigator();
-
-const screens: Array<IScreenType> = [
-  {
-    name: 'CreateFanClub',
-    component: CreateFanClub,
-  },
-  {
-    name: 'SelectCity',
-    component: SelectCity,
-  },
-  {
-    name: 'SearchList',
-    component: SearchListModal,
-  },
-];
 
 const CreateFanClubNavigation: React.FC<ICreateFanClubNavigationProps> = ({ route }) => {
   const teamId = route?.params?.teamId || null;
   const tabName = route?.params?.tabName || null;
 
+  const screens = React.useMemo(() => Object.values(createFanClubScreens), []);
+
   return (
     <Stack.Navigator
-      initialRouteName={`${tabName}:CreateFanClub`}
+      initialRouteName={`${tabName}:${createFanClubScreens.createFanClub.name}`}
       screenOptions={{
         headerShown: false,
       }}

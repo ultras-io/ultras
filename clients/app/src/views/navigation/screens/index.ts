@@ -5,12 +5,5 @@ export { default as commonScreens } from './commonScreens';
 export { default as teamTabScreens } from './teamTabScreens';
 export { default as fanClubTabScreens } from './fanClubTabScreens';
 export { default as searchTabScreens } from './searchTabScreens';
-
-// export default {
-//   tabScreens,
-//   rootScreens,
-//   mainScreens,
-//   commonScreens,
-//   teamTabScreens,
-//   searchTabScreens,
-// };
+export { default as createEventScreens } from './createEventScreens';
+export { default as createFanClubScreens } from './createFanClubScreens';

@@ -1,29 +1,19 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CreateEvent from './screens/CreateEvent';
-import SelectMatch from './screens/SelectMatch';
-import { IScreenType, ICreateEventNavigationProps } from './types';
+import { createEventScreens } from 'views/navigation/screens';
+import { ICreateEventNavigationProps } from './types';
 
 const Stack = createNativeStackNavigator();
-
-const screens: Array<IScreenType> = [
-  {
-    name: 'CreateEvent',
-    component: CreateEvent,
-  },
-  {
-    name: 'SelectMatch',
-    component: SelectMatch,
-  },
-];
 
 const CreateEventNavigation: React.FC<ICreateEventNavigationProps> = ({ route }) => {
   const matchId = route?.params?.matchId || null;
   const tabName = route?.params?.tabName || null;
 
+  const screens = React.useMemo(() => Object.values(createEventScreens), []);
+
   return (
     <Stack.Navigator
-      initialRouteName={`${tabName}:CreateEvent`}
+      initialRouteName={`${tabName}:${createEventScreens.createEvent.name}`}
       screenOptions={{
         headerShown: false,
       }}
