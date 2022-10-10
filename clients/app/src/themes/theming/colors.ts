@@ -58,6 +58,9 @@ const dark: ColorType = {
   textQuinaryInvert: 'rgba(0, 0, 0, 0.6)',
   textSenaryInvert: 'rgba(0, 0, 0, 0.5)',
   textSeptenaryInvert: 'rgba(0, 0, 0, 0.4)',
+
+  dotIndicatorActive: 'rgba(142, 142, 147, 0.8)',
+  dotIndicator: 'rgba(142, 142, 147, 0.3)',
 };
 
 // dark mode

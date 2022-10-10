@@ -24,6 +24,7 @@ export default {
   'common-cancel': 'Cancel',
   'common-create': 'Create',
   'common-tapToAdd': 'Tap to Add',
+  'common-next': 'Next',
 
   // splash
   'splash-slogan': '#WatchFootball',
@@ -106,6 +107,29 @@ export default {
   'fanClubs-pendingInvitation-respond-reject': 'Reject Invitation',
   'fanClubs-pendingInvitation-respond-close': 'Close',
   'fanClubs-fans': 'Fans',
+  'fanClubs-add-button': 'Publish Fan Club',
+  'fanClubs-create-title': 'Create Fan Club',
+
+  'fanClubs-add-details': 'Fan Club Details',
+  'fanClubs-add-details-name': 'Fan Club Name',
+  'fanClubs-add-details-team': 'Club or National Team',
+  'fanClubs-add-details-teamDescription': 'Select the team your fan club will support.',
+  'fanClubs-add-details-city': 'Location',
+  'fanClubs-add-details-cityDescription':
+    'Select location when your fan club will be based',
+  'fanClubs-add-description': 'Fan Club Description (Optional)',
+  'fanClubs-selectCity': 'Select City',
+  'fanClubs-searchCity': 'Search City',
+
+  'fanClubs-add-visuals': 'Fan Club Visuals',
+  'fanClubs-add-visuals-avatar': 'Fan Club Avatar',
+  'fanClubs-add-visuals-cover': 'Fan Club Cover Photo (Optional)',
+
+  'fanClubs-add-privacy': 'Fan Club Privacy',
+  'fanClubs-add-privacy-description':
+    'If Public, users can Join Public Fan Clubs.\nIf private, users will request to join Private Fan Clubs, Private Fan Clubs can have public posts or events.',
+  'fanClubs-add-privacy-public': 'Public',
+  'fanClubs-add-privacy-private': 'Private',
 
   // rooms
   rooms: 'Rooms',
@@ -148,10 +172,11 @@ export default {
   'events-add-description': 'Event Description (Optional)',
   'events-add-photo': 'Event Photo',
   'events-add-button': 'Publish Event',
+  'events-create-title': 'Create Event',
   'events-selectMatch': 'Select Match',
   'events-searchMatch': 'Search for Match',
 
-  //profile
+  // profile
   'profile-settings': 'Settings',
   'profile-edit': 'Edit Profile',
   'profile-logout': 'Log out',

@@ -3,14 +3,11 @@ import { Button } from 'native-base';
 import { Icons } from 'assets/icons';
 import Icon from 'views/components/base/Icon';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { ISelectMatchProps } from './types';
+import SelectCityContainer from './containers/SelectCityContainer';
+import { ISelectCityProps } from './types';
 
-const SelectMatchContainer = React.lazy(
-  () => import('./containers/SelectMatchContainer')
-);
-
-const SelectMatch: React.FC<ISelectMatchProps> = ({ route }) => {
-  const { matchId } = route.params;
+const SelectCity: React.FC<ISelectCityProps> = ({ route }) => {
+  const { cityId } = route.params;
 
   const { goBack } = useNavigationWithParams();
 
@@ -27,9 +24,9 @@ const SelectMatch: React.FC<ISelectMatchProps> = ({ route }) => {
         <Icon name={Icons.BackNavigation} color="textAction" size="sm" />
       </Button>
 
-      <SelectMatchContainer matchId={matchId} />
+      <SelectCityContainer cityId={cityId} />
     </>
   );
 };
 
-export default SelectMatch;
+export default SelectCity;

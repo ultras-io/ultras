@@ -50,7 +50,9 @@ export type ColorKey =
   | 'textQuaternaryInvert'
   | 'textQuinaryInvert'
   | 'textSenaryInvert'
-  | 'textSeptenaryInvert';
+  | 'textSeptenaryInvert'
+  | 'dotIndicatorActive'
+  | 'dotIndicator';
 
 export type ColorGroup<T extends string> = Record<T, string>;
 

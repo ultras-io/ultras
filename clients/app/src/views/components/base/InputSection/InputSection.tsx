@@ -3,11 +3,11 @@ import { Box } from 'native-base';
 import { useTheme } from 'themes';
 import { IInputSectionProps } from './types';
 
-const InputSection: React.FC<IInputSectionProps> = ({ children }) => {
+const InputSection: React.FC<IInputSectionProps> = ({ children, ...rest }) => {
   const { colors } = useTheme();
 
   return (
-    <Box bgColor={colors.backgroundInput} rounded={'lg'} overflow={'hidden'}>
+    <Box {...rest} bgColor={colors.backgroundInput} rounded={'lg'} overflow={'hidden'}>
       {children}
     </Box>
   );

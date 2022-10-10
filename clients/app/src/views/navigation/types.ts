@@ -11,6 +11,7 @@ export type CommonScreens = Record<
   | 'fanClubAbout'
   | 'profile'
   | 'createEvent'
+  | 'createFanClub'
   | 'profileList'
   | 'notifications'
   | 'room',
@@ -24,6 +25,7 @@ export type CommonScreens = Record<
       | 'FanClubAbout'
       | 'Profile'
       | 'CreateEvent'
+      | 'CreateFanClub'
       | 'ProfileList'
       | 'Notifications'
       | 'Room';
@@ -99,6 +101,17 @@ export type FanClubTabScreens = {
   rooms: NavigationScreen;
   events: NavigationScreen;
 };
+
+export interface ICreateEventScreen {
+  createEvent: NavigationScreen;
+  selectMatch: NavigationScreen;
+}
+
+export interface ICreateFanClubScreen {
+  createFanClub: NavigationScreen;
+  selectCity: NavigationScreen;
+  selectTeam: NavigationScreen;
+}
 
 export type ScreenNavigationConfig = Record<
   string,

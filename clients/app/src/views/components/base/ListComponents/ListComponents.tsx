@@ -21,7 +21,7 @@ export const Loader: React.FC = () => {
   const { colors } = useTheme();
 
   return (
-    <Center w={'full'} position={'absolute'}>
+    <Center w={'full'} margin={3}>
       <Spinner color={colors.iconNavigation} />
     </Center>
   );

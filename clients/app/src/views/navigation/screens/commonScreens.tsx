@@ -11,6 +11,7 @@ import FanClub from 'views/screens/FanClub';
 import FanClubAbout from 'views/screens/FanClubAbout';
 import Profile from 'views/screens/Profile';
 import CreateEvent from 'views/screens/CreateEvent';
+import CreateFanClub from 'views/screens/CreateFanClub';
 import ProfileList from 'views/screens/ProfileList';
 import Notifications from 'views/screens/Notifications';
 import Room from 'views/screens/Room';
@@ -79,6 +80,15 @@ const SCREENS: CommonScreens = {
   createEvent: {
     name: 'CreateEvent',
     component: CreateEvent,
+    options: {
+      ...defaultOptions,
+      presentation: 'modal',
+      headerShown: false,
+    },
+  },
+  createFanClub: {
+    name: 'CreateFanClub',
+    component: CreateFanClub,
     options: {
       ...defaultOptions,
       presentation: 'modal',

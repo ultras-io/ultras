@@ -1,19 +1,19 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createEventScreens } from 'views/navigation/screens';
-import { ICreateEventNavigationProps } from './types';
+import { createFanClubScreens } from 'views/navigation/screens';
+import { ICreateFanClubNavigationProps } from './types';
 
 const Stack = createNativeStackNavigator();
 
-const CreateEventNavigation: React.FC<ICreateEventNavigationProps> = ({ route }) => {
-  const matchId = route?.params?.matchId || null;
+const CreateFanClubNavigation: React.FC<ICreateFanClubNavigationProps> = ({ route }) => {
+  const teamId = route?.params?.teamId || null;
   const tabName = route?.params?.tabName || null;
 
-  const screens = React.useMemo(() => Object.values(createEventScreens), []);
+  const screens = React.useMemo(() => Object.values(createFanClubScreens), []);
 
   return (
     <Stack.Navigator
-      initialRouteName={`${tabName}:${createEventScreens.createEvent.name}`}
+      initialRouteName={`${tabName}:${createFanClubScreens.createFanClub.name}`}
       screenOptions={{
         headerShown: false,
       }}
@@ -23,7 +23,7 @@ const CreateEventNavigation: React.FC<ICreateEventNavigationProps> = ({ route })
           key={`${tabName}:${item.name}`}
           name={`${tabName}:${item.name}`}
           component={item.component}
-          initialParams={{ tabName, matchId }}
+          initialParams={{ tabName, teamId }}
           options={item.options}
         />
       ))}
@@ -31,4 +31,4 @@ const CreateEventNavigation: React.FC<ICreateEventNavigationProps> = ({ route })
   );
 };
 
-export default React.memo<ICreateEventNavigationProps>(CreateEventNavigation);
+export default React.memo<ICreateFanClubNavigationProps>(CreateFanClubNavigation);

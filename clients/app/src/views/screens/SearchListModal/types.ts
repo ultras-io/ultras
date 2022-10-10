@@ -5,7 +5,13 @@ export type DataKeyType = 'team' | 'country';
 
 export interface ISearchListModalProps {
   route: RouteProp<
-    { params: { dataKey: DataKeyType; parentScreenName: string } },
+    {
+      params: {
+        dataKey: DataKeyType;
+        parentScreenName: string;
+        backButtonType?: 'close' | 'back';
+      };
+    },
     'params'
   >;
 }
@@ -13,18 +19,18 @@ export interface ISearchListModalProps {
 export interface ISearchListContainerProps {
   dataType: DataKeyType;
   searchText: string;
-  onSelect: (params: onSelectParams) => void;
+  onSelect: (params: OnSelectParams) => void;
 }
 
 export interface ISearchListComponentProps {
-  loading,
+  loading: boolean;
   dataType: DataKeyType;
   data: Array<CountryViewModel> | Array<TeamViewModel>;
   onEndReached: () => void;
-  onSelect: (params: onSelectParams) => void;
+  onSelect: (params: OnSelectParams) => void;
 }
 
-type onSelectParams = {
+type OnSelectParams = {
   id: string;
   name: string;
   dataType: DataKeyType;

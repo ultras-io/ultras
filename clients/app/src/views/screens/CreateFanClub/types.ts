@@ -1,10 +1,10 @@
-export interface ICreateEventNavigationProps {
+export interface ICreateFanClubNavigationProps {
   route?: IRouteParams;
 }
 
 export interface IRouteParams {
   params: {
-    matchId?: null | ResourceIdentifier;
+    teamId?: null | ResourceIdentifier;
     tabName?: null | string;
   };
 }

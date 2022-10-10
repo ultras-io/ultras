@@ -12,7 +12,7 @@ import { ISearchListModalProps } from './types';
 const SearchListContainer = React.lazy(() => import('./containers/SearchListContainer'));
 
 const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
-  const { dataKey, parentScreenName } = route.params;
+  const { dataKey, parentScreenName, backButtonType } = route.params;
   const { colors } = useTheme();
   const { goBack, goBackWithParams } = useNavigationWithParams();
 
@@ -36,7 +36,11 @@ const SearchListModal: React.FC<ISearchListModalProps> = ({ route }) => {
         mb={'2.5'}
         px={'2.5'}
       >
-        {I18n.t('common-close')}
+        {backButtonType === 'back' ? (
+          <Icon name={Icons.BackNavigation} color="textAction" size="sm" />
+        ) : (
+          I18n.t('common-close')
+        )}
       </Button>
 
       <Text variant={'title'} mb={'2'} px="5">

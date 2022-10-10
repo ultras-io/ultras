@@ -2,7 +2,7 @@ import React from 'react';
 import FanClubsComponent, {
   FanClubsLoader,
 } from 'views/components/compositions/FanClubsHorizontal/FanClubsComponent';
-import buildFanClubsStore from 'stores/fanClubs';
+import buildFanClubsStore from 'stores/fanClubs/fanClubs';
 import { IFanClubsContainerProps } from './types';
 
 const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
