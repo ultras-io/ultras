@@ -6,7 +6,7 @@ import type {
   ParamsType,
   StateGetterCallType,
   StateSetterCallType,
-  StateFieldSchemeInterface,
+  IStateFieldScheme,
   StateKeyType,
   StateKeyParamType,
   FullFilterable,
@@ -35,7 +35,7 @@ export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
 
 export function createField<TFieldKey = string>(
   initialValue: TFieldKey | null = null
-): StateFieldSchemeInterface<TFieldKey> {
+): IStateFieldScheme<TFieldKey> {
   return {
     isValid: false,
     valueOriginal: initialValue,

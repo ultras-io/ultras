@@ -10,12 +10,12 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from '../generateCRUD';
 
 import { scheme } from './scheme';
 
-type ParamType<TScheme> = InitStoreParamsInterface<EventViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<EventViewModel, TScheme>;
 type FilterType = Filterable<GetEventsFilter>;
 
 type TDeleteEvent = {

@@ -1,4 +1,4 @@
-import type { ListStateDataInterface } from '../types/crud/list';
+import type { IListStateData } from '../types/crud/list';
 import type { FullFilterable } from '../types/common';
 import type {
   RootStoreType,
@@ -13,7 +13,7 @@ import { buildFilterHash } from '../utils/helpers';
 
 type CurrentStoreKeyType = 'list';
 
-function generateInitialState<TData, TFilter>(): ListStateDataInterface<TData, TFilter> {
+function generateInitialState<TData, TFilter>(): IListStateData<TData, TFilter> {
   return {
     status: 'loading',
     error: null,
@@ -106,7 +106,7 @@ export const buildActions = <TData, TFilter, TScheme>(
 
   // add getAll method to action list, that just calling loadAll interceptor method
   // and updates "list" state
-  actions.getAll = async (): Promise<ListStateDataInterface<TData, TFilter>> => {
+  actions.getAll = async (): Promise<IListStateData<TData, TFilter>> => {
     const list = getState().list;
 
     // we need to reset previously loaded data if filter was changed

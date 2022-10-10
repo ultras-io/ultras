@@ -8,10 +8,10 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from './generateCRUD';
 
-type ParamType<TScheme> = InitStoreParamsInterface<TeamViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<TeamViewModel, TScheme>;
 type FilterType = Filterable<GetTeamsFilter>;
 
 const sdk = new TeamSDK('dev');

@@ -1,7 +1,7 @@
 import handleImages from './lib/handle';
 import respond from './lib/respond';
 
-export const handler = async (event: EventInterface, context: ContextInterface) => {
+export const handler = async (event: IEvent, context: IContext) => {
   try {
     await handleImages(event, context);
 

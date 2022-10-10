@@ -3,18 +3,18 @@ import type { StatusType } from '../common';
 
 type GetSinglePromiseType<TData> = undefined | Promise<ApiResponseType<TData>>;
 
-export interface SingleStateDataInterface<TData> {
+export interface ISingleStateData<TData> {
   status: StatusType;
   error: null | Error;
   data: null | TData;
 }
 
 export interface SingleGroupedStateType<TData> {
-  single: SingleStateDataInterface<TData>;
+  single: ISingleStateData<TData>;
 }
 
 export type SingleGroupedActionType<TData> = {
-  getSingle(id: ResourceIdentifier): Promise<SingleStateDataInterface<TData>>;
+  getSingle(id: ResourceIdentifier): Promise<ISingleStateData<TData>>;
   reset(): void;
 };
 

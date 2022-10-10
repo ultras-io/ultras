@@ -11,26 +11,26 @@ import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import BaseService from './BaseService';
 
-interface CommentBasicParamsInterface {
+interface ICommentBasicParams {
   resourceType: CommentTypeEnum;
   resourceId: ResourceIdentifier;
 }
 
-interface CommentCreateParamsInterface extends CommentBasicParamsInterface {
+interface ICommentCreateParams extends ICommentBasicParams {
   userId: ResourceIdentifier;
   content: string;
 }
-interface CommentUpdateParamsInterface extends CommentBasicParamsInterface {
+interface ICommentUpdateParams extends ICommentBasicParams {
   userId: ResourceIdentifier;
   content: string;
   commentId: ResourceIdentifier;
 }
-interface CommentDeleteParamsInterface extends CommentBasicParamsInterface {
+interface ICommentDeleteParams extends ICommentBasicParams {
   userId: ResourceIdentifier;
   commentId: ResourceIdentifier;
 }
 
-interface FieldsByTypeInterface {
+interface IFieldsByType {
   fieldId: string;
   aliasName: string;
   model: any;
@@ -52,7 +52,7 @@ class CommentService extends BaseService {
     };
   }
 
-  private static getFieldsByType(resourceType: CommentTypeEnum): FieldsByTypeInterface {
+  private static getFieldsByType(resourceType: CommentTypeEnum): IFieldsByType {
     switch (resourceType) {
       case CommentTypeEnum.match:
         return {
@@ -73,7 +73,7 @@ class CommentService extends BaseService {
    * Get commenters by resource type, id and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<CommentBasicParamsInterface>
+    params: ServiceListParamsType<ICommentBasicParams>
   ): ServiceListResultType<CommentViewModel> {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
@@ -102,7 +102,7 @@ class CommentService extends BaseService {
   /**
    * Add comment under resource.
    */
-  static async comment(params: CommentCreateParamsInterface, transaction?: Transaction) {
+  static async comment(params: ICommentCreateParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     const comment = await db.Comment.create(
@@ -121,7 +121,7 @@ class CommentService extends BaseService {
   /**
    * Update comment under resource.
    */
-  static async update(params: CommentUpdateParamsInterface, transaction?: Transaction) {
+  static async update(params: ICommentUpdateParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     await db.Comment.update(
@@ -146,10 +146,7 @@ class CommentService extends BaseService {
   /**
    * Remove comment.
    */
-  static async uncomment(
-    params: CommentDeleteParamsInterface,
-    transaction?: Transaction
-  ) {
+  static async uncomment(params: ICommentDeleteParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     await db.Comment.destroy(

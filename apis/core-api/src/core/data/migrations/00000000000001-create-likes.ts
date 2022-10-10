@@ -1,5 +1,5 @@
 import { LikeTypeEnum } from '@ultras/utils';
-import { QueryInterface, DataTypes } from 'sequelize';
+import { IQuery, DataTypes } from 'sequelize';
 
 import resources from '../lcp/resources';
 import schemas, { ULTRAS_CORE } from '../lcp/schemas';
@@ -11,8 +11,8 @@ const table = {
 };
 
 export default {
-  async up(queryInterface: QueryInterface): Promise<void> {
-    await queryInterface.createTable(
+  async up(Iquery: IQuery): Promise<void> {
+    await Iquery.createTable(
       table,
       {
         id: {
@@ -90,11 +90,11 @@ export default {
       }
     );
 
-    await queryInterface.addIndex(table, ['userId', 'matchId'], { unique: true });
-    await queryInterface.addIndex(table, ['userId', 'postId'], { unique: true });
+    await Iquery.addIndex(table, ['userId', 'matchId'], { unique: true });
+    await Iquery.addIndex(table, ['userId', 'postId'], { unique: true });
   },
 
-  async down(queryInterface: QueryInterface): Promise<void> {
-    await queryInterface.dropTable(table);
+  async down(Iquery: IQuery): Promise<void> {
+    await Iquery.dropTable(table);
   },
 };

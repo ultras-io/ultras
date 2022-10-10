@@ -7,12 +7,12 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface LeaguesFilterInterface {
+interface ILeaguesFilter {
   name?: string;
   countryId?: ResourceIdentifier;
 }
 
-export type LeaguesListParams = ControllerListParamsType<LeaguesFilterInterface>;
+export type LeaguesListParams = ControllerListParamsType<ILeaguesFilter>;
 export type LeaguesListResult = ControllerListResultType<LeaguesViewModel>;
 export type LeagueByIdResult = ControllerByIdResultType<LeagueViewModel>;
 export type LeaguesInjectDataResult = ControllerInjectionResultType;

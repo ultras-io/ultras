@@ -11,22 +11,22 @@ import UserService from './UserService';
 
 import BaseService from './BaseService';
 
-export interface CreateParamsInterface {
+export interface ICreateParams {
   userId: ResourceIdentifier;
   postId: ResourceIdentifier;
 }
 
-export interface FindParamsInterface {
+export interface IFindParams {
   userId: ResourceIdentifier;
   postId: ResourceIdentifier;
 }
 
-export interface FindAllParamsInterface {
+export interface IFindAllParams {
   postId: ResourceIdentifier;
   search?: string;
 }
 
-export interface DeleteParamsInterface {
+export interface IDeleteParams {
   userId: ResourceIdentifier;
   postId: ResourceIdentifier;
 }
@@ -55,10 +55,7 @@ class PostMemberService extends BaseService {
   /**
    * Create post member instance.
    */
-  static async create(
-    { postId, userId }: CreateParamsInterface,
-    transaction?: Transaction
-  ) {
+  static async create({ postId, userId }: ICreateParams, transaction?: Transaction) {
     const postData: PostMemberCreationAttributes = {
       userId,
       postId,
@@ -71,7 +68,7 @@ class PostMemberService extends BaseService {
   /**
    * Delete post member.
    */
-  static delete({ postId, userId }: DeleteParamsInterface, transaction?: Transaction) {
+  static delete({ postId, userId }: IDeleteParams, transaction?: Transaction) {
     return db.PostMember.destroy(
       {
         force: true,
@@ -87,7 +84,7 @@ class PostMemberService extends BaseService {
   /**
    * Get post member.
    */
-  static getOne({ postId, userId }: FindParamsInterface) {
+  static getOne({ postId, userId }: IFindParams) {
     return db.PostMember.findOne({
       where: {
         postId,
@@ -99,7 +96,7 @@ class PostMemberService extends BaseService {
   /**
    * Get all post member.
    */
-  static async getAll(params: ServiceListParamsType<FindAllParamsInterface>) {
+  static async getAll(params: ServiceListParamsType<IFindAllParams>) {
     // build generic query options
     const queryOptions: any = {
       limit: params.limit,

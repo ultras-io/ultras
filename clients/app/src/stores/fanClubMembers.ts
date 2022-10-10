@@ -9,10 +9,10 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from './generateCRUD';
 
-type ParamType<TScheme> = InitStoreParamsInterface<FanClubMemberViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<FanClubMemberViewModel, TScheme>;
 type FilterType = Filterable<GetFanClubMembershipsFilter>;
 
 type TDeleteFanClubMember = {

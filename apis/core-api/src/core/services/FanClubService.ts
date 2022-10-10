@@ -16,7 +16,7 @@ import CityService from './CityService';
 import CountryService from './CountryService';
 import TeamService from './TeamService';
 
-export interface FanClubListParamsInterface {
+export interface IFanClubListParams {
   userId?: ResourceIdentifier | null;
   name?: string;
   countryId?: ResourceIdentifier;
@@ -25,7 +25,7 @@ export interface FanClubListParamsInterface {
   ownerId?: ResourceIdentifier;
 }
 
-export interface FanClubMembershipListParamsInterface {
+export interface IFanClubMembershipListParams {
   name: string;
   fanClubId: ResourceIdentifier;
 }
@@ -155,7 +155,7 @@ class FanClubService extends BaseService {
    * Get fan clubs by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<FanClubListParamsInterface>
+    params: ServiceListParamsType<IFanClubListParams>
   ): ServiceListResultType<FanClubAttributes> {
     const query: any = this.queryInit();
 

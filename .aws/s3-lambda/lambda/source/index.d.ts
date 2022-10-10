@@ -1,4 +1,4 @@
-declare interface RecordInterface {
+declare interface IRecord {
   eventVersion: string;
   eventSource: string;
   awsRegion: string;
@@ -30,15 +30,15 @@ declare interface RecordInterface {
   };
 }
 
-declare interface EventInterface {
-  Records: Array<RecordInterface>;
+declare interface IEvent {
+  Records: Array<IRecord>;
 }
 
-declare interface ContextInterface {
+declare interface IContext {
   // ...
 }
 
-declare interface LambdaResponseInterface {
+declare interface ILambdaResponse {
   isBase64Encoded?: boolean;
   statusCode: number;
   headers?: Record<string, any>;

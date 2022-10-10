@@ -1,9 +1,9 @@
 import { Middleware, Next as KoaNext } from 'koa';
 import { Context } from 'types';
 import { AuthService } from 'core/services';
-import { AuthTokenResultInterface } from 'core/services/AuthService';
+import { IAuthTokenResult } from 'core/services/AuthService';
 
-interface OptionsInterface {
+interface IOptions {
   regenerateOnExpire?: boolean;
 }
 
@@ -22,7 +22,7 @@ const getAuthToken = (ctx: Context): null | string => {
 /**
  * Set new auth token into context.
  */
-const updateAuthTokenHeader = (ctx: Context, newAuthToken: AuthTokenResultInterface) => {
+const updateAuthTokenHeader = (ctx: Context, newAuthToken: IAuthTokenResult) => {
   ctx.set('X-New-AuthToken', newAuthToken.authToken);
   ctx.newAuthToken = newAuthToken;
 
@@ -56,7 +56,7 @@ const isExpired = (authToken: string) => {
 const updateTokenIfExpired = async (
   ctx: Context,
   authToken: string
-): Promise<AuthTokenResultInterface | null> => {
+): Promise<IAuthTokenResult | null> => {
   if (!isExpired(authToken)) {
     return null;
   }
@@ -96,7 +96,7 @@ const callNextFunc = async (ctx: Context, next: KoaNext, authToken: string) => {
   return next();
 };
 
-export default (options?: OptionsInterface): Middleware => {
+export default (options?: IOptions): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     // if auth token is not provided by authorization header
     // then we need to skip this middleware action.

@@ -15,7 +15,7 @@ import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLe
 import BaseService from './BaseService';
 import CountryService from './CountryService';
 
-export interface LeaguesListParamsInterface {
+export interface ILeaguesListParams {
   name?: string;
   countryId?: ResourceIdentifier;
 }
@@ -40,7 +40,7 @@ class LeagueService extends BaseService {
    * Get leagues by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<LeaguesListParamsInterface>
+    params: ServiceListParamsType<ILeaguesListParams>
   ): ServiceListResultType<LeagueViewModel> {
     const query: any = this.queryInit();
 

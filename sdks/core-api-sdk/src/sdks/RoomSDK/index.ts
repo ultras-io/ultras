@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import LikeableInterface from '../LikeableInterface';
+import ILikeable from '../ILikeable';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetRoomsFilter,
@@ -13,7 +13,7 @@ import type {
 
 export * from './types';
 
-export class RoomSDK extends CoreApiBaseSDK implements LikeableInterface {
+export class RoomSDK extends CoreApiBaseSDK implements ILikeable {
   constructor(mode?: Mode) {
     super(mode, 'rooms');
   }

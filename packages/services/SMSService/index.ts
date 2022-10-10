@@ -1,5 +1,5 @@
 import { Twilio as TwilioClient } from 'twilio';
-import { SendSMSMultipleOptionsInterface, SendSMSOptionsInterface } from './types';
+import { ISendSMSMultipleOptions, ISendSMSOptions } from './types';
 
 class SMSService {
   private static staticInstance: null | SMSService = null;
@@ -36,11 +36,11 @@ class SMSService {
     this.client = new TwilioClient(this.accountSid, this.authToken);
   }
 
-  static async send(options: SendSMSOptionsInterface) {
+  static async send(options: ISendSMSOptions) {
     return this.singleton().send(options);
   }
 
-  async send(options: SendSMSOptionsInterface) {
+  async send(options: ISendSMSOptions) {
     const optionsClone = { ...options };
     if (!optionsClone.messagingServiceSid) {
       optionsClone.messagingServiceSid = this.defaultMessageServiceId || '';
@@ -54,14 +54,14 @@ class SMSService {
     });
   }
 
-  static async sendMultiple(options: SendSMSMultipleOptionsInterface) {
+  static async sendMultiple(options: ISendSMSMultipleOptions) {
     return this.singleton().sendMultiple(options);
   }
 
-  async sendMultiple(options: SendSMSMultipleOptionsInterface) {
+  async sendMultiple(options: ISendSMSMultipleOptions) {
     const results = [];
     for (let i = 0; i < options.to.length; ++i) {
-      const itemOptions: SendSMSOptionsInterface = {
+      const itemOptions: ISendSMSOptions = {
         ...options,
         to: options.to[i],
       };

@@ -7,16 +7,16 @@ import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import type {
   CommentsListParams,
   CommentListResult,
-  CommentCreateParamsInterface,
-  CommentUpdateParamsInterface,
-  CommentDeleteParamsInterface,
+  ICommentCreateParams,
+  ICommentUpdateParams,
+  ICommentDeleteParams,
 } from './types';
 
 class EventCommentController extends BaseController {
   /**
    * Add comment under event.
    */
-  static async create({ userId, eventId, content }: CommentCreateParamsInterface) {
+  static async create({ userId, eventId, content }: ICommentCreateParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {
@@ -39,12 +39,7 @@ class EventCommentController extends BaseController {
   /**
    * Update comment under event.
    */
-  static async update({
-    userId,
-    eventId,
-    commentId,
-    content,
-  }: CommentUpdateParamsInterface) {
+  static async update({ userId, eventId, commentId, content }: ICommentUpdateParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {
@@ -68,7 +63,7 @@ class EventCommentController extends BaseController {
   /**
    * Make event un-liked by user.
    */
-  static async delete({ userId, eventId, commentId }: CommentDeleteParamsInterface) {
+  static async delete({ userId, eventId, commentId }: ICommentDeleteParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {

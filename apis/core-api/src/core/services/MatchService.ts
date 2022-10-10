@@ -16,7 +16,7 @@ import TeamService from './TeamService';
 import VenueService from './VenueService';
 import LeagueService from './LeagueService';
 
-export interface MatchesListParamsInterface {
+export interface IMatchesListParams {
   search?: string;
   dateFrom?: string;
   dateTo?: string;
@@ -71,7 +71,7 @@ class MatchService extends BaseService {
    * Get matches by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<MatchesListParamsInterface>
+    params: ServiceListParamsType<IMatchesListParams>
   ): ServiceListResultType<MatchViewModel> {
     const query: any = this.queryInit();
 

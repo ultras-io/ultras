@@ -9,7 +9,7 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface EventsFilterInterface {
+interface IEventsFilter {
   userId: ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier;
@@ -52,7 +52,7 @@ export type EventDeleteParams = {
 export type EventCreateResult = ControllerResultType<EventViewModel>;
 export type EventUpdateResult = ControllerResultType<EventViewModel>;
 
-export type EventsListParams = ControllerListParamsType<EventsFilterInterface>;
+export type EventsListParams = ControllerListParamsType<IEventsFilter>;
 export type EventsListResult = ControllerListResultType<EventViewModel>;
 export type EventByIdParams = {
   id: ResourceIdentifier;

@@ -8,7 +8,7 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface RoomMembersFilterInterface {
+interface IRoomMembersFilter {
   search?: string;
   roomId: ResourceIdentifier;
 }
@@ -25,5 +25,5 @@ export type RoomMemberDeleteParams = {
 
 export type RoomMemberCreateResult = ControllerResultType<RoomViewModel>;
 
-export type RoomMembersListParams = ControllerListParamsType<RoomMembersFilterInterface>;
+export type RoomMembersListParams = ControllerListParamsType<IRoomMembersFilter>;
 export type RoomMembersListResult = ControllerListResultType<RoomViewModel>;

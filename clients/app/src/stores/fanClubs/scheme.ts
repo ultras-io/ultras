@@ -1,7 +1,7 @@
 import { FanClubPrivacyEnum } from '@ultras/utils';
-import { SchemeInterface } from '../generateCRUD/types/scheme';
+import { IScheme } from '../generateCRUD/types/scheme';
 
-export interface DataTypeInterface {
+export interface IDataType {
   name: string;
   teamId: null | ResourceIdentifier;
   cityId: null | ResourceIdentifier;
@@ -9,7 +9,7 @@ export interface DataTypeInterface {
   description: null | string;
 }
 
-export const scheme: SchemeInterface<DataTypeInterface> = {
+export const scheme: IScheme<IDataType> = {
   teamId: {
     initialValue: null,
     validate(valueOriginal: null | ResourceIdentifier) {
