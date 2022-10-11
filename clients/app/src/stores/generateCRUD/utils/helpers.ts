@@ -6,14 +6,14 @@ import type {
   ParamsType,
   StateGetterCallType,
   StateSetterCallType,
-  StateFieldSchemeInterface,
-  SchemeFieldInterface,
-  SchemeInterface,
+  ISchemeField,
+  IScheme,
+  IStateFieldScheme,
   StateKeyType,
   StateKeyParamType,
   FullFilterable,
-  AddStateDataInterface,
-  UpdateStateDataInterface,
+  IAddStateData,
+  IUpdateStateData,
 } from '../types';
 
 export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
@@ -39,7 +39,7 @@ export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
 
 export function createField<TFieldKey = string>(
   initialValue: TFieldKey | null = null
-): StateFieldSchemeInterface<TFieldKey> {
+): IStateFieldScheme<TFieldKey> {
   return {
     isValid: false,
     valueOriginal: initialValue,
@@ -49,15 +49,15 @@ export function createField<TFieldKey = string>(
 }
 
 export function processSchemeValueAndValidate<TData, TScheme>(
-  store: AddStateDataInterface<TData, TScheme> | UpdateStateDataInterface<TData, TScheme>,
-  scheme: undefined | SchemeInterface<TScheme>,
+  store: IAddStateData<TData, TScheme> | IUpdateStateData<TData, TScheme>,
+  scheme: undefined | IScheme<TScheme>,
   key: keyof TScheme
 ) {
   if (typeof scheme === 'undefined' || typeof scheme[key] === 'undefined') {
     return;
   }
 
-  const schemeItem = scheme[key] as SchemeFieldInterface<TScheme[keyof TScheme]>;
+  const schemeItem = scheme[key] as ISchemeField<TScheme[keyof TScheme]>;
   if (!schemeItem) {
     return;
   }

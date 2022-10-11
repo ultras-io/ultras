@@ -3,32 +3,30 @@ import { ClientResponse } from '@sendgrid/mail';
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type ResultType = [ClientResponse, {}];
 
-interface FromInterface {
+interface IFrom {
   name: string;
   email: string;
 }
 
-export type FromType = string | FromInterface;
+export type FromType = string | IFrom;
 
-interface SendEmailCommonOptionsInterface {
+interface ISendEmailCommonOptions {
   from?: FromType;
   subject: string;
   html: string;
 }
 
-export interface SendEmailFinalOptionsInterface
-  extends Omit<SendEmailCommonOptionsInterface, 'from'> {
+export interface ISendEmailFinalOptions extends Omit<ISendEmailCommonOptions, 'from'> {
   from: FromType;
   to: string;
   cc?: string[];
   bcc?: string[];
 }
 
-export interface SendEmailSingleOptionsInterface extends SendEmailCommonOptionsInterface {
+export interface ISendEmailSingleOptions extends ISendEmailCommonOptions {
   to: string;
 }
 
-export interface SendEmailMultipleOptionsInterface
-  extends SendEmailCommonOptionsInterface {
+export interface ISendEmailMultipleOptions extends ISendEmailCommonOptions {
   to: string[];
 }

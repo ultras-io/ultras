@@ -9,7 +9,7 @@ import BaseService from './BaseService';
 import FanClubService from './FanClubService';
 import MatchService from './MatchService';
 
-export interface CreateParamsInterface {
+export interface ICreateParams {
   image?: Nullable<string>;
   authorId: ResourceIdentifier;
   title: string;
@@ -19,7 +19,7 @@ export interface CreateParamsInterface {
   type: PostTypeEnum;
 }
 
-export interface UpdateParamsInterface {
+export interface IUpdateParams {
   image?: Nullable<string>;
   title: string;
   content: string;
@@ -78,7 +78,7 @@ class PostService extends BaseService {
    * Create post instance.
    */
   static async create(
-    { image, authorId, title, content, fanClubId, matchId, type }: CreateParamsInterface,
+    { image, authorId, title, content, fanClubId, matchId, type }: ICreateParams,
     transaction?: Transaction
   ) {
     const postData: PostCreationAttributes = {
@@ -102,7 +102,7 @@ class PostService extends BaseService {
    */
   static async update(
     postId: ResourceIdentifier,
-    { image, title, content }: UpdateParamsInterface,
+    { image, title, content }: IUpdateParams,
     transaction?: Transaction
   ) {
     const post = await db.Post.findOne({

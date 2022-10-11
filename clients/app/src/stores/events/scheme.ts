@@ -1,7 +1,7 @@
 import { EventPrivacyEnum } from '@ultras/utils';
-import { SchemeInterface } from '../generateCRUD/types/scheme';
+import { IScheme } from '../generateCRUD/types/scheme';
 
-interface DataTypeInterface {
+interface IDataType {
   matchId: null | ResourceIdentifier;
   title: string;
   privacy: EventPrivacyEnum;
@@ -12,7 +12,7 @@ interface DataTypeInterface {
   content: null | string;
 }
 
-export const scheme: SchemeInterface<DataTypeInterface> = {
+export const scheme: IScheme<IDataType> = {
   matchId: {
     initialValue: null,
     validate(valueOriginal: null | ResourceIdentifier) {

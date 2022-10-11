@@ -1,14 +1,14 @@
 import { Body } from 'aws-sdk/clients/s3';
 import sharp from 'sharp';
 
-interface ParamsInterface {
+interface ParamsI {
   body?: Body;
   format: 'png' | 'jpeg';
   width: number;
   height: number;
 }
 
-async function resize(params: ParamsInterface): Promise<Body | null> {
+async function resize(params: ParamsI): Promise<Body | null> {
   if (!params.body) {
     return null;
   }

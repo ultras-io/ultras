@@ -4,13 +4,13 @@ import { MatchService, LikeService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import type { LikesListParams, LikeListResult, LikeUnlikeParamsInterface } from './types';
+import type { LikesListParams, LikeListResult, ILikeUnlikeParams } from './types';
 
 class MatchLikeController extends BaseController {
   /**
    * Make match liked by user.
    */
-  static async create({ userId, matchId }: LikeUnlikeParamsInterface) {
+  static async create({ userId, matchId }: ILikeUnlikeParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {
@@ -30,7 +30,7 @@ class MatchLikeController extends BaseController {
   /**
    * Make match un-liked by user.
    */
-  static async delete({ userId, matchId }: LikeUnlikeParamsInterface) {
+  static async delete({ userId, matchId }: ILikeUnlikeParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {

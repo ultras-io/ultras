@@ -8,7 +8,7 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface EventMembersFilterInterface {
+interface IEventMembersFilter {
   search?: string;
   eventId: ResourceIdentifier;
 }
@@ -25,6 +25,5 @@ export type EventMemberDeleteParams = {
 
 export type EventMemberCreateResult = ControllerResultType<EventViewModel>;
 
-export type EventMembersListParams =
-  ControllerListParamsType<EventMembersFilterInterface>;
+export type EventMembersListParams = ControllerListParamsType<IEventMembersFilter>;
 export type EventMembersListResult = ControllerListResultType<EventViewModel>;

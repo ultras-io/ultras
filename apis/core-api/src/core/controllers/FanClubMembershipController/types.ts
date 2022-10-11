@@ -8,17 +8,17 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface FanClubFilterInterface {
+interface IFanClubFilter {
   search?: string;
   roleId?: ResourceIdentifier;
   status?: FanClubMemberStatusEnum;
 }
 
-interface FanClubMembershipsFilterInterface extends FanClubFilterInterface {
+interface IFanClubMembershipsFilter extends IFanClubFilter {
   fanClubId: ResourceIdentifier;
 }
 
-interface FanClubMembershipsByMemberIdInterface extends FanClubFilterInterface {
+interface IFanClubMembershipsByMemberId extends IFanClubFilter {
   memberId: ResourceIdentifier;
 }
 
@@ -104,11 +104,11 @@ export type FanClubMembershipByIdResult =
   ControllerByIdResultType<FanClubMemberViewModel>;
 
 export type FanClubMembershipsListParams =
-  ControllerListParamsType<FanClubMembershipsFilterInterface>;
+  ControllerListParamsType<IFanClubMembershipsFilter>;
 export type FanClubMembershipsListResult =
   ControllerListResultType<FanClubMemberViewModel>;
 
 export type FanClubMembershipsByMemberIdListParams =
-  ControllerListParamsType<FanClubMembershipsByMemberIdInterface>;
+  ControllerListParamsType<IFanClubMembershipsByMemberId>;
 export type FanClubMembershipsByMemberIdListResult =
   ControllerListResultType<FanClubMemberViewModel>;

@@ -8,10 +8,10 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from './generateCRUD';
 
-type ParamType<TScheme> = InitStoreParamsInterface<RoomViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<RoomViewModel, TScheme>;
 type FilterType = Filterable<GetRoomsFilter>;
 
 const sdk = new RoomSDK('dev');

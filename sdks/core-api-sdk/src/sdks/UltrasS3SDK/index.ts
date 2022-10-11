@@ -1,9 +1,9 @@
 import { HttpRequestMethods } from '@ultras/services/NetworkService/types';
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import type {
-  SigningUrlParamsInterface,
-  UploadViaSignedUrlParamsInterface,
-  UploadParamsInterface,
+  ISigningUrlParams,
+  IUploadViaSignedUrlParams,
+  IUploadParams,
 } from './types';
 export * from './types';
 
@@ -15,7 +15,7 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
   /**
    * Will generate a file path and signed url to upload into AWS S3.
    */
-  public getSignedUrl(params: SigningUrlParamsInterface) {
+  public getSignedUrl(params: ISigningUrlParams) {
     return this.api?.makeAPIGetRequest('signed-url', {
       query_params: this.buildQueryParam(params),
     });
@@ -25,7 +25,7 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
    * File must be uploaded to AWS S3 using pre-signed url.
    * Just provide a file instance and pre-signed url.
    */
-  public uploadViaSignedUrl(params: UploadViaSignedUrlParamsInterface) {
+  public uploadViaSignedUrl(params: IUploadViaSignedUrlParams) {
     return this.api?.request(params.signedUrl, {
       body: params.file,
       method: HttpRequestMethods.PUT,
@@ -37,7 +37,7 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
    * after that it will be upload file to AWS S3 using pre-signed url
    * and give you back saved file path.
    */
-  public async upload(params: UploadParamsInterface) {
+  public async upload(params: IUploadParams) {
     const extension = params.file.name.split('.').pop() || '';
     const responseSigning = await this.getSignedUrl({
       folder: params.folder,

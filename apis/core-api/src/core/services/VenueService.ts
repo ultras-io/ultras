@@ -16,7 +16,7 @@ import BaseService from './BaseService';
 import CountryService from './CountryService';
 import CityService from './CityService';
 
-export interface VenuesListParamsInterface {
+export interface IVenuesListParams {
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
@@ -47,7 +47,7 @@ class VenueService extends BaseService {
    * Get venues by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<VenuesListParamsInterface>
+    params: ServiceListParamsType<IVenuesListParams>
   ): ServiceListResultType<VenueViewModel> {
     const query: any = this.queryInit();
 

@@ -6,21 +6,21 @@ import jwt from 'jsonwebtoken';
 import db from 'core/data/models';
 import BaseService from './BaseService';
 
-interface DataToHashInterface {
+interface IDataToHash {
   userId: ResourceIdentifier;
   fingerprint: string;
 }
 
-interface FinalDataToHashInterface extends DataToHashInterface {
+interface IFinalDataToHash extends IDataToHash {
   expiresIn: number;
   expiresAt: number;
 }
 
-export interface AuthTokenResultInterface extends FinalDataToHashInterface {
+export interface IAuthTokenResult extends IFinalDataToHash {
   authToken: string;
 }
 
-export interface DeviceInformationInterface {
+export interface IDeviceInformation {
   ip: string;
   device: string;
   osName: string;
@@ -34,10 +34,10 @@ class AuthService extends BaseService {
    * Generate auth token based on user id and requested device.
    */
   static async generateAuthToken(
-    dataToHash: DataToHashInterface,
-    device: DeviceInformationInterface,
+    dataToHash: IDataToHash,
+    device: IDeviceInformation,
     transaction?: Transaction
-  ): ServiceResultType<AuthTokenResultInterface> {
+  ): ServiceResultType<IAuthTokenResult> {
     // force delete from database already expired sessions
     await db.UserSession.destroy({
       where: {
@@ -55,7 +55,7 @@ class AuthService extends BaseService {
     const expiresIn = authConfig.accessTokenLifetime;
     const expiresAt = Date.now() + expiresIn * 1000;
 
-    const finalDataToHash: FinalDataToHashInterface = {
+    const finalDataToHash: IFinalDataToHash = {
       ...dataToHash,
       expiresIn,
       expiresAt,
@@ -112,10 +112,7 @@ class AuthService extends BaseService {
    * Decode provided auth token.
    * In case of invalid auth token NULL will be returned.
    */
-  static decode<T = FinalDataToHashInterface>(
-    token: string,
-    ignoreExpiration = false
-  ): T | null {
+  static decode<T = IFinalDataToHash>(token: string, ignoreExpiration = false): T | null {
     try {
       const options = {
         ignoreExpiration: ignoreExpiration,

@@ -7,20 +7,20 @@ import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
 
 import BaseService from './BaseService';
 
-interface StoreInterface {
+interface IStore {
   code: string;
   provider: NotifiedProviderEnum;
   phone?: null | string;
   email?: null | string;
 }
 
-interface ValidateParamsInterface {
+interface IValidateParams {
   code: string;
   phone?: null | string;
   email?: null | string;
 }
 
-interface ValidateResultInterface {
+interface IValidateResult {
   isValid: boolean;
   provider: null | NotifiedProviderEnum;
 }
@@ -39,7 +39,7 @@ class VerificationCodeService extends BaseService {
    * If user specific field not provided then NULL will be returned.
    */
   private static buildQuery(
-    { code, phone, email }: ValidateParamsInterface,
+    { code, phone, email }: IValidateParams,
     checkExpirations: boolean
   ) {
     const query: any = {
@@ -84,7 +84,7 @@ class VerificationCodeService extends BaseService {
    * Store generated verification code with user specific identifier.
    */
   static async store(
-    { code, provider, phone, email }: StoreInterface,
+    { code, provider, phone, email }: IStore,
     transaction?: Transaction
   ): Promise<void> {
     const expirationTimestamp = Date.now() + expireAfterMs;
@@ -124,7 +124,7 @@ class VerificationCodeService extends BaseService {
     code,
     phone,
     email,
-  }: ValidateParamsInterface): Promise<VerificationCodeAttributes | null> {
+  }: IValidateParams): Promise<VerificationCodeAttributes | null> {
     const query: any = this.buildQuery({ code, phone, email }, true);
     if (!query) {
       return null;
@@ -141,7 +141,7 @@ class VerificationCodeService extends BaseService {
    * Remove verification code by code and user specific identifier.
    */
   static async removeVerificationCode(
-    { code, phone, email }: ValidateParamsInterface,
+    { code, phone, email }: IValidateParams,
     transaction?: Transaction
   ): Promise<void> {
     const query: any = this.buildQuery({ code, phone, email }, false);

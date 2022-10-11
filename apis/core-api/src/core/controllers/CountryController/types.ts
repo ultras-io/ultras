@@ -6,12 +6,12 @@ import {
   ControllerInjectionResultType,
 } from 'types';
 
-interface CountriesFilterInterface {
+interface ICountriesFilter {
   name?: string;
   code?: string;
 }
 
-export type CountriesListParams = ControllerListParamsType<CountriesFilterInterface>;
+export type CountriesListParams = ControllerListParamsType<ICountriesFilter>;
 export type CountriesListResult = ControllerListResultType<CountriesViewModel>;
 export type CountryByIdResult = ControllerByIdResultType<CountryViewModel>;
 export type CountriesInjectDataResult = ControllerInjectionResultType;

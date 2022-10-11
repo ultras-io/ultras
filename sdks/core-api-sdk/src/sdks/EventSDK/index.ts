@@ -1,6 +1,6 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import CommentableInterface from '../CommentableInterface';
-import LikeableInterface from '../LikeableInterface';
+import ICommentable from '../ICommentable';
+import ILikeable from '../ILikeable';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetEventsFilter,
@@ -14,10 +14,7 @@ import type {
 
 export * from './types';
 
-export class EventSDK
-  extends CoreApiBaseSDK
-  implements LikeableInterface, CommentableInterface
-{
+export class EventSDK extends CoreApiBaseSDK implements ILikeable, ICommentable {
   constructor(mode?: Mode) {
     super(mode, 'events');
   }

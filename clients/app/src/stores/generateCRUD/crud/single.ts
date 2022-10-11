@@ -1,4 +1,4 @@
-import type { SingleStateDataInterface } from '../types/crud/single';
+import type { ISingleStateData } from '../types/crud/single';
 import type {
   RootStoreType,
   ExtractStateType,
@@ -10,7 +10,7 @@ import type {
 
 type CurrentStoreKeyType = 'single';
 
-function generateInitialState<TData>(): SingleStateDataInterface<TData> {
+function generateInitialState<TData>(): ISingleStateData<TData> {
   return {
     status: 'loading',
     error: null,
@@ -81,7 +81,7 @@ export const buildActions = <TData, TFilter, TScheme>(
   // and updates "single" state
   actions.getSingle = async (
     id: ResourceIdentifier
-  ): Promise<SingleStateDataInterface<TData>> => {
+  ): Promise<ISingleStateData<TData>> => {
     const single = getState().single;
     single.status = 'loading';
     setState({ single });

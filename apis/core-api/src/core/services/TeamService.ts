@@ -17,7 +17,7 @@ import CountryService from './CountryService';
 import CityService from './CityService';
 import VenueService from './VenueService';
 
-export interface TeamsListParamsInterface {
+export interface ITeamsListParams {
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
@@ -55,7 +55,7 @@ class TeamService extends BaseService {
    * Get teams by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<TeamsListParamsInterface>
+    params: ServiceListParamsType<ITeamsListParams>
   ): ServiceListResultType<TeamViewModel> {
     const query: any = this.queryInit();
 

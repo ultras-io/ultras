@@ -8,10 +8,10 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from './generateCRUD';
 
-type ParamType<TScheme> = InitStoreParamsInterface<CityViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<CityViewModel, TScheme>;
 type FilterType = Filterable<GetCitiesFilter>;
 
 const sdk = new CitySDK('dev');

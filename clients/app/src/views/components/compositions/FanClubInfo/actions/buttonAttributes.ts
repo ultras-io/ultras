@@ -2,17 +2,17 @@ import { FanClubMemberStatusEnum } from '@ultras/utils';
 import { ColorKey, ColorType } from 'themes/types';
 import { Icons } from 'assets/icons';
 
-interface OnButtonPressInterface {
+interface IOnButtonPress {
   (): void;
 }
 
-interface ButtonStyleInterface {
+interface IButtonStyle {
   bg: string;
   _pressed: { bg: string };
   _text: { color: string };
 }
 
-export interface ButtonAttributeInterface {
+export interface IButtonAttribute {
   icon?: {
     name: Icons;
     color: ColorKey;
@@ -20,8 +20,8 @@ export interface ButtonAttributeInterface {
   button: {
     variant: string;
     text: string;
-    style: {} | ButtonStyleInterface;
-    onPress?: OnButtonPressInterface;
+    style: {} | IButtonStyle;
+    onPress?: IOnButtonPress;
   };
 }
 
@@ -30,7 +30,7 @@ function buildStyle(
   initial: ColorKey,
   pressed: ColorKey,
   text: ColorKey
-): ButtonStyleInterface {
+): IButtonStyle {
   return {
     bg: colors[initial],
     _pressed: {
@@ -45,8 +45,8 @@ function buildStyle(
 export function buildButtonAttributes(
   joinStatus: FanClubMemberStatusEnum,
   colors: ColorType,
-  onButtonPress?: OnButtonPressInterface
-): ButtonAttributeInterface {
+  onButtonPress?: IOnButtonPress
+): IButtonAttribute {
   // active - means user already in fan club's member list.
   if (joinStatus === FanClubMemberStatusEnum.active) {
     return {

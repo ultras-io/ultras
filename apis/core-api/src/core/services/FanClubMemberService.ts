@@ -20,31 +20,28 @@ import {
 import BaseService from './BaseService';
 import FanClubService from './FanClubService';
 
-interface MembershipInterface {
+interface IMembership {
   fanClubId: ResourceIdentifier;
   memberId: ResourceIdentifier;
 }
-interface WithRoleInterface {
+interface IWithRole {
   role: FanClubMemberRoleEnum;
 }
-interface WithStatusInterface {
+interface IWithStatus {
   status: FanClubMemberStatusEnum;
 }
 
-interface CreateMemberInterface
-  extends Omit<MembershipInterface, 'memberId'>,
-    WithRoleInterface,
-    WithStatusInterface {
+interface ICreateMember extends Omit<IMembership, 'memberId'>, IWithRole, IWithStatus {
   inviterId?: ResourceIdentifier;
   memberId?: ResourceIdentifier;
 }
 
-interface RemoveMemberInterface extends Omit<MembershipInterface, 'memberId'> {
+interface IRemoveMember extends Omit<IMembership, 'memberId'> {
   memberId?: ResourceIdentifier;
   membershipId?: ResourceIdentifier;
 }
 
-export interface FanClubListParamsInterface {
+export interface IFanClubListParams {
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
@@ -52,7 +49,7 @@ export interface FanClubListParamsInterface {
   ownerId?: ResourceIdentifier;
 }
 
-export interface FanClubMembershipListParamsInterface {
+export interface IFanClubMembershipListParams {
   search?: string;
   roleId?: ResourceIdentifier;
   status?: FanClubMemberStatusEnum;
@@ -60,7 +57,7 @@ export interface FanClubMembershipListParamsInterface {
   memberId?: ResourceIdentifier;
 }
 
-interface UpdateRoleStatusInterface {
+interface IUpdateRoleStatus {
   fanClubId: ResourceIdentifier;
   membershipId?: ResourceIdentifier;
   memberId?: ResourceIdentifier;
@@ -96,7 +93,7 @@ class FanClubMemberService extends BaseService {
    * Add member to fan club.
    */
   static async add(
-    { fanClubId, memberId, role, status }: CreateMemberInterface,
+    { fanClubId, memberId, role, status }: ICreateMember,
     transaction?: Transaction
   ): Promise<null | FanClubMemberViewModel> {
     const fanClub = await db.FanClub.findByPk(fanClubId, { transaction });
@@ -179,7 +176,7 @@ class FanClubMemberService extends BaseService {
   /**
    * Remove member from fan club.
    */
-  static async remove({ fanClubId, membershipId, memberId }: RemoveMemberInterface) {
+  static async remove({ fanClubId, membershipId, memberId }: IRemoveMember) {
     const conditions: any = {
       fanClubId: fanClubId,
     };
@@ -302,7 +299,7 @@ class FanClubMemberService extends BaseService {
     memberId,
     role,
     status,
-  }: UpdateRoleStatusInterface) {
+  }: IUpdateRoleStatus) {
     const updateField: any = {};
     if (role) {
       const roleId = await this.getRoleId(role);
@@ -391,7 +388,7 @@ class FanClubMemberService extends BaseService {
    * Get fan club memberships by provided filters.
    */
   static async getAll(
-    params: ServiceListParamsType<FanClubMembershipListParamsInterface>
+    params: ServiceListParamsType<IFanClubMembershipListParams>
   ): ServiceListResultType<FanClubMemberViewModel> {
     // fan club id or memberId must be provided
     if (!params.fanClubId && !params.memberId) {

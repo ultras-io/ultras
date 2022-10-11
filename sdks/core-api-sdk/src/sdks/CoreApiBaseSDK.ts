@@ -1,5 +1,5 @@
 import NetworkService from '@ultras/services/NetworkService';
-import type { ResponseInterface } from '@ultras/services/NetworkService';
+import type { IResponse } from '@ultras/services/NetworkService';
 import { Interceptor } from '@ultras/services/NetworkService/types';
 import { AuthTokenInterceptor } from '../interceptors';
 import configs from '../configs';
@@ -7,7 +7,7 @@ import type { ApiResponseType, ListResponseMetaType } from './types';
 import { DynamicQueryParam, QueryParam } from './types';
 
 export type Mode = 'dev' | 'staging' | 'production';
-export { ApiResponseType, ListResponseMetaType, ResponseInterface };
+export { ApiResponseType, ListResponseMetaType, IResponse };
 
 abstract class CoreApiBaseSDK {
   protected api: NetworkService | undefined;

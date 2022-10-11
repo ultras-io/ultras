@@ -27,24 +27,24 @@ import {
   InsufficientResource,
 } from 'modules/exceptions';
 
-export interface FavoriteTeamByUserListParamsInterface {
+export interface IFavoriteTeamByUserListParams {
   userId?: ResourceIdentifier;
   search?: string;
 }
 
-export interface FavoriteTeamListParamsInterface {
+export interface IFavoriteTeamListParams {
   userId?: ResourceIdentifier;
   teamId?: ResourceIdentifier;
   search?: string;
 }
 
-export interface ActionByIdentifierInterface {
+export interface IActionByIdentifier {
   userId?: ResourceIdentifier;
   favoriteTeamId?: ResourceIdentifier;
   teamId?: ResourceIdentifier;
 }
 
-export interface AddSingleParamsInterface {
+export interface IAddSingleParams {
   userId: ResourceIdentifier;
   teamId: ResourceIdentifier | Array<ResourceIdentifier>;
 }
@@ -72,7 +72,7 @@ class FavoriteTeamService extends BaseService {
   /**
    * Build query condition.
    */
-  private static buildActionCondition(params: ActionByIdentifierInterface) {
+  private static buildActionCondition(params: IActionByIdentifier) {
     // if no any unique identifier provided then null returned
     // there is no way to determine favorite team.
     if (Object.keys(params).length == 0) {
@@ -106,7 +106,7 @@ class FavoriteTeamService extends BaseService {
    * Add user new favorite team.
    */
   static async add(
-    { userId, teamId }: AddSingleParamsInterface,
+    { userId, teamId }: IAddSingleParams,
     transaction?: Transaction
   ): Promise<FavoriteTeamsViewModel> {
     if (!Array.isArray(teamId)) {
@@ -134,7 +134,7 @@ class FavoriteTeamService extends BaseService {
    * Get all favorite teams by user id.
    */
   static async getAllTeams(
-    params: ServiceListParamsType<FavoriteTeamByUserListParamsInterface>
+    params: ServiceListParamsType<IFavoriteTeamByUserListParams>
   ): ServiceListResultType<TeamsViewModel> {
     // generate subquery
     const subquerySel = db.sequelize.dialect.queryGenerator
@@ -188,7 +188,7 @@ class FavoriteTeamService extends BaseService {
    * Get all favorite teams by user id.
    */
   static async getAll(
-    params: ServiceListParamsType<FavoriteTeamListParamsInterface>
+    params: ServiceListParamsType<IFavoriteTeamListParams>
   ): ServiceListResultType<FavoriteTeamsViewModel> {
     // teamId or userId must be provided
     if (!params.userId && !params.teamId) {
@@ -276,7 +276,7 @@ class FavoriteTeamService extends BaseService {
    * Get favorite team by pivot table id.
    */
   static async getByIdentifier(
-    params: ActionByIdentifierInterface
+    params: IActionByIdentifier
   ): ServiceByIdResultType<FavoriteTeamViewModel> {
     const condition = this.buildActionCondition(params);
     if (!condition) {
@@ -295,12 +295,12 @@ class FavoriteTeamService extends BaseService {
    * Remove user new favorite team.
    */
   static async remove(
-    params: ActionByIdentifierInterface,
+    params: IActionByIdentifier,
     transaction?: Transaction
   ): Promise<void> {
     // if favoriteTeamId provided then other field must be ignored
     // if no any field provided then nothing to do
-    const identifier: ActionByIdentifierInterface = {};
+    const identifier: IActionByIdentifier = {};
     if (params.favoriteTeamId) {
       identifier.favoriteTeamId = params.favoriteTeamId;
     } else if (params.userId && params.teamId) {

@@ -16,25 +16,25 @@ import BaseService from './BaseService';
 import PostService from './PostService';
 import FanClubMemberService from './FanClubMemberService';
 
-export interface RoomByIdParamsInterface {
+export interface IRoomByIdParams {
   id: ResourceIdentifier;
   userId?: null | ResourceIdentifier;
 }
 
-export interface RoomListParamsInterface {
+export interface IRoomListParams {
   userId: null | ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier | Array<ResourceIdentifier>;
   authorId?: ResourceIdentifier;
 }
 
-export interface CreateParamsInterface {
+export interface ICreateParams {
   dateTime: Date;
   privacy: RoomPrivacyEnum;
   postId: ResourceIdentifier;
 }
 
-export interface UpdateParamsInterface {
+export interface IUpdateParams {
   dateTime: Date;
   privacy: RoomPrivacyEnum;
 }
@@ -59,7 +59,7 @@ class RoomService extends BaseService {
    * Create room instance.
    */
   static async create(
-    { dateTime, privacy, postId }: CreateParamsInterface,
+    { dateTime, privacy, postId }: ICreateParams,
     transaction?: Transaction
   ): Promise<RoomViewModel> {
     const roomData: RoomCreationAttributes = {
@@ -77,7 +77,7 @@ class RoomService extends BaseService {
    * Get all rooms.
    */
   static async getAll(
-    params: ServiceListParamsType<RoomListParamsInterface>
+    params: ServiceListParamsType<IRoomListParams>
   ): ServiceListResultType<RoomsViewModel> {
     let userFanClubIdsMember: null | Array<ResourceIdentifier> = null;
     let userFanClubIdsAdmin: null | Array<ResourceIdentifier> = null;
@@ -245,7 +245,7 @@ class RoomService extends BaseService {
   /**
    * Get room by id.
    */
-  static async getById(params: RoomByIdParamsInterface, withIncludes = true) {
+  static async getById(params: IRoomByIdParams, withIncludes = true) {
     const room = await db.Room.findOne({
       where: {
         id: params.id,
@@ -261,7 +261,7 @@ class RoomService extends BaseService {
    */
   static async update(
     roomId: ResourceIdentifier,
-    { privacy, dateTime }: UpdateParamsInterface,
+    { privacy, dateTime }: IUpdateParams,
     transaction?: Transaction
   ): Promise<RoomViewModel> {
     const room = await db.Room.findOne({

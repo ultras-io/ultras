@@ -1,7 +1,7 @@
 import { UserViewModel, UserSDK, ResourceIdentifier } from '@ultras/core-api-sdk';
-import { generateCRUD, InitStoreParamsInterface } from './generateCRUD';
+import { generateCRUD, IInitStoreParams } from './generateCRUD';
 
-type ParamType<TScheme> = InitStoreParamsInterface<UserViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<UserViewModel, TScheme>;
 
 const sdk = new UserSDK('dev');
 

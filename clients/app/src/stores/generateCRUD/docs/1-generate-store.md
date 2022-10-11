@@ -11,10 +11,10 @@ The function receives a tree generic types
 Example:
 
 ```typescript
-import { generateCRUD, Filterable, InitStoreParamsInterface } from './generateCRUD';
+import { generateCRUD, Filterable, IInitStoreParams } from './generateCRUD';
 import { FanClubViewModel, FilterFanClub } from '@app/view-models';
 
-type ParamType<TScheme> = InitStoreParamsInterface<TData, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<TData, TScheme>;
 
 type TFilter = Filterable<FilterFanClub>>;
 type TKey = 'list' | 'single' | 'add' | 'update' | 'delete';
@@ -42,7 +42,7 @@ const store = storeBuilder();
 Available options:
 
 ```typescript
-interface PropsInterface<TData, TKey, TFilter> {
+interface IProps<TData, TKey, TFilter> {
   // common
   keys?: Array<TKey>;
 
@@ -54,8 +54,8 @@ interface PropsInterface<TData, TKey, TFilter> {
   loadSingle(id: ResourceIdentifier): GetSinglePromiseType<TData>;
 
   // add
-  scheme: SchemeInterface;
-  beforeSend: BeforeSendInterface<TData> | null;
+  scheme: IScheme;
+  beforeSend: IBeforeSend<TData> | null;
   create(data: Partial<TData>): CreatePromiseType<TData>;
 }
 ```

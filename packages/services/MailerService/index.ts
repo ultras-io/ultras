@@ -1,8 +1,8 @@
 import * as sendGrid from '@sendgrid/mail';
 import {
-  SendEmailSingleOptionsInterface,
-  SendEmailMultipleOptionsInterface,
-  SendEmailFinalOptionsInterface,
+  ISendEmailSingleOptions,
+  ISendEmailMultipleOptions,
+  ISendEmailFinalOptions,
   FromType,
   ResultType,
 } from './types';
@@ -28,7 +28,7 @@ class MailerService {
     sendGrid.setApiKey(this.sendGridApiKey);
   }
 
-  private async sendEmail(options: SendEmailSingleOptionsInterface): Promise<ResultType> {
+  private async sendEmail(options: ISendEmailSingleOptions): Promise<ResultType> {
     if ('undefined' === typeof options.from) {
       options.from = this.defaultSender || '';
     }
@@ -37,22 +37,22 @@ class MailerService {
       options.from = `${options.from.name} <${options.from.email}>`;
     }
 
-    return sendGrid.send(options as SendEmailFinalOptionsInterface, false);
+    return sendGrid.send(options as ISendEmailFinalOptions, false);
   }
 
-  static async send(options: SendEmailSingleOptionsInterface): Promise<ResultType> {
+  static async send(options: ISendEmailSingleOptions): Promise<ResultType> {
     return this.singleton().send(options);
   }
 
-  async send(options: SendEmailSingleOptionsInterface): Promise<ResultType> {
+  async send(options: ISendEmailSingleOptions): Promise<ResultType> {
     return this.sendEmail(options);
   }
 
-  static async sendMultiple(options: SendEmailMultipleOptionsInterface, viaBcc = true) {
+  static async sendMultiple(options: ISendEmailMultipleOptions, viaBcc = true) {
     return this.singleton().sendMultiple(options);
   }
 
-  async sendMultiple(options: SendEmailMultipleOptionsInterface, viaBcc = true) {
+  async sendMultiple(options: ISendEmailMultipleOptions, viaBcc = true) {
     if (!Array.isArray(options.to)) {
       options.to = [options.to];
     }
@@ -62,7 +62,7 @@ class MailerService {
       to: options.to[0],
     };
 
-    const newOptions = optionsClone as SendEmailFinalOptionsInterface;
+    const newOptions = optionsClone as ISendEmailFinalOptions;
     options.to.slice(1).forEach(email => {
       if (viaBcc) {
         newOptions.bcc = newOptions.bcc || [];

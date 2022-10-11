@@ -3,7 +3,7 @@ import rateLimit from 'koa-ratelimit';
 import { Context } from 'types';
 import { RedisService } from 'core/services';
 
-interface OptionsInterface {
+interface IOptions {
   seconds: number;
   requests: number;
 }
@@ -16,7 +16,7 @@ const getClientFingerprint = (ctx: Context): string => {
   return ctx.ip + ' @@ ' + ctx.device.fingerprint;
 };
 
-export default (options: OptionsInterface): Middleware => {
+export default (options: IOptions): Middleware => {
   options.seconds = options.seconds || 60;
   options.requests = options.requests || 20;
 

@@ -1,26 +1,26 @@
 import type { UserViewModel } from '@ultras/view-models';
 import type { ControllerListParamsType, ControllerListResultType } from 'types';
 
-export interface CommentsFilterInterface {
+export interface ICommentsFilter {
   matchId: ResourceIdentifier;
 }
 
-export interface CommentCreateParamsInterface {
+export interface ICommentCreateParams {
   userId: ResourceIdentifier;
   matchId: ResourceIdentifier;
   content: string;
 }
-export interface CommentUpdateParamsInterface {
+export interface ICommentUpdateParams {
   userId: ResourceIdentifier;
   matchId: ResourceIdentifier;
   commentId: ResourceIdentifier;
   content: string;
 }
-export interface CommentDeleteParamsInterface {
+export interface ICommentDeleteParams {
   userId: ResourceIdentifier;
   matchId: ResourceIdentifier;
   commentId: ResourceIdentifier;
 }
 
-export type CommentsListParams = ControllerListParamsType<CommentsFilterInterface>;
+export type CommentsListParams = ControllerListParamsType<ICommentsFilter>;
 export type CommentListResult = ControllerListResultType<UserViewModel>;

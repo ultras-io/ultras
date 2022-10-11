@@ -8,17 +8,17 @@ import { LocationCreationAttributes } from 'core/data/models/Location';
 
 import BaseService from './BaseService';
 
-export interface LocationListParamsInterface {
+export interface ILocationListParams {
   search?: string;
 }
 
-export interface CreateParamsInterface {
+export interface ICreateParams {
   name: string;
   lat?: Nullable<number>;
   lng?: Nullable<number>;
 }
 
-export interface SearchParamsInterface {
+export interface ISearchParams {
   name?: Nullable<string>;
   lat?: Nullable<number>;
   lng?: Nullable<number>;
@@ -29,7 +29,7 @@ class LocationService extends BaseService {
    * Create location instance.
    */
   static async create(
-    { name, lat, lng }: CreateParamsInterface,
+    { name, lat, lng }: ICreateParams,
     transaction?: Transaction
   ): ServiceResultType<LocationViewModel> {
     const locationData: LocationCreationAttributes = {
@@ -46,7 +46,7 @@ class LocationService extends BaseService {
   /**
    * Search location.
    */
-  static async get({ name, lat, lng }: SearchParamsInterface) {
+  static async get({ name, lat, lng }: ISearchParams) {
     const filterParams: any = {};
 
     if (name) {
@@ -76,10 +76,7 @@ class LocationService extends BaseService {
   /**
    * Create or get location instance.
    */
-  static async createOrGet(
-    { name, lat, lng }: CreateParamsInterface,
-    transaction?: Transaction
-  ) {
+  static async createOrGet({ name, lat, lng }: ICreateParams, transaction?: Transaction) {
     if (!name && (!lat || !lng)) {
       return null;
     }
