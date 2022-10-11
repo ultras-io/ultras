@@ -1,22 +1,22 @@
 import type { ApiResponseType } from '@ultras/core-api-sdk';
 import type { StatusType } from '../common';
 import {
-  StateDataSchemeInterface,
-  SchemeInterface,
-  BeforeSendInterface,
+  IStateDataScheme,
+  IScheme,
+  IBeforeSend,
 } from '../scheme';
 
 type CreatePromiseType<TData> = undefined | Promise<ApiResponseType<TData>>;
 
-export interface AddStateDataInterface<TData, TScheme> {
+export interface IAddStateData<TData, TScheme> {
   status: StatusType;
   error: null | Error;
-  data: null | StateDataSchemeInterface<TScheme>;
+  data: null | IStateDataScheme<TScheme>;
   valid: boolean;
 }
 
 export interface AddGroupedStateType<TData, TScheme> {
-  add: AddStateDataInterface<TData, TScheme>;
+  add: IAddStateData<TData, TScheme>;
 }
 
 export type AddGroupedActionType<TData> = {
@@ -29,7 +29,7 @@ export type AddGroupedActionType<TData> = {
 };
 
 export type AddGroupedInterceptorType<TData, TScheme> = {
-  scheme: SchemeInterface<TScheme>;
-  beforeSend: BeforeSendInterface<TData, TScheme> | null;
+  scheme: IScheme<TScheme>;
+  beforeSend: IBeforeSend<TData, TScheme> | null;
   create(data: Partial<TData>): CreatePromiseType<TData>;
 };

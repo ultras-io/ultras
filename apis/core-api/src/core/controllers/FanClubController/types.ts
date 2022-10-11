@@ -9,7 +9,7 @@ import {
 } from 'types';
 import { FanClubAttributes } from 'core/data/models/FanClub';
 
-interface FanClubsFilterInterface {
+interface IFanClubsFilter {
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
@@ -48,7 +48,7 @@ export type FanClubUpdateResult = ControllerResultType<{
   fanClub?: FanClubAttributes;
 }>;
 
-export type FanClubsListParams = ControllerListParamsType<FanClubsFilterInterface>;
+export type FanClubsListParams = ControllerListParamsType<IFanClubsFilter>;
 export type FanClubsListResult = ControllerListResultType<FanClubAttributes>;
 export type FanClubByIdResult = ControllerByIdResultType<FanClubAttributes>;
 export type FanClubsInjectDataResult = ControllerInjectionResultType;

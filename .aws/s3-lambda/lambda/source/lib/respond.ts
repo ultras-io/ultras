@@ -1,4 +1,4 @@
-function respond(statusCode: number, data: any): LambdaResponseInterface {
+function respond(statusCode: number, data: any): ILambdaResponse {
   return {
     statusCode: statusCode,
     body: JSON.stringify(data),

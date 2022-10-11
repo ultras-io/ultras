@@ -7,13 +7,13 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface VenuesFilterInterface {
+interface IVenuesFilter {
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
 }
 
-export type VenuesListParams = ControllerListParamsType<VenuesFilterInterface>;
+export type VenuesListParams = ControllerListParamsType<IVenuesFilter>;
 export type VenuesListResult = ControllerListResultType<VenuesViewModel>;
 export type VenueByIdResult = ControllerByIdResultType<VenueViewModel>;
 export type VenuesInjectDataResult = ControllerInjectionResultType;

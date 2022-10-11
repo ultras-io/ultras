@@ -2,27 +2,27 @@ import { NotifiedProviderEnum } from '@ultras/utils';
 import type { UserViewModel, BaseUserViewModel } from '@ultras/view-models';
 import type { ApiResponseBodyType, ResourceIdentifier } from '../types';
 
-interface PhoneOrEmailInterface {
+interface IPhoneOrEmail {
   phone?: string;
   email?: string;
 }
 
-interface CodeInterface {
+interface ICode {
   code: string;
 }
 
-export type ConfirmIdentityInterface = PhoneOrEmailInterface;
+export type IConfirmIdentity = IPhoneOrEmail;
 
-export interface VerifyCodeInterface extends PhoneOrEmailInterface, CodeInterface {}
+export interface IVerifyCode extends IPhoneOrEmail, ICode {}
 
-export interface RegistrationInterface extends PhoneOrEmailInterface, CodeInterface {
+export interface IRegistration extends IPhoneOrEmail, ICode {
   username: string;
   avatar?: string;
   fullname?: string;
   teamId?: ResourceIdentifier;
 }
 
-export interface LoginInterface extends PhoneOrEmailInterface, CodeInterface {}
+export interface ILogin extends IPhoneOrEmail, ICode {}
 
 export type ConfirmIdentityResponse = ApiResponseBodyType<{
   success: boolean;

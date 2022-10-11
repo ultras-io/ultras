@@ -3,7 +3,7 @@
 import * as configs from '../configs';
 import processItem from './process';
 
-export default async function (event: EventInterface, context: ContextInterface) {
+export default async function (event: IEvent, context: IContext) {
   for (const record of event.Records) {
     try {
       const bucketName = record.s3.bucket.name;

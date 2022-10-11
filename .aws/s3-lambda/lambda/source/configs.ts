@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-interface SizeInterface {
+interface ISize {
   width: number;
   height: number;
 }
@@ -11,7 +11,7 @@ export const paths: Record<string, string> = {
   original: 'original',
 };
 
-export const sizes: Array<SizeInterface> = [
+export const sizes: Array<ISize> = [
   {
     width: 256,
     height: 256,

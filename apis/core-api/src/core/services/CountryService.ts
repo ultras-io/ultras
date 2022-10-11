@@ -16,7 +16,7 @@ import injectCountries, {
 import BaseService from './BaseService';
 import S3Service from './aws/S3Service';
 
-export interface CountriesListParamsInterface {
+export interface ICountriesListParams {
   name?: string;
   code?: string;
 }
@@ -26,7 +26,7 @@ class CountryService extends BaseService {
    * Get countries by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<CountriesListParamsInterface>
+    params: ServiceListParamsType<ICountriesListParams>
   ): ServiceListResultType<CountryViewModel> {
     const query: any = this.queryInit();
 

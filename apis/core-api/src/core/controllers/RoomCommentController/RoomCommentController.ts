@@ -7,16 +7,16 @@ import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import type {
   CommentsListParams,
   CommentListResult,
-  CommentCreateParamsInterface,
-  CommentUpdateParamsInterface,
-  CommentDeleteParamsInterface,
+  ICommentCreateParams,
+  ICommentUpdateParams,
+  ICommentDeleteParams,
 } from './types';
 
 class RoomCommentController extends BaseController {
   /**
    * Add comment under room.
    */
-  static async create({ userId, roomId, content }: CommentCreateParamsInterface) {
+  static async create({ userId, roomId, content }: ICommentCreateParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {
@@ -39,12 +39,7 @@ class RoomCommentController extends BaseController {
   /**
    * Update comment under room.
    */
-  static async update({
-    userId,
-    roomId,
-    commentId,
-    content,
-  }: CommentUpdateParamsInterface) {
+  static async update({ userId, roomId, commentId, content }: ICommentUpdateParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {
@@ -68,7 +63,7 @@ class RoomCommentController extends BaseController {
   /**
    * Make room un-liked by user.
    */
-  static async delete({ userId, roomId, commentId }: CommentDeleteParamsInterface) {
+  static async delete({ userId, roomId, commentId }: ICommentDeleteParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {

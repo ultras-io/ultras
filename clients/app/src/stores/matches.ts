@@ -9,10 +9,10 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from './generateCRUD';
 
-type ParamType<TScheme> = InitStoreParamsInterface<MatchViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<MatchViewModel, TScheme>;
 type FilterType = Filterable<GetMatchesFilter>;
 
 const sdk = new MatchSDK('dev');

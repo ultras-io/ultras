@@ -1,4 +1,4 @@
-import { Sequelize, QueryInterface } from 'sequelize';
+import { Sequelize, IQuery } from 'sequelize';
 import { FanClubMemberRoleEnum } from '@ultras/utils';
 import { ULTRAS_CORE } from '../lcp/schemas';
 
@@ -8,8 +8,8 @@ const table = {
 };
 
 module.exports = {
-  async up(queryInterface: QueryInterface, sequelize: Sequelize) {
-    return queryInterface.bulkInsert(table, [
+  async up(Iquery: IQuery, sequelize: Sequelize) {
+    return Iquery.bulkInsert(table, [
       {
         role: FanClubMemberRoleEnum.owner,
         description: 'Fan club owner role.',
@@ -31,7 +31,7 @@ module.exports = {
     ]);
   },
 
-  async down(queryInterface: QueryInterface, sequelize: Sequelize) {
-    return queryInterface.bulkDelete('FanClubMemberRole', {}, {});
+  async down(Iquery: IQuery, sequelize: Sequelize) {
+    return Iquery.bulkDelete('FanClubMemberRole', {}, {});
   },
 };

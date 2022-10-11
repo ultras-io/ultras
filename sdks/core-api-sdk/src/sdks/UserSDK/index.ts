@@ -1,9 +1,9 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import {
-  ConfirmIdentityInterface,
-  VerifyCodeInterface,
-  RegistrationInterface,
-  LoginInterface,
+  IConfirmIdentity,
+  IVerifyCode,
+  IRegistration,
+  ILogin,
   ConfirmIdentityResponse,
   VerifyCodeResponse,
   CheckUserExistenceResponse,
@@ -31,13 +31,13 @@ export class UserSDK extends CoreApiBaseSDK {
     AuthTokenInterceptor.onTokenUpdate(callback);
   }
 
-  public confirmIdentity(params: ConfirmIdentityInterface) {
+  public confirmIdentity(params: IConfirmIdentity) {
     return this.api?.makeAPIPostRequest<ConfirmIdentityResponse>('identity-confirm', {
       body: params,
     });
   }
 
-  public verifyCode(params: VerifyCodeInterface) {
+  public verifyCode(params: IVerifyCode) {
     return this.api?.makeAPIPostRequest<VerifyCodeResponse>('verify-code', {
       body: params,
     });
@@ -52,13 +52,13 @@ export class UserSDK extends CoreApiBaseSDK {
     );
   }
 
-  public register(params: RegistrationInterface) {
+  public register(params: IRegistration) {
     return this.api?.makeAPIPostRequest<LoginResponse>('register', {
       body: params,
     });
   }
 
-  public login(params: LoginInterface) {
+  public login(params: ILogin) {
     return this.api?.makeAPIPostRequest<LoginResponse>('login', {
       body: params,
     });

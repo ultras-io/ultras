@@ -8,12 +8,12 @@ import { Context } from 'types';
 import { FanClubMemberService, FanClubService } from 'core/services';
 import { AccessDeniedError, ResourceNotFoundError } from 'modules/exceptions';
 
-interface ValidationInterface {
+interface IValidation {
   statuses?: FanClubMemberStatusEnum | Array<FanClubMemberStatusEnum>;
   roles?: FanClubMemberRoleEnum | Array<FanClubMemberRoleEnum>;
 }
 
-export default (validation: ValidationInterface, routeIdParamName = 'id'): Middleware => {
+export default (validation: IValidation, routeIdParamName = 'id'): Middleware => {
   return async (ctx: Context, next: KoaNext) => {
     const fanClubId = ctx.request.params[routeIdParamName];
     const fanClub = await FanClubService.getById(fanClubId);

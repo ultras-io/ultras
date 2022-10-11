@@ -6,7 +6,7 @@ import { User, UserCreationAttributes } from 'core/data/models/User';
 
 import BaseService from './BaseService';
 
-interface UserUniqueIdentifierInterface {
+interface IUserUniqueIdentifier {
   phone?: null | string;
   email?: null | string;
   username?: null | string;
@@ -104,7 +104,7 @@ class UserService extends BaseService {
    * 4) email
    */
   static async findByUniqueIdentifier(
-    identifier: UserUniqueIdentifierInterface
+    identifier: IUserUniqueIdentifier
   ): ServiceResultType<null | User> {
     const query = this.queryInit();
 

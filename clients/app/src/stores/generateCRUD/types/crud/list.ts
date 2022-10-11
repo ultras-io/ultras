@@ -5,7 +5,7 @@ type GetListPromiseType<TData> =
   | undefined
   | Promise<ApiResponseType<Array<TData>, ListResponseMetaType>>;
 
-export interface ListStateDataInterface<TData, TFilter> {
+export interface IListStateData<TData, TFilter> {
   status: StatusType;
   error: null | Error;
   data: null | Array<TData>;
@@ -19,11 +19,11 @@ export interface ListStateDataInterface<TData, TFilter> {
 }
 
 export interface ListGroupedStateType<TData, TFilter> {
-  list: ListStateDataInterface<TData, TFilter>;
+  list: IListStateData<TData, TFilter>;
 }
 
 export type ListGroupedActionType<TData, TFilter> = {
-  getAll(): Promise<ListStateDataInterface<TData, TFilter>>;
+  getAll(): Promise<IListStateData<TData, TFilter>>;
   updateFilter(filter: Partial<TFilter>): void;
   reset(): void;
 };

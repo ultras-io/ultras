@@ -7,7 +7,7 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface MatchesFilterInterface {
+interface IMatchesFilter {
   search?: string;
   dateFrom?: string;
   dateTo?: string;
@@ -18,7 +18,7 @@ interface MatchesFilterInterface {
   teamAwayId?: ResourceIdentifier;
 }
 
-export type MatchesListParams = ControllerListParamsType<MatchesFilterInterface>;
+export type MatchesListParams = ControllerListParamsType<IMatchesFilter>;
 export type MatchesListResult = ControllerListResultType<MatchesViewModel>;
 export type MatchByIdResult = ControllerByIdResultType<MatchViewModel>;
 export type MatchesInjectDataResult = ControllerInjectionResultType;

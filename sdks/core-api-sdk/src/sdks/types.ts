@@ -3,7 +3,7 @@
 
 import { ListRequestParams } from '@ultras/utils';
 
-interface PossibleMetaInterface {
+interface IPossibleMeta {
   access_token?: string;
 }
 
@@ -39,7 +39,7 @@ type SuccessStatus =
   | 202 // accepted
   | 204; // no content
 
-export interface ErrorResponseInterface {
+export interface IErrorResponse {
   success: false;
   status: ClientErrorStatus | ServerErrorStatus;
   error: {
@@ -53,16 +53,16 @@ export interface ErrorResponseInterface {
   };
 }
 
-export interface SuccessResponseInterface<TBody = any, TMeta = {}> {
+export interface ISuccessResponse<TBody = any, TMeta = {}> {
   success: true;
   status: SuccessStatus;
   data: TBody;
-  meta: TMeta & PossibleMetaInterface;
+  meta: TMeta & IPossibleMeta;
 }
 
 export type ApiResponseBodyType<TBody = any, TMeta = {}> =
-  | ErrorResponseInterface
-  | SuccessResponseInterface<TBody, TMeta>;
+  | IErrorResponse
+  | ISuccessResponse<TBody, TMeta>;
 
 export type ApiResponseType<TBody = any, TMeta = any, THead = any> = {
   headers: THead;

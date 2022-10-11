@@ -14,7 +14,7 @@ import injectCities, { RapidApiCity } from 'core/data/inject-scripts/injectCitie
 import BaseService from './BaseService';
 import CountryService from './CountryService';
 
-export interface CitiesListParamsInterface {
+export interface ICitiesListParams {
   name?: string;
   countryId?: ResourceIdentifier;
 }
@@ -39,7 +39,7 @@ class CityService extends BaseService {
    * Get cities by provided filter data and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<CitiesListParamsInterface>
+    params: ServiceListParamsType<ICitiesListParams>
   ): ServiceListResultType<CityViewModel> {
     const query: any = this.queryInit();
 

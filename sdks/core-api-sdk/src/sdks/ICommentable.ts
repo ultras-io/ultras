@@ -1,9 +1,9 @@
-import type { ResponseInterface } from './CoreApiBaseSDK';
+import type { IResponse } from './CoreApiBaseSDK';
 import type { ResourceIdentifier } from './types';
 
-type Return<TBody, THeaders> = undefined | Promise<ResponseInterface<TBody, THeaders>>;
+type Return<TBody, THeaders> = undefined | Promise<IResponse<TBody, THeaders>>;
 
-interface CommentableInterface {
+interface ICommentable {
   getComments<TBody, THeaders>(resourceId: ResourceIdentifier): Return<TBody, THeaders>;
 
   addComment<TBody, THeaders>(
@@ -23,4 +23,4 @@ interface CommentableInterface {
   ): Return<TBody, THeaders>;
 }
 
-export default CommentableInterface;
+export default ICommentable;

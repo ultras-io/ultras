@@ -4,13 +4,13 @@ import { RoomService, LikeService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import type { LikesListParams, LikeListResult, LikeUnlikeParamsInterface } from './types';
+import type { LikesListParams, LikeListResult, ILikeUnlikeParams } from './types';
 
 class RoomLikeController extends BaseController {
   /**
    * Make room liked by user.
    */
-  static async create({ userId, roomId }: LikeUnlikeParamsInterface) {
+  static async create({ userId, roomId }: ILikeUnlikeParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {
@@ -30,7 +30,7 @@ class RoomLikeController extends BaseController {
   /**
    * Make room un-liked by user.
    */
-  static async delete({ userId, roomId }: LikeUnlikeParamsInterface) {
+  static async delete({ userId, roomId }: ILikeUnlikeParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {

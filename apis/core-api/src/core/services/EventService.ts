@@ -19,12 +19,12 @@ import LocationService from './LocationService';
 import PostService from './PostService';
 import FanClubMemberService from './FanClubMemberService';
 
-export interface EventByIdParamsInterface {
+export interface IEventByIdParams {
   id: ResourceIdentifier;
   userId?: null | ResourceIdentifier;
 }
 
-export interface EventListParamsInterface {
+export interface IEventListParams {
   userId: ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier;
@@ -33,20 +33,20 @@ export interface EventListParamsInterface {
   teamId?: ResourceIdentifier;
 }
 
-export interface ActionByIdentifierInterface {
+export interface IActionByIdentifier {
   userId?: ResourceIdentifier;
   eventId?: ResourceIdentifier;
   teamId?: ResourceIdentifier;
 }
 
-export interface CreateParamsInterface {
+export interface ICreateParams {
   privacy: EventPrivacyEnum;
   dateTime: Date;
   locationId: ResourceIdentifier;
   postId: ResourceIdentifier;
 }
 
-export interface UpdateParamsInterface {
+export interface IUpdateParams {
   privacy: EventPrivacyEnum;
   dateTime: Date;
   locationId: ResourceIdentifier;
@@ -77,7 +77,7 @@ class EventService extends BaseService {
    * Create event instance.
    */
   static async create(
-    { dateTime, privacy, postId, locationId }: CreateParamsInterface,
+    { dateTime, privacy, postId, locationId }: ICreateParams,
     transaction?: Transaction
   ): Promise<EventViewModel> {
     const eventData: EventCreationAttributes = {
@@ -97,7 +97,7 @@ class EventService extends BaseService {
    */
   static async update(
     eventId: ResourceIdentifier,
-    { dateTime, privacy, locationId }: UpdateParamsInterface,
+    { dateTime, privacy, locationId }: IUpdateParams,
     transaction?: Transaction
   ): Promise<EventViewModel> {
     const event = await db.Event.findOne({
@@ -122,7 +122,7 @@ class EventService extends BaseService {
    * Get all events.
    */
   static async getAll(
-    params: ServiceListParamsType<EventListParamsInterface>
+    params: ServiceListParamsType<IEventListParams>
   ): ServiceListResultType<EventsViewModel> {
     // build generic query options
     const queryOptions: any = {
@@ -294,7 +294,7 @@ class EventService extends BaseService {
   /**
    * Get event by id.
    */
-  static async getById(params: EventByIdParamsInterface, withIncludes = true) {
+  static async getById(params: IEventByIdParams, withIncludes = true) {
     const event = await db.Event.findOne({
       where: {
         id: params.id,

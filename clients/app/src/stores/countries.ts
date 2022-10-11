@@ -8,11 +8,11 @@ import {
   Filterable,
   FullFilterable,
   generateCRUD,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from './generateCRUD';
 import { OrderEnum } from '@ultras/utils';
 
-type ParamType<TScheme> = InitStoreParamsInterface<CountryViewModel, TScheme>;
+type ParamType<TScheme> = IInitStoreParams<CountryViewModel, TScheme>;
 type FilterType = Filterable<GetCountriesFilter>;
 
 const sdk = new CountrySDK('dev');

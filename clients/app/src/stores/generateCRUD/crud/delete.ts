@@ -1,4 +1,4 @@
-import type { DeleteStateDataInterface } from '../types/crud/delete';
+import type { IDeleteStateData } from '../types/crud/delete';
 import type {
   RootStoreType,
   ExtractStateType,
@@ -10,7 +10,7 @@ import type {
 
 type CurrentStoreKeyType = 'delete';
 
-function generateInitialState<TData>(): DeleteStateDataInterface<TData> {
+function generateInitialState<TData>(): IDeleteStateData<TData> {
   return {
     status: 'default',
     error: null,

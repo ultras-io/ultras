@@ -1,14 +1,14 @@
-export interface SigningUrlParamsInterface {
+export interface ISigningUrlParams {
   folder: string;
   extension: string;
 }
 
-export interface UploadViaSignedUrlParamsInterface {
+export interface IUploadViaSignedUrlParams {
   file: File;
   signedUrl: string;
 }
 
-export interface UploadParamsInterface {
+export interface IUploadParams {
   file: File;
   folder: string;
 }

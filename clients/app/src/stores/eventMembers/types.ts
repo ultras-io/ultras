@@ -2,10 +2,10 @@ import type { EventMemberViewModel, GetEventMembersFilter } from '@ultras/core-a
 import type {
   Filterable,
   FullFilterable,
-  InitStoreParamsInterface,
+  IInitStoreParams,
 } from '../generateCRUD';
 
-export type ParamType = InitStoreParamsInterface<EventMemberViewModel>;
+export type ParamType = IInitStoreParams<EventMemberViewModel>;
 export type FilterType = Filterable<GetEventMembersFilter>;
 
 export type TCreateEventMember = {

@@ -1,6 +1,6 @@
-import { INativebaseConfig as ConfigInterface } from 'native-base';
+import { INativebaseConfig as IConfig } from 'native-base';
 
-const configs: ConfigInterface = {
+const configs: IConfig = {
   strictMode: 'warn',
   dependencies: {
     'linear-gradient': require('react-native-linear-gradient').default,

@@ -4,13 +4,13 @@ import { EventService, LikeService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import type { LikesListParams, LikeListResult, LikeUnlikeParamsInterface } from './types';
+import type { LikesListParams, LikeListResult, ILikeUnlikeParams } from './types';
 
 class EventLikeController extends BaseController {
   /**
    * Make event liked by user.
    */
-  static async create({ userId, eventId }: LikeUnlikeParamsInterface) {
+  static async create({ userId, eventId }: ILikeUnlikeParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {
@@ -30,7 +30,7 @@ class EventLikeController extends BaseController {
   /**
    * Make event un-liked by user.
    */
-  static async delete({ userId, eventId }: LikeUnlikeParamsInterface) {
+  static async delete({ userId, eventId }: ILikeUnlikeParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {

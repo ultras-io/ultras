@@ -12,7 +12,7 @@ import exceptionDetector from './interceptors/exceptionDetector';
 
 import 'isomorphic-fetch';
 
-interface RequestResultInterface {
+interface IRequestResult {
   headers?: any;
   json?: any;
   status?: any;
@@ -23,7 +23,7 @@ export type ResponseBodyType<TBody> = TBody & {
   success?: boolean;
 };
 
-export interface ResponseInterface<TBody = any, THeaders = any> {
+export interface IResponse<TBody = any, THeaders = any> {
   headers: THeaders;
   body: ResponseBodyType<TBody>;
 }
@@ -140,7 +140,7 @@ class NetworkService {
   makeAPIRequest = <TBody = any, THeaders = any>(
     partUrl: string,
     options: RequestOptions = {}
-  ): Promise<ResponseInterface<TBody, THeaders>> => {
+  ): Promise<IResponse<TBody, THeaders>> => {
     return new Promise(async (resolve, reject) => {
       let url = this.createUrl(partUrl);
 
@@ -157,7 +157,7 @@ class NetworkService {
       }
 
       this.request(url, options)
-        .then(async (response: RequestResultInterface) => {
+        .then(async (response: IRequestResult) => {
           if (!response) {
             return reject({
               message: HttpErrorMessages.INVALID_RESPONSE_DATA,

@@ -1,15 +1,15 @@
-import { ResponseInterface } from '@ultras/core-api-sdk/build/types';
+import { IResponse } from '@ultras/core-api-sdk/build/types';
 import type { StatusType } from '../common';
 
-type DeletePromiseType = undefined | Promise<void | ResponseInterface>;
+type DeletePromiseType = undefined | Promise<void | IResponse>;
 
-export interface DeleteStateDataInterface<TData> {
+export interface IDeleteStateData<TData> {
   status: StatusType;
   error: null | Error;
 }
 
 export interface DeleteGroupedStateType<TData> {
-  delete: DeleteStateDataInterface<TData>;
+  delete: IDeleteStateData<TData>;
 }
 
 export type DeleteGroupedActionType<TData> = {

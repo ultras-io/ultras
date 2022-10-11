@@ -8,7 +8,7 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface TeamsFilterInterface {
+interface ITeamsFilter {
   name?: string;
   countryId?: ResourceIdentifier;
   cityId?: ResourceIdentifier;
@@ -16,7 +16,7 @@ interface TeamsFilterInterface {
   type?: TeamTypesEnum;
 }
 
-export type TeamsListParams = ControllerListParamsType<TeamsFilterInterface>;
+export type TeamsListParams = ControllerListParamsType<ITeamsFilter>;
 export type TeamsListResult = ControllerListResultType<TeamsViewModel>;
 export type TeamByIdResult = ControllerByIdResultType<TeamViewModel>;
 export type TeamsInjectDataResult = ControllerInjectionResultType;

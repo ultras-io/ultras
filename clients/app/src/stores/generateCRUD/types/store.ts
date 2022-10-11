@@ -1,6 +1,6 @@
 import type { StoreApi } from 'zustand/vanilla';
 import type { MergeUnion, StateKeyType } from './common';
-import type { BeforeSendInterface, SchemeInterface } from './scheme';
+import type { IBeforeSend, IScheme } from './scheme';
 import type {
   AddGroupedActionType,
   AddGroupedStateType,
@@ -49,9 +49,9 @@ export type RootStoreType<
   >
 >;
 
-export interface InitStoreParamsInterface<TDataViewModel, TScheme> {
-  scheme: SchemeInterface<TScheme>;
-  beforeSend: BeforeSendInterface<TDataViewModel, TScheme>;
+export interface IInitStoreParams<TDataViewModel, TScheme> {
+  scheme: IScheme<TScheme>;
+  beforeSend: IBeforeSend<TDataViewModel, TScheme>;
 }
 
 export type GroupedStateType<

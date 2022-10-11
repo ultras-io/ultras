@@ -7,16 +7,16 @@ import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
 import type {
   CommentsListParams,
   CommentListResult,
-  CommentCreateParamsInterface,
-  CommentUpdateParamsInterface,
-  CommentDeleteParamsInterface,
+  ICommentCreateParams,
+  ICommentUpdateParams,
+  ICommentDeleteParams,
 } from './types';
 
 class MatchCommentController extends BaseController {
   /**
    * Add comment under match.
    */
-  static async create({ userId, matchId, content }: CommentCreateParamsInterface) {
+  static async create({ userId, matchId, content }: ICommentCreateParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {
@@ -39,12 +39,7 @@ class MatchCommentController extends BaseController {
   /**
    * Update comment under match.
    */
-  static async update({
-    userId,
-    matchId,
-    commentId,
-    content,
-  }: CommentUpdateParamsInterface) {
+  static async update({ userId, matchId, commentId, content }: ICommentUpdateParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {
@@ -68,7 +63,7 @@ class MatchCommentController extends BaseController {
   /**
    * Make match un-liked by user.
    */
-  static async delete({ userId, matchId, commentId }: CommentDeleteParamsInterface) {
+  static async delete({ userId, matchId, commentId }: ICommentDeleteParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {

@@ -7,23 +7,23 @@ import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import BaseService from './BaseService';
 
-interface LikeBasicParamsInterface {
+interface ILikeBasicParams {
   resourceType: LikeTypeEnum;
   resourceId: ResourceIdentifier;
 }
 
-interface LikeUnlikeParamsInterface extends LikeBasicParamsInterface {
+interface ILikeUnlikeParams extends ILikeBasicParams {
   userId: ResourceIdentifier;
 }
 
-interface FieldsByTypeInterface {
+interface IFieldsByType {
   fieldId: string;
   throughAlias: string;
   model: any;
 }
 
 class LikeService extends BaseService {
-  private static getFieldsByType(resourceType: LikeTypeEnum): FieldsByTypeInterface {
+  private static getFieldsByType(resourceType: LikeTypeEnum): IFieldsByType {
     switch (resourceType) {
       case LikeTypeEnum.match:
         return {
@@ -44,7 +44,7 @@ class LikeService extends BaseService {
    * Get likes by resource type, id and pagination.
    */
   static async getAll(
-    params: ServiceListParamsType<LikeBasicParamsInterface>
+    params: ServiceListParamsType<ILikeBasicParams>
   ): ServiceListResultType<UserViewModel> {
     const { fieldId, throughAlias, model } = this.getFieldsByType(params.resourceType);
 
@@ -74,7 +74,7 @@ class LikeService extends BaseService {
   /**
    * Make resource liked by user.
    */
-  static async like(params: LikeUnlikeParamsInterface, transaction?: Transaction) {
+  static async like(params: ILikeUnlikeParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     await db.Like.create(
@@ -90,7 +90,7 @@ class LikeService extends BaseService {
   /**
    * Make resource un-liked by user.
    */
-  static async unlike(params: LikeUnlikeParamsInterface, transaction?: Transaction) {
+  static async unlike(params: ILikeUnlikeParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     await db.Like.destroy(

@@ -9,7 +9,7 @@ import {
   ResourceIdentifier,
 } from 'types';
 
-interface RoomsFilterInterface {
+interface IRoomsFilter {
   userId: ResourceIdentifier;
   search?: string;
   fanClubId?: ResourceIdentifier;
@@ -42,7 +42,7 @@ export type RoomDeleteParams = {
 export type RoomCreateResult = ControllerResultType<RoomViewModel>;
 export type RoomUpdateResult = ControllerResultType<RoomViewModel>;
 
-export type RoomsListParams = ControllerListParamsType<RoomsFilterInterface>;
+export type RoomsListParams = ControllerListParamsType<IRoomsFilter>;
 export type RoomsListResult = ControllerListResultType<RoomViewModel>;
 export type RoomByIdParams = {
   id: ResourceIdentifier;

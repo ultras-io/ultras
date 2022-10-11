@@ -1,13 +1,13 @@
 import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import LikeableInterface from '../LikeableInterface';
+import ILikeable from '../ILikeable';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type { GetMatchesFilter, GetMatchesResponse, GetMatchResponse } from './types';
 
 export * from './types';
 
-export class MatchSDK extends CoreApiBaseSDK implements LikeableInterface {
+export class MatchSDK extends CoreApiBaseSDK implements ILikeable {
   constructor(mode?: Mode) {
     super(mode, 'matches');
   }

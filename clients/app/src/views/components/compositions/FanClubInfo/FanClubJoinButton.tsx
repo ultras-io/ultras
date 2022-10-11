@@ -9,7 +9,7 @@ import { IFanClubInfoProps } from './types';
 import ConfirmActionSheet from './actions/ConfirmActionSheet';
 import {
   buildButtonAttributes,
-  ButtonAttributeInterface,
+  IButtonAttribute,
 } from './actions/buttonAttributes';
 
 const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
@@ -155,7 +155,7 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
     }
   }, [joinStatus, data.privacy, storeAdd.status, storeDelete.status]);
 
-  const { icon, button } = React.useMemo((): ButtonAttributeInterface => {
+  const { icon, button } = React.useMemo((): IButtonAttribute => {
     if (joinStatus === FanClubMemberStatusEnum.active) {
       return buildButtonAttributes(joinStatus, theme.colors, onLeavePress);
     }

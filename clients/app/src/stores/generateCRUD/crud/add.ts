@@ -1,9 +1,9 @@
-import type { AddStateDataInterface } from '../types/crud/add';
+import type { IAddStateData } from '../types/crud/add';
 import type {
-  BeforeSendInterface,
-  SchemeInterface,
-  StateDataSchemeInterface,
-  StateFieldSchemeInterface,
+  IBeforeSend,
+  IScheme,
+  IStateDataScheme,
+  IStateFieldScheme,
 } from '../types/scheme';
 import type {
   RootStoreType,
@@ -19,10 +19,10 @@ import { createField } from '../utils/helpers';
 type CurrentStoreKeyType = 'add';
 
 function generateInitialState<TData, TScheme>(
-  scheme: SchemeInterface<TScheme> | null | undefined
-): AddStateDataInterface<TData, TScheme> {
+  scheme: IScheme<TScheme> | null | undefined
+): IAddStateData<TData, TScheme> {
   // @ts-ignore
-  const stateAddData: StateDataSchemeInterface<TScheme> = {};
+  const stateAddData: IStateDataScheme<TScheme> = {};
 
   if (scheme) {
     Object.keys(scheme).forEach((keyName: string) => {
@@ -53,7 +53,7 @@ export const buildInitialState = <TData, TFilter, TScheme>(
     TFilter,
     TScheme
   >,
-  scheme: SchemeInterface<TScheme> | null | undefined
+  scheme: IScheme<TScheme> | null | undefined
 ) => {
   state.add = generateInitialState<TData, TScheme>(scheme);
 };
@@ -179,17 +179,17 @@ export const buildActions = <TData, TFilter, TScheme>(
     }
 
     const state = Object.keys(mapData).reduce(
-      (acc: StateDataSchemeInterface<TScheme>, keyName: string) => {
+      (acc: IStateDataScheme<TScheme>, keyName: string) => {
         const key = keyName as keyof TScheme;
 
         acc[key] = addData[key];
         return acc;
       },
-      {} as StateDataSchemeInterface<TScheme>
+      {} as IStateDataScheme<TScheme>
     );
 
     const stateValues = Object.values(state) as Array<
-      StateFieldSchemeInterface<keyof TScheme>
+      IStateFieldScheme<keyof TScheme>
     >;
 
     for (const stateItem of stateValues) {
@@ -204,7 +204,7 @@ export const buildActions = <TData, TFilter, TScheme>(
     // received result must be sent to backend, otherwise state values will
     // be used to send to backend.
     if (typeof interceptors.beforeSend === 'function') {
-      const beforeSendCall = interceptors.beforeSend as BeforeSendInterface<
+      const beforeSendCall = interceptors.beforeSend as IBeforeSend<
         TData,
         TScheme
       >;

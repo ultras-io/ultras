@@ -3,7 +3,7 @@ export {
   default as CoreApiBaseSdk,
   ApiResponseType,
   ListResponseMetaType,
-  ResponseInterface,
+  IResponse,
 } from './CoreApiBaseSDK';
 
 export * from './CountrySDK';
