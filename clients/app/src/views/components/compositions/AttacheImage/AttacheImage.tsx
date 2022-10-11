@@ -3,16 +3,31 @@ import React from 'react';
 import { Box, Text } from 'native-base';
 import { useTheme } from 'themes';
 import ImagePreview from './components/ImagePreview';
-import { IAttacheImageProps, IImageItem, ImageType } from './types';
+import { IAttacheImageProps, IImageItem, ImageType, ISize } from './types';
 import TapToAdd from './components/TapToAdd';
 
 const AttacheImage: React.FC<IAttacheImageProps> = ({
   title,
+  size = null,
   rounded = false,
   multiple = false,
 }) => {
   const [images, setImages] = React.useState<Array<IImageItem>>([]);
   const { colors } = useTheme();
+
+  const computedSize = React.useMemo((): ISize => {
+    if (rounded) {
+      return {
+        height: size || 100,
+        width: size || 100,
+      };
+    }
+
+    return {
+      width: size ? 100 : 'full',
+      height: size || 40,
+    };
+  }, [size, rounded]);
 
   const appendEmptyItem = React.useCallback(() => {
     const emptyItem: IImageItem = {
@@ -64,13 +79,18 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
             key={imageItem.id}
             backgroundColor={colors.buttonSecondaryDisabled}
             rounded={rounded ? 'full' : 'md'}
-            height={rounded ? 100 : '40'}
-            width={rounded ? 100 : 'full'}
+            height={computedSize.height}
+            width={computedSize.width}
             margin="1"
             position="relative"
           >
             {imageItem.image ? (
-              <ImagePreview imageItem={imageItem} rounded={rounded} onRemove={onRemove} />
+              <ImagePreview
+                computedSize={computedSize}
+                imageItem={imageItem}
+                rounded={rounded}
+                onRemove={onRemove}
+              />
             ) : (
               <TapToAdd imageItem={imageItem} onChoose={onChoose} />
             )}
