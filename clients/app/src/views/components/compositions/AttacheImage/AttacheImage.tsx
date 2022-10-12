@@ -81,7 +81,7 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
             rounded={rounded ? 'full' : 'md'}
             height={computedSize.height}
             width={computedSize.width}
-            margin="1"
+            margin={multiple ? 1 : 0}
             position="relative"
           >
             {imageItem.image ? (

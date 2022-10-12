@@ -29,9 +29,7 @@ export type FanClubCreateParams = {
   privacy: FanClubPrivacyEnum;
 };
 
-export type FanClubCreateResult = ControllerResultType<{
-  fanClub?: FanClubAttributes;
-}>;
+export type FanClubCreateResult = ControllerResultType<FanClubAttributes>;
 
 export type FanClubUpdateParams = {
   id: ResourceIdentifier;

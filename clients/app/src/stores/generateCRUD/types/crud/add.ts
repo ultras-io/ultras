@@ -1,10 +1,6 @@
 import type { ApiResponseType } from '@ultras/core-api-sdk';
 import type { StatusType } from '../common';
-import {
-  IStateDataScheme,
-  IScheme,
-  IBeforeSend,
-} from '../scheme';
+import { IStateDataScheme, IScheme, IBeforeSend } from '../scheme';
 
 type CreatePromiseType<TData> = undefined | Promise<ApiResponseType<TData>>;
 
@@ -13,6 +9,7 @@ export interface IAddStateData<TData, TScheme> {
   error: null | Error;
   data: null | IStateDataScheme<TScheme>;
   valid: boolean;
+  createdData: null | TData;
 }
 
 export interface AddGroupedStateType<TData, TScheme> {

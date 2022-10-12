@@ -65,8 +65,11 @@ class FanClubController extends BaseController {
       return fanClub;
     });
 
+    const createdFanClub = await FanClubService.getById(fanClub.getDataValue('id'));
+
     return {
-      data: fanClub,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      data: createdFanClub!,
     };
   }
 

@@ -38,6 +38,7 @@ function generateInitialState<TData, TScheme>(
     error: null,
     data: stateAddData,
     valid: false,
+    createdData: null,
   };
 }
 
@@ -188,9 +189,7 @@ export const buildActions = <TData, TFilter, TScheme>(
       {} as IStateDataScheme<TScheme>
     );
 
-    const stateValues = Object.values(state) as Array<
-      IStateFieldScheme<keyof TScheme>
-    >;
+    const stateValues = Object.values(state) as Array<IStateFieldScheme<keyof TScheme>>;
 
     for (const stateItem of stateValues) {
       if (!stateItem.isValid) {
@@ -204,10 +203,7 @@ export const buildActions = <TData, TFilter, TScheme>(
     // received result must be sent to backend, otherwise state values will
     // be used to send to backend.
     if (typeof interceptors.beforeSend === 'function') {
-      const beforeSendCall = interceptors.beforeSend as IBeforeSend<
-        TData,
-        TScheme
-      >;
+      const beforeSendCall = interceptors.beforeSend as IBeforeSend<TData, TScheme>;
 
       result = await beforeSendCall(state);
 
@@ -236,6 +232,7 @@ export const buildActions = <TData, TFilter, TScheme>(
         throw new Error(`Error received: ${message}`);
       }
 
+      add.createdData = apiResult.body.data || null;
       add.status = 'success';
       setState({ add });
 

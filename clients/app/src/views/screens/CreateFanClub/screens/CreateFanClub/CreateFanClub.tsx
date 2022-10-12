@@ -13,10 +13,11 @@ import VisualContainer from './containers/VisualContainer';
 import PrivacyContainer from './containers/PrivacyContainer';
 import { fanClubsStore } from '../../store';
 import { ICreateFanClubProps } from './types';
+import { commonScreens } from 'views/navigation/screens';
 
 const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   const { colors } = useTheme();
-  const { goBack } = useNavigationWithParams();
+  const { goBack, pushTo } = useNavigationWithParams();
   const route = useRoute();
 
   const { add } = fanClubsStore.useSelector('add');
@@ -74,12 +75,16 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
 
   React.useEffect(() => {
     if (add.status === 'success') {
+      const fanClub = add.createdData;
+
       fanClubsStore.reset();
       goBack();
 
-      // @TODO: show success message
+      if (fanClub) {
+        pushTo(commonScreens.fanClub.name, { data: fanClub });
+      }
     }
-  }, [add.status, goBack]);
+  }, [add.createdData, add.status, goBack, pushTo]);
 
   return (
     <>
