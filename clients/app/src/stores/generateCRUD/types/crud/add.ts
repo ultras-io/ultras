@@ -9,6 +9,7 @@ export interface IAddStateData<TScheme> {
   error: null | Error;
   data: null | IStateDataScheme<TScheme>;
   valid: boolean;
+  createdData: null | TData;
 }
 
 export interface IAddStateMethod<TData> {

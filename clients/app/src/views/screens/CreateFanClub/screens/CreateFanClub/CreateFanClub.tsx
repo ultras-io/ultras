@@ -13,10 +13,11 @@ import VisualContainer from './containers/VisualContainer';
 import PrivacyContainer from './containers/PrivacyContainer';
 import { fanClubsStore } from '../../store';
 import { ICreateFanClubProps } from './types';
+import { commonScreens } from 'views/navigation/screens';
 
 const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   const { colors } = useTheme();
-  const { goBack } = useNavigationWithParams();
+  const { goBack, pushTo } = useNavigationWithParams();
   const route = useRoute();
 
   const { add: storeAdd } = fanClubsStore.useSelector('add');
@@ -74,12 +75,16 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
 
   React.useEffect(() => {
     if (storeAdd.status === 'success') {
+      const fanClub = storeAdd.createdData;
+
       storeAdd.reset();
       goBack();
 
-      // @TODO: show success message
+      if (fanClub) {
+        pushTo(commonScreens.fanClub.name, { data: fanClub });
+      }
     }
-  }, [storeAdd.status, goBack, storeAdd]);
+  }, [goBack, pushTo, storeAdd]);
 
   return (
     <>
@@ -131,7 +136,7 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
             borderLeftRadius={isFirstAction ? 13 : undefined}
             onPress={onNextPress}
             disabled={!isSubmitEnabled}
-            isLoading={add.status === 'loading'}
+            isLoading={storeAdd.status === 'loading'}
           >
             {I18n.t(!isLastAction ? 'common-next' : 'fanClubs-add-button')}
           </Button>

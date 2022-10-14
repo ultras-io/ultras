@@ -4,9 +4,10 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import CreateEventComponent from '../components/CreateEventComponent';
 import { eventsStore } from '../../../store';
 import { IRouteParams } from '../../../types';
+import { commonScreens } from 'views/navigation/screens';
 
 const CreateEventContainer: React.FC = () => {
-  const { goBack } = useNavigationWithParams();
+  const { goBack, pushTo } = useNavigationWithParams();
 
   const { add: storeAdd } = eventsStore.useSelector('add');
   const route = useRoute() as IRouteParams;
@@ -22,14 +23,17 @@ const CreateEventContainer: React.FC = () => {
 
   React.useEffect(() => {
     if (storeAdd.status === 'success') {
+      const event = storeAdd.createdData;
+
       storeAdd.reset();
       goBack();
 
-      // @TODO: show success message
+      if (event) {
+        pushTo(commonScreens.event.name, { data: event });
+      }
     }
-  }, [storeAdd.status, storeAdd, goBack]);
+  }, [goBack, pushTo, storeAdd]);
 
-console.log(JSON.stringify(storeAdd, null, 2));
   return (
     <CreateEventComponent
       loading={storeAdd.status === 'loading'}
