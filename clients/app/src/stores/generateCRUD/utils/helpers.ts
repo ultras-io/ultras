@@ -1,4 +1,4 @@
-import type { SetState, GetState } from 'zustand/vanilla';
+import type { StoreApi } from 'zustand/vanilla';
 import { buildObjectHash } from '@ultras/utils';
 import type {
   ExtractInterceptorType,
@@ -77,7 +77,7 @@ export function makeActionExtract<
     TFilter,
     TScheme
   >,
-  setStateCall: SetState<
+  setStateCall: StoreApi<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -88,8 +88,8 @@ export function makeActionExtract<
       TFilter,
       TScheme
     >
-  >,
-  getStateCall: GetState<
+  >['setState'],
+  getStateCall: StoreApi<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -100,7 +100,7 @@ export function makeActionExtract<
       TFilter,
       TScheme
     >
-  >
+  >['getState']
 ) {
   // extract params and make get/set state group based.
   return function <TStateGroup extends StateKeyType>() {

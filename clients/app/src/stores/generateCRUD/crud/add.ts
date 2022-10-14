@@ -1,26 +1,22 @@
-import type { IAddStateData } from '../types/crud/add';
+import type {
+  IAddGroupedInterceptor,
+  IAddStateData,
+  IAddGroupedState,
+  IAddGetState,
+  IAddSetState,
+} from '../types/crud/add';
 import type {
   IBeforeSend,
   IScheme,
   IStateDataScheme,
   IStateFieldScheme,
 } from '../types/scheme';
-import type {
-  RootStoreType,
-  ExtractStateType,
-  ExtractActionType,
-  ExtractInterceptorType,
-  StateGetterCallType,
-  StateSetterCallType,
-} from '../types/store';
 
 import { createField } from '../utils/helpers';
 
-type CurrentStoreKeyType = 'add';
-
-function generateInitialState<TData, TScheme>(
+function generateInitialState<TScheme>(
   scheme: IScheme<TScheme> | null | undefined
-): IAddStateData<TData, TScheme> {
+): IAddStateData<TScheme> {
   // @ts-ignore
   const stateAddData: IStateDataScheme<TScheme> = {};
 
@@ -42,267 +38,189 @@ function generateInitialState<TData, TScheme>(
 }
 
 // build initial state for add.
-export const buildInitialState = <TData, TFilter, TScheme>(
-  state: ExtractStateType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
+export const buildInitialState = <TData, TScheme>(
+  state: IAddGroupedState<TData, TScheme>,
   scheme: IScheme<TScheme> | null | undefined
 ) => {
-  state.add = generateInitialState<TData, TScheme>(scheme);
+  state.add = state.add || {};
+  state.add = {
+    ...state.add,
+    ...generateInitialState<TScheme>(scheme),
+  };
 };
 
 // build actions for list.
-export const buildActions = <TData, TFilter, TScheme>(
-  actions: ExtractActionType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  getState: StateGetterCallType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  setState: StateSetterCallType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  interceptors: ExtractInterceptorType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >
+export const buildActions = <TData, TScheme>(
+  actions: IAddGroupedState<TData, TScheme>,
+  getState: IAddGetState<TData, TScheme>,
+  setState: IAddSetState<TData, TScheme>,
+  interceptors: IAddGroupedInterceptor<TData, TScheme>
 ) => {
-  // add setAddFieldValue method to action list, that setting value property
-  // by provided key and value, and it will call validate interceptor method
-  // to set "valid" boolean property of "add" state
-  actions.setAddFieldValue = <TFieldKey extends keyof TData>(
-    fieldKey: TFieldKey,
-    fieldValue: TData[TFieldKey]
-  ): void => {
-    const key = fieldKey as unknown as keyof TScheme;
-    const value = fieldValue as unknown as TScheme[keyof TScheme];
+  actions.add = {
+    ...actions.add,
 
-    const add = getState().add;
+    // add setFieldValue method to action list, that setting value property
+    // by provided key and value, and it will call validate interceptor method
+    // to set "valid" boolean property of "add" state
+    setFieldValue<TFieldKey extends keyof TData>(
+      fieldKey: TFieldKey,
+      fieldValue: TData[TFieldKey]
+    ): void {
+      const key = fieldKey as unknown as keyof TScheme;
+      const value = fieldValue as unknown as TScheme[keyof TScheme];
 
-    // @ts-ignore
-    add.data = add.data || {};
-    add.data![key] = add.data![key] || createField();
+      const add = getState().add;
 
-    add.data![key].valueOriginal = value;
-    add.data![key].valueToSave = value;
-    add.data![key].errors = [];
+      // @ts-ignore
+      add.data = add.data || {};
+      add.data![key] = add.data![key] || createField();
 
-    if (
-      typeof interceptors.scheme !== 'undefined' &&
-      typeof interceptors.scheme[key] !== 'undefined'
-    ) {
-      const schemeItem = interceptors.scheme[key];
+      add.data![key].valueOriginal = value;
+      add.data![key].valueToSave = value;
+      add.data![key].errors = [];
 
-      if (typeof schemeItem.processValue === 'function') {
-        add.data![key].valueToSave = schemeItem.processValue(
-          add.data![key].valueOriginal
-        );
-      }
+      if (
+        typeof interceptors.scheme !== 'undefined' &&
+        typeof interceptors.scheme[key] !== 'undefined'
+      ) {
+        const schemeItem = interceptors.scheme[key];
 
-      if (typeof schemeItem.validate === 'function') {
-        let errors = schemeItem.validate(
-          add.data![key].valueOriginal,
-          add.data![key].valueToSave
-        );
-
-        if (!errors) {
-          errors = [];
+        if (typeof schemeItem.processValue === 'function') {
+          add.data![key].valueToSave = schemeItem.processValue(
+            add.data![key].valueOriginal
+          );
         }
 
-        add.data![key].errors = errors;
-      }
-    }
+        if (typeof schemeItem.validate === 'function') {
+          let errors = schemeItem.validate(
+            add.data![key].valueOriginal,
+            add.data![key].valueToSave
+          );
 
-    add.data![key].isValid = add.data![key].errors.length === 0;
-    add.valid = true;
+          if (!errors) {
+            errors = [];
+          }
 
-    for (const dataKeyName of Object.keys(add.data!)) {
-      const dataKey = dataKeyName as keyof TScheme;
-
-      const isValid = add.data![dataKey].isValid;
-      if (!isValid) {
-        add.valid = false;
-        break;
-      }
-    }
-
-    setState({ add });
-  };
-
-  // add create method to action list, that just calling create interceptor method
-  // which sending data to api server
-  actions.create = async (): Promise<TData | null> => {
-    const add = getState().add;
-    if (!add.valid) {
-      return null;
-    }
-
-    const addData = add.data!;
-
-    const mapData = interceptors.scheme || addData;
-    if (!mapData) {
-      return null;
-    }
-
-    const state = Object.keys(mapData).reduce(
-      (acc: IStateDataScheme<TScheme>, keyName: string) => {
-        const key = keyName as keyof TScheme;
-
-        acc[key] = addData[key];
-        return acc;
-      },
-      {} as IStateDataScheme<TScheme>
-    );
-
-    const stateValues = Object.values(state) as Array<
-      IStateFieldScheme<keyof TScheme>
-    >;
-
-    for (const stateItem of stateValues) {
-      if (!stateItem.isValid) {
-        return null;
-      }
-    }
-
-    let result: any = {};
-
-    // if beforeSend middleware was provided then it will be triggered and
-    // received result must be sent to backend, otherwise state values will
-    // be used to send to backend.
-    if (typeof interceptors.beforeSend === 'function') {
-      const beforeSendCall = interceptors.beforeSend as IBeforeSend<
-        TData,
-        TScheme
-      >;
-
-      result = await beforeSendCall(state);
-
-      if (!result) {
-        return null;
-      }
-    } else {
-      result = Object.keys(mapData).reduce((acc, keyName: string) => {
-        const key = keyName as keyof TScheme;
-        acc[key] = addData![key].valueToSave || addData![key].valueOriginal;
-        return acc;
-      }, {} as any);
-    }
-
-    add.status = 'loading';
-    setState({ add });
-
-    try {
-      const apiResult = await interceptors.create(result);
-      if (!apiResult) {
-        throw new Error('"create" returned empty result.');
+          add.data![key].errors = errors;
+        }
       }
 
-      if (!apiResult.body.success) {
-        const message = JSON.stringify(apiResult.body.error);
-        throw new Error(`Error received: ${message}`);
+      add.data![key].isValid = add.data![key].errors.length === 0;
+      add.valid = true;
+
+      for (const dataKeyName of Object.keys(add.data!)) {
+        const dataKey = dataKeyName as keyof TScheme;
+
+        const isValid = add.data![dataKey].isValid;
+        if (!isValid) {
+          add.valid = false;
+          break;
+        }
       }
-
-      add.status = 'success';
-      setState({ add });
-
-      return apiResult.body.data;
-    } catch (e) {
-      add.status = 'error';
-      add.error = e as Error;
 
       setState({ add });
-      return null;
-    }
-  };
+    },
 
-  // reset to initial state
-  actions.reset = () => {
-    setState({ add: generateInitialState<TData, TScheme>(interceptors.scheme) });
+    // add create method to action list, that just calling create interceptor method
+    // which sending data to api server
+    async create(): Promise<TData | null> {
+      const add = getState().add;
+      if (!add.valid) {
+        return null;
+      }
+
+      const addData = add.data!;
+
+      const mapData = interceptors.scheme || addData;
+      if (!mapData) {
+        return null;
+      }
+
+      const state = Object.keys(mapData).reduce(
+        (acc: IStateDataScheme<TScheme>, keyName: string) => {
+          const key = keyName as keyof TScheme;
+
+          acc[key] = addData[key];
+          return acc;
+        },
+        {} as IStateDataScheme<TScheme>
+      );
+
+      const stateValues = Object.values(state) as Array<IStateFieldScheme<keyof TScheme>>;
+
+      for (const stateItem of stateValues) {
+        if (!stateItem.isValid) {
+          return null;
+        }
+      }
+
+      let result: any = {};
+
+      // if beforeSend middleware was provided then it will be triggered and
+      // received result must be sent to backend, otherwise state values will
+      // be used to send to backend.
+      if (typeof interceptors.beforeSend === 'function') {
+        const beforeSendCall = interceptors.beforeSend as IBeforeSend<TData, TScheme>;
+
+        result = await beforeSendCall(state);
+
+        if (!result) {
+          return null;
+        }
+      } else {
+        result = Object.keys(mapData).reduce((acc, keyName: string) => {
+          const key = keyName as keyof TScheme;
+          acc[key] = addData![key].valueToSave || addData![key].valueOriginal;
+          return acc;
+        }, {} as any);
+      }
+
+      add.status = 'loading';
+      setState({ add });
+
+      try {
+        const apiResult = await interceptors.create(result);
+        if (!apiResult) {
+          throw new Error('"create" returned empty result.');
+        }
+
+        if (!apiResult.body.success) {
+          const message = JSON.stringify(apiResult.body.error);
+          throw new Error(`Error received: ${message}`);
+        }
+
+        add.status = 'success';
+        setState({ add });
+
+        return apiResult.body.data;
+      } catch (e) {
+        add.status = 'error';
+        add.error = e as Error;
+
+        setState({ add });
+        return null;
+      }
+    },
+
+    // reset to initial state
+    reset() {
+      setState({
+        add: {
+          ...getState().add,
+          ...generateInitialState<TScheme>(interceptors.scheme),
+        },
+      });
+    },
   };
 };
 
-// build root actions for add.
-export const buildRootAction = <TData, TFilter, TScheme>(
-  rootActions: ExtractActionType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  storeVanilla: RootStoreType<
-    null,
-    null,
-    TData,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >
+// build state and actions for add.
+export const build = <TData, TScheme>(
+  stateAndActions: IAddGroupedState<TData, TScheme>,
+  getState: IAddGetState<TData, TScheme>,
+  setState: IAddSetState<TData, TScheme>,
+  interceptors: IAddGroupedInterceptor<TData, TScheme>
 ) => {
-  const getVanillaState = () => {
-    return storeVanilla.getState() as ExtractActionType<
-      null,
-      null,
-      TData,
-      null,
-      null,
-      CurrentStoreKeyType,
-      TFilter,
-      TScheme
-    >;
-  };
-
-  rootActions.setAddFieldValue = <TFieldKey extends keyof TData>(
-    fieldKey: TFieldKey,
-    fieldValue: TData[TFieldKey]
-  ) => {
-    return getVanillaState().setAddFieldValue(fieldKey, fieldValue);
-  };
-
-  rootActions.create = () => {
-    return getVanillaState().create();
-  };
-
-  rootActions.reset = () => {
-    return getVanillaState().reset();
-  };
+  buildInitialState(stateAndActions, interceptors.scheme);
+  buildActions(stateAndActions, getState, setState, interceptors);
 };

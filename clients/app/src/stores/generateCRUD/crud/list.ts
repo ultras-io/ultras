@@ -1,17 +1,14 @@
-import type { IListStateData } from '../types/crud/list';
-import type { FullFilterable } from '../types/common';
 import type {
-  RootStoreType,
-  ExtractStateType,
-  ExtractActionType,
-  ExtractInterceptorType,
-  StateGetterCallType,
-  StateSetterCallType,
-} from '../types/store';
+  IListGetState,
+  IListGroupedInterceptor,
+  IListGroupedState,
+  IListSetState,
+  IListState,
+  IListStateData,
+} from '../types/crud/list';
+import type { FullFilterable } from '../types/common';
 
 import { buildFilterHash } from '../utils/helpers';
-
-type CurrentStoreKeyType = 'list';
 
 function generateInitialState<TData, TFilter>(): IListStateData<TData, TFilter> {
   return {
@@ -31,196 +28,127 @@ function generateInitialState<TData, TFilter>(): IListStateData<TData, TFilter> 
 export const defaultLimit = 10;
 
 // build initial state for list.
-export const buildInitialState = <TData, TFilter, TScheme>(
-  state: ExtractStateType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >
+export const buildInitialState = <TData, TFilter>(
+  state: IListGroupedState<TData, TFilter>
 ) => {
-  state.list = generateInitialState<TData, TFilter>();
+  state.list = state.list || {};
+  state.list = {
+    ...state.list,
+    ...generateInitialState<TData, TFilter>(),
+  };
 };
 
 // build actions for list.
-export const buildActions = <TData, TFilter, TScheme>(
-  actions: ExtractActionType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  getState: StateGetterCallType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  setState: StateSetterCallType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  interceptors: ExtractInterceptorType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
+export const buildActions = <TData, TFilter>(
+  actions: IListGroupedState<TData, TFilter>,
+  getState: IListGetState<TData, TFilter>,
+  setState: IListSetState<TData, TFilter>,
+  interceptors: IListGroupedInterceptor<TData, TFilter>,
   fetchLimit: number = defaultLimit
 ) => {
-  // add updateFilter method to action list, that partially updates filter values,
-  // after updating filter getAll method must be called to load data with new filter
-  //
-  // filterHash will be calculated in getAll step
-  actions.updateFilter = (filter: Partial<TFilter>) => {
-    const list = getState().list;
-    list.filter = list.filter || {};
+  actions.list = {
+    ...actions.list,
 
-    Object.keys(filter).forEach((filterKey: string) => {
-      const key = filterKey as keyof TFilter;
-      (list.filter as Partial<TFilter>)[key] = filter[key];
-    });
-  };
+    // add updateFilter method to action list, that partially updates filter values,
+    // after updating filter getAll method must be called to load data with new filter
+    //
+    // filterHash will be calculated in getAll step
+    updateFilter(filter: Partial<TFilter>) {
+      const list = getState().list;
+      list.filter = list.filter || {};
 
-  // add getAll method to action list, that just calling loadAll interceptor method
-  // and updates "list" state
-  actions.getAll = async (): Promise<IListStateData<TData, TFilter>> => {
-    const list = getState().list;
+      Object.keys(filter).forEach((filterKey: string) => {
+        const key = filterKey as keyof TFilter;
+        (list.filter as Partial<TFilter>)[key] = filter[key];
+      });
+    },
 
-    // we need to reset previously loaded data if filter was changed
-    const filterHash = buildFilterHash(list.filter);
-    if (filterHash !== list.filterHash) {
-      list.filterHash = filterHash;
-      list.data = null;
-      list.pagination.limit = 0;
-      list.pagination.offset = 0;
-      list.pagination.total = null;
-    }
+    // add getAll method to action list, that just calling loadAll interceptor method
+    // and updates "list" state
+    async getAll(): Promise<IListState<TData, TFilter>> {
+      const list = getState().list;
 
-    const itemsLimit = fetchLimit || defaultLimit;
-    const itemsCount = list.data?.length || 0;
+      // we need to reset previously loaded data if filter was changed
+      const filterHash = buildFilterHash(list.filter);
+      if (filterHash !== list.filterHash) {
+        list.filterHash = filterHash;
+        list.data = null;
+        list.pagination.limit = 0;
+        list.pagination.offset = 0;
+        list.pagination.total = null;
+      }
 
-    if (list.pagination.total === itemsCount) {
+      const itemsLimit = fetchLimit || defaultLimit;
+      const itemsCount = list.data?.length || 0;
+
+      if (list.pagination.total === itemsCount) {
+        return list;
+      }
+
+      list.status = 'loading';
+      setState({ list });
+
+      try {
+        const filterData = {
+          // the limit attribute can be overridden by updateFilter(),
+          // that's why limit is above spread operator.
+          limit: itemsLimit,
+
+          // spreading provided filter.
+          ...(list.filter || {}),
+
+          // but offset is calculated internally, that's why offset
+          // is below spread operator.
+          offset: itemsCount,
+        };
+
+        const result = await interceptors.loadAll(
+          filterData as FullFilterable<Partial<TFilter>>
+        );
+
+        if (!result) {
+          throw new Error('"loadAll" returned empty result.');
+        }
+
+        if (!result.body.success) {
+          const message = JSON.stringify(result.body.error);
+          throw new Error(`Error received: ${message}`);
+        }
+
+        list.data = (list.data || []).concat(result.body.data);
+        list.status = 'success';
+        list.pagination.total = result.body.meta.pagination.total;
+        list.pagination.offset = result.body.meta.pagination.offset;
+        list.pagination.limit = result.body.meta.pagination.limit;
+      } catch (e) {
+        list.status = 'error';
+        list.error = e as Error;
+      }
+
+      setState({ list });
       return list;
-    }
+    },
 
-    list.status = 'loading';
-    setState({ list });
-
-    try {
-      const filterData = {
-        // the limit attribute can be overriden by updateFilter(),
-        // that's why limit is above spread operator.
-        limit: itemsLimit,
-
-        // spreading provided filter.
-        ...(list.filter || {}),
-
-        // but offset is calculated internally, that's why offset
-        // is below spread operator.
-        offset: itemsCount,
-      };
-
-      const result = await interceptors.loadAll(
-        filterData as FullFilterable<Partial<TFilter>>
-      );
-
-      if (!result) {
-        throw new Error('"loadAll" returned empty result.');
-      }
-
-      if (!result.body.success) {
-        const message = JSON.stringify(result.body.error);
-        throw new Error(`Error received: ${message}`);
-      }
-
-      list.data = (list.data || []).concat(result.body.data);
-      list.status = 'success';
-      list.pagination.total = result.body.meta.pagination.total;
-      list.pagination.offset = result.body.meta.pagination.offset;
-      list.pagination.limit = result.body.meta.pagination.limit;
-    } catch (e) {
-      list.status = 'error';
-      list.error = e as Error;
-    }
-
-    setState({ list });
-    return list;
-  };
-
-  // reset to initial state
-  actions.reset = () => {
-    setState({ list: generateInitialState<TData, TFilter>() });
+    // reset to initial state
+    reset() {
+      setState({
+        list: {
+          ...getState().list,
+          ...generateInitialState<TData, TFilter>(),
+        },
+      });
+    },
   };
 };
 
-// build root actions for list.
-export const buildRootAction = <TData, TFilter, TScheme>(
-  rootActions: ExtractActionType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >,
-  storeVanilla: RootStoreType<
-    TData,
-    null,
-    null,
-    null,
-    null,
-    CurrentStoreKeyType,
-    TFilter,
-    TScheme
-  >
+// build state and actions for list.
+export const build = <TData, TFilter>(
+  stateAndActions: IListGroupedState<TData, TFilter>,
+  getState: IListGetState<TData, TFilter>,
+  setState: IListSetState<TData, TFilter>,
+  interceptors: IListGroupedInterceptor<TData, TFilter>,
+  fetchLimit: number = defaultLimit
 ) => {
-  const getVanillaState = () => {
-    return storeVanilla.getState() as ExtractActionType<
-      TData,
-      null,
-      null,
-      null,
-      null,
-      CurrentStoreKeyType,
-      TFilter,
-      TScheme
-    >;
-  };
-
-  rootActions.getAll = () => {
-    return getVanillaState().getAll();
-  };
-
-  rootActions.updateFilter = (filter: Partial<TFilter>) => {
-    return getVanillaState().updateFilter(filter);
-  };
-
-  rootActions.reset = () => {
-    return getVanillaState().reset();
-  };
+  buildInitialState(stateAndActions);
+  buildActions(stateAndActions, getState, setState, interceptors, fetchLimit);
 };

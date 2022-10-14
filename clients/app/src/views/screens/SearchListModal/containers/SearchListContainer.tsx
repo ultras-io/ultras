@@ -18,27 +18,26 @@ const SearchListContainer: React.FC<ISearchListContainerProps> = ({
     }
   }, [dataType]);
 
+  const { list: storeList } = store.useSelector('list');
+
   const updateData = React.useCallback(() => {
-    store.updateFilter({ name: searchText, limit: 40 });
-    store.getAll();
-  }, [store, searchText]);
+    storeList.updateFilter({ name: searchText, limit: 40 });
+    storeList.getAll();
+  }, [storeList, searchText]);
 
   React.useLayoutEffect(updateData, [updateData, searchText]);
 
-  const result = store.useSelector('list');
-
-  // console.log(!result.list.data && result.list.status === 'loading');
-
   // @TODO handle error status
-  if (!result.list.data && result.list.status === 'loading') return <SearchListLoader />;
+  if (!storeList.data && storeList.status === 'loading') {
+    return <SearchListLoader />;
+  }
 
   return (
     <SearchListComponent
-      loading={result.list.status === 'loading'}
+      loading={storeList.status === 'loading'}
       dataType={dataType}
-      loading={result.list.status === 'loading'}
-      data={result.list.data || []}
-      onEndReached={store.getAll}
+      data={storeList.data || []}
+      onEndReached={storeList.getAll}
       onSelect={onSelect}
     />
   );

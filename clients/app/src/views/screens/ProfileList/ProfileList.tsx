@@ -23,13 +23,12 @@ const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
     }
   }, [type]);
 
-  React.useEffect(() => {
-    // store.getAll({ fanClubId: id });
-    store.getAll();
-  }, [store, id]);
+  const { list: storeList } = store.useSelector('list');
 
-  // const result = store.useSelector('list');
-  // console.log(result);
+  React.useEffect(() => {
+    // storeList.getAll({ fanClubId: id });
+    storeList.getAll();
+  }, [storeList, id]);
 
   return (
     <Container withSuspense>

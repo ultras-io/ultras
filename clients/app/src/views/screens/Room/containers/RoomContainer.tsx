@@ -5,20 +5,17 @@ import { IRoomContainerProps } from '../types';
 
 const RoomContainer: React.FC<IRoomContainerProps> = ({ data }) => {
   const roomsStore = React.useMemo(() => buildRoomsStore(), []);
+  const { single: storeSingle } = roomsStore.useSelector('single');
 
   React.useEffect(() => {
-    roomsStore.getSingle(data.id);
+    storeSingle.getSingle(data.id);
     // do we need to erase store on unmount?
-  }, [data.id, roomsStore]);
-
-  const result = roomsStore.useSelector('single');
+  }, [data.id, storeSingle]);
 
   return (
     <RoomComponent
       data={
-        result.single.data && result.single.status === 'success'
-          ? result.single.data
-          : data
+        storeSingle.data && storeSingle.status === 'success' ? storeSingle.data : data
       }
     />
   );

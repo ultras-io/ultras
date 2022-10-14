@@ -11,16 +11,16 @@ const SelectCityContainer: React.FC<ISelectCityContainerProps> = ({ cityId }) =>
   const citiesStore = React.useMemo(() => buildCitiesStore(), []);
 
   const [searchText, setSearchText] = React.useState<string>('');
-  const { list } = citiesStore.useSelector('list');
+  const { list: storeList } = citiesStore.useSelector('list');
 
   React.useLayoutEffect(() => {
-    citiesStore.updateFilter({ name: searchText });
-    citiesStore.getAll();
-  }, [citiesStore, searchText]);
+    storeList.updateFilter({ name: searchText });
+    storeList.getAll();
+  }, [citiesStore, searchText, storeList]);
 
   const onSelect = React.useCallback(
     (selectedCityId: ResourceIdentifier) => {
-      fanClubsStore.setAddFieldValue('cityId', selectedCityId);
+      fanClubsStore.add.setFieldValue('cityId', selectedCityId);
       goBack();
     },
     [goBack]
@@ -31,11 +31,11 @@ const SelectCityContainer: React.FC<ISelectCityContainerProps> = ({ cityId }) =>
       <SearchCityComponent onChange={setSearchText} />
 
       <SelectCityComponent
-        data={list.data || []}
-        loading={list.status === 'loading'}
+        data={storeList.data || []}
+        loading={storeList.status === 'loading'}
         cityId={cityId}
         onSelect={onSelect}
-        onEndReached={list.status === 'loading' ? undefined : citiesStore.getAll}
+        onEndReached={storeList.status === 'loading' ? undefined : storeList.getAll}
       />
     </>
   );

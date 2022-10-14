@@ -6,7 +6,7 @@ import { fanClubsStore } from '../../../store';
 import KeyValue from 'views/components/base/KeyValue/KeyValue';
 
 const PrivacyContainer: React.FC = () => {
-  const { add } = fanClubsStore.useSelector('add');
+  const { add: storeAdd } = fanClubsStore.useSelector('add');
 
   return (
     <VStack space={4} paddingX={3}>
@@ -15,10 +15,8 @@ const PrivacyContainer: React.FC = () => {
       <KeyValue
         name={I18n.t('fanClubs-add-privacy')}
         description={I18n.t('fanClubs-add-privacy-description')}
-        value={add.data?.privacy.valueOriginal as string}
-        onChange={value =>
-          fanClubsStore.setAddFieldValue('privacy', value as FanClubPrivacyEnum)
-        }
+        value={storeAdd.data?.privacy.valueOriginal as string}
+        onChange={value => storeAdd.setFieldValue('privacy', value as FanClubPrivacyEnum)}
         options={{
           [FanClubPrivacyEnum.private]: I18n.t('fanClubs-add-privacy-private'),
           [FanClubPrivacyEnum.public]: I18n.t('fanClubs-add-privacy-public'),

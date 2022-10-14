@@ -5,26 +5,27 @@ import { IRoomsContainerProps } from '../types';
 
 const RoomsContainer: React.FC<IRoomsContainerProps> = ({ fanClubId }) => {
   const roomsStore = React.useMemo(() => buildRoomsStore(), []);
+  const { list: storeList } = roomsStore.useSelector('list');
 
   const getData = React.useCallback(() => {
-    roomsStore.updateFilter({
+    storeList.updateFilter({
       fanClubId,
     });
-    roomsStore.getAll();
-  }, [fanClubId, roomsStore]);
+    storeList.getAll();
+  }, [fanClubId, storeList]);
 
   React.useEffect(getData, [getData]);
 
-  const result = roomsStore.useSelector('list');
-
   // @TODO handle error status
-  if (!result.list.data && result.list.status === 'loading') return <RoomsLoader />;
+  if (!storeList.data && storeList.status === 'loading') {
+    return <RoomsLoader />;
+  }
 
   return (
     <RoomsComponent
-      loading={result.list.status === 'loading'}
-      data={result.list.data || []}
-      onEndReached={roomsStore.getAll}
+      loading={storeList.status === 'loading'}
+      data={storeList.data || []}
+      onEndReached={storeList.getAll}
     />
   );
 

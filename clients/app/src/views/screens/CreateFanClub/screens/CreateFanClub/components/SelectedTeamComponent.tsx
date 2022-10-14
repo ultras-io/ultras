@@ -6,22 +6,21 @@ import { ISelectedTeamProps } from '../types';
 import { Loader } from 'views/components/base/ListComponents';
 import KeyValue from 'views/components/base/KeyValue';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
-import { commonScreens } from 'views/navigation/screens';
 import { useRoute } from '@react-navigation/native';
 
 const store = buildTeamsStore();
 
 const SelectedTeamComponent: React.FC<ISelectedTeamProps> = ({ teamId }) => {
   const { pushTo } = useNavigationWithParams();
-  const { single } = store.useSelector('single');
+  const { single: storeSingle } = store.useSelector('single');
 
   const route = useRoute();
 
   React.useEffect(() => {
     if (teamId) {
-      store.getSingle(teamId);
+      storeSingle.getSingle(teamId);
     }
-  }, [teamId]);
+  }, [storeSingle, teamId]);
 
   const openTeams = React.useCallback(() => {
     const tabName = route.params?.tabName;
@@ -43,16 +42,16 @@ const SelectedTeamComponent: React.FC<ISelectedTeamProps> = ({ teamId }) => {
       );
     }
 
-    if (single.status === 'loading') {
+    if (storeSingle.status === 'loading') {
       return <Loader />;
     }
 
     return (
       <Text variant={'matchDate'} onPress={openTeams}>
-        {single.data?.name}
+        {storeSingle.data?.name}
       </Text>
     );
-  }, [openTeams, single.data?.name, single.status, teamId]);
+  }, [openTeams, storeSingle.data?.name, storeSingle.status, teamId]);
 
   return (
     <KeyValue

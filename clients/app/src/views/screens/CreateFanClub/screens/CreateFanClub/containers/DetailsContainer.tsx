@@ -9,7 +9,7 @@ import SelectedTeamComponent from '../components/SelectedTeamComponent';
 
 const DetailsContainer: React.FC = () => {
   const { colors } = useTheme();
-  const { add } = fanClubsStore.useSelector('add');
+  const { add: storeAdd } = fanClubsStore.useSelector('add');
 
   const [isKeyboardOpen, keyboardHeight] = useKeyboard();
   const scrollPosition = React.useRef(0);
@@ -40,29 +40,27 @@ const DetailsContainer: React.FC = () => {
         <Text variant="cardInfo">{I18n.t('fanClubs-add-details')}</Text>
 
         <Input
-          value={add.data?.name.valueOriginal}
+          value={storeAdd.data?.name.valueOriginal}
           variant={'form'}
           placeholder={I18n.t('fanClubs-add-details-name')}
           placeholderTextColor={colors.textQuaternary}
           onFocus={() => onFocus(refFanClubName)}
           ref={refFanClubName}
-          onChange={e => fanClubsStore.setAddFieldValue('name', e.nativeEvent.text)}
+          onChange={e => storeAdd.setFieldValue('name', e.nativeEvent.text)}
           marginBottom={0}
         />
 
-        <SelectedTeamComponent teamId={add.data?.teamId.valueOriginal} />
+        <SelectedTeamComponent teamId={storeAdd.data?.teamId.valueOriginal} />
 
-        <SelectedCityComponent cityId={add.data?.cityId.valueOriginal} />
+        <SelectedCityComponent cityId={storeAdd.data?.cityId.valueOriginal} />
 
         <TextArea
-          value={add.data?.description.valueOriginal}
+          value={storeAdd.data?.description.valueOriginal}
           variant={'form'}
           placeholder={I18n.t('fanClubs-add-description')}
           placeholderTextColor={colors.textQuaternary}
           onFocus={() => onFocus(refDescription)}
-          onChange={e =>
-            fanClubsStore.setAddFieldValue('description', e.nativeEvent.text)
-          }
+          onChange={e => storeAdd.setFieldValue('description', e.nativeEvent.text)}
           ref={refDescription}
         />
       </VStack>

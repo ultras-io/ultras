@@ -8,32 +8,33 @@ import { IRouteParams } from '../../../types';
 const CreateEventContainer: React.FC = () => {
   const { goBack } = useNavigationWithParams();
 
-  const { add } = eventsStore.useSelector('add');
+  const { add: storeAdd } = eventsStore.useSelector('add');
   const route = useRoute() as IRouteParams;
 
   React.useEffect(() => {
     const matchId = route?.params?.matchId || undefined;
-    eventsStore.setAddFieldValue('matchId', matchId);
-  }, [route?.params?.matchId]);
+    storeAdd.setFieldValue('matchId', matchId);
+  }, [route?.params?.matchId, storeAdd]);
 
   const onCreatePress = React.useCallback(() => {
-    eventsStore.create();
-  }, []);
+    storeAdd.create();
+  }, [storeAdd]);
 
   React.useEffect(() => {
-    if (add.status === 'success') {
-      eventsStore.reset();
+    if (storeAdd.status === 'success') {
+      storeAdd.reset();
       goBack();
 
       // @TODO: show success message
     }
-  }, [add.status, goBack]);
+  }, [storeAdd.status, storeAdd, goBack]);
 
+console.log(JSON.stringify(storeAdd, null, 2));
   return (
     <CreateEventComponent
-      loading={add.status === 'loading'}
-      data={add.data}
-      setAddFieldValue={eventsStore.setAddFieldValue}
+      loading={storeAdd.status === 'loading'}
+      data={storeAdd.data}
+      setFieldValue={storeAdd.setFieldValue}
       onCreatePress={onCreatePress}
     />
   );
