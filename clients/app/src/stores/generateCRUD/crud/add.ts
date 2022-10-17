@@ -27,6 +27,7 @@ function generateInitialState<TData, TScheme>(
     // @ts-ignore
     data: {},
     valid: false,
+    createdData: null,
   };
 
   if (scheme) {
@@ -213,6 +214,7 @@ export const buildActions = <TData, TFilter, TScheme>(
         throw new Error(`Error received: ${message}`);
       }
 
+      add.createdData = apiResult.body.data || null;
       add.status = 'success';
       setState({ add });
 

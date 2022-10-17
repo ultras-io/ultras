@@ -118,8 +118,10 @@ class EventController extends BaseController {
       return event;
     });
 
+    const createdEvent = await EventService.getById({ id: event.getDataValue('id') });
+
     return {
-      data: event,
+      data: createdEvent,
     };
   }
 
