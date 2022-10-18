@@ -9,29 +9,30 @@ const useAuthenticationStore = authenticationStore.initStore();
 
 const MatchesContainer: React.FC<IMatchesContainerProps> = ({ route }) => {
   const matchesStore = React.useMemo(() => buildMatchesStore(), []);
+  const { list: storeList } = matchesStore.useSelector('list');
+
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
   const user = useAuthenticationStore(userSelector());
 
   const getData = React.useCallback(() => {
-    matchesStore.updateFilter({
+    storeList.updateFilter({
       teamId: route?.params?.teamId ?? user.teams,
       orderAttr: 'dateTime',
       order: OrderEnum.desc,
     });
-    matchesStore.getAll();
-  }, [matchesStore, route?.params?.teamId, user.teams]);
+    storeList.getAll();
+  }, [storeList, route?.params?.teamId, user.teams]);
 
   React.useEffect(getData, [getData]);
-  const result = matchesStore.useSelector('list');
 
   // @TODO handle error status
-  if (!result.list.data && result.list.status === 'loading') return <MatchesLoader />;
+  if (!storeList.data && storeList.status === 'loading') return <MatchesLoader />;
 
   return (
     <MatchesComponent
-      loading={result.list.status === 'loading'}
-      data={result.list.data || []}
-      onEndReached={matchesStore.getAll}
+      loading={storeList.status === 'loading'}
+      data={storeList.data || []}
+      onEndReached={storeList.getAll}
     />
   );
 };

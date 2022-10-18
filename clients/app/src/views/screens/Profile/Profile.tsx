@@ -20,6 +20,8 @@ const FanClubsContainer = React.lazy(
 const Profile: React.FC<IProfileProps> = ({ route }) => {
   const { data } = route.params;
   const userStore = React.useMemo(() => buildUserStore(), []);
+  const { single: storeSingle } = userStore.useSelector('single');
+
   const { setOptions } = useNavigationWithParams();
   const { isOpen, onOpen, onClose } = useDisclose();
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
@@ -28,6 +30,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   React.useLayoutEffect(() => {
     if (!data) {
       setOptions({
+        // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
           <HStack space={'1.5'}>
             <IconButton
@@ -47,17 +50,22 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   }, [setOptions, onOpen, data]);
 
   React.useEffect(() => {
-    if (data?.id) userStore.getSingle(data.id);
-  }, [data?.id, userStore]);
-
-  const result = userStore.useSelector('single');
+    if (data?.id) {
+      storeSingle.getSingle(data.id);
+    }
+  }, [data?.id, storeSingle]);
 
   const [isMe, userData] = React.useMemo(() => {
-    if (result.single.data && result.single.status === 'success')
-      return [false, result.single.data];
-    if (data) return [false, data];
+    if (storeSingle.data && storeSingle.status === 'success') {
+      return [false, storeSingle.data];
+    }
+
+    if (data) {
+      return [false, data];
+    }
+
     return [true, me];
-  }, [data, me, result.single.data, result.single.status]);
+  }, [data, me, storeSingle.data, storeSingle.status]);
 
   return (
     <Container withSuspense withBg>

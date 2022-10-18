@@ -4,7 +4,7 @@ import { IStateDataScheme, IScheme, IBeforeSend } from '../scheme';
 
 type CreatePromiseType<TData> = undefined | Promise<ApiResponseType<TData>>;
 
-export interface IAddStateData<TData, TScheme> {
+export interface IAddStateData<TScheme> {
   status: StatusType;
   error: null | Error;
   data: null | IStateDataScheme<TScheme>;
@@ -12,21 +12,33 @@ export interface IAddStateData<TData, TScheme> {
   createdData: null | TData;
 }
 
-export interface AddGroupedStateType<TData, TScheme> {
-  add: IAddStateData<TData, TScheme>;
-}
-
-export type AddGroupedActionType<TData> = {
-  setAddFieldValue<TFieldKey extends keyof TData>(
+export interface IAddStateMethod<TData> {
+  setFieldValue<TFieldKey extends keyof TData>(
     fieldKey: TFieldKey,
     fieldValue: TData[TFieldKey]
   ): void;
-  create(): Promise<TData | null>;
   reset(): void;
-};
+  create(): Promise<TData | null>;
+}
 
-export type AddGroupedInterceptorType<TData, TScheme> = {
+export interface IAddState<TData, TScheme>
+  extends IAddStateData<TScheme>,
+    IAddStateMethod<TData> {}
+
+export interface IAddGroupedState<TData, TScheme> {
+  add: IAddState<TData, TScheme>;
+}
+
+export interface IAddGroupedInterceptor<TData, TScheme> {
   scheme: IScheme<TScheme>;
   beforeSend: IBeforeSend<TData, TScheme> | null;
   create(data: Partial<TData>): CreatePromiseType<TData>;
-};
+}
+
+export interface IAddGetState<TData, TScheme> {
+  (): IAddGroupedState<TData, TScheme>;
+}
+
+export interface IAddSetState<TData, TScheme> {
+  (newState: IAddGroupedState<TData, TScheme>): void;
+}

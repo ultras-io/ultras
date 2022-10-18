@@ -20,7 +20,7 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   const { goBack, pushTo } = useNavigationWithParams();
   const route = useRoute();
 
-  const { add } = fanClubsStore.useSelector('add');
+  const { add: storeAdd } = fanClubsStore.useSelector('add');
 
   const slides = React.useMemo(() => {
     return [<DetailsContainer />, <VisualContainer />, <PrivacyContainer />];
@@ -47,21 +47,21 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   // increase index
   const onNextPress = React.useCallback(() => {
     if (isLastAction) {
-      return fanClubsStore.create();
+      return storeAdd.create();
     }
 
     setIndex((oldIndex: number) => {
       return oldIndex === slides.length - 1 ? oldIndex : oldIndex + 1;
     });
-  }, [isLastAction, slides.length]);
+  }, [isLastAction, slides.length, storeAdd]);
 
   const isSubmitEnabled = React.useMemo(() => {
     if (!isLastAction) {
       return true;
     }
 
-    return add.valid;
-  }, [add.valid, isLastAction]);
+    return storeAdd.valid;
+  }, [storeAdd.valid, isLastAction]);
 
   React.useEffect(() => {
     if (!route.params?.selected) {
@@ -69,22 +69,22 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
     }
 
     if (route.params?.selected.dataType === 'team') {
-      fanClubsStore.setAddFieldValue('teamId', route.params.selected.id);
+      storeAdd.setFieldValue('teamId', route.params.selected.id);
     }
-  }, [route.params]);
+  }, [route.params, storeAdd]);
 
   React.useEffect(() => {
-    if (add.status === 'success') {
-      const fanClub = add.createdData;
+    if (storeAdd.status === 'success') {
+      const fanClub = storeAdd.createdData;
 
-      fanClubsStore.reset();
+      storeAdd.reset();
       goBack();
 
       if (fanClub) {
         pushTo(commonScreens.fanClub.name, { data: fanClub });
       }
     }
-  }, [add.createdData, add.status, goBack, pushTo]);
+  }, [goBack, pushTo, storeAdd]);
 
   return (
     <>
@@ -136,7 +136,7 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
             borderLeftRadius={isFirstAction ? 13 : undefined}
             onPress={onNextPress}
             disabled={!isSubmitEnabled}
-            isLoading={add.status === 'loading'}
+            isLoading={storeAdd.status === 'loading'}
           >
             {I18n.t(!isLastAction ? 'common-next' : 'fanClubs-add-button')}
           </Button>

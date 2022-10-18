@@ -48,8 +48,8 @@ export function createField<TFieldKey = string>(
   };
 }
 
-export function processSchemeValueAndValidate<TData, TScheme>(
-  store: IAddStateData<TData, TScheme> | IUpdateStateData<TData, TScheme>,
+export function processSchemeValueAndValidate<TScheme>(
+  store: IAddStateData<TScheme> | IUpdateStateData<TScheme>,
   scheme: undefined | IScheme<TScheme>,
   key: keyof TScheme
 ) {

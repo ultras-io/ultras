@@ -1,31 +1,11 @@
 import type { StoreApi } from 'zustand/vanilla';
 import type { MergeUnion, StateKeyType } from './common';
 import type { IBeforeSend, IScheme } from './scheme';
-import type {
-  AddGroupedActionType,
-  AddGroupedStateType,
-  AddGroupedInterceptorType,
-} from './crud/add';
-import type {
-  SingleGroupedActionType,
-  SingleGroupedStateType,
-  SingleGroupedInterceptorType,
-} from './crud/single';
-import type {
-  ListGroupedActionType,
-  ListGroupedStateType,
-  ListGroupedInterceptorType,
-} from './crud/list';
-import type {
-  DeleteGroupedActionType,
-  DeleteGroupedInterceptorType,
-  DeleteGroupedStateType,
-} from './crud/delete';
-import {
-  UpdateGroupedActionType,
-  UpdateGroupedInterceptorType,
-  UpdateGroupedStateType,
-} from './crud/update';
+import type { IAddGroupedInterceptor, IAddGroupedState } from './crud/add';
+import type { ISingleGroupedInterceptor, ISingleGroupedState } from './crud/single';
+import type { IListGroupedInterceptor, IListGroupedState } from './crud/list';
+import type { IDeleteGroupedInterceptor, IDeleteGroupedState } from './crud/delete';
+import { IUpdateGroupedInterceptor, IUpdateGroupedState } from './crud/update';
 
 export type RootStoreType<
   TDataList,
@@ -63,27 +43,11 @@ export type GroupedStateType<
   TFilter,
   TScheme
 > = {
-  add: AddGroupedStateType<TDataCreate, TScheme>;
-  list: ListGroupedStateType<TDataList, TFilter>;
-  single: SingleGroupedStateType<TDataSingle>;
-  delete: DeleteGroupedStateType<TDataDelete>;
-  update: UpdateGroupedStateType<TDataUpdate, TScheme>;
-};
-
-export type GroupedActionType<
-  TDataList,
-  TDataSingle,
-  TDataCreate,
-  TDataUpdate,
-  TDataDelete,
-  TFilter,
-  TScheme
-> = {
-  add: AddGroupedActionType<TDataCreate>;
-  list: ListGroupedActionType<TDataList, TFilter>;
-  single: SingleGroupedActionType<TDataSingle>;
-  delete: DeleteGroupedActionType<TDataDelete>;
-  update: UpdateGroupedActionType<TDataUpdate>;
+  add: IAddGroupedState<TDataCreate, TScheme>;
+  list: IListGroupedState<TDataList, TFilter>;
+  single: ISingleGroupedState<TDataSingle>;
+  delete: IDeleteGroupedState<TDataDelete>;
+  update: IUpdateGroupedState<TDataUpdate, TScheme>;
 };
 
 export type GroupedInterceptorType<
@@ -95,54 +59,12 @@ export type GroupedInterceptorType<
   TFilter,
   TScheme
 > = {
-  add: AddGroupedInterceptorType<TDataCreate, TScheme>;
-  list: ListGroupedInterceptorType<TDataList, TFilter>;
-  single: SingleGroupedInterceptorType<TDataSingle>;
-  delete: DeleteGroupedInterceptorType<TDataDelete>;
-  update: UpdateGroupedInterceptorType<TDataUpdate, TScheme>;
+  add: IAddGroupedInterceptor<TDataCreate, TScheme>;
+  list: IListGroupedInterceptor<TDataList, TFilter>;
+  single: ISingleGroupedInterceptor<TDataSingle>;
+  delete: IDeleteGroupedInterceptor<TDataDelete>;
+  update: IUpdateGroupedInterceptor<TDataUpdate, TScheme>;
 };
-
-export type ExtractStateType<
-  TDataList,
-  TDataSingle,
-  TDataCreate,
-  TDataUpdate,
-  TDataDelete,
-  TStateItem extends StateKeyType,
-  TFilter,
-  TScheme
-> = MergeUnion<
-  GroupedStateType<
-    TDataList,
-    TDataSingle,
-    TDataCreate,
-    TDataUpdate,
-    TDataDelete,
-    TFilter,
-    TScheme
-  >[TStateItem]
->;
-
-export type ExtractActionType<
-  TDataList,
-  TDataSingle,
-  TDataCreate,
-  TDataUpdate,
-  TDataDelete,
-  TStateItem extends StateKeyType,
-  TFilter,
-  TScheme
-> = MergeUnion<
-  GroupedActionType<
-    TDataList,
-    TDataSingle,
-    TDataCreate,
-    TDataUpdate,
-    TDataDelete,
-    TFilter,
-    TScheme
-  >[TStateItem]
->;
 
 export type ExtractInterceptorType<
   TDataList,
@@ -174,26 +96,17 @@ export type ExtractStateAndActionType<
   TStateItem extends StateKeyType,
   TFilter,
   TScheme
-> = ExtractStateType<
-  TDataList,
-  TDataSingle,
-  TDataCreate,
-  TDataUpdate,
-  TDataDelete,
-  TStateItem,
-  TFilter,
-  TScheme
-> &
-  ExtractActionType<
+> = MergeUnion<
+  GroupedStateType<
     TDataList,
     TDataSingle,
     TDataCreate,
     TDataUpdate,
     TDataDelete,
-    TStateItem,
     TFilter,
     TScheme
-  >;
+  >[TStateItem]
+>;
 
 export type ParamsType<
   TDataList,
@@ -227,7 +140,7 @@ export type StateGetterCallType<
   TKey extends StateKeyType,
   TFilter,
   TScheme
-> = () => ExtractStateType<
+> = () => ExtractStateAndActionType<
   TDataList,
   TDataSingle,
   TDataCreate,
@@ -248,7 +161,7 @@ export type StateSetterCallType<
   TFilter,
   TScheme
 > = (
-  args: ExtractStateType<
+  args: ExtractStateAndActionType<
     TDataList,
     TDataSingle,
     TDataCreate,

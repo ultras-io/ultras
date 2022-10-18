@@ -28,19 +28,24 @@ const TeamComponent: React.FC<ITeamComponentProps> = ({ data }) => {
     [data.id, user.teams]
   );
 
+  const { add: storeAdd, delete: storeDelete } = favoriteTeamsStore.useSelector(
+    'add',
+    'delete'
+  );
+
   const onUpdateTeamsPress = React.useCallback(
     (teamId: ResourceIdentifier) => {
       teamIdRef.current = teamId;
       if (isFavorite) {
-        favoriteTeamsStore.remove({ teamId });
+        storeDelete.remove({ teamId });
         removeTeam(teamId);
       } else {
-        favoriteTeamsStore.setAddFieldValue('teamId', teamId);
-        favoriteTeamsStore.create();
+        storeAdd.setFieldValue('teamId', teamId);
+        storeAdd.create();
         addTeam(teamId);
       }
     },
-    [isFavorite, addTeam, removeTeam]
+    [isFavorite, storeDelete, removeTeam, storeAdd, addTeam]
   );
 
   const statuses = favoriteTeamsStore.useSelector('add', 'delete');

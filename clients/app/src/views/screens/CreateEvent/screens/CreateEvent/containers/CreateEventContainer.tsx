@@ -9,36 +9,36 @@ import { commonScreens } from 'views/navigation/screens';
 const CreateEventContainer: React.FC = () => {
   const { goBack, pushTo } = useNavigationWithParams();
 
-  const { add } = eventsStore.useSelector('add');
+  const { add: storeAdd } = eventsStore.useSelector('add');
   const route = useRoute() as IRouteParams;
 
   React.useEffect(() => {
     const matchId = route?.params?.matchId || undefined;
-    eventsStore.setAddFieldValue('matchId', matchId);
-  }, [route?.params?.matchId]);
+    storeAdd.setFieldValue('matchId', matchId);
+  }, [route?.params?.matchId, storeAdd]);
 
   const onCreatePress = React.useCallback(() => {
-    eventsStore.create();
-  }, []);
+    storeAdd.create();
+  }, [storeAdd]);
 
   React.useEffect(() => {
-    if (add.status === 'success') {
-      const event = add.createdData;
+    if (storeAdd.status === 'success') {
+      const event = storeAdd.createdData;
 
-      eventsStore.reset();
+      storeAdd.reset();
       goBack();
 
       if (event) {
         pushTo(commonScreens.event.name, { data: event });
       }
     }
-  }, [add.createdData, add.status, goBack, pushTo]);
+  }, [goBack, pushTo, storeAdd]);
 
   return (
     <CreateEventComponent
-      loading={add.status === 'loading'}
-      data={add.data}
-      setAddFieldValue={eventsStore.setAddFieldValue}
+      loading={storeAdd.status === 'loading'}
+      data={storeAdd.data}
+      setFieldValue={storeAdd.setFieldValue}
       onCreatePress={onCreatePress}
     />
   );

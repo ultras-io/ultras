@@ -2,7 +2,6 @@ import createVanilla from 'zustand/vanilla';
 import createReact from 'zustand';
 
 import buildStateAndActions from './utils/buildStateAndActions';
-import buildRootActions from './utils/buildRootActions';
 
 import type { StateKeyType, ParamsType, ExtractStateAndActionType } from './types';
 
@@ -70,7 +69,5 @@ export const generateCRUD = <
     destroy: storeVanilla.destroy,
     getState: storeVanilla.getState,
     setState: storeVanilla.setState,
-
-    ...buildRootActions(params, storeVanilla),
   };
 };

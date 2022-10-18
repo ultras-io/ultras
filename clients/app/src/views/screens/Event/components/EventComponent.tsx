@@ -40,12 +40,12 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
     setIsJoined(!isJoined);
 
     if (isJoined) {
-      eventMembersStore.remove({ eventId: data.id });
+      storeDelete.remove({ eventId: data.id });
     } else {
-      eventMembersStore.setAddFieldValue('eventId', data.id);
-      eventMembersStore.create();
+      storeAdd.setFieldValue('eventId', data.id);
+      storeAdd.create();
     }
-  }, [data.id, isJoined, eventMembersStore]);
+  }, [isJoined, storeDelete, data.id, storeAdd]);
 
   React.useEffect(() => {
     setIsJoined(data.post.joined || false);

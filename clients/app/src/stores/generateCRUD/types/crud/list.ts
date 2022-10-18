@@ -18,16 +18,28 @@ export interface IListStateData<TData, TFilter> {
   };
 }
 
-export interface ListGroupedStateType<TData, TFilter> {
-  list: IListStateData<TData, TFilter>;
-}
-
-export type ListGroupedActionType<TData, TFilter> = {
-  getAll(): Promise<IListStateData<TData, TFilter>>;
+export interface IListStateMethod<TData, TFilter> {
+  getAll(): Promise<IListState<TData, TFilter>>;
   updateFilter(filter: Partial<TFilter>): void;
   reset(): void;
-};
+}
 
-export type ListGroupedInterceptorType<TData, TFilter> = {
+export interface IListState<TData, TFilter>
+  extends IListStateData<TData, TFilter>,
+    IListStateMethod<TData, TFilter> {}
+
+export interface IListGroupedState<TData, TFilter> {
+  list: IListState<TData, TFilter>;
+}
+
+export type IListGroupedInterceptor<TData, TFilter> = {
   loadAll(filter: FullFilterable<Partial<TFilter>>): GetListPromiseType<TData>;
 };
+
+export interface IListGetState<TData, TFilter> {
+  (): IListGroupedState<TData, TFilter>;
+}
+
+export interface IListSetState<TData, TFilter> {
+  (newState: IListGroupedState<TData, TFilter>): void;
+}

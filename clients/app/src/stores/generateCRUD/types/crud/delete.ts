@@ -1,22 +1,33 @@
-import { IResponse } from '@ultras/core-api-sdk/build/types';
+import { IResponse } from '@ultras/core-api-sdk';
 import type { StatusType } from '../common';
 
 type DeletePromiseType = undefined | Promise<void | IResponse>;
 
-export interface IDeleteStateData<TData> {
+export interface IDeleteStateData {
   status: StatusType;
   error: null | Error;
 }
-
-export interface DeleteGroupedStateType<TData> {
-  delete: IDeleteStateData<TData>;
+export interface IDeleteStateMethod<TData> {
+  reset(): void;
+  remove(data: TData): Promise<void | null>;
 }
 
-export type DeleteGroupedActionType<TData> = {
-  remove(data: TData): Promise<void | null>;
-  reset(): void;
-};
+export interface IDeleteState<TData>
+  extends IDeleteStateData,
+    IDeleteStateMethod<TData> {}
 
-export type DeleteGroupedInterceptorType<TData> = {
+export interface IDeleteGroupedState<TData> {
+  delete: IDeleteState<TData>;
+}
+
+export interface IDeleteGroupedInterceptor<TData> {
   remove(data: Partial<TData>): DeletePromiseType;
-};
+}
+
+export interface IDeleteGetState<TData> {
+  (): IDeleteGroupedState<TData>;
+}
+
+export interface IDeleteSetState<TData> {
+  (newState: IDeleteGroupedState<TData>): void;
+}

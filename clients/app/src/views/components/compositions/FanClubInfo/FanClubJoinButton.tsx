@@ -7,10 +7,7 @@ import Icon from 'views/components/base/Icon';
 import buildFanClubMembersStore from 'stores/fanClubMembers';
 import { IFanClubInfoProps } from './types';
 import ConfirmActionSheet from './actions/ConfirmActionSheet';
-import {
-  buildButtonAttributes,
-  IButtonAttribute,
-} from './actions/buttonAttributes';
+import { buildButtonAttributes, IButtonAttribute } from './actions/buttonAttributes';
 
 const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
   const theme = useTheme();
@@ -19,10 +16,11 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
   const actionRespondInvitation = useDisclose();
 
   const fanClubMembersStore = React.useMemo(() => buildFanClubMembersStore(), []);
-  const { add: storeAdd, delete: storeDelete } = fanClubMembersStore.useSelector(
-    'add',
-    'delete'
-  );
+  const {
+    add: storeAdd,
+    delete: storeDelete,
+    update: storeUpdate,
+  } = fanClubMembersStore.useSelector('add', 'delete', 'update');
 
   /**
    * Current state of the join status.
@@ -48,17 +46,17 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
       setJoinStatus(FanClubMemberStatusEnum.pendingRequest);
     }
 
-    fanClubMembersStore.setAddFieldValue('fanClubId', data.id);
-    fanClubMembersStore.create();
-  }, [data.privacy, data.id, fanClubMembersStore]);
+    storeAdd.setFieldValue('fanClubId', data.id);
+    storeAdd.create();
+  }, [data.privacy, data.id, storeAdd]);
 
   /**
    * On leave button press.
    */
   const onLeavePress = React.useCallback(() => {
     setJoinStatus(FanClubMemberStatusEnum.notRelated);
-    fanClubMembersStore.remove({ fanClubId: data.id });
-  }, [data.id, fanClubMembersStore]);
+    storeDelete.remove({ fanClubId: data.id });
+  }, [data.id, storeDelete]);
 
   /**
    * On cancel join request button press.
@@ -111,10 +109,10 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
     actionRespondInvitation.onClose();
     setJoinStatus(FanClubMemberStatusEnum.active);
 
-    fanClubMembersStore.setResourceId(data.id);
-    fanClubMembersStore.setUpdateFieldValue('type', 'accept-invitation');
-    fanClubMembersStore.updateData();
-  }, [actionRespondInvitation, data.id, fanClubMembersStore]);
+    storeUpdate.setResourceId(data.id);
+    storeUpdate.setFieldValue('type', 'accept-invitation');
+    storeUpdate.update();
+  }, [actionRespondInvitation, data.id, storeUpdate]);
 
   /**
    * On respond invitation reject button press.
@@ -125,10 +123,10 @@ const FanClubJoinButton: React.FC<IFanClubInfoProps> = ({ data }) => {
     actionRespondInvitation.onClose();
     setJoinStatus(FanClubMemberStatusEnum.notRelated);
 
-    fanClubMembersStore.setResourceId(data.id);
-    fanClubMembersStore.setUpdateFieldValue('type', 'reject-invitation');
-    fanClubMembersStore.updateData();
-  }, [actionRespondInvitation, data.id, fanClubMembersStore]);
+    storeUpdate.setResourceId(data.id);
+    storeUpdate.setFieldValue('type', 'reject-invitation');
+    storeUpdate.update();
+  }, [actionRespondInvitation, data.id, storeUpdate]);
 
   /**
    * On invitation close button press.

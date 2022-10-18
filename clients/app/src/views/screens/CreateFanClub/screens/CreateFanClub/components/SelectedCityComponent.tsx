@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from 'native-base';
+import { Text } from 'native-base';
 import I18n from 'i18n/i18n';
 import buildCitiesStore from 'stores/cities';
 import { ISelectedCityProps } from '../types';
@@ -11,13 +11,13 @@ const store = buildCitiesStore();
 
 const SelectedCityComponent: React.FC<ISelectedCityProps> = ({ cityId }) => {
   const { pushTo } = useNavigationWithParams();
-  const { single } = store.useSelector('single');
+  const { single: storeSingle } = store.useSelector('single');
 
   React.useEffect(() => {
     if (cityId) {
-      store.getSingle(cityId);
+      storeSingle.getSingle(cityId);
     }
-  }, [cityId]);
+  }, [cityId, storeSingle]);
 
   const rightComponent = React.useMemo(() => {
     if (!cityId) {
@@ -28,16 +28,22 @@ const SelectedCityComponent: React.FC<ISelectedCityProps> = ({ cityId }) => {
       );
     }
 
-    if (single.status === 'loading') {
+    if (storeSingle.status === 'loading') {
       return <Loader />;
     }
 
     return (
       <Text variant={'matchDate'} textAlign="right" onPress={() => pushTo('SelectCity')}>
-        {single.data?.name}, {single.data?.country.name}
+        {storeSingle.data?.name}, {storeSingle.data?.country.name}
       </Text>
     );
-  }, [pushTo, single.data?.name, single.status, cityId]);
+  }, [
+    cityId,
+    storeSingle.status,
+    storeSingle.data?.name,
+    storeSingle.data?.country.name,
+    pushTo,
+  ]);
 
   return (
     <KeyValue

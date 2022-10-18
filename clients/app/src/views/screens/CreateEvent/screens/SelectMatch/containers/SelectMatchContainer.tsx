@@ -11,16 +11,16 @@ const SelectMatchContainer: React.FC<ISelectMatchContainerProps> = ({ matchId })
   const matchesStore = React.useMemo(() => buildMatchesStore(), []);
 
   const [searchText, setSearchText] = React.useState<string>('');
-  const { list } = matchesStore.useSelector('list');
+  const { list: storeList } = matchesStore.useSelector('list');
 
   React.useLayoutEffect(() => {
-    matchesStore.updateFilter({ search: searchText });
-    matchesStore.getAll();
-  }, [matchesStore, searchText]);
+    storeList.updateFilter({ search: searchText });
+    storeList.getAll();
+  }, [matchesStore, searchText, storeList]);
 
   const onSelect = React.useCallback(
     (selectedMatchId: ResourceIdentifier) => {
-      eventsStore.setAddFieldValue('matchId', selectedMatchId);
+      eventsStore.add.setFieldValue('matchId', selectedMatchId);
       goBack();
     },
     [goBack]
@@ -31,11 +31,11 @@ const SelectMatchContainer: React.FC<ISelectMatchContainerProps> = ({ matchId })
       <SearchMatchComponent onChange={setSearchText} />
 
       <SelectMatchComponent
-        data={list.data || []}
-        loading={list.status === 'loading'}
+        data={storeList.data || []}
+        loading={storeList.status === 'loading'}
         matchId={matchId}
         onSelect={onSelect}
-        onEndReached={list.status === 'loading' ? undefined : matchesStore.getAll}
+        onEndReached={storeList.status === 'loading' ? undefined : storeList.getAll}
       />
     </>
   );

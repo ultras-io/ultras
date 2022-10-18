@@ -19,11 +19,11 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
   const navigation = useNavigationWithParams();
 
   const { colors } = useTheme();
-  const { single } = store.useSelector('single');
+  const { single: storeSingle } = store.useSelector('single');
 
   React.useEffect(() => {
-    store.getSingle(matchId);
-  }, [matchId]);
+    storeSingle.getSingle(matchId);
+  }, [matchId, storeSingle]);
 
   if (!matchId) {
     return null;
@@ -31,7 +31,7 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
 
   return (
     <InputSection>
-      {single.status === 'success' ? (
+      {storeSingle.status === 'success' ? (
         <>
           <HStack alignItems="center" space="2" paddingY="2" paddingX="4">
             <RemoveButton onPress={onRemoveMatchPress} />
@@ -54,11 +54,11 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
             marginLeft="4"
           />
 
-          <MatchInfo data={single.data!} />
+          <MatchInfo data={storeSingle.data!} />
         </>
       ) : (
         <>
-          {single.status === 'loading' ? (
+          {storeSingle.status === 'loading' ? (
             <Box paddingY="10" paddingX="4">
               <ActivityIndicator />
             </Box>
