@@ -180,7 +180,6 @@ const nationalTeams = [
   'Montenegro',
 ];
 
-
 const randomDate = (start: Date, end: Date): Date => {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
@@ -359,8 +358,6 @@ export const generatePost = () => {
     isLiked: Math.random() > 0.5,
   };
 };
-
-
 
 export const generateProfile = () => {
   return {

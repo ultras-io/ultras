@@ -1,4 +1,4 @@
-import type { SetState, GetState } from 'zustand/vanilla';
+import type { StoreApi } from 'zustand/vanilla';
 import { buildObjectHash } from '@ultras/utils';
 import type {
   ExtractInterceptorType,
@@ -6,10 +6,14 @@ import type {
   ParamsType,
   StateGetterCallType,
   StateSetterCallType,
+  ISchemeField,
+  IScheme,
   IStateFieldScheme,
   StateKeyType,
   StateKeyParamType,
   FullFilterable,
+  IAddStateData,
+  IUpdateStateData,
 } from '../types';
 
 export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
@@ -42,6 +46,40 @@ export function createField<TFieldKey = string>(
     valueToSave: initialValue,
     errors: [],
   };
+}
+
+export function processSchemeValueAndValidate<TData, TScheme>(
+  store: IAddStateData<TData, TScheme> | IUpdateStateData<TData, TScheme>,
+  scheme: undefined | IScheme<TScheme>,
+  key: keyof TScheme
+) {
+  if (typeof scheme === 'undefined' || typeof scheme[key] === 'undefined') {
+    return;
+  }
+
+  const schemeItem = scheme[key] as ISchemeField<TScheme[keyof TScheme]>;
+  if (!schemeItem) {
+    return;
+  }
+
+  if (typeof schemeItem.processValue === 'function') {
+    store.data![key].valueToSave = schemeItem.processValue(
+      store.data![key].valueOriginal
+    );
+  }
+
+  if (typeof schemeItem.validate === 'function') {
+    let errors = schemeItem.validate(
+      store.data![key].valueOriginal,
+      store.data![key].valueToSave
+    );
+
+    if (!errors) {
+      errors = [];
+    }
+
+    store.data![key].errors = errors;
+  }
 }
 
 export function buildFilterHash<T>(filter: null | FullFilterable<T>): string {
@@ -77,7 +115,7 @@ export function makeActionExtract<
     TFilter,
     TScheme
   >,
-  setStateCall: SetState<
+  setStateCall: StoreApi<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -88,8 +126,8 @@ export function makeActionExtract<
       TFilter,
       TScheme
     >
-  >,
-  getStateCall: GetState<
+  >['setState'],
+  getStateCall: StoreApi<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -100,7 +138,7 @@ export function makeActionExtract<
       TFilter,
       TScheme
     >
-  >
+  >['getState']
 ) {
   // extract params and make get/set state group based.
   return function <TStateGroup extends StateKeyType>() {

@@ -68,7 +68,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
         </Pressable>
       );
     },
-    [colors.backgroundCard, colors.backgroundMessageSent, dataType, onSelect]
+    [colors.backgroundMessageSent, dataType, onSelect]
   );
 
   return (

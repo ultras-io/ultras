@@ -47,7 +47,6 @@ export function buildButtonAttributes(
   colors: ColorType,
   onButtonPress?: IOnButtonPress
 ): IButtonAttribute {
-
   // active - means user already in fan club's member list.
   if (joinStatus === FanClubMemberStatusEnum.active) {
     return {

@@ -1,4 +1,4 @@
-import type { SetState, GetState } from 'zustand/vanilla';
+import type { StoreApi } from 'zustand/vanilla';
 import { fillStateKeys, makeActionExtract } from './helpers';
 import { ExtractStateAndActionType, ExtractActionType, ParamsType } from '../types/store';
 import { StateKeyType } from '../types/common';
@@ -29,7 +29,7 @@ function buildStateAndActions<
     TFilter,
     TScheme
   >,
-  setStateCall: SetState<
+  setStateCall: StoreApi<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -40,8 +40,8 @@ function buildStateAndActions<
       TFilter,
       TScheme
     >
-  >,
-  getStateCall: GetState<
+  >['setState'],
+  getStateCall: StoreApi<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -52,7 +52,7 @@ function buildStateAndActions<
       TFilter,
       TScheme
     >
-  >
+  >['getState']
 ): ExtractStateAndActionType<
   TDataList,
   TDataSingle,
