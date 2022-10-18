@@ -12,30 +12,36 @@ import type {
   IStateFieldScheme,
 } from '../types/scheme';
 
-import { createField } from '../utils/helpers';
+import { createField, processSchemeValueAndValidate } from '../utils/helpers';
 
 function generateInitialState<TScheme>(
   scheme: IScheme<TScheme> | null | undefined
 ): IUpdateStateData<TScheme> {
-  // @ts-ignore
-  const stateUpdateData: IStateDataScheme<TScheme> = {};
+  const initialData: IUpdateStateData<TScheme> = {
+    status: 'default',
+    resourceId: null,
+    error: null,
+    // @ts-ignore
+    data: {},
+    valid: false,
+  };
 
   if (scheme) {
     Object.keys(scheme).forEach((keyName: string) => {
       const key = keyName as keyof TScheme;
 
       const field = createField(scheme[key].initialValue || null);
-      stateUpdateData[key] = field;
+      initialData.data![key] = field;
+
+      processSchemeValueAndValidate<TScheme>(
+        initialData,
+        scheme,
+        keyName as keyof TScheme
+      );
     });
   }
 
-  return {
-    status: 'default',
-    resourceId: null,
-    error: null,
-    data: stateUpdateData,
-    valid: false,
-  };
+  return initialData;
 }
 
 // build initial state for update.
@@ -88,34 +94,7 @@ export const buildActions = <TData, TScheme>(
       update.data![key].valueToSave = value;
       update.data![key].errors = [];
 
-      if (
-        typeof interceptors.scheme !== 'undefined' &&
-        typeof interceptors.scheme[key] !== 'undefined'
-      ) {
-        const schemeItem = interceptors.scheme[key];
-
-        if (typeof schemeItem.processValue === 'function') {
-          update.data![key].valueToSave = schemeItem.processValue(
-            update.data![key].valueOriginal
-          );
-        }
-
-        if (typeof schemeItem.validate === 'function') {
-          let errors = schemeItem.validate(
-            update.data![key].valueOriginal,
-            update.data![key].valueToSave
-          );
-
-          if (!errors) {
-            errors = [];
-          }
-
-          update.data![key].errors = errors;
-        }
-      }
-
-      update.data![key].isValid = update.data![key].errors.length === 0;
-      update.valid = true;
+      processSchemeValueAndValidate<TScheme>(update, interceptors.scheme, key);
 
       for (const dataKeyName of Object.keys(update.data!)) {
         const dataKey = dataKeyName as keyof TScheme;

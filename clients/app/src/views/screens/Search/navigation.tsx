@@ -9,7 +9,7 @@ interface ISearchNavigationProps {}
 
 const TAB_NAME = mainScreens.search.tabName;
 
-const SearchNavigation: React.FC<ISearchNavigationProps> = ({}) => {
+const SearchNavigation: React.FC<ISearchNavigationProps> = () => {
   const { colors } = useTheme();
 
   return (

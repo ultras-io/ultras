@@ -12,30 +12,36 @@ import type {
   IStateFieldScheme,
 } from '../types/scheme';
 
-import { createField } from '../utils/helpers';
+import { createField, processSchemeValueAndValidate } from '../utils/helpers';
 
 function generateInitialState<TScheme>(
   scheme: IScheme<TScheme> | null | undefined
 ): IAddStateData<TScheme> {
-  // @ts-ignore
-  const stateAddData: IStateDataScheme<TScheme> = {};
+  const initialData: IAddStateData<TScheme> = {
+    status: 'default',
+    error: null,
+    // @ts-ignore
+    data: {},
+    valid: false,
+    createdData: null,
+  };
 
   if (scheme) {
     Object.keys(scheme).forEach((keyName: string) => {
       const key = keyName as keyof TScheme;
 
       const field = createField(scheme[key].initialValue || null);
-      stateAddData[key] = field;
+      initialData.data![key] = field;
+
+      processSchemeValueAndValidate<TScheme>(
+        initialData,
+        scheme,
+        keyName as keyof TScheme
+      );
     });
   }
 
-  return {
-    status: 'default',
-    error: null,
-    data: stateAddData,
-    valid: false,
-    createdData: null,
-  };
+  return initialData;
 }
 
 // build initial state for add.
@@ -80,31 +86,7 @@ export const buildActions = <TData, TScheme>(
       add.data![key].valueToSave = value;
       add.data![key].errors = [];
 
-      if (
-        typeof interceptors.scheme !== 'undefined' &&
-        typeof interceptors.scheme[key] !== 'undefined'
-      ) {
-        const schemeItem = interceptors.scheme[key];
-
-        if (typeof schemeItem.processValue === 'function') {
-          add.data![key].valueToSave = schemeItem.processValue(
-            add.data![key].valueOriginal
-          );
-        }
-
-        if (typeof schemeItem.validate === 'function') {
-          let errors = schemeItem.validate(
-            add.data![key].valueOriginal,
-            add.data![key].valueToSave
-          );
-
-          if (!errors) {
-            errors = [];
-          }
-
-          add.data![key].errors = errors;
-        }
-      }
+      processSchemeValueAndValidate<TScheme>(add, interceptors.scheme, key);
 
       add.data![key].isValid = add.data![key].errors.length === 0;
       add.valid = true;
