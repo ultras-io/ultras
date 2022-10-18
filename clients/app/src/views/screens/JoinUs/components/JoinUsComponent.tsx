@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ListRenderItem } from 'react-native';
+import { StyleSheet, ListRenderItem, Platform } from 'react-native';
 import { Box, FlatList } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -68,7 +68,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
 
   React.useEffect(() => {
     if (keyboardHeight !== 0) {
-      setTimeout(() => flatListRef?.current?.scrollToEnd());
+      setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
     }
   }, [keyboardHeight]);
 
@@ -217,6 +217,14 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
     [getRightMessageOptions, renderRightComponent, step, useStore]
   );
 
+  const bottomSpace = React.useMemo(() => {
+    if (Platform.OS === 'android') {
+      return 0;
+    }
+
+    return keyboardHeight || 0;
+  }, [keyboardHeight]);
+
   return (
     <FlatList
       ref={flatListRef}
@@ -225,8 +233,9 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
       keyExtractor={item => item.key}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainerStyle}
-      style={{ marginBottom: +keyboardHeight }}
+      style={{ marginBottom: bottomSpace }}
       keyboardShouldPersistTaps={'always'}
+      removeClippedSubviews={false}
     />
   );
 };
