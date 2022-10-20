@@ -14,10 +14,14 @@ export interface ISize {
 }
 
 export interface IAttacheImageProps {
-  title: string;
+  insideOfInputSection: boolean;
+  title?: string;
   multiple?: boolean;
   rounded?: boolean;
+  centered?: boolean;
   size?: null | number | SizeType;
+  initialImages?: Array<ImageType>;
+  removable?: boolean;
   onRemovePress?(): void;
 }
 
@@ -25,6 +29,7 @@ export interface IImagePreviewProps {
   computedSize: ISize;
   imageItem: IImageItem;
   rounded: boolean;
+  removable: boolean;
   onRemove(id: string): void;
 }
 

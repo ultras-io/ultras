@@ -8,11 +8,21 @@ import TapToAdd from './components/TapToAdd';
 
 const AttacheImage: React.FC<IAttacheImageProps> = ({
   title,
+  insideOfInputSection = true,
+  initialImages = [],
   size = null,
   rounded = false,
+  centered = false,
   multiple = false,
+  removable = true,
 }) => {
-  const [images, setImages] = React.useState<Array<IImageItem>>([]);
+  const [images, setImages] = React.useState<Array<IImageItem>>(
+    initialImages.map((image: ImageType) => ({
+      id: 'id' + generateToken(10),
+      image: image,
+    }))
+  );
+
   const { colors } = useTheme();
 
   const computedSize = React.useMemo((): ISize => {
@@ -70,8 +80,13 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
   }, [appendEmptyItem, images, multiple]);
 
   return (
-    <Box bg={colors.backgroundInput} p={'4'} rounded={'xl'}>
-      <Text variant={'smallText'}>{title}</Text>
+    <Box
+      backgroundColor={insideOfInputSection ? colors.backgroundInput : colors.transparent}
+      padding={insideOfInputSection ? 4 : 0}
+      rounded={insideOfInputSection ? 'xl' : 0}
+      alignItems={centered ? 'center' : 'flex-start'}
+    >
+      {title && <Text variant={'smallText'}>{title}</Text>}
 
       <Box flexDirection="row" flexWrap="wrap" marginTop="2">
         {images.map(imageItem => (
@@ -89,6 +104,7 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
                 computedSize={computedSize}
                 imageItem={imageItem}
                 rounded={rounded}
+                removable={removable}
                 onRemove={onRemove}
               />
             ) : (

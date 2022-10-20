@@ -1,10 +1,11 @@
 import React from 'react';
-import { HStack, Text, Switch } from 'native-base';
+import { HStack, VStack, Text, Switch } from 'native-base';
 import { useTheme } from 'themes';
 import KeyValueDropdown from './KeyValueDropdown';
 import { IKeyValueProps } from './types';
 
 export const KeyValueInner: React.FC<IKeyValueProps> = ({
+  viewMode = 'inline',
   name,
   value,
   options,
@@ -47,10 +48,48 @@ export const KeyValueInner: React.FC<IKeyValueProps> = ({
     rightComponent = value;
   }
 
+  const textVariant = React.useMemo(() => {
+    return viewMode === 'inline' ? 'messageInvert' : 'cardTime';
+  }, [viewMode]);
+
+  const textProps = React.useMemo(() => {
+    if (viewMode === 'inline') {
+      return {};
+    } else {
+      return {
+        marginBottom: 1,
+      };
+    }
+  }, [viewMode]);
+
+  const GroupComponent = React.useMemo(() => {
+    return viewMode === 'inline' ? HStack : VStack;
+  }, [viewMode]);
+
+  const groupProps = React.useMemo(() => {
+    if (viewMode === 'inline') {
+      return {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingY: '2',
+        paddingX: '3',
+      };
+    } else {
+      return {
+        alignItems: 'flex-start',
+        paddingY: '2',
+        paddingX: '3',
+      };
+    }
+  }, [viewMode]);
+
   return (
-    <HStack justifyContent={'space-between'} alignItems={'center'} p={'3'}>
-      <Text variant={'messageInvert'}>{name}</Text>
+    <GroupComponent {...groupProps}>
+      <Text variant={textVariant} {...textProps}>
+        {name}
+      </Text>
+
       {rightComponent}
-    </HStack>
+    </GroupComponent>
   );
 };

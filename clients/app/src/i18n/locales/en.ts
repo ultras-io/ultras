@@ -25,6 +25,7 @@ export default {
   'common-create': 'Create',
   'common-tapToAdd': 'Tap to Add',
   'common-next': 'Next',
+  'common-save': 'Save',
 
   // splash
   'splash-slogan': '#WatchFootball',
@@ -181,4 +182,10 @@ export default {
   'profile-edit': 'Edit Profile',
   'profile-logout': 'Log out',
   'profile-logoutOfX': 'Log out of {{x}}?',
+  'profile-edit-tapToEdit': 'Tap to Edit',
+  'profile-edit-fullName': 'Full Name',
+  'profile-edit-phoneNumber': 'Phone Number',
+  'profile-edit-email': 'Email',
+  'profile-edit-description':
+    'Tap to change Full Name, Email and Phone Number. Note, that Email/Phone Number change will need confirmation.',
 };
