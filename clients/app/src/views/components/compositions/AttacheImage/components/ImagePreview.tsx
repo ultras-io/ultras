@@ -1,5 +1,4 @@
 import { Box } from 'native-base';
-import { SizeType } from 'native-base/lib/typescript/components/types';
 import React from 'react';
 import { Image, View, StyleSheet, ImageSourcePropType } from 'react-native';
 import { useTheme } from 'themes';
@@ -14,6 +13,7 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   imageItem,
   rounded,
   computedSize,
+  removable,
   onRemove,
 }) => {
   const { theming } = useTheme();
@@ -44,9 +44,11 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
 
   return (
     <>
-      <View style={[styles.container, containerStyle]}>
-        <RemoveButton onPress={() => onRemove(imageItem.id)} />
-      </View>
+      {removable && (
+        <View style={[styles.container, containerStyle]}>
+          <RemoveButton onPress={() => onRemove(imageItem.id)} />
+        </View>
+      )}
 
       <Box height="full" width="full" overflow="hidden" rounded={rounded ? 'full' : 'md'}>
         <Image source={imageItem.image as ImageSourcePropType} style={styles.image} />

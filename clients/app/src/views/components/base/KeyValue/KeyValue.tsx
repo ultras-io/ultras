@@ -5,6 +5,7 @@ import { KeyValueInner } from './KeyValueInner';
 import { IKeyValueProps } from './types';
 
 const KeyValue: React.FC<IKeyValueProps> = ({
+  viewMode = 'inline',
   name,
   value,
   description,
@@ -14,7 +15,13 @@ const KeyValue: React.FC<IKeyValueProps> = ({
   return (
     <VStack>
       <InputSection>
-        <KeyValueInner name={name} value={value} options={options} onChange={onChange} />
+        <KeyValueInner
+          viewMode={viewMode}
+          name={name}
+          value={value}
+          options={options}
+          onChange={onChange}
+        />
       </InputSection>
 
       {description && (
