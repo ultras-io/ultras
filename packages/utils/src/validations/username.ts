@@ -9,7 +9,7 @@
 const pattern = /^[a-zA-Z0-9_][a-zA-Z0-9_.]{3,28}[a-zA-Z0-9_]$/;
 
 /**
- * Validate username address.
+ * Validate username.
  */
 const validateUsername = (username: string): boolean => {
   if (!username) {
