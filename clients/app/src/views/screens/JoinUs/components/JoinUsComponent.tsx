@@ -18,7 +18,7 @@ import EnableLocation from './EnableLocation';
 import Login from './Login';
 import registrationStore, { IState } from 'stores/registration';
 import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
-import { dataKeyType } from 'views/screens/SearchListModal/types';
+import { DataKeyType } from 'views/screens/SearchListModal/types';
 
 const animation_delay = 150;
 
@@ -87,7 +87,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   }, [route.params?.selected]);
 
   const openListModal = React.useCallback(
-    (dataKey: dataKeyType) => () => {
+    (dataKey: DataKeyType) => () => {
       openModal(rootScreens.searchListModal.name, {
         dataKey,
         parentScreenName: route.name,

@@ -8,6 +8,7 @@ const PersonalInfoInputComponent: React.FC<IPersonalInfoInputComponentProps> = (
   name,
   value,
   onChange,
+  ...rest
 }) => {
   const { colors } = useTheme();
 
@@ -21,8 +22,10 @@ const PersonalInfoInputComponent: React.FC<IPersonalInfoInputComponentProps> = (
           padding={0}
           fontSize="4xl"
           value={value || ''}
-          onChange={onChange}
+          onChange={e => onChange && onChange(e.nativeEvent.text)}
           clearButtonMode="never"
+          returnKeyType="done"
+          {...rest}
         />
       }
     />

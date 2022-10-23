@@ -14,6 +14,7 @@ const DetailsContainer: React.FC = () => {
   const [isKeyboardOpen, keyboardHeight] = useKeyboard();
   const scrollPosition = React.useRef(0);
   const refFanClubName = React.useRef();
+  const refFanClubShortName = React.useRef();
   const refDescription = React.useRef();
   const refScroll = React.useRef();
 
@@ -47,6 +48,17 @@ const DetailsContainer: React.FC = () => {
           onFocus={() => onFocus(refFanClubName)}
           ref={refFanClubName}
           onChange={e => storeAdd.setFieldValue('name', e.nativeEvent.text)}
+          marginBottom={0}
+        />
+
+        <Input
+          value={storeAdd.data?.shortName.valueOriginal}
+          variant={'form'}
+          placeholder={I18n.t('fanClubs-add-details-shortName')}
+          placeholderTextColor={colors.textQuaternary}
+          onFocus={() => onFocus(refFanClubShortName)}
+          ref={refFanClubShortName}
+          onChange={e => storeAdd.setFieldValue('shortName', e.nativeEvent.text)}
           marginBottom={0}
         />
 

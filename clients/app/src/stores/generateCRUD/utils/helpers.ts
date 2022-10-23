@@ -53,6 +53,7 @@ export function processSchemeValueAndValidate<TScheme>(
   scheme: undefined | IScheme<TScheme>,
   key: keyof TScheme
 ) {
+  store.data![key].isValid = true;
   if (typeof scheme === 'undefined' || typeof scheme[key] === 'undefined') {
     return;
   }
@@ -68,18 +69,20 @@ export function processSchemeValueAndValidate<TScheme>(
     );
   }
 
+  let errors: Array<string> = [];
   if (typeof schemeItem.validate === 'function') {
-    let errors = schemeItem.validate(
+    errors = schemeItem.validate(
       store.data![key].valueOriginal,
       store.data![key].valueToSave
     );
-
-    if (!errors) {
-      errors = [];
-    }
-
-    store.data![key].errors = errors;
   }
+
+  if (!errors) {
+    errors = [];
+  }
+
+  store.data![key].errors = errors;
+  store.data![key].isValid = errors.length === 0;
 }
 
 export function buildFilterHash<T>(filter: null | FullFilterable<T>): string {

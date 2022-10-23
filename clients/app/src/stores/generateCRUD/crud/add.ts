@@ -88,7 +88,6 @@ export const buildActions = <TData, TScheme>(
 
       processSchemeValueAndValidate<TScheme>(add, interceptors.scheme, key);
 
-      add.data![key].isValid = add.data![key].errors.length === 0;
       add.valid = true;
 
       for (const dataKeyName of Object.keys(add.data!)) {

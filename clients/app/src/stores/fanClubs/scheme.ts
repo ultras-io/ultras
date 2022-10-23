@@ -3,6 +3,7 @@ import { IScheme } from '../generateCRUD/types/scheme';
 
 export interface IDataType {
   name: string;
+  shortName: string;
   teamId: null | ResourceIdentifier;
   cityId: null | ResourceIdentifier;
   privacy: FanClubPrivacyEnum;
@@ -35,6 +36,15 @@ export const scheme: IScheme<IDataType> = {
     validate(valueOriginal: null | string) {
       if (!valueOriginal) {
         return ['name_required'];
+      }
+      return [];
+    },
+  },
+  shortName: {
+    initialValue: '',
+    validate(valueOriginal: null | string) {
+      if (!valueOriginal) {
+        return ['short_name_required'];
       }
       return [];
     },

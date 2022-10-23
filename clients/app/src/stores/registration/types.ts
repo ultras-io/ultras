@@ -1,4 +1,4 @@
-import { dataKeyType } from 'views/screens/SearchListModal/types';
+import { DataKeyType } from 'views/screens/SearchListModal/types';
 
 export type StatusType = 'initial' | 'loading' | 'error' | 'success';
 
@@ -8,7 +8,7 @@ type ListItemType = {
 };
 
 export type ListItemSelectType = ListItemType & {
-  dataType: dataKeyType;
+  dataType: DataKeyType;
 };
 
 type JoinVia = {
