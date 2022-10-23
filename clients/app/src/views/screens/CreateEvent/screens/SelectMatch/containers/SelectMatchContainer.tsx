@@ -10,6 +10,8 @@ const SelectMatchContainer: React.FC<ISelectMatchContainerProps> = ({ matchId })
   const { goBack } = useNavigationWithParams();
   const matchesStore = React.useMemo(() => buildMatchesStore(), []);
 
+  const { add: storeAdd } = eventsStore.useSelector('add');
+
   const [searchText, setSearchText] = React.useState<string>('');
   const { list: storeList } = matchesStore.useSelector('list');
 
@@ -20,10 +22,10 @@ const SelectMatchContainer: React.FC<ISelectMatchContainerProps> = ({ matchId })
 
   const onSelect = React.useCallback(
     (selectedMatchId: ResourceIdentifier) => {
-      eventsStore.add.setFieldValue('matchId', selectedMatchId);
+      storeAdd.setFieldValue('matchId', selectedMatchId);
       goBack();
     },
-    [goBack]
+    [goBack, storeAdd]
   );
 
   return (

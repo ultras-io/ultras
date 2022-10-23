@@ -113,6 +113,7 @@ export default {
 
   'fanClubs-add-details': 'Fan Club Details',
   'fanClubs-add-details-name': 'Fan Club Name',
+  'fanClubs-add-details-shortName': 'Short Name',
   'fanClubs-add-details-team': 'Club or National Team',
   'fanClubs-add-details-teamDescription': 'Select the team your fan club will support.',
   'fanClubs-add-details-city': 'Location',

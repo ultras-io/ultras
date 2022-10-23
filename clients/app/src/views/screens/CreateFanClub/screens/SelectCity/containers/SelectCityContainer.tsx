@@ -10,6 +10,8 @@ const SelectCityContainer: React.FC<ISelectCityContainerProps> = ({ cityId }) =>
   const { goBack } = useNavigationWithParams();
   const citiesStore = React.useMemo(() => buildCitiesStore(), []);
 
+  const { add: storeAdd } = fanClubsStore.useSelector('add');
+
   const [searchText, setSearchText] = React.useState<string>('');
   const { list: storeList } = citiesStore.useSelector('list');
 
@@ -20,10 +22,10 @@ const SelectCityContainer: React.FC<ISelectCityContainerProps> = ({ cityId }) =>
 
   const onSelect = React.useCallback(
     (selectedCityId: ResourceIdentifier) => {
-      fanClubsStore.add.setFieldValue('cityId', selectedCityId);
+      storeAdd.setFieldValue('cityId', selectedCityId);
       goBack();
     },
-    [goBack]
+    [goBack, storeAdd]
   );
 
   return (

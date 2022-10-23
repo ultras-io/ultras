@@ -80,11 +80,13 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
       storeAdd.reset();
       goBack();
 
-      if (fanClub) {
-        pushTo(commonScreens.fanClub.name, { data: fanClub });
-      }
+      setImmediate(() => {
+        if (fanClub) {
+          pushTo(commonScreens.fanClub.name, { data: fanClub });
+        }
+      });
     }
-  }, [goBack, pushTo, storeAdd]);
+  }, [goBack, pushTo, storeAdd, storeAdd.status]);
 
   return (
     <>

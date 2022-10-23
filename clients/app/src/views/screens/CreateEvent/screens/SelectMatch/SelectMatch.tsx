@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Button } from 'native-base';
 import { Icons } from 'assets/icons';
 import Icon from 'views/components/base/Icon';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { ISelectMatchProps } from './types';
+import { Loader } from 'views/components/base/ListComponents';
 
 const SelectMatchContainer = React.lazy(
   () => import('./containers/SelectMatchContainer')
@@ -27,7 +28,9 @@ const SelectMatch: React.FC<ISelectMatchProps> = ({ route }) => {
         <Icon name={Icons.BackNavigation} color="textAction" size="sm" />
       </Button>
 
-      <SelectMatchContainer matchId={matchId} />
+      <Suspense fallback={<Loader />}>
+        <SelectMatchContainer matchId={matchId} />
+      </Suspense>
     </>
   );
 };

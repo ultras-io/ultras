@@ -28,11 +28,13 @@ const CreateEventContainer: React.FC = () => {
       storeAdd.reset();
       goBack();
 
-      if (event) {
-        pushTo(commonScreens.event.name, { data: event });
-      }
+      setImmediate(() => {
+        if (event) {
+          pushTo(commonScreens.event.name, { data: event });
+        }
+      });
     }
-  }, [goBack, pushTo, storeAdd]);
+  }, [goBack, pushTo, storeAdd, storeAdd.status]);
 
   return (
     <CreateEventComponent
