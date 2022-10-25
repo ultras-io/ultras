@@ -38,18 +38,20 @@ const DetailsContainer: React.FC = () => {
   return (
     <ScrollView mb={+keyboardHeight} ref={refScroll}>
       <VStack space={4} paddingX={3}>
-        <Text variant="cardInfo">{I18n.t('fanClubs-add-details')}</Text>
+        <VStack space={2}>
+          <Text variant="cardInfo">{I18n.t('fanClubs-add-details')}</Text>
 
-        <Input
-          value={storeAdd.data?.name.valueOriginal}
-          variant={'form'}
-          placeholder={I18n.t('fanClubs-add-details-name')}
-          placeholderTextColor={colors.textQuaternary}
-          onFocus={() => onFocus(refFanClubName)}
-          ref={refFanClubName}
-          onChange={e => storeAdd.setFieldValue('name', e.nativeEvent.text)}
-          marginBottom={0}
-        />
+          <Input
+            value={storeAdd.data?.name.valueOriginal}
+            variant={'form'}
+            placeholder={I18n.t('fanClubs-add-details-name')}
+            placeholderTextColor={colors.textQuaternary}
+            onFocus={() => onFocus(refFanClubName)}
+            ref={refFanClubName}
+            onChange={e => storeAdd.setFieldValue('name', e.nativeEvent.text)}
+            marginBottom={0}
+          />
+        </VStack>
 
         <Input
           value={storeAdd.data?.shortName.valueOriginal}
