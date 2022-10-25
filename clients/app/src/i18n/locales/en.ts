@@ -210,6 +210,8 @@ export default {
   'settings-pushNotifications-newPosts': 'New Posts',
   'settings-pushNotifications-newComments': 'New Comments',
   'settings-pushNotifications-fanClubSuggestions': 'Fan Club Suggestions',
+  'settings-pushNotifications-groupDescription':
+    'You can control which type of Notifications to receive.',
 
   'settings-other-details': 'Other Settings',
   'settings-language': 'App Language',

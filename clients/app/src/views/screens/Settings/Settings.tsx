@@ -42,7 +42,9 @@ const Settings: React.FC = () => {
           />
 
           {pushNotificationsEnabled && (
-            <KeyValueGroup>
+            <KeyValueGroup
+              description={I18n.t('settings-pushNotifications-groupDescription')}
+            >
               <KeyValueInner
                 name={I18n.t('settings-pushNotifications-event-going')}
                 value={true}
