@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Center, Skeleton } from 'native-base';
 
-const SkeletonContainer: React.FC = () => {
+const EditProfileLoader: React.FC = () => {
   return (
     <Box paddingY={2} paddingX={3}>
       <Center>
@@ -27,4 +27,4 @@ const SkeletonContainer: React.FC = () => {
   );
 };
 
-export default SkeletonContainer;
+export default EditProfileLoader;

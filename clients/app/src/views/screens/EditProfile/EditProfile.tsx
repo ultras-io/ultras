@@ -5,7 +5,7 @@ import I18n from 'i18n/i18n';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import EditAvatarContainer from './containers/EditAvatarContainer';
 import PersonalInfoContainer from './containers/PersonalInfoContainer';
-import SkeletonContainer from './containers/SkeletonContainer';
+import EditProfileLoader from './EditProfileLoader';
 import buildUserStore from 'stores/user';
 import authenticationStore, { IState } from 'stores/authentication';
 
@@ -39,7 +39,7 @@ const EditProfile: React.FC = () => {
       </Button>
 
       {storeSingle.status === 'loading' ? (
-        <SkeletonContainer />
+        <EditProfileLoader />
       ) : (
         <>
           <EditAvatarContainer data={storeSingle.data!} />
