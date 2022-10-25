@@ -3,6 +3,7 @@ import {
   FanClubSDK,
   ResourceIdentifier,
   GetFanClubsFilter,
+  FanClubCreateType,
 } from '@ultras/core-api-sdk';
 
 import {
@@ -30,7 +31,7 @@ const buildFanClubsStore = <TScheme = IDataType>(
   return generateCRUD<
     FanClubViewModel,
     FanClubViewModel,
-    FanClubViewModel,
+    FanClubCreateType,
     FanClubViewModel,
     TDeleteEvent,
     FilterType,

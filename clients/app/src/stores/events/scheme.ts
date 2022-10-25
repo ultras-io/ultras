@@ -25,25 +25,67 @@ export const scheme: IScheme<IDataType> = {
   },
   title: {
     initialValue: '',
+    validate(valueOriginal: null | string) {
+      if (!valueOriginal) {
+        return ['title_required'];
+      }
+
+      return [];
+    },
   },
   privacy: {
     initialValue: EventPrivacyEnum.public,
+    validate(valueOriginal: null | string) {
+      if (!valueOriginal) {
+        return ['privacy_required'];
+      }
+      if (
+        valueOriginal !== EventPrivacyEnum.public &&
+        valueOriginal !== EventPrivacyEnum.private
+      ) {
+        return ['unknown_privacy'];
+      }
+
+      return [];
+    },
   },
   dateTime: {
     initialValue: new Date(),
+    validate(valueOriginal: null | Date | string) {
+      if (!valueOriginal) {
+        return ['start_datetime_required'];
+      }
+
+      const date =
+        valueOriginal instanceof Date ? valueOriginal : new Date(valueOriginal);
+
+      const currentTimestamp = Date.now();
+      if (currentTimestamp > date.getTime()) {
+        return ['start_datetime_past'];
+      }
+
+      return [];
+    },
   },
   isEndDateTime: {
     initialValue: false,
   },
   endDateTime: {
     initialValue: new Date(),
-    validate(valueOriginal: null | Date) {
-      if (!valueOriginal || valueOriginal instanceof Date) {
-        // @TODO: validate date not in past
+    validate(valueOriginal: null | Date | string) {
+      if (!valueOriginal) {
         return [];
       }
 
-      return ['invalid_end_date'];
+      const date =
+        valueOriginal instanceof Date ? valueOriginal : new Date(valueOriginal);
+
+      const currentTimestamp = Date.now();
+      if (currentTimestamp > date.getTime()) {
+        return ['end_datetime_past'];
+      }
+
+      return [];
     },
   },
   locationName: {
