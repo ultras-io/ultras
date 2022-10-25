@@ -3,6 +3,10 @@ import { HStack, VStack, Box, Center, Image, Divider, Text } from 'native-base';
 import { useTheme } from 'themes';
 import { formatDateAndTime } from 'utils/helpers/matchTime';
 import { IMatchTimeProps } from './types';
+import { MatchStatusesEnum } from '@ultras/utils';
+
+// @TODO: change time-to-defined text
+const timeToDefinedText = '-:-';
 
 const MatchTime: React.FC<IMatchTimeProps> = ({
   matchStatus,
@@ -31,12 +35,28 @@ const MatchTime: React.FC<IMatchTimeProps> = ({
           />
         </Center>
         <VStack ml={'1'}>
-          <Text variant={'matchDate' + variantSuffix} fontSize={'2xs'} lineHeight={'2xs'}>
-            {formattedDate}
-          </Text>
-          <Text variant={'matchTeam' + variantSuffix} fontSize={'sm'} lineHeight={'xs'}>
-            {formattedTime}
-          </Text>
+          {matchStatus === MatchStatusesEnum.timeToBeDefined ? (
+            <Text variant={'matchDate'} textAlign="center" width={10}>
+              {timeToDefinedText}
+            </Text>
+          ) : (
+            <>
+              <Text
+                variant={'matchDate' + variantSuffix}
+                fontSize={'2xs'}
+                lineHeight={'2xs'}
+              >
+                {formattedDate}
+              </Text>
+              <Text
+                variant={'matchTeam' + variantSuffix}
+                fontSize={'sm'}
+                lineHeight={'xs'}
+              >
+                {formattedTime}
+              </Text>
+            </>
+          )}
         </VStack>
       </HStack>
       <Divider />

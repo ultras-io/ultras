@@ -48,7 +48,7 @@ const SelectCityComponent: React.FC<ISelectCityComponentProps> = ({
 
   return (
     <SafeAreaView>
-      <Box padding={15}>
+      <Box paddingX={4} paddingTop={4}>
         <InputSection>
           <FlatList
             contentContainerStyle={{ paddingVertical: 8 }}

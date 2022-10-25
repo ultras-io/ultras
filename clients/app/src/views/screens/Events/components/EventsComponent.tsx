@@ -31,19 +31,21 @@ const EventsComponent: React.FC<IEventsComponentProps> = ({
   );
 
   return (
-    <FlatList
-      ref={ref}
-      keyExtractor={item => item.id.toString()}
-      showsVerticalScrollIndicator={false}
-      renderItem={renderRow}
-      data={data}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={0.5}
-      ListEmptyComponent={loading ? null : <NoResults />}
-      ListFooterComponent={loading ? <Loader /> : null}
-      contentContainerStyle={gStyles.contentContainerStyle}
-      ListFooterComponentStyle={gStyles.listFooterComponentStyle}
-    />
+    <Box paddingX={4} paddingTop={4} flex={1}>
+      <FlatList
+        ref={ref}
+        keyExtractor={item => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        renderItem={renderRow}
+        data={data}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
+        ListEmptyComponent={loading ? null : <NoResults />}
+        ListFooterComponent={loading ? <Loader /> : null}
+        contentContainerStyle={gStyles.contentContainerStyle}
+        ListFooterComponentStyle={gStyles.listFooterComponentStyle}
+      />
+    </Box>
   );
 };
 

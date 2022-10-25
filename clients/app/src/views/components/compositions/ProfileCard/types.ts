@@ -2,6 +2,6 @@ export interface IProfileCardProps {
   avatarUri: string;
   name: string;
   username: string;
-  appearence?: 'minimal' | undefined;
+  appearance?: 'minimal' | undefined;
   onPress: () => void;
 }
