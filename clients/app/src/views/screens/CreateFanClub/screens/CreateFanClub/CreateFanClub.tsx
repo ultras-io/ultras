@@ -56,12 +56,48 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   }, [isLastAction, slides.length, storeAdd]);
 
   const isSubmitEnabled = React.useMemo(() => {
-    if (!isLastAction) {
-      return true;
+    const fields = [
+      [
+        storeAdd.data?.name.isValid,
+        storeAdd.data?.shortName.isValid,
+        storeAdd.data?.teamId.isValid,
+        storeAdd.data?.cityId.isValid,
+        storeAdd.data?.description.isValid,
+      ],
+      [storeAdd.data?.avatar.isValid, storeAdd.data?.coverPhoto.isValid],
+      [storeAdd.data?.privacy.isValid],
+    ];
+
+    const validateFields = fields[index];
+    if (!validateFields) {
+      return false;
     }
 
-    return storeAdd.valid;
-  }, [storeAdd.valid, isLastAction]);
+    for (const validateField of validateFields) {
+      if (!validateField) {
+        return false;
+      }
+    }
+
+    return true;
+
+    // // disable only last button if form is not valid
+    // if (!isLastAction) {
+    //   return true;
+    // }
+
+    // return storeAdd.valid;
+  }, [
+    storeAdd.data?.name.isValid,
+    storeAdd.data?.shortName.isValid,
+    storeAdd.data?.teamId.isValid,
+    storeAdd.data?.cityId.isValid,
+    storeAdd.data?.description.isValid,
+    storeAdd.data?.avatar.isValid,
+    storeAdd.data?.coverPhoto.isValid,
+    storeAdd.data?.privacy.isValid,
+    index,
+  ]);
 
   React.useEffect(() => {
     if (!route.params?.selected) {

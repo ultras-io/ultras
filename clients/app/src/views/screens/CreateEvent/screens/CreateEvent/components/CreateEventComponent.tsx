@@ -12,6 +12,7 @@ import { EventPrivacyEnum } from '@ultras/utils';
 
 const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
   loading,
+  isValid,
   data,
   onCreatePress,
   setFieldValue,
@@ -129,7 +130,12 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
 
         <AttacheImage title={I18n.t('events-add-photo')} />
 
-        <Button onPress={onCreatePress} variant={'primary'} isLoading={loading}>
+        <Button
+          onPress={onCreatePress}
+          variant={'primary'}
+          disabled={!isValid}
+          isLoading={loading}
+        >
           {I18n.t('events-add-button')}
         </Button>
       </VStack>

@@ -4,7 +4,7 @@ import SelectMatch from 'views/screens/CreateEvent/screens/SelectMatch';
 
 const screens: ICreateEventScreen = {
   createEvent: {
-    name: 'CreateEvent',
+    name: 'CreateEventForm',
     component: CreateEvent,
   },
   selectMatch: {

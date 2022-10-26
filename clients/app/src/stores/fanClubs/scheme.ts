@@ -8,13 +8,18 @@ export interface IDataType {
   cityId: null | ResourceIdentifier;
   privacy: FanClubPrivacyEnum;
   description: null | string;
+  avatar: string;
+  coverPhoto: null | string;
 }
 
 export const scheme: IScheme<IDataType> = {
   teamId: {
     initialValue: null,
     validate(valueOriginal: null | ResourceIdentifier) {
-      if (!valueOriginal || valueOriginal > 0) {
+      if (!valueOriginal) {
+        return ['team_id_required'];
+      }
+      if (valueOriginal > 0) {
         return [];
       }
 
@@ -24,7 +29,10 @@ export const scheme: IScheme<IDataType> = {
   cityId: {
     initialValue: null,
     validate(valueOriginal: null | ResourceIdentifier) {
-      if (!valueOriginal || valueOriginal > 0) {
+      if (!valueOriginal) {
+        return ['city_id_required'];
+      }
+      if (valueOriginal > 0) {
         return [];
       }
 
@@ -52,11 +60,13 @@ export const scheme: IScheme<IDataType> = {
   privacy: {
     initialValue: FanClubPrivacyEnum.public,
     validate(valueOriginal: null | string) {
-      const isValid =
-        valueOriginal === FanClubPrivacyEnum.public ||
-        valueOriginal === FanClubPrivacyEnum.private;
-
-      if (!isValid) {
+      if (!valueOriginal) {
+        return ['privacy_required'];
+      }
+      if (
+        valueOriginal !== FanClubPrivacyEnum.public &&
+        valueOriginal !== FanClubPrivacyEnum.private
+      ) {
         return ['unknown_privacy'];
       }
       return [];
@@ -71,5 +81,19 @@ export const scheme: IScheme<IDataType> = {
 
       return ['invalid_description'];
     },
+  },
+
+  avatar: {
+    initialValue: null,
+    validate(valueOriginal: null | string) {
+      if (!valueOriginal) {
+        return ['avatar_required'];
+      }
+
+      return [];
+    },
+  },
+  coverPhoto: {
+    initialValue: null,
   },
 };

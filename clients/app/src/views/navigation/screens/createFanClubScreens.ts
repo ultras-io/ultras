@@ -5,7 +5,7 @@ import SearchListModal from 'views/screens/SearchListModal';
 
 const screens: ICreateFanClubScreen = {
   createFanClub: {
-    name: 'CreateFanClub',
+    name: 'CreateFanClubForm',
     component: CreateFanClub,
   },
   selectCity: {

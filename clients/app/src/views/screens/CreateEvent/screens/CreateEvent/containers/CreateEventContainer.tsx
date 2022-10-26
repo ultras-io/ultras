@@ -39,6 +39,7 @@ const CreateEventContainer: React.FC = () => {
   return (
     <CreateEventComponent
       loading={storeAdd.status === 'loading'}
+      isValid={storeAdd.valid}
       data={storeAdd.data}
       setFieldValue={storeAdd.setFieldValue}
       onCreatePress={onCreatePress}
