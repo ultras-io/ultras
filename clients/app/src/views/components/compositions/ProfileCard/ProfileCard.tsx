@@ -13,14 +13,14 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
   name,
   username,
   onPress,
-  appearence,
+  appearance,
 }) => {
-  const Container = appearence === 'minimal' ? View : BluredView;
+  const Container = appearance === 'minimal' ? View : BluredView;
 
   return (
     <Pressable onPress={onPress}>
       <Container
-        style={appearence === 'minimal' ? styles.containerMinimal : styles.container}
+        style={appearance === 'minimal' ? styles.containerMinimal : styles.container}
       >
         <View style={styles.avatar}>
           {/* <Avatar avatarUri={avatarUri} size={AvatarSize.Default} /> */}

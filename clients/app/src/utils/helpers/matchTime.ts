@@ -37,10 +37,11 @@ export const formatDateAndTime = (
     time = I18n.t('matches-penalties');
   }
 
-  return {
-    date,
-    time,
-  };
+  // @TODO: maybe we need to change text when date/time is not provided?
+  date = date || '–– –––';
+  time = time || '–:–';
+
+  return { date, time };
 };
 
 export const isMatchGoing = (status: MatchStatusesEnum): boolean => {

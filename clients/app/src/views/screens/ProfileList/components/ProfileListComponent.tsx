@@ -12,11 +12,11 @@ const ProfileListComponent: React.FC<IProfileListComponentProps> = ({ data }) =>
   const renderRow = React.useCallback(
     ({ item }) => (
       <ProfileCard
-        onPress={() => pushTo(commonScreens.profile, { id: item.id })}
+        onPress={() => pushTo(commonScreens.profile.name, { id: item.id })}
         name={item.name}
         username={item.username}
         avatarUri={item.avatarUri}
-        appearence="minimal"
+        appearance="minimal"
       />
     ),
     [pushTo]

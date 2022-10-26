@@ -46,19 +46,21 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   }, [searchItem, renderFanClub, renderTeam]);
 
   return (
-    <FlatList
-      keyExtractor={item => item.id.toString()}
-      showsVerticalScrollIndicator={false}
-      renderItem={renderItem}
-      data={data}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={0.5}
-      keyboardDismissMode={'on-drag'}
-      ListEmptyComponent={loading ? null : <NoResults />}
-      ListFooterComponent={loading ? <Loader /> : null}
-      contentContainerStyle={gStyles.contentContainerStyle}
-      ListFooterComponentStyle={gStyles.listFooterComponentStyle}
-    />
+    <Box paddingX={4} paddingTop={4} flex={1}>
+      <FlatList
+        keyExtractor={item => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
+        data={data}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
+        keyboardDismissMode={'on-drag'}
+        ListEmptyComponent={loading ? null : <NoResults />}
+        ListFooterComponent={loading ? <Loader /> : null}
+        contentContainerStyle={gStyles.contentContainerStyle}
+        ListFooterComponentStyle={gStyles.listFooterComponentStyle}
+      />
+    </Box>
   );
 };
 

@@ -31,18 +31,19 @@ const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
   );
 
   return (
-    <FlatList
-      contentContainerStyle={{ padding: 15 }}
-      keyExtractor={item => `match-section-${item.id}`}
-      renderItem={renderMatch}
-      data={data}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={0.7}
-      horizontal={false}
-      showsVerticalScrollIndicator={false}
-      ListEmptyComponent={loading ? null : <NoResults />}
-      ListFooterComponent={loading ? <Loader /> : null}
-    />
+    <Box paddingX={4} paddingTop={4} flex={1}>
+      <FlatList
+        keyExtractor={item => `match-section-${item.id}`}
+        renderItem={renderMatch}
+        data={data}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.7}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={loading ? null : <NoResults />}
+        ListFooterComponent={loading ? <Loader /> : null}
+      />
+    </Box>
   );
 };
 
