@@ -189,4 +189,30 @@ export default {
   'profile-edit-email': 'Email',
   'profile-edit-description':
     'Tap to change Full Name, Email and Phone Number. Note, that Email/Phone Number change will need confirmation.',
+
+  // settings
+  'settings-title': 'Settings',
+
+  'settings-privacy-details': 'User Privacy',
+  'settings-privacy': 'Privacy',
+  'settings-privacy-description':
+    'You can set profile type to private to hide your unique content. Note, that at least your username and profile picture will be visible to other users.',
+  'settings-privacy-private': 'Private',
+  'settings-privacy-public': 'Public',
+
+  'settings-pushNotifications': 'Push Notifications',
+  'settings-pushNotifications-description':
+    'When turned on, we want to notify you about events near your location, your favorite team matches and other things not to miss.',
+
+  'settings-pushNotifications-event-going': 'Event Going',
+  'settings-pushNotifications-event-interests': 'Events Interested In',
+  'settings-pushNotifications-upcomingMatches': 'Upcoming Matches',
+  'settings-pushNotifications-newPosts': 'New Posts',
+  'settings-pushNotifications-newComments': 'New Comments',
+  'settings-pushNotifications-fanClubSuggestions': 'Fan Club Suggestions',
+  'settings-pushNotifications-groupDescription':
+    'You can control which type of Notifications to receive.',
+
+  'settings-other-details': 'Other Settings',
+  'settings-language': 'App Language',
 };

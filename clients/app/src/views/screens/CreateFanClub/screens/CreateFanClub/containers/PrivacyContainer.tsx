@@ -9,7 +9,7 @@ const PrivacyContainer: React.FC = () => {
   const { add: storeAdd } = fanClubsStore.useSelector('add');
 
   return (
-    <VStack space={4} paddingX={3}>
+    <VStack space={3} paddingX={3}>
       <Text variant="cardInfo">{I18n.t('fanClubs-add-privacy')}</Text>
 
       <KeyValue
