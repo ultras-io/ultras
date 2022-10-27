@@ -174,35 +174,31 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
         ref={refScroll}
         marginBottom={+keyboardHeight}
         contentContainerStyle={{
-          justifyContent: 'space-between',
           paddingBottom: safeAreaInsets.bottom,
         }}
       >
-        <Box>
-          <Text paddingX={3} marginBottom={27} variant={'title'}>
-            {I18n.t('fanClubs-create-title')}
-          </Text>
+        <Text paddingX={3} marginBottom={27} variant={'title'}>
+          {I18n.t('fanClubs-create-title')}
+        </Text>
 
-          <Swiper
-            ref={refSwiper}
-            loop={false}
-            bounces={true}
-            scrollsToTop={true}
-            scrollEnabled={false}
-            alwaysBounceHorizontal={true}
-            activeDotColor={colors.dotIndicatorActive}
-            dotColor={colors.dotIndicator}
-            onIndexChanged={setIndex}
-            height={
-              windowHeight -
-              (headerHeight + safeAreaInsets.top + 2 * safeAreaInsets.bottom)
-            }
-          >
-            {slides.map((slide, i) => (
-              <Box key={`create-fan-club-container-${i}`}>{slide}</Box>
-            ))}
-          </Swiper>
-        </Box>
+        <Swiper
+          ref={refSwiper}
+          loop={false}
+          bounces={true}
+          scrollsToTop={true}
+          scrollEnabled={false}
+          alwaysBounceHorizontal={true}
+          activeDotColor={colors.dotIndicatorActive}
+          dotColor={colors.dotIndicator}
+          onIndexChanged={setIndex}
+          height={
+            windowHeight - (headerHeight + safeAreaInsets.top + 2 * safeAreaInsets.bottom)
+          }
+        >
+          {slides.map((slide, i) => (
+            <Box key={`create-fan-club-container-${i}`}>{slide}</Box>
+          ))}
+        </Swiper>
 
         <Button.Group paddingX={3} isAttached={true} borderRadius={13} width={'100%'}>
           <Button
