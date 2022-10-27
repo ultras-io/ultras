@@ -1,13 +1,13 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { LayoutChangeEvent, SafeAreaView, StyleSheet } from 'react-native';
 import { Box, Button, Text, ScrollView } from 'native-base';
 import { useRoute } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
 import { useKeyboard } from 'utils/hooks/useKeyboard';
 import Icon from 'views/components/base/Icon';
+import { commonScreens } from 'views/navigation/screens';
 import { Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import DetailsContainer from './containers/DetailsContainer';
@@ -15,17 +15,11 @@ import VisualContainer from './containers/VisualContainer';
 import PrivacyContainer from './containers/PrivacyContainer';
 import { fanClubsStore } from '../../store';
 import { ICreateFanClubProps } from './types';
-import { commonScreens } from 'views/navigation/screens';
-
-const { height: windowHeight } = Dimensions.get('window');
-const headerHeight = 160;
 
 const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
   const { colors } = useTheme();
   const { goBack, pushTo } = useNavigationWithParams();
   const route = useRoute();
-
-  const safeAreaInsets = useSafeAreaInsets();
 
   const [isKeyboardOpen, keyboardHeight] = useKeyboard();
   const scrollPosition = React.useRef(0);
@@ -156,6 +150,21 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
     }
   }, [goBack, pushTo, storeAdd, storeAdd.status]);
 
+  const [sliderHeight, setSliderHeight] = React.useState(0);
+  const onScrollViewLayout = React.useCallback(
+    ({ nativeEvent }: LayoutChangeEvent) => {
+      if (sliderHeight !== 0) {
+        // keep already measured layout height.
+        return;
+      }
+
+      // 140 = header height + button height
+      const height = nativeEvent.layout.height - 140;
+      setSliderHeight(height);
+    },
+    [sliderHeight]
+  );
+
   return (
     <>
       <Button
@@ -170,59 +179,69 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
         {I18n.t('common-close')}
       </Button>
 
-      <ScrollView
-        ref={refScroll}
-        marginBottom={+keyboardHeight}
-        contentContainerStyle={{
-          paddingBottom: safeAreaInsets.bottom,
-        }}
-      >
-        <Text paddingX={3} marginBottom={27} variant={'title'}>
-          {I18n.t('fanClubs-create-title')}
-        </Text>
-
-        <Swiper
-          ref={refSwiper}
-          loop={false}
-          bounces={true}
-          scrollsToTop={true}
-          scrollEnabled={false}
-          alwaysBounceHorizontal={true}
-          activeDotColor={colors.dotIndicatorActive}
-          dotColor={colors.dotIndicator}
-          onIndexChanged={setIndex}
-          height={
-            windowHeight - (headerHeight + safeAreaInsets.top + 2 * safeAreaInsets.bottom)
-          }
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView
+          onLayout={onScrollViewLayout}
+          ref={refScroll}
+          flex={1}
+          marginBottom={+keyboardHeight}
         >
-          {slides.map((slide, i) => (
-            <Box key={`create-fan-club-container-${i}`}>{slide}</Box>
-          ))}
-        </Swiper>
+          <Text paddingX={3} marginBottom={27} variant={'title'}>
+            {I18n.t('fanClubs-create-title')}
+          </Text>
 
-        <Button.Group paddingX={3} isAttached={true} borderRadius={13} width={'100%'}>
-          <Button
-            variant="primaryInvert"
-            width={isFirstAction ? 0 : 70}
-            onPress={onPrevPress}
+          <Swiper
+            ref={refSwiper}
+            loop={false}
+            alwaysBounceHorizontal={true}
+            bounces={true}
+            scrollsToTop={true}
+            scrollEnabled={false}
+            activeDotColor={colors.dotIndicatorActive}
+            dotColor={colors.dotIndicator}
+            paginationStyle={styles.paginationStyle}
+            onIndexChanged={setIndex}
+            height={sliderHeight}
           >
-            <Icon name={Icons.Back} size={isFirstAction ? 0 : 'sm'} />
-          </Button>
+            {slides.map((slide, i) => (
+              <Box key={`create-fan-club-container-${i}`}>{slide}</Box>
+            ))}
+          </Swiper>
 
-          <Button
-            variant="primary"
-            flexGrow={1}
-            borderLeftRadius={isFirstAction ? 13 : undefined}
-            onPress={onNextPress}
-            disabled={!isSubmitEnabled}
-            isLoading={storeAdd.status === 'loading'}
-          >
-            {I18n.t(!isLastAction ? 'common-next' : 'fanClubs-add-button')}
-          </Button>
-        </Button.Group>
-      </ScrollView>
+          <Button.Group paddingX={3} isAttached={true} borderRadius={13} width={'100%'}>
+            <Button
+              variant="primaryInvert"
+              width={isFirstAction ? 0 : 70}
+              onPress={onPrevPress}
+            >
+              <Icon name={Icons.Back} size={isFirstAction ? 0 : 'sm'} />
+            </Button>
+
+            <Button
+              variant="primary"
+              flexGrow={1}
+              borderLeftRadius={isFirstAction ? 13 : undefined}
+              onPress={onNextPress}
+              disabled={!isSubmitEnabled}
+              isLoading={storeAdd.status === 'loading'}
+            >
+              {I18n.t(!isLastAction ? 'common-next' : 'fanClubs-add-button')}
+            </Button>
+          </Button.Group>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+
+  paginationStyle: {
+    height: 20,
+  },
+});
 
 export default CreateFanClub;
