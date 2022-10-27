@@ -9,6 +9,7 @@ import { RemoveButton } from 'views/components/base/RemoveButton';
 import MatchInfo from 'views/components/compositions/MatchInfo';
 import { ISelectedMatchProps } from '../types';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import { createEventScreens } from 'views/navigation/screens';
 
 const store = buildMatchesStore();
 
@@ -41,7 +42,7 @@ const SelectedMatchComponent: React.FC<ISelectedMatchProps> = ({
               variant="matchDate"
               marginLeft="auto"
               onPress={() => {
-                navigation.pushTo('SelectMatch');
+                navigation.pushTo(createEventScreens.selectMatch.name);
               }}
             >
               {I18n.t('events-add-changeMatch')}

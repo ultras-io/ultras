@@ -1,4 +1,4 @@
-import EditProfile from './EditProfile';
-export default EditProfile;
+import EditProfileNavigation from './EditProfileNavigation';
+export default EditProfileNavigation;
 
-export * from './EditProfile';
+export * from './EditProfileNavigation';

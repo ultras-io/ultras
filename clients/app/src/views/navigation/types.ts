@@ -113,6 +113,11 @@ export interface ICreateFanClubScreen {
   selectTeam: NavigationScreen;
 }
 
+export interface IEditProfileScreen {
+  editProfile: NavigationScreen;
+  updateField: NavigationScreen;
+}
+
 export type ScreenNavigationConfig = Record<
   string,
   {

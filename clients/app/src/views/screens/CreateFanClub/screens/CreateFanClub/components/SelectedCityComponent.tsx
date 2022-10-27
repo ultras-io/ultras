@@ -6,6 +6,7 @@ import { ISelectedCityProps } from '../types';
 import { Loader } from 'views/components/base/ListComponents';
 import KeyValue from 'views/components/base/KeyValue';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import { createFanClubScreens } from 'views/navigation/screens';
 
 const store = buildCitiesStore();
 
@@ -22,7 +23,10 @@ const SelectedCityComponent: React.FC<ISelectedCityProps> = ({ cityId }) => {
   const rightComponent = React.useMemo(() => {
     if (!cityId) {
       return (
-        <Text variant={'matchDate'} onPress={() => pushTo('SelectCity')}>
+        <Text
+          variant={'matchDate'}
+          onPress={() => pushTo(createFanClubScreens.selectCity.name)}
+        >
           {I18n.t('common-select')}
         </Text>
       );
@@ -33,7 +37,11 @@ const SelectedCityComponent: React.FC<ISelectedCityProps> = ({ cityId }) => {
     }
 
     return (
-      <Text variant={'matchDate'} textAlign="right" onPress={() => pushTo('SelectCity')}>
+      <Text
+        variant={'matchDate'}
+        textAlign="right"
+        onPress={() => pushTo(createFanClubScreens.selectCity.name)}
+      >
         {storeSingle.data?.name}, {storeSingle.data?.country.name}
       </Text>
     );
