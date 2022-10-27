@@ -7,3 +7,4 @@ export { default as fanClubTabScreens } from './fanClubTabScreens';
 export { default as searchTabScreens } from './searchTabScreens';
 export { default as createEventScreens } from './createEventScreens';
 export { default as createFanClubScreens } from './createFanClubScreens';
+export { default as editProfileScreens } from './editProfileScreens';

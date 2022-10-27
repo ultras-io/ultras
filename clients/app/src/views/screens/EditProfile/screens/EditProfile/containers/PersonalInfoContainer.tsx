@@ -42,24 +42,16 @@ const PersonalInfoContainer: React.FC<IPersonalInfoContainerProps> = ({ data }) 
     <Box padding={4}>
       <KeyValueGroup description={I18n.t('profile-edit-description')}>
         <PersonalInfoInputComponent
-          name={I18n.t('profile-edit-fullName')}
-          value={store.fullname.value}
-          onChange={value => store.setFieldValue('fullname', value)}
+          label={I18n.t('profile-edit-fullName')}
+          name="fullname"
         />
 
         <PersonalInfoInputComponent
-          name={I18n.t('profile-edit-phoneNumber')}
-          value={store.phone.value}
-          onChange={value => store.setFieldValue('phone', value)}
-          keyboardType="phone-pad"
+          label={I18n.t('profile-edit-phoneNumber')}
+          name="phone"
         />
 
-        <PersonalInfoInputComponent
-          name={I18n.t('profile-edit-email')}
-          value={store.email.value}
-          onChange={value => store.setFieldValue('email', value)}
-          keyboardType="email-address"
-        />
+        <PersonalInfoInputComponent label={I18n.t('profile-edit-email')} name="email" />
       </KeyValueGroup>
 
       <Button

@@ -6,7 +6,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import EditAvatarContainer from './containers/EditAvatarContainer';
 import PersonalInfoContainer from './containers/PersonalInfoContainer';
 import EditProfileLoader from './EditProfileLoader';
-import buildUserStore from 'stores/user';
+import { usersStore } from '../../store';
 import authenticationStore, { IState } from 'stores/authentication';
 
 const useAuthenticationStore = authenticationStore.initStore();
@@ -14,8 +14,7 @@ const useAuthenticationStore = authenticationStore.initStore();
 const EditProfile: React.FC = () => {
   const me = useAuthenticationStore((state: IState) => state.user);
 
-  const userStore = React.useMemo(() => buildUserStore(), []);
-  const { single: storeSingle } = userStore.useSelector('single');
+  const { single: storeSingle } = usersStore.useSelector('single');
 
   React.useEffect(() => {
     storeSingle.getSingle(me.id!);
