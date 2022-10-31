@@ -1,15 +1,12 @@
 import React from 'react';
-import { LayoutChangeEvent, SafeAreaView, StyleSheet } from 'react-native';
-import { Box, Button, Text, ScrollView } from 'native-base';
+import { Button } from 'native-base';
 import { useRoute } from '@react-navigation/native';
-import Swiper from 'react-native-swiper';
 import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
 import { useKeyboard } from 'utils/hooks/useKeyboard';
-import Icon from 'views/components/base/Icon';
 import { commonScreens } from 'views/navigation/screens';
-import { Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+import SwiperContainer from './containers/SwiperContainer';
 import DetailsContainer from './containers/DetailsContainer';
 import VisualContainer from './containers/VisualContainer';
 import PrivacyContainer from './containers/PrivacyContainer';
@@ -23,7 +20,7 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
 
   const [isKeyboardOpen, keyboardHeight] = useKeyboard();
   const scrollPosition = React.useRef(0);
-  const refScroll = React.useRef();
+  const refScroll = React.useRef(null);
 
   const onFocus = React.useCallback(ref => {
     ref.current?.measureLayout(refScroll.current, (left, top: number) => {
@@ -31,14 +28,14 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
     });
   }, []);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     if (isKeyboardOpen) {
       setTimeout(() => {
         refScroll.current?.scrollTo({
           y: scrollPosition.current - +keyboardHeight,
           animated: true,
         });
-      });
+      }, 0);
     }
   }, [isKeyboardOpen, keyboardHeight]);
 
@@ -52,78 +49,51 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
     ];
   }, [onFocus]);
 
-  const [index, setIndex] = React.useState(0);
-  const refSwiper = React.useRef<Swiper | null>(null);
+  const isSubmitEnabled = React.useCallback(
+    (index: number) => {
+      const fields = [
+        [
+          storeAdd.data?.name.isValid,
+          storeAdd.data?.shortName.isValid,
+          storeAdd.data?.teamId.isValid,
+          storeAdd.data?.cityId.isValid,
+          storeAdd.data?.description.isValid,
+        ],
+        [storeAdd.data?.avatar.isValid, storeAdd.data?.coverPhoto.isValid],
+        [storeAdd.data?.privacy.isValid],
+      ];
 
-  const isFirstAction = index === 0;
-  const isLastAction = index === slides.length - 1;
-
-  // open component by index - when index was changed
-  React.useEffect(() => {
-    refSwiper.current?.scrollTo(index, true);
-  }, [index]);
-
-  // decrease index
-  const onPrevPress = React.useCallback(() => {
-    setIndex((oldIndex: number) => {
-      return oldIndex === 0 ? oldIndex : oldIndex - 1;
-    });
-  }, []);
-
-  // increase index
-  const onNextPress = React.useCallback(() => {
-    if (isLastAction) {
-      return storeAdd.create();
-    }
-
-    setIndex((oldIndex: number) => {
-      return oldIndex === slides.length - 1 ? oldIndex : oldIndex + 1;
-    });
-  }, [isLastAction, slides.length, storeAdd]);
-
-  const isSubmitEnabled = React.useMemo(() => {
-    const fields = [
-      [
-        storeAdd.data?.name.isValid,
-        storeAdd.data?.shortName.isValid,
-        storeAdd.data?.teamId.isValid,
-        storeAdd.data?.cityId.isValid,
-        storeAdd.data?.description.isValid,
-      ],
-      [storeAdd.data?.avatar.isValid, storeAdd.data?.coverPhoto.isValid],
-      [storeAdd.data?.privacy.isValid],
-    ];
-
-    const validateFields = fields[index];
-    if (!validateFields) {
-      return false;
-    }
-
-    for (const validateField of validateFields) {
-      if (!validateField) {
+      const validateFields = fields[index];
+      if (!validateFields) {
         return false;
       }
-    }
 
-    return true;
+      for (const validateField of validateFields) {
+        if (!validateField) {
+          return false;
+        }
+      }
 
-    // // disable only last button if form is not valid
-    // if (!isLastAction) {
-    //   return true;
-    // }
+      return true;
 
-    // return storeAdd.valid;
-  }, [
-    storeAdd.data?.name.isValid,
-    storeAdd.data?.shortName.isValid,
-    storeAdd.data?.teamId.isValid,
-    storeAdd.data?.cityId.isValid,
-    storeAdd.data?.description.isValid,
-    storeAdd.data?.avatar.isValid,
-    storeAdd.data?.coverPhoto.isValid,
-    storeAdd.data?.privacy.isValid,
-    index,
-  ]);
+      // // disable only last button if form is not valid
+      // if (!isLastAction) {
+      //   return true;
+      // }
+
+      // return storeAdd.valid;
+    },
+    [
+      storeAdd.data?.name.isValid,
+      storeAdd.data?.shortName.isValid,
+      storeAdd.data?.teamId.isValid,
+      storeAdd.data?.cityId.isValid,
+      storeAdd.data?.description.isValid,
+      storeAdd.data?.avatar.isValid,
+      storeAdd.data?.coverPhoto.isValid,
+      storeAdd.data?.privacy.isValid,
+    ]
+  );
 
   React.useEffect(() => {
     if (!route.params?.selected) {
@@ -150,21 +120,6 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
     }
   }, [goBack, pushTo, storeAdd, storeAdd.status]);
 
-  const [sliderHeight, setSliderHeight] = React.useState(0);
-  const onScrollViewLayout = React.useCallback(
-    ({ nativeEvent }: LayoutChangeEvent) => {
-      if (sliderHeight !== 0) {
-        // keep already measured layout height.
-        return;
-      }
-
-      // 140 = header height + button height
-      const height = nativeEvent.layout.height - 140;
-      setSliderHeight(height);
-    },
-    [sliderHeight]
-  );
-
   return (
     <>
       <Button
@@ -179,69 +134,14 @@ const CreateFanClub: React.FC<ICreateFanClubProps> = () => {
         {I18n.t('common-close')}
       </Button>
 
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView
-          onLayout={onScrollViewLayout}
-          ref={refScroll}
-          flex={1}
-          marginBottom={+keyboardHeight}
-        >
-          <Text paddingX={3} marginBottom={27} variant={'title'}>
-            {I18n.t('fanClubs-create-title')}
-          </Text>
-
-          <Swiper
-            ref={refSwiper}
-            loop={false}
-            alwaysBounceHorizontal={true}
-            bounces={true}
-            scrollsToTop={true}
-            scrollEnabled={false}
-            activeDotColor={colors.dotIndicatorActive}
-            dotColor={colors.dotIndicator}
-            paginationStyle={styles.paginationStyle}
-            onIndexChanged={setIndex}
-            height={sliderHeight}
-          >
-            {slides.map((slide, i) => (
-              <Box key={`create-fan-club-container-${i}`}>{slide}</Box>
-            ))}
-          </Swiper>
-
-          <Button.Group paddingX={3} isAttached={true} borderRadius={13} width={'100%'}>
-            <Button
-              variant="primaryInvert"
-              width={isFirstAction ? 0 : 70}
-              onPress={onPrevPress}
-            >
-              <Icon name={Icons.Back} size={isFirstAction ? 0 : 'sm'} />
-            </Button>
-
-            <Button
-              variant="primary"
-              flexGrow={1}
-              borderLeftRadius={isFirstAction ? 13 : undefined}
-              onPress={onNextPress}
-              disabled={!isSubmitEnabled}
-              isLoading={storeAdd.status === 'loading'}
-            >
-              {I18n.t(!isLastAction ? 'common-next' : 'fanClubs-add-button')}
-            </Button>
-          </Button.Group>
-        </ScrollView>
-      </SafeAreaView>
+      <SwiperContainer
+        ref={refScroll}
+        keyboardHeight={+keyboardHeight}
+        slides={slides}
+        isSubmitEnabled={isSubmitEnabled}
+      />
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-
-  paginationStyle: {
-    height: 20,
-  },
-});
 
 export default CreateFanClub;

@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import React from 'react';
 
 export interface ICreateFanClubProps {}
 
@@ -12,6 +12,12 @@ export interface ISelectedCityProps {
   cityId?: null | ResourceIdentifier;
 }
 
+export interface ISwiperContainerProps {
+  keyboardHeight: number;
+  slides: Array<React.ReactNode>;
+  isSubmitEnabled(index: number): boolean;
+}
+
 export interface IDetailsComponentProps {
-  onFocus(ref: RefObject<any>): void;
+  onFocus(ref: React.RefObject<any>): void;
 }
