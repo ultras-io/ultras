@@ -12,6 +12,7 @@ export type GetFanClubsFilter = {
 
 export type FanClubCreateType = {
   name: string;
+  shortName: string;
   description: string | null;
   cityId: ResourceIdentifier;
   teamId: ResourceIdentifier;
