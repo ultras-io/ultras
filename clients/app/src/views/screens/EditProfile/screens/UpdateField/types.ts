@@ -11,3 +11,5 @@ export interface IUpdateFieldProps {
 }
 
 export interface IUpdateFieldContainerProps extends IFieldProps {}
+
+export type ConfirmationType = 'none' | 'loading' | 'pending' | 'confirmed';
