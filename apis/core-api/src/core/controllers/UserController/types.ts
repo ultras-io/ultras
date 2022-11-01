@@ -124,3 +124,29 @@ export type UserAndTeams = Nullable<
     teams: Array<ResourceIdentifier>;
   }
 >;
+
+export type UpdateProfileStatusType = 'confirmation-sent' | 'updated' | 'no-action';
+export type UpdateProfileFieldType = 'phone' | 'email' | 'fullname';
+
+export type UpdateProfileFieldParams = {
+  field: UpdateProfileFieldType;
+  value: string;
+  provider: NotifiedProviderEnum;
+  code?: string;
+};
+export type UpdateProfileFieldResult = {
+  actionStatus: UpdateProfileStatusType;
+  codeGenerated: Nullable<string>;
+};
+
+export type UpdateProfileParams = {
+  userId: ResourceIdentifier;
+  code?: string;
+  phone?: string;
+  email?: string;
+  fullname?: string;
+};
+
+export type UpdateProfileResult = ControllerResultType<{
+  status: UpdateProfileStatusType;
+}>;

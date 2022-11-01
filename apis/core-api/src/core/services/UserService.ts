@@ -12,6 +12,9 @@ interface IUserUniqueIdentifier {
   username?: null | string;
   id?: null | ResourceIdentifier;
 }
+
+type UpdateProfile<T> = T & { userId: ResourceIdentifier };
+
 class UserService extends BaseService {
   /**
    * Check username is taken.
@@ -142,6 +145,42 @@ class UserService extends BaseService {
   ): ServiceResultType<null | User> {
     // TODO: write logic to create user and send notification
     return null;
+  }
+
+  /**
+   * Update user's phone number.
+   */
+  static async updatePhone(
+    params: UpdateProfile<{ phone: string }>,
+    transaction?: Transaction
+  ) {
+    const user = await db.User.findByPk(params.userId);
+    user.setDataValue('phone', params.phone);
+    await user.save({ transaction });
+  }
+
+  /**
+   * Update user's email address.
+   */
+  static async updateEmail(
+    params: UpdateProfile<{ email: string }>,
+    transaction?: Transaction
+  ) {
+    const user = await db.User.findByPk(params.userId);
+    user.setDataValue('email', params.email);
+    await user.save({ transaction });
+  }
+
+  /**
+   * Update user's full name.
+   */
+  static async updateFullname(
+    params: UpdateProfile<{ fullname: string }>,
+    transaction?: Transaction
+  ) {
+    const user = await db.User.findByPk(params.userId);
+    user.setDataValue('fullname', params.fullname);
+    await user.save({ transaction });
   }
 }
 
