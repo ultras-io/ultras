@@ -19,10 +19,6 @@ const EditProfileLoader: React.FC = () => {
       <Center marginTop={6}>
         <Skeleton.Text lines={3} />
       </Center>
-
-      <Center marginTop={20}>
-        <Skeleton height={12} width="full" rounded="2xl" />
-      </Center>
     </Box>
   );
 };

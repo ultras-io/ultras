@@ -85,9 +85,11 @@ export const KeyValueInner: React.FC<IKeyValueProps> = ({
 
   return (
     <GroupComponent {...groupProps}>
-      <Text variant={textVariant} {...textProps}>
-        {name}
-      </Text>
+      {viewMode !== 'none' && (
+        <Text variant={textVariant} {...textProps}>
+          {name}
+        </Text>
+      )}
 
       {rightComponent}
     </GroupComponent>

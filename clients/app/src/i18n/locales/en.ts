@@ -27,6 +27,12 @@ export default {
   'common-next': 'Next',
   'common-save': 'Save',
 
+  // four digit component
+  'fourDigits-code': '4-digit confirmation code',
+  'fourDigits-codeWrong': 'Wrong code, please check it or',
+  'fourDigits-codeNotReceived': "If you haven't received code",
+  'fourDigits-requestAgain': 'request it again',
+
   // splash
   'splash-slogan': '#WatchFootball',
 
@@ -49,10 +55,6 @@ export default {
     'You will get a confirmation code and will need to enter it on next screen. By signing up you agree to our ',
   'joinUs-privacyPolicy': 'Terms and Privacy Policy.',
   'joinUs-enterCode': "Please enter 4-digit code we've sent to",
-  'joinUs-fourDigitsCode': '4-digit confirmation code',
-  'joinUs-fourDigitsCodeWrong': 'Wrong code, please check it or',
-  'joinUs-fourDigitsCodeNotReceived': "If you haven't received code",
-  'joinUs-fourDigitsRequestAgain': 'request it again',
   'joinUs-login':
     'You have already registered log in lorep ipsum dolor sirtempor incididunt ut labore et dolore magna aliqua.',
   'joinUs-letMeIn': 'Let me in!',

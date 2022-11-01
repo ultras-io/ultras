@@ -1,45 +1,134 @@
 import React from 'react';
-import { Box, Input } from 'native-base';
+import {
+  NativeSyntheticEvent,
+  SafeAreaView,
+  StyleSheet,
+  TextInputChangeEventData,
+} from 'react-native';
+import { Box, Button, Input, Text, VStack } from 'native-base';
 import { useTheme } from 'themes';
+import I18n from 'i18n/i18n';
+import FourDigits from 'views/components/compositions/FourDigits';
 import KeyValue from 'views/components/base/KeyValue';
-import { IUpdateFieldContainerProps } from '../types';
 import * as editProfileStore from 'stores/editProfile';
+import { ConfirmationType, IUpdateFieldContainerProps } from '../types';
+import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
+
+type ChangeEventType = NativeSyntheticEvent<TextInputChangeEventData>;
 
 const UpdateFieldContainer: React.FC<IUpdateFieldContainerProps> = ({ label, name }) => {
   const { colors } = useTheme();
+  const { goBack } = useNavigationWithParams();
+
+  const [confirmation, setConfirmation] = React.useState<ConfirmationType>('none');
 
   const useStore = editProfileStore.initStore();
   const store = useStore();
 
+  const refInitial = React.useRef<string>(store[name].value);
+
   const restProps = React.useMemo(() => {
+    const defaultProps: any = {
+      onChange: (e: ChangeEventType) => store.setFieldValue(name, e.nativeEvent.text),
+    };
+
     if (name === 'email') {
-      return { keyboardType: 'email-address' };
+      defaultProps.keyboardType = 'email-address';
+    } else if (name === 'phone') {
+      defaultProps.keyboardType = 'phone-pad';
+      defaultProps.onChange = (e: ChangeEventType) => {
+        store.setFieldValue(name, e.nativeEvent.text.replace(/[^\+\d]/g, ''));
+      };
     }
-    if (name === 'phone') {
-      return { keyboardType: 'phone-pad' };
+
+    return defaultProps;
+  }, [name, store]);
+
+  const onSavePress = React.useCallback(async () => {
+    if (name === 'fullname') {
+      // @TODO: save value using sdk.
+      // await ...
+
+      goBack();
+      return;
     }
-    return {};
-  }, [name]);
+
+    if (name === 'email' || name === 'phone') {
+      setConfirmation('loading');
+      // @TODO: send confirmation code to email/phone
+      setConfirmation('pending');
+
+      return;
+    }
+  }, [goBack, name]);
+
+  const verifyCode = React.useCallback(async () => {
+    // @TODO: verify code and save value using sdk.
+    // await ...
+
+    goBack();
+  }, [goBack]);
+
+  const onResendPress = React.useCallback(async () => {}, []);
+
+  const isShowError = false;
+  const isResendSucceed = true;
 
   return (
-    <Box padding={4}>
-      <KeyValue
-        viewMode="label"
-        name={label}
-        value={
-          <Input
-            backgroundColor={colors.transparent}
-            padding={0}
-            fontSize="4xl"
-            value={store[name].value || ''}
-            onChange={e => store.setFieldValue(name, e.nativeEvent.text)}
-            returnKeyType="done"
-            {...restProps}
-          />
-        }
-      />
-    </Box>
+    <SafeAreaView style={styles.safeArea}>
+      <Box padding={4} flex={1} justifyContent="space-between">
+        <VStack space={4}>
+          <VStack space={1}>
+            <Text variant="standard">{label}</Text>
+            <KeyValue
+              viewMode="none"
+              value={
+                <Input
+                  backgroundColor={colors.transparent}
+                  padding={2}
+                  fontSize="4xl"
+                  value={store[name].value || ''}
+                  returnKeyType="done"
+                  {...restProps}
+                />
+              }
+            />
+          </VStack>
+
+          {confirmation !== 'none' && (
+            <Box>
+              <FourDigits
+                colorMode="dark"
+                isShowError={isShowError}
+                isResendSucceed={isResendSucceed}
+                isLoading={confirmation === 'loading'}
+                verifyCode={verifyCode}
+                onResendPress={() => onResendPress}
+              />
+            </Box>
+          )}
+        </VStack>
+
+        <Button
+          disabled={
+            refInitial.current === store[name].value ||
+            confirmation === 'loading' ||
+            confirmation === 'pending'
+          }
+          variant="primary"
+          onPress={onSavePress}
+        >
+          {I18n.t(confirmation === 'none' ? 'common-save' : 'common-confirm')}
+        </Button>
+      </Box>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+});
 
 export default UpdateFieldContainer;

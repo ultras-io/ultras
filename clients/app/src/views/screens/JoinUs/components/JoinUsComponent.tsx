@@ -12,7 +12,7 @@ import LeftMessage from './LeftMessage';
 import RightMessage from './RightMessage';
 import JoinUsButton from './JoinUsButton';
 import EmailOrPhone from './EmailOrPhone';
-import FourDigits from './FourDigits/FourDigits';
+import FourDigits from './FourDigits';
 import Username from './Username';
 import EnableLocation from './EnableLocation';
 import Login from './Login';

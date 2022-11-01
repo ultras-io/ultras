@@ -90,10 +90,6 @@ export interface IFourDigitsProps {
   useStore: any;
 }
 
-export interface IFourDigitsMessageProps {
-  useStore: any;
-}
-
 export interface IUsernameProps {
   useStore: any;
 }

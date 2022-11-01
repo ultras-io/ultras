@@ -1,8 +1,8 @@
 type TValue = string | boolean | React.ReactNode;
 
 export interface IKeyValueProps<T extends TValue = TValue> {
-  viewMode?: 'inline' | 'label';
-  name: string;
+  viewMode?: 'inline' | 'label' | 'none';
+  name?: string;
   options?: Record<string, string>;
   value: T;
   description?: string;
