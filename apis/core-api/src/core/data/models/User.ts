@@ -14,7 +14,7 @@ export interface UserAttributes {
   username: string;
   avatar: null | string;
   fullname: null | string;
-  privacy: UserProfilePrivacyEnum;
+  privacy?: UserProfilePrivacyEnum;
 }
 
 export type UserCreationAttributes = Optional<
