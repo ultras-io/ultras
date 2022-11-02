@@ -63,3 +63,14 @@ export type GetMeResponse = ApiResponseBodyType<{
 }>;
 
 export type GetProfileResponse = ApiResponseBodyType<UserViewModel>;
+
+export type UpdateProfileRequest = {
+  code?: string;
+  phone?: string;
+  email?: string;
+  fullname?: string;
+};
+
+export type UpdateProfileResponse = ApiResponseBodyType<{
+  status: 'confirmation-sent' | 'updated' | 'no-action';
+}>;
