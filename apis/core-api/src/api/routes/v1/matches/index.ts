@@ -9,7 +9,8 @@ const router = new Router({
 });
 
 router.get('/', ControllerAdapter.getAll);
-router.post('/inject/:date', ControllerAdapter.inject);
+router.post('/inject/date/:date', ControllerAdapter.injectByDate);
+router.post('/inject/season/:season', ControllerAdapter.injectBySeason);
 router.get('/:id', ControllerAdapter.getById);
 
 router.use(likes.routes());

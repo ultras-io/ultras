@@ -137,14 +137,47 @@ class MatchService extends BaseService {
   private static venuesById: Record<number, any> = {};
 
   /**
-   * Inject data from Rapid API.
+   * Inject matches from Rapid API by date.
    * @important matches date is required.
    */
-  static async inject(date: string) {
+  static async injectByDate(date: string) {
     const {
       body: { response },
-    } = await injectMatches(date);
+    } = await injectMatches.byDate(date);
 
+    // eslint-disable-next-line no-console
+    console.log(`>>> Date: ${date}, Matches: ${response.length}`);
+    await this.injectMatchesToDatabase(response);
+  }
+
+  /**
+   * Inject matches from Rapid API by season.
+   * @important matches date is required.
+   */
+  static async injectBySeason(season: string) {
+    const leagues = [
+      { id: 2, name: 'UEFA Champions League' },
+      { id: 39, name: 'Premier League' },
+      { id: 78, name: 'Bundesliga 1' },
+      { id: 135, name: 'Serie A' },
+      { id: 140, name: 'La Liga' },
+    ];
+
+    for (const league of leagues) {
+      const {
+        body: { response },
+      } = await injectMatches.bySeason(season, league.id);
+
+      // eslint-disable-next-line no-console
+      console.log(
+        `>>> Season: ${season}, League: ${league.name}, Matches: ${response.length}`
+      );
+
+      await this.injectMatchesToDatabase(response);
+    }
+  }
+
+  private static async injectMatchesToDatabase(response: any[]) {
     let records: MatchCreationAttributes[] = [];
     let iteration = 0;
 

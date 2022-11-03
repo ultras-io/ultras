@@ -7,12 +7,31 @@ class ControllerAdapter {
    * Inject matches from Rapid API.
    * @TODO: move it into seeder.
    */
-  static async inject(ctx: Context): Promise<void> {
+  static async injectByDate(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { date } = ctx.request.params;
 
     /** CONTROLLERS */
-    const { data } = await MatchController.inject(date);
+    const { data } = await MatchController.injectByDate(date);
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.created(response);
+  }
+  /**
+   * Inject matches from Rapid API.
+   * @TODO: move it into seeder.
+   */
+  static async injectBySeason(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { season } = ctx.request.params;
+
+    /** CONTROLLERS */
+    const { data } = await MatchController.injectBySeason(season);
 
     /** RESPONSE */
     // @TODO make response types

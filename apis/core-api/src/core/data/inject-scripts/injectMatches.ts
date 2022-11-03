@@ -74,4 +74,20 @@ const getMatchesByDate = (date: string) => {
   });
 };
 
-export default getMatchesByDate;
+const getMatchesBySeason = (season: string, leagueId: number) => {
+  const network = new NetworkService(options.url);
+
+  return network.makeAPIGetRequest('fixtures', {
+    headers: options.headers,
+    query_params: {
+      season: season,
+      league: leagueId,
+      timezone: 'Europe/London', // +00:00, same as UTC
+    },
+  });
+};
+
+export default {
+  byDate: getMatchesByDate,
+  bySeason: getMatchesBySeason,
+};

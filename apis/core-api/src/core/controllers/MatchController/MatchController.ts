@@ -69,9 +69,22 @@ class MatchController extends BaseController {
   /**
    * NOTICE: used to development purposes
    */
-  static async inject(date: string): MatchesInjectDataResult {
+  static async injectByDate(date: string): MatchesInjectDataResult {
     try {
-      await MatchService.inject(date);
+      await MatchService.injectByDate(date);
+      return this.sendSuccessStatus();
+    } catch (e: any) {
+      this.riseSomethingWrong(e, "API throws error or couldn't insert");
+      return this.sendFailureStatus();
+    }
+  }
+
+  /**
+   * NOTICE: used to development purposes
+   */
+  static async injectBySeason(season: string): MatchesInjectDataResult {
+    try {
+      await MatchService.injectBySeason(season);
       return this.sendSuccessStatus();
     } catch (e: any) {
       this.riseSomethingWrong(e, "API throws error or couldn't insert");
