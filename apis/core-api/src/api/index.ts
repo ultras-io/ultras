@@ -4,8 +4,6 @@ import Koa from 'koa';
 import { App, Database } from 'modules/initializators';
 import { IApp, IDatabase } from 'modules/initializators/types';
 
-import { MODE } from 'utils/processEnvDetector';
-
 import { dbConfig, serverConfig } from 'config';
 import { KoaApp } from 'types';
 
@@ -33,14 +31,7 @@ bootstrap();
  */
 const { port } = serverConfig;
 
-if (MODE === 'production') {
-  server.run({ port: 443 }).catch((err: Error) => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-  });
-} else {
-  server.run({ port }).catch((err: Error) => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-  });
-}
+server.run({ port }).catch((err: Error) => {
+  // eslint-disable-next-line no-console
+  console.error(err);
+});

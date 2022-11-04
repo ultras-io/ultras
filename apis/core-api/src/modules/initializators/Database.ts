@@ -16,7 +16,7 @@ class Database implements IDatabase {
     if (db.sequelize) {
       await db.sequelize.authenticate();
       // eslint-disable-next-line no-console
-      console.info('Connected to postgres SQL database ✅');
+      console.info('Connected to PostgreSQL database ✅');
 
       return db.sequelize.sync();
     }

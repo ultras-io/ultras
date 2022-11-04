@@ -53,7 +53,7 @@ class App implements IApp {
 
     server.listen(port, () => {
       // eslint-disable-next-line no-console
-      console.info(`Server is running on port : ${port} ✅`);
+      console.info(`Server is running on port: ${port} ✅`);
     });
   }
 }
