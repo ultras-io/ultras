@@ -1,6 +1,13 @@
 {
+  "exec": "ts-node ./src/api/index.ts",
+  "env": {
+    "NODE_OPTIONS": "--trace-warnings --unhandled-rejections=strict",
+    "NODE_ENV": "development"
+  },
   "watch": ["src"],
   "ext": ".ts,.js",
-  "ignore": [],
-  "exec": "ts-node ./src/api/index.ts"
+  "ignore": [
+    "./src/core/data/migrations",
+    "./src/core/data/seeders"
+  ]
 }
