@@ -31,6 +31,7 @@ if [[ -d dist ]]; then
 fi
 
 mv build dist
+check_exit $? 'Failed to copy built folder.'
 
 # restart pm2
 pm2 restart ecosystem.config.js
