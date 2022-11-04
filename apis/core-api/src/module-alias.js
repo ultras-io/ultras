@@ -10,14 +10,13 @@ const aliases = {
   scripts: './scripts',
   types: './types',
   utils: './utils',
-  '@constants': './config/constants.ts',
+  '@constants': './config/constants',
 };
-
-const extension = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 
 const mappedAliases = Object.keys(aliases).reduce((acc, aliasName) => {
   let aliasPath = aliases[aliasName];
   if (aliasPath.endsWith('.ts')) {
+    const extension = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
     aliasPath = aliasPath.substring(0, aliasPath.length - 3) + extension;
   }
 
