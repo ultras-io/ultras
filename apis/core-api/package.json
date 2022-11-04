@@ -4,7 +4,7 @@
   "description": "The core api for the ultras app",
   "main": "build/index.js",
   "scripts": {
-    "build": "rimraf ./build && NODE_OPTIONS=--max-old-space-size=4096 tsc --rootDir src",
+    "build": "bash ./scripts/build.sh",
     "dev": "nodemon",
     "prod": "NODE_ENV=production pm2 start build/api/index.js --env production --name ultras-api",
     "test": "echo Error: no test specified && exit 1",
