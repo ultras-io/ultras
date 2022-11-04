@@ -1,10 +1,9 @@
 import {
   FanClubViewModel,
-  FanClubSDK,
-  ResourceIdentifier,
   GetFanClubsFilter,
   FanClubCreateType,
 } from '@ultras/core-api-sdk';
+import { buildFanClubSDK } from 'stores/sdkBuilder/sdkBuilder';
 
 import {
   Filterable,
@@ -22,7 +21,7 @@ type TDeleteEvent = {
   eventId: ResourceIdentifier;
 };
 
-const sdk = new FanClubSDK('dev');
+const sdk = buildFanClubSDK();
 
 const buildFanClubsStore = <TScheme = IDataType>(
   params: Partial<ParamType<TScheme>> = {}

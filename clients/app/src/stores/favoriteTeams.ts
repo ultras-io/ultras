@@ -1,9 +1,4 @@
-import {
-  FavoriteTeamSDK,
-  // ResourceIdentifier,
-  GetFavoriteTeamsFilter,
-  TeamViewModel,
-} from '@ultras/core-api-sdk';
+import { GetFavoriteTeamsFilter, TeamViewModel } from '@ultras/core-api-sdk';
 
 import {
   Filterable,
@@ -11,6 +6,7 @@ import {
   generateCRUD,
   IInitStoreParams,
 } from './generateCRUD';
+import { buildFavoriteTeamSDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<TeamViewModel, TScheme>;
 type FilterType = Filterable<GetFavoriteTeamsFilter>;
@@ -23,7 +19,7 @@ type TDeleteFavoriteTeam = {
   teamId?: ResourceIdentifier;
 };
 
-const sdk = new FavoriteTeamSDK('dev');
+const sdk = buildFavoriteTeamSDK();
 
 const buildFavoriteTeamsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

@@ -1,5 +1,6 @@
-import { EventMemberViewModel, EventMemberSDK } from '@ultras/core-api-sdk';
+import { EventMemberViewModel } from '@ultras/core-api-sdk';
 import { generateCRUD } from '../generateCRUD';
+import { buildEventMemberSDK } from 'stores/sdkBuilder/sdkBuilder';
 
 import type {
   FilterType,
@@ -9,7 +10,7 @@ import type {
   TDeleteEventMember,
 } from './types';
 
-const sdk = new EventMemberSDK('dev');
+const sdk = buildEventMemberSDK();
 
 const buildEventMembersStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<

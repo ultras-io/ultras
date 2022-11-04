@@ -1,6 +1,5 @@
 import {
   CountryViewModel,
-  CountrySDK,
   GetCountriesFilter,
   ResourceIdentifier,
 } from '@ultras/core-api-sdk';
@@ -11,11 +10,12 @@ import {
   IInitStoreParams,
 } from './generateCRUD';
 import { OrderEnum } from '@ultras/utils';
+import { buildCountrySDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<CountryViewModel, TScheme>;
 type FilterType = Filterable<GetCountriesFilter>;
 
-const sdk = new CountrySDK('dev');
+const sdk = buildCountrySDK();
 
 const buildCountriesStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

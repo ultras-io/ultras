@@ -1,20 +1,16 @@
-import {
-  RoomViewModel,
-  RoomSDK,
-  ResourceIdentifier,
-  GetRoomsFilter,
-} from '@ultras/core-api-sdk';
+import { RoomViewModel, GetRoomsFilter } from '@ultras/core-api-sdk';
 import {
   Filterable,
   FullFilterable,
   generateCRUD,
   IInitStoreParams,
 } from './generateCRUD';
+import { buildRoomSDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<RoomViewModel, TScheme>;
 type FilterType = Filterable<GetRoomsFilter>;
 
-const sdk = new RoomSDK('dev');
+const sdk = buildRoomSDK();
 
 const buildRoomsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

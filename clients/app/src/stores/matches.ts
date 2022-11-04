@@ -1,21 +1,16 @@
-import {
-  MatchViewModel,
-  MatchSDK,
-  ResourceIdentifier,
-  GetMatchesFilter,
-} from '@ultras/core-api-sdk';
-
+import { MatchViewModel, GetMatchesFilter } from '@ultras/core-api-sdk';
 import {
   Filterable,
   FullFilterable,
   generateCRUD,
   IInitStoreParams,
 } from './generateCRUD';
+import { buildMatchSDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<MatchViewModel, TScheme>;
 type FilterType = Filterable<GetMatchesFilter>;
 
-const sdk = new MatchSDK('dev');
+const sdk = buildMatchSDK();
 
 const buildMatchesStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

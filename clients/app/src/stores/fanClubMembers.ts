@@ -1,7 +1,5 @@
 import {
   FanClubMemberViewModel,
-  FanClubMembershipSDK,
-  // ResourceIdentifier,
   GetFanClubMembershipsFilter,
 } from '@ultras/core-api-sdk';
 
@@ -11,6 +9,7 @@ import {
   generateCRUD,
   IInitStoreParams,
 } from './generateCRUD';
+import { buildFanClubMembershipSDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<FanClubMemberViewModel, TScheme>;
 type FilterType = Filterable<GetFanClubMembershipsFilter>;
@@ -30,7 +29,7 @@ interface LoadAllParams extends FullFilterable<GetFanClubMembershipsFilter> {
   fanClubId: number;
 }
 
-const sdk = new FanClubMembershipSDK('dev');
+const sdk = buildFanClubMembershipSDK();
 
 const buildFanClubMembersStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

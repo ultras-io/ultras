@@ -1,10 +1,5 @@
-import {
-  EventViewModel,
-  EventSDK,
-  ResourceIdentifier,
-  GetEventsFilter,
-  CreateEventType,
-} from '@ultras/core-api-sdk';
+import { EventViewModel, GetEventsFilter, CreateEventType } from '@ultras/core-api-sdk';
+import { buildEventSDK } from 'stores/sdkBuilder/sdkBuilder';
 
 import {
   Filterable,
@@ -22,7 +17,7 @@ type TDeleteEvent = {
   eventId: ResourceIdentifier;
 };
 
-const sdk = new EventSDK('dev');
+const sdk = buildEventSDK();
 
 const buildEventsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

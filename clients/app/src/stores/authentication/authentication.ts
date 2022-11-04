@@ -2,12 +2,13 @@ import create from 'zustand';
 import { UserSDK } from '@ultras/core-api-sdk';
 import StorageService from 'services/storage/storageService';
 import { IState, IProps } from './types';
+import { buildUserSDK } from 'stores/sdkBuilder/sdkBuilder';
 
 UserSDK.onTokenUpdate((token: string) => {
   StorageService.setAuthToken(token);
 });
 
-const sdk = new UserSDK('dev');
+const sdk = buildUserSDK();
 
 let authenticationStore: any;
 
