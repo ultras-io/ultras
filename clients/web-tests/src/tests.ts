@@ -17,7 +17,7 @@ import { runTest as testSdkAwsS3 } from './lib-tests/sdk-awsS3';
 import { runTest as testSdkEvent } from './lib-tests/sdk-event';
 import { runTest as testSdkRoom } from './lib-tests/sdk-room';
 import { runTest as testSdkUser } from './lib-tests/sdk-user';
-import { runTest as testSdkLike } from './lib-tests/sdk-likes';
+import { runTest as testSdkCatch } from './lib-tests/sdk-catches';
 import { runTest as testSdkComment } from './lib-tests/sdk-comments';
 
 const tests = {
@@ -40,7 +40,7 @@ const tests = {
   testSdkEvent,
   testSdkRoom,
   testSdkUser,
-  testSdkLike,
+  testSdkCatch,
   testSdkComment,
 };
 

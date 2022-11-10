@@ -423,7 +423,7 @@ class UserController extends BaseController {
     const result: UserAndTeams = {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      ...user.dataValues,
+      ...(user.dataValues as User),
       teams: favoriteTeams,
     };
 

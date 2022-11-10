@@ -1,7 +1,7 @@
 import React from 'react';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import Container from 'views/components/base/Container';
-import Like from 'views/components/base/Like';
+import Catch from 'views/components/base/Catch';
 import { IMatchProps } from './types';
 
 const MatchContainer = React.lazy(() => import('./containers/MatchContainer'));
@@ -12,7 +12,7 @@ const Match: React.FC<IMatchProps> = ({ route }) => {
 
   React.useLayoutEffect(() => {
     setOptions({
-      headerRight: () => <Like isLiked onPress={() => {}} />,
+      headerRight: () => <Catch isCaught onPress={() => {}} />,
     });
   }, [setOptions]);
 

@@ -24,7 +24,7 @@ const UIKit = () => {
           <Text variant={'cardInfo'}>
             Public Event by G. Brzęczyszczykiewicz, ForzaAzzurri
           </Text>
-          <Text variant={'like'}>234</Text>
+          <Text variant={'catch'}>234</Text>
           <Text variant={'matchLeagueInvert'}>Italy. Serie A</Text>
           <Text variant={'matchDateInvert'}>06 JUN</Text>
           <Text variant={'matchTimeInvert'}>23:45</Text>

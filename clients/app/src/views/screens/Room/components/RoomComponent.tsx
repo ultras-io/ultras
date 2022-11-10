@@ -102,7 +102,7 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
         >
           {I18n.t('rooms-subscribe')}
         </Button>
-        <Icon name={Icons.Like} color={'iconPrimary'} size={'ic-md'} />
+        <Icon name={Icons.Catch} color={'iconPrimary'} size={'ic-md'} />
       </HStack>
 
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={5} />

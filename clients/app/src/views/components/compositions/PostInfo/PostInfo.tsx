@@ -8,7 +8,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import UltrasText from 'views/components/base/UltrasText';
-import Like from 'views/components/base/Like';
+import Catch from 'views/components/base/Catch';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import { PostInfoProps } from '../PostCard';
@@ -23,8 +23,8 @@ const PostInfo: React.FC<PostInfoProps> = ({
   creator,
   supportersClub,
   commentsCount,
-  isLiked,
-  likeCount,
+  isCaught,
+  catchesCount,
 }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();

@@ -1,15 +1,17 @@
 {
+  "version": "independent",
+  "loglevel": "error",
+  "npmClient": "yarn",
+  "npmClientArgs": [
+    "--no-package-lock",
+    "--no-lockfile",
+    "--network-timeout 100000"
+  ],
   "packages": [
     "packages/*",
     "clients/*",
     "apis/*",
     "sdks/*",
     "view-models/*"
-  ],
-  "version": "independent",
-  "npmClient": "yarn",
-  "npmClientArgs": [
-    "--no-lockfile",
-    "--network-timeout 100000"
   ]
 }

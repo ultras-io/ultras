@@ -7,7 +7,7 @@ import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
 import Icon from 'views/components/base/Icon';
 import CommentsCount from 'views/components/base/CommentsCount';
-import Like from 'views/components/base/Like';
+import Catch from 'views/components/base/Catch';
 import { Icons } from 'assets/icons';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 
@@ -21,8 +21,8 @@ const PostCard: React.FC<IPostCardProps> = ({
   creator,
   supportersClub,
   commentsCount,
-  isLiked,
-  likeCount,
+  isCaught,
+  catchesCount,
   onPress,
 }) => {
   return (
@@ -46,7 +46,7 @@ const PostCard: React.FC<IPostCardProps> = ({
           )}
         </View>
         <View style={styles.bottomButtons}>
-          <View style={styles.likeAndComment}>
+          <View style={styles.catchAndComment}>
             <CommentsCount count={commentsCount} />
           </View>
           <View style={styles.arrow}>

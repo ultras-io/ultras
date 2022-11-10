@@ -53,7 +53,7 @@ const MenuActionSheet: React.FC<IMenuActionSheetProps> = ({
           {I18n.t('profile-edit')}
         </Actionsheet.Item>
         <Actionsheet.Item
-          startIcon={<Icon name={Icons.Like} color={'iconPrimary'} size={'ic-md'} />}
+          startIcon={<Icon name={Icons.Catch} color={'iconPrimary'} size={'ic-md'} />}
         >
           Your activity
         </Actionsheet.Item>

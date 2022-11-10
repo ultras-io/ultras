@@ -30,7 +30,7 @@ export interface IMatchesListParams {
 class MatchService extends BaseService {
   protected static includeRelations() {
     // const attributes = [
-    //   // @TODO: write logic to load count of likes and comments
+    //   // @TODO: write logic to load count of catches and comments
     // ];
 
     return {

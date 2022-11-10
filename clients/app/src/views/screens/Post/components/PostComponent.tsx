@@ -16,11 +16,11 @@ const PostComponent: React.FC<IPostComponentProps> = ({ data }) => {
       date={data.date}
       title={data.title}
       content={data.content}
-      likeCount={data.likeCount}
+      catchesCount={data.catchesCount}
       commentsCount={data.commentsCount}
       creator={data.creator}
       supportersClub={data.supportersClub}
-      isLiked={data.isLiked}
+      isCaught={data.isCaught}
     />
   );
 };

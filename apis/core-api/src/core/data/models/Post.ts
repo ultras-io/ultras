@@ -21,7 +21,7 @@ export interface PostAttributes {
   content: Nullable<string>;
   image: Nullable<string>;
   commentsCount: number;
-  likesCount: number;
+  catchesCount: number;
 }
 
 export type PostCreationAttributes = Optional<PostAttributes, 'id'>;
@@ -40,7 +40,7 @@ export class Post
   public content!: Nullable<string>;
   public image!: Nullable<string>;
   public commentsCount!: number;
-  public likesCount!: number;
+  public catchesCount!: number;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -173,7 +173,7 @@ module.exports = (sequelize: Sequelize): typeof Post => {
         allowNull: false,
         defaultValue: 0,
       },
-      likesCount: {
+      catchesCount: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,

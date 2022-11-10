@@ -41,12 +41,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
   },
-  likeAndComment: {
+  catchAndComment: {
     marginRight: 15,
     display: 'flex',
     flexDirection: 'row',
   },
-  like: {
+  catch: {
     marginRight: 15,
   },
   arrow: {

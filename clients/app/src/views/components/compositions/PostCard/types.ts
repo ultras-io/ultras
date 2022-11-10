@@ -5,8 +5,8 @@ export interface IPostCardProps {
   creator: string;
   supportersClub: string;
   commentsCount: number;
-  isLiked: boolean;
-  likeCount: number;
+  isCaught: boolean;
+  catchesCount: number;
   onPress: () => void;
 }
 
