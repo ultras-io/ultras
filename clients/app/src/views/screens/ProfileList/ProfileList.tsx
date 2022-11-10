@@ -18,8 +18,8 @@ const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
         return [buildFanClubMembersStore(), I18n.t('fanClubs-fans')];
       case ProfileListTypeEnum.eventMembers:
         return [buildFanClubMembersStore(), I18n.t('common-going')];
-      case ProfileListTypeEnum.eventLikes:
-        return [buildFanClubMembersStore(), I18n.t('common-likes')];
+      case ProfileListTypeEnum.eventCatch:
+        return [buildFanClubMembersStore(), I18n.t('common-catches')];
     }
   }, [type]);
 

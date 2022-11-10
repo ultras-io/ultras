@@ -61,7 +61,7 @@ class MatchCommentController extends BaseController {
   }
 
   /**
-   * Make match un-liked by user.
+   * Make match uncaught by user.
    */
   static async delete({ userId, matchId, commentId }: ICommentDeleteParams) {
     // get match model

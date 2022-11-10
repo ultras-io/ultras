@@ -61,7 +61,7 @@ class EventCommentController extends BaseController {
   }
 
   /**
-   * Make event un-liked by user.
+   * Make event uncaught by user.
    */
   static async delete({ userId, eventId, commentId }: ICommentDeleteParams) {
     // get event model

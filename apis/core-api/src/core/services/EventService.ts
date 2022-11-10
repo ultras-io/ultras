@@ -190,7 +190,7 @@ class EventService extends BaseService {
         if (params.search) {
           const searchCondition = ['title', 'content'].map(field => ({
             [field]: {
-              [db.Sequelize.Op.iLike]: `%${params.search}%`,
+              [db.Sequelize.Op.iCatch]: `%${params.search}%`,
             },
           }));
 

@@ -154,7 +154,7 @@ class FavoriteTeamService extends BaseService {
         (acc, field) => ({
           ...acc,
           [field]: {
-            [db.Sequelize.Op.iLike]: `${params.search}%`,
+            [db.Sequelize.Op.iCatch]: `${params.search}%`,
           },
         }),
         {}
@@ -219,7 +219,7 @@ class FavoriteTeamService extends BaseService {
 
         const searchCondition = ['name'].map(field => ({
           [field]: {
-            [db.Sequelize.Op.iLike]: `${params.search}%`,
+            [db.Sequelize.Op.iCatch]: `${params.search}%`,
           },
         }));
 
@@ -247,7 +247,7 @@ class FavoriteTeamService extends BaseService {
 
         const searchCondition = ['fullname'].map(field => ({
           [field]: {
-            [db.Sequelize.Op.iLike]: `%${params.search}%`,
+            [db.Sequelize.Op.iCatch]: `%${params.search}%`,
           },
         }));
 

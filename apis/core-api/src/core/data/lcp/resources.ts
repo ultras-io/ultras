@@ -174,11 +174,11 @@ const resources = {
     },
   },
   LIKE: {
-    RELATION: 'Like',
-    MODEL: 'Like',
+    RELATION: 'Catch',
+    MODEL: 'Catch',
     ALIAS: {
-      SINGULAR: 'like',
-      PLURAL: 'likes',
+      SINGULAR: 'catch',
+      PLURAL: 'catches',
     },
   },
   COMMENT: {

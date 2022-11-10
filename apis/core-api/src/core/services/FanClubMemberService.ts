@@ -429,7 +429,7 @@ class FanClubMemberService extends BaseService {
 
         const searchCondition = ['name'].map(field => ({
           [field]: {
-            [db.Sequelize.Op.iLike]: `${params.search}%`,
+            [db.Sequelize.Op.iCatch]: `${params.search}%`,
           },
         }));
 
@@ -464,7 +464,7 @@ class FanClubMemberService extends BaseService {
 
         const searchCondition = ['email', 'fullname', 'username'].map(field => ({
           [field]: {
-            [db.Sequelize.Op.iLike]: `${params.search}%`,
+            [db.Sequelize.Op.iCatch]: `${params.search}%`,
           },
         }));
 

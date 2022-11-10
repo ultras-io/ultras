@@ -15,6 +15,6 @@ export { default as EventPrivacyEnum } from './EventPrivacyEnum';
 export { default as RoomPrivacyEnum } from './RoomPrivacyEnum';
 export { default as AwsS3ErrorEnum } from './AwsS3ErrorEnum';
 export { default as AwsS3FolderEnum } from './AwsS3FolderEnum';
-export { default as LikeTypeEnum } from './LikeTypeEnum';
+export { default as CatchTypeEnum } from './CatchTypeEnum';
 export { default as CommentTypeEnum } from './CommentTypeEnum';
 export { default as UserProfilePrivacyEnum } from './UserProfilePrivacyEnum';
