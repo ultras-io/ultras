@@ -52,7 +52,7 @@ export class RoomSDK extends CoreApiBaseSDK implements ICatchable {
     return this.api?.makeAPIPostRequest(`${roomId}/catches`);
   }
 
-  public nonCatch(roomId: ResourceIdentifier) {
+  public uncatch(roomId: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(`${roomId}/catches`);
   }
 

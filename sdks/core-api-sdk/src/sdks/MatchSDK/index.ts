@@ -44,7 +44,7 @@ export class MatchSDK extends CoreApiBaseSDK implements ICatchable {
     return this.api?.makeAPIPostRequest(`${matchId}/catches`);
   }
 
-  public nonCatch(matchId: ResourceIdentifier) {
+  public uncatch(matchId: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(`${matchId}/catches`);
   }
 

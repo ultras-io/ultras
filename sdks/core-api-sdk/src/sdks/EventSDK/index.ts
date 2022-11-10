@@ -53,7 +53,7 @@ export class EventSDK extends CoreApiBaseSDK implements ICatchable, ICommentable
     return this.api?.makeAPIPostRequest(`${eventId}/catches`);
   }
 
-  public nonCatch(eventId: ResourceIdentifier) {
+  public uncatch(eventId: ResourceIdentifier) {
     return this.api?.makeAPIDeleteRequest(`${eventId}/catches`);
   }
 
