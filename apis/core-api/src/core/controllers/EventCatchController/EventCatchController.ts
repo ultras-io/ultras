@@ -4,13 +4,13 @@ import { EventService, CatchService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import type { CatchListParams, CatchListResult, ICatchNonCatchParams } from './types';
+import type { CatchListParams, CatchListResult, ICatchUncatchParams } from './types';
 
 class EventCatchController extends BaseController {
   /**
    * Make event caught by user.
    */
-  static async create({ userId, eventId }: ICatchNonCatchParams) {
+  static async create({ userId, eventId }: ICatchUncatchParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {
@@ -30,7 +30,7 @@ class EventCatchController extends BaseController {
   /**
    * Make event uncaught by user.
    */
-  static async delete({ userId, eventId }: ICatchNonCatchParams) {
+  static async delete({ userId, eventId }: ICatchUncatchParams) {
     // get event model
     const event = await EventService.getById({ id: eventId }, false);
     if (!event) {
@@ -40,7 +40,7 @@ class EventCatchController extends BaseController {
     }
 
     // non-catch post
-    await CatchService.nonCatch({
+    await CatchService.uncatch({
       resourceType: CatchTypeEnum.post,
       resourceId: event.getDataValue('postId'),
       userId,

@@ -4,13 +4,13 @@ import { RoomService, CatchService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import type { CatchListParams, CatchListResult, ICatchNonCatchParams } from './types';
+import type { CatchListParams, CatchListResult, ICatchUncatchParams } from './types';
 
 class RoomCatchController extends BaseController {
   /**
    * Make room caught by user.
    */
-  static async create({ userId, roomId }: ICatchNonCatchParams) {
+  static async create({ userId, roomId }: ICatchUncatchParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {
@@ -30,7 +30,7 @@ class RoomCatchController extends BaseController {
   /**
    * Make room uncaught by user.
    */
-  static async delete({ userId, roomId }: ICatchNonCatchParams) {
+  static async delete({ userId, roomId }: ICatchUncatchParams) {
     // get room model
     const room = await RoomService.getById({ id: roomId }, false);
     if (!room) {
@@ -40,7 +40,7 @@ class RoomCatchController extends BaseController {
     }
 
     // non-catch post
-    await CatchService.nonCatch({
+    await CatchService.uncatch({
       resourceType: CatchTypeEnum.post,
       resourceId: room.getDataValue('postId'),
       userId,

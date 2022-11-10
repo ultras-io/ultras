@@ -12,7 +12,7 @@ interface ICatchBasicParams {
   resourceId: ResourceIdentifier;
 }
 
-interface ICatchNonCatchParams extends ICatchBasicParams {
+interface ICatchUncatchParams extends ICatchBasicParams {
   userId: ResourceIdentifier;
 }
 
@@ -74,7 +74,7 @@ class CatchService extends BaseService {
   /**
    * Make resource caught by user.
    */
-  static async catch(params: ICatchNonCatchParams, transaction?: Transaction) {
+  static async catch(params: ICatchUncatchParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     await db.Catch.create(
@@ -90,7 +90,7 @@ class CatchService extends BaseService {
   /**
    * Make resource uncaught by user.
    */
-  static async nonCatch(params: ICatchNonCatchParams, transaction?: Transaction) {
+  static async uncatch(params: ICatchUncatchParams, transaction?: Transaction) {
     const { fieldId } = this.getFieldsByType(params.resourceType);
 
     await db.Catch.destroy(

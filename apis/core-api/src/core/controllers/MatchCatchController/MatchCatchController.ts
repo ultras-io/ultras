@@ -4,13 +4,13 @@ import { MatchService, CatchService } from 'core/services';
 import { ResourceNotFoundError } from 'modules/exceptions';
 
 import { DEFAULT_PAGINATION_ATTRIBUTES } from '@constants';
-import type { CatchListParams, CatchListResult, ICatchNonCatchParams } from './types';
+import type { CatchListParams, CatchListResult, ICatchUncatchParams } from './types';
 
 class MatchCatchController extends BaseController {
   /**
    * Make match caught by user.
    */
-  static async create({ userId, matchId }: ICatchNonCatchParams) {
+  static async create({ userId, matchId }: ICatchUncatchParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {
@@ -30,7 +30,7 @@ class MatchCatchController extends BaseController {
   /**
    * Make match uncaught by user.
    */
-  static async delete({ userId, matchId }: ICatchNonCatchParams) {
+  static async delete({ userId, matchId }: ICatchUncatchParams) {
     // get match model
     const match = await MatchService.getById(matchId);
     if (!match) {
@@ -40,7 +40,7 @@ class MatchCatchController extends BaseController {
     }
 
     // non-catch match
-    await CatchService.nonCatch({
+    await CatchService.uncatch({
       resourceType: CatchTypeEnum.match,
       resourceId: matchId,
       userId,

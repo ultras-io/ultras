@@ -5,7 +5,7 @@ export interface ICatchFilter {
   matchId: ResourceIdentifier;
 }
 
-export interface ICatchNonCatchParams {
+export interface ICatchUncatchParams {
   userId: ResourceIdentifier;
   matchId: ResourceIdentifier;
 }

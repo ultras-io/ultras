@@ -5,7 +5,7 @@ export interface ICatchFilter {
   roomId: ResourceIdentifier;
 }
 
-export interface ICatchNonCatchParams {
+export interface ICatchUncatchParams {
   userId: ResourceIdentifier;
   roomId: ResourceIdentifier;
 }
