@@ -53,7 +53,7 @@ class VenueService extends BaseService {
 
     if (params.name) {
       this.queryAppend(query, 'name', {
-        [db.Sequelize.Op.iCatch]: `${params.name}%`,
+        [db.Sequelize.Op.iLike]: `${params.name}%`,
       });
     }
 

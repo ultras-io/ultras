@@ -113,7 +113,7 @@ class PostMemberService extends BaseService {
 
       const searchCondition = ['email', 'username', 'fullname'].map(field => ({
         [field]: {
-          [db.Sequelize.Op.iCatch]: `%${params.search}%`,
+          [db.Sequelize.Op.iLike]: `%${params.search}%`,
         },
       }));
 
