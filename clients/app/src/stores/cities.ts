@@ -1,20 +1,16 @@
-import {
-  CityViewModel,
-  CitySDK,
-  ResourceIdentifier,
-  GetCitiesFilter,
-} from '@ultras/core-api-sdk';
+import { CityViewModel, ResourceIdentifier, GetCitiesFilter } from '@ultras/core-api-sdk';
 import {
   Filterable,
   FullFilterable,
   generateCRUD,
   IInitStoreParams,
 } from './generateCRUD';
+import { buildCitySDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<CityViewModel, TScheme>;
 type FilterType = Filterable<GetCitiesFilter>;
 
-const sdk = new CitySDK('dev');
+const sdk = buildCitySDK();
 
 const buildCitiesStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

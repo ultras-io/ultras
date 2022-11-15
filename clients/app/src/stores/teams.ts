@@ -1,20 +1,16 @@
-import {
-  TeamViewModel,
-  TeamSDK,
-  ResourceIdentifier,
-  GetTeamsFilter,
-} from '@ultras/core-api-sdk';
+import { TeamViewModel, GetTeamsFilter } from '@ultras/core-api-sdk';
 import {
   Filterable,
   FullFilterable,
   generateCRUD,
   IInitStoreParams,
 } from './generateCRUD';
+import { buildTeamSDK } from './sdkBuilder/sdkBuilder';
 
 type ParamType<TScheme> = IInitStoreParams<TeamViewModel, TScheme>;
 type FilterType = Filterable<GetTeamsFilter>;
 
-const sdk = new TeamSDK('dev');
+const sdk = buildTeamSDK();
 
 const buildTeamsStore = <TScheme>(params: Partial<ParamType<TScheme>> = {}) => {
   return generateCRUD<

@@ -1,9 +1,9 @@
 import create from 'zustand';
 import produce from 'immer';
-import { UserSDK } from '@ultras/core-api-sdk';
 import { IState, IProps } from './types';
+import { buildUserSDK } from 'stores/sdkBuilder/sdkBuilder';
 
-const sdk = new UserSDK('dev');
+const sdk = buildUserSDK();
 
 let registrationStore: any;
 
