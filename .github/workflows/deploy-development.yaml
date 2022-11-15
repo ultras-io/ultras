@@ -1,16 +1,15 @@
 name: Deploy Development
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflow/**'
-      - 'apis/core-api/**'
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - '.github/workflow/**'
+  #     - 'apis/core-api/**'
   pull_request:
     branches:
       - main
-    types: 
-      - synchronize
+    types:
       - closed
     paths:
       - '.github/workflow/**'
@@ -33,7 +32,8 @@ jobs:
           username: ${{ secrets.SSH_DEV_USERNAME }}
           key: ${{ secrets.SSH_DEV_SSH_KEY }}
           script: |
-            cd /var/www/ultras/apis/core-api && \
+            source "$HOME/.profile" && \
+              cd /var/www/ultras/apis/core-api && \
               git reset --hard && \
               git pull origin main && \
               bash ./scripts/build.sh && \
