@@ -1,6 +1,6 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import ICommentable from '../ICommentable';
-import ILikeable from '../ILikeable';
+import ICatchable from '../ICatchable';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetEventsFilter,
@@ -14,7 +14,7 @@ import type {
 
 export * from './types';
 
-export class EventSDK extends CoreApiBaseSDK implements ILikeable, ICommentable {
+export class EventSDK extends CoreApiBaseSDK implements ICatchable, ICommentable {
   constructor(mode?: Mode) {
     super(mode, 'events');
   }
@@ -45,16 +45,16 @@ export class EventSDK extends CoreApiBaseSDK implements ILikeable, ICommentable 
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getLikes(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${eventId}/likes`);
+  public getCatch(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${eventId}/catches`);
   }
 
-  public like(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIPostRequest(`${eventId}/likes`);
+  public catch(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${eventId}/catches`);
   }
 
-  public unlike(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIDeleteRequest(`${eventId}/likes`);
+  public uncatch(eventId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${eventId}/catches`);
   }
 
   public getComments(eventId: ResourceIdentifier) {

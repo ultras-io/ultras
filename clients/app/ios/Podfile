@@ -22,7 +22,7 @@ target 'ultras' do
     }),
   )
 
-  target 'appTests' do
+  target 'ultrasTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -36,7 +36,7 @@ target 'ultras' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
 
     installer.pods_project.targets.each do |target|
-      if target.name == 'Pods-ecitizen'
+      if target.name == 'Pods-ultras'
         target.build_configurations.each do |config|
           config.build_settings['OTHER_CPLUSPLUSFLAGS'] = app_compiler_falgs
         end

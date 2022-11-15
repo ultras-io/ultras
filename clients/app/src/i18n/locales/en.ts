@@ -15,7 +15,7 @@ export default {
   'common-discover': 'Discover',
   'common-viewAll': 'View All',
   'common-privacy': 'Privacy Policy',
-  'common-likes': 'likes',
+  'common-catches': 'catches',
   'common-going': 'Going',
   'common-search': 'Search',
   'common-about': 'About',

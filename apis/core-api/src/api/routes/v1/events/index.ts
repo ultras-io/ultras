@@ -5,7 +5,7 @@ import ControllerAdapter from './ControllerAdapter';
 import hasEventAccess from './middlewares/hasEventAccess';
 
 import members from './members';
-import likes from './likes';
+import catches from './catches';
 import comments from './comments';
 
 const auth = [parseAuthToken(), checkUserAuth()];
@@ -21,7 +21,7 @@ router.put('/:id', ...auth, hasEventAccess(true), ControllerAdapter.update);
 router.delete('/:id', ...auth, hasEventAccess(true), ControllerAdapter.delete);
 
 router.use(members.routes());
-router.use(likes.routes());
+router.use(catches.routes());
 router.use(comments.routes());
 
 export default router;

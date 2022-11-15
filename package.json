@@ -2,7 +2,7 @@
   "name": "@ultras/root",
   "private": true,
   "scripts": {
-    "link-all": "lerna bootstrap",
+    "link-all": "lerna bootstrap --loglevel error",
     "version-up": "lerna version --conventional-commits --yes",
     "postinstall": "npx husky install"
   },

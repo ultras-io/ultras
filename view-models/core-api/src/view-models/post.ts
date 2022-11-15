@@ -12,7 +12,7 @@ export type PostViewModel = ViewModel<{
   title: string;
   content: string;
   image: Nullable<string>;
-  likesCount: number;
+  catchesCount: number;
   commentsCount: number;
   joined?: boolean;
 }>;

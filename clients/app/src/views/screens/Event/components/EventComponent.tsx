@@ -159,7 +159,7 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
         >
           {I18n.t(isJoined ? 'events-going' : 'events-join')}
         </Button>
-        <Icon name={Icons.Like} color={'iconPrimary'} size={'ic-md'} />
+        <Icon name={Icons.Catch} color={'iconPrimary'} size={'ic-md'} />
         <Icon name={Icons.Comments} color={'iconPrimary'} size={'ic-md'} />
       </HStack>
 

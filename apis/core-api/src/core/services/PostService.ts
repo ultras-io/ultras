@@ -28,7 +28,7 @@ export interface IUpdateParams {
 class PostService extends BaseService {
   protected static includeRelations(args: any = {}) {
     const attributes = [
-      // @TODO: write logic to load count of likes and comments
+      // @TODO: write logic to load count of catches and comments
     ];
 
     if (args.userId) {
@@ -89,7 +89,7 @@ class PostService extends BaseService {
       fanClubId: fanClubId || null,
       title,
       content,
-      likesCount: 0,
+      catchesCount: 0,
       commentsCount: 0,
     };
 

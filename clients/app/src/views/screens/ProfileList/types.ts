@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 
 export enum ProfileListTypeEnum {
   fanClubMembers = 'fan-club-members',
-  eventLikes = 'event-likes',
+  eventCatch = 'event-catches',
   eventMembers = 'event-members',
 }
 

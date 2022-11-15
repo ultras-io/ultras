@@ -1,13 +1,13 @@
 import { redisConfig } from 'config';
-import ioredis from 'ioredis';
+import ioredis, { Redis } from 'ioredis';
 
 class RedisService {
-  private static instance: ioredis.Redis | null = null;
+  private static instance: Redis | null = null;
 
   /**
    * Get ioredis instance.
    */
-  static getInstance(): ioredis.Redis {
+  static getInstance(): Redis {
     if (!this.instance) {
       this.instance = new ioredis(redisConfig);
     }

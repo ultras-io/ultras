@@ -169,7 +169,7 @@ export default {
         },
       };
     },
-    like: ({ colorMode }: ComponentParams) => {
+    catch: ({ colorMode }: ComponentParams) => {
       return {
         fontSize: 'xs',
         fontWeight: 700,

@@ -1,6 +1,6 @@
-import { FanClubsViewModel, TeamsViewModel, UserViewModel } from '@ultras/view-models';
+import { FanClubsViewModel, TeamsViewModel } from '@ultras/view-models';
 import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
-import { User } from 'core/data/models/User';
+import { UserAttributes } from 'core/data/models/User';
 import { VerificationCodeAttributes } from 'core/data/models/VerificationCode';
 import { ControllerResultType, ResourceIdentifier } from 'types';
 
@@ -113,14 +113,14 @@ export type ProfileParams = {
 };
 
 export type ProfileResult = ControllerResultType<
-  User & {
+  UserAttributes & {
     fanClubs: FanClubsViewModel;
     teams: TeamsViewModel;
   }
 >;
 
 export type UserAndTeams = Nullable<
-  User & {
+  UserAttributes & {
     teams: Array<ResourceIdentifier>;
   }
 >;

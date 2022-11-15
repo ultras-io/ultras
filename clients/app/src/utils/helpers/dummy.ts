@@ -326,9 +326,9 @@ export const generateEvent = () => {
     location: 'Paulaner ' + generateCountry(),
     commentsCount: parseInt(Math.random() * (4466 - 1) + 16),
     goingCount: parseInt(Math.random() * (2466 - 1) + 1),
-    likeCount: parseInt(Math.random() * (477466 - 1) + 146),
+    catchesCount: parseInt(Math.random() * (477466 - 1) + 146),
     isGoing: Math.random() > 0.5,
-    isLiked: Math.random() > 0.5,
+    isCaught: Math.random() > 0.5,
   };
 };
 
@@ -354,8 +354,8 @@ export const generatePost = () => {
     creator: 'armando.broja',
     supportersClub: 'generatefortersClubName()',
     commentsCount: parseInt(Math.random() * (4466 - 1) + 16),
-    likeCount: parseInt(Math.random() * (477466 - 1) + 146),
-    isLiked: Math.random() > 0.5,
+    catchesCount: parseInt(Math.random() * (477466 - 1) + 146),
+    isCaught: Math.random() > 0.5,
   };
 };
 

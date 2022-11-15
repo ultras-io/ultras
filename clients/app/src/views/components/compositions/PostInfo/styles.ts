@@ -51,7 +51,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
   },
-  like: {
+  catch: {
     marginRight: 15,
   },
   commentsText: {

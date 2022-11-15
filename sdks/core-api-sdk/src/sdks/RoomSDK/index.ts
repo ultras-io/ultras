@@ -1,5 +1,5 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import ILikeable from '../ILikeable';
+import ICatchable from '../ICatchable';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetRoomsFilter,
@@ -13,7 +13,7 @@ import type {
 
 export * from './types';
 
-export class RoomSDK extends CoreApiBaseSDK implements ILikeable {
+export class RoomSDK extends CoreApiBaseSDK implements ICatchable {
   constructor(mode?: Mode) {
     super(mode, 'rooms');
   }
@@ -44,16 +44,16 @@ export class RoomSDK extends CoreApiBaseSDK implements ILikeable {
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getLikes(roomId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${roomId}/likes`);
+  public getCatch(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${roomId}/catches`);
   }
 
-  public like(roomId: ResourceIdentifier) {
-    return this.api?.makeAPIPostRequest(`${roomId}/likes`);
+  public catch(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${roomId}/catches`);
   }
 
-  public unlike(roomId: ResourceIdentifier) {
-    return this.api?.makeAPIDeleteRequest(`${roomId}/likes`);
+  public uncatch(roomId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${roomId}/catches`);
   }
 
   public getComments(roomId: ResourceIdentifier) {

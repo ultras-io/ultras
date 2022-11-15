@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import ControllerAdapter from './ControllerAdapter';
 
-import likes from './likes';
+import catches from './catches';
 import comments from './comments';
 
 const router = new Router({
@@ -13,7 +13,7 @@ router.post('/inject/date/:date', ControllerAdapter.injectByDate);
 router.post('/inject/season/:season', ControllerAdapter.injectBySeason);
 router.get('/:id', ControllerAdapter.getById);
 
-router.use(likes.routes());
+router.use(catches.routes());
 router.use(comments.routes());
 
 export default router;

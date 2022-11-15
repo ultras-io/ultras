@@ -61,7 +61,7 @@ class RoomCommentController extends BaseController {
   }
 
   /**
-   * Make room un-liked by user.
+   * Make room uncaught by user.
    */
   static async delete({ userId, roomId, commentId }: ICommentDeleteParams) {
     // get room model

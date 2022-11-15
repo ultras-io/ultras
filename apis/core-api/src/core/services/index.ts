@@ -19,5 +19,5 @@ export { default as RoomService } from './RoomService';
 export { default as LocationService } from './LocationService';
 export { default as PostMemberService } from './PostMemberService';
 export { default as RedisService } from './RedisService';
-export { default as LikeService } from './LikeService';
+export { default as CatchService } from './CatchService';
 export { default as CommentService } from './CommentService';

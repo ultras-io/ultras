@@ -1,13 +1,13 @@
 import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
-import ILikeable from '../ILikeable';
+import ICatchable from '../ICatchable';
 import type { QueryParam, ResourceIdentifier } from '../types';
 import type { GetMatchesFilter, GetMatchesResponse, GetMatchResponse } from './types';
 
 export * from './types';
 
-export class MatchSDK extends CoreApiBaseSDK implements ILikeable {
+export class MatchSDK extends CoreApiBaseSDK implements ICatchable {
   constructor(mode?: Mode) {
     super(mode, 'matches');
   }
@@ -36,16 +36,16 @@ export class MatchSDK extends CoreApiBaseSDK implements ILikeable {
     return this.api?.makeAPIGetRequest<GetMatchResponse>(id.toString());
   }
 
-  public getLikes(matchId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${matchId}/likes`);
+  public getCatch(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIGetRequest(`${matchId}/catches`);
   }
 
-  public like(matchId: ResourceIdentifier) {
-    return this.api?.makeAPIPostRequest(`${matchId}/likes`);
+  public catch(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIPostRequest(`${matchId}/catches`);
   }
 
-  public unlike(matchId: ResourceIdentifier) {
-    return this.api?.makeAPIDeleteRequest(`${matchId}/likes`);
+  public uncatch(matchId: ResourceIdentifier) {
+    return this.api?.makeAPIDeleteRequest(`${matchId}/catches`);
   }
 
   public getComments(matchId: ResourceIdentifier) {
