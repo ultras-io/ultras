@@ -1,0 +1,40 @@
+name: Deploy Development
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflow/**'
+      - 'apis/core-api/**'
+  pull_request:
+    branches:
+      - main
+    types: 
+      - synchronize
+      - closed
+    paths:
+      - '.github/workflow/**'
+      - 'apis/core-api/**'
+
+jobs:
+  deploy_development:
+    if:
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on Server [dev]
+        uses: appleboy/ssh-action@v0.1.5
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          host: ${{ secrets.SSH_DEV_HOSTNAME }}
+          username: ${{ secrets.SSH_DEV_USERNAME }}
+          key: ${{ secrets.SSH_DEV_SSH_KEY }}
+          script: |
+            cd /var/www/ultras/apis/core-api && \
+              git reset --hard && \
+              git pull origin main && \
+              bash ./scripts/build.sh && \
+              git reset --hard
