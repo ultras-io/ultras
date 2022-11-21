@@ -17,7 +17,7 @@ import {
   ServiceResultType,
 } from 'types';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import FanClubService from './FanClubService';
 
 interface IMembership {
@@ -65,27 +65,40 @@ interface IUpdateRoleStatus {
   status?: FanClubMemberStatusEnum;
 }
 
+export const defaultRelations: RelationGroupType = ['fanClub', 'member', 'role'];
+
 class FanClubMemberService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'fanClub')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        fanClub: ['city', 'country', 'team', 'owner'],
+      });
+
+      includeRelations.push({
+        model: db.FanClub,
+        as: resources.FAN_CLUB.ALIAS.SINGULAR,
+        ...FanClubService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'member')) {
+      includeRelations.push({
+        model: db.User,
+        as: 'member',
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'role')) {
+      includeRelations.push({
+        model: db.FanClubMemberRole,
+        as: resources.FAN_CLUB_MEMBER_ROLE.ALIAS.SINGULAR,
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['fanClubId', 'memberId', 'roleId'],
-      },
-      include: [
-        {
-          model: db.FanClub,
-          as: resources.FAN_CLUB.ALIAS.SINGULAR,
-          ...FanClubService.getIncludeRelations(),
-        },
-        {
-          model: db.User,
-          as: 'member',
-        },
-        {
-          model: db.FanClubMemberRole,
-          as: resources.FAN_CLUB_MEMBER_ROLE.ALIAS.SINGULAR,
-        },
-      ],
+      include: includeRelations,
     };
   }
 

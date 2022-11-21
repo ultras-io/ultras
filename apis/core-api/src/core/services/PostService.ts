@@ -5,7 +5,7 @@ import db from 'core/data/models';
 import { PostTypeEnum } from '@ultras/utils';
 import { PostCreationAttributes } from 'core/data/models/Post';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import FanClubService from './FanClubService';
 import MatchService from './MatchService';
 
@@ -25,8 +25,42 @@ export interface IUpdateParams {
   content: string;
 }
 
+export const defaultRelations: RelationGroupType = ['fanClub', 'match', 'author'];
+
 class PostService extends BaseService {
-  protected static includeRelations(args: any = {}) {
+  protected static includeRelations(
+    relations: RelationGroupType = defaultRelations,
+    args: any = {}
+  ) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'fanClub')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        fanClub: ['city', 'country', 'team', 'owner'],
+      });
+
+      includeRelations.push({
+        model: db.FanClub,
+        as: resources.FAN_CLUB.ALIAS.SINGULAR,
+        ...FanClubService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'match')) {
+      includeRelations.push({
+        model: db.Match,
+        as: resources.MATCH.ALIAS.SINGULAR,
+        ...MatchService.getIncludeRelations(),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'author')) {
+      includeRelations.push({
+        model: db.User,
+        as: 'author',
+      });
+    }
+
     const attributes = [
       // @TODO: write logic to load count of catches and comments
     ];
@@ -51,26 +85,10 @@ class PostService extends BaseService {
     }
 
     return {
+      include: includeRelations,
       attributes: {
-        // exclude: ['fanClubId', 'matchId', 'authorId'],
         include: attributes,
       },
-      include: [
-        {
-          model: db.FanClub,
-          as: resources.FAN_CLUB.ALIAS.SINGULAR,
-          ...FanClubService.getIncludeRelations(),
-        },
-        {
-          model: db.Match,
-          as: resources.MATCH.ALIAS.SINGULAR,
-          ...MatchService.getIncludeRelations(),
-        },
-        {
-          model: db.User,
-          as: 'author',
-        },
-      ],
     };
   }
 

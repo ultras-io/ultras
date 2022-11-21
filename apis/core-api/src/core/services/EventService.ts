@@ -14,7 +14,7 @@ import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { EventCreationAttributes } from 'core/data/models/Event';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import LocationService from './LocationService';
 import PostService from './PostService';
 import FanClubMemberService from './FanClubMemberService';
@@ -52,24 +52,46 @@ export interface IUpdateParams {
   locationId: ResourceIdentifier;
 }
 
+export const defaultRelations = [
+  'post',
+  'post.fanClub',
+  'post.match',
+  'post.match.league',
+  'post.match.team',
+  'post.match.venue',
+  'post.author',
+  'location',
+];
+
 class EventService extends BaseService {
-  protected static includeRelations(args: any = {}) {
+  protected static includeRelations(
+    relations: RelationGroupType = defaultRelations,
+    args: any = {}
+  ) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'post')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        post: ['fanClub', 'match', 'author'],
+      });
+
+      includeRelations.push({
+        model: db.Post,
+        as: resources.POST.ALIAS.SINGULAR,
+        ...PostService.getIncludeRelations(relationsHierarchy, { userId: args.userId }),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'location')) {
+      includeRelations.push({
+        model: db.Location,
+        as: resources.LOCATION.ALIAS.SINGULAR,
+        ...LocationService.getIncludeRelations(),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['postId'],
-      },
-      include: [
-        {
-          model: db.Post,
-          as: resources.POST.ALIAS.SINGULAR,
-          ...PostService.getIncludeRelations({ userId: args.userId }),
-        },
-        {
-          model: db.Location,
-          as: resources.LOCATION.ALIAS.SINGULAR,
-          ...LocationService.getIncludeRelations(),
-        },
-      ],
+      include: includeRelations,
     };
   }
 
@@ -128,7 +150,7 @@ class EventService extends BaseService {
     const queryOptions: any = {
       limit: params.limit,
       offset: params.offset,
-      ...this.includeRelations({ userId: params.userId }),
+      ...this.includeRelations(defaultRelations, { userId: params.userId }),
     };
 
     // hide match and/or fanClub nested relations
@@ -299,7 +321,9 @@ class EventService extends BaseService {
       where: {
         id: params.id,
       },
-      ...(withIncludes ? this.includeRelations({ userId: params.userId }) : {}),
+      ...(withIncludes
+        ? this.includeRelations(defaultRelations, { userId: params.userId })
+        : {}),
     });
 
     return event;

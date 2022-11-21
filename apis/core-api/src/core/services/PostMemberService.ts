@@ -9,7 +9,7 @@ import { ServiceListParamsType } from 'types';
 import PostService from './PostService';
 import UserService from './UserService';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 
 export interface ICreateParams {
   userId: ResourceIdentifier;
@@ -31,24 +31,34 @@ export interface IDeleteParams {
   postId: ResourceIdentifier;
 }
 
+export const defaultRelations: RelationGroupType = ['post', 'user'];
+
 class PostMemberService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'post')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        post: ['fanClub', 'match', 'author'],
+      });
+
+      includeRelations.push({
+        model: db.Post,
+        as: resources.POST.ALIAS.SINGULAR,
+        ...PostService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'user')) {
+      includeRelations.push({
+        model: db.User,
+        as: resources.USER.ALIAS.SINGULAR,
+        ...UserService.getIncludeRelations(),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['postId', 'userId'],
-      },
-      include: [
-        {
-          model: db.Post,
-          as: resources.POST.ALIAS.SINGULAR,
-          ...PostService.getIncludeRelations(),
-        },
-        {
-          model: db.User,
-          as: resources.USER.ALIAS.SINGULAR,
-          ...UserService.getIncludeRelations(),
-        },
-      ],
+      include: includeRelations,
     };
   }
 

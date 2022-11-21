@@ -9,7 +9,7 @@ import type {
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 
 interface ICommentBasicParams {
   resourceType: CommentTypeEnum;
@@ -36,19 +36,25 @@ interface IFieldsByType {
   model: any;
 }
 
+export const defaultRelations: RelationGroupType = ['user'];
+
 class CommentService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'user')) {
+      includeRelations.push({
+        required: true,
+        as: resources.USER.ALIAS.SINGULAR,
+        model: db.User,
+      });
+    }
+
     return {
+      include: includeRelations,
       attributes: {
-        exclude: ['type', 'userId', 'postId', 'matchId'],
+        exclude: ['type', 'postId', 'matchId'],
       },
-      include: [
-        {
-          required: true,
-          as: resources.USER.ALIAS.SINGULAR,
-          model: db.User,
-        },
-      ],
     };
   }
 

@@ -12,7 +12,7 @@ import db from 'core/data/models';
 import { LeagueCreationAttributes } from 'core/data/models/League';
 import injectLeagues, { RapidApiLeague } from 'core/data/inject-scripts/injectLeagues';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import CountryService from './CountryService';
 
 export interface ILeaguesListParams {
@@ -20,19 +20,22 @@ export interface ILeaguesListParams {
   countryId?: ResourceIdentifier;
 }
 
+export const defaultRelations: RelationGroupType = ['country'];
+
 class LeagueService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'country')) {
+      includeRelations.push({
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+        ...CountryService.getIncludeRelations(),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['countryId'],
-      },
-      include: [
-        {
-          model: db.Country,
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-          ...CountryService.getIncludeRelations(),
-        },
-      ],
+      include: includeRelations,
     };
   }
 

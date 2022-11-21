@@ -11,7 +11,7 @@ import db from 'core/data/models';
 import { MatchCreationAttributes } from 'core/data/models/Match';
 import injectMatches, { RapidApiMatch } from 'core/data/inject-scripts/injectMatches';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import TeamService from './TeamService';
 import VenueService from './VenueService';
 import LeagueService from './LeagueService';
@@ -27,43 +27,79 @@ export interface IMatchesListParams {
   teamAwayId?: ResourceIdentifier;
 }
 
+export const defaultRelations: RelationGroupType = [
+  'team',
+  'team.city',
+  'team.country',
+  'venue',
+  'venue.city',
+  'venue.country',
+  'league',
+  'league.country',
+];
+
 class MatchService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'team')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        team: ['city', 'country', 'city.country'],
+      });
+
+      includeRelations.push({
+        model: db.Team,
+        as: resources.TEAM.ALIAS.SINGULAR + 'Home',
+        ...TeamService.getIncludeRelations(relationsHierarchy),
+      });
+
+      includeRelations.push({
+        model: db.Team,
+        as: resources.TEAM.ALIAS.SINGULAR + 'Away',
+        ...TeamService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'venue')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        venue: ['city', 'country', 'city.country'],
+      });
+
+      includeRelations.push({
+        model: db.Venue,
+        as: resources.VENUE.ALIAS.SINGULAR,
+        ...VenueService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'league')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        league: ['country'],
+      });
+
+      includeRelations.push({
+        model: db.League,
+        as: resources.LEAGUE.ALIAS.SINGULAR,
+        ...LeagueService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'score')) {
+      includeRelations.push({
+        model: db.Score,
+        as: resources.SCORE.ALIAS.PLURAL,
+      });
+    }
+
     // const attributes = [
     //   // @TODO: write logic to load count of catches and comments
     // ];
 
     return {
       attributes: {
-        // exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
         // include: attributes,
       },
-      include: [
-        {
-          model: db.Team,
-          as: resources.TEAM.ALIAS.SINGULAR + 'Home',
-          ...TeamService.getIncludeRelations(),
-        },
-        {
-          model: db.Team,
-          as: resources.TEAM.ALIAS.SINGULAR + 'Away',
-          ...TeamService.getIncludeRelations(),
-        },
-        {
-          model: db.Venue,
-          as: resources.VENUE.ALIAS.SINGULAR,
-          ...VenueService.getIncludeRelations(),
-        },
-        {
-          model: db.League,
-          as: resources.LEAGUE.ALIAS.SINGULAR,
-          ...LeagueService.getIncludeRelations(),
-        },
-        {
-          model: db.Score,
-          as: resources.SCORE.ALIAS.PLURAL,
-        },
-      ],
+      include: includeRelations,
     };
   }
 

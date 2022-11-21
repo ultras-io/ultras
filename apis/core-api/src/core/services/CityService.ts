@@ -11,7 +11,7 @@ import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { CityCreationAttributes } from 'core/data/models/City';
 import injectCities, { RapidApiCity } from 'core/data/inject-scripts/injectCities';
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import CountryService from './CountryService';
 
 export interface ICitiesListParams {
@@ -19,19 +19,22 @@ export interface ICitiesListParams {
   countryId?: ResourceIdentifier;
 }
 
+export const defaultRelations: RelationGroupType = ['country'];
+
 class CityService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'country')) {
+      includeRelations.push({
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+        ...CountryService.getIncludeRelations(),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['countryId'],
-      },
-      include: [
-        {
-          model: db.Country,
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-          ...CountryService.getIncludeRelations(),
-        },
-      ],
+      include: includeRelations,
     };
   }
 

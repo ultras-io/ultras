@@ -12,7 +12,7 @@ import db from 'core/data/models';
 import { TeamCreationAttributes } from 'core/data/models/Team';
 import injectTeams, { RapidApiTeam } from 'core/data/inject-scripts/injectTeams';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import CountryService from './CountryService';
 import CityService from './CityService';
 import VenueService from './VenueService';
@@ -25,29 +25,46 @@ export interface ITeamsListParams {
   type?: TeamTypesEnum;
 }
 
+export const defaultRelations: RelationGroupType = ['city', 'country', 'venue'];
+
 class TeamService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'city')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        city: ['country'],
+      });
+
+      includeRelations.push({
+        model: db.City,
+        as: resources.CITY.ALIAS.SINGULAR,
+        ...CityService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'country')) {
+      includeRelations.push({
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+        ...CountryService.getIncludeRelations(),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'venue')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        venue: ['country', 'city', 'city.country'],
+      });
+
+      includeRelations.push({
+        model: db.Venue,
+        as: resources.VENUE.ALIAS.SINGULAR,
+        ...VenueService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['countryId', 'cityId', 'venueId'],
-      },
-      include: [
-        {
-          model: db.Country,
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-          ...CountryService.getIncludeRelations(),
-        },
-        {
-          model: db.City,
-          as: resources.CITY.ALIAS.SINGULAR,
-          ...CityService.getIncludeRelations(),
-        },
-        {
-          model: db.Venue,
-          as: resources.VENUE.ALIAS.SINGULAR,
-          ...VenueService.getIncludeRelations(),
-        },
-      ],
+      include: includeRelations,
     };
   }
 

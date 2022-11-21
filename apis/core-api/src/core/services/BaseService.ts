@@ -6,14 +6,63 @@ import { TransactionException } from 'modules/exceptions';
 
 export type WithTransactionCallback = (transaction: Transaction) => any;
 
+export type RelationGroupType =
+  | Array<string | null | undefined>
+  | string
+  | null
+  | undefined;
+
 abstract class BaseService {
-  protected static includeRelations(args: any = {}): any {
+  protected static isRelationIncluded(
+    includeRelations: RelationGroupType,
+    relationName: string
+  ): boolean {
+    if (!includeRelations) {
+      return true;
+    }
+    if (Array.isArray(includeRelations)) {
+      return includeRelations.includes(relationName);
+    }
+    if (typeof includeRelations === 'string') {
+      return includeRelations === relationName;
+    }
+    return false;
+  }
+
+  protected static getRelationsHierarchy(
+    relations: RelationGroupType,
+    relationNames: Record<string, Array<string>>
+  ): RelationGroupType {
+    const accumulator: Array<string> = [];
+    if (relationNames) {
+      for (const parentName in relationNames) {
+        for (const relationName of relationNames[parentName]) {
+          const name = `${parentName}.${relationName}`;
+          if (this.isRelationIncluded(relations || [], name)) {
+            accumulator.push(relationName);
+          }
+        }
+      }
+    }
+
+    return accumulator;
+  }
+
+  protected static includeRelations(
+    // eslint-disable-line @typescript-eslint/no-unused-vars
+    includeRelations: RelationGroupType = null,
+    // eslint-disable-line @typescript-eslint/no-explicit-any
+    args: any = {}
+  ): any {
     return {};
   }
 
-  public static getIncludeRelations(args: any = {}) {
+  public static getIncludeRelations(
+    includeRelations: RelationGroupType = null,
+    args: any = {}
+  ) {
     // get model relations
-    const relations = this.includeRelations(args);
+    const relations = this.includeRelations(includeRelations, args);
 
     // append global exclude attribute to child relations
     relations.attributes = relations.attributes || {};
