@@ -1,3 +1,4 @@
+import { UserProfilePrivacyEnum } from '@ultras/utils';
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
 import { ResourceIdentifier } from 'types';
 
@@ -13,6 +14,7 @@ export interface UserAttributes {
   username: string;
   avatar: null | string;
   fullname: null | string;
+  privacy?: UserProfilePrivacyEnum;
 }
 
 export type UserCreationAttributes = Optional<
@@ -128,6 +130,12 @@ module.exports = (sequelize: Sequelize): typeof User => {
       fullname: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      privacy: {
+        type: DataTypes.ENUM({
+          values: [UserProfilePrivacyEnum.private, UserProfilePrivacyEnum.public],
+        }),
+        defaultValue: UserProfilePrivacyEnum.public,
       },
     },
     {
