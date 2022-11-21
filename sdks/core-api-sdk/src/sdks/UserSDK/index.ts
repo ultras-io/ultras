@@ -11,6 +11,8 @@ import {
   LogoutResponse,
   GetMeResponse,
   GetProfileResponse,
+  UpdateProfileRequest,
+  UpdateProfileResponse,
 } from './types';
 import type { OnUpdateListener } from '../../interceptors/AuthTokenInterceptor/types';
 import AuthTokenInterceptor from '../../interceptors/AuthTokenInterceptor';
@@ -74,5 +76,11 @@ export class UserSDK extends CoreApiBaseSDK {
 
   public getProfile(id: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest<GetProfileResponse>(`/profile/${id}`);
+  }
+
+  public updateProfile(params: UpdateProfileRequest) {
+    return this.api?.makeAPIPutRequest<UpdateProfileResponse>('me', {
+      body: params,
+    });
   }
 }
