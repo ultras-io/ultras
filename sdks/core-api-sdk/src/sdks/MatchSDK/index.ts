@@ -36,7 +36,7 @@ export class MatchSDK extends CoreApiBaseSDK implements ICatchable {
     return this.api?.makeAPIGetRequest<GetMatchResponse>(id.toString());
   }
 
-  public getCatch(matchId: ResourceIdentifier) {
+  public getCatches(matchId: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest(`${matchId}/catches`);
   }
 

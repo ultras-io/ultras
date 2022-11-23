@@ -17,6 +17,8 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';
 import Icon from 'views/components/base/Icon';
+import Catch from 'views/components/base/Catch';
+import buildRoomCatchesStore from 'stores/roomCatches';
 import { Icons } from 'assets/icons';
 // import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IRoomComponentProps } from '../types';
@@ -25,6 +27,37 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
   const [ratio, setRatio] = React.useState(3 / 2);
+
+  const roomCatchesStore = React.useMemo(() => buildRoomCatchesStore(), []);
+
+  const { add: storeCatchesAdd, delete: storeCatchesDelete } =
+    roomCatchesStore.useSelector('add', 'delete');
+
+  const [isCaught, setIsCaught] = React.useState(data.post.caught || false);
+
+  const onCatchPress = React.useCallback(() => {
+    setIsCaught(!isCaught);
+
+    if (isCaught) {
+      storeCatchesDelete.remove({ roomId: data.id });
+    } else {
+      storeCatchesAdd.setFieldValue('roomId', data.id);
+      storeCatchesAdd.create();
+    }
+  }, [isCaught, data.id, storeCatchesAdd, storeCatchesDelete]);
+
+  React.useEffect(() => {
+    setIsCaught(data.post.caught || false);
+  }, [data.post.caught]);
+
+  React.useEffect(() => {
+    if (storeCatchesAdd.status === 'error') {
+      setIsCaught(false);
+    }
+    if (storeCatchesDelete.status === 'error') {
+      setIsCaught(true);
+    }
+  }, [isCaught, storeCatchesAdd.status, storeCatchesDelete.status]);
 
   React.useLayoutEffect(() => {
     if (data.post.image) {
@@ -102,7 +135,12 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
         >
           {I18n.t('rooms-subscribe')}
         </Button>
-        <Icon name={Icons.Catch} color={'iconPrimary'} size={'ic-md'} />
+
+        <Catch
+          isCaught={isCaught}
+          count={data.post.catchesCount}
+          onPress={onCatchPress}
+        />
       </HStack>
 
       <Divider bg={colors.backgroundDividerTransparent} thickness={1} mt={5} />

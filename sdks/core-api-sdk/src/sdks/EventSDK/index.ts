@@ -45,7 +45,7 @@ export class EventSDK extends CoreApiBaseSDK implements ICatchable, ICommentable
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getCatch(eventId: ResourceIdentifier) {
+  public getCatches(eventId: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest(`${eventId}/catches`);
   }
 

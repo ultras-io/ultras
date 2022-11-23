@@ -223,7 +223,14 @@ class NetworkService {
         const queryParams = this.createQueryParams(options.query_params);
 
         if (queryParams) {
-          const paramGlue = url.includes('?') ? '&' : '?';
+          const isContainsQuestionMark = url.includes('?');
+          const isUrlEndsWithSlash = url.endsWith('/');
+
+          if (!isContainsQuestionMark && isUrlEndsWithSlash) {
+            url = url.substring(0, url.length - 1);
+          }
+
+          const paramGlue = isContainsQuestionMark ? '&' : '?';
           url += `${paramGlue}${queryParams}`;
         }
       }
