@@ -102,7 +102,7 @@ module.exports = (sequelize: Sequelize): typeof Catch => {
       },
     },
     {
-      tableName: resources.LIKE.RELATION,
+      tableName: resources.CATCH.RELATION,
       schema: ULTRAS_CORE,
       timestamps: true,
       freezeTableName: true,

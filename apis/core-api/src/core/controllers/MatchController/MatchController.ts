@@ -12,6 +12,7 @@ import {
   MatchesListResult,
   MatchByIdResult,
   MatchesInjectDataResult,
+  MatchByIdParams,
 } from './types';
 
 class MatchController extends BaseController {
@@ -28,6 +29,7 @@ class MatchController extends BaseController {
     teamId,
     teamHomeId,
     teamAwayId,
+    userId,
   }: MatchesListParams): MatchesListResult {
     const { rows, count } = await MatchService.getAll({
       limit,
@@ -42,6 +44,7 @@ class MatchController extends BaseController {
       teamId,
       teamHomeId,
       teamAwayId,
+      userId,
     });
 
     return {
@@ -52,8 +55,8 @@ class MatchController extends BaseController {
     };
   }
 
-  static async getById(id: ResourceIdentifier): MatchByIdResult {
-    const match = await MatchService.getById(id);
+  static async getById({ id, userId }: MatchByIdParams): MatchByIdResult {
+    const match = await MatchService.getById({ id, userId });
 
     if (!match) {
       throw new ResourceNotFoundError({

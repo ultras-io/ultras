@@ -28,13 +28,13 @@ class CatchService extends BaseService {
       case CatchTypeEnum.match:
         return {
           fieldId: 'matchId',
-          throughAlias: resources.LIKE.ALIAS.PLURAL + 'Match',
+          throughAlias: resources.CATCH.ALIAS.PLURAL + 'Match',
           model: db.Match,
         };
       case CatchTypeEnum.post:
         return {
           fieldId: 'postId',
-          throughAlias: resources.LIKE.ALIAS.PLURAL + 'Post',
+          throughAlias: resources.CATCH.ALIAS.PLURAL + 'Post',
           model: db.Post,
         };
     }

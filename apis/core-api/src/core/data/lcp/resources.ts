@@ -173,7 +173,7 @@ const resources = {
       PLURAL: 'locations',
     },
   },
-  LIKE: {
+  CATCH: {
     RELATION: 'Catch',
     MODEL: 'Catch',
     ALIAS: {

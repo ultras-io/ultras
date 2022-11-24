@@ -45,9 +45,10 @@ class ControllerAdapter {
   static async getById(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { id } = ctx.request.params;
+    const userId = ctx.user?.userId;
 
     /** CONTROLLERS */
-    const { data } = await MatchController.getById(id);
+    const { data } = await MatchController.getById({ id, userId });
 
     /** RESPONSE */
     // @TODO make response types
@@ -61,9 +62,13 @@ class ControllerAdapter {
   static async getAll(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const params = ctx.request.query;
+    const userId = ctx.user?.userId;
 
     /** CONTROLLERS */
-    const { data, limit, offset, count } = await MatchController.getAll(params);
+    const { data, limit, offset, count } = await MatchController.getAll({
+      ...params,
+      userId,
+    });
 
     /** RESPONSE */
     // @TODO make response types
