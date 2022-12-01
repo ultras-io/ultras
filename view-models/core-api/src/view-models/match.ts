@@ -22,6 +22,7 @@ export type MatchViewModel = ViewModel<{
   elapsedTime: number;
   winner: WinnerEnum;
   score: ScoreViewModel;
+  caught?: boolean;
 }>;
 
 export type MatchesViewModel = Array<MatchViewModel>;

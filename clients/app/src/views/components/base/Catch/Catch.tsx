@@ -8,12 +8,18 @@ import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ICatchProps } from './type';
 import styles from './styles';
 
-const Catch: React.FC<ICatchProps> = ({ isCaught = false, count = 0, onPress }) => {
+const Catch: React.FC<ICatchProps> = ({
+  isCaught = false,
+  count = 0,
+  iconSize = 'ic-md',
+  onPress = undefined,
+}) => {
   return (
     <Pressable onPress={preventMultiCalls(onPress)} style={styles.container}>
       <Icon
         name={isCaught ? Icons.Caught : Icons.Catch}
-        color={isCaught ? 'buttonAction' : 'buttonActionInvert'}
+        color={isCaught ? 'textAction' : 'buttonAction'}
+        size={iconSize}
       />
 
       {count > 0 && (

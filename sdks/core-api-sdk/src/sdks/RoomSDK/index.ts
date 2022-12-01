@@ -44,7 +44,7 @@ export class RoomSDK extends CoreApiBaseSDK implements ICatchable {
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getCatch(roomId: ResourceIdentifier) {
+  public getCatches(roomId: ResourceIdentifier) {
     return this.api?.makeAPIGetRequest(`${roomId}/catches`);
   }
 
