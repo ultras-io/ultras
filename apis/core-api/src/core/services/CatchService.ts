@@ -48,7 +48,7 @@ class CatchService extends BaseService {
   ): ServiceListResultType<UserViewModel> {
     const { fieldId, throughAlias, model } = this.getFieldsByType(params.resourceType);
 
-    const catchers = await db.User.findAll({
+    const catchers = await db.User.findAndCountAll({
       include: [
         {
           required: true,
