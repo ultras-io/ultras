@@ -362,7 +362,7 @@ export const generatePost = () => {
 export const generateProfile = () => {
   return {
     id: uuidv4(),
-    avatarUri: profileAvatars[parseInt(Math.random() * (7 - 1))],
+    avatar: profileAvatars[parseInt(Math.random() * (7 - 1))],
     name: names[parseInt(Math.random() * (5 - 1))],
     username: usernames[parseInt(Math.random() * (5 - 1))],
     teams: generateClubsList(parseInt(Math.random() * 6) + 1),

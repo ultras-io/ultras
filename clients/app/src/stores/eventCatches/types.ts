@@ -1,3 +1,5 @@
+import { FullFilterable } from 'stores/generateCRUD';
+
 export type ParamType = {};
 
 export type TCreateEventCatch = {
@@ -7,3 +9,7 @@ export type TCreateEventCatch = {
 export type TDeleteEventCatch = {
   eventId: ResourceIdentifier;
 };
+
+export interface LoadAllParams extends FullFilterable {
+  eventId: ResourceIdentifier;
+}

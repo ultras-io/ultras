@@ -13,8 +13,8 @@ export type MergeUnion<T extends object> = {
   [keys in AllKeys<T>]: PickTypeOf<T, keys>;
 };
 
-export type FullFilterable<TFilter> = TFilter & ListRequestParams;
-export type Filterable<TFilter> = Omit<FullFilterable<TFilter>, 'offset'>;
+export type FullFilterable<TFilter = {}> = TFilter & ListRequestParams;
+export type Filterable<TFilter = {}> = Omit<FullFilterable<TFilter>, 'offset'>;
 
 export type StateKeyType = 'list' | 'single' | 'add' | 'delete' | 'update';
 export type StateKeyParamType = Record<StateKeyType, boolean>;

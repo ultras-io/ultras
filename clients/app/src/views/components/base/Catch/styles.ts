@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   count: {
     fontWeight: 'bold',
     fontSize: 10,

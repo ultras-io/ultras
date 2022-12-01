@@ -23,7 +23,7 @@ import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IEventComponentProps } from '../types';
 import buildEventMembersStore from 'stores/eventMembers';
 import buildEventCatchesStore from 'stores/eventCatches';
-import Catch from 'views/components/base/Catch';
+import Catch, { CatchTypeEnum } from 'views/components/base/Catch';
 
 const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
@@ -190,7 +190,13 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
           {I18n.t(isJoined ? 'events-going' : 'events-join')}
         </Button>
 
-        <Catch isCaught={isCaught} onPress={onCatchPress} />
+        <Catch
+          catchType={CatchTypeEnum.event}
+          catchResourceId={data.id}
+          count={data.post.catchesCount}
+          isCaught={isCaught}
+          onPress={onCatchPress}
+        />
 
         <Icon name={Icons.Comments} color={'iconPrimary'} size={'ic-md'} />
       </HStack>

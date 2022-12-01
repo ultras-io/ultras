@@ -2,7 +2,7 @@ import { timezone } from '@ultras/utils';
 
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import ICatchable from '../ICatchable';
-import type { QueryParam, ResourceIdentifier } from '../types';
+import type { DynamicQueryParam, QueryParam, ResourceIdentifier } from '../types';
 import type { GetMatchesFilter, GetMatchesResponse, GetMatchResponse } from './types';
 
 export * from './types';
@@ -36,8 +36,10 @@ export class MatchSDK extends CoreApiBaseSDK implements ICatchable {
     return this.api?.makeAPIGetRequest<GetMatchResponse>(id.toString());
   }
 
-  public getCatches(matchId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${matchId}/catches`);
+  public getCatches(matchId: ResourceIdentifier, params: QueryParam) {
+    return this.api?.makeAPIGetRequest(`${matchId}/catches`, {
+      query_params: params as DynamicQueryParam,
+    });
   }
 
   public catch(matchId: ResourceIdentifier) {
