@@ -1,3 +1,4 @@
+import { UserViewModel } from '@ultras/view-models';
 import { generateCRUD } from '../generateCRUD';
 import { buildRoomSDK } from 'stores/sdkBuilder/sdkBuilder';
 
@@ -12,7 +13,7 @@ const sdk = buildRoomSDK();
 
 const buildRoomCatchesStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<
-    null,
+    UserViewModel,
     null,
     TCreateRoomCatch,
     null,

@@ -18,44 +18,27 @@ const defaultLimitation = 10;
 const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
   const { id, type, limit = defaultLimitation } = route.params;
 
-  const [store, title] = React.useMemo(() => {
+  const [store, title, initialFilter] = React.useMemo(() => {
     switch (type) {
       case ProfileListTypeEnum.fanClubMembers:
-        return [buildFanClubMembersStore(), I18n.t('fanClubs-fans')];
+        return [buildFanClubMembersStore(), I18n.t('fanClubs-fans'), { fanClubId: id }];
       case ProfileListTypeEnum.eventMembers:
-        return [buildEventMembersStore(), I18n.t('common-going')];
+        return [buildEventMembersStore(), I18n.t('common-going'), { eventId: id }];
       case ProfileListTypeEnum.eventCatches:
-        return [buildEventCatchesStore(), I18n.t('catches-event')];
+        return [buildEventCatchesStore(), I18n.t('catches-event'), { eventId: id }];
       case ProfileListTypeEnum.roomCatches:
-        return [buildRoomCatchesStore(), I18n.t('catches-room')];
+        return [buildRoomCatchesStore(), I18n.t('catches-room'), { roomId: id }];
       case ProfileListTypeEnum.matchCatches:
-        return [buildMatchCatchesStore(), I18n.t('catches-match')];
+        return [buildMatchCatchesStore(), I18n.t('catches-match'), { matchId: id }];
     }
-  }, [type]);
+  }, [type, id]);
 
   const { list: storeList } = store.useSelector('list');
 
   React.useEffect(() => {
-    switch (type) {
-      case ProfileListTypeEnum.fanClubMembers:
-        storeList.updateFilter({ fanClubId: id, limit: limit });
-        break;
-      case ProfileListTypeEnum.eventMembers:
-        storeList.updateFilter({ eventId: id, limit: limit });
-        break;
-      case ProfileListTypeEnum.eventCatches:
-        storeList.updateFilter({ eventId: id, limit: limit });
-        break;
-      case ProfileListTypeEnum.roomCatches:
-        storeList.updateFilter({ roomId: id, limit: limit });
-        break;
-      case ProfileListTypeEnum.matchCatches:
-        storeList.updateFilter({ matchId: id, limit: limit });
-        break;
-    }
-
+    storeList.updateFilter({ ...initialFilter, limit: limit });
     storeList.getAll();
-  }, [storeList, type, id, limit]);
+  }, [storeList, limit, initialFilter]);
 
   return (
     <Container withSuspense>

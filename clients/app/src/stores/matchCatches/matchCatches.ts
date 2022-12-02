@@ -1,3 +1,4 @@
+import { UserViewModel } from '@ultras/view-models';
 import { generateCRUD } from '../generateCRUD';
 import { buildMatchSDK } from 'stores/sdkBuilder/sdkBuilder';
 
@@ -12,7 +13,7 @@ const sdk = buildMatchSDK();
 
 const buildMatchCatchesStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<
-    null,
+    UserViewModel,
     null,
     TCreateMatchCatch,
     null,
