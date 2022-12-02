@@ -21,7 +21,7 @@ const Catch: React.FC<ICatchProps> = ({
 }) => {
   const { pushTo } = useNavigationWithParams();
 
-  const onCountPress = React.useCallback(() => {
+  const onShowListPress = React.useCallback(() => {
     if (!catchType) {
       return;
     }
@@ -33,23 +33,23 @@ const Catch: React.FC<ICatchProps> = ({
   }, [catchType, catchResourceId, pushTo]);
 
   return (
-    <Pressable
-      onPress={preventMultiCalls(onPress)}
-      onLongPress={onCountPress}
-      style={styles.container}
-    >
-      <Icon
-        name={isCaught ? Icons.Caught : Icons.Catch}
-        color={isCaught ? 'textAction' : 'buttonAction'}
-        size={iconSize}
-      />
+    <View style={styles.container}>
+      <Pressable onPress={preventMultiCalls(onPress)} onLongPress={onShowListPress}>
+        <Icon
+          name={isCaught ? Icons.Caught : Icons.Catch}
+          color={isCaught ? 'textAction' : 'buttonAction'}
+          size={iconSize}
+        />
+      </Pressable>
 
       {count > 0 && (
-        <UltrasText style={styles.count} color={textColor}>
-          {getReadableNumber(count)}
-        </UltrasText>
+        <Pressable onPress={preventMultiCalls(onShowListPress)}>
+          <UltrasText style={styles.count} color={textColor}>
+            {getReadableNumber(count)}
+          </UltrasText>
+        </Pressable>
       )}
-    </Pressable>
+    </View>
   );
 };
 
