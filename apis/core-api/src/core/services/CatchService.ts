@@ -6,6 +6,8 @@ import type { ServiceListParamsType, ServiceListResultType } from 'types';
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import BaseService from './BaseService';
+import PostService from './PostService';
+import MatchService from './MatchService';
 
 interface ICatchBasicParams {
   resourceType: CatchTypeEnum;
@@ -85,6 +87,12 @@ class CatchService extends BaseService {
       },
       { transaction }
     );
+
+    if (params.resourceType === CatchTypeEnum.post) {
+      await PostService.incrementCatches(params.resourceId, transaction);
+    } else if (params.resourceType === CatchTypeEnum.match) {
+      await MatchService.incrementCatches(params.resourceId, transaction);
+    }
   }
 
   /**
@@ -104,6 +112,12 @@ class CatchService extends BaseService {
       },
       { transaction }
     );
+
+    if (params.resourceType === CatchTypeEnum.post) {
+      await PostService.decrementCatches(params.resourceId, transaction);
+    } else if (params.resourceType === CatchTypeEnum.match) {
+      await MatchService.decrementCatches(params.resourceId, transaction);
+    }
   }
 }
 
