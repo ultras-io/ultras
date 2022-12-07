@@ -1,5 +1,4 @@
 import { Body } from 'aws-sdk/clients/s3';
-import sharp from 'sharp';
 
 interface IParams {
   body?: Body;
@@ -13,6 +12,7 @@ async function resize(params: IParams): Promise<Body | null> {
     return null;
   }
 
+  const sharp = require('sharp');
   const imageBuffer = await sharp(params.body as Buffer)
     .resize(params.width, params.height)
     .withMetadata()
