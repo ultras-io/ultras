@@ -1,8 +1,36 @@
 import React from 'react';
-import { VStack, HStack, Center, Text, Input, Pressable, Skeleton } from 'native-base';
+import {
+  VStack,
+  HStack,
+  Center,
+  Text,
+  Input,
+  Pressable,
+  Skeleton,
+  Box,
+} from 'native-base';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import type { IFourDigitsInputsProps, IFourDigitsLoaderProps } from '../types';
+
+const stylingInputSize = {
+  width: 46,
+  height: 57,
+};
+
+const stylingInputText = {
+  fontSize: 36,
+  fontWeight: 600,
+};
+
+const stylingLoadingBox = {
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  ...stylingInputSize,
+};
 
 const FourDigitsInputs: React.FC<IFourDigitsInputsProps> = ({
   colorMode,
@@ -57,14 +85,12 @@ const FourDigitsInputs: React.FC<IFourDigitsInputsProps> = ({
 
       <Pressable onPress={onPress}>
         {isLoading ? (
-          <FourDigitsInputsLoader colorMode={colorMode} />
+          <FourDigitsInputsLoader colorMode={colorMode} code={code} />
         ) : (
           <HStack space={'2'}>
             {[0, 1, 2, 3].map(i => (
               <Center
                 key={`FourDigitInput-${i}`}
-                width={46}
-                height={57}
                 backgroundColor={
                   colorMode === 'light'
                     ? colors.backgroundInputInvert
@@ -80,9 +106,9 @@ const FourDigitsInputs: React.FC<IFourDigitsInputsProps> = ({
                 _text={{
                   color:
                     colorMode === 'light' ? colors.textPrimaryInvert : colors.textPrimary,
-                  fontSize: 36,
-                  fontWeight: 600,
+                  ...stylingInputText,
                 }}
+                {...stylingInputSize}
               >
                 {code[i] || ''}
               </Center>
@@ -105,7 +131,10 @@ const FourDigitsInputs: React.FC<IFourDigitsInputsProps> = ({
 
 export default FourDigitsInputs;
 
-const FourDigitsInputsLoader: React.FC<IFourDigitsLoaderProps> = ({ colorMode }) => {
+const FourDigitsInputsLoader: React.FC<IFourDigitsLoaderProps> = ({
+  code,
+  colorMode,
+}) => {
   const { colors } = useTheme();
 
   const [colorStart, colorEnd] = React.useMemo(() => {
@@ -119,14 +148,23 @@ const FourDigitsInputsLoader: React.FC<IFourDigitsLoaderProps> = ({ colorMode })
   return (
     <HStack space={'2'}>
       {[0, 1, 2, 3].map(i => (
-        <Skeleton
-          key={'DigitsLoader' + i}
-          w={46}
-          h={57}
-          rounded={'xl'}
-          startColor={colorStart}
-          endColor={colorEnd}
-        />
+        <Box key={'DigitsLoader-' + i} {...stylingInputSize} position="relative">
+          <Skeleton
+            rounded={'xl'}
+            startColor={colorStart}
+            endColor={colorEnd}
+            {...stylingLoadingBox}
+          />
+
+          <Text
+            color={colorMode === 'light' ? colors.textPrimaryInvert : colors.textPrimary}
+            textAlign="center"
+            {...stylingInputText}
+            {...stylingLoadingBox}
+          >
+            {code[i] || ''}
+          </Text>
+        </Box>
       ))}
     </HStack>
   );
