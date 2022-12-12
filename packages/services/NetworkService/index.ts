@@ -269,6 +269,21 @@ class NetworkService {
         });
       }
 
+      // remove last slash from pathname with steps:
+      //   1) split the pathname and query string
+      //   2) remove last slash of pathname
+      //   3) join sanitized pathname and query string
+      if (typeof url === 'string') {
+        const segments = url.split('?');
+        if (segments.length > 0) {
+          if (segments[0].endsWith('/')) {
+            segments[0] = segments[0].substring(0, segments[0].length - 1);
+          }
+        }
+
+        url = segments.join('?');
+      }
+
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       fetch(url, fetchOptions)
