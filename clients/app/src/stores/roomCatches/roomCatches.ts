@@ -1,22 +1,34 @@
+import { UserViewModel } from '@ultras/view-models';
 import { generateCRUD } from '../generateCRUD';
 import { buildRoomSDK } from 'stores/sdkBuilder/sdkBuilder';
 
-import type { ParamType, TCreateRoomCatch, TDeleteRoomCatch } from './types';
+import type {
+  LoadAllParams,
+  ParamType,
+  TCreateRoomCatch,
+  TDeleteRoomCatch,
+} from './types';
 
 const sdk = buildRoomSDK();
 
 const buildRoomCatchesStore = (params: Partial<ParamType> = {}) => {
   return generateCRUD<
-    null,
+    UserViewModel,
     null,
     TCreateRoomCatch,
     null,
     TDeleteRoomCatch,
     null,
-    'add' | 'delete'
+    'list' | 'add' | 'delete'
   >({
-    keys: ['add', 'delete'],
+    keys: ['list', 'add', 'delete'],
     ...(params as ParamType),
+
+    loadAll: (filter: LoadAllParams) => {
+      return sdk.getCatches(filter.roomId, {
+        ...filter,
+      });
+    },
 
     create: (data: TCreateRoomCatch) => {
       return sdk.catch(data.roomId);

@@ -1,9 +1,12 @@
 import { RouteProp } from '@react-navigation/native';
+import { UserViewModel } from '@ultras/view-models';
 
 export enum ProfileListTypeEnum {
   fanClubMembers = 'fan-club-members',
-  eventCatch = 'event-catches',
   eventMembers = 'event-members',
+  eventCatches = 'event-catches',
+  roomCatches = 'event-catches',
+  matchCatches = 'match-catches',
 }
 
 export interface IProfileListProps {
@@ -13,6 +16,7 @@ export interface IProfileListProps {
         tabName: string;
         id: number;
         type: ProfileListTypeEnum;
+        limit?: number;
       };
     },
     'params'
@@ -21,8 +25,13 @@ export interface IProfileListProps {
 
 export interface IProfileListContainerProps {
   title: string;
+  loading: boolean;
+  data: Array<UserViewModel>;
+  onEndReached?(): void;
 }
 
 export interface IProfileListComponentProps {
-  data: any;
+  loading: boolean;
+  data: Array<UserViewModel>;
+  onEndReached?(): void;
 }

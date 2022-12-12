@@ -4,35 +4,50 @@ import I18n from 'i18n/i18n';
 import Container from 'views/components/base/Container';
 import { ProfileListTypeEnum } from './';
 import { IProfileListProps } from './types';
+import buildEventMembersStore from 'stores/eventMembers';
+import buildEventCatchesStore from 'stores/eventCatches';
+import buildRoomCatchesStore from 'stores/roomCatches';
+import buildMatchCatchesStore from 'stores/matchCatches';
 
 const ProfileListContainer = React.lazy(
   () => import('./containers/ProfileListContainer')
 );
 
-const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
-  const { id, type } = route.params;
+const defaultLimitation = 10;
 
-  const [store, title] = React.useMemo(() => {
+const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
+  const { id, type, limit = defaultLimitation } = route.params;
+
+  const [store, title, initialFilter] = React.useMemo(() => {
     switch (type) {
       case ProfileListTypeEnum.fanClubMembers:
-        return [buildFanClubMembersStore(), I18n.t('fanClubs-fans')];
+        return [buildFanClubMembersStore(), I18n.t('fanClubs-fans'), { fanClubId: id }];
       case ProfileListTypeEnum.eventMembers:
-        return [buildFanClubMembersStore(), I18n.t('common-going')];
-      case ProfileListTypeEnum.eventCatch:
-        return [buildFanClubMembersStore(), I18n.t('common-catches')];
+        return [buildEventMembersStore(), I18n.t('common-going'), { eventId: id }];
+      case ProfileListTypeEnum.eventCatches:
+        return [buildEventCatchesStore(), I18n.t('catches-event'), { eventId: id }];
+      case ProfileListTypeEnum.roomCatches:
+        return [buildRoomCatchesStore(), I18n.t('catches-room'), { roomId: id }];
+      case ProfileListTypeEnum.matchCatches:
+        return [buildMatchCatchesStore(), I18n.t('catches-match'), { matchId: id }];
     }
-  }, [type]);
+  }, [type, id]);
 
   const { list: storeList } = store.useSelector('list');
 
   React.useEffect(() => {
-    // storeList.getAll({ fanClubId: id });
+    storeList.updateFilter({ ...initialFilter, limit: limit });
     storeList.getAll();
-  }, [storeList, id]);
+  }, [storeList, limit, initialFilter]);
 
   return (
     <Container withSuspense>
-      <ProfileListContainer title={title} />
+      <ProfileListContainer
+        title={title}
+        loading={storeList.status === 'loading'}
+        data={storeList.data}
+        onEndReached={storeList.status === 'loading' ? undefined : storeList.getAll}
+      />
     </Container>
   );
 };

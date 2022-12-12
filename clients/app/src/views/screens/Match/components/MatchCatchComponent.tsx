@@ -1,6 +1,6 @@
 import React from 'react';
 import { IMatchCatchComponentProps } from '../types';
-import Catch from 'views/components/base/Catch';
+import Catch, { CatchTypeEnum } from 'views/components/base/Catch';
 import buildMatchCatchesStore from 'stores/matchCatches';
 
 const MatchCatchComponent: React.FC<IMatchCatchComponentProps> = ({ data }) => {
@@ -35,7 +35,15 @@ const MatchCatchComponent: React.FC<IMatchCatchComponentProps> = ({ data }) => {
     }
   }, [isCaught, storeCatchesAdd.status, storeCatchesDelete.status]);
 
-  return <Catch isCaught={isCaught} onPress={onCatchPress} />;
+  return (
+    <Catch
+      catchType={CatchTypeEnum.match}
+      catchResourceId={data.id}
+      // count={data.catchesCount}
+      isCaught={isCaught}
+      onPress={onCatchPress}
+    />
+  );
 };
 
 export default MatchCatchComponent;
