@@ -34,7 +34,7 @@ const Catch: React.FC<ICatchProps> = ({
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={preventMultiCalls(onPress)} onLongPress={onShowListPress}>
+      <Pressable onPress={preventMultiCalls(onPress)}>
         <Icon
           name={isCaught ? Icons.Caught : Icons.Catch}
           color={isCaught ? 'textAction' : 'buttonAction'}
