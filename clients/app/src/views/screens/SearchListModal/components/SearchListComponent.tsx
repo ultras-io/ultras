@@ -79,7 +79,7 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
-          onEndReached={onEndReached}
+          onEndReached={loading ? undefined : onEndReached}
           onEndReachedThreshold={0.5}
           keyboardDismissMode={'on-drag'}
           ListEmptyComponent={loading ? null : <NoResults />}

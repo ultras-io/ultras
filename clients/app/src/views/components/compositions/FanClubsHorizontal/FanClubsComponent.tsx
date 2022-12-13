@@ -18,6 +18,7 @@ const TAB_NAME = 'Search';
 const windowWidth = Dimensions.get('window').width;
 
 const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
+  loading,
   type,
   data,
   onEndReached,
@@ -72,7 +73,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
         showsHorizontalScrollIndicator={false}
         renderItem={renderColumn}
         data={data}
-        onEndReached={onEndReached}
+        onEndReached={loading ? undefined : onEndReached}
         onEndReachedThreshold={0.7}
         horizontal={true}
         bounces={data.length >= Math.round(windowWidth / 72)}

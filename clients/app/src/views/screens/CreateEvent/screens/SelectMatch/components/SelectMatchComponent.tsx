@@ -36,7 +36,7 @@ const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
         keyExtractor={item => `match-section-${item.id}`}
         renderItem={renderMatch}
         data={data}
-        onEndReached={onEndReached}
+        onEndReached={loading ? undefined : onEndReached}
         onEndReachedThreshold={0.7}
         horizontal={false}
         showsVerticalScrollIndicator={false}

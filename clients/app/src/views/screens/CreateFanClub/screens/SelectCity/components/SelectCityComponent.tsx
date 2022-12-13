@@ -55,7 +55,7 @@ const SelectCityComponent: React.FC<ISelectCityComponentProps> = ({
             keyExtractor={item => `city-section-${item.id}`}
             renderItem={renderCity}
             data={data}
-            onEndReached={onEndReached}
+            onEndReached={loading ? undefined : onEndReached}
             onEndReachedThreshold={0.7}
             horizontal={false}
             showsVerticalScrollIndicator={false}
