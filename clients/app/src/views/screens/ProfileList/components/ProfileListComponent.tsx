@@ -1,12 +1,10 @@
 import React from 'react';
-import { FlatList } from 'react-native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
+import FlatList from 'views/components/base/FlatList/FlatList';
 import ProfileCard from 'views/components/compositions/ProfileCard';
 import { IProfileListComponentProps } from '../types';
 import styles from '../styles';
-import { NoResults } from 'views/components/base/ListComponents';
-import Loader from 'views/screens/Loader';
 
 const ProfileListComponent: React.FC<IProfileListComponentProps> = ({
   data,
@@ -30,15 +28,13 @@ const ProfileListComponent: React.FC<IProfileListComponentProps> = ({
 
   return (
     <FlatList
+      loading={loading}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={styles.flatList}
       showsVerticalScrollIndicator={false}
       renderItem={renderRow}
       data={data}
-      onEndReached={loading ? undefined : onEndReached}
-      // onEndReachedThreshold={0.7}
-      ListEmptyComponent={loading ? null : <NoResults />}
-      ListFooterComponent={loading ? <Loader /> : null}
+      onEndReached={onEndReached}
     />
   );
 };

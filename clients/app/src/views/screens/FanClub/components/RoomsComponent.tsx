@@ -1,11 +1,11 @@
 import React from 'react';
 import { ListRenderItem } from 'react-native';
-import { FlatList, Skeleton, Box } from 'native-base';
+import { Skeleton, Box } from 'native-base';
+import FlatList from 'views/components/base/FlatList/FlatList';
 import { useScrollToTop } from '@react-navigation/native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import RoomCard from './RoomCard';
-import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { RoomViewModel } from '@ultras/core-api-sdk';
 import { IRoomsComponentProps } from '../types';
 import gStyles from 'styles/styles';
@@ -32,15 +32,14 @@ const RoomsComponent: React.FC<IRoomsComponentProps> = ({
 
   return (
     <FlatList
+      loading={loading}
       ref={ref}
       keyExtractor={item => item.id.toString()}
       showsVerticalScrollIndicator={false}
       renderItem={renderRow}
       data={data}
-      onEndReached={loading ? undefined : onEndReached}
+      onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
-      ListEmptyComponent={loading ? null : <NoResults />}
-      ListFooterComponent={loading ? <Loader /> : null}
       contentContainerStyle={gStyles.contentContainerStyle}
       ListFooterComponentStyle={gStyles.listFooterComponentStyle}
     />

@@ -66,6 +66,7 @@ const FanClubsComponent: React.FC<IFanClubsComponentProps> = ({
           </Button>
         )}
       </HStack>
+
       <FlatList
         pl={'3'}
         contentContainerStyle={{ paddingRight: 15 }}

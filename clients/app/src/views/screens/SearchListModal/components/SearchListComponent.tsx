@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  FlatList,
-  Image,
-  Text,
-  HStack,
-  VStack,
-  Box,
-  Skeleton,
-  Pressable,
-} from 'native-base';
+import { Image, Text, HStack, VStack, Box, Skeleton, Pressable } from 'native-base';
 import { SvgUri as SvgImage } from 'react-native-svg';
 import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
-import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { ISearchListComponentProps } from '../types';
 import gStyles from 'styles/styles';
+import FlatList from 'views/components/base/FlatList/FlatList';
 import { InputSection } from 'views/components/base/InputSection';
 
 const SearchListComponent: React.FC<ISearchListComponentProps> = ({
@@ -75,15 +66,13 @@ const SearchListComponent: React.FC<ISearchListComponentProps> = ({
     <VStack flex={1} mt={'3'}>
       <InputSection bg={colors.backgroundCard} padding={0} marginX={4}>
         <FlatList
+          loading={loading}
           data={data}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
-          onEndReached={loading ? undefined : onEndReached}
-          onEndReachedThreshold={0.5}
+          onEndReached={onEndReached}
           keyboardDismissMode={'on-drag'}
-          ListEmptyComponent={loading ? null : <NoResults />}
-          ListFooterComponent={loading ? <Loader /> : null}
           contentContainerStyle={gStyles.contentContainerStyle}
           ListFooterComponentStyle={gStyles.listFooterComponentStyle}
         />

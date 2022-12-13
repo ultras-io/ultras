@@ -1,11 +1,11 @@
 import React from 'react';
 import { ListRenderItem } from 'react-native';
-import { FlatList, Skeleton, Box } from 'native-base';
+import { Skeleton, Box } from 'native-base';
+import FlatList from 'views/components/base/FlatList/FlatList';
 import { useScrollToTop } from '@react-navigation/native';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
 import MatchCard from 'views/components/compositions/MatchCard';
-import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { MatchViewModel } from '@ultras/core-api-sdk';
 import { IMatchesComponentProps } from '../types';
 import gStyles from 'styles/styles';
@@ -32,15 +32,13 @@ const MatchesComponent: React.FC<IMatchesComponentProps> = ({
   return (
     <Box paddingX={4} paddingTop={4} flex={1}>
       <FlatList
+        loading={loading}
         ref={ref}
         keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderRow}
         data={data}
-        onEndReached={loading ? undefined : onEndReached}
-        onEndReachedThreshold={0.5}
-        ListEmptyComponent={loading ? null : <NoResults />}
-        ListFooterComponent={loading ? <Loader /> : null}
+        onEndReached={onEndReached}
         contentContainerStyle={gStyles.contentContainerStyle}
         ListFooterComponentStyle={gStyles.listFooterComponentStyle}
       />

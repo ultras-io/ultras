@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, FlatList, Pressable } from 'native-base';
+import { Box, Pressable } from 'native-base';
 import { ISelectMatchComponentProps } from '../types';
+import FlatList from 'views/components/base/FlatList/FlatList';
 import MatchInfo from 'views/components/compositions/MatchInfo';
-import { Loader, NoResults } from 'views/components/base/ListComponents';
 import { InputSection } from 'views/components/base/InputSection';
 
 const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
@@ -33,15 +33,13 @@ const SelectMatchComponent: React.FC<ISelectMatchComponentProps> = ({
   return (
     <Box paddingX={4} paddingTop={4} flex={1}>
       <FlatList
+        loading={loading}
         keyExtractor={item => `match-section-${item.id}`}
         renderItem={renderMatch}
         data={data}
-        onEndReached={loading ? undefined : onEndReached}
-        onEndReachedThreshold={0.7}
+        onEndReached={onEndReached}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={loading ? null : <NoResults />}
-        ListFooterComponent={loading ? <Loader /> : null}
       />
     </Box>
   );
