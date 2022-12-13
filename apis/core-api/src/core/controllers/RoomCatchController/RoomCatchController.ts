@@ -66,7 +66,7 @@ class RoomCatchController extends BaseController {
     }
 
     // get all catches by post id
-    const catches = await CatchService.getAll({
+    const { rows, count } = await CatchService.getAll({
       limit,
       offset,
       orderAttr,
@@ -76,7 +76,8 @@ class RoomCatchController extends BaseController {
     });
 
     return {
-      data: catches,
+      data: rows,
+      count,
       limit,
       offset,
     };
