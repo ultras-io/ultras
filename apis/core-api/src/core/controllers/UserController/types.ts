@@ -125,8 +125,12 @@ export type UserAndTeams = Nullable<
   }
 >;
 
-export type UpdateProfileStatusType = 'confirmation-sent' | 'updated' | 'no-action';
 export type UpdateProfileFieldType = 'phone' | 'email' | 'fullname';
+export type UpdateProfileStatusType =
+  | 'user-exists'
+  | 'confirmation-sent'
+  | 'updated'
+  | 'no-action';
 
 export type UpdateProfileFieldParams = {
   field: UpdateProfileFieldType;
