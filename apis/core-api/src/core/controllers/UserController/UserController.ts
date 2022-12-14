@@ -415,7 +415,7 @@ class UserController extends BaseController {
 
           if (actionStatus === 'updated') {
             await UserService.updateEmail({ userId, email }, transaction);
-          } else {
+          } else if (actionStatus === 'confirmation-sent') {
             await MailerService.sendVerificationCode({ code: codeGenerated, email });
           }
 
@@ -437,7 +437,7 @@ class UserController extends BaseController {
 
           if (actionStatus === 'updated') {
             await UserService.updatePhone({ userId, phone }, transaction);
-          } else {
+          } else if (actionStatus === 'confirmation-sent') {
             await SMSService.sendVerificationCode({ code: codeGenerated, phone });
           }
 
@@ -489,6 +489,14 @@ class UserController extends BaseController {
     { field, value, provider, code }: UpdateProfileFieldParams,
     transaction?: Transaction
   ): Promise<UpdateProfileFieldResult> {
+    const userExists = await UserService.findByUniqueIdentifier({
+      [field]: value,
+    });
+
+    if (userExists) {
+      return { actionStatus: 'user-exists', codeGenerated: null };
+    }
+
     if (code) {
       const verificationCode = await VerificationCodeService.getVerificationCode({
         code,
