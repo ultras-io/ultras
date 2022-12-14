@@ -37,7 +37,7 @@ const SelectCityContainer: React.FC<ISelectCityContainerProps> = ({ cityId }) =>
         loading={storeList.status === 'loading'}
         cityId={cityId}
         onSelect={onSelect}
-        onEndReached={storeList.status === 'loading' ? undefined : storeList.getAll}
+        onEndReached={storeList.getAll}
       />
     </>
   );

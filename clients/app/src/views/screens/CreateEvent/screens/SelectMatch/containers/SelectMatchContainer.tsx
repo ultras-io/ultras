@@ -37,7 +37,7 @@ const SelectMatchContainer: React.FC<ISelectMatchContainerProps> = ({ matchId })
         loading={storeList.status === 'loading'}
         matchId={matchId}
         onSelect={onSelect}
-        onEndReached={storeList.status === 'loading' ? undefined : storeList.getAll}
+        onEndReached={storeList.getAll}
       />
     </>
   );

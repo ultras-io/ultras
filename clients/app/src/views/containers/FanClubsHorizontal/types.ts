@@ -8,9 +8,10 @@ export interface IFanClubsContainerProps {
 }
 
 export interface IFanClubsComponentProps {
+  loading: boolean;
   data: Array<FanClubViewModel>;
   type: ContainerType;
-  onEndReached: () => void;
+  onEndReached?: () => void;
 }
 
 export interface IFanClubsLoaderProps {

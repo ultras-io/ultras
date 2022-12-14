@@ -1,10 +1,10 @@
 import React from 'react';
-import { FlatList, Box, Skeleton } from 'native-base';
+import { Box, Skeleton } from 'native-base';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import { commonScreens } from 'views/navigation/screens';
+import FlatList from 'views/components/base/FlatList/FlatList';
 import TeamCard from 'views/components/compositions/TeamCard';
 import FanClubCard from 'views/components/compositions/FanClubCard';
-import { NoResults, Loader } from 'views/components/base/ListComponents';
 import { ISearchItemComponentProps } from '../types';
 import gStyles from 'styles/styles';
 
@@ -48,15 +48,13 @@ const SearchItemComponent: React.FC<ISearchItemComponentProps> = ({
   return (
     <Box paddingX={4} paddingTop={4} flex={1}>
       <FlatList
+        loading={loading}
         keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
         data={data}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.5}
         keyboardDismissMode={'on-drag'}
-        ListEmptyComponent={loading ? null : <NoResults />}
-        ListFooterComponent={loading ? <Loader /> : null}
         contentContainerStyle={gStyles.contentContainerStyle}
         ListFooterComponentStyle={gStyles.listFooterComponentStyle}
       />

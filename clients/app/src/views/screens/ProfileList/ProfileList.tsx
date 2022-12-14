@@ -46,7 +46,7 @@ const ProfileList: React.FC<IProfileListProps> = ({ route }) => {
         title={title}
         loading={storeList.status === 'loading'}
         data={storeList.data}
-        onEndReached={storeList.status === 'loading' ? undefined : storeList.getAll}
+        onEndReached={storeList.getAll}
       />
     </Container>
   );
