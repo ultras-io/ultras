@@ -4,7 +4,9 @@ interface IColorMode {
   colorMode: ColorModeType;
 }
 
-export interface IFourDigitsLoaderProps extends IColorMode {}
+export interface IFourDigitsLoaderProps extends IColorMode {
+  code: string;
+}
 
 export interface IFourDigitsInputsProps extends IColorMode {
   colorMode: ColorModeType;
