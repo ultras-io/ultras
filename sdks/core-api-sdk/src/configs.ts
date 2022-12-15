@@ -12,4 +12,11 @@ export default {
     staging: process.env.CORE_API_STAGING,
     prod: process.env.CORE_API_PROD,
   },
+
+  aws: {
+    s3: {
+      region: process.env.AWS_S3_BUCKET_REGION,
+      bucket: process.env.AWS_S3_BUCKET_NAME,
+    },
+  },
 };

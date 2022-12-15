@@ -5,7 +5,7 @@ import {
   ListResponseMetaType,
 } from '@ultras/core-api-sdk';
 
-const sdk = new CountrySDK('dev');
+const sdk = new CountrySDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {};

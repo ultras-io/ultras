@@ -5,7 +5,7 @@ import {
   ListResponseMetaType,
 } from '@ultras/core-api-sdk';
 
-const sdk = new FanClubSDK('dev');
+const sdk = new FanClubSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

@@ -5,7 +5,7 @@ import {
   RoomSDK,
 } from '@ultras/core-api-sdk';
 
-const sdk = new RoomSDK('dev');
+const sdk = new RoomSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

@@ -6,7 +6,7 @@ import {
 } from '@ultras/core-api-sdk';
 
 const eventId = 1;
-const sdk = new EventSDK('dev');
+const sdk = new EventSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   return sdk

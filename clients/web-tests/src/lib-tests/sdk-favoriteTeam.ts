@@ -5,7 +5,7 @@ import {
   TeamsViewModel,
 } from '@ultras/core-api-sdk';
 
-const sdk = new FavoriteTeamSDK('dev');
+const sdk = new FavoriteTeamSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

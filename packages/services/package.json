@@ -16,6 +16,7 @@
     "access": "public"
   },
   "exports": {
+    "./aws/S3Service": "./build/aws/S3Service/index.js",
     "./NetworkService": "./build/NetworkService/index.js",
     "./SMSService": "./build/SMSService/index.js",
     "./MailerService": "./build/MailerService/index.js"

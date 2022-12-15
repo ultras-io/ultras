@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 
+import { thumbnailSizes } from '@ultras/services/aws/S3Service';
+
 interface ISize {
   width: number;
   height: number;
@@ -11,20 +13,7 @@ export const paths: Record<string, string> = {
   original: 'original',
 };
 
-export const sizes: Array<ISize> = [
-  {
-    width: 256,
-    height: 256,
-  },
-  {
-    width: 64,
-    height: 64,
-  },
-  {
-    width: 32,
-    height: 32,
-  },
-];
+export const sizes: Array<ISize> = Object.values(thumbnailSizes);
 
 export function isSkippable(pathname: string): boolean {
   const movedPath = Object.keys(paths)
