@@ -1,5 +1,5 @@
-import { thumbnailSizes } from './constants';
-import { ThumbnailSizeEnum } from './types';
+import { AwsS3FolderEnum, AwsS3ThumbnailEnum } from '@ultras/utils';
+import { thumbnailSizes, folders } from './constants';
 
 class S3Service {
   constructor(
@@ -11,19 +11,31 @@ class S3Service {
     return `https://${this.bucketName}.s3.${this.bucketRegion}.amazonaws.com`;
   }
 
-  private getImageUrl(folderName: string, objectKey: string) {
-    return this.getHostname() + `/${folderName}/${objectKey}`;
+  private getImageUrl(
+    thumbnailFolderName: string,
+    imageFolder: AwsS3FolderEnum,
+    objectKey: string
+  ) {
+    const endpoint = `/${thumbnailFolderName}/${folders[imageFolder]}/${objectKey}`;
+    return this.getHostname() + endpoint;
   }
 
-  getOriginalUrl(objectKey: string) {
-    return this.getImageUrl('original', objectKey);
+  getOriginalUrl(objectKey: string, imageFolder: AwsS3FolderEnum) {
+    return this.getImageUrl('original', imageFolder, objectKey);
   }
 
-  getThumbnailUrl(objectKey: string, thumbnailSize: ThumbnailSizeEnum) {
-    const { width, height } = thumbnailSizes[thumbnailSize];
-    const folder = `thumbnail/${width}x${height}`;
+  getThumbnailUrl(
+    objectKey: string,
+    imageFolder: AwsS3FolderEnum,
+    thumbnailSize: AwsS3ThumbnailEnum
+  ) {
+    const size = thumbnailSizes[imageFolder][thumbnailSize];
+    if (!size) {
+      return null;
+    }
 
-    return this.getImageUrl(folder, objectKey);
+    const folder = `thumbnail/${size.width}x${size.height}`;
+    return this.getImageUrl(folder, imageFolder, objectKey);
   }
 }
 

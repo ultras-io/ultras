@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import S3Service, { ThumbnailSizeEnum } from '@ultras/services/aws/S3Service';
+import S3Service from '@ultras/services/aws/S3Service';
+import { AwsS3FolderEnum, AwsS3ThumbnailEnum } from '@ultras/utils';
 import { HttpRequestMethods } from '@ultras/services/NetworkService/types';
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import type {
@@ -11,7 +12,10 @@ import type {
 import configs from '../../configs';
 export * from './types';
 
-export { ThumbnailSizeEnum as UltrasS3ThumbnailSizeEnum };
+export {
+  AwsS3ThumbnailEnum as UltrasS3ThumbnailSizeEnum,
+  AwsS3FolderEnum as UltrasS3FolderEnum,
+};
 
 export class UltrasS3SDK extends CoreApiBaseSDK {
   private readonly serviceS3 = new S3Service(
@@ -72,14 +76,18 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
   /**
    * Generate original image url by object key.
    */
-  getOriginalUrl(objectKey: string) {
-    return this.serviceS3.getOriginalUrl(objectKey);
+  getOriginalUrl(objectKey: string, imageFolder: AwsS3FolderEnum) {
+    return this.serviceS3.getOriginalUrl(objectKey, imageFolder);
   }
 
   /**
    * Generate thumbnail image url by object key and thumbnail size.
    */
-  getThumbnailUrl(objectKey: string, thumbnailSize: ThumbnailSizeEnum) {
-    return this.serviceS3.getThumbnailUrl(objectKey, thumbnailSize);
+  getThumbnailUrl(
+    objectKey: string,
+    imageFolder: AwsS3FolderEnum,
+    thumbnailSize: AwsS3ThumbnailEnum
+  ) {
+    return this.serviceS3.getThumbnailUrl(objectKey, imageFolder, thumbnailSize);
   }
 }

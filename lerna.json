@@ -8,7 +8,6 @@
     "--network-timeout 100000"
   ],
   "packages": [
-    ".aws/**/*",
     "packages/*",
     "clients/*",
     "apis/*",

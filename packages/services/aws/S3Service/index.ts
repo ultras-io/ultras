@@ -1,3 +1,2 @@
 export { default } from './S3Service';
-export { thumbnailSizes } from './constants';
-export { ThumbnailSizeEnum } from './types';
+export { folders, thumbnailSizes } from './constants';

@@ -10,6 +10,20 @@ const S3 = new AWS.S3({
 async function processItem(bucketName: string, objectKey: string) {
   const format = objectKey.endsWith('.png') ? 'png' : 'jpeg';
   const fileName = objectKey.replace(new RegExp(`^${configs.paths.root}/`), '');
+  const folder = fileName.split('/').pop();
+
+  // check folder and size are valid
+  if (!folder) {
+    return;
+  }
+  if (!configs.sizes[folder]) {
+    return;
+  }
+  const thumbnailSizeList = Object.values(configs.sizes[folder]);
+  if (thumbnailSizeList.length === 0) {
+    return;
+  }
+  // end: check folder and size are valid
 
   // load uploaded file data from AWS S3
   const objectGetParams = {
@@ -23,7 +37,11 @@ async function processItem(bucketName: string, objectKey: string) {
   }
   // end: load uploaded file data
 
-  for (const size of configs.sizes) {
+  for (const size of thumbnailSizeList) {
+    if (!size) {
+      continue;
+    }
+
     // resize image by {WIDTH} and {HEIGHT}
     const imageBuffer = await resize({
       body: s3ObjectResponse.Body,
