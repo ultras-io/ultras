@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import { MatchViewModel } from '@ultras/view-models';
 import { OrderEnum, parseMatchStatus, WinnerEnum } from '@ultras/utils';
 import {
@@ -29,14 +30,9 @@ export interface IMatchesListParams {
 
 class MatchService extends BaseService {
   protected static includeRelations() {
-    // const attributes = [
-    //   // @TODO: write logic to load count of catches and comments
-    // ];
-
     return {
       attributes: {
         // exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
-        // include: attributes,
       },
       include: [
         {
@@ -292,6 +288,50 @@ class MatchService extends BaseService {
         ignoreDuplicates: true,
       });
     }
+  }
+
+  /**
+   * Increment catches count of match.
+   */
+  static async incrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.increment('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement catches count of match.
+   */
+  static async decrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.decrement('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Increment comments count of match.
+   */
+  static async incrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.increment('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement comments count of match.
+   */
+  static async decrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.decrement('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
   }
 }
 
