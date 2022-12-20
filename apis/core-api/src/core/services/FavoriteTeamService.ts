@@ -14,7 +14,7 @@ import {
   FavoriteTeamCreationAttributes,
 } from 'core/data/models/FavoriteTeam';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import {
   FavoriteTeamsViewModel,
   FavoriteTeamViewModel,
@@ -49,23 +49,33 @@ export interface IAddSingleParams {
   teamId: ResourceIdentifier | Array<ResourceIdentifier>;
 }
 
+export const defaultRelations: RelationGroupType = ['team', 'user'];
+
 class FavoriteTeamService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'team')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        team: ['city', 'country', 'venue'],
+      });
+
+      includeRelations.push({
+        model: db.Team,
+        as: resources.TEAM.ALIAS.SINGULAR,
+        ...TeamService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'user')) {
+      includeRelations.push({
+        model: db.User,
+        as: resources.USER.ALIAS.SINGULAR,
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['teamId', 'userId'],
-      },
-      include: [
-        {
-          model: db.Team,
-          as: resources.TEAM.ALIAS.SINGULAR,
-          ...TeamService.getIncludeRelations(),
-        },
-        {
-          model: db.User,
-          as: resources.USER.ALIAS.SINGULAR,
-        },
-      ],
+      include: includeRelations,
     };
   }
 

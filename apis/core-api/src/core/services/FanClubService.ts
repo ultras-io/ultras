@@ -11,7 +11,7 @@ import {
   ServiceListResultType,
 } from 'types';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import CityService from './CityService';
 import CountryService from './CountryService';
 import TeamService from './TeamService';
@@ -30,33 +30,53 @@ export interface IFanClubMembershipListParams {
   fanClubId: ResourceIdentifier;
 }
 
+export const defaultRelations: RelationGroupType = ['city', 'country', 'team', 'owner'];
+
 class FanClubService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'city')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        city: ['country'],
+      });
+
+      includeRelations.push({
+        model: db.City,
+        as: resources.CITY.ALIAS.SINGULAR,
+        ...CityService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'country')) {
+      includeRelations.push({
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+        ...CountryService.getIncludeRelations(),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'team')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        team: ['city', 'country', 'venue'],
+      });
+
+      includeRelations.push({
+        model: db.Team,
+        as: resources.TEAM.ALIAS.SINGULAR,
+        ...TeamService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'owner')) {
+      includeRelations.push({
+        model: db.User,
+        as: 'owner',
+      });
+    }
+
     return {
-      attributes: {
-        // exclude: ['cityId', 'countryId', 'teamId', 'ownerId'],
-      },
-      include: [
-        {
-          model: db.City,
-          as: resources.CITY.ALIAS.SINGULAR,
-          ...CityService.getIncludeRelations(),
-        },
-        {
-          model: db.Country,
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-          ...CountryService.getIncludeRelations(),
-        },
-        {
-          model: db.Team,
-          as: resources.TEAM.ALIAS.SINGULAR,
-          // ...TeamService.getIncludeRelations(),
-        },
-        {
-          model: db.User,
-          as: 'owner',
-        },
-      ],
+      include: includeRelations,
     };
   }
 

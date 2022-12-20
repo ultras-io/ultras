@@ -620,7 +620,7 @@ SPEC CHECKSUMS:
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-image-picker: f2ab1215d17bcfe27b0eb6417cc236fd1f4775e7
-  react-native-pager-view: 3c66c4e2f3ab423643d07b2c7041f8ac48395f72
+  react-native-pager-view: 7abf89f9834d9a4021b2fb6a5ef2abff570b46fb
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
