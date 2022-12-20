@@ -61,9 +61,7 @@ class PostService extends BaseService {
       });
     }
 
-    const attributes = [
-      // @TODO: write logic to load count of catches and comments
-    ];
+    const attributes = [];
 
     if (args.userId) {
       attributes.push([
@@ -72,15 +70,28 @@ class PostService extends BaseService {
             SELECT 1
             FROM "${resources.ULTRAS_CORE}"."${resources.POST_MEMBER.RELATION}"
             WHERE (
-              "deletedAt" IS NULL
-              AND
-              "userId" = ${args.userId}
-              AND
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
               "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
             )
           )
         `),
         'joined',
+      ]);
+
+      attributes.push([
+        db.Sequelize.literal(`
+          EXISTS (
+            SELECT 1
+            FROM "${resources.ULTRAS_CORE}"."${resources.CATCH.RELATION}"
+            WHERE (
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
+              "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
+            )
+          )
+        `),
+        'caught',
       ]);
     }
 
@@ -89,6 +100,22 @@ class PostService extends BaseService {
       attributes: {
         include: attributes,
       },
+      include: [
+        {
+          model: db.FanClub,
+          as: resources.FAN_CLUB.ALIAS.SINGULAR,
+          ...FanClubService.getIncludeRelations(),
+        },
+        {
+          model: db.Match,
+          as: resources.MATCH.ALIAS.SINGULAR,
+          ...MatchService.getIncludeRelations({ userId: args.userId }),
+        },
+        {
+          model: db.User,
+          as: 'author',
+        },
+      ],
     };
   }
 
@@ -107,8 +134,6 @@ class PostService extends BaseService {
       fanClubId: fanClubId || null,
       title,
       content,
-      catchesCount: 0,
-      commentsCount: 0,
     };
 
     const post = await db.Post.create(postData, { transaction });
@@ -165,6 +190,50 @@ class PostService extends BaseService {
     const event = await db.Post.findOne(options);
 
     return event;
+  }
+
+  /**
+   * Increment catches count of post.
+   */
+  static async incrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.increment('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement catches count of post.
+   */
+  static async decrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.decrement('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Increment comments count of post.
+   */
+  static async incrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.increment('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement comments count of post.
+   */
+  static async decrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.decrement('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
   }
 }
 

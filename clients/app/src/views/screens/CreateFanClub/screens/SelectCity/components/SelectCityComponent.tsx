@@ -1,8 +1,9 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import { Box, Divider, FlatList, Pressable, Text } from 'native-base';
+import { Box, Divider, Pressable, Text } from 'native-base';
 import { useTheme } from 'themes';
-import { Loader, NoResults } from 'views/components/base/ListComponents';
+import FlatList from 'views/components/base/FlatList/FlatList';
+import { Loader } from 'views/components/base/ListComponents';
 import { InputSection } from 'views/components/base/InputSection';
 import { ISelectCityComponentProps } from '../types';
 
@@ -51,16 +52,14 @@ const SelectCityComponent: React.FC<ISelectCityComponentProps> = ({
       <Box paddingX={4} paddingTop={4}>
         <InputSection>
           <FlatList
+            loading={loading}
             contentContainerStyle={{ paddingVertical: 8 }}
             keyExtractor={item => `city-section-${item.id}`}
             renderItem={renderCity}
             data={data}
             onEndReached={onEndReached}
-            onEndReachedThreshold={0.7}
             horizontal={false}
             showsVerticalScrollIndicator={false}
-            ListEmptyComponent={loading ? null : <NoResults />}
-            ListFooterComponent={loading ? <Loader /> : null}
           />
         </InputSection>
       </Box>

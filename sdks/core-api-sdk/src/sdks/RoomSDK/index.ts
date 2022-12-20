@@ -1,6 +1,6 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import ICatchable from '../ICatchable';
-import type { QueryParam, ResourceIdentifier } from '../types';
+import type { DynamicQueryParam, QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetRoomsFilter,
   CreateRoomType,
@@ -44,8 +44,10 @@ export class RoomSDK extends CoreApiBaseSDK implements ICatchable {
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getCatch(roomId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${roomId}/catches`);
+  public getCatches(roomId: ResourceIdentifier, params: QueryParam) {
+    return this.api?.makeAPIGetRequest(`${roomId}/catches`, {
+      query_params: params as DynamicQueryParam,
+    });
   }
 
   public catch(roomId: ResourceIdentifier) {

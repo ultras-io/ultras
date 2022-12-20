@@ -36,6 +36,7 @@ const FanClubsContainer: React.FC<IFanClubsContainerProps> = ({
       data={storeList.data}
       onEndReached={storeList.getAll}
       type={type}
+      loading={storeList.status === 'loading'}
     />
   ) : null;
 };

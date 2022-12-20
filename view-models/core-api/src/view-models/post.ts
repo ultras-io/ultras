@@ -15,6 +15,7 @@ export type PostViewModel = ViewModel<{
   catchesCount: number;
   commentsCount: number;
   joined?: boolean;
+  caught?: boolean;
 }>;
 
 export type PostsViewModel = Array<PostViewModel>;

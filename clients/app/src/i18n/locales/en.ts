@@ -27,6 +27,11 @@ export default {
   'common-next': 'Next',
   'common-save': 'Save',
 
+  // catches
+  'catches-event': 'Event catches',
+  'catches-room': 'Room catches',
+  'catches-match': 'Match catches',
+
   // four digit component
   'fourDigits-code': '4-digit confirmation code',
   'fourDigits-codeWrong': 'Wrong code, please check it or',

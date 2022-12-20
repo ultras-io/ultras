@@ -22,6 +22,8 @@ import { Icons } from 'assets/icons';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import { IEventComponentProps } from '../types';
 import buildEventMembersStore from 'stores/eventMembers';
+import buildEventCatchesStore from 'stores/eventCatches';
+import Catch, { CatchTypeEnum } from 'views/components/base/Catch';
 
 const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   const { pushTo } = useNavigationWithParams();
@@ -29,36 +31,64 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
   const [ratio, setRatio] = React.useState(3 / 2);
 
   const eventMembersStore = React.useMemo(() => buildEventMembersStore(), []);
-  const { add: storeAdd, delete: storeDelete } = eventMembersStore.useSelector(
-    'add',
-    'delete'
-  );
+  const eventCatchesStore = React.useMemo(() => buildEventCatchesStore(), []);
+
+  const { add: storeMembersAdd, delete: storeMembersDelete } =
+    eventMembersStore.useSelector('add', 'delete');
+
+  const { add: storeCatchesAdd, delete: storeCatchesDelete } =
+    eventCatchesStore.useSelector('add', 'delete');
 
   const [isJoined, setIsJoined] = React.useState(data.post.joined || false);
+  const [isCaught, setIsCaught] = React.useState(data.post.caught || false);
 
   const onJoinLeavePress = React.useCallback(() => {
     setIsJoined(!isJoined);
 
     if (isJoined) {
-      storeDelete.remove({ eventId: data.id });
+      storeMembersDelete.remove({ eventId: data.id });
     } else {
-      storeAdd.setFieldValue('eventId', data.id);
-      storeAdd.create();
+      storeMembersAdd.setFieldValue('eventId', data.id);
+      storeMembersAdd.create();
     }
-  }, [isJoined, storeDelete, data.id, storeAdd]);
+  }, [isJoined, data.id, storeMembersAdd, storeMembersDelete]);
+
+  const onCatchPress = React.useCallback(() => {
+    setIsCaught(!isCaught);
+
+    if (isCaught) {
+      storeCatchesDelete.remove({ eventId: data.id });
+    } else {
+      storeCatchesAdd.setFieldValue('eventId', data.id);
+      storeCatchesAdd.create();
+    }
+  }, [isCaught, data.id, storeCatchesAdd, storeCatchesDelete]);
 
   React.useEffect(() => {
     setIsJoined(data.post.joined || false);
   }, [data.post.joined]);
 
   React.useEffect(() => {
-    if (storeAdd.status === 'error') {
+    setIsCaught(data.post.caught || false);
+  }, [data.post.caught]);
+
+  React.useEffect(() => {
+    if (storeMembersAdd.status === 'error') {
       setIsJoined(false);
     }
-    if (storeDelete.status === 'error') {
+    if (storeMembersDelete.status === 'error') {
       setIsJoined(true);
     }
-  }, [isJoined, storeAdd.status, storeDelete.status]);
+  }, [isJoined, storeMembersAdd.status, storeMembersDelete.status]);
+
+  React.useEffect(() => {
+    if (storeCatchesAdd.status === 'error') {
+      setIsCaught(false);
+    }
+    if (storeCatchesDelete.status === 'error') {
+      setIsCaught(true);
+    }
+  }, [isCaught, storeCatchesAdd.status, storeCatchesDelete.status]);
 
   React.useLayoutEffect(() => {
     if (data.post.image) {
@@ -107,7 +137,7 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
         )}
         <Text variant={'cardPlace'} mt={'1'}>
           <Icon name={Icons.Map} size={'ic-2xs'} color="textPrimary" />{' '}
-          {data.location.name}
+          {data.location?.name}
         </Text>
         <HStack>
           <Text variant={'cardInfo'}>
@@ -159,7 +189,15 @@ const EventComponent: React.FC<IEventComponentProps> = ({ data }) => {
         >
           {I18n.t(isJoined ? 'events-going' : 'events-join')}
         </Button>
-        <Icon name={Icons.Catch} color={'iconPrimary'} size={'ic-md'} />
+
+        <Catch
+          catchType={CatchTypeEnum.event}
+          catchResourceId={data.id}
+          count={data.post.catchesCount}
+          isCaught={isCaught}
+          onPress={onCatchPress}
+        />
+
         <Icon name={Icons.Comments} color={'iconPrimary'} size={'ic-md'} />
       </HStack>
 

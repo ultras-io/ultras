@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'native-base';
+import { useIsFocused } from '@react-navigation/native';
 import { useTheme } from 'themes';
 import I18n from 'i18n/i18n';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -12,13 +13,16 @@ import authenticationStore, { IState } from 'stores/authentication';
 const useAuthenticationStore = authenticationStore.initStore();
 
 const EditProfile: React.FC = () => {
+  const isFocused = useIsFocused();
   const me = useAuthenticationStore((state: IState) => state.user);
 
   const { single: storeSingle } = usersStore.useSelector('single');
 
   React.useEffect(() => {
-    storeSingle.getSingle(me.id!);
-  }, [me?.id, storeSingle]);
+    if (isFocused) {
+      storeSingle.getSingle(me.id!);
+    }
+  }, [me?.id, storeSingle, isFocused]);
 
   const { colors } = useTheme();
   const { goBack } = useNavigationWithParams();

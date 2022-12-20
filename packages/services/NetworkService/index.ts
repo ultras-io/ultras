@@ -29,11 +29,10 @@ export interface IResponse<TBody = any, THeaders = any> {
 }
 
 class NetworkService {
-  private interceptors: Interceptor[] = [exceptionDetector];
-  private uri?: string;
+  private readonly interceptors: Interceptor[] = [exceptionDetector];
 
-  constructor(uri: string, interceptors: Array<Interceptor> = []) {
-    if (!uri || typeof uri !== 'string') {
+  constructor(private readonly uri: string, interceptors: Array<Interceptor> = []) {
+    if (!this.uri || typeof this.uri !== 'string') {
       throw new Error('The "uri" argument must be string.');
     }
 
@@ -50,8 +49,6 @@ class NetworkService {
         this.interceptors.push(interceptor);
       });
     }
-
-    this.uri = uri;
   }
 
   clearAuthenticatedState = () => {
@@ -99,17 +96,45 @@ class NetworkService {
     return this.makeAPIRequest<TBody, THeaders>(urlPrefix, options);
   };
 
-  createUrl = (arg: string) => {
+  createUrl = (arg: string | Array<string>) => {
     let endpoint = '';
     if (Array.isArray(arg)) {
       // join arguments via slash
-      endpoint = [this.uri, ...arg].join('/');
+      endpoint = arg.join('/');
     } else {
       // remove first slash
       endpoint = arg.replace(/^\//, '');
     }
 
+    if (!endpoint) {
+      return this.uri;
+    }
+
+    endpoint = this.sanitizeUrl(endpoint)
+      .split('/')
+      .filter((segment: string) => segment.length > 0)
+      .join('/');
+
     return `${this.uri}/${endpoint}`;
+  };
+
+  sanitizeUrl = (url: string): string => {
+    // remove last slash from pathname with steps:
+    //   1) split the pathname and query string
+    //   2) remove last slash of pathname
+    //   3) join sanitized pathname and query string
+    if (typeof url === 'string') {
+      const segments = url.split('?');
+      if (segments.length > 0) {
+        if (segments[0].endsWith('/')) {
+          segments[0] = segments[0].substring(0, segments[0].length - 1);
+        }
+      }
+
+      url = segments.join('?');
+    }
+
+    return url;
   };
 
   createQueryParams = (queryParams: Record<string, unknown>) => {
@@ -223,7 +248,14 @@ class NetworkService {
         const queryParams = this.createQueryParams(options.query_params);
 
         if (queryParams) {
-          const paramGlue = url.includes('?') ? '&' : '?';
+          const isContainsQuestionMark = url.includes('?');
+          const isUrlEndsWithSlash = url.endsWith('/');
+
+          if (!isContainsQuestionMark && isUrlEndsWithSlash) {
+            url = url.substring(0, url.length - 1);
+          }
+
+          const paramGlue = isContainsQuestionMark ? '&' : '?';
           url += `${paramGlue}${queryParams}`;
         }
       }
@@ -261,6 +293,8 @@ class NetworkService {
           message: HttpErrorMessages.INVALID_REQUEST_PARAMS,
         });
       }
+
+      url = this.sanitizeUrl(url);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

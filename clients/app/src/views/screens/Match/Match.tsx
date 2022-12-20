@@ -1,7 +1,7 @@
 import React from 'react';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import Container from 'views/components/base/Container';
-import Catch from 'views/components/base/Catch';
+import MatchCatchComponent from './components/MatchCatchComponent';
 import { IMatchProps } from './types';
 
 const MatchContainer = React.lazy(() => import('./containers/MatchContainer'));
@@ -12,9 +12,10 @@ const Match: React.FC<IMatchProps> = ({ route }) => {
 
   React.useLayoutEffect(() => {
     setOptions({
-      headerRight: () => <Catch isCaught onPress={() => {}} />,
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerRight: () => <MatchCatchComponent data={data} />,
     });
-  }, [setOptions]);
+  }, [setOptions, data]);
 
   return (
     <Container withSuspense withBg>

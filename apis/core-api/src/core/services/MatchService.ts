@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import { MatchViewModel } from '@ultras/view-models';
 import { OrderEnum, parseMatchStatus, WinnerEnum } from '@ultras/utils';
 import {
@@ -25,6 +26,12 @@ export interface IMatchesListParams {
   teamId?: ResourceIdentifier;
   teamHomeId?: ResourceIdentifier;
   teamAwayId?: ResourceIdentifier;
+  userId?: ResourceIdentifier;
+}
+
+export interface IMatchByIdParams {
+  id: ResourceIdentifier;
+  userId?: ResourceIdentifier;
 }
 
 export const defaultRelations: RelationGroupType = [
@@ -91,13 +98,29 @@ class MatchService extends BaseService {
       });
     }
 
-    // const attributes = [
-    //   // @TODO: write logic to load count of catches and comments
-    // ];
+    const attributes = [];
+
+    if (args.userId) {
+      attributes.push([
+        db.Sequelize.literal(`
+          EXISTS (
+            SELECT 1
+            FROM "${resources.ULTRAS_CORE}"."${resources.CATCH.RELATION}"
+            WHERE (
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
+              "matchId" = "${resources.MATCH.RELATION}"."id"
+            )
+          )
+        `),
+        'caught',
+      ]);
+    }
 
     return {
       attributes: {
-        // include: attributes,
+        include: attributes,
+        // exclude: ['teamHomeId', 'teamAwayId', 'venueId', 'leagueId'],
       },
       include: includeRelations,
     };
@@ -146,7 +169,10 @@ class MatchService extends BaseService {
       ]);
     }
 
-    let moreQueryOptions: any = {};
+    let moreQueryOptions: any = {
+      ...this.includeRelations({ userId: params.userId }),
+    };
+
     if (params.search) {
       this.queryAppend(query, db.Sequelize.Op.or, [
         db.Sequelize.literal(`"teamHome"."name" ILIKE '%${params.search}%'`),
@@ -164,8 +190,10 @@ class MatchService extends BaseService {
   /**
    * Get match by their ID.
    */
-  static async getById(id: ResourceIdentifier): ServiceByIdResultType<any> {
-    return this.findById(db.Match, id);
+  static async getById(params: IMatchByIdParams): ServiceByIdResultType<any> {
+    return this.findById(db.Match, params.id, {
+      ...this.includeRelations({ userId: params.userId }),
+    });
   }
 
   private static teamsById: Record<number, any> = {};
@@ -328,6 +356,50 @@ class MatchService extends BaseService {
         ignoreDuplicates: true,
       });
     }
+  }
+
+  /**
+   * Increment catches count of match.
+   */
+  static async incrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.increment('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement catches count of match.
+   */
+  static async decrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.decrement('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Increment comments count of match.
+   */
+  static async incrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.increment('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement comments count of match.
+   */
+  static async decrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Match.decrement('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
   }
 }
 

@@ -18,7 +18,14 @@ interface IMatchesFilter {
   teamAwayId?: ResourceIdentifier;
 }
 
-export type MatchesListParams = ControllerListParamsType<IMatchesFilter>;
+export type MatchByIdParams = {
+  id: ResourceIdentifier;
+  userId?: ResourceIdentifier;
+};
+
+export type MatchesListParams = ControllerListParamsType<IMatchesFilter> & {
+  userId?: ResourceIdentifier;
+};
 export type MatchesListResult = ControllerListResultType<MatchesViewModel>;
 export type MatchByIdResult = ControllerByIdResultType<MatchViewModel>;
 export type MatchesInjectDataResult = ControllerInjectionResultType;

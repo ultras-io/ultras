@@ -1,7 +1,7 @@
 import CoreApiBaseSDK, { Mode } from '../CoreApiBaseSDK';
 import ICommentable from '../ICommentable';
 import ICatchable from '../ICatchable';
-import type { QueryParam, ResourceIdentifier } from '../types';
+import type { DynamicQueryParam, QueryParam, ResourceIdentifier } from '../types';
 import type {
   GetEventsFilter,
   GetEventsResponse,
@@ -45,8 +45,10 @@ export class EventSDK extends CoreApiBaseSDK implements ICatchable, ICommentable
     return this.api?.makeAPIDeleteRequest(id.toString());
   }
 
-  public getCatch(eventId: ResourceIdentifier) {
-    return this.api?.makeAPIGetRequest(`${eventId}/catches`);
+  public getCatches(eventId: ResourceIdentifier, params: QueryParam) {
+    return this.api?.makeAPIGetRequest(`${eventId}/catches`, {
+      query_params: params as DynamicQueryParam,
+    });
   }
 
   public catch(eventId: ResourceIdentifier) {

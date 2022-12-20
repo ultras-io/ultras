@@ -309,7 +309,7 @@ PODS:
     - React
   - react-native-image-picker (4.10.1):
     - React-Core
-  - react-native-pager-view (6.1.0):
+  - react-native-pager-view (6.1.1):
     - React-Core
   - react-native-safe-area-context (4.4.1):
     - RCT-Folly

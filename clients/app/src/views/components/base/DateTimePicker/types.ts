@@ -1,7 +1,19 @@
-import { DateTimePickerEvent } from '@react-native-community/datetimepicker/src/types';
+import {
+  AndroidNativeProps,
+  IOSNativeProps,
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
+
+export interface OnChangeInterface {
+  (event: DateTimePickerEvent, date?: Date | undefined): void;
+}
 
 export interface IDatePickerProps {
+  autoclose?: boolean;
   text: string;
   value: Date;
-  onChange?: (event: DateTimePickerEvent, date?: Date | undefined) => void;
+  onChange?: OnChangeInterface;
 }
+
+type NativeProps = IOSNativeProps | AndroidNativeProps;
+export type PickerWrapperProps = IDatePickerProps & NativeProps;

@@ -13,14 +13,16 @@ import {
   UserSDK,
 } from '@ultras/core-api-sdk';
 
-export const buildCountrySDK = () => makeSdkInstance(CountrySDK);
-export const buildCitySDK = () => makeSdkInstance(CitySDK);
-export const buildFanClubMembershipSDK = () => makeSdkInstance(FanClubMembershipSDK);
-export const buildFavoriteTeamSDK = () => makeSdkInstance(FavoriteTeamSDK);
-export const buildMatchSDK = () => makeSdkInstance(MatchSDK);
-export const buildRoomSDK = () => makeSdkInstance(RoomSDK);
-export const buildTeamSDK = () => makeSdkInstance(TeamSDK);
-export const buildUserSDK = () => makeSdkInstance(UserSDK);
-export const buildEventMemberSDK = () => makeSdkInstance(EventMemberSDK);
-export const buildEventSDK = () => makeSdkInstance(EventSDK);
-export const buildFanClubSDK = () => makeSdkInstance(FanClubSDK);
+export const buildCountrySDK = () => makeSdkInstance<CountrySDK>(CountrySDK);
+export const buildCitySDK = () => makeSdkInstance<CitySDK>(CitySDK);
+export const buildFanClubMembershipSDK = () =>
+  makeSdkInstance<FanClubMembershipSDK>(FanClubMembershipSDK);
+export const buildFavoriteTeamSDK = () =>
+  makeSdkInstance<FavoriteTeamSDK>(FavoriteTeamSDK);
+export const buildMatchSDK = () => makeSdkInstance<MatchSDK>(MatchSDK);
+export const buildRoomSDK = () => makeSdkInstance<RoomSDK>(RoomSDK);
+export const buildTeamSDK = () => makeSdkInstance<TeamSDK>(TeamSDK);
+export const buildUserSDK = () => makeSdkInstance<UserSDK>(UserSDK);
+export const buildEventMemberSDK = () => makeSdkInstance<EventMemberSDK>(EventMemberSDK);
+export const buildEventSDK = () => makeSdkInstance<EventSDK>(EventSDK);
+export const buildFanClubSDK = () => makeSdkInstance<FanClubSDK>(FanClubSDK);

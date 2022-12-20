@@ -12,7 +12,7 @@ class MatchCatchController extends BaseController {
    */
   static async create({ userId, matchId }: ICatchUncatchParams) {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',
@@ -32,7 +32,7 @@ class MatchCatchController extends BaseController {
    */
   static async delete({ userId, matchId }: ICatchUncatchParams) {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',
@@ -56,9 +56,10 @@ class MatchCatchController extends BaseController {
     orderAttr = 'username',
     order = OrderEnum.asc,
     matchId,
+    userId,
   }: CatchListParams): CatchListResult {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',
@@ -66,7 +67,7 @@ class MatchCatchController extends BaseController {
     }
 
     // get all catches by match id
-    const catches = await CatchService.getAll({
+    const { rows, count } = await CatchService.getAll({
       limit,
       offset,
       orderAttr,
@@ -76,7 +77,8 @@ class MatchCatchController extends BaseController {
     });
 
     return {
-      data: catches,
+      data: rows,
+      count,
       limit,
       offset,
     };

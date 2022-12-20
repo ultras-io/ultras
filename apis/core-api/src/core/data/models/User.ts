@@ -1,3 +1,4 @@
+import { UserProfilePrivacyEnum } from '@ultras/utils';
 import { Model, Optional, Sequelize, DataTypes } from 'sequelize';
 import { ResourceIdentifier } from 'types';
 
@@ -13,6 +14,7 @@ export interface UserAttributes {
   username: string;
   avatar: null | string;
   fullname: null | string;
+  privacy?: UserProfilePrivacyEnum;
 }
 
 export type UserCreationAttributes = Optional<
@@ -61,18 +63,18 @@ export class User
     });
 
     User.belongsToMany(models.Match, {
-      as: resources.LIKE.ALIAS.PLURAL + 'Match',
+      as: resources.CATCH.ALIAS.PLURAL + 'Match',
       through: {
-        model: resources.LIKE.MODEL,
+        model: resources.CATCH.MODEL,
         unique: false,
       },
       foreignKey: 'userId',
     });
 
     User.belongsToMany(models.Post, {
-      as: resources.LIKE.ALIAS.PLURAL + 'Post',
+      as: resources.CATCH.ALIAS.PLURAL + 'Post',
       through: {
-        model: resources.LIKE.MODEL,
+        model: resources.CATCH.MODEL,
         unique: false,
       },
       foreignKey: 'userId',
@@ -128,6 +130,12 @@ module.exports = (sequelize: Sequelize): typeof User => {
       fullname: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      privacy: {
+        type: DataTypes.ENUM({
+          values: [UserProfilePrivacyEnum.private, UserProfilePrivacyEnum.public],
+        }),
+        defaultValue: UserProfilePrivacyEnum.public,
       },
     },
     {

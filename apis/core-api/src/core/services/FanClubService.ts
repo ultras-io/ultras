@@ -225,10 +225,8 @@ class FanClubService extends BaseService {
                     END AS "joinStatus"
                   FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
                   WHERE (
-                    "deletedAt" IS NULL
-                    AND
-                    "memberId" = ${params.userId}
-                    AND
+                    "deletedAt" IS NULL AND
+                    "memberId" = ${params.userId} AND
                     "fanClubId" = "${resources.FAN_CLUB.RELATION}"."id"
                   )
                 )
@@ -296,10 +294,8 @@ class FanClubService extends BaseService {
                   END AS "joinStatus"
                 FROM "${resources.ULTRAS_CORE}"."${resources.FAN_CLUB_MEMBER.RELATION}"
                 WHERE (
-                  "deletedAt" IS NULL
-                  AND
-                  "memberId" = ${userId}
-                  AND
+                  "deletedAt" IS NULL AND
+                  "memberId" = ${userId} AND
                   "fanClubId" = "${resources.FAN_CLUB.RELATION}"."id"
                 )
               )
