@@ -158,7 +158,7 @@ abstract class BaseService {
   protected static async findById<T>(
     model: any,
     id: ResourceIdentifier,
-    selectOptions: any = {}
+    selectOptions: any = {},
   ): ServiceByIdResultType<T> {
     const data = await model.findByPk(id, {
       ...this.includeRelations(),

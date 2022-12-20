@@ -6,7 +6,7 @@ import schemas, { ULTRAS_CORE } from '../lcp/schemas';
 import { Sequelize } from 'sequelize';
 
 const table = {
-  tableName: resources.LIKE.RELATION,
+  tableName: resources.CATCH.RELATION,
   schema: ULTRAS_CORE,
 };
 

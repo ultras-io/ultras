@@ -91,9 +91,9 @@ export class Match
     });
 
     Match.belongsToMany(models.User, {
-      as: resources.LIKE.ALIAS.PLURAL,
+      as: resources.CATCH.ALIAS.PLURAL,
       through: {
-        model: resources.LIKE.MODEL,
+        model: resources.CATCH.MODEL,
         unique: false,
       },
       foreignKey: 'matchId',

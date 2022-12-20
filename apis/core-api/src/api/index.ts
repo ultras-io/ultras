@@ -10,7 +10,7 @@ import { KoaApp } from 'types';
 import bootstrap from './bootstrap';
 
 // database instance
-const database: IDatabase = new Database(dbConfig.logging);
+const database: IDatabase = new Database(dbConfig.logging !== false);
 
 // application instance
 const app: KoaApp = new Koa();

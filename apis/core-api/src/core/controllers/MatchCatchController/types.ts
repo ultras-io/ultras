@@ -10,5 +10,7 @@ export interface ICatchUncatchParams {
   matchId: ResourceIdentifier;
 }
 
-export type CatchListParams = ControllerListParamsType<ICatchFilter>;
+export type CatchListParams = ControllerListParamsType<ICatchFilter> & {
+  userId?: ResourceIdentifier;
+};
 export type CatchListResult = ControllerListResultType<UserViewModel>;

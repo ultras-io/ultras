@@ -18,7 +18,7 @@ class MatchCommentController extends BaseController {
    */
   static async create({ userId, matchId, content }: ICommentCreateParams) {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',
@@ -41,7 +41,7 @@ class MatchCommentController extends BaseController {
    */
   static async update({ userId, matchId, commentId, content }: ICommentUpdateParams) {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',
@@ -65,7 +65,7 @@ class MatchCommentController extends BaseController {
    */
   static async delete({ userId, matchId, commentId }: ICommentDeleteParams) {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',
@@ -92,7 +92,7 @@ class MatchCommentController extends BaseController {
     matchId,
   }: CommentsListParams): CommentListResult {
     // get match model
-    const match = await MatchService.getById(matchId);
+    const match = await MatchService.getById({ id: matchId });
     if (!match) {
       throw new ResourceNotFoundError({
         message: 'Match not found.',

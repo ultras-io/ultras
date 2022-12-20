@@ -36,15 +36,28 @@ class PostService extends BaseService {
             SELECT 1
             FROM "${resources.ULTRAS_CORE}"."${resources.POST_MEMBER.RELATION}"
             WHERE (
-              "deletedAt" IS NULL
-              AND
-              "userId" = ${args.userId}
-              AND
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
               "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
             )
           )
         `),
         'joined',
+      ]);
+
+      attributes.push([
+        db.Sequelize.literal(`
+          EXISTS (
+            SELECT 1
+            FROM "${resources.ULTRAS_CORE}"."${resources.CATCH.RELATION}"
+            WHERE (
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
+              "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
+            )
+          )
+        `),
+        'caught',
       ]);
     }
 
@@ -62,7 +75,7 @@ class PostService extends BaseService {
         {
           model: db.Match,
           as: resources.MATCH.ALIAS.SINGULAR,
-          ...MatchService.getIncludeRelations(),
+          ...MatchService.getIncludeRelations({ userId: args.userId }),
         },
         {
           model: db.User,
