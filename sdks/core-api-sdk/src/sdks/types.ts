@@ -10,7 +10,7 @@ interface IPossibleMeta {
 // NOTE: replace with string if UUIDv4 will be used as data identifier.
 export type ResourceIdentifier = number;
 
-export type QueryParam<T> = T & ListRequestParams;
+export type QueryParam<T = {}> = T & ListRequestParams;
 export type DynamicQueryParam = Record<string, any>;
 
 export type ListResponseMetaType<T = {}> = T & {

@@ -24,7 +24,10 @@ export interface PostAttributes {
   catchesCount: number;
 }
 
-export type PostCreationAttributes = Optional<PostAttributes, 'id'>;
+export type PostCreationAttributes = Optional<
+  PostAttributes,
+  'id' | 'commentsCount' | 'catchesCount'
+>;
 
 export class Post
   extends Model<PostAttributes, PostCreationAttributes>

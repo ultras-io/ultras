@@ -44,32 +44,34 @@ const UpdateFieldContainer: React.FC<IUpdateFieldContainerProps> = ({ label, nam
     return defaultProps;
   }, [name, store]);
 
+  const sendConfirmationCode = React.useCallback(async () => {
+    setConfirmation('loading');
+    await store.sendCode(name);
+    setConfirmation('pending');
+  }, [name, store]);
+
   const onSavePress = React.useCallback(async () => {
     if (name === 'fullname') {
-      // @TODO: save value using sdk.
-      // await ...
-
-      goBack();
-      return;
+      await store.update(name);
+      return goBack();
     }
 
     if (name === 'email' || name === 'phone') {
-      setConfirmation('loading');
-      // @TODO: send confirmation code to email/phone
-      setConfirmation('pending');
-
-      return;
+      await sendConfirmationCode();
     }
-  }, [goBack, name]);
+  }, [sendConfirmationCode, goBack, name, store]);
 
-  const verifyCode = React.useCallback(async () => {
-    // @TODO: verify code and save value using sdk.
-    // await ...
+  const verifyCode = React.useCallback(
+    async (code: string) => {
+      await store.update(name, code);
+      goBack();
+    },
+    [goBack, name, store]
+  );
 
-    goBack();
-  }, [goBack]);
-
-  const onResendPress = React.useCallback(async () => {}, []);
+  const onResendPress = React.useCallback(async () => {
+    await sendConfirmationCode();
+  }, [sendConfirmationCode]);
 
   const isShowError = false;
   const isResendSucceed = true;

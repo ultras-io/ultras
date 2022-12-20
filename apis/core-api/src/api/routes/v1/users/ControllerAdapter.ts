@@ -191,6 +191,29 @@ class ControllerAdapter {
 
     return ctx.ok(response);
   }
+
+  static async updateProfile(ctx: Context): Promise<void> {
+    /** VALIDATIONS, PARAMETERS */
+    const { userId } = ctx.user;
+    const { code, phone, email, fullname } = ctx.request.body;
+
+    /** CONTROLLERS */
+    const { data } = await UserController.updateProfile({
+      userId,
+      code,
+      phone,
+      email,
+      fullname,
+    });
+
+    /** RESPONSE */
+    // @TODO make response types
+    const response = {
+      data,
+    };
+
+    return ctx.ok(response);
+  }
 }
 
 export default ControllerAdapter;

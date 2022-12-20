@@ -4,7 +4,7 @@ interface ISdkBuilder {
   new (mode: 'staging' | 'production' | 'dev'): any;
 }
 
-function makeSdkInstance(SdkBuilderClass: ISdkBuilder) {
+function makeSdkInstance<T>(SdkBuilderClass: ISdkBuilder): T {
   if (REACT_APP_NODE_ENV === 'staging') {
     return new SdkBuilderClass('staging');
   }

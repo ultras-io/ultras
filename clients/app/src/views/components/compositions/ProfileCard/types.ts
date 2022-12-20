@@ -1,5 +1,5 @@
 export interface IProfileCardProps {
-  avatarUri: string;
+  avatar: string;
   name: string;
   username: string;
   appearance?: 'minimal' | undefined;

@@ -20,7 +20,7 @@ import registrationStore, { IState } from 'stores/registration';
 import type { IJoinUsComponentProps, ChatRow, ChatRowAnswer } from '../types';
 import { DataKeyType } from 'views/screens/SearchListModal/types';
 
-const animation_delay = 150;
+const animationDelay = 150;
 
 const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   data,
@@ -66,15 +66,21 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
   const nextStep = useStore(registrationStore.nextStepSelector());
   const setSelected = useStore(registrationStore.setSelectedSelector());
 
-  React.useEffect(() => {
-    if (keyboardHeight !== 0) {
-      setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
-    }
-  }, [keyboardHeight]);
+  const scrollToEnd = React.useCallback(() => {
+    setTimeout(() => {
+      flatListRef?.current?.scrollToEnd();
+    }, 2 * animationDelay + 10);
+  }, []);
 
   React.useEffect(() => {
-    setTimeout(() => flatListRef?.current?.scrollToEnd(), animation_delay);
-  }, [step]);
+    if (keyboardHeight !== 0) {
+      scrollToEnd();
+    }
+  }, [keyboardHeight, scrollToEnd]);
+
+  React.useEffect(() => {
+    scrollToEnd();
+  }, [scrollToEnd, step]);
 
   React.useEffect(() => {
     if (route.params?.selected) {
@@ -187,7 +193,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
     ({ item }) => {
       if (item.type === 'message') {
         return (
-          <WithAnimation delay={animation_delay}>
+          <WithAnimation delay={animationDelay}>
             <LeftMessage item={item} useStore={useStore} />
           </WithAnimation>
         );
@@ -196,7 +202,7 @@ const JoinUsComponent: React.FC<IJoinUsComponentProps> = ({
           return (
             <WithAnimation
               direction={AnimationDirection.Right2Left}
-              delay={2 * animation_delay}
+              delay={2 * animationDelay}
               key={'currentStep'}
             >
               {renderRightComponent(item)}

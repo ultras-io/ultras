@@ -10,6 +10,8 @@ import type {
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import BaseService from './BaseService';
+import PostService from './PostService';
+import MatchService from './MatchService';
 
 interface ICommentBasicParams {
   resourceType: CommentTypeEnum;
@@ -115,6 +117,12 @@ class CommentService extends BaseService {
       { transaction }
     );
 
+    if (params.resourceType === CommentTypeEnum.post) {
+      await PostService.incrementComments(params.resourceId, transaction);
+    } else if (params.resourceType === CommentTypeEnum.match) {
+      await MatchService.incrementComments(params.resourceId, transaction);
+    }
+
     return this.getById(comment.getDataValue('id'));
   }
 
@@ -161,6 +169,12 @@ class CommentService extends BaseService {
       },
       { transaction }
     );
+
+    if (params.resourceType === CommentTypeEnum.post) {
+      await PostService.decrementComments(params.resourceId, transaction);
+    } else if (params.resourceType === CommentTypeEnum.match) {
+      await MatchService.decrementComments(params.resourceId, transaction);
+    }
   }
 }
 

@@ -12,3 +12,7 @@ export interface IMatchContainerProps {
 export interface IMatchComponentProps {
   data: MatchViewModel;
 }
+
+export interface IMatchCatchComponentProps {
+  data: MatchViewModel;
+}

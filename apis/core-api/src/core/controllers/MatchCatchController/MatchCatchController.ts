@@ -67,7 +67,7 @@ class MatchCatchController extends BaseController {
     }
 
     // get all catches by match id
-    const catches = await CatchService.getAll({
+    const { rows, count } = await CatchService.getAll({
       limit,
       offset,
       orderAttr,
@@ -77,7 +77,8 @@ class MatchCatchController extends BaseController {
     });
 
     return {
-      data: catches,
+      data: rows,
+      count,
       limit,
       offset,
     };

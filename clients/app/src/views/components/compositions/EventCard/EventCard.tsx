@@ -49,7 +49,7 @@ const EventCard: React.FC<IEventCardProps> = ({ data, onPress }) => {
             </Text>
             <Text variant={'cardPlace'} mt={'1'}>
               <Icon name={Icons.Map} size={'ic-2xs'} color="textPrimary" />{' '}
-              {data.location.name}
+              {data.location?.name}
             </Text>
             <HStack>
               <Text variant={'cardInfo'}>

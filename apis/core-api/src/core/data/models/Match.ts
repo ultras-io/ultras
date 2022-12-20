@@ -23,11 +23,13 @@ export interface MatchAttributes {
   goalsAway: null | number;
   elapsedTime: number;
   dataRapidId: number;
+  commentsCount: number;
+  catchesCount: number;
 }
 
 export type MatchCreationAttributes = Optional<
   MatchAttributes,
-  'id' | 'goalsHome' | 'goalsAway' | 'elapsedTime'
+  'id' | 'goalsHome' | 'goalsAway' | 'elapsedTime' | 'commentsCount' | 'catchesCount'
 >;
 
 export class Match
@@ -47,6 +49,8 @@ export class Match
   public goalsAway!: number;
   public elapsedTime!: number;
   public dataRapidId!: number;
+  public commentsCount!: number;
+  public catchesCount!: number;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -200,6 +204,16 @@ module.exports = (sequelize: Sequelize): typeof Match => {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
+      },
+      commentsCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      catchesCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
     },
     {

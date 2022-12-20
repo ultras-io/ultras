@@ -3,21 +3,21 @@ import { Box, Center, Skeleton } from 'native-base';
 
 const EditProfileLoader: React.FC = () => {
   return (
-    <Box paddingY={2} paddingX={3}>
+    <Box paddingY={3} paddingX={4}>
       <Center>
-        <Skeleton size={136} rounded="full" marginBottom={3} />
-        <Skeleton height={3} width={20} marginBottom={5} />
-        <Skeleton height={5} width={40} />
+        <Skeleton size={136} rounded="full" marginBottom={4} />
+        <Skeleton height={3} rounded="lg" width={20} marginBottom={6} />
+        <Skeleton height={5} rounded="lg" width={40} />
       </Center>
 
       <Center marginTop={5}>
-        <Skeleton marginBottom={0.5} height={50} roundedTop={'2xl'} />
-        <Skeleton marginBottom={0.5} height={50} />
-        <Skeleton marginBottom={0.5} height={50} roundedBottom={'2xl'} />
+        <Skeleton marginBottom={0.5} height={75} roundedTop={'2xl'} />
+        <Skeleton marginBottom={0.5} height={75} />
+        <Skeleton marginBottom={0.5} height={75} roundedBottom={'2xl'} />
       </Center>
 
-      <Center marginTop={6}>
-        <Skeleton.Text lines={3} />
+      <Center marginTop={3}>
+        <Skeleton.Text lines={3} space={1} />
       </Center>
     </Box>
   );
