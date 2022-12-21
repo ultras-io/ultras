@@ -29,7 +29,7 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
     return this.api?.request(params.signedUrl, {
       body: params.file,
       headers: {
-        'X-File-Content-Type': 'image/jpeg', // params.mimeType,
+        'X-File-Content-Type': params.mimeType,
       },
       method: HttpRequestMethods.PUT,
       jsonBody: false,
