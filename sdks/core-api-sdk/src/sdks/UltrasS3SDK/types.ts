@@ -1,14 +1,18 @@
+export type FileBinaryType = any;
+
 export interface ISigningUrlParams {
   folder: string;
   extension: string;
 }
 
 export interface IUploadViaSignedUrlParams {
-  file: File;
+  file: FileBinaryType;
   signedUrl: string;
+  mimeType: string;
 }
 
 export interface IUploadParams {
-  file: File;
+  file: FileBinaryType;
+  fileName: string;
   folder: string;
 }

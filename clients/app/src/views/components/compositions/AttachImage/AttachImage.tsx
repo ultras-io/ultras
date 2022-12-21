@@ -1,12 +1,19 @@
 import { generateToken } from '@ultras/utils';
 import React from 'react';
-import { Box, Text } from 'native-base';
+import { Box, Text, Spinner, Center } from 'native-base';
 import { useTheme } from 'themes';
 import ImagePreview from './components/ImagePreview';
-import { IAttacheImageProps, IImageItem, ImageType, ISize } from './types';
+import { IAttachImageProps, IImageItem, ImageType, ISize } from './types';
 import TapToAdd from './components/TapToAdd';
 
-const AttacheImage: React.FC<IAttacheImageProps> = ({
+const generateImage = (image: ImageType | null = null) => {
+  return {
+    id: 'id' + Date.now() + generateToken(10),
+    image: image,
+  };
+};
+
+const AttachImage: React.FC<IAttachImageProps> = ({
   title,
   insideOfInputSection = true,
   initialImages = [],
@@ -15,13 +22,18 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
   centered = false,
   multiple = false,
   removable = true,
+  uploading = false,
+  onChange,
 }) => {
   const [images, setImages] = React.useState<Array<IImageItem>>(
-    initialImages.map((image: ImageType) => ({
-      id: 'id' + generateToken(10),
-      image: image,
-    }))
+    initialImages.map(generateImage)
   );
+
+  React.useEffect(() => {
+    if (typeof onChange === 'function') {
+      onChange(images);
+    }
+  }, [onChange, images]);
 
   const { colors } = useTheme();
 
@@ -39,30 +51,45 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
     };
   }, [size, rounded]);
 
-  const appendEmptyItem = React.useCallback(() => {
-    const emptyItem: IImageItem = {
-      id: 'id' + generateToken(10),
-      image: null,
-    };
-
-    setImages(oldImages => [...oldImages, emptyItem]);
-  }, []);
-
-  const onRemove = React.useCallback((id: string) => {
-    setImages(oldImages => oldImages.filter(image => id !== image.id));
-  }, []);
-
-  const onChoose = React.useCallback((id: string, image: ImageType) => {
-    setImages(oldImages =>
-      oldImages.map(imageItem => {
-        if (imageItem.id === id) {
-          imageItem.image = image;
+  const triggerOnChange = React.useCallback(
+    (callback: (oldImages: Array<IImageItem>) => Array<IImageItem>) => {
+      setImages(oldImages => {
+        const result = callback(oldImages);
+        if (result.length === 0) {
+          result.push(generateImage());
         }
 
-        return imageItem;
-      })
-    );
-  }, []);
+        return result;
+      });
+    },
+    [generateImage, onChange]
+  );
+
+  const appendEmptyItem = React.useCallback(() => {
+    triggerOnChange(oldImages => [...oldImages, generateImage()]);
+  }, [generateImage, triggerOnChange]);
+
+  const onRemove = React.useCallback(
+    (id: string) => {
+      triggerOnChange(oldImages => oldImages.filter(image => id !== image.id));
+    },
+    [triggerOnChange]
+  );
+
+  const onChoose = React.useCallback(
+    (id: string, image: ImageType) => {
+      triggerOnChange(oldImages =>
+        oldImages.map(imageItem => {
+          if (imageItem.id === id) {
+            imageItem.image = image;
+          }
+
+          return imageItem;
+        })
+      );
+    },
+    [triggerOnChange]
+  );
 
   React.useEffect(() => {
     if (images.length === 0) {
@@ -85,6 +112,7 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
       padding={insideOfInputSection ? 4 : 0}
       rounded={insideOfInputSection ? 'xl' : 0}
       alignItems={centered ? 'center' : 'flex-start'}
+      position="relative"
     >
       {title && <Text variant={'smallText'}>{title}</Text>}
 
@@ -105,6 +133,7 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
                 imageItem={imageItem}
                 rounded={rounded}
                 removable={removable}
+                uploading={uploading}
                 onRemove={onRemove}
               />
             ) : (
@@ -117,4 +146,4 @@ const AttacheImage: React.FC<IAttacheImageProps> = ({
   );
 };
 
-export default React.memo<IAttacheImageProps>(AttacheImage);
+export default React.memo<IAttachImageProps>(AttachImage);

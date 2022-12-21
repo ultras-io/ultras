@@ -28,7 +28,11 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
   public uploadViaSignedUrl(params: IUploadViaSignedUrlParams) {
     return this.api?.request(params.signedUrl, {
       body: params.file,
+      headers: {
+        'X-File-Content-Type': 'image/jpeg', // params.mimeType,
+      },
       method: HttpRequestMethods.PUT,
+      jsonBody: false,
     });
   }
 
@@ -38,7 +42,7 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
    * and give you back saved file path.
    */
   public async upload(params: IUploadParams) {
-    const extension = params.file.name.split('.').pop() || '';
+    const extension = params.fileName.split('.').pop() || '';
     const responseSigning = await this.getSignedUrl({
       folder: params.folder,
       extension,
@@ -48,10 +52,15 @@ export class UltrasS3SDK extends CoreApiBaseSDK {
       return null;
     }
 
-    await this.uploadViaSignedUrl({
+    const result = await this.uploadViaSignedUrl({
       file: params.file,
       signedUrl: responseSigning.body.data.putUrl,
+      mimeType: responseSigning.body.data.mimeType,
     });
+
+    if (!result || !result.ok) {
+      return null;
+    }
 
     return {
       path: responseSigning.body.data.path,

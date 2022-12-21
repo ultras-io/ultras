@@ -1,6 +1,6 @@
-import { Box } from 'native-base';
 import React from 'react';
 import { Image, View, StyleSheet, ImageSourcePropType } from 'react-native';
+import { Box, Center, Spinner } from 'native-base';
 import { useTheme } from 'themes';
 import {
   ORIGINAL_SIZE as removeButtonSize,
@@ -14,9 +14,10 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   rounded,
   computedSize,
   removable,
+  uploading,
   onRemove,
 }) => {
-  const { theming } = useTheme();
+  const { theming, colors } = useTheme();
 
   const containerStyle = React.useMemo(() => {
     let offset = 0;
@@ -50,8 +51,27 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
         </View>
       )}
 
-      <Box height="full" width="full" overflow="hidden" rounded={rounded ? 'full' : 'md'}>
+      <Box
+        position="relative"
+        height="full"
+        width="full"
+        overflow="hidden"
+        rounded={rounded ? 'full' : 'md'}
+      >
         <Image source={imageItem.image as ImageSourcePropType} style={styles.image} />
+
+        {uploading && (
+          <Center
+            position="absolute"
+            backgroundColor={colors.backgroundDividerTransparent}
+            top={0}
+            bottom={0}
+            left={0}
+            right={0}
+          >
+            <Spinner color={colors.iconNavigation} />
+          </Center>
+        )}
       </Box>
     </>
   );
