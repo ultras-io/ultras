@@ -44,12 +44,13 @@ class S3Controller extends BaseController {
     }
 
     try {
-      const { putUrl, path } = await S3Service.getSignedUrl(folder, extension);
+      const { putUrl, path, mimeType } = await S3Service.getSignedUrl(folder, extension);
 
       return {
         data: {
           putUrl: putUrl,
           path: path,
+          mimeType: mimeType,
         },
       };
     } catch (e) {

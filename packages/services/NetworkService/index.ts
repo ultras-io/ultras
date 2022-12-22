@@ -268,8 +268,6 @@ class NetworkService {
         method: options.method,
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
         },
       };
 
@@ -282,10 +280,16 @@ class NetworkService {
 
       try {
         if (options.body) {
-          if (options.body instanceof File) {
+          if (options.body instanceof File || options.jsonBody === false) {
             fetchOptions.body = options.body;
           } else {
             fetchOptions.body = JSON.stringify(options.body);
+
+            fetchOptions.headers = {
+              ...fetchOptions.headers,
+              'Content-Type': 'application/json',
+              Accepts: 'application/json',
+            };
           }
         }
       } catch (ex) {

@@ -13,8 +13,8 @@ export interface ISize {
   height: number | SizeType;
 }
 
-export interface IAttacheImageProps {
-  insideOfInputSection: boolean;
+export interface IAttachImageProps {
+  insideOfInputSection?: boolean;
   title?: string;
   multiple?: boolean;
   rounded?: boolean;
@@ -22,7 +22,8 @@ export interface IAttacheImageProps {
   size?: null | number | SizeType;
   initialImages?: Array<ImageType>;
   removable?: boolean;
-  onRemovePress?(): void;
+  uploading?: boolean;
+  onChange?(images: Array<IImageItem>): void;
 }
 
 export interface IImagePreviewProps {
@@ -30,6 +31,7 @@ export interface IImagePreviewProps {
   imageItem: IImageItem;
   rounded: boolean;
   removable: boolean;
+  uploading: boolean;
   onRemove(id: string): void;
 }
 

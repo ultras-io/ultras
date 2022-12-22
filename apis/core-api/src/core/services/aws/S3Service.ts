@@ -32,6 +32,7 @@ class S3Service extends BaseService {
     });
 
     return {
+      mimeType: MIME_TYPES[extension],
       putUrl,
       path: key,
     };

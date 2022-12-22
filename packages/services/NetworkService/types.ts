@@ -45,6 +45,7 @@ export type RequestOptions = {
   // body?: {
   //   status: number;
   // };
+  jsonBody?: boolean;
 };
 
 export interface RequestInit {

@@ -1,3 +1,4 @@
+import { AwsS3FolderEnum } from '@ultras/utils';
 import React from 'react';
 
 export interface ICreateFanClubProps {}
@@ -20,4 +21,11 @@ export interface ISwiperContainerProps {
 
 export interface IDetailsComponentProps {
   onFocus(ref: React.RefObject<any>): void;
+}
+
+export interface IChoosePhotoComponentProps {
+  title: string;
+  rounded: boolean;
+  field: 'avatar' | 'coverPhoto';
+  folder: AwsS3FolderEnum,
 }

@@ -9,4 +9,5 @@ export type S3SignedUrlParam = {
 export type S3SignedUrlResult = ControllerResultType<null | {
   putUrl: string;
   path: string;
+  mimeType: string;
 }>;

@@ -6,7 +6,7 @@ import { useTheme } from 'themes';
 import KeyValue from 'views/components/base/KeyValue';
 import DateAndTimeRows from './DateAndTimeRows';
 import SelectedMatchComponent from './SelectedMatchComponent';
-import AttacheImage from 'views/components/compositions/AttacheImage';
+import AttachImage from 'views/components/compositions/AttachImage';
 import { ICreateEventComponentProps } from '../types';
 import { EventPrivacyEnum } from '@ultras/utils';
 
@@ -128,7 +128,7 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
           ref={descriptionRef}
         />
 
-        <AttacheImage title={I18n.t('events-add-photo')} />
+        <AttachImage title={I18n.t('events-add-photo')} />
 
         <Button
           onPress={onCreatePress}
