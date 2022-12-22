@@ -27,3 +27,7 @@ export interface IDateAndTimeRowsProps {
   switchValue?: boolean;
   onSwitchChange?: (value?: boolean) => void;
 }
+
+export interface IChoosePhotoComponentProps {
+  title: string;
+}

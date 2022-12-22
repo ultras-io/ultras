@@ -1,6 +1,7 @@
 import { SizeType } from 'native-base/lib/typescript/components/types';
 import type { Asset } from 'react-native-image-picker';
 
+export type UploadStatusType = 'idle' | 'uploading' | 'success' | 'error';
 export type ImageType = Asset;
 
 export interface IImageItem {
@@ -22,7 +23,7 @@ export interface IAttachImageProps {
   size?: null | number | SizeType;
   initialImages?: Array<ImageType>;
   removable?: boolean;
-  uploading?: boolean;
+  uploadStatuses?: Record<string, UploadStatusType>;
   onChange?(images: Array<IImageItem>): void;
 }
 
@@ -31,7 +32,7 @@ export interface IImagePreviewProps {
   imageItem: IImageItem;
   rounded: boolean;
   removable: boolean;
-  uploading: boolean;
+  uploadStatus: UploadStatusType;
   onRemove(id: string): void;
 }
 

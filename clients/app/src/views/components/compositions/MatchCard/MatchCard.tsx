@@ -23,10 +23,10 @@ const MatchCard: React.FC<IMatchCardProps> = ({ onPress, data, inverted = false 
         isDark={!inverted}
       >
         <HStack>
-          {data.league.country.id !== WORLD_AS_COUNTRY_ID && (
+          {data.league.country?.id !== WORLD_AS_COUNTRY_ID && (
             <>
               <Text variant={'matchLeague' + variantSuffix} fontSize={'sm'}>
-                {data.league.country.name}
+                {data.league.country?.name}
               </Text>
               <VerticalDivider key={'divider'} />
             </>

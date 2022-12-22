@@ -46,7 +46,10 @@ export const defaultRelations: RelationGroupType = [
 ];
 
 class MatchService extends BaseService {
-  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+  protected static includeRelations(
+    relations: RelationGroupType = defaultRelations,
+    args: any = {}
+  ) {
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'team')) {
@@ -170,7 +173,7 @@ class MatchService extends BaseService {
     }
 
     let moreQueryOptions: any = {
-      ...this.includeRelations({ userId: params.userId }),
+      ...this.includeRelations(null, { userId: params.userId }),
     };
 
     if (params.search) {
@@ -192,7 +195,7 @@ class MatchService extends BaseService {
    */
   static async getById(params: IMatchByIdParams): ServiceByIdResultType<any> {
     return this.findById(db.Match, params.id, {
-      ...this.includeRelations({ userId: params.userId }),
+      ...this.includeRelations(null, { userId: params.userId }),
     });
   }
 

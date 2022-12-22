@@ -27,5 +27,5 @@ export interface IChoosePhotoComponentProps {
   title: string;
   rounded: boolean;
   field: 'avatar' | 'coverPhoto';
-  folder: AwsS3FolderEnum,
+  folder: AwsS3FolderEnum;
 }
