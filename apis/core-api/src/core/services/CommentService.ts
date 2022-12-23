@@ -42,6 +42,7 @@ export const defaultRelations: RelationGroupType = ['user'];
 
 class CommentService extends BaseService {
   protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    relations = relations || defaultRelations;
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'user')) {

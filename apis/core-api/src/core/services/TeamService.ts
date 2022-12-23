@@ -29,6 +29,7 @@ export const defaultRelations: RelationGroupType = ['city', 'country', 'venue'];
 
 class TeamService extends BaseService {
   protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    relations = relations || defaultRelations;
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'city')) {

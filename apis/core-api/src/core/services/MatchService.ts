@@ -50,6 +50,7 @@ class MatchService extends BaseService {
     relations: RelationGroupType = defaultRelations,
     args: any = {}
   ) {
+    relations = relations || defaultRelations;
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'team')) {
