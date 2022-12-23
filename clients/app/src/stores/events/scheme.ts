@@ -10,6 +10,7 @@ interface IDataType {
   endDateTime: null | Date;
   locationName: null | string;
   content: null | string;
+  image: null | string;
 }
 
 export const scheme: IScheme<IDataType> = {
@@ -107,5 +108,8 @@ export const scheme: IScheme<IDataType> = {
 
       return ['invalid_content'];
     },
+  },
+  image: {
+    initialValue: null,
   },
 };

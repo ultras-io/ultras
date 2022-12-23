@@ -1,15 +1,11 @@
+import { AwsS3FolderEnum } from '@ultras/utils';
 import React from 'react';
 import ChooseAndUploadPhoto from 'views/components/base/ChooseAndUploadPhoto';
-import { fanClubsStore } from '../../../store';
+import { eventsStore } from '../../../store';
 import { IChoosePhotoComponentProps } from '../types';
 
-const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
-  title,
-  rounded,
-  field,
-  folder,
-}) => {
-  const { add: storeAdd } = fanClubsStore.useSelector('add');
+const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({ title }) => {
+  const { add: storeAdd } = eventsStore.useSelector('add');
 
   const onChange = React.useCallback(
     (newImages: Array<string>) => {
@@ -18,16 +14,16 @@ const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
         imageUrl = newImages[0];
       }
 
-      storeAdd.setFieldValue(field, imageUrl);
+      storeAdd.setFieldValue('image', imageUrl);
     },
-    [field, storeAdd]
+    [storeAdd]
   );
 
   return (
     <ChooseAndUploadPhoto
-      folder={folder}
+      folder={AwsS3FolderEnum.event}
       title={title}
-      rounded={rounded}
+      rounded={false}
       multiple={false}
       onChange={onChange}
     />

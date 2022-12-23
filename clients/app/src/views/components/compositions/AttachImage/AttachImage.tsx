@@ -1,6 +1,6 @@
 import { generateToken } from '@ultras/utils';
 import React from 'react';
-import { Box, Text, Spinner, Center } from 'native-base';
+import { Box, Text } from 'native-base';
 import { useTheme } from 'themes';
 import ImagePreview from './components/ImagePreview';
 import { IAttachImageProps, IImageItem, ImageType, ISize } from './types';
@@ -22,7 +22,7 @@ const AttachImage: React.FC<IAttachImageProps> = ({
   centered = false,
   multiple = false,
   removable = true,
-  uploading = false,
+  uploadStatuses,
   onChange,
 }) => {
   const [images, setImages] = React.useState<Array<IImageItem>>(
@@ -62,12 +62,12 @@ const AttachImage: React.FC<IAttachImageProps> = ({
         return result;
       });
     },
-    [generateImage, onChange]
+    []
   );
 
   const appendEmptyItem = React.useCallback(() => {
     triggerOnChange(oldImages => [...oldImages, generateImage()]);
-  }, [generateImage, triggerOnChange]);
+  }, [triggerOnChange]);
 
   const onRemove = React.useCallback(
     (id: string) => {
@@ -117,7 +117,7 @@ const AttachImage: React.FC<IAttachImageProps> = ({
       {title && <Text variant={'smallText'}>{title}</Text>}
 
       <Box flexDirection="row" flexWrap="wrap" marginTop="2">
-        {images.map(imageItem => (
+        {images.map((imageItem: IImageItem) => (
           <Box
             key={imageItem.id}
             backgroundColor={colors.buttonSecondaryDisabled}
@@ -133,7 +133,7 @@ const AttachImage: React.FC<IAttachImageProps> = ({
                 imageItem={imageItem}
                 rounded={rounded}
                 removable={removable}
-                uploading={uploading}
+                uploadStatus={uploadStatuses ? uploadStatuses[imageItem.id] : 'idle'}
                 onRemove={onRemove}
               />
             ) : (

@@ -96,26 +96,10 @@ class PostService extends BaseService {
     }
 
     return {
-      include: includeRelations,
       attributes: {
         include: attributes,
       },
-      include: [
-        {
-          model: db.FanClub,
-          as: resources.FAN_CLUB.ALIAS.SINGULAR,
-          ...FanClubService.getIncludeRelations(),
-        },
-        {
-          model: db.Match,
-          as: resources.MATCH.ALIAS.SINGULAR,
-          ...MatchService.getIncludeRelations({ userId: args.userId }),
-        },
-        {
-          model: db.User,
-          as: 'author',
-        },
-      ],
+      include: includeRelations,
     };
   }
 

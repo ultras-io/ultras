@@ -14,7 +14,7 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   rounded,
   computedSize,
   removable,
-  uploading,
+  uploadStatus,
   onRemove,
 }) => {
   const { theming, colors } = useTheme();
@@ -60,16 +60,24 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
       >
         <Image source={imageItem.image as ImageSourcePropType} style={styles.image} />
 
-        {uploading && (
+        {uploadStatus !== 'idle' && (
           <Center
             position="absolute"
-            backgroundColor={colors.backgroundDividerTransparent}
+            backgroundColor={
+              uploadStatus !== 'uploading' ? undefined : colors.textTertiaryInvert
+            }
             top={0}
             bottom={0}
             left={0}
             right={0}
           >
-            <Spinner color={colors.iconNavigation} />
+            {uploadStatus === 'error' ? (
+              <>{/* @TODO: show error icon */}</>
+            ) : uploadStatus === 'success' ? (
+              <>{/* @TODO: show success icon */}</>
+            ) : (
+              <Spinner color={colors.textAction} size="sm" />
+            )}
           </Center>
         )}
       </Box>
