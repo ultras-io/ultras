@@ -50,7 +50,10 @@ class PostService extends BaseService {
       includeRelations.push({
         model: db.Match,
         as: resources.MATCH.ALIAS.SINGULAR,
-        ...MatchService.getIncludeRelations(),
+        ...MatchService.getIncludeRelations(null, {
+          userId: args.userId,
+          catchesFrom: args.catchesFrom,
+        }),
       });
     }
 

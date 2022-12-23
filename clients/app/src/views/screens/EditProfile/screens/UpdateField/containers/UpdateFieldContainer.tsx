@@ -46,8 +46,14 @@ const UpdateFieldContainer: React.FC<IUpdateFieldContainerProps> = ({ label, nam
 
   const sendConfirmationCode = React.useCallback(async () => {
     setConfirmation('loading');
-    await store.sendCode(name);
-    setConfirmation('pending');
+    const response = await store.sendCode(name);
+    const status = response?.body?.data?.status;
+
+    if (status === 'confirmation-sent') {
+      setConfirmation('pending');
+    } else if (status === 'user-exists') {
+      setConfirmation('user-exists');
+    }
   }, [name, store]);
 
   const onSavePress = React.useCallback(async () => {
@@ -99,14 +105,26 @@ const UpdateFieldContainer: React.FC<IUpdateFieldContainerProps> = ({ label, nam
 
           {confirmation !== 'none' && (
             <Box>
-              <FourDigits
-                colorMode="dark"
-                isShowError={isShowError}
-                isResendSucceed={isResendSucceed}
-                isLoading={confirmation === 'loading'}
-                verifyCode={verifyCode}
-                onResendPress={() => onResendPress}
-              />
+              {confirmation !== 'user-exists' ? (
+                <FourDigits
+                  colorMode="dark"
+                  isShowError={isShowError}
+                  isResendSucceed={isResendSucceed}
+                  isLoading={confirmation === 'loading'}
+                  verifyCode={verifyCode}
+                  onResendPress={onResendPress}
+                />
+              ) : (
+                <Text variant="errorLabel">
+                  {I18n.t(
+                    name === 'email'
+                      ? 'profile-edit-userExists-email'
+                      : name === 'phone'
+                      ? 'profile-edit-userExists-phone'
+                      : ''
+                  )}
+                </Text>
+              )}
             </Box>
           )}
         </VStack>

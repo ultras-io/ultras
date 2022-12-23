@@ -18,7 +18,7 @@ export interface IMethods {
   initiateWithValues(initial: IParam): void;
   setFieldValue(field: FieldType, value: string): void;
   update(field: FieldType, confirmCode?: string): Promise<void>;
-  sendCode(field: FieldType): Promise<void>;
+  sendCode(field: FieldType): Promise<any>;
 }
 
 export interface IStore extends IState, IMethods {}

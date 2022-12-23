@@ -78,7 +78,11 @@ class EventService extends BaseService {
       includeRelations.push({
         model: db.Post,
         as: resources.POST.ALIAS.SINGULAR,
-        ...PostService.getIncludeRelations(relationsHierarchy, { userId: args.userId }),
+        ...PostService.getIncludeRelations(relationsHierarchy, {
+          userId: args.userId,
+          // eslint-disable-next-line max-len
+          catchesFrom: `${resources.POST.ALIAS.SINGULAR}->${resources.MATCH.ALIAS.SINGULAR}`,
+        }),
       });
     }
 
