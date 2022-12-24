@@ -112,7 +112,7 @@ class MatchService extends BaseService {
             WHERE (
               "deletedAt" IS NULL AND
               "userId" = ${args.userId} AND
-              "matchId" = "${resources.MATCH.RELATION}"."id"
+              "matchId" = "${args.catchesFrom || resources.MATCH.RELATION}"."id"
             )
           )
         `),

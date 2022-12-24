@@ -17,7 +17,7 @@ export type OperationSystemType = {
   version: MaybeUnknown<string>;
 };
 
-export type DeviceType = 'tablet' | 'mobile' | 'desktop';
+export type DeviceType = MaybeUnknown<'tablet' | 'mobile' | 'desktop'>;
 
 class UserAgentService extends BaseService {
   private static getByPattern(userAgent: string, pattern: RegExp): MaybeUnknown<string> {
@@ -29,6 +29,10 @@ class UserAgentService extends BaseService {
    * Detect browser name by user agent.
    */
   static browser(userAgent: string): BrowserType {
+    if (!userAgent) {
+      return 'UNKNOWN';
+    }
+
     if (userAgent.indexOf('Opera') != -1 || userAgent.indexOf('OPR') != -1) {
       return 'Opera';
     }
@@ -62,6 +66,10 @@ class UserAgentService extends BaseService {
       name: 'UNKNOWN',
       version: 'UNKNOWN',
     };
+
+    if (!userAgent) {
+      return info;
+    }
 
     if (userAgent.indexOf('Android') != -1) {
       info.name = 'Android';
@@ -112,6 +120,10 @@ class UserAgentService extends BaseService {
    * Possible types: "tablet", "desktop" and "mobile"
    */
   static device(userAgent: string): DeviceType {
+    if (!userAgent) {
+      return 'UNKNOWN';
+    }
+
     const tabletPattern = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i;
     if (tabletPattern.test(userAgent)) {
       return 'tablet';

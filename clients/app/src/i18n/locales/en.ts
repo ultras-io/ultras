@@ -196,6 +196,8 @@ export default {
   'profile-edit-email': 'Email',
   'profile-edit-description':
     'Tap to change Full Name, Email and Phone Number. Note, that Email/Phone Number change will need confirmation.',
+  'profile-edit-userExists-email': 'User with provided email already exists.',
+  'profile-edit-userExists-phone': 'User with provided phone already exists.',
 
   // settings
   'settings-title': 'Settings',
