@@ -53,10 +53,10 @@ function aws_config_profile() {
   LINES="$(cat $CRED_FILE | grep $PROFILE_NAME | wc -l | tr -d ' ')"
 
   if [[ $LINES == 0 ]]; then
-    echo "[$PROFILE_NAME]" >>"$CRED_FILE"
-    echo "aws_access_key_id = $ACCESS_KEY_ID" >>"$CRED_FILE"
-    echo "aws_secret_access_key = $ACCESS_SECRET" >>"$CRED_FILE"
-    echo "" >>"$CRED_FILE"
+    echo "[$PROFILE_NAME]" >> "$CRED_FILE"
+    echo "aws_access_key_id = $ACCESS_KEY_ID" >> "$CRED_FILE"
+    echo "aws_secret_access_key = $ACCESS_SECRET" >> "$CRED_FILE"
+    echo "" >> "$CRED_FILE"
   fi
 }
 
