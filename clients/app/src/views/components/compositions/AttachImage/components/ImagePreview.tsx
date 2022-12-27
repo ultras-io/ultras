@@ -6,6 +6,7 @@ import {
   ORIGINAL_SIZE as removeButtonSize,
   RemoveButton,
 } from 'views/components/base/RemoveButton';
+import PressableArea from './PressableArea';
 import { offsetForRectangle, offsetForRounded } from '../helpers';
 import { IImagePreviewProps } from '../types';
 
@@ -16,6 +17,7 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   removable,
   uploadStatus,
   onRemove,
+  onChoose,
 }) => {
   const { theming, colors } = useTheme();
 
@@ -44,7 +46,7 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   }, [rounded, computedSize.height, theming.sizes]);
 
   return (
-    <>
+    <PressableArea imageItem={imageItem} onChoose={onChoose}>
       {removable && (
         <View style={[styles.container, containerStyle]}>
           <RemoveButton onPress={() => onRemove(imageItem.id)} />
@@ -76,12 +78,14 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
             ) : uploadStatus === 'success' ? (
               <>{/* @TODO: show success icon */}</>
             ) : (
-              <Spinner color={colors.textAction} size="sm" />
+              uploadStatus === 'uploading' && (
+                <Spinner color={colors.textAction} size="sm" />
+              )
             )}
           </Center>
         )}
       </Box>
-    </>
+    </PressableArea>
   );
 };
 

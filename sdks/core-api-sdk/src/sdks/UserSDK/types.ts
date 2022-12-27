@@ -69,6 +69,7 @@ export type UpdateProfileRequest = {
   phone?: string;
   email?: string;
   fullname?: string;
+  avatar?: Nullable<string>;
 };
 
 export type UpdateProfileResponse = ApiResponseBodyType<{

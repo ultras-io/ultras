@@ -149,6 +149,7 @@ export type UpdateProfileParams = {
   phone?: string;
   email?: string;
   fullname?: string;
+  avatar?: Nullable<string>;
 };
 
 export type UpdateProfileResult = ControllerResultType<{

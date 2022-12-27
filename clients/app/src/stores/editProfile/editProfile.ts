@@ -17,6 +17,8 @@ function validate(field: FieldType, value: Nullable<string>): boolean {
       return validatePhone(value);
     case 'email':
       return validateEmail(value);
+    case 'avatar':
+      return true;
   }
 
   return false;
@@ -38,6 +40,7 @@ const initialState: IState = {
   fullname: makeField('fullname', null, false),
   email: makeField('email', null, false),
   phone: makeField('phone', null, false),
+  avatar: makeField('avatar', null, false),
 };
 
 function buildMethods(
@@ -51,9 +54,10 @@ function buildMethods(
         fullname: makeField('fullname', initial.fullname, false),
         email: makeField('email', initial.email, false),
         phone: makeField('phone', initial.phone, false),
+        avatar: makeField('avatar', initial.avatar, false),
       });
     },
-    setFieldValue(field: FieldType, value: string) {
+    setFieldValue(field: FieldType, value: Nullable<string>) {
       setState({ [field]: makeField(field, value) });
     },
     async update(field: FieldType, confirmCode?: string) {
