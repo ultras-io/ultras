@@ -182,6 +182,18 @@ class UserService extends BaseService {
     user.setDataValue('fullname', params.fullname);
     await user.save({ transaction });
   }
+
+  /**
+   * Update user's avatar.
+   */
+  static async updateAvatar(
+    params: UpdateProfile<{ avatar: Nullable<string> }>,
+    transaction?: Transaction
+  ) {
+    const user = await db.User.findByPk(params.userId);
+    user.setDataValue('avatar', params.avatar);
+    await user.save({ transaction });
+  }
 }
 
 export default UserService;

@@ -195,7 +195,7 @@ class ControllerAdapter {
   static async updateProfile(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const { userId } = ctx.user;
-    const { code, phone, email, fullname } = ctx.request.body;
+    const { code, phone, email, fullname, avatar } = ctx.request.body;
 
     /** CONTROLLERS */
     const { data } = await UserController.updateProfile({
@@ -204,6 +204,7 @@ class ControllerAdapter {
       phone,
       email,
       fullname,
+      avatar,
     });
 
     /** RESPONSE */

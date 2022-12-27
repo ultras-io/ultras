@@ -1,4 +1,4 @@
-export type FieldType = 'fullname' | 'email' | 'phone';
+export type FieldType = 'avatar' | 'fullname' | 'email' | 'phone';
 
 export interface IField {
   value: Nullable<string>;
@@ -16,8 +16,8 @@ export interface IParam extends IBaseProp<Nullable<string>> {}
 
 export interface IMethods {
   initiateWithValues(initial: IParam): void;
-  setFieldValue(field: FieldType, value: string): void;
-  update(field: FieldType, confirmCode?: string): Promise<void>;
+  setFieldValue(field: FieldType, value: Nullable<string>): void;
+  update(field: FieldType, confirmCode?: string): Promise<any>;
   sendCode(field: FieldType): Promise<any>;
 }
 

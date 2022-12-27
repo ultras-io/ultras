@@ -397,6 +397,7 @@ class UserController extends BaseController {
     phone,
     email,
     fullname,
+    avatar,
   }: UpdateProfileParams): UpdateProfileResult {
     const status: UpdateProfileStatusType = await this.withTransaction(
       async (transaction): Promise<UpdateProfileStatusType> => {
@@ -447,6 +448,12 @@ class UserController extends BaseController {
         // update user's full name.
         if (fullname) {
           await UserService.updateFullname({ userId, fullname }, transaction);
+          return 'updated';
+        }
+
+        // update user's avatar
+        if (typeof avatar !== 'undefined') {
+          await UserService.updateAvatar({ userId, avatar }, transaction);
           return 'updated';
         }
 

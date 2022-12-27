@@ -62,6 +62,10 @@ const ChooseAndUploadPhoto: React.FC<IChooseAndUploadPhotoProps> = ({
 
       const promises = [];
       for (const imageItem of images) {
+        if (imageItem.isInitial) {
+          continue;
+        }
+
         const promise = uploadImage(imageItem);
         promises.push(promise);
       }

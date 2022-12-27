@@ -6,10 +6,14 @@ import ImagePreview from './components/ImagePreview';
 import { IAttachImageProps, IImageItem, ImageType, ISize } from './types';
 import TapToAdd from './components/TapToAdd';
 
-const generateImage = (image: ImageType | null = null) => {
+const generateImage = (
+  image: ImageType | null = null,
+  isInitialImage: boolean = false
+) => {
   return {
     id: 'id' + Date.now() + generateToken(10),
     image: image,
+    isInitial: isInitialImage,
   };
 };
 
@@ -26,7 +30,7 @@ const AttachImage: React.FC<IAttachImageProps> = ({
   onChange,
 }) => {
   const [images, setImages] = React.useState<Array<IImageItem>>(
-    initialImages.map(generateImage)
+    initialImages.map(image => generateImage(image, true))
   );
 
   React.useEffect(() => {
@@ -82,6 +86,7 @@ const AttachImage: React.FC<IAttachImageProps> = ({
         oldImages.map(imageItem => {
           if (imageItem.id === id) {
             imageItem.image = image;
+            imageItem.isInitial = false;
           }
 
           return imageItem;
@@ -135,6 +140,7 @@ const AttachImage: React.FC<IAttachImageProps> = ({
                 removable={removable}
                 uploadStatus={uploadStatuses ? uploadStatuses[imageItem.id] : 'idle'}
                 onRemove={onRemove}
+                onChoose={onChoose}
               />
             ) : (
               <TapToAdd imageItem={imageItem} onChoose={onChoose} />

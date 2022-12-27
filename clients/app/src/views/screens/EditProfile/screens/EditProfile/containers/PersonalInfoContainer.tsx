@@ -12,10 +12,10 @@ const PersonalInfoContainer: React.FC<IPersonalInfoContainerProps> = ({ data }) 
 
   React.useEffect(() => {
     store.initiateWithValues({
-      userId: data.id,
       fullname: data.fullname,
       email: data.email,
       phone: data.phone,
+      avatar: data.avatar,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
