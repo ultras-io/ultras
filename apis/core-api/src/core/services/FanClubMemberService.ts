@@ -69,6 +69,7 @@ export const defaultRelations: RelationGroupType = ['fanClub', 'member', 'role']
 
 class FanClubMemberService extends BaseService {
   protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    relations = relations || defaultRelations;
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'fanClub')) {

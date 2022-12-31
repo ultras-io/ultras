@@ -24,6 +24,7 @@ export const defaultRelations: RelationGroupType = ['country'];
 
 class LeagueService extends BaseService {
   protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    relations = relations || defaultRelations;
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'country')) {

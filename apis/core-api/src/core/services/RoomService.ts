@@ -51,6 +51,7 @@ class RoomService extends BaseService {
     relations: RelationGroupType = defaultRelations,
     args: any = {}
   ) {
+    relations = relations || defaultRelations;
     const includeRelations = [];
 
     if (this.isRelationIncluded(relations, 'post')) {
