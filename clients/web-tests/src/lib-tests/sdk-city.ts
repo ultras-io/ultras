@@ -6,7 +6,7 @@ import {
 } from '@ultras/core-api-sdk';
 import { OrderEnum } from '@ultras/utils';
 
-const sdk = new CitySDK('dev');
+const sdk = new CitySDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

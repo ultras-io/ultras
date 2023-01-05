@@ -4,7 +4,8 @@
   "scripts": {
     "link-all": "lerna bootstrap --loglevel error",
     "version-up": "lerna version --conventional-commits --yes",
-    "postinstall": "npx husky install"
+    "postinstall": "npx husky install",
+    "graph": "npx nx graph"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.1.0",

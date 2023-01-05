@@ -5,7 +5,7 @@ import {
   MatchSDK,
 } from '@ultras/core-api-sdk';
 
-const sdk = new MatchSDK('dev');
+const sdk = new MatchSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

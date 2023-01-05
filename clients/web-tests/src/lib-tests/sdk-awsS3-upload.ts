@@ -1,6 +1,6 @@
 import { UltrasS3SDK } from '@ultras/core-api-sdk';
 
-const sdk = new UltrasS3SDK('dev');
+const sdk = new UltrasS3SDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 const buildImageFile = (): File => {
   const b64Data =

@@ -11,6 +11,34 @@ async function processItem(bucketName: string, objectKey: string) {
   const format = objectKey.endsWith('.png') ? 'png' : 'jpeg';
   const fileName = objectKey.replace(new RegExp(`^${configs.paths.root}/`), '');
 
+  const fileNameParts = fileName.split('/');
+  fileNameParts.pop();
+  const folder = fileNameParts.join('/');
+
+  // check folder and size are valid
+  if (!folder) {
+    console.log('>>> SKIPPING: folder name not found.', {
+      'Object Key': objectKey,
+    });
+    return;
+  }
+  if (!configs.sizes[folder]) {
+    console.log('>>> SKIPPING: sizes for the folder not defined.', {
+      'Object Key': objectKey,
+      'Folder Name': folder,
+    });
+    return;
+  }
+  const thumbnailSizeList = Object.values(configs.sizes[folder]);
+  if (thumbnailSizeList.length === 0) {
+    console.log('>>> SKIPPING: sizes list are empty for the folder.', {
+      'Object Key': objectKey,
+      'Folder Name': folder,
+    });
+    return;
+  }
+  // end: check folder and size are valid
+
   // load uploaded file data from AWS S3
   const objectGetParams = {
     Key: objectKey,
@@ -23,7 +51,11 @@ async function processItem(bucketName: string, objectKey: string) {
   }
   // end: load uploaded file data
 
-  for (const size of configs.sizes) {
+  for (const size of thumbnailSizeList) {
+    if (!size) {
+      continue;
+    }
+
     // resize image by {WIDTH} and {HEIGHT}
     const imageBuffer = await resize({
       body: s3ObjectResponse.Body,
