@@ -2,6 +2,10 @@
 cd "$(dirname "$0")" || exit 1
 ROOT_DIR="$PWD"
 
+# variables
+FILE_NAME_SOURCE_ZIP="ultras-aws-lambda.zip"
+FILE_NAME_POLICY="trust-policy.json"
+
 # functions
 function app_exist_with_error() {
   echo ""
@@ -64,10 +68,25 @@ function lambda_build() {
 }
 
 function lambda_compress() {
-  zip -r ultras-aws-lambda.zip .
+  zip -q -r "$FILE_NAME_SOURCE_ZIP" .
   if [[ $? != 0 ]]; then
     app_exist_with_error 6 "Failed to compress build code."
   fi
+}
+
+function lambda_inline_policy() {
+  local ROLE_NAME="$1"
+  local POLICY_NAME="$2"
+  local POLICY_DOCUMENT="$3"
+
+  aws iam create-policy \
+    --policy-name "$POLICY_NAME" \
+    --policy-document "file://$POLICY_DOCUMENT"
+
+  aws iam put-role-policy \
+    --role-name "$ROLE_NAME" \
+    --policy-name "$POLICY_NAME" \
+    --policy-document "file://$POLICY_DOCUMENT"
 }
 
 function lambda_update() {
@@ -76,7 +95,7 @@ function lambda_update() {
   aws lambda update-function-code \
     --function-name "$FUNCTION_NAME" \
     --region "$REGION" \
-    --zip-file "fileb://ultras-aws-lambda.zip"
+    --zip-file "fileb://$FILE_NAME_SOURCE_ZIP"
 
   if [[ $? != 0 ]]; then
     app_exist_with_error 7 "Failed to upload lambda function code to AWS."
@@ -84,13 +103,13 @@ function lambda_update() {
 }
 
 function lambda_create() {
-  local FUNCTION_NAME="$1"
-  local ATTACH_POLICIES="$2"
-  local ROLE_NAME="RoleLambda-$FUNCTION_NAME"
+  local ROLE_NAME="$1"
+  local FUNCTION_NAME="$2"
+  local ATTACH_POLICIES="$3"
 
   aws iam create-role \
     --role-name "$ROLE_NAME" \
-    --assume-role-policy-document file://trust-policy.json
+    --assume-role-policy-document "file://$FILE_NAME_POLICY"
 
   if [[ $? != 0 ]]; then
     app_exist_with_error 8 "Failed to create lambda role in AWS."
@@ -123,7 +142,7 @@ function lambda_create() {
     --runtime nodejs16.x \
     --handler "app.handler" \
     --timeout 900 \
-    --zip-file "fileb://ultras-aws-lambda.zip"
+    --zip-file "fileb://$FILE_NAME_SOURCE_ZIP"
 
   if [[ $? != 0 ]]; then
     app_exist_with_error 11 "Failed to upload lambda function code to AWS."
@@ -172,19 +191,29 @@ lambda_compress
 
 # upload built source code
 if [[ "$RUN_ACTION" == "create" ]]; then
-  cp "$ROOT_DIR/trust-policy.json" "$LAMBDA_DIR/lambda/build"
+  cp "$ROOT_DIR/$FILE_NAME_POLICY" "$LAMBDA_DIR/lambda/build"
 
-  if [[ -f "$LAMBDA_DIR/policies.txt" ]]; then
-    ATTACH_POLICIES="$(cat $LAMBDA_DIR/policies.txt | xargs)"
-  else
-    ATTACH_POLICIES=""
+  ATTACH_POLICIES=""
+  if [[ -f "$LAMBDA_DIR/policies/policies.txt" ]]; then
+    ATTACH_POLICIES="$(cat $LAMBDA_DIR/policies/policies.txt | xargs)"
   fi
 
-  lambda_create "$RUN_LAMBDA" "$ATTACH_POLICIES"
+  ROLE_NAME="RoleLambda-@-$RUN_LAMBDA"
+  lambda_create "$ROLE_NAME" "$RUN_LAMBDA" "$ATTACH_POLICIES"
+
+  if [[ -d "$LAMBDA_DIR/policies/inline" ]]; then
+    INLINE_POLICY_FILES="$(ls "$LAMBDA_DIR/policies/inline" | xargs)"
+    for INLINE_POLICY_FILE in ${INLINE_POLICY_FILES[@]}; do
+      POLICY_NAME="$(echo "$INLINE_POLICY_FILE" | sed 's|.json||g')"
+      POLICY_DOCUMENT="$LAMBDA_DIR/policies/inline/$INLINE_POLICY_FILE"
+
+      lambda_inline_policy "$ROLE_NAME" "$POLICY_NAME" "$POLICY_DOCUMENT"
+    done
+  fi
 else
   lambda_update "$RUN_LAMBDA"
 fi
 
 # cleanup build
 cd "$LAMBDA_DIR/lambda"
-npm run build:cleanup
+lambda_cleanup

@@ -1,7 +1,7 @@
 import handleImages from './lib/handle';
 import respond from './lib/respond';
 
-export const handler = async (event: IEvent, context: IContext) => {
+export async function handler(event: IEvent, context: IContext) {
   try {
     await handleImages(event, context);
 
@@ -16,4 +16,4 @@ export const handler = async (event: IEvent, context: IContext) => {
       message: 'Something Went Wrong!',
     });
   }
-};
+}
