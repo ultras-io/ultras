@@ -1,10 +1,11 @@
-import { AwsS3FolderEnum } from '@ultras/utils';
+import { AwsS3FolderEnum, AwsS3ThumbnailEnum } from '@ultras/utils';
 import React from 'react';
 import { Center, Text } from 'native-base';
 import I18n from 'i18n/i18n';
 import ChooseAndUploadPhoto from 'views/components/base/ChooseAndUploadPhoto';
 import * as editProfileStore from 'stores/editProfile';
 import { IEditAvatarComponentProps } from './types';
+import { getProfilePicture } from 'utils/helpers/image';
 
 const EditAvatarComponent: React.FC<IEditAvatarComponentProps> = ({ avatar }) => {
   const useStore = editProfileStore.initStore();
@@ -24,6 +25,14 @@ const EditAvatarComponent: React.FC<IEditAvatarComponentProps> = ({ avatar }) =>
     []
   );
 
+  const avatarUri = React.useMemo(() => {
+    if (avatar) {
+      return getProfilePicture(AwsS3ThumbnailEnum.size136x136, avatar);
+    }
+
+    return avatar;
+  }, [avatar]);
+
   return (
     <>
       <ChooseAndUploadPhoto
@@ -34,7 +43,7 @@ const EditAvatarComponent: React.FC<IEditAvatarComponentProps> = ({ avatar }) =>
         size={136}
         multiple={false}
         removable={false}
-        initialImages={avatar ? [{ uri: avatar }] : []}
+        initialImages={avatarUri ? [{ uri: avatarUri }] : []}
         onChange={onChoose}
       />
 

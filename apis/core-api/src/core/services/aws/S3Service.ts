@@ -20,7 +20,8 @@ class S3Service extends BaseService {
   static async getSignedUrl(folderName: AwsS3FolderEnum, extension: string) {
     // build unique file name with provided extension
     const folder = AWS_S3_BUCKET_FOLDERS[folderName];
-    const key = `${folder}/${buildFileName(uuidv4())}.${extension}`;
+    const fileName = `${buildFileName(uuidv4())}.${extension}`;
+    const key = `${folder}/${fileName}`;
 
     // generate putObject url in AWS.
     const putUrl = await s3.getSignedUrlPromise('putObject', {
@@ -34,7 +35,7 @@ class S3Service extends BaseService {
     return {
       mimeType: MIME_TYPES[extension],
       putUrl,
-      path: key,
+      path: fileName,
     };
   }
 

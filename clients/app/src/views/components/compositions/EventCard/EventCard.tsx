@@ -1,3 +1,4 @@
+import { AwsS3ThumbnailEnum } from '@ultras/utils';
 import React from 'react';
 import { StyleSheet, Image as RNImage } from 'react-native';
 import { Pressable, Text, VStack, HStack, AspectRatio, Image } from 'native-base';
@@ -9,6 +10,7 @@ import BluredView from 'views/components/base/BluredView';
 import { getReadableNumber } from 'utils/helpers/readableNumber';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { IEventCardProps } from './types';
+import { getEventPhoto } from 'utils/helpers/image';
 
 const EventCard: React.FC<IEventCardProps> = ({ data, onPress }) => {
   const [ratio, setRatio] = React.useState(3 / 2);
@@ -21,14 +23,22 @@ const EventCard: React.FC<IEventCardProps> = ({ data, onPress }) => {
     }
   }, [data.post.image]);
 
+  const eventImageUri = React.useMemo(() => {
+    if (data.post.image) {
+      return getEventPhoto(AwsS3ThumbnailEnum.size345x196, data.post.image);
+    }
+
+    return data.post.image;
+  }, [data.post.image]);
+
   return (
     <Pressable onPress={preventMultiCalls(onPress)}>
       <BluredView style={styles.container}>
         <VStack>
-          {data.post.image && (
+          {eventImageUri && (
             <AspectRatio ratio={{ base: ratio }} width={{ base: 'full' }}>
               <Image
-                source={{ uri: data.post.image }}
+                source={{ uri: eventImageUri }}
                 alt={data.post.title}
                 resizeMode="cover"
               />

@@ -7,33 +7,47 @@ const S3 = new AWS.S3({
   signatureVersion: 'v4',
 });
 
+function getConfigByPathPrefix(prefix: string): null | configs.ISizeAndFolder {
+  for (const folderKey in configs.foldersAndSizes) {
+    const folderConfig = configs.foldersAndSizes[folderKey];
+    if (folderConfig.prefix === prefix) {
+      return folderConfig;
+    }
+  }
+
+  return null;
+}
+
 async function processItem(bucketName: string, objectKey: string) {
   const format = objectKey.endsWith('.png') ? 'png' : 'jpeg';
   const fileName = objectKey.replace(new RegExp(`^${configs.paths.root}/`), '');
 
   const fileNameParts = fileName.split('/');
   fileNameParts.pop();
-  const folder = fileNameParts.join('/');
+  const folderPrefix = fileNameParts.join('/');
 
   // check folder and size are valid
-  if (!folder) {
+  if (!folderPrefix) {
     console.log('>>> SKIPPING: folder name not found.', {
       'Object Key': objectKey,
     });
     return;
   }
-  if (!configs.sizes[folder]) {
+
+  const configForPrefix = getConfigByPathPrefix(folderPrefix);
+  if (!configForPrefix) {
     console.log('>>> SKIPPING: sizes for the folder not defined.', {
       'Object Key': objectKey,
-      'Folder Name': folder,
+      'Folder Name': folderPrefix,
     });
     return;
   }
-  const thumbnailSizeList = Object.values(configs.sizes[folder]);
+
+  const thumbnailSizeList = Object.values(configForPrefix.sizes);
   if (thumbnailSizeList.length === 0) {
     console.log('>>> SKIPPING: sizes list are empty for the folder.', {
       'Object Key': objectKey,
-      'Folder Name': folder,
+      'Folder Name': folderPrefix,
     });
     return;
   }
@@ -69,8 +83,13 @@ async function processItem(bucketName: string, objectKey: string) {
     }
     // end: resize image
 
-    // upload resized file into /public/thumbnail/{WIDTH}x{HEIGHT}
-    const filePathThumbnail = `${configs.paths.thumbnail}/${size.width}x${size.height}/${fileName}`;
+    // upload resized file into /thumbnail/{WIDTH}x{HEIGHT}
+    const filePathThumbnail = [
+      configs.paths.thumbnail,
+      `${size.width}x${size.height}`,
+      fileName,
+    ].join('/');
+
     await S3.putObject({
       Body: imageBuffer,
       Bucket: bucketName,
