@@ -1,4 +1,4 @@
-enum AwsS3FolderEnum {
+enum AwsS3ThumbnailEnum {
   /**
    * Image with size { width: 47, height: 47 }.
    */
@@ -35,4 +35,4 @@ enum AwsS3FolderEnum {
   size375x213 = '375x213',
 }
 
-export default AwsS3FolderEnum;
+export default AwsS3ThumbnailEnum;

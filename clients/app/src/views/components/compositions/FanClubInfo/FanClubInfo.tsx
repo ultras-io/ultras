@@ -1,3 +1,4 @@
+import { AwsS3ThumbnailEnum } from '@ultras/utils';
 import React from 'react';
 import { Avatar, Text, HStack, VStack } from 'native-base';
 import Icon from 'views/components/base/Icon';
@@ -12,8 +13,13 @@ import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { ProfileListTypeEnum } from 'views/screens/ProfileList';
 import { IFanClubInfoProps } from './types';
 import FanClubJoinButton from './FanClubJoinButton';
+import { getFanClubAvatar } from 'utils/helpers/image';
 
 const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
+  const avatarURI = React.useMemo(() => {
+    return getFanClubAvatar(AwsS3ThumbnailEnum.size110x110, data.avatar);
+  }, [data.avatar]);
+
   const { pushTo } = useNavigationWithParams();
   const { colors } = useTheme();
 
@@ -37,7 +43,7 @@ const FanClubInfo: React.FC<IFanClubInfoProps> = ({ data }) => {
         size="av-xl"
         mr={5}
         bg={colors.iconPrimaryInvert}
-        source={{ uri: data.avatar }}
+        source={{ uri: avatarURI }}
       />
       <VStack flex={'1'}>
         <Text variant={'sectionTitle'} lineHeight={'sm'} numberOfLines={3} mb={1}>

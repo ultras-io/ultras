@@ -1,3 +1,4 @@
+import { AwsS3ThumbnailEnum } from '@ultras/utils';
 import React from 'react';
 import { Center, Avatar, Text, VStack, HStack, Pressable } from 'native-base';
 import VerticalDivider from 'views/components/base/VerticalDivider';
@@ -7,10 +8,7 @@ import { getReadableNumber } from 'utils/helpers/readableNumber';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { IFanClubCardProps } from './types';
 import styles from './styles';
-
-// @TODO will be removed when backend will provide working URIs
-const avatarURI =
-  'https://sun9-west.userapi.com/sun9-45/s/v1/ig2/9PudeHuKhNxah9LmPaWaitRu21WykeBA57r78KFmgXmtPDSYuVIxFxrLSGRH1uH6gLJviz702FjNa1YmmrYwMh9q.jpg?size=1080x1080&quality=95&type=album';
+import { getFanClubAvatar } from 'utils/helpers/image';
 
 const FanClubCard: React.FC<IFanClubCardProps> = ({
   data,
@@ -18,6 +16,10 @@ const FanClubCard: React.FC<IFanClubCardProps> = ({
   type,
   onPress,
 }) => {
+  const avatarURI = React.useMemo(() => {
+    return getFanClubAvatar(AwsS3ThumbnailEnum.size72x72, data.avatar);
+  }, [data.avatar]);
+
   return (
     <Pressable onPress={preventMultiCalls(onPress)}>
       {direction === 'vertical' ? (
