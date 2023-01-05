@@ -10,6 +10,7 @@ interface IDataType {
   endDateTime: null | Date;
   locationName: null | string;
   content: null | string;
+  image: null | string;
 }
 
 export const scheme: IScheme<IDataType> = {
@@ -101,11 +102,14 @@ export const scheme: IScheme<IDataType> = {
   content: {
     initialValue: null,
     validate(valueOriginal: null | string) {
-      if (!valueOriginal || valueOriginal.length > 15) {
+      if (!valueOriginal || valueOriginal.length > 0) {
         return [];
       }
 
       return ['invalid_content'];
     },
+  },
+  image: {
+    initialValue: null,
   },
 };

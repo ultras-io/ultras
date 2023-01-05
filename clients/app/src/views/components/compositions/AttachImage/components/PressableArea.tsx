@@ -1,10 +1,13 @@
 import React from 'react';
+import { Pressable } from 'native-base';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { Pressable, Text } from 'native-base';
-import I18n from 'i18n/i18n';
-import { ITapToAddProps } from '../types';
+import { IPressableAreaProps } from '../types';
 
-const TapToAdd: React.FC<ITapToAddProps> = ({ imageItem, onChoose }) => {
+const PressableArea: React.FC<IPressableAreaProps> = ({
+  imageItem,
+  onChoose,
+  children,
+}) => {
   const onChoosePress = React.useCallback(async () => {
     // we also can use <<launchCamera>> function instead,
     // but need to ask camera permission first.
@@ -30,11 +33,9 @@ const TapToAdd: React.FC<ITapToAddProps> = ({ imageItem, onChoose }) => {
       alignItems="center"
       onPress={onChoosePress}
     >
-      <Text variant={'smallText'} textAlign="center">
-        {I18n.t('common-tapToAdd')}
-      </Text>
+      {children}
     </Pressable>
   );
 };
 
-export default TapToAdd;
+export default PressableArea;

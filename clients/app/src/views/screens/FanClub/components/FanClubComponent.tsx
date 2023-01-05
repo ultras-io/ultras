@@ -49,7 +49,7 @@ const FanClubComponent: React.FC<IFanClubComponentProps> = ({ data }) => {
   //     scrollEventThrottle={16}
   //     ListHeaderComponent={
   //       <FanClubInfo
-  //         avatarUri={data.avatarUri}
+  //         avatar={data.avatar}
   //         name={data.name}
   //         ultrasCount={data.ultrasCount}
   //         city={data.city}

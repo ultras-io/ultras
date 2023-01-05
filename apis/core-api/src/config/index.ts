@@ -15,7 +15,11 @@ const dbConfig = {
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
   port: intConf(process.env.DB_PORT || 5432),
-  logging: Boolean(intConf(process.env.DB_LOGGING || 0)) || false,
+  logging:
+    Boolean(intConf(process.env.DB_LOGGING || 0)) || false === false
+      ? false
+      : // eslint-disable-next-line no-undef, no-console
+        console.log.bind(console),
 };
 
 const redisConfig = {
@@ -40,7 +44,7 @@ const awsConfig = {
   s3: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'us-east-1',
+    region: process.env.AWS_S3_REGION,
     ACL: 'public-read',
     Bucket: process.env.AWS_S3_BUCKET_NAME,
   },

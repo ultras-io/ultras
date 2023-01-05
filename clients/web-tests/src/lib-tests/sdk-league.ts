@@ -5,7 +5,7 @@ import {
   ListResponseMetaType,
 } from '@ultras/core-api-sdk';
 
-const sdk = new LeagueSDK('dev');
+const sdk = new LeagueSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

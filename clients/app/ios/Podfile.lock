@@ -307,9 +307,9 @@ PODS:
     - React-Core
   - react-native-geolocation-service (5.3.1):
     - React
-  - react-native-image-picker (4.10.1):
+  - react-native-image-picker (4.10.3):
     - React-Core
-  - react-native-pager-view (6.1.1):
+  - react-native-pager-view (6.1.2):
     - React-Core
   - react-native-safe-area-context (4.4.1):
     - RCT-Folly
@@ -385,7 +385,7 @@ PODS:
     - React-perflogger (= 0.70.6)
   - RNCAsyncStorage (1.17.11):
     - React-Core
-  - RNDateTimePicker (6.7.0):
+  - RNDateTimePicker (6.7.1):
     - React-Core
   - RNI18n (2.0.15):
     - React
@@ -619,8 +619,8 @@ SPEC CHECKSUMS:
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
-  react-native-image-picker: f2ab1215d17bcfe27b0eb6417cc236fd1f4775e7
-  react-native-pager-view: 3c66c4e2f3ab423643d07b2c7041f8ac48395f72
+  react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
+  react-native-pager-view: 54bed894cecebe28cede54c01038d9d1e122de43
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
@@ -635,7 +635,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 15437b576139df27635400de0599d9844f1ab817
   ReactCommon: 349be31adeecffc7986a0de875d7fb0dcf4e251c
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
-  RNDateTimePicker: c6b404647f45472443b0fdcdd31296fc3516b0eb
+  RNDateTimePicker: 0530a73a6f3a1a85814cbde0802736993b9e675e
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17

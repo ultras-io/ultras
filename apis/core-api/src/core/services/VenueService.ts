@@ -12,7 +12,7 @@ import db from 'core/data/models';
 import { VenueCreationAttributes } from 'core/data/models/Venue';
 import injectVenues, { RapidApiVenue } from 'core/data/inject-scripts/injectVenues';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import CountryService from './CountryService';
 import CityService from './CityService';
 
@@ -22,24 +22,35 @@ export interface IVenuesListParams {
   cityId?: ResourceIdentifier;
 }
 
+export const defaultRelations: RelationGroupType = ['city', 'country'];
+
 class VenueService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    relations = relations || defaultRelations;
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'city')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations || [], {
+        city: ['country'],
+      });
+
+      includeRelations.push({
+        model: db.City,
+        as: resources.CITY.ALIAS.SINGULAR,
+        ...CityService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'country')) {
+      includeRelations.push({
+        model: db.Country,
+        as: resources.COUNTRY.ALIAS.SINGULAR,
+        ...CountryService.getIncludeRelations(),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['countryId', 'cityId'],
-      },
-      include: [
-        {
-          model: db.Country,
-          as: resources.COUNTRY.ALIAS.SINGULAR,
-          ...CountryService.getIncludeRelations(),
-        },
-        {
-          model: db.City,
-          as: resources.CITY.ALIAS.SINGULAR,
-          ...CityService.getIncludeRelations(),
-        },
-      ],
+      include: includeRelations,
     };
   }
 

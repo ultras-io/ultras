@@ -1,5 +1,6 @@
 import React from 'react';
 import { HStack, IconButton, useDisclose } from 'native-base';
+import { useIsFocused } from '@react-navigation/native';
 import Icon from 'views/components/base/Icon';
 import { Icons as Icons } from 'assets/icons';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
@@ -18,6 +19,8 @@ const FanClubsContainer = React.lazy(
 );
 
 const Profile: React.FC<IProfileProps> = ({ route }) => {
+  const isFocused = useIsFocused();
+
   const { data } = route.params;
   const userStore = React.useMemo(() => buildUserStore(), []);
   const { single: storeSingle } = userStore.useSelector('single');
@@ -50,10 +53,10 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   }, [setOptions, onOpen, data]);
 
   React.useEffect(() => {
-    if (data?.id) {
+    if (data?.id && isFocused) {
       storeSingle.getSingle(data.id);
     }
-  }, [data?.id, storeSingle]);
+  }, [data?.id, storeSingle, isFocused]);
 
   const [isMe, userData] = React.useMemo(() => {
     if (storeSingle.data && storeSingle.status === 'success') {

@@ -1,15 +1,12 @@
 import React from 'react';
-import { View, Pressable } from 'react-native';
-
+import { View, Pressable, Avatar } from 'native-base';
 import BluredView from 'views/components/base/BluredView';
 import UltrasText from 'views/components/base/UltrasText';
-
 import { IProfileCardProps } from './types';
-
 import styles from './styles';
 
 const ProfileCard: React.FC<IProfileCardProps> = ({
-  avatarUri,
+  avatar,
   name,
   username,
   onPress,
@@ -23,15 +20,18 @@ const ProfileCard: React.FC<IProfileCardProps> = ({
         style={appearance === 'minimal' ? styles.containerMinimal : styles.container}
       >
         <View style={styles.avatar}>
-          {/* <Avatar avatarUri={avatarUri} size={AvatarSize.Default} /> */}
+          <Avatar source={{ uri: avatar }} size={'av-sm'} />
         </View>
         <View style={styles.info}>
           <UltrasText color="textPrimary" style={styles.username} numberOfLines={1}>
             {username}
           </UltrasText>
-          <UltrasText color="textPrimary" style={styles.name} numberOfLines={1}>
-            {name}
-          </UltrasText>
+
+          {name && (
+            <UltrasText color="textPrimary" style={styles.name} numberOfLines={1}>
+              {name}
+            </UltrasText>
+          )}
         </View>
       </Container>
     </Pressable>

@@ -24,7 +24,10 @@ export interface PostAttributes {
   catchesCount: number;
 }
 
-export type PostCreationAttributes = Optional<PostAttributes, 'id'>;
+export type PostCreationAttributes = Optional<
+  PostAttributes,
+  'id' | 'commentsCount' | 'catchesCount'
+>;
 
 export class Post
   extends Model<PostAttributes, PostCreationAttributes>
@@ -87,9 +90,9 @@ export class Post
     });
 
     Post.belongsToMany(models.User, {
-      as: resources.LIKE.ALIAS.PLURAL,
+      as: resources.CATCH.ALIAS.PLURAL,
       through: {
-        model: resources.LIKE.MODEL,
+        model: resources.CATCH.MODEL,
         unique: false,
       },
       foreignKey: 'postId',

@@ -69,11 +69,20 @@ const FourDigitsMessage: React.FC<IFourDigitsMessageProps> = ({
         </Text>
       </HStack>
 
-      <Pressable disabled={!canResend} onPress={onResendPress}>
+      <Pressable
+        disabled={!canResend}
+        onPress={onResendPress}
+        flexDirection="row"
+        justifyContent="flex-end"
+      >
         <Text variant={canResend ? 'smallTextAction' : 'smallText'} textAlign="right">
           {I18n.t('fourDigits-requestAgain')}
-          {!canResend ? ' (' + time + ')' : ''}
         </Text>
+        {!canResend && (
+          <Text width={35} variant="smallText" textAlign="center">
+            ({time})
+          </Text>
+        )}
       </Pressable>
     </VStack>
   );

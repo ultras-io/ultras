@@ -12,7 +12,7 @@ import resources from 'core/data/lcp';
 import db from 'core/data/models';
 import { RoomCreationAttributes } from 'core/data/models/Room';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import PostService from './PostService';
 import FanClubMemberService from './FanClubMemberService';
 
@@ -39,19 +39,35 @@ export interface IUpdateParams {
   privacy: RoomPrivacyEnum;
 }
 
+export const defaultRelations: RelationGroupType = [
+  'post',
+  'post.fanClub',
+  'post.match',
+  'post.author',
+];
+
 class RoomService extends BaseService {
-  protected static includeRelations(args: any = {}) {
+  protected static includeRelations(
+    relations: RelationGroupType = defaultRelations,
+    args: any = {}
+  ) {
+    relations = relations || defaultRelations;
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'post')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        post: ['fanClub', 'match', 'author'],
+      });
+
+      includeRelations.push({
+        model: db.Post,
+        as: resources.POST.ALIAS.SINGULAR,
+        ...PostService.getIncludeRelations(relationsHierarchy, { userId: args.userId }),
+      });
+    }
+
     return {
-      attributes: {
-        exclude: ['postId'],
-      },
-      include: [
-        {
-          model: db.Post,
-          as: resources.POST.ALIAS.SINGULAR,
-          ...PostService.getIncludeRelations({ userId: args.userId }),
-        },
-      ],
+      include: includeRelations,
     };
   }
 
@@ -103,7 +119,7 @@ class RoomService extends BaseService {
     const queryOptions: any = {
       limit: params.limit,
       offset: params.offset,
-      ...this.includeRelations({ userId: params.userId }),
+      ...this.includeRelations(defaultRelations, { userId: params.userId }),
     };
 
     // hide match and/or fanClub nested relations
@@ -250,7 +266,9 @@ class RoomService extends BaseService {
       where: {
         id: params.id,
       },
-      ...(withIncludes ? this.includeRelations({ userId: params.userId }) : {}),
+      ...(withIncludes
+        ? this.includeRelations(defaultRelations, { userId: params.userId })
+        : {}),
     });
 
     return room;

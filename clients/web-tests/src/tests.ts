@@ -13,7 +13,8 @@ import { runTest as testSdkLeague } from './lib-tests/sdk-league';
 import { runTest as testSdkMatch } from './lib-tests/sdk-match';
 import { runTest as testSdkFanClub } from './lib-tests/sdk-fanClub';
 import { runTest as testSdkFanClubMembership } from './lib-tests/sdk-fanClub-membership';
-import { runTest as testSdkAwsS3 } from './lib-tests/sdk-awsS3';
+import { runTest as testSdkAwsS3Upload } from './lib-tests/sdk-awsS3-upload';
+import { runTest as testSdkAwsS3GetUrl } from './lib-tests/sdk-awsS3-getUrl';
 import { runTest as testSdkEvent } from './lib-tests/sdk-event';
 import { runTest as testSdkRoom } from './lib-tests/sdk-room';
 import { runTest as testSdkUser } from './lib-tests/sdk-user';
@@ -36,7 +37,8 @@ const tests = {
   testSdkMatch,
   testSdkFanClub,
   testSdkFanClubMembership,
-  testSdkAwsS3,
+  testSdkAwsS3Upload,
+  testSdkAwsS3GetUrl,
   testSdkEvent,
   testSdkRoom,
   testSdkUser,

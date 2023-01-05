@@ -5,7 +5,7 @@ import {
   VenuesViewModel,
 } from '@ultras/core-api-sdk';
 
-const sdk = new VenueSDK('dev');
+const sdk = new VenueSDK(process.env.REACT_APP_NODE_ENV as Mode);
 
 export const runTest = () => {
   const params = {

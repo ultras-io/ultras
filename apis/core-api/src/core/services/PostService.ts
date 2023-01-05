@@ -5,7 +5,7 @@ import db from 'core/data/models';
 import { PostTypeEnum } from '@ultras/utils';
 import { PostCreationAttributes } from 'core/data/models/Post';
 
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
 import FanClubService from './FanClubService';
 import MatchService from './MatchService';
 
@@ -25,11 +25,47 @@ export interface IUpdateParams {
   content: string;
 }
 
+export const defaultRelations: RelationGroupType = ['fanClub', 'match', 'author'];
+
 class PostService extends BaseService {
-  protected static includeRelations(args: any = {}) {
-    const attributes = [
-      // @TODO: write logic to load count of catches and comments
-    ];
+  protected static includeRelations(
+    relations: RelationGroupType = defaultRelations,
+    args: any = {}
+  ) {
+    relations = relations || defaultRelations;
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'fanClub')) {
+      const relationsHierarchy = this.getRelationsHierarchy(relations, {
+        fanClub: ['city', 'country', 'team', 'owner'],
+      });
+
+      includeRelations.push({
+        model: db.FanClub,
+        as: resources.FAN_CLUB.ALIAS.SINGULAR,
+        ...FanClubService.getIncludeRelations(relationsHierarchy),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'match')) {
+      includeRelations.push({
+        model: db.Match,
+        as: resources.MATCH.ALIAS.SINGULAR,
+        ...MatchService.getIncludeRelations(null, {
+          userId: args.userId,
+          catchesFrom: args.catchesFrom,
+        }),
+      });
+    }
+
+    if (this.isRelationIncluded(relations, 'author')) {
+      includeRelations.push({
+        model: db.User,
+        as: 'author',
+      });
+    }
+
+    const attributes = [];
 
     if (args.userId) {
       attributes.push([
@@ -38,39 +74,36 @@ class PostService extends BaseService {
             SELECT 1
             FROM "${resources.ULTRAS_CORE}"."${resources.POST_MEMBER.RELATION}"
             WHERE (
-              "deletedAt" IS NULL
-              AND
-              "userId" = ${args.userId}
-              AND
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
               "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
             )
           )
         `),
         'joined',
       ]);
+
+      attributes.push([
+        db.Sequelize.literal(`
+          EXISTS (
+            SELECT 1
+            FROM "${resources.ULTRAS_CORE}"."${resources.CATCH.RELATION}"
+            WHERE (
+              "deletedAt" IS NULL AND
+              "userId" = ${args.userId} AND
+              "postId" = "${resources.POST.ALIAS.SINGULAR}"."id"
+            )
+          )
+        `),
+        'caught',
+      ]);
     }
 
     return {
       attributes: {
-        // exclude: ['fanClubId', 'matchId', 'authorId'],
         include: attributes,
       },
-      include: [
-        {
-          model: db.FanClub,
-          as: resources.FAN_CLUB.ALIAS.SINGULAR,
-          ...FanClubService.getIncludeRelations(),
-        },
-        {
-          model: db.Match,
-          as: resources.MATCH.ALIAS.SINGULAR,
-          ...MatchService.getIncludeRelations(),
-        },
-        {
-          model: db.User,
-          as: 'author',
-        },
-      ],
+      include: includeRelations,
     };
   }
 
@@ -89,8 +122,6 @@ class PostService extends BaseService {
       fanClubId: fanClubId || null,
       title,
       content,
-      catchesCount: 0,
-      commentsCount: 0,
     };
 
     const post = await db.Post.create(postData, { transaction });
@@ -147,6 +178,50 @@ class PostService extends BaseService {
     const event = await db.Post.findOne(options);
 
     return event;
+  }
+
+  /**
+   * Increment catches count of post.
+   */
+  static async incrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.increment('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement catches count of post.
+   */
+  static async decrementCatches(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.decrement('catchesCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Increment comments count of post.
+   */
+  static async incrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.increment('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
+  }
+
+  /**
+   * Decrement comments count of post.
+   */
+  static async decrementComments(id: ResourceIdentifier, transaction?: Transaction) {
+    await db.Post.decrement('commentsCount', {
+      by: 1,
+      where: { id: id },
+      transaction,
+    });
   }
 }
 

@@ -18,6 +18,7 @@ export default StyleSheet.create({
     paddingBottom: 0,
     flexGrow: 1,
   },
+
   listFooterComponentStyle: {
     flex: 1,
     position: 'relative',

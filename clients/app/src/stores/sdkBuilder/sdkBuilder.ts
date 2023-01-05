@@ -11,6 +11,7 @@ import {
   RoomSDK,
   TeamSDK,
   UserSDK,
+  UltrasS3SDK
 } from '@ultras/core-api-sdk';
 
 export const buildCountrySDK = () => makeSdkInstance<CountrySDK>(CountrySDK);
@@ -26,3 +27,4 @@ export const buildUserSDK = () => makeSdkInstance<UserSDK>(UserSDK);
 export const buildEventMemberSDK = () => makeSdkInstance<EventMemberSDK>(EventMemberSDK);
 export const buildEventSDK = () => makeSdkInstance<EventSDK>(EventSDK);
 export const buildFanClubSDK = () => makeSdkInstance<FanClubSDK>(FanClubSDK);
+export const buildUltrasS3SDK = () => makeSdkInstance<UltrasS3SDK>(UltrasS3SDK);

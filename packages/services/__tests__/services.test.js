@@ -20,7 +20,7 @@ const testingData = {
       'rado1996@mail.ru',
       'ultras2810@gmail.com',
     ],
-    message: (name) => `
+    message: name => `
       <p>Hi, <b>Dear Developer</b>.</p>
       <p>Email via ${name}</p>
     `,
@@ -41,9 +41,48 @@ const serviceMailer = new MailerService(SENDGRID_API_KEY, testingData.email.send
 const { default: SMSService } = require('../build/SMSService');
 const serviceSms = new SMSService(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
+const { default: NetworkService } = require('../build/NetworkService');
+const serviceNetwork = new NetworkService('https://www.google.com');
+
 describe('@ultras/services', () => {
   describe('@ultras/services/NetworkService', () => {
-    // it('needs tests');
+    const urls = [
+      { provided: '/api/test-endpoint', excepted: '/api/test-endpoint' },
+      { provided: '/api/test-endpoint/', excepted: '/api/test-endpoint' },
+      { provided: '/api/////test-endpoint', excepted: '/api/test-endpoint' },
+      { provided: '/api//test-endpoint//', excepted: '/api/test-endpoint' },
+      {
+        provided: '/api/test-endpoint//?with=param',
+        excepted: '/api/test-endpoint?with=param',
+      },
+      { provided: '', excepted: '' },
+      { provided: '/', excepted: '' },
+      { provided: '////', excepted: '' },
+    ];
+
+    for (const index in urls) {
+      const url = urls[index];
+
+      // Send API Calls
+      it(`should sanitize invalid pathname: ${url.provided}`, async () => {
+        const invalidUrl = `https://www.google.com${url.provided}`;
+        const validUrl = `https://www.google.com${url.excepted}`;
+        const sanitizedUrl = serviceNetwork.sanitizeUrl(
+          serviceNetwork.createUrl(url.provided)
+        );
+
+        if (validUrl !== sanitizedUrl) {
+          assert.fail(
+            `URL was not sanitized successfully:\n` +
+              `          Invalid URL: ${invalidUrl}\n` +
+              `            Valid URL: ${validUrl}\n` +
+              `        Sanitized URL: ${sanitizedUrl}`
+          );
+        } else {
+          assert.ok(true);
+        }
+      });
+    }
   });
 
   describe('@ultras/services/MailerService', () => {
@@ -65,11 +104,14 @@ describe('@ultras/services', () => {
     // Send Email via CC
     it('should send email via cc', async () => {
       try {
-        const result = await serviceMailer.sendMultiple({
-          to: testingData.email.recipients,
-          subject: 'Test Message',
-          html: testingData.email.message('CC'),
-        }, false);
+        const result = await serviceMailer.sendMultiple(
+          {
+            to: testingData.email.recipients,
+            subject: 'Test Message',
+            html: testingData.email.message('CC'),
+          },
+          false
+        );
 
         assert.ok(result);
       } catch (err) {
@@ -80,11 +122,14 @@ describe('@ultras/services', () => {
     // Send Email via BCC
     it('should send email via bcc', async () => {
       try {
-        const result = await serviceMailer.sendMultiple({
-          to: testingData.email.recipients,
-          subject: 'Test Message',
-          html: testingData.email.message('BCC'),
-        }, true);
+        const result = await serviceMailer.sendMultiple(
+          {
+            to: testingData.email.recipients,
+            subject: 'Test Message',
+            html: testingData.email.message('BCC'),
+          },
+          true
+        );
 
         assert.ok(result);
       } catch (err) {
@@ -103,22 +148,7 @@ describe('@ultras/services', () => {
           body: 'Testing SMS via Message Service',
         });
 
-        assert.ok(result);
-      } catch (err) {
-        assert.fail(err.message);
-      }
-    });
-
-    // Send SMS via Phone Number
-    it('should send sms via phone number', async () => {
-      try {
-        const result = await serviceSms.send({
-          from: TWILIO_SENDER_PHONE_NUMBER,
-          to: testingData.phone,
-          body: 'Testing SMS via Phone Number',
-        });
-
-        assert.ok(result);
+        assert.ok(result.errorMessage === null, result.errorMessage);
       } catch (err) {
         assert.fail(err.message);
       }

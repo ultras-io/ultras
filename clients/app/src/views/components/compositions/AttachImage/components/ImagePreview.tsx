@@ -1,11 +1,12 @@
-import { Box } from 'native-base';
 import React from 'react';
 import { Image, View, StyleSheet, ImageSourcePropType } from 'react-native';
+import { Box, Center, Spinner } from 'native-base';
 import { useTheme } from 'themes';
 import {
   ORIGINAL_SIZE as removeButtonSize,
   RemoveButton,
 } from 'views/components/base/RemoveButton';
+import PressableArea from './PressableArea';
 import { offsetForRectangle, offsetForRounded } from '../helpers';
 import { IImagePreviewProps } from '../types';
 
@@ -14,9 +15,11 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   rounded,
   computedSize,
   removable,
+  uploadStatus,
   onRemove,
+  onChoose,
 }) => {
-  const { theming } = useTheme();
+  const { theming, colors } = useTheme();
 
   const containerStyle = React.useMemo(() => {
     let offset = 0;
@@ -43,17 +46,46 @@ const ImagePreview: React.FC<IImagePreviewProps> = ({
   }, [rounded, computedSize.height, theming.sizes]);
 
   return (
-    <>
+    <PressableArea imageItem={imageItem} onChoose={onChoose}>
       {removable && (
         <View style={[styles.container, containerStyle]}>
           <RemoveButton onPress={() => onRemove(imageItem.id)} />
         </View>
       )}
 
-      <Box height="full" width="full" overflow="hidden" rounded={rounded ? 'full' : 'md'}>
+      <Box
+        position="relative"
+        height="full"
+        width="full"
+        overflow="hidden"
+        rounded={rounded ? 'full' : 'md'}
+      >
         <Image source={imageItem.image as ImageSourcePropType} style={styles.image} />
+
+        {uploadStatus !== 'idle' && (
+          <Center
+            position="absolute"
+            backgroundColor={
+              uploadStatus !== 'uploading' ? undefined : colors.textTertiaryInvert
+            }
+            top={0}
+            bottom={0}
+            left={0}
+            right={0}
+          >
+            {uploadStatus === 'error' ? (
+              <>{/* @TODO: show error icon */}</>
+            ) : uploadStatus === 'success' ? (
+              <>{/* @TODO: show success icon */}</>
+            ) : (
+              uploadStatus === 'uploading' && (
+                <Spinner color={colors.textAction} size="sm" />
+              )
+            )}
+          </Center>
+        )}
       </Box>
-    </>
+    </PressableArea>
   );
 };
 

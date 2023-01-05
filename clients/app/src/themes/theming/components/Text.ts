@@ -328,5 +328,15 @@ export default {
         },
       };
     },
+
+    errorLabel: ({ colorMode }: ComponentParams) => {
+      return {
+        fontSize: '2xl',
+        fontWeight: 600,
+        style: {
+          color: colors[colorMode].iconNotification,
+        },
+      };
+    },
   },
 };

@@ -1,3 +1,4 @@
+import { folders } from '@ultras/services/aws/S3Service';
 import { AwsS3FolderEnum } from '@ultras/utils';
 
 const ENVS: Record<string, string> = {
@@ -27,13 +28,7 @@ const DEFAULT_PAGINATION_ATTRIBUTES = {
   OFFSET: 0,
 };
 
-const AWS_S3_BUCKET_FOLDERS: Record<AwsS3FolderEnum, string> = {
-  profilePicture: 'profile-pictures',
-  fanClubAvatar: 'fan-clubs/avatars',
-  fanClubCover: 'fan-clubs/covers',
-  room: 'posts/rooms',
-  event: 'posts/events',
-};
+const AWS_S3_BUCKET_FOLDERS: Record<AwsS3FolderEnum, string> = folders;
 
 const MIME_TYPES: Record<string, string> = {
   png: 'image/png',

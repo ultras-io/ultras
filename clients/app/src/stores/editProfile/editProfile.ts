@@ -1,8 +1,11 @@
 import { validatePhone, validateEmail, validateFullname } from '@ultras/utils';
 import create, { StoreApi, UseBoundStore } from 'zustand';
-import { FieldInterface, IMethods, IState, IParam, IStore } from './types';
+import { buildUserSDK } from 'stores/sdkBuilder/sdkBuilder';
+import { IField, IMethods, IState, IParam, IStore, FieldType } from './types';
 
-function validate(field: keyof IState, value: Nullable<string>): boolean {
+const sdk = buildUserSDK();
+
+function validate(field: FieldType, value: Nullable<string>): boolean {
   if (!value) {
     return false;
   }
@@ -14,16 +17,18 @@ function validate(field: keyof IState, value: Nullable<string>): boolean {
       return validatePhone(value);
     case 'email':
       return validateEmail(value);
+    case 'avatar':
+      return true;
   }
 
   return false;
 }
 
 function makeField(
-  field: keyof IState,
+  field: FieldType,
   value: Nullable<string>,
   touched: boolean = false
-): FieldInterface {
+): IField {
   return {
     value: value,
     valid: validate(field, value),
@@ -32,31 +37,53 @@ function makeField(
 }
 
 const initialState: IState = {
-  userId: 0,
   fullname: makeField('fullname', null, false),
   email: makeField('email', null, false),
   phone: makeField('phone', null, false),
+  avatar: makeField('avatar', null, false),
 };
 
 function buildMethods(
-  set: StoreApi<IStore>['setState'],
-  get: StoreApi<IStore>['getState']
+  setState: StoreApi<IStore>['setState'],
+  getState: StoreApi<IStore>['getState']
 ): IMethods {
   return {
     initiateWithValues(initial: IParam) {
-      set({
+      setState({
         ...initial,
         fullname: makeField('fullname', initial.fullname, false),
         email: makeField('email', initial.email, false),
         phone: makeField('phone', initial.phone, false),
+        avatar: makeField('avatar', initial.avatar, false),
       });
     },
-    setFieldValue(field: keyof IState, value: string) {
-      set({ [field]: makeField(field, value) });
+    setFieldValue(field: FieldType, value: Nullable<string>) {
+      setState({ [field]: makeField(field, value) });
     },
-    async update() {
-      const { userId, fullname, email, phone } = get();
-      // ...
+    async update(field: FieldType, confirmCode?: string) {
+      const currentState = getState();
+      const { value, valid } = currentState[field];
+
+      if (!valid) {
+        return;
+      }
+
+      return sdk.updateProfile({
+        code: confirmCode,
+        [field]: value,
+      });
+    },
+    async sendCode(field: FieldType) {
+      const currentState = getState();
+      const { value, valid } = currentState[field];
+
+      if (!valid) {
+        return;
+      }
+
+      return sdk.updateProfile({
+        [field]: value,
+      });
     },
   };
 }

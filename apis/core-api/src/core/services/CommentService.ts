@@ -9,7 +9,9 @@ import type {
 
 import resources from 'core/data/lcp';
 import db from 'core/data/models';
-import BaseService from './BaseService';
+import BaseService, { RelationGroupType } from './BaseService';
+import PostService from './PostService';
+import MatchService from './MatchService';
 
 interface ICommentBasicParams {
   resourceType: CommentTypeEnum;
@@ -36,19 +38,26 @@ interface IFieldsByType {
   model: any;
 }
 
+export const defaultRelations: RelationGroupType = ['user'];
+
 class CommentService extends BaseService {
-  protected static includeRelations() {
+  protected static includeRelations(relations: RelationGroupType = defaultRelations) {
+    relations = relations || defaultRelations;
+    const includeRelations = [];
+
+    if (this.isRelationIncluded(relations, 'user')) {
+      includeRelations.push({
+        required: true,
+        as: resources.USER.ALIAS.SINGULAR,
+        model: db.User,
+      });
+    }
+
     return {
+      include: includeRelations,
       attributes: {
-        exclude: ['type', 'userId', 'postId', 'matchId'],
+        exclude: ['type', 'postId', 'matchId'],
       },
-      include: [
-        {
-          required: true,
-          as: resources.USER.ALIAS.SINGULAR,
-          model: db.User,
-        },
-      ],
     };
   }
 
@@ -115,6 +124,12 @@ class CommentService extends BaseService {
       { transaction }
     );
 
+    if (params.resourceType === CommentTypeEnum.post) {
+      await PostService.incrementComments(params.resourceId, transaction);
+    } else if (params.resourceType === CommentTypeEnum.match) {
+      await MatchService.incrementComments(params.resourceId, transaction);
+    }
+
     return this.getById(comment.getDataValue('id'));
   }
 
@@ -161,6 +176,12 @@ class CommentService extends BaseService {
       },
       { transaction }
     );
+
+    if (params.resourceType === CommentTypeEnum.post) {
+      await PostService.decrementComments(params.resourceId, transaction);
+    } else if (params.resourceType === CommentTypeEnum.match) {
+      await MatchService.decrementComments(params.resourceId, transaction);
+    }
   }
 }
 

@@ -27,6 +27,7 @@ export type CreateEventType = {
   locationName: string;
   locationLat?: Nullable<number>;
   locationLng?: Nullable<number>;
+  image?: Nullable<string>;
 };
 
 export type UpdateEventType = {

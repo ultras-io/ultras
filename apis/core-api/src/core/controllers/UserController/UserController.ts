@@ -1,4 +1,5 @@
 import { NotifiedProviderEnum, UserErrorEnum } from '@ultras/utils';
+import { Transaction } from 'sequelize';
 import BaseController from 'core/controllers/BaseController';
 import {
   AuthenticationError,
@@ -19,7 +20,6 @@ import {
 } from 'core/services';
 
 import {
-  AuthTokenType,
   UserCheckUsernameParams,
   UserCheckUsernameResult,
   UserConfirmIdentityParams,
@@ -39,6 +39,11 @@ import {
   ProfileParams,
   ProfileResult,
   UserAndTeams,
+  UpdateProfileParams,
+  UpdateProfileResult,
+  UpdateProfileStatusType,
+  UpdateProfileFieldResult,
+  UpdateProfileFieldParams,
 } from './types';
 
 class UserController extends BaseController {
@@ -384,6 +389,82 @@ class UserController extends BaseController {
   }
 
   /**
+   * Update user's profile.
+   */
+  static async updateProfile({
+    userId,
+    code,
+    phone,
+    email,
+    fullname,
+    avatar,
+  }: UpdateProfileParams): UpdateProfileResult {
+    const status: UpdateProfileStatusType = await this.withTransaction(
+      async (transaction): Promise<UpdateProfileStatusType> => {
+        // update user's email address
+        if (email) {
+          const { actionStatus, codeGenerated } =
+            await this.updateProfileConfirmableField(
+              {
+                field: 'email',
+                value: email,
+                provider: NotifiedProviderEnum.email,
+                code,
+              },
+              transaction
+            );
+
+          if (actionStatus === 'updated') {
+            await UserService.updateEmail({ userId, email }, transaction);
+          } else if (actionStatus === 'confirmation-sent') {
+            await MailerService.sendVerificationCode({ code: codeGenerated, email });
+          }
+
+          return actionStatus;
+        }
+
+        // update user's phone number
+        if (phone) {
+          const { actionStatus, codeGenerated } =
+            await this.updateProfileConfirmableField(
+              {
+                field: 'phone',
+                value: phone,
+                provider: NotifiedProviderEnum.sms,
+                code,
+              },
+              transaction
+            );
+
+          if (actionStatus === 'updated') {
+            await UserService.updatePhone({ userId, phone }, transaction);
+          } else if (actionStatus === 'confirmation-sent') {
+            await SMSService.sendVerificationCode({ code: codeGenerated, phone });
+          }
+
+          return actionStatus;
+        }
+
+        // update user's full name.
+        if (fullname) {
+          await UserService.updateFullname({ userId, fullname }, transaction);
+          return 'updated';
+        }
+
+        // update user's avatar
+        if (typeof avatar !== 'undefined') {
+          await UserService.updateAvatar({ userId, avatar }, transaction);
+          return 'updated';
+        }
+
+        return 'no-action';
+      }
+    );
+
+    return { data: { status } };
+  }
+
+  /**
    * Get user profile by their ID.
    */
   static async getProfile({ userId }: ProfileParams): ProfileResult {
@@ -409,6 +490,55 @@ class UserController extends BaseController {
         teams,
       },
     };
+  }
+
+  private static async updateProfileConfirmableField(
+    { field, value, provider, code }: UpdateProfileFieldParams,
+    transaction?: Transaction
+  ): Promise<UpdateProfileFieldResult> {
+    const userExists = await UserService.findByUniqueIdentifier({
+      [field]: value,
+    });
+
+    if (userExists) {
+      return { actionStatus: 'user-exists', codeGenerated: null };
+    }
+
+    if (code) {
+      const verificationCode = await VerificationCodeService.getVerificationCode({
+        code,
+        [field]: value,
+      });
+
+      if (!verificationCode) {
+        throw new BadRequest({
+          errorCode: UserErrorEnum.invalidVerificationCode,
+          message: 'Your provided verification code is invalid or is expired.',
+        });
+      }
+
+      await VerificationCodeService.removeVerificationCode(
+        {
+          [field]: value,
+          code,
+        },
+        transaction
+      );
+
+      return { actionStatus: 'updated', codeGenerated: null };
+    }
+
+    const codeGenerated = await VerificationCodeService.generate();
+    await VerificationCodeService.store(
+      {
+        code: codeGenerated,
+        [field]: value,
+        provider: provider,
+      },
+      transaction
+    );
+
+    return { actionStatus: 'confirmation-sent', codeGenerated };
   }
 
   private static async mergeUserAndTeams(user: Nullable<User>): Promise<UserAndTeams> {

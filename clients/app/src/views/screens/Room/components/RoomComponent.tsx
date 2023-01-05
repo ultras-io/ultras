@@ -17,7 +17,7 @@ import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import preventMultiCalls from 'utils/helpers/preventMultiCalls';
 import { commonScreens } from 'views/navigation/screens';
 import Icon from 'views/components/base/Icon';
-import Catch from 'views/components/base/Catch';
+import Catch, { CatchTypeEnum } from 'views/components/base/Catch';
 import buildRoomCatchesStore from 'stores/roomCatches';
 import { Icons } from 'assets/icons';
 // import { getReadableNumber } from 'utils/helpers/readableNumber';
@@ -137,8 +137,10 @@ const RoomComponent: React.FC<IRoomComponentProps> = ({ data }) => {
         </Button>
 
         <Catch
-          isCaught={isCaught}
+          catchType={CatchTypeEnum.room}
+          catchResourceId={data.id}
           count={data.post.catchesCount}
+          isCaught={isCaught}
           onPress={onCatchPress}
         />
       </HStack>

@@ -75,7 +75,7 @@ export const scheme: IScheme<IDataType> = {
   description: {
     initialValue: null,
     validate(valueOriginal: null | string) {
-      if (!valueOriginal || valueOriginal.length > 15) {
+      if (!valueOriginal || valueOriginal.length > 0) {
         return [];
       }
 
