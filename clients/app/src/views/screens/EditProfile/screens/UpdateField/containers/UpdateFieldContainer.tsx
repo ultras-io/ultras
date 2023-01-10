@@ -11,12 +11,23 @@ import I18n from 'i18n/i18n';
 import FourDigits from 'views/components/compositions/FourDigits';
 import KeyValue from 'views/components/base/KeyValue';
 import * as editProfileStore from 'stores/editProfile';
-import { ConfirmationType, IUpdateFieldContainerProps } from '../types';
+import authenticationStore, { IState as IAuthState } from 'stores/authentication';
+import {
+  ConfirmationType,
+  UpdatableFieldNameType,
+  IUpdateFieldContainerProps,
+} from '../types';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 
 type ChangeEventType = NativeSyntheticEvent<TextInputChangeEventData>;
 
+const useAuthenticationStore = authenticationStore.initStore();
+
 const UpdateFieldContainer: React.FC<IUpdateFieldContainerProps> = ({ label, name }) => {
+  const updateUserField = useAuthenticationStore(
+    (state: IAuthState) => state.updateUserField
+  );
+
   const { colors } = useTheme();
   const { goBack } = useNavigationWithParams();
 
@@ -59,20 +70,24 @@ const UpdateFieldContainer: React.FC<IUpdateFieldContainerProps> = ({ label, nam
   const onSavePress = React.useCallback(async () => {
     if (name === 'fullname') {
       await store.update(name);
+      updateUserField(name, store[name as UpdatableFieldNameType].value);
+
       return goBack();
     }
 
     if (name === 'email' || name === 'phone') {
       await sendConfirmationCode();
     }
-  }, [sendConfirmationCode, goBack, name, store]);
+  }, [name, store, updateUserField, goBack, sendConfirmationCode]);
 
   const verifyCode = React.useCallback(
     async (code: string) => {
       await store.update(name, code);
+      updateUserField(name, store[name as UpdatableFieldNameType].value);
+
       goBack();
     },
-    [goBack, name, store]
+    [goBack, name, store, updateUserField]
   );
 
   const onResendPress = React.useCallback(async () => {

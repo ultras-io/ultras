@@ -30,8 +30,26 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
   const userSelector = React.useCallback(() => (state: IState) => state.user, []);
   const me = useAuthenticationStore(userSelector());
 
+  React.useEffect(() => {
+    if (data?.id && isFocused) {
+      storeSingle.getSingle(data.id);
+    }
+  }, [data?.id, storeSingle, isFocused]);
+
+  const [isMe, userData] = React.useMemo(() => {
+    if (storeSingle.data && storeSingle.status === 'success') {
+      return [false, storeSingle.data];
+    }
+
+    if (data) {
+      return [false, data];
+    }
+
+    return [true, me];
+  }, [data, me, storeSingle.data, storeSingle.status]);
+
   React.useLayoutEffect(() => {
-    if (!data) {
+    if (isMe) {
       setOptions({
         // eslint-disable-next-line react/no-unstable-nested-components
         headerRight: () => (
@@ -50,25 +68,7 @@ const Profile: React.FC<IProfileProps> = ({ route }) => {
     } else {
       setOptions({ headerTitle: '' });
     }
-  }, [setOptions, onOpen, data]);
-
-  React.useEffect(() => {
-    if (data?.id && isFocused) {
-      storeSingle.getSingle(data.id);
-    }
-  }, [data?.id, storeSingle, isFocused]);
-
-  const [isMe, userData] = React.useMemo(() => {
-    if (storeSingle.data && storeSingle.status === 'success') {
-      return [false, storeSingle.data];
-    }
-
-    if (data) {
-      return [false, data];
-    }
-
-    return [true, me];
-  }, [data, me, storeSingle.data, storeSingle.status]);
+  }, [setOptions, onOpen, isMe]);
 
   return (
     <Container withSuspense withBg>

@@ -22,6 +22,7 @@ export interface IMethods {
   addTeam: (teamId: number) => void;
   removeTeam: (teamId: number) => void;
   clearToken: () => void;
+  updateUserField: (field: string, value: string) => void;
 }
 
 export interface IState extends IProps, IMethods {}
