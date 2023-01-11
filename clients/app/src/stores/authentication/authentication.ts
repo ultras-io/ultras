@@ -79,6 +79,11 @@ const initStore = () => {
         await StorageService.setAuthToken('');
         set({ isAuthenticated: false });
       },
+
+      updateUserField: (field: string, value: string) => {
+        const user = get().user;
+        if (user) set({ user: { ...user, [field]: value } });
+      },
     }));
   }
 

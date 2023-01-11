@@ -6,7 +6,7 @@ class ControllerAdapter {
   static async requestJoin(ctx: Context): Promise<void> {
     /** VALIDATIONS, PARAMETERS */
     const fanClubIdParam = ctx.request.params.fanClubId;
-    const fanClubIdBody = ctx.request.body.fanClubId;
+    const fanClubIdBody = ctx.request.body?.fanClubId;
     const { userId } = ctx.user;
 
     /** CONTROLLERS */

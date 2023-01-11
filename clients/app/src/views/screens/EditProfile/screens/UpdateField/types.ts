@@ -18,3 +18,5 @@ export type ConfirmationType =
   | 'pending'
   | 'confirmed'
   | 'user-exists';
+
+export type UpdatableFieldNameType = 'name' | 'email' | 'phone';
