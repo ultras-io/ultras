@@ -14,6 +14,7 @@ import type {
   FullFilterable,
   IAddStateData,
   IUpdateStateData,
+  IStateDataScheme,
 } from '../types';
 
 export function fillStateKeys(keys: Array<StateKeyType>): StateKeyParamType {
@@ -58,23 +59,28 @@ export function processSchemeValueAndValidate<TScheme>(
     return;
   }
 
-  const schemeItem = scheme[key] as ISchemeField<TScheme[keyof TScheme]>;
+  const schemeItem = scheme[key] as ISchemeField<
+    TScheme[keyof TScheme],
+    IStateDataScheme<TScheme>
+  >;
   if (!schemeItem) {
     return;
   }
 
   if (typeof schemeItem.processValue === 'function') {
-    store.data![key].valueToSave = schemeItem.processValue(
-      store.data![key].valueOriginal
-    );
+    store.data![key].valueToSave = schemeItem.processValue({
+      valueOriginal: store.data![key].valueOriginal,
+      storeState: store.data!,
+    });
   }
 
   let errors: Array<string> = [];
   if (typeof schemeItem.validate === 'function') {
-    errors = schemeItem.validate(
-      store.data![key].valueOriginal,
-      store.data![key].valueToSave
-    );
+    errors = schemeItem.validate({
+      valueOriginal: store.data![key].valueOriginal,
+      valueToSave: store.data![key].valueToSave,
+      storeState: store.data!,
+    });
   }
 
   if (!errors) {
