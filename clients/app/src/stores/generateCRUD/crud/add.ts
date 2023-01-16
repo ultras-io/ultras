@@ -30,9 +30,15 @@ function generateInitialState<TScheme>(
     Object.keys(scheme).forEach((keyName: string) => {
       const key = keyName as keyof TScheme;
 
-      const field = createField(scheme[key].initialValue || null);
-      initialData.data![key] = field;
+      const initSchemeValue = scheme[key].initialValue;
+      const initialValue =
+        typeof initSchemeValue === 'undefined' ? null : initSchemeValue;
 
+      const field = createField(initialValue);
+      initialData.data![key] = field;
+    });
+
+    Object.keys(scheme).forEach((keyName: string) => {
       processSchemeValueAndValidate<TScheme>(
         initialData,
         scheme,

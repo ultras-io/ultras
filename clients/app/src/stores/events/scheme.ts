@@ -16,7 +16,7 @@ interface IDataType {
 export const scheme: IScheme<IDataType> = {
   matchId: {
     initialValue: null,
-    validate(valueOriginal: null | ResourceIdentifier) {
+    validate({ valueOriginal }) {
       if (!valueOriginal || valueOriginal > 0) {
         return [];
       }
@@ -26,7 +26,7 @@ export const scheme: IScheme<IDataType> = {
   },
   title: {
     initialValue: '',
-    validate(valueOriginal: null | string) {
+    validate({ valueOriginal }) {
       if (!valueOriginal) {
         return ['title_required'];
       }
@@ -36,7 +36,7 @@ export const scheme: IScheme<IDataType> = {
   },
   privacy: {
     initialValue: EventPrivacyEnum.public,
-    validate(valueOriginal: null | string) {
+    validate({ valueOriginal }) {
       if (!valueOriginal) {
         return ['privacy_required'];
       }
@@ -52,7 +52,7 @@ export const scheme: IScheme<IDataType> = {
   },
   dateTime: {
     initialValue: new Date(),
-    validate(valueOriginal: null | Date | string) {
+    validate({ valueOriginal }) {
       if (!valueOriginal) {
         return ['start_datetime_required'];
       }
@@ -73,7 +73,12 @@ export const scheme: IScheme<IDataType> = {
   },
   endDateTime: {
     initialValue: new Date(),
-    validate(valueOriginal: null | Date | string) {
+    validate({ valueOriginal, storeState }) {
+      const isEndDateTime = storeState.isEndDateTime.valueOriginal;
+      if (!isEndDateTime) {
+        return [];
+      }
+
       if (!valueOriginal) {
         return [];
       }
@@ -91,7 +96,7 @@ export const scheme: IScheme<IDataType> = {
   },
   locationName: {
     initialValue: null,
-    validate(valueOriginal: null | string) {
+    validate({ valueOriginal }) {
       if (!valueOriginal || valueOriginal.length > 3) {
         return [];
       }
@@ -101,7 +106,7 @@ export const scheme: IScheme<IDataType> = {
   },
   content: {
     initialValue: null,
-    validate(valueOriginal: null | string) {
+    validate({ valueOriginal }) {
       if (!valueOriginal || valueOriginal.length > 0) {
         return [];
       }
