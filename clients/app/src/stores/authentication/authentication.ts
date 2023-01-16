@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create as createStore } from 'zustand';
 import { UserSDK } from '@ultras/core-api-sdk';
 import StorageService from 'services/storage/storageService';
 import { IState, IProps } from './types';
@@ -21,7 +21,7 @@ const initialState: IProps = {
 
 const initStore = () => {
   if (!authenticationStore) {
-    authenticationStore = create<IState>((set, get) => ({
+    authenticationStore = createStore<IState>((set, get) => ({
       ...initialState,
       authenticate: async () => {
         const token = await StorageService.getAuthToken();

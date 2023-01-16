@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create as createStore } from 'zustand';
 import produce from 'immer';
 import { IState, IProps } from './types';
 import { buildUserSDK } from 'stores/sdkBuilder/sdkBuilder';
@@ -41,7 +41,7 @@ const initialState: IProps = {
 
 const initStore = () => {
   if (!registrationStore) {
-    registrationStore = create<IState>((set, get) => ({
+    registrationStore = createStore<IState>((set, get) => ({
       ...initialState,
       nextStep: () =>
         set(state => ({
