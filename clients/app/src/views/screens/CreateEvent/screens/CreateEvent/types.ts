@@ -30,4 +30,6 @@ export interface IDateAndTimeRowsProps {
 
 export interface IChoosePhotoComponentProps {
   title: string;
+  onUploadStarted?(): void;
+  onUploadCompleted?(): void;
 }

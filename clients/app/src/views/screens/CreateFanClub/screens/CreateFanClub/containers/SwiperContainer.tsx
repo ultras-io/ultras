@@ -8,6 +8,7 @@ import { useTheme } from 'themes';
 import Icon from 'views/components/base/Icon';
 import { Icons } from 'assets/icons';
 import { fanClubsStore } from '../../../store';
+import { useFileUploadStore } from '../../../fileUploadStore';
 import { ISwiperContainerProps } from '../types';
 
 const SwiperContainer = React.forwardRef<InterfaceScrollViewProps, ISwiperContainerProps>(
@@ -15,6 +16,11 @@ const SwiperContainer = React.forwardRef<InterfaceScrollViewProps, ISwiperContai
     { keyboardHeight, isSubmitEnabled, slides },
     refScroll: null | React.Ref<InterfaceScrollViewProps>
   ) => {
+    const [uploadingAvatar, uploadingCover] = useFileUploadStore(state => [
+      state.uploadingAvatar,
+      state.uploadingCover,
+    ]);
+
     const { colors } = useTheme();
 
     const { add: storeAdd } = fanClubsStore.useSelector('add');
@@ -122,7 +128,9 @@ const SwiperContainer = React.forwardRef<InterfaceScrollViewProps, ISwiperContai
                 borderLeftRadius={isFirstAction ? 13 : undefined}
                 onPress={onNextPress}
                 disabled={!isSubmitEnabled(index)}
-                isLoading={storeAdd.status === 'loading'}
+                isLoading={
+                  storeAdd.status === 'loading' || uploadingAvatar || uploadingCover
+                }
               >
                 {I18n.t(!isLastAction ? 'common-next' : 'fanClubs-add-button')}
               </Button>

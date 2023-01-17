@@ -25,6 +25,10 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
   const descriptionRef = React.useRef();
   const scrollRef = React.useRef();
 
+  const [uploading, setUploading] = React.useState(false);
+  const onUploadStarted = React.useCallback(() => setUploading(true), []);
+  const onUploadCompleted = React.useCallback(() => setUploading(false), []);
+
   const onFocus = React.useCallback(ref => {
     ref.current?.measureLayout(scrollRef.current, (left, top: number) => {
       scrollPosition.current = top;
@@ -128,12 +132,16 @@ const CreateEventComponent: React.FC<ICreateEventComponentProps> = ({
           ref={descriptionRef}
         />
 
-        <ChoosePhotoComponent title={I18n.t('events-add-photo')} />
+        <ChoosePhotoComponent
+          title={I18n.t('events-add-photo')}
+          onUploadStarted={onUploadStarted}
+          onUploadCompleted={onUploadCompleted}
+        />
 
         <Button
           onPress={onCreatePress}
           variant={'primary'}
-          disabled={!isValid}
+          disabled={!isValid || uploading}
           isLoading={loading}
         >
           {I18n.t('events-add-button')}

@@ -11,6 +11,7 @@ const sdk = buildUltrasS3SDK();
 
 const ChooseAndUploadPhoto: React.FC<IChooseAndUploadPhotoProps> = ({
   folder,
+  onUploadStart,
   onChange,
   ...rest
 }) => {
@@ -21,7 +22,7 @@ const ChooseAndUploadPhoto: React.FC<IChooseAndUploadPhotoProps> = ({
   const onImageListUpdate = React.useCallback(
     async (newImages: Array<string>, oldImages: Array<string>) => {
       // @TODO: remove old images from storage.
-      onChange(newImages, oldImages);
+      await onChange(newImages, oldImages);
     },
     [onChange]
   );
@@ -60,20 +61,22 @@ const ChooseAndUploadPhoto: React.FC<IChooseAndUploadPhotoProps> = ({
         return onImageListUpdate([], []);
       }
 
-      const promises = [];
-      for (const imageItem of images) {
-        if (imageItem.isInitial) {
-          continue;
-        }
+      const promises = images
+        .filter(imageItem => !imageItem.isInitial)
+        .map(imageItem => uploadImage(imageItem));
 
-        const promise = uploadImage(imageItem);
-        promises.push(promise);
+      if (promises.length === 0) {
+        return onImageListUpdate([], []);
+      }
+
+      if (typeof onUploadStart === 'function') {
+        onUploadStart();
       }
 
       const imageKeys = await Promise.all(promises);
       return onImageListUpdate(imageKeys, []);
     },
-    [onImageListUpdate, uploadImage]
+    [onImageListUpdate, onUploadStart, uploadImage]
   );
 
   return <AttachImage {...rest} uploadStatuses={uploadStatuses} onChange={onChoose} />;
