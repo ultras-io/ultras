@@ -185,3 +185,31 @@ export function makeActionExtract<
     return { getState, setState, interceptors };
   };
 }
+
+export function initializeSchemeValue<TScheme>(
+  scheme: IScheme<TScheme>,
+  initialData: IAddStateData<TScheme> | IUpdateStateData<TScheme>
+) {
+  Object.keys(scheme).forEach((keyName: string) => {
+    const key = keyName as keyof TScheme;
+
+    const initiateSchemeValue = scheme[key].initialValue;
+    let initialValue: any = null;
+
+    if (typeof initiateSchemeValue !== 'undefined') {
+      if (typeof initiateSchemeValue === 'function') {
+        // @ts-ignore
+        initialValue = initiateSchemeValue();
+      } else {
+        initialValue = initiateSchemeValue;
+      }
+    }
+
+    const field = createField(initialValue);
+    initialData.data![key] = field;
+  });
+
+  Object.keys(scheme).forEach((keyName: string) => {
+    processSchemeValueAndValidate<TScheme>(initialData, scheme, keyName as keyof TScheme);
+  });
+}

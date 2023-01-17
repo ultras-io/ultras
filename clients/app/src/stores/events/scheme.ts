@@ -13,6 +13,14 @@ interface IDataType {
   image: null | string;
 }
 
+function buildDateInstance(addHours = 0) {
+  const date = new Date();
+  const oneHour = 1000 * 3600;
+
+  date.setTime(date.getTime() + oneHour * addHours);
+  return date;
+}
+
 export const scheme: IScheme<IDataType> = {
   matchId: {
     initialValue: null,
@@ -51,7 +59,9 @@ export const scheme: IScheme<IDataType> = {
     },
   },
   dateTime: {
-    initialValue: new Date(),
+    initialValue: () => {
+      return buildDateInstance(1);
+    },
     validate({ valueOriginal }) {
       if (!valueOriginal) {
         return ['start_datetime_required'];
@@ -72,7 +82,9 @@ export const scheme: IScheme<IDataType> = {
     initialValue: false,
   },
   endDateTime: {
-    initialValue: new Date(),
+    initialValue: () => {
+      return buildDateInstance(2);
+    },
     validate({ valueOriginal, storeState }) {
       const isEndDateTime = storeState.isEndDateTime.valueOriginal;
       if (!isEndDateTime) {
