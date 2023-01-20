@@ -1,5 +1,12 @@
+type SchemeInitialValueCallableType<TFieldValue> = () => TFieldValue;
+
+type SchemeInitialValueType<TFieldValue> =
+  | TFieldValue
+  | SchemeInitialValueCallableType<TFieldValue>
+  | null;
+
 export interface ISchemeField<TFieldValue, TStoreState> {
-  initialValue?: TFieldValue | null;
+  initialValue?: SchemeInitialValueType<TFieldValue>;
   processValue?(data: {
     valueOriginal: TFieldValue | null;
     storeState: TStoreState;

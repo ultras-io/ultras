@@ -12,7 +12,11 @@ import type {
   IStateFieldScheme,
 } from '../types/scheme';
 
-import { createField, processSchemeValueAndValidate } from '../utils/helpers';
+import {
+  createField,
+  initializeSchemeValue,
+  processSchemeValueAndValidate,
+} from '../utils/helpers';
 
 function generateInitialState<TScheme>(
   scheme: IScheme<TScheme> | null | undefined
@@ -27,24 +31,7 @@ function generateInitialState<TScheme>(
   };
 
   if (scheme) {
-    Object.keys(scheme).forEach((keyName: string) => {
-      const key = keyName as keyof TScheme;
-
-      const initSchemeValue = scheme[key].initialValue;
-      const initialValue =
-        typeof initSchemeValue === 'undefined' ? null : initSchemeValue;
-
-      const field = createField(initialValue);
-      initialData.data![key] = field;
-    });
-
-    Object.keys(scheme).forEach((keyName: string) => {
-      processSchemeValueAndValidate<TScheme>(
-        initialData,
-        scheme,
-        keyName as keyof TScheme
-      );
-    });
+    initializeSchemeValue(scheme, initialData);
   }
 
   return initialData;
