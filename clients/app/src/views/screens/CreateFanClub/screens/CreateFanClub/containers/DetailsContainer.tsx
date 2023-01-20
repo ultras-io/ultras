@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Text, VStack, TextArea } from 'native-base';
 import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
-import { fanClubsStore } from '../../../store';
+import { fanClubsStore } from 'views/screens/CreateFanClub/stores';
 import SelectedCityComponent from '../components/SelectedCityComponent';
 import SelectedTeamComponent from '../components/SelectedTeamComponent';
 import { IDetailsComponentProps } from '../types';

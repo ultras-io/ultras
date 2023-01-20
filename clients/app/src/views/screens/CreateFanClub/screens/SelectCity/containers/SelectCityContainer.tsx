@@ -3,7 +3,7 @@ import buildCitiesStore from 'stores/cities';
 import useNavigationWithParams from 'utils/hooks/useNavigationWithParams';
 import SearchCityComponent from '../components/SearchCityComponent';
 import SelectCityComponent from '../components/SelectCityComponent';
-import { fanClubsStore } from '../../../store';
+import { fanClubsStore } from 'views/screens/CreateFanClub/stores';
 import { ISelectCityContainerProps } from '../types';
 
 const SelectCityContainer: React.FC<ISelectCityContainerProps> = ({ cityId }) => {

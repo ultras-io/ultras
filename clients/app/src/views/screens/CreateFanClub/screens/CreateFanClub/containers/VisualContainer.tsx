@@ -5,7 +5,7 @@ import React from 'react';
 import { Text, VStack } from 'native-base';
 import I18n from 'i18n/i18n';
 import ChoosePhotoComponent from '../components/ChoosePhotoComponent';
-import { useFileUploadStore } from '../../../fileUploadStore';
+import { useFileUploadStore } from 'views/screens/CreateFanClub/stores';
 
 const VisualContainer: React.FC = () => {
   const store = useFileUploadStore();

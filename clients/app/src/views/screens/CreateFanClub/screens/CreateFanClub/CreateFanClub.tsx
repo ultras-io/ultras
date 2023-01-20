@@ -10,7 +10,7 @@ import SwiperContainer from './containers/SwiperContainer';
 import DetailsContainer from './containers/DetailsContainer';
 import VisualContainer from './containers/VisualContainer';
 import PrivacyContainer from './containers/PrivacyContainer';
-import { fanClubsStore } from '../../store';
+import { fanClubsStore } from 'views/screens/CreateFanClub/stores';
 import { ICreateFanClubProps } from './types';
 
 const CreateFanClub: React.FC<ICreateFanClubProps> = () => {

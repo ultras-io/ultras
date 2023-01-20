@@ -2,7 +2,7 @@ import { FanClubPrivacyEnum } from '@ultras/utils';
 import React from 'react';
 import { Text, VStack } from 'native-base';
 import I18n from 'i18n/i18n';
-import { fanClubsStore } from '../../../store';
+import { fanClubsStore } from 'views/screens/CreateFanClub/stores';
 import KeyValue from 'views/components/base/KeyValue/KeyValue';
 
 const PrivacyContainer: React.FC = () => {

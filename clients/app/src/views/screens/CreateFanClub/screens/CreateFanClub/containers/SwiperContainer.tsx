@@ -7,8 +7,7 @@ import I18n from 'i18n/i18n';
 import { useTheme } from 'themes';
 import Icon from 'views/components/base/Icon';
 import { Icons } from 'assets/icons';
-import { fanClubsStore } from '../../../store';
-import { useFileUploadStore } from '../../../fileUploadStore';
+import { fanClubsStore, useFileUploadStore } from 'views/screens/CreateFanClub/stores';
 import { ISwiperContainerProps } from '../types';
 
 const SwiperContainer = React.forwardRef<InterfaceScrollViewProps, ISwiperContainerProps>(

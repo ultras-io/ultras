@@ -1,6 +1,6 @@
 import React from 'react';
 import ChooseAndUploadPhoto from 'views/components/base/ChooseAndUploadPhoto';
-import { fanClubsStore } from '../../../store';
+import { fanClubsStore } from 'views/screens/CreateFanClub/stores';
 import { IChoosePhotoComponentProps } from '../types';
 
 const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
