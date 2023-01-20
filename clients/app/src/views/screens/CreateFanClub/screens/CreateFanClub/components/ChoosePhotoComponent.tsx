@@ -1,6 +1,6 @@
 import React from 'react';
 import ChooseAndUploadPhoto from 'views/components/base/ChooseAndUploadPhoto';
-import { fanClubsStore } from '../../../store';
+import { fanClubsStore } from 'views/screens/CreateFanClub/stores';
 import { IChoosePhotoComponentProps } from '../types';
 
 const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
@@ -8,6 +8,8 @@ const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
   rounded,
   field,
   folder,
+  onUploadStarted,
+  onUploadCompleted,
 }) => {
   const { add: storeAdd } = fanClubsStore.useSelector('add');
 
@@ -18,9 +20,13 @@ const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
         imageUrl = newImages[0];
       }
 
+      if (typeof onUploadCompleted === 'function') {
+        onUploadCompleted();
+      }
+
       storeAdd.setFieldValue(field, imageUrl);
     },
-    [field, storeAdd]
+    [field, storeAdd, onUploadCompleted]
   );
 
   return (
@@ -30,6 +36,7 @@ const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
       rounded={rounded}
       multiple={false}
       onChange={onChange}
+      onUploadStart={onUploadStarted}
     />
   );
 };

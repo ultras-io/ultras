@@ -4,7 +4,11 @@ import ChooseAndUploadPhoto from 'views/components/base/ChooseAndUploadPhoto';
 import { eventsStore } from '../../../store';
 import { IChoosePhotoComponentProps } from '../types';
 
-const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({ title }) => {
+const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({
+  title,
+  onUploadStarted,
+  onUploadCompleted,
+}) => {
   const { add: storeAdd } = eventsStore.useSelector('add');
 
   const onChange = React.useCallback(
@@ -14,9 +18,13 @@ const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({ title }) =
         imageUrl = newImages[0];
       }
 
+      if (typeof onUploadCompleted === 'function') {
+        onUploadCompleted();
+      }
+
       storeAdd.setFieldValue('image', imageUrl);
     },
-    [storeAdd]
+    [onUploadCompleted, storeAdd]
   );
 
   return (
@@ -26,6 +34,7 @@ const ChoosePhotoComponent: React.FC<IChoosePhotoComponentProps> = ({ title }) =
       rounded={false}
       multiple={false}
       onChange={onChange}
+      onUploadStart={onUploadStarted}
     />
   );
 };

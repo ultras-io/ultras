@@ -28,4 +28,6 @@ export interface IChoosePhotoComponentProps {
   rounded: boolean;
   field: 'avatar' | 'coverPhoto';
   folder: AwsS3FolderEnum;
+  onUploadStarted?(): void;
+  onUploadCompleted?(): void;
 }
