@@ -79,7 +79,12 @@ export const buildActions = <TData, TScheme>(
       add.data![key].valueToSave = value;
       add.data![key].errors = [];
 
-      processSchemeValueAndValidate<TScheme>(add, interceptors.scheme, key);
+      processSchemeValueAndValidate<TScheme>(
+        add,
+        interceptors.scheme,
+        key,
+        () => getState().add.data!
+      );
 
       add.valid = true;
 

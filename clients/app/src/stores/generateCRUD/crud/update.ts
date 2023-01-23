@@ -87,7 +87,12 @@ export const buildActions = <TData, TScheme>(
       update.data![key].valueToSave = value;
       update.data![key].errors = [];
 
-      processSchemeValueAndValidate<TScheme>(update, interceptors.scheme, key);
+      processSchemeValueAndValidate<TScheme>(
+        update,
+        interceptors.scheme,
+        key,
+        () => getState().update.data!
+      );
 
       for (const dataKeyName of Object.keys(update.data!)) {
         const dataKey = dataKeyName as keyof TScheme;
