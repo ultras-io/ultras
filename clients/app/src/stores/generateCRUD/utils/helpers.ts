@@ -49,10 +49,23 @@ export function createField<TFieldKey = string>(
   };
 }
 
+export function deepFreeze<T = any>(freezableObject: T) {
+  if (!freezableObject || typeof freezableObject !== 'object') {
+    return freezableObject;
+  }
+
+  for (const propKey in freezableObject) {
+    deepFreeze(freezableObject[propKey]);
+  }
+
+  Object.freeze(freezableObject);
+}
+
 export function processSchemeValueAndValidate<TScheme>(
   store: IAddStateData<TScheme> | IUpdateStateData<TScheme>,
   scheme: undefined | IScheme<TScheme>,
-  key: keyof TScheme
+  key: keyof TScheme,
+  getState: () => Readonly<IStateDataScheme<TScheme>>
 ) {
   store.data![key].isValid = true;
   if (typeof scheme === 'undefined' || typeof scheme[key] === 'undefined') {
@@ -67,10 +80,17 @@ export function processSchemeValueAndValidate<TScheme>(
     return;
   }
 
+  const getStateReadOnly = () => {
+    const immutableState = getState();
+    deepFreeze(immutableState);
+
+    return immutableState;
+  };
+
   if (typeof schemeItem.processValue === 'function') {
     store.data![key].valueToSave = schemeItem.processValue({
       valueOriginal: store.data![key].valueOriginal,
-      storeState: store.data!,
+      getState: getStateReadOnly,
     });
   }
 
@@ -79,7 +99,7 @@ export function processSchemeValueAndValidate<TScheme>(
     errors = schemeItem.validate({
       valueOriginal: store.data![key].valueOriginal,
       valueToSave: store.data![key].valueToSave,
-      storeState: store.data!,
+      getState: getStateReadOnly,
     });
   }
 
@@ -210,6 +230,11 @@ export function initializeSchemeValue<TScheme>(
   });
 
   Object.keys(scheme).forEach((keyName: string) => {
-    processSchemeValueAndValidate<TScheme>(initialData, scheme, keyName as keyof TScheme);
+    processSchemeValueAndValidate<TScheme>(
+      initialData,
+      scheme,
+      keyName as keyof TScheme,
+      () => initialData.data!
+    );
   });
 }

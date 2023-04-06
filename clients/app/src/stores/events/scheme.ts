@@ -85,8 +85,8 @@ export const scheme: IScheme<IDataType> = {
     initialValue: () => {
       return buildDateInstance(2);
     },
-    validate({ valueOriginal, storeState }) {
-      const isEndDateTime = storeState.isEndDateTime.valueOriginal;
+    validate({ valueOriginal, getState }) {
+      const isEndDateTime = getState().isEndDateTime.valueOriginal;
       if (!isEndDateTime) {
         return [];
       }

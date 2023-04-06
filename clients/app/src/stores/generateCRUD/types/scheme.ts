@@ -9,10 +9,10 @@ export interface ISchemeField<TFieldValue, TStoreState> {
   initialValue?: SchemeInitialValueType<TFieldValue>;
   processValue?(data: {
     valueOriginal: TFieldValue | null;
-    storeState: TStoreState;
+    getState: () => Readonly<TStoreState>;
   }): TFieldValue;
   validate?(data: {
-    storeState: TStoreState;
+    getState: () => Readonly<TStoreState>;
     valueOriginal: TFieldValue | null;
     valueToSave: TFieldValue | null;
   }): Array<string>;
