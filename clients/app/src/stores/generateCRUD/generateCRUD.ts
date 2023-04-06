@@ -1,6 +1,4 @@
-import createVanilla from 'zustand/vanilla';
-import createReact from 'zustand';
-
+import { create as createStore } from 'zustand';
 import buildStateAndActions from './utils/buildStateAndActions';
 
 import type { StateKeyType, ParamsType, ExtractStateAndActionType } from './types';
@@ -26,7 +24,7 @@ export const generateCRUD = <
     TScheme
   >
 ) => {
-  const storeVanilla = createVanilla<
+  const store = createStore<
     ExtractStateAndActionType<
       TDataList,
       TDataSingle,
@@ -39,10 +37,8 @@ export const generateCRUD = <
     >
   >((stateSetter, stateGetter) => buildStateAndActions(params, stateSetter, stateGetter));
 
-  const storeReact = createReact(storeVanilla);
-
   const useSelector = <TPassedKeys extends TKey>(...keys: Array<TPassedKeys>) => {
-    const state = storeReact() as ExtractStateAndActionType<
+    const state = store() as ExtractStateAndActionType<
       TDataList,
       TDataSingle,
       TDataCreate,
@@ -64,10 +60,9 @@ export const generateCRUD = <
   };
 
   return {
-    useStore: storeReact,
+    useStore: store,
     useSelector: useSelector,
-    destroy: storeVanilla.destroy,
-    getState: storeVanilla.getState,
-    setState: storeVanilla.setState,
+    getState: store.getState,
+    setState: store.setState,
   };
 };

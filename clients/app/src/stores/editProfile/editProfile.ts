@@ -1,5 +1,5 @@
 import { validatePhone, validateEmail, validateFullname } from '@ultras/utils';
-import create, { StoreApi, UseBoundStore } from 'zustand';
+import { create as createStore, StoreApi, UseBoundStore } from 'zustand';
 import { buildUserSDK } from 'stores/sdkBuilder/sdkBuilder';
 import { IField, IMethods, IState, IParam, IStore, FieldType } from './types';
 
@@ -91,7 +91,7 @@ function buildMethods(
 let store: Nullable<UseBoundStore<StoreApi<IStore>>> = null;
 
 function buildStore(): UseBoundStore<StoreApi<IStore>> {
-  return create<IStore>((set, get) => ({
+  return createStore<IStore>((set, get) => ({
     ...initialState,
     ...buildMethods(set, get),
   }));
